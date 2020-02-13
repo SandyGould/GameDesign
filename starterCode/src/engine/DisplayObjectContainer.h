@@ -1,16 +1,15 @@
 #ifndef DISPLAYOBJECTCONTAINER_H
 #define DISPLAYOBJECTCONTAINER_H
 
-#include <vector>
 #include "DisplayObject.h"
-#include "AffineTransform.h"
+
+#include <vector>
 // #include "Event.h"
 #include <string>
-#include <fstream>
 
 using namespace std;
 
-class DisplayObjectContainer : public DisplayObject{
+class DisplayObjectContainer : public DisplayObject {
 
 public:
 	
@@ -29,8 +28,8 @@ public:
 	virtual DisplayObject* getChild(int index);
 	virtual DisplayObject* getChild(string id);
 
-	virtual void update(set<SDL_Scancode> pressedKeys);
-	virtual void draw(AffineTransform &at);
+	void update(set<SDL_Scancode> pressedKeys) override;
+	void draw(AffineTransform& at) override;
 
 	vector<DisplayObject*> children;
 private:

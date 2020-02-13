@@ -13,7 +13,11 @@ using namespace std;
 class EventListener;
 class Event;
 
+<<<<<<< HEAD
 class EventDispatcher{
+=======
+class EventDispatcher {
+>>>>>>> master
 
 public:
 
