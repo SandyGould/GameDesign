@@ -110,11 +110,11 @@ int DisplayObject::getHeight() {
 }
 
 double DisplayObject::distance(SDL_Point& p1, SDL_Point& p2) {
-	return std::sqrt(((p2.y - p1.y)*(p2.y - p1.y)) + ((p2.x - p1.x)*(p2.x - p1.x)));
+	return std::sqrt(((p2.y - p1.y) * (p2.y - p1.y)) + ((p2.x - p1.x) * (p2.x - p1.x)));
 }
 
 double DisplayObject::calculateRotation(SDL_Point& origin, SDL_Point& p) {
-	double y = p.y - origin.y;
-	double x = p.x - origin.x;
+	int y = p.y - origin.y;
+	int x = p.x - origin.x;
 	return std::atan2(y, x) * 180 / PI;
 }
