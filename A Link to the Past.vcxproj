@@ -128,6 +128,9 @@
     <ClInclude Include="startercode\src\engine\AnimatedSprite.h" />
     <ClInclude Include="startercode\src\engine\DisplayObject.h" />
     <ClInclude Include="startercode\src\engine\DisplayObjectContainer.h" />
+    <ClInclude Include="starterCode\src\engine\events\Event.h" />
+    <ClInclude Include="starterCode\src\engine\events\EventDispatcher.h" />
+    <ClInclude Include="starterCode\src\engine\events\EventListener.h" />
     <ClInclude Include="startercode\src\engine\Game.h" />
     <ClInclude Include="startercode\src\engine\Sprite.h" />
     <ClInclude Include="startercode\src\main\MyGame.h" />

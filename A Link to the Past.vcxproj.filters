@@ -62,5 +62,14 @@
     <ClInclude Include="startercode\src\main\MyGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="starterCode\src\engine\events\Event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="starterCode\src\engine\events\EventDispatcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="starterCode\src\engine\events\EventListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
