@@ -6,20 +6,20 @@
 
 constexpr auto PI = 3.14159265;
 
-DisplayObject::DisplayObject(){
+DisplayObject::DisplayObject() {
 	image = NULL;
 	texture = NULL;
 	curTexture = NULL;
 }
 
-DisplayObject::DisplayObject(string id, string filepath){
+DisplayObject::DisplayObject(std::string id, std::string filepath) {
 	this->id = id;
 	this->imgPath = filepath;
 
 	loadTexture(filepath);
 }
 
-DisplayObject::DisplayObject(string id, int red, int green, int blue){
+DisplayObject::DisplayObject(std::string id, int red, int green, int blue) {
 	isRGB = true;
 	this->id = id;
 
@@ -30,19 +30,19 @@ DisplayObject::DisplayObject(string id, int red, int green, int blue){
 	this->loadRGBTexture(red, green, blue);
 }
 
-DisplayObject::~DisplayObject(){
+DisplayObject::~DisplayObject() {
 	//TODO: Get this freeing working
 	if(image != NULL) SDL_FreeSurface(image);
 	if(texture != NULL) SDL_DestroyTexture(texture);	
 }
 
-void DisplayObject::loadTexture(string filepath){
+void DisplayObject::loadTexture(std::string filepath) {
 	image = IMG_Load(filepath.c_str());
 	texture = SDL_CreateTextureFromSurface(Game::renderer, image);
 	setTexture(texture);
 }
 
-void DisplayObject::loadRGBTexture(int red, int green, int blue){
+void DisplayObject::loadRGBTexture(int red, int green, int blue) {
 	image = SDL_CreateRGBSurface(0, 100, 100, 32, 0, 0, 0, 0x000000ff);
 	SDL_FillRect(image, NULL, SDL_MapRGB(image->format, red, green, blue));
 	texture = SDL_CreateTextureFromSurface(Game::renderer, image);
@@ -50,15 +50,15 @@ void DisplayObject::loadRGBTexture(int red, int green, int blue){
 	setTexture(texture);
 }
 
-void DisplayObject::setTexture(SDL_Texture* t){
+void DisplayObject::setTexture(SDL_Texture* t) {
 	this->curTexture = t;
 }
 
-void DisplayObject::update(set<SDL_Scancode> pressedKeys){
+void DisplayObject::update(std::set<SDL_Scancode> pressedKeys) {
 	
 }
 
-void DisplayObject::draw(AffineTransform &at){
+void DisplayObject::draw(AffineTransform& at) {
 	applyTransformations(at);
 	
 	if(curTexture != NULL && visible) {
@@ -87,14 +87,14 @@ void DisplayObject::draw(AffineTransform &at){
 	reverseTransformations(at);
 }
 
-void DisplayObject::applyTransformations(AffineTransform &at) {
+void DisplayObject::applyTransformations(AffineTransform& at) {
 	at.translate(position.x, position.y);
 	at.rotate(rotation);
 	at.scale(scaleX, scaleY);
 	at.translate(-pivot.x, -pivot.y);
 }
 
-void DisplayObject::reverseTransformations(AffineTransform &at) {
+void DisplayObject::reverseTransformations(AffineTransform& at) {
 	at.translate(pivot.x, pivot.y);
 	at.scale(1.0/scaleX, 1.0/scaleY);
 	at.rotate(-rotation);
@@ -109,12 +109,12 @@ int DisplayObject::getHeight() {
 	return this->image->h;
 }
 
-double DisplayObject::distance(SDL_Point &p1, SDL_Point &p2) {
-	return sqrt(((p2.y - p1.y)*(p2.y - p1.y)) + ((p2.x - p1.x)*(p2.x - p1.x)));
+double DisplayObject::distance(SDL_Point& p1, SDL_Point& p2) {
+	return std::sqrt(((p2.y - p1.y)*(p2.y - p1.y)) + ((p2.x - p1.x)*(p2.x - p1.x)));
 }
 
-double DisplayObject::calculateRotation(SDL_Point &origin, SDL_Point &p) {
+double DisplayObject::calculateRotation(SDL_Point& origin, SDL_Point& p) {
 	double y = p.y - origin.y;
 	double x = p.x - origin.x;
-	return (atan2(y, x) * 180 / PI);
+	return std::atan2(y, x) * 180 / PI;
 }

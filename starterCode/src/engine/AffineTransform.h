@@ -4,12 +4,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-using namespace std;
-
 class AffineTransform {
-
 public:
-	
 	AffineTransform();
 	~AffineTransform();
 	SDL_Point transformPoint(int x, int y);
@@ -27,9 +23,6 @@ private:
 	
 	double** identity();
 	void cleanMatrix(double** m);
-	
-
-
 };
 
 #endif

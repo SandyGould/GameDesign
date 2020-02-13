@@ -3,8 +3,6 @@
 
 #include "Event.h"
 
-using namespace std;
-
 class Event;
 class EventDispatcher;
 

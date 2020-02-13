@@ -1,9 +1,9 @@
 #pragma once
 #include "Event.h"
 
-using namespace std;
+#include <string>
 
 class PickedUpEvent : public Event {
 public:
-	inline static const string COIN_PICKED_UP = "coin_picked_up";
+	inline static const std::string COIN_PICKED_UP = "coin_picked_up";
 };

@@ -1,13 +1,11 @@
 #include "AnimatedSprite.h"
 #include "Game.h"
 
-using namespace std;
-
 AnimatedSprite::AnimatedSprite() : Sprite() {
     this->type = "AnimatedSprite";
 }
 
-AnimatedSprite::AnimatedSprite(string id) : Sprite(id, 0, 0, 0) {
+AnimatedSprite::AnimatedSprite(std::string id) : Sprite(id, 0, 0, 0) {
     this->type = "AnimatedSprite";
 }
 
@@ -23,7 +21,7 @@ AnimatedSprite::~AnimatedSprite() {
     }
 }
 
-void AnimatedSprite::addAnimation(string basepath, string animName, int numFrames, int frameRate, bool loop) {
+void AnimatedSprite::addAnimation(std::string basepath, std::string animName, int numFrames, int frameRate, bool loop) {
     Animation* anim = new Animation();
     anim->animName = animName;
     anim->numFrames = numFrames;
@@ -31,9 +29,9 @@ void AnimatedSprite::addAnimation(string basepath, string animName, int numFrame
     anim->loop = loop;
     anim->curFrame = 0;
     anim->frames = new Frame*[numFrames]; // new frame pointer array of size numFrames;
-    for (int i = 0; i < numFrames; i++ ) {
+    for (int i = 0; i < numFrames; i++) {
         Frame* f = new Frame();
-        string path = basepath + animName + "_" + to_string(i+1) + ".png";
+        std::string path = basepath + animName + "_" + std::to_string(i + 1) + ".png";
         f->image = IMG_Load(path.c_str());
         f->texture = SDL_CreateTextureFromSurface(Game::renderer, f->image);
         anim->frames[i] = f;
@@ -41,7 +39,7 @@ void AnimatedSprite::addAnimation(string basepath, string animName, int numFrame
     animations.push_back(anim);
 }
 
-Animation* AnimatedSprite::getAnimation(string animName) {
+Animation* AnimatedSprite::getAnimation(std::string animName) {
     for (int i = 0; i < animations.size(); i++) {
         if (animations[i]->animName == animName) {
             return animations[i];
@@ -50,7 +48,7 @@ Animation* AnimatedSprite::getAnimation(string animName) {
     return NULL;
 }
 
-void AnimatedSprite::play(string animName) {
+void AnimatedSprite::play(std::string animName) {
     Animation* anim = getAnimation(animName);
     if (anim != NULL) {
         this->current = anim;
@@ -72,7 +70,7 @@ void AnimatedSprite::stop() {
     this->playing = false;
 }
 
-void AnimatedSprite::update(set<SDL_Scancode> pressedKeys) {
+void AnimatedSprite::update(std::set<SDL_Scancode> pressedKeys) {
     Sprite::update(pressedKeys);
     if (playing) {
         frameCount++;
@@ -95,6 +93,6 @@ void AnimatedSprite::update(set<SDL_Scancode> pressedKeys) {
     
 }
 
-void AnimatedSprite::draw(AffineTransform &at) {
+void AnimatedSprite::draw(AffineTransform& at) {
     Sprite::draw(at);
 }

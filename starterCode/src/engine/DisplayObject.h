@@ -9,29 +9,27 @@
 #include <set>
 #include <string>
 
-using namespace std;
-
 class DisplayObject {
 
 public:
-	string id = "DEFAULT_ID";
-	string imgPath = "";
+	std::string id = "DEFAULT_ID";
+	std::string imgPath = "";
 	int red, green, blue;
-	string type = "DisplayObject";
+	std::string type = "DisplayObject";
 
 	DisplayObject* parent = NULL;
 
 	bool isRGB = false;
 
 	DisplayObject();
-	DisplayObject(string id, string path);
-	DisplayObject(string id, int red, int green, int blue);
+	DisplayObject(std::string id, std::string path);
+	DisplayObject(std::string id, int red, int green, int blue);
 	virtual ~DisplayObject();
 	
-	virtual void update(set<SDL_Scancode> pressedKeys);
+	virtual void update(std::set<SDL_Scancode> pressedKeys);
 	virtual void draw(AffineTransform& at);
 
-	void loadTexture(string filepath);
+	void loadTexture(std::string filepath);
 	void loadRGBTexture(int red, int green, int blue);
 	void setTexture(SDL_Texture* t);
 

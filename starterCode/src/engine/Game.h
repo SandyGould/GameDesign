@@ -6,12 +6,8 @@
 #include <vector>
 #include <set>
 
-using namespace std;
-
 class Game : public DisplayObjectContainer {
-
 public:
-
 	/* Singleton pattern */
 	static Game* instance;
 
@@ -28,14 +24,14 @@ public:
 	virtual ~Game();
 	void start();
 
-	void update(set<SDL_Scancode> pressedKeys) override;
+	void update(std::set<SDL_Scancode> pressedKeys) override;
 	void draw(AffineTransform& at) override;
 
 private:
 
 	void initSDL();
 	void quitSDL();
-	set<SDL_Scancode> pressedKeys;
+	std::set<SDL_Scancode> pressedKeys;
 	
 };
 

@@ -1,8 +1,5 @@
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <cmath>
 #include "EventDispatcher.h"
-#include <iostream>
+#include <cmath>
 
 EventDispatcher::EventDispatcher()
 {
@@ -14,7 +11,7 @@ EventDispatcher::~EventDispatcher()
     delete listeners;
 }
 
-void EventDispatcher::addEventListener(EventListener* l, string eventType)
+void EventDispatcher::addEventListener(EventListener* l, std::string eventType)
 {
     if(listeners->count(eventType ) == 1)
     {
@@ -22,15 +19,15 @@ void EventDispatcher::addEventListener(EventListener* l, string eventType)
     }
     else
     {
-        vector<EventListener*>* newvect = new vector<EventListener*>();
+        std::vector<EventListener*>* newvect = new std::vector<EventListener*>();
         newvect->push_back(l);
         listeners->emplace(eventType,newvect);
     }
 }
-void EventDispatcher::removeEventListener(EventListener* l, string eventType)
+void EventDispatcher::removeEventListener(EventListener* l, std::string eventType)
 {
     int listener_index = 0;
-    vector<EventListener *>* vl = listeners->at(eventType);
+    std::vector<EventListener *>* vl = listeners->at(eventType);
     for(int i = 0; i<vl->size(); i++)
     {
         if(vl->at(i) == l)
@@ -41,10 +38,10 @@ void EventDispatcher::removeEventListener(EventListener* l, string eventType)
     }
     vl->erase(vl->begin()+listener_index);
 }
-bool EventDispatcher::hasEventListener(EventListener* l, string eventType)
+bool EventDispatcher::hasEventListener(EventListener* l, std::string eventType)
 {
     int listener_index = -1;
-    vector<EventListener *>* vl = listeners->at(eventType);
+    std::vector<EventListener *>* vl = listeners->at(eventType);
     if(listeners->count(eventType) != 1)
     {
         return false;
@@ -68,7 +65,7 @@ bool EventDispatcher::hasEventListener(EventListener* l, string eventType)
 }
 void EventDispatcher::dispatchEvent(Event *e)
 {
-    vector<EventListener *>* vl = listeners->at(e->getType());
+    std::vector<EventListener *>* vl = listeners->at(e->getType());
     for(int i = 0; i<vl->size(); i++)
     {
         vl->at(i)->handleEvent(e);
