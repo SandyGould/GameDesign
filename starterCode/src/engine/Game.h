@@ -1,10 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
 #include "DisplayObjectContainer.h"
+
 #include <vector>
 #include <set>
 
@@ -20,7 +18,7 @@ public:
 	int frames_per_sec = 60;
 	int windowWidth, windowHeight;
 
-	SDL_Window * window;
+	SDL_Window* window;
 	static SDL_Renderer* renderer;
 
 	//Global frame counter
@@ -30,8 +28,8 @@ public:
 	virtual ~Game();
 	void start();
 
-	virtual void update(set<SDL_Scancode> pressedKeys);
-	virtual void draw(AffineTransform &at);
+	void update(set<SDL_Scancode> pressedKeys) override;
+	void draw(AffineTransform& at) override;
 
 private:
 

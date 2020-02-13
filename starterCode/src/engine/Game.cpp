@@ -1,5 +1,7 @@
 #include "Game.h"
 
+#include <SDL2/SDL_ttf.h>
+
 #include <chrono>
 
 using namespace std;

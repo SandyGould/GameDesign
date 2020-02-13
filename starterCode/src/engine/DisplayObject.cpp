@@ -1,13 +1,10 @@
 #include "DisplayObject.h"
-#include <string>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 #include "Game.h"
-#include <iostream>
+
 #include <algorithm>
 #include <cmath>
 
-#define PI 3.14159265
+constexpr auto PI = 3.14159265;
 
 DisplayObject::DisplayObject(){
 	image = NULL;

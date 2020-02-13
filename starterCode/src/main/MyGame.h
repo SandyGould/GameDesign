@@ -5,10 +5,6 @@
 #include "../engine/Sprite.h"
 #include "../engine/AnimatedSprite.h"
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <iostream>
-
 using namespace std;
 
 class MyGame : public Game {
@@ -17,8 +13,8 @@ public:
 	MyGame();
 	virtual ~MyGame();
 
-	virtual void update(set<SDL_Scancode> pressedKeys);
-	virtual void draw(AffineTransform &at);
+	void update(set<SDL_Scancode> pressedKeys) override;
+	void draw(AffineTransform& at) override;
 
 private:
 	

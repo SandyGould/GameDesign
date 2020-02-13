@@ -1,6 +1,5 @@
 #include "AnimatedSprite.h"
 #include "Game.h"
-#include <string>
 
 using namespace std;
 
