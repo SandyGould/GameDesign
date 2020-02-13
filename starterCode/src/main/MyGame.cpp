@@ -7,43 +7,47 @@
 using namespace std;
 
 MyGame::MyGame() : Game(1200, 1000) {
-	instance = this;
 
-	allSprites = new DisplayObjectContainer();
-	// move that point to the middle
-	allSprites->position = {600, 500};
-	instance->addChild(allSprites);
+	scene = new Scene();
+	scene->loadScene("./resources/scene/test.json");
 
-	sun = new AnimatedSprite("sun");
-	sun->addAnimation("./resources/solarSystem/", "Sun", 4, 2, true);
-	sun->play("Sun");
-	// cout << sun->getWidth() << sun->getHeight();
-	sun->position = {0, 0};
-	sun->width = sun->height = 100;
-	sun->pivot = {50, 50};
-	allSprites->addChild(sun);
+	// instance = this;
 
-	p1container = new DisplayObjectContainer();
-	p2container = new DisplayObjectContainer();
-	sun->addChild(p1container);
-	sun->addChild(p2container);
+	// allSprites = new DisplayObjectContainer();
+	// // move that point to the middle
+	// allSprites->position = {600, 500};
+	// instance->addChild(allSprites);
 
-	planet1 = new Sprite("planet1","./resources/solarSystem/Planet.png");
-	planet1->position = {200, 0};
-	planet1->width = planet1->height = 30;
-	planet1->pivot = {15, 15};
-	p1container->addChild(planet1);
+	// sun = new AnimatedSprite("sun");
+	// sun->addAnimation("./resources/solarSystem/", "Sun", 4, 2, true);
+	// sun->play("Sun");
+	// // cout << sun->getWidth() << sun->getHeight();
+	// sun->position = {0, 0};
+	// sun->width = sun->height = 100;
+	// sun->pivot = {50, 50};
+	// allSprites->addChild(sun);
 
-	planet2 = new Sprite("planet2","./resources/solarSystem/Planet.png");
-	planet2->position = {300, 0};
-	planet2->width = planet2->height = 30;
-	planet2->pivot = {15, 15};
-	p2container->addChild(planet2);
+	// p1container = new DisplayObjectContainer();
+	// p2container = new DisplayObjectContainer();
+	// sun->addChild(p1container);
+	// sun->addChild(p2container);
 
-	moon1_1 = new Sprite("moon1_1", "./resources/solarSystem/Moon.png");
-	moon1_1->position = {50, 0};
-	moon1_1->width = moon1_1->height = 15;
-	planet1->addChild(moon1_1);
+	// planet1 = new Sprite("planet1","./resources/solarSystem/Planet.png");
+	// planet1->position = {200, 0};
+	// planet1->width = planet1->height = 30;
+	// planet1->pivot = {15, 15};
+	// p1container->addChild(planet1);
+
+	// planet2 = new Sprite("planet2","./resources/solarSystem/Planet.png");
+	// planet2->position = {300, 0};
+	// planet2->width = planet2->height = 30;
+	// planet2->pivot = {15, 15};
+	// p2container->addChild(planet2);
+
+	// moon1_1 = new Sprite("moon1_1", "./resources/solarSystem/Moon.png");
+	// moon1_1->position = {50, 0};
+	// moon1_1->width = moon1_1->height = 15;
+	// planet1->addChild(moon1_1);
 }
 
 MyGame::~MyGame(){

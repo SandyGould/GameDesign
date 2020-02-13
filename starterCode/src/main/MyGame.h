@@ -5,6 +5,7 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 #include "Game.h"
+#include "Scene.h"
 #include "Sprite.h"
 #include "AnimatedSprite.h"
 
@@ -21,7 +22,6 @@ public:
 	virtual void draw(AffineTransform &at);
 
 private:
-	
 	AnimatedSprite* sun;
 	Sprite* planet1;
 	Sprite* planet2;
@@ -32,6 +32,7 @@ private:
 	DisplayObjectContainer* allSprites;
 
 	// DisplayObject* character;
+	Scene* scene;
 };
 
 #endif
