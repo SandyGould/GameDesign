@@ -127,6 +127,9 @@
     <ClCompile Include="startercode\src\engine\AnimatedSprite.cpp" />
     <ClCompile Include="startercode\src\engine\DisplayObject.cpp" />
     <ClCompile Include="startercode\src\engine\DisplayObjectContainer.cpp" />
+    <ClCompile Include="starterCode\src\engine\events\Event.cpp" />
+    <ClCompile Include="starterCode\src\engine\events\EventDispatcher.cpp" />
+    <ClCompile Include="starterCode\src\engine\events\EventListener.cpp" />
     <ClCompile Include="startercode\src\engine\Game.cpp" />
     <ClCompile Include="startercode\src\engine\Sprite.cpp" />
     <ClCompile Include="startercode\src\main\main.cpp" />
@@ -140,6 +143,7 @@
     <ClInclude Include="starterCode\src\engine\events\Event.h" />
     <ClInclude Include="starterCode\src\engine\events\EventDispatcher.h" />
     <ClInclude Include="starterCode\src\engine\events\EventListener.h" />
+    <ClInclude Include="starterCode\src\engine\events\PickedUpEvent.h" />
     <ClInclude Include="startercode\src\engine\Game.h" />
     <ClInclude Include="startercode\src\engine\Sprite.h" />
     <ClInclude Include="startercode\src\main\MyGame.h" />
