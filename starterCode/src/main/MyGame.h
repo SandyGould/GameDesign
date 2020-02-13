@@ -12,14 +12,14 @@
 
 using namespace std;
 
-class MyGame : public Game{
+class MyGame : public Game {
 
 public:
 	MyGame();
 	virtual ~MyGame();
 
-	virtual void update(set<SDL_Scancode> pressedKeys);
-	virtual void draw(AffineTransform &at);
+	void update(set<SDL_Scancode> pressedKeys) override;
+	void draw(AffineTransform& at) override;
 
 private:
 	AnimatedSprite* sun;

@@ -1,8 +1,6 @@
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <cmath>
 #include "AffineTransform.h"
-#include <iostream>
+
+#include <cmath>
 
 /**
  * Affine Transforms

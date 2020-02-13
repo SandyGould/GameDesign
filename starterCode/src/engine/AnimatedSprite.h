@@ -2,10 +2,12 @@
 #define ANIMATEDSPRITE_H
 
 #include "Sprite.h"
-#include <vector>
-#include <string>
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+
+#include <vector>
+#include <string>
 
 using namespace std;
 
@@ -23,7 +25,7 @@ struct Animation {
 	int curFrame;
 };
 
-class AnimatedSprite : public Sprite{
+class AnimatedSprite : public Sprite {
 
 public:
 	
@@ -39,7 +41,7 @@ public:
 	void stop();
 
 	virtual void update(set<SDL_Scancode> pressedKeys);
-	virtual void draw(AffineTransform &at);
+	virtual void draw(AffineTransform& at);
 
 	bool playing = false;
 
