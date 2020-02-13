@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class Sprite : public DisplayObjectContainer{
+class Sprite : public DisplayObjectContainer {
 
 public:
 	
@@ -14,7 +14,7 @@ public:
 	Sprite(string id, int red, int green, int blue);
 
 	virtual void update(set<SDL_Scancode> pressedKeys);
-	virtual void draw(AffineTransform &at);
+	virtual void draw(AffineTransform& at);
 
 private:
 	

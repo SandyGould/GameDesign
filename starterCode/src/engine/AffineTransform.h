@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class AffineTransform{
+class AffineTransform {
 
 public:
 	
@@ -17,7 +17,7 @@ public:
 	void rotate(double r);
 	void scale(double x, double y);
 
-	void concatenate(AffineTransform &at);
+	void concatenate(AffineTransform& at);
 
 	double getScaleX();
 	double getScaleY();

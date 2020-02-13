@@ -1,16 +1,17 @@
 #ifndef DISPLAYOBJECT_H
 #define DISPLAYOBJECT_H
 
+#include "AffineTransform.h"
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+
 #include <set>
-#include "AffineTransform.h"
 #include <string>
-#include <fstream>
 
 using namespace std;
 
-class DisplayObject{
+class DisplayObject {
 
 public:
 	string id = "DEFAULT_ID";
@@ -28,14 +29,14 @@ public:
 	virtual ~DisplayObject();
 	
 	virtual void update(set<SDL_Scancode> pressedKeys);
-	virtual void draw(AffineTransform &at);
+	virtual void draw(AffineTransform& at);
 
 	void loadTexture(string filepath);
 	void loadRGBTexture(int red, int green, int blue);
 	void setTexture(SDL_Texture* t);
 
-	void applyTransformations(AffineTransform &at);
-	void reverseTransformations(AffineTransform &at);
+	void applyTransformations(AffineTransform& at);
+	void reverseTransformations(AffineTransform& at);
 
 	int getWidth();
 	int getHeight();
@@ -52,8 +53,8 @@ public:
 	bool facingRight = true;
 
 private:
-	double distance(SDL_Point &p1, SDL_Point &p2);
-	double calculateRotation(SDL_Point &origin, SDL_Point &p);
+	double distance(SDL_Point& p1, SDL_Point& p2);
+	double calculateRotation(SDL_Point& origin, SDL_Point& p);
 	
 	SDL_Texture* texture = NULL;
 	SDL_Surface* image = NULL;
