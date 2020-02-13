@@ -1,17 +1,17 @@
 #ifndef MYGAME_H
 #define MYGAME_H
 
+#include "../engine/Game.h"
+#include "../engine/Sprite.h"
+#include "../engine/AnimatedSprite.h"
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <iostream>
-#include "Game.h"
-#include "Sprite.h"
-#include "AnimatedSprite.h"
-
 
 using namespace std;
 
-class MyGame : public Game{
+class MyGame : public Game {
 
 public:
 	MyGame();

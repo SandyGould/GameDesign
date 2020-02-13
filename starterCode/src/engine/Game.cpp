@@ -1,19 +1,15 @@
-#include <iostream>
 #include "Game.h"
-#include <string>
-#include <ctime>
-#include "DisplayObject.h"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <iostream>
+
+#include <chrono>
 
 using namespace std;
+using namespace std::chrono;
 
 SDL_Renderer* Game::renderer;
 Game* Game::instance;
 unsigned int Game::frameCounter = 0;
 
-Game::Game(int windowWidth, int windowHeight){
+Game::Game(int windowWidth, int windowHeight) {
 	Game::instance = this;
 	
 	this->windowWidth = windowWidth;
@@ -23,12 +19,11 @@ Game::Game(int windowWidth, int windowHeight){
 	TTF_Init();
 }
 
-Game::~Game(){
+Game::~Game() {
 	quitSDL();
 }
 
-void Game::quitSDL(){
-	cout << "Quitting sdl" << endl;
+void Game::quitSDL() {
 	SDL_DestroyRenderer(Game::renderer);
 	SDL_DestroyWindow(window);
 
@@ -36,30 +31,31 @@ void Game::quitSDL(){
 	SDL_Quit();
 }
 
-void Game::initSDL(){
+void Game::initSDL() {
 	SDL_Init(SDL_INIT_VIDEO);
 	IMG_Init(IMG_INIT_PNG);
 
 	window = SDL_CreateWindow("myGame",
-		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, this->windowWidth, this->windowHeight, 0);
+	                          SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+	                          this->windowWidth, this->windowHeight,
+	                          SDL_WINDOW_ALLOW_HIGHDPI);
 
-	SDL_Renderer * renderer = SDL_CreateRenderer(window, -1, 0);
+	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
 	Game::renderer = renderer;
 }
 
-void Game::start(){
-
-	int ms_per_frame = (1.0/(double)this->frames_per_sec)*1000;
-	std::clock_t start = std::clock();
+void Game::start() {
+	milliseconds ms_per_frame(1000ms / this->frames_per_sec);
+	auto start = steady_clock::now();
 
 	bool quit = false;
 	SDL_Event event;
 
-	while(!quit){
-		std::clock_t end = std::clock();
-		double duration = (( end - start ) / (double) CLOCKS_PER_SEC)*1000;
-		if(duration > ms_per_frame){
+	while (!quit) {
+		auto end = steady_clock::now();
+		milliseconds duration = duration_cast<milliseconds>(end - start);
+		if (duration > ms_per_frame) {
 			start = end;
 			this->update(pressedKeys);
 			AffineTransform at;
@@ -67,28 +63,26 @@ void Game::start(){
 		}
 
 		SDL_PollEvent(&event);
-		switch (event.type)
-		{
-			case SDL_QUIT:
-				quit = true;
-				break;
-			case SDL_KEYDOWN:
-				pressedKeys.insert(event.key.keysym.scancode);
-				break;
-			case SDL_KEYUP:
-				pressedKeys.erase(event.key.keysym.scancode);
-				break;
+		switch (event.type) {
+		case SDL_QUIT:
+			quit = true;
+			break;
+		case SDL_KEYDOWN:
+			pressedKeys.insert(event.key.keysym.scancode);
+			break;
+		case SDL_KEYUP:
+			this->pressedKeys.erase(event.key.keysym.scancode);
+			break;
 		}
-	
 	}
 }
 
-void Game::update(set<SDL_Scancode> pressedKeys){
+void Game::update(set<SDL_Scancode> pressedKeys) {
 	frameCounter++;
 	DisplayObjectContainer::update(pressedKeys);
 }
 
-void Game::draw(AffineTransform &at){
+void Game::draw(AffineTransform& at) {
 	SDL_RenderClear(Game::renderer);
 	DisplayObjectContainer::draw(at);
 	SDL_RenderPresent(Game::renderer);

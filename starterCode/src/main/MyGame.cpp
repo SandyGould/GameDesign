@@ -1,7 +1,3 @@
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <iostream>
-#include "Sprite.h"
 #include "MyGame.h"
 
 using namespace std;
@@ -17,7 +13,6 @@ MyGame::MyGame() : Game(1200, 1000) {
 	sun = new AnimatedSprite("sun");
 	sun->addAnimation("./resources/solarSystem/", "Sun", 4, 2, true);
 	sun->play("Sun");
-	// cout << sun->getWidth() << sun->getHeight();
 	sun->position = {0, 0};
 	sun->width = sun->height = 100;
 	sun->pivot = {50, 50};
