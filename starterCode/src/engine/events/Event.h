@@ -9,11 +9,7 @@ using namespace std;
 
 class EventDispatcher;
 
-<<<<<<< HEAD
-class Event{
-=======
 class Event {
->>>>>>> master
 
 public:
 

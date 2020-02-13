@@ -8,11 +8,7 @@ using namespace std;
 class Event;
 class EventDispatcher;
 
-<<<<<<< HEAD
-class EventListener{
-=======
 class EventListener {
->>>>>>> master
 
 public:
 
