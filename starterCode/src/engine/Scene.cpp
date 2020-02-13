@@ -13,5 +13,5 @@ void Scene::update(set<SDL_Scancode> pressedKeys){
     DisplayObjectContainer::update(pressedKeys);
 }
 void Scene::draw(AffineTransform &at){
-    DisplayObjectContainer::draw(pressedKeys);
+    DisplayObjectContainer::draw(at);
 }
