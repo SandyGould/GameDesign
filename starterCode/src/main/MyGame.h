@@ -4,6 +4,7 @@
 #include "../engine/Game.h"
 #include "../engine/Sprite.h"
 #include "../engine/AnimatedSprite.h"
+#include "../engine/things/Coin.h"
 
 class MyGame : public Game {
 
@@ -17,7 +18,7 @@ public:
 private:
 	
 	Sprite* player;
-	Sprite* coin;
+	Coin* coin;
 
 	DisplayObjectContainer* allSprites;
 

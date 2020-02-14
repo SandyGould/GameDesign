@@ -62,8 +62,6 @@ private:
 
 	/* Texture currently being drawn. Equal to texture for normal DO */
 	SDL_Texture* curTexture;
-
-	vector<EventDispatcher*> listen_to;
 };
 
 #endif

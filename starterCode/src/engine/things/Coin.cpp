@@ -1,10 +1,14 @@
 #include "Coin.h"
+#include "../events/Collision.h"
+#include "../events/Event.h"
 
-Coin::Coin() : Sprite("temp", "./resources/solarSystem/Planet.png"){
+int coin_id_counter = 1;
 
+Coin::Coin() : Sprite("coin_"+std::to_string(coin_id_counter) , "./resources/solarSystem/Planet.png"){
+    ++coin_id_counter;
 }
 
-void Coin::update(set<SDL_Scancode> pressedKeys){
+void Coin::update(std::set<SDL_Scancode> pressedKeys){
     Sprite::update(pressedKeys);
 }
 
@@ -13,5 +17,9 @@ void Coin::draw(AffineTransform& at){
 }
 
 void Coin::handleEvent(Event* e){
-    
+    if (e->getType() == "collision"){
+        if(((Collision*) e)->getDOID() == this->id){
+            this->visible = false;
+        }
+    }
 }

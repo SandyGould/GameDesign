@@ -15,7 +15,7 @@ MyGame::MyGame() : Game(1200, 1000) {
 	player->pivot = {50, 50};
 	allSprites->addChild(player);
 
-	coin = new Sprite("coin","./resources/solarSystem/Planet.png");
+	coin = new Coin();
 	coin->position = {200, 0};
 	coin->width = coin->height = 30;
 	coin->pivot = {15, 15};

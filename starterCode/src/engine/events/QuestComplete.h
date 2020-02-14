@@ -2,15 +2,18 @@
 #define QUESTCOMPLETE_H
 
 #include "Event.h"
+#include "EventDispatcher.h"
 
 #include <string>
 
 class QuestComplete : public Event{
 public:
+    QuestComplete(std::string type, EventDispatcher* source, std::string quest_id);
 
+    std::string getQuestID();
 
 private:
-    string questid;
-}
+    std::string quest_id;
+};
 
 #endif
