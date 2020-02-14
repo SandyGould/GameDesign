@@ -4,5 +4,5 @@
 
 class QuestManager : public EventListener {
 public:
-	// Don't ask me
+	void handleEvent(Event* e) override;
 };
