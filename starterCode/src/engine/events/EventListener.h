@@ -2,6 +2,8 @@
 #define EVENTLISTENER_H
 
 #include "Event.h"
+#include "EventDispatcher.h"
+#include <vector>
 
 using namespace std;
 
@@ -14,7 +16,7 @@ public:
 
 	virtual void handleEvent(Event* e) = 0;
 
-private:	
+private:
 };
 
 #endif

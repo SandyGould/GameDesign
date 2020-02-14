@@ -2,12 +2,15 @@
 #define DISPLAYOBJECT_H
 
 #include "AffineTransform.h"
+#include "EventDispatcher.h"
+#include "EventListener.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
 #include <set>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -61,6 +64,8 @@ private:
 
 	/* Texture currently being drawn. Equal to texture for normal DO */
 	SDL_Texture* curTexture;
+
+	vector<EventDispatcher*> listen_to;
 };
 
 #endif
