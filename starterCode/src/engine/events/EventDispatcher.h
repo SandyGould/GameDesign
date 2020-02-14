@@ -8,10 +8,9 @@
 #include <vector>
 #include <string>
 
-/*
 class EventListener;
 class Event;
-*/
+
 
 class EventDispatcher {
 public:
