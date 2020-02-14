@@ -137,7 +137,6 @@
     <ClCompile Include="startercode\src\engine\DisplayObjectContainer.cpp" />
     <ClCompile Include="starterCode\src\engine\events\Event.cpp" />
     <ClCompile Include="starterCode\src\engine\events\EventDispatcher.cpp" />
-    <ClCompile Include="starterCode\src\engine\events\EventListener.cpp" />
     <ClCompile Include="startercode\src\engine\Game.cpp" />
     <ClCompile Include="starterCode\src\engine\QuestManager.cpp" />
     <ClCompile Include="startercode\src\engine\Sprite.cpp" />

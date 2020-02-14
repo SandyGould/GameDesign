@@ -45,9 +45,6 @@
     <ClCompile Include="starterCode\src\engine\events\EventDispatcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="starterCode\src\engine\events\EventListener.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="starterCode\src\engine\QuestManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
