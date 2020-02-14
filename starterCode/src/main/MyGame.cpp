@@ -1,7 +1,5 @@
 #include "MyGame.h"
 
-using namespace std;
-
 MyGame::MyGame() : Game(1200, 1000) {
 	instance = this;
 
@@ -24,11 +22,11 @@ MyGame::MyGame() : Game(1200, 1000) {
 	allSprites->addChild(coin);
 }
 
-MyGame::~MyGame(){
+MyGame::~MyGame() {
 }
 
 
-void MyGame::update(set<SDL_Scancode> pressedKeys){
+void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
 		player->position.x += 2;
 	}
@@ -45,6 +43,6 @@ void MyGame::update(set<SDL_Scancode> pressedKeys){
 	Game::update(pressedKeys);
 }
 
-void MyGame::draw(AffineTransform &at){
+void MyGame::draw(AffineTransform& at) {
 	Game::draw(at);
 }

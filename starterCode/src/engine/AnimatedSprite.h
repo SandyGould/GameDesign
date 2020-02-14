@@ -9,8 +9,6 @@
 #include <vector>
 #include <string>
 
-using namespace std;
-
 struct Frame {
 	SDL_Surface* image;
 	SDL_Texture* texture;
@@ -18,7 +16,7 @@ struct Frame {
 
 struct Animation {
 	Frame** frames;
-	string animName;
+	std::string animName;
 	int numFrames;
 	int frameRate;
 	bool loop;
@@ -26,30 +24,27 @@ struct Animation {
 };
 
 class AnimatedSprite : public Sprite {
-
 public:
-	
 	AnimatedSprite();
-	AnimatedSprite(string id);
+	AnimatedSprite(std::string id);
 	~AnimatedSprite();
 
-	void addAnimation(string basepath, string animName, int numFrames, int frameRate, bool loop);
-	Animation* getAnimation(string animName);
+	void addAnimation(std::string basepath, std::string animName, int numFrames, int frameRate, bool loop);
+	Animation* getAnimation(std::string animName);
 
-	void play(string animName);
+	void play(std::string animName);
 	void replay();
 	void stop();
 
-	virtual void update(set<SDL_Scancode> pressedKeys);
+	virtual void update(std::set<SDL_Scancode> pressedKeys);
 	virtual void draw(AffineTransform& at);
 
 	bool playing = false;
 
 private:
 	Animation* current;
-	vector<Animation*> animations;
+	std::vector<Animation*> animations;
 	int frameCount;
-	
 };
 
 #endif

@@ -1,17 +1,14 @@
 #include "DisplayObjectContainer.h"
 
-using namespace std;
-
-
 DisplayObjectContainer::DisplayObjectContainer() : DisplayObject() {
     this->type = "DisplayObjectContainer";
 }
 
-DisplayObjectContainer::DisplayObjectContainer(string id, string filepath) : DisplayObject(id, filepath) {
+DisplayObjectContainer::DisplayObjectContainer(std::string id, std::string filepath) : DisplayObject(id, filepath) {
     this->type = "DisplayObjectContainer";
 }
 
-DisplayObjectContainer::DisplayObjectContainer(string id, int red, int green, int blue) : DisplayObject(id, red, green, blue) {
+DisplayObjectContainer::DisplayObjectContainer(std::string id, int red, int green, int blue) : DisplayObject(id, red, green, blue) {
     this->type = "DisplayObjectContainer";
 }
 
@@ -35,7 +32,7 @@ void DisplayObjectContainer::removeImmediateChild(DisplayObject* child) {
     }
 }
 
-void DisplayObjectContainer::removeImmediateChild(string id) {
+void DisplayObjectContainer::removeImmediateChild(std::string id) {
     for (int i = 0; i < children.size(); i++) {
         if (children[i]->id == id) {
             // delete the child
@@ -69,7 +66,7 @@ DisplayObject* DisplayObjectContainer::getChild(int index) {
     else return children[index];
 }
 
-DisplayObject* DisplayObjectContainer::getChild(string id) {
+DisplayObject* DisplayObjectContainer::getChild(std::string id) {
     for (int i = 0; i < children.size(); i++) {
         if (children[i]->id == id) {
             return children[i];
@@ -79,14 +76,14 @@ DisplayObject* DisplayObjectContainer::getChild(string id) {
     return NULL;
 }
 
-void DisplayObjectContainer::update(set<SDL_Scancode> pressedKeys) {
+void DisplayObjectContainer::update(std::set<SDL_Scancode> pressedKeys) {
     DisplayObject::update(pressedKeys);
     for (int i = 0; i < children.size(); i++) {
         children[i]->update(pressedKeys);
     }
 }
 
-void DisplayObjectContainer::draw(AffineTransform &at) {
+void DisplayObjectContainer::draw(AffineTransform& at) {
     DisplayObject::draw(at);
     applyTransformations(at);
     // undo the parent's pivot

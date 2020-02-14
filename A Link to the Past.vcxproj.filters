@@ -39,6 +39,18 @@
     <ClCompile Include="startercode\src\main\MyGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="starterCode\src\engine\events\Event.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="starterCode\src\engine\events\EventDispatcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="starterCode\src\engine\events\EventListener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="starterCode\src\engine\QuestManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="startercode\src\engine\AffineTransform.h">
@@ -69,6 +81,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="starterCode\src\engine\events\EventListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="starterCode\src\engine\events\PickedUpEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="starterCode\src\engine\QuestManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

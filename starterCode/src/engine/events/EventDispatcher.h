@@ -1,28 +1,24 @@
 #ifndef EVENTDISPATCHER_H
 #define EVENTDISPATCHER_H
 
-#include <unordered_map>
-#include <vector>
-#include <string>
-
 #include "Event.h"
 #include "EventListener.h"
 
-using namespace std;
+#include <unordered_map>
+#include <vector>
+#include <string>
 
 class EventListener;
 class Event;
 
 class EventDispatcher {
-
 public:
-
 	EventDispatcher();
 	virtual ~EventDispatcher();
 	
-	void addEventListener(EventListener* l, string eventType);
-	void removeEventListener(EventListener* l, string eventType);
-	bool hasEventListener(EventListener* l, string eventType);
+	void addEventListener(EventListener* l, std::string eventType);
+	void removeEventListener(EventListener* l, std::string eventType);
+	bool hasEventListener(EventListener* l, std::string eventType);
 	void dispatchEvent(Event *e);
 
 private:

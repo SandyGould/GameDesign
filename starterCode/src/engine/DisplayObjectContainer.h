@@ -7,31 +7,29 @@
 // #include "Event.h"
 #include <string>
 
-using namespace std;
-
 class DisplayObjectContainer : public DisplayObject {
 
 public:
 	
 	DisplayObjectContainer();
-	DisplayObjectContainer(string id, string filepath);
-	DisplayObjectContainer(string id, int red, int green, int blue);
+	DisplayObjectContainer(std::string id, std::string filepath);
+	DisplayObjectContainer(std::string id, int red, int green, int blue);
 	virtual ~DisplayObjectContainer();
 
 	void addChild(DisplayObject* child);
 	void removeImmediateChild(DisplayObject* child);
-	void removeImmediateChild(string id);
+	void removeImmediateChild(std::string id);
 	void removeChild(int index);
 	void removeThis();
 	
 	virtual int numChildren();
 	virtual DisplayObject* getChild(int index);
-	virtual DisplayObject* getChild(string id);
+	virtual DisplayObject* getChild(std::string id);
 
-	void update(set<SDL_Scancode> pressedKeys) override;
+	void update(std::set<SDL_Scancode> pressedKeys) override;
 	void draw(AffineTransform& at) override;
 
-	vector<DisplayObject*> children;
+	std::vector<DisplayObject*> children;
 private:
 	
 	

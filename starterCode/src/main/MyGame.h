@@ -5,15 +5,13 @@
 #include "../engine/Sprite.h"
 #include "../engine/AnimatedSprite.h"
 
-using namespace std;
-
 class MyGame : public Game {
 
 public:
 	MyGame();
 	virtual ~MyGame();
 
-	void update(set<SDL_Scancode> pressedKeys) override;
+	void update(std::set<SDL_Scancode> pressedKeys) override;
 	void draw(AffineTransform& at) override;
 
 private:

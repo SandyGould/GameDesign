@@ -1,25 +1,21 @@
 #ifndef EVENT_H
 #define EVENT_H
 
-#include <string>
-
 #include "EventDispatcher.h"
 
-using namespace std;
+#include <string>
 
 class EventDispatcher;
 
 class Event {
-
 public:
+	Event(std::string type, EventDispatcher* source);
 
-	Event(string type, EventDispatcher* source);
-
-	string getType();
+	std::string getType();
 	EventDispatcher* getSource();
 
 private:
-	string eventType = "";
+	std::string eventType = "";
 	EventDispatcher* source;
 	
 };

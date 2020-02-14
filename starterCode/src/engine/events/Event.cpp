@@ -1,20 +1,14 @@
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <cmath>
 #include "Event.h"
-#include <iostream>
 
-Event::Event(string type, EventDispatcher* source){
-    eventType = type;
-    source = source;
+Event::Event(std::string type, EventDispatcher* source) {
+    this->eventType = type;
+    this->source = source;
 }
 
-string Event::getType()
-{
+std::string Event::getType() {
     return eventType;
 }
 
-EventDispatcher * Event::getSource()
-{
+EventDispatcher* Event::getSource() {
     return source;
 }

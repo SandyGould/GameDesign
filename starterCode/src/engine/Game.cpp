@@ -4,7 +4,6 @@
 
 #include <chrono>
 
-using namespace std;
 using namespace std::chrono;
 
 SDL_Renderer* Game::renderer;
@@ -79,7 +78,7 @@ void Game::start() {
 	}
 }
 
-void Game::update(set<SDL_Scancode> pressedKeys) {
+void Game::update(std::set<SDL_Scancode> pressedKeys) {
 	frameCounter++;
 	DisplayObjectContainer::update(pressedKeys);
 }

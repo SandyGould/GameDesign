@@ -5,8 +5,6 @@
 #include "EventDispatcher.h"
 #include <vector>
 
-using namespace std;
-
 class Event;
 class EventDispatcher;
 
