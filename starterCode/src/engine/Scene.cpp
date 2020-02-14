@@ -10,7 +10,9 @@ using json = nlohmann::json;
 
 
 
-Scene::Scene(){}
+Scene::Scene() : DisplayObjectContainer(){
+    this->type = "Scene";
+}
 
 	/* Load scene from a file */
 void Scene::loadScene(string sceneFilePath){
@@ -20,17 +22,35 @@ void Scene::loadScene(string sceneFilePath){
     for(int z = 0; z < j["DOC"].size(); z++){
         std::cout << j["DOC"][z] << endl;
         DisplayObjectContainer* temp_doc = new DisplayObjectContainer(j["DOC"][z]["name"], j["DOC"][z]["filepath"]);
+        /* Assuming we have these fields in the json for each object */
+        temp_doc->position.x = j["DOC"][z]["x_pos"];
+        temp_doc->position.y = j["DOC"][z]["y_pos"];
+        temp_doc->rotation = j["DOC"][z]["rotation"];
+        temp_doc->scaleX = j["DOC"][z]["scaleX"];
+        temp_doc->scaleY = j["DOC"][z]["scaleY"];
         this->addChild(temp_doc);
     }
     for(int z = 0; z < j["DO"].size(); z++){
         std::cout << j["DO"][z] << endl;
         DisplayObject* temp_do = new DisplayObject(j["DO"][z]["name"], j["DO"][z]["filepath"]);
+        temp_do->position.x = j["DOC"][z]["x_pos"];
+        temp_do->position.y = j["DOC"][z]["y_pos"];
+        temp_do->rotation = j["DOC"][z]["rotation"];
+        temp_do->scaleY = j["DOC"][z]["scaleY"];
+        temp_do->scaleY = j["DOC"][z]["scaleY"];
         this->addChild(temp_do);
     }
     for(int z = 0; z < j["ASprite"].size(); z++){
         std::cout << j["ASprite"][z] << endl;
         AnimatedSprite* temp_asprite = new AnimatedSprite(j["ASprite"][z]["name"]);
+        temp_asprite->addAnimation(j["ASprite"][z]["basepath"], j["ASprite"][z]["animName"], j["ASprite"][z]["numFrames"], j["ASprite"][z]["frameRate"], j["ASprite"][z]["loop"]);
+        temp_asprite->position.x = j["ASprite"][z]["x_pos"];
+        temp_asprite->position.y = j["ASprite"][z]["y_pos"];
+        temp_asprite->rotation = j["ASprite"][z]["rotation"];
+        temp_asprite->scaleY = j["ASprite"][z]["scaleY"];
+        temp_asprite->scaleY = j["ASprite"][z]["scaleY"];
         this->addChild(temp_asprite);
+        temp_asprite->play(j["ASprite"][z]["animName"]);
     }
     for(int z = 0; z < j["Sprite"].size(); z++){
         std::cout << j["Sprite"][z] << endl;

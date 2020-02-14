@@ -2,20 +2,42 @@
     "DOC":[
         {
             "name":"moon",
-            "filepath":"./resources/solarSystem/Moon.png"
+            "filepath":"./resources/solarSystem/Moon.png",
+            "x_pos":0,
+            "y_pos":0,
+            "rotation":0,
+            "scaleX":0,
+            "scaleY":0
         },
         {
             "name":"planet",
-            "filepath":"./resources/solarSystem/Planet.png"
+            "filepath":"./resources/solarSystem/Planet.png",
+            "x_pos":50,
+            "y_pos":50,
+            "rotation":0,
+            "scaleX":2,
+            "scaleY":2
         }
     ],
-    "DO":{
+    "DO":[
 
-    },
-    "ASprite":{
+    ],
+    "ASprite":[
+        {
+            "name":"sun",
+            "basepath":"./resources/solarSystem/",
+            "animName":"Sun",
+            "numFrames":4,
+            "frameRate":2,
+            "loop":true,
+            "x_pos":0,
+            "y_pos":0,
+            "rotation":0,
+            "scaleX":0,
+            "scaleY":0
+        }
+    ],
+    "Sprite":[
 
-    },
-    "Sprite":{
-
-    }
+    ]
 }
