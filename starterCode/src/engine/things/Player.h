@@ -4,7 +4,7 @@
 #include "../Sprite.h"
 #include "../events/EventDispatcher.h"
 
-class Player : public Sprite, public Event {
+class Player : public Sprite, public EventDispatcher {
 
 public:
 	

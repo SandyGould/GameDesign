@@ -9,7 +9,7 @@ MyGame::MyGame() : Game(1200, 1000) {
 	allSprites->position = {600, 500};
 	instance->addChild(allSprites);
 
-	player = new Sprite("player", "./resources/character/Idle_1.png");
+	player = new Player();
 	player->position = {0, 0};
 	player->width = player->height = 100;
 	player->pivot = {50, 50};
