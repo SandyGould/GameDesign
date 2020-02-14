@@ -1,14 +1,14 @@
 {
-    "DOC":{
-        "1":{
+    "DOC":[
+        {
             "name":"moon",
             "filepath":"./resources/solarSystem/Moon.png"
         },
-        "2":{
+        {
             "name":"planet",
             "filepath":"./resources/solarSystem/Planet.png"
         }
-    },
+    ],
     "DO":{
 
     },
