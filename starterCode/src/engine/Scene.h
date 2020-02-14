@@ -6,6 +6,10 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include "../dist/json/json.h"
+
+
+
 
 using namespace std;
 
@@ -22,7 +26,8 @@ public:
 
 
 private:
-
+	DisplayObjectContainer* root;
+	Json::Value scene_info;
 };
 
 #endif

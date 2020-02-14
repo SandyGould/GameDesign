@@ -2,14 +2,23 @@
 #include <string>
 #include <vector>
 #include <fstream>
-// #include <json/value.h>
+#include <iostream>
+#include "../dist/json/json.h"
+
+
 
 Scene::Scene(){}
 
 	/* Load scene from a file */
 void Scene::loadScene(string sceneFilePath){
-    // std::ifstream people_file(sceneFilePath, std::ifstream::binary);
-    // people_file >> people;
+    root = new DisplayObjectContainer();
+
+    ifstream scene_file(sceneFilePath, ifstream::binary);
+    scene_file >> scene_info;
+    // all the display objects in the scene are in scene info;
+    // now have to parse through, extract info, and add as children
+    // to root
+    
 }
 
 void Scene::update(set<SDL_Scancode> pressedKeys){
