@@ -135,11 +135,15 @@
     <ClCompile Include="startercode\src\engine\AnimatedSprite.cpp" />
     <ClCompile Include="startercode\src\engine\DisplayObject.cpp" />
     <ClCompile Include="startercode\src\engine\DisplayObjectContainer.cpp" />
+    <ClCompile Include="starterCode\src\engine\events\Collision.cpp" />
     <ClCompile Include="starterCode\src\engine\events\Event.cpp" />
     <ClCompile Include="starterCode\src\engine\events\EventDispatcher.cpp" />
+    <ClCompile Include="starterCode\src\engine\events\QuestComplete.cpp" />
     <ClCompile Include="startercode\src\engine\Game.cpp" />
     <ClCompile Include="starterCode\src\engine\QuestManager.cpp" />
     <ClCompile Include="startercode\src\engine\Sprite.cpp" />
+    <ClCompile Include="starterCode\src\engine\things\Coin.cpp" />
+    <ClCompile Include="starterCode\src\engine\things\Player.cpp" />
     <ClCompile Include="startercode\src\main\main.cpp" />
     <ClCompile Include="startercode\src\main\MyGame.cpp" />
   </ItemGroup>
@@ -148,13 +152,17 @@
     <ClInclude Include="startercode\src\engine\AnimatedSprite.h" />
     <ClInclude Include="startercode\src\engine\DisplayObject.h" />
     <ClInclude Include="startercode\src\engine\DisplayObjectContainer.h" />
+    <ClInclude Include="starterCode\src\engine\events\Collision.h" />
     <ClInclude Include="starterCode\src\engine\events\Event.h" />
     <ClInclude Include="starterCode\src\engine\events\EventDispatcher.h" />
     <ClInclude Include="starterCode\src\engine\events\EventListener.h" />
     <ClInclude Include="starterCode\src\engine\events\PickedUpEvent.h" />
+    <ClInclude Include="starterCode\src\engine\events\QuestComplete.h" />
     <ClInclude Include="startercode\src\engine\Game.h" />
     <ClInclude Include="starterCode\src\engine\QuestManager.h" />
     <ClInclude Include="startercode\src\engine\Sprite.h" />
+    <ClInclude Include="starterCode\src\engine\things\Coin.h" />
+    <ClInclude Include="starterCode\src\engine\things\Player.h" />
     <ClInclude Include="startercode\src\main\MyGame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

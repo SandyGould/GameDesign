@@ -2,8 +2,8 @@
 #define DISPLAYOBJECT_H
 
 #include "AffineTransform.h"
-#include "EventDispatcher.h"
-#include "EventListener.h"
+#include "events/EventDispatcher.h"
+#include "events/EventListener.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
