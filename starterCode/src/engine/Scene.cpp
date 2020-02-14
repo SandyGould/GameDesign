@@ -6,6 +6,9 @@
 #include <iostream>
 #include <json.hpp>
 using json = nlohmann::json;
+// #include "../dist/json/json.h"
+
+
 
 Scene::Scene(){}
 
@@ -34,6 +37,14 @@ void Scene::loadScene(string sceneFilePath){
         Sprite* temp_sprite = new Sprite(j["Sprite"][z]["name"], j["Sprite"][z]["filepath"]);
         this->addChild(temp_sprite);
     }
+    // Json::Value scene_info;
+	// //Json::Reader reader;
+
+    // root = new DisplayObjectContainer();
+
+    // ifstream scene_file(sceneFilePath, ifstream::binary);
+    // scene_file >> scene_info;
+    
 }
 
 void Scene::update(set<SDL_Scancode> pressedKeys){
