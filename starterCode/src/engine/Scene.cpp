@@ -11,13 +11,13 @@ Scene::Scene(){}
 
 	/* Load scene from a file */
 void Scene::loadScene(string sceneFilePath){
+    Json::Value scene_info;
+	//Json::Reader reader;
+
     root = new DisplayObjectContainer();
 
     ifstream scene_file(sceneFilePath, ifstream::binary);
     scene_file >> scene_info;
-    // all the display objects in the scene are in scene info;
-    // now have to parse through, extract info, and add as children
-    // to root
     
 }
 

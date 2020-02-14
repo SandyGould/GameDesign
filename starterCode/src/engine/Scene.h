@@ -27,7 +27,7 @@ public:
 
 private:
 	DisplayObjectContainer* root;
-	Json::Value scene_info;
+	
 };
 
 #endif
