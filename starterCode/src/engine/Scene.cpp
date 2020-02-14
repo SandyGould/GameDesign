@@ -33,11 +33,11 @@ void Scene::loadScene(string sceneFilePath){
     for(int z = 0; z < j["DO"].size(); z++){
         std::cout << j["DO"][z] << endl;
         DisplayObject* temp_do = new DisplayObject(j["DO"][z]["name"], j["DO"][z]["filepath"]);
-        temp_do->position.x = j["DOC"][z]["x_pos"];
-        temp_do->position.y = j["DOC"][z]["y_pos"];
-        temp_do->rotation = j["DOC"][z]["rotation"];
-        temp_do->scaleY = j["DOC"][z]["scaleY"];
-        temp_do->scaleY = j["DOC"][z]["scaleY"];
+        temp_do->position.x = j["DO"][z]["x_pos"];
+        temp_do->position.y = j["DO"][z]["y_pos"];
+        temp_do->rotation = j["DO"][z]["rotation"];
+        temp_do->scaleY = j["DO"][z]["scaleY"];
+        temp_do->scaleY = j["DO"][z]["scaleY"];
         this->addChild(temp_do);
     }
     for(int z = 0; z < j["ASprite"].size(); z++){
