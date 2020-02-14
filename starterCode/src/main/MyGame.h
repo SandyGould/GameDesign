@@ -6,6 +6,8 @@
 #include "../engine/AnimatedSprite.h"
 #include "../engine/things/Coin.h"
 #include "../engine/things/Player.h"
+#include "../engine/QuestManager.h"
+#include "../engine/events/PickedUpEvent.h"
 
 class MyGame : public Game {
 
@@ -22,6 +24,8 @@ private:
 	Coin* coin;
 
 	DisplayObjectContainer* allSprites;
+
+	QuestManager* questManager;
 
 	// DisplayObject* character;
 };

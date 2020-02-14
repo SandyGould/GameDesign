@@ -53,6 +53,8 @@ public:
 	int alpha = 255;
 	bool facingRight = true;
 
+	bool hasCollision = false;
+
 private:
 	double distance(SDL_Point& p1, SDL_Point& p2);
 	double calculateRotation(SDL_Point& origin, SDL_Point& p);

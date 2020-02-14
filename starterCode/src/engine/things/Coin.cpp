@@ -6,6 +6,7 @@ int coin_id_counter = 1;
 
 Coin::Coin() : Sprite("coin_"+std::to_string(coin_id_counter) , "./resources/solarSystem/Planet.png"){
     ++coin_id_counter;
+    hasCollision = true;
 }
 
 void Coin::update(std::set<SDL_Scancode> pressedKeys){

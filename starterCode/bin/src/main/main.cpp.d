@@ -7,8 +7,11 @@ bin/./src/main/main.cpp.o: src/main/main.cpp src/main/MyGame.h \
  src/main/../engine/AnimatedSprite.h src/main/../engine/Sprite.h \
  src/main/../engine/things/Coin.h src/main/../engine/things/../Sprite.h \
  src/main/../engine/things/../events/EventListener.h \
- src/main/../engine/things/Player.h \
- src/main/../engine/things/../events/EventDispatcher.h
+ src/main/../engine/things/../events/EventDispatcher.h \
+ src/main/../engine/things/Player.h src/main/../engine/QuestManager.h \
+ src/main/../engine/events/EventListener.h \
+ src/main/../engine/events/PickedUpEvent.h \
+ src/main/../engine/events/Event.h
 
 src/main/MyGame.h:
 
@@ -42,6 +45,14 @@ src/main/../engine/things/../Sprite.h:
 
 src/main/../engine/things/../events/EventListener.h:
 
+src/main/../engine/things/../events/EventDispatcher.h:
+
 src/main/../engine/things/Player.h:
 
-src/main/../engine/things/../events/EventDispatcher.h:
+src/main/../engine/QuestManager.h:
+
+src/main/../engine/events/EventListener.h:
+
+src/main/../engine/events/PickedUpEvent.h:
+
+src/main/../engine/events/Event.h:

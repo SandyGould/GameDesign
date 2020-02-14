@@ -30,6 +30,7 @@ public:
 	void draw(AffineTransform& at) override;
 
 	std::vector<DisplayObject*> children;
+	std::vector<DisplayObject*> collisionList;
 private:
 	
 	

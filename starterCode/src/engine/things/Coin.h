@@ -3,8 +3,9 @@
 
 #include "../Sprite.h"
 #include "../events/EventListener.h"
+#include "../events/EventDispatcher.h"
 
-class Coin : public Sprite, public EventListener {
+class Coin : public Sprite, public EventListener, public EventDispatcher {
 
 public:
 	
