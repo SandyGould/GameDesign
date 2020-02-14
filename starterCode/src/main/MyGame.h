@@ -33,6 +33,7 @@ private:
 
 	// DisplayObject* character;
 	Scene* scene;
+	Scene* scene2;
 };
 
 #endif

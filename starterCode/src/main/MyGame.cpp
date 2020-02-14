@@ -1,11 +1,16 @@
 #include "MyGame.h"
+#include <iostream>
+#include <algorithm>
 
-using namespace std;
+
+// using namespace std;
 
 MyGame::MyGame() : Game(1200, 1000) {
 
-	scene = new Scene();
+	scene = new Scene("scene1");
 	scene->loadScene("./resources/scene/test.json");
+	scene2 = new Scene("scene2");
+	scene2->loadScene("./resources/scene/test2.json");
 
 	instance = this;
 
@@ -54,15 +59,19 @@ MyGame::~MyGame(){
 void MyGame::update(set<SDL_Scancode> pressedKeys){
 	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
 		scene->position.x += 2;
+		scene2->position.x += 2;
 	}
 	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
 		scene->position.x -= 2;
+		scene2->position.x -= 2;
 	}
 	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
 		scene->position.y += 2;
+		scene2->position.y += 2;
 	}
 	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
 		scene->position.y -= 2;
+		scene2->position.y -= 2;
 	}
 	// if (pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) {
 	// 	// sun->rotation += 0.01;
@@ -88,9 +97,25 @@ void MyGame::update(set<SDL_Scancode> pressedKeys){
 	// 	allSprites->scaleX *= 1/1.05;
 	// 	allSprites->scaleY *= 1/1.05;
 	// }
-	// if (pressedKeys.find(SDL_SCANCODE_P) != pressedKeys.end()) {
-	// 	sun->play("Sun");
-	// }
+	if (pressedKeys.find(SDL_SCANCODE_P) != pressedKeys.end()) {
+		if(allSprites->getChild("scene1") != NULL){
+			// std::cout << "PreHm" << endl;
+			allSprites->addChild(scene2);
+			allSprites->children.erase(std::remove(allSprites->children.begin(), allSprites->children.end(), scene), allSprites->children.end());
+			// allSprites->removeImmediateChild(scene);
+			// allSprites->children.erase(allSprites->getChild("scene1"));
+			// std::cout << allSprites->children[0]->id << endl;
+		}
+		else if(allSprites->getChild("scene2") != NULL){
+			// std::cout << "Hm2" << endl;
+			allSprites->addChild(scene);
+			allSprites->children.erase(std::remove(allSprites->children.begin(), allSprites->children.end(), scene2), allSprites->children.end());
+			// allSprites->removeImmediateChild(scene2);
+			// allSprites->children.erase(allSprites->getChild("scene2"));
+			// std::cout << allSprites->children[0]->id << endl;
+			// std::cout << "Hm3" << endl;
+		}
+	}
 	// if (pressedKeys.find(SDL_SCANCODE_L) != pressedKeys.end()) {
 	// 	sun->stop();
 	// }
