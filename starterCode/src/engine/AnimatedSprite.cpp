@@ -12,8 +12,8 @@ AnimatedSprite::AnimatedSprite(std::string id) : Sprite(id, 0, 0, 0) {
 AnimatedSprite::~AnimatedSprite() {
     for (Animation* an : animations) {
         for (int i = 0; i < an->numFrames; i++) {// this needs to be an iterator loop
-            if(an->frames[i]->image != NULL) SDL_FreeSurface(an->frames[i]->image);
-	        if(an->frames[i]->texture != NULL) SDL_DestroyTexture(an->frames[i]->texture);
+            if (an->frames[i]->image != NULL) SDL_FreeSurface(an->frames[i]->image);
+            if (an->frames[i]->texture != NULL) SDL_DestroyTexture(an->frames[i]->texture);
             delete an->frames[i];
         }
         delete an->frames;
@@ -28,7 +28,7 @@ void AnimatedSprite::addAnimation(std::string basepath, std::string animName, in
     anim->frameRate = frameRate;
     anim->loop = loop;
     anim->curFrame = 0;
-    anim->frames = new Frame*[numFrames]; // new frame pointer array of size numFrames;
+    anim->frames = new Frame * [numFrames]; // new frame pointer array of size numFrames;
     for (int i = 0; i < numFrames; i++) {
         Frame* f = new Frame();
         std::string path = basepath + animName + "_" + std::to_string(i + 1) + ".png";
@@ -40,12 +40,12 @@ void AnimatedSprite::addAnimation(std::string basepath, std::string animName, in
 }
 
 Animation* AnimatedSprite::getAnimation(std::string animName) {
-    for (int i = 0; i < animations.size(); i++) {
-        if (animations[i]->animName == animName) {
-            return animations[i];
+    for (auto animation : animations) {
+        if (animation->animName == animName) {
+            return animation;
         }
     }
-    return NULL;
+    return nullptr;
 }
 
 void AnimatedSprite::play(std::string animName) {

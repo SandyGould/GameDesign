@@ -13,8 +13,8 @@ DisplayObjectContainer::DisplayObjectContainer(std::string id, int red, int gree
 }
 
 DisplayObjectContainer::~DisplayObjectContainer() {
-    for (int i = 0; i < children.size(); i++ ) {
-        delete children[i];
+    for (auto child : children) {
+        delete child;
     }
 }
 
@@ -24,7 +24,7 @@ void DisplayObjectContainer::addChild(DisplayObject* child) {
 }
 
 void DisplayObjectContainer::removeImmediateChild(DisplayObject* child) {
-    for (int i = 0; i < children.size(); i++) {
+    for (size_t i = 0; i < children.size(); i++) {
         if (children[i] == child) {
             delete child;
             children.erase(children.begin() + i);
@@ -33,7 +33,7 @@ void DisplayObjectContainer::removeImmediateChild(DisplayObject* child) {
 }
 
 void DisplayObjectContainer::removeImmediateChild(std::string id) {
-    for (int i = 0; i < children.size(); i++) {
+    for (size_t i = 0; i < children.size(); i++) {
         if (children[i]->id == id) {
             // delete the child
             delete children[i];
@@ -42,7 +42,7 @@ void DisplayObjectContainer::removeImmediateChild(std::string id) {
     }
 }
 
-void DisplayObjectContainer::removeChild(int index) {
+void DisplayObjectContainer::removeChild(size_t index) {
     if (index < children.size()) {
         delete children[index];
         children.erase(children.begin() + index);
@@ -67,19 +67,18 @@ DisplayObject* DisplayObjectContainer::getChild(int index) {
 }
 
 DisplayObject* DisplayObjectContainer::getChild(std::string id) {
-    for (int i = 0; i < children.size(); i++) {
-        if (children[i]->id == id) {
-            return children[i];
+    for (auto child : children) {
+        if (child->id == id) {
+            return child;
         }
-        // check recursively?
     }
-    return NULL;
+    return nullptr;
 }
 
 void DisplayObjectContainer::update(std::set<SDL_Scancode> pressedKeys) {
     DisplayObject::update(pressedKeys);
-    for (int i = 0; i < children.size(); i++) {
-        children[i]->update(pressedKeys);
+    for (auto child : children) {
+        child->update(pressedKeys);
     }
 }
 
@@ -88,8 +87,8 @@ void DisplayObjectContainer::draw(AffineTransform& at) {
     applyTransformations(at);
     // undo the parent's pivot
     at.translate(pivot.x, pivot.y);
-    for (int i = 0; i < children.size(); i++) {
-        children[i]->draw(at);
+    for (auto child : children) {
+        child->draw(at);
     }
     // redo the parent's pivot
     at.translate(-pivot.x, -pivot.y);

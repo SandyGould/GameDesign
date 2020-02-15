@@ -3,7 +3,7 @@
 EventDispatcher::EventDispatcher() {}
 
 void EventDispatcher::addEventListener(EventListener* l, std::string eventType) {
-    if(listeners.count(eventType) > 0) {
+    if (listeners.count(eventType) > 0) {
         listeners.at(eventType).push_back(l);
     } else {
         std::vector<EventListener*> newvect{l};
@@ -14,8 +14,8 @@ void EventDispatcher::addEventListener(EventListener* l, std::string eventType) 
 void EventDispatcher::removeEventListener(EventListener* l, std::string eventType) {
     int listener_index = 0;
     auto vl = listeners.at(eventType);
-    for(int i = 0; i < vl.size(); i++) {
-        if(vl.at(i) == l) {
+    for (size_t i = 0; i < vl.size(); i++) {
+        if (vl.at(i) == l) {
             listener_index = i;
             break;
         }
@@ -30,7 +30,7 @@ bool EventDispatcher::hasEventListener(EventListener* l, std::string eventType) 
         return false;
     }
 
-    for (int i = 0; i < vl.size(); i++) {
+    for (size_t i = 0; i < vl.size(); i++) {
         if (vl.at(i) == l) {
             listener_index = i;
             break;
@@ -45,8 +45,7 @@ bool EventDispatcher::hasEventListener(EventListener* l, std::string eventType) 
 }
 
 void EventDispatcher::dispatchEvent(Event* e) {
-    auto vl = listeners.at(e->getType());
-    for (int i = 0; i < vl.size(); i++) {
-        vl.at(i)->handleEvent(e);
+    for (auto listener : listeners.at(e->getType())) {
+        listener->handleEvent(e);
     }
 }
