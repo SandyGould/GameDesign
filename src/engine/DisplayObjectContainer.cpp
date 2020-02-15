@@ -24,22 +24,19 @@ void DisplayObjectContainer::addChild(DisplayObject* child) {
 }
 
 void DisplayObjectContainer::removeImmediateChild(DisplayObject* child) {
-    for (size_t i = 0; i < children.size(); i++) {
-        if (children[i] == child) {
-            delete child;
-            children.erase(children.begin() + i);
-        }
-    }
+	auto it = std::find(this->children.cbegin(), this->children.cend(), child);
+	if (it != this->children.cend()) {
+        delete *it;
+		this->children.erase(it);
+	}
 }
 
 void DisplayObjectContainer::removeImmediateChild(std::string id) {
-    for (size_t i = 0; i < children.size(); i++) {
-        if (children[i]->id == id) {
-            // delete the child
-            delete children[i];
-            children.erase(children.begin() + i);
-        }
-    }
+	auto it = std::find_if(this->children.cbegin(), this->children.cend(), [&](const auto child) { return child->id == id; });
+	if (it != this->children.cend()) {
+        delete *it;
+		this->children.erase(it);
+	}
 }
 
 void DisplayObjectContainer::removeChild(size_t index) {

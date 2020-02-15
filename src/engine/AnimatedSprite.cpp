@@ -22,13 +22,14 @@ AnimatedSprite::~AnimatedSprite() {
 }
 
 void AnimatedSprite::addAnimation(std::string basepath, std::string animName, int numFrames, int frameRate, bool loop) {
-    Animation* anim = new Animation();
-    anim->animName = animName;
-    anim->numFrames = numFrames;
-    anim->frameRate = frameRate;
-    anim->loop = loop;
-    anim->curFrame = 0;
-    anim->frames = new Frame * [numFrames]; // new frame pointer array of size numFrames;
+    Animation* anim = new Animation{
+        new Frame * [numFrames], // new frame pointer array of size numFrames;
+        animName,
+        numFrames,
+        frameRate,
+        loop,
+        0,
+    };
     for (int i = 0; i < numFrames; i++) {
         Frame* f = new Frame();
         std::string path = basepath + animName + "_" + std::to_string(i + 1) + ".png";

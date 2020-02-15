@@ -45,8 +45,8 @@ double **AffineTransform::identity()
 SDL_Point AffineTransform::transformPoint(int x, int y)
 {
 	SDL_Point temp;
-	temp.x = (x * transform[0][0]) + (y * transform[0][1]) + (1 * transform[0][2]);
-	temp.y = (x * transform[1][0]) + (y * transform[1][1]) + (1 * transform[1][2]);
+	temp.x = static_cast<int>(x * transform[0][0] + y * transform[0][1] + 1 * transform[0][2]);
+	temp.y = static_cast<int>(x * transform[1][0] + y * transform[1][1] + 1 * transform[1][2]);
 	return temp;
 }
 

@@ -17,10 +17,14 @@ class DisplayObject {
 public:
 	std::string id = "DEFAULT_ID";
 	std::string imgPath = "";
-	int red, green, blue;
 	std::string type = "DisplayObject";
 
 	DisplayObject* parent = NULL;
+
+	int red = 0;
+	int green = 0;
+	int blue = 0;
+	int alpha = 255;
 
 	bool isRGB = false;
 
@@ -50,7 +54,6 @@ public:
 	double scaleX = 1.0;
 	double scaleY = 1.0;
 	double rotation = 0.0; // in radians
-	int alpha = 255;
 	bool facingRight = true;
 
 	bool hasCollision = false;

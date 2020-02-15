@@ -70,7 +70,7 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>true</LinkIncremental>
+    <LinkIncremental>false</LinkIncremental>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -143,6 +143,7 @@
     <ClCompile Include="src\engine\events\QuestComplete.cpp" />
     <ClCompile Include="src\engine\Game.cpp" />
     <ClCompile Include="src\engine\QuestManager.cpp" />
+    <ClCompile Include="src\engine\Scene.cpp" />
     <ClCompile Include="src\engine\Sprite.cpp" />
     <ClCompile Include="src\engine\things\Coin.cpp" />
     <ClCompile Include="src\engine\things\Player.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="src\engine\events\QuestComplete.h" />
     <ClInclude Include="src\engine\Game.h" />
     <ClInclude Include="src\engine\QuestManager.h" />
+    <ClInclude Include="src\engine\Scene.h" />
     <ClInclude Include="src\engine\Sprite.h" />
     <ClInclude Include="src\engine\things\Coin.h" />
     <ClInclude Include="src\engine\things\Player.h" />
