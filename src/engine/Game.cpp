@@ -36,7 +36,7 @@ void Game::initSDL() {
 	SDL_Init(SDL_INIT_VIDEO);
 	IMG_Init(IMG_INIT_PNG);
 
-	window = SDL_CreateWindow("myGame",
+	window = SDL_CreateWindow("Rebound",
 	                          SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 	                          this->windowWidth, this->windowHeight,
 	                          SDL_WINDOW_ALLOW_HIGHDPI);
