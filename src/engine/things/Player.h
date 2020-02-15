@@ -10,8 +10,8 @@ public:
 	
 	Player();
 
-	virtual void update(std::set<SDL_Scancode> pressedKeys);
-	virtual void draw(AffineTransform& at);
+	void update(std::set<SDL_Scancode> pressedKeys) override;
+	void draw(AffineTransform& at) override;
 
 private:
 	

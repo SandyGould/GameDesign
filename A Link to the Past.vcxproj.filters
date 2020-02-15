@@ -15,99 +15,99 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="startercode\src\engine\AffineTransform.cpp">
+    <ClCompile Include="src\engine\events\Collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="startercode\src\engine\AnimatedSprite.cpp">
+    <ClCompile Include="src\engine\events\Event.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="startercode\src\engine\DisplayObject.cpp">
+    <ClCompile Include="src\engine\events\EventDispatcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="startercode\src\engine\DisplayObjectContainer.cpp">
+    <ClCompile Include="src\engine\events\QuestComplete.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="startercode\src\engine\Game.cpp">
+    <ClCompile Include="src\engine\things\Coin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="startercode\src\engine\Sprite.cpp">
+    <ClCompile Include="src\engine\things\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="startercode\src\main\main.cpp">
+    <ClCompile Include="src\engine\AffineTransform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="startercode\src\main\MyGame.cpp">
+    <ClCompile Include="src\engine\AnimatedSprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="starterCode\src\engine\events\Event.cpp">
+    <ClCompile Include="src\engine\DisplayObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="starterCode\src\engine\events\EventDispatcher.cpp">
+    <ClCompile Include="src\engine\DisplayObjectContainer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="starterCode\src\engine\QuestManager.cpp">
+    <ClCompile Include="src\engine\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="starterCode\src\engine\things\Coin.cpp">
+    <ClCompile Include="src\engine\QuestManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="starterCode\src\engine\things\Player.cpp">
+    <ClCompile Include="src\engine\Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="starterCode\src\engine\events\Collision.cpp">
+    <ClCompile Include="src\main\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="starterCode\src\engine\events\QuestComplete.cpp">
+    <ClCompile Include="src\main\MyGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="startercode\src\engine\AffineTransform.h">
+    <ClInclude Include="src\engine\events\Collision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="startercode\src\engine\AnimatedSprite.h">
+    <ClInclude Include="src\engine\events\Event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="startercode\src\engine\DisplayObject.h">
+    <ClInclude Include="src\engine\events\EventDispatcher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="startercode\src\engine\DisplayObjectContainer.h">
+    <ClInclude Include="src\engine\events\EventListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="startercode\src\engine\Game.h">
+    <ClInclude Include="src\engine\events\PickedUpEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="startercode\src\engine\Sprite.h">
+    <ClInclude Include="src\engine\events\QuestComplete.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="startercode\src\main\MyGame.h">
+    <ClInclude Include="src\engine\things\Coin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="starterCode\src\engine\events\Event.h">
+    <ClInclude Include="src\engine\things\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="starterCode\src\engine\events\EventDispatcher.h">
+    <ClInclude Include="src\engine\AffineTransform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="starterCode\src\engine\events\EventListener.h">
+    <ClInclude Include="src\engine\AnimatedSprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="starterCode\src\engine\events\PickedUpEvent.h">
+    <ClInclude Include="src\engine\DisplayObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="starterCode\src\engine\QuestManager.h">
+    <ClInclude Include="src\engine\DisplayObjectContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="starterCode\src\engine\things\Coin.h">
+    <ClInclude Include="src\engine\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="starterCode\src\engine\things\Player.h">
+    <ClInclude Include="src\engine\QuestManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="starterCode\src\engine\events\Collision.h">
+    <ClInclude Include="src\engine\Sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="starterCode\src\engine\events\QuestComplete.h">
+    <ClInclude Include="src\main\MyGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
