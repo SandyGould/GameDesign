@@ -4,6 +4,7 @@
 #include "../engine/Game.h"
 #include "../engine/Sprite.h"
 #include "../engine/AnimatedSprite.h"
+#include "../engine/Scene.h"
 #include "../engine/things/Coin.h"
 #include "../engine/things/Player.h"
 #include "../engine/QuestManager.h"
