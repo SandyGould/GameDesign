@@ -28,6 +28,8 @@ private:
 	QuestManager* questManager;
 
 	// DisplayObject* character;
+	Scene* scene;
+	Scene* scene2;
 };
 
 #endif

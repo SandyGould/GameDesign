@@ -6,6 +6,10 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include "../dist/json/json.h"
+
+
+
 
 using namespace std;
 
@@ -13,6 +17,8 @@ class Scene : public DisplayObjectContainer{
 
 public:
 	Scene();
+	Scene(string id);
+	// virtual ~Scene();
 
 	/* Load scene from a file */
 	void loadScene(string sceneFilePath);
@@ -22,7 +28,8 @@ public:
 
 
 private:
-
+	DisplayObjectContainer* root;
+	
 };
 
 #endif
