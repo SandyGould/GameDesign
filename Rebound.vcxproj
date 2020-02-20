@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="src\engine\AffineTransform.h" />
     <ClInclude Include="src\engine\AnimatedSprite.h" />
+    <ClInclude Include="src\engine\Camera.h" />
     <ClInclude Include="src\engine\DisplayObject.h" />
     <ClInclude Include="src\engine\DisplayObjectContainer.h" />
     <ClInclude Include="src\engine\events\Collision.h" />
@@ -162,8 +163,10 @@
     <ClInclude Include="src\engine\events\PickedUpEvent.h" />
     <ClInclude Include="src\engine\events\QuestComplete.h" />
     <ClInclude Include="src\engine\Game.h" />
+    <ClInclude Include="src\engine\json.hpp" />
     <ClInclude Include="src\engine\QuestManager.h" />
     <ClInclude Include="src\engine\Scene.h" />
+    <ClInclude Include="src\engine\Sound.h" />
     <ClInclude Include="src\engine\Sprite.h" />
     <ClInclude Include="src\engine\things\Coin.h" />
     <ClInclude Include="src\engine\things\Player.h" />
