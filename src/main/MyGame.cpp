@@ -3,6 +3,11 @@
 MyGame::MyGame() : Game(1200, 1000) {
 	instance = this;
 
+	scene = new Scene("scene1");
+	scene->loadScene("./resources/scene/test.json");
+	scene2 = new Scene("scene2");
+	scene2->loadScene("./resources/scene/test2.json");
+
 	allSprites = new DisplayObjectContainer();
 
 	questManager = new QuestManager();
@@ -10,6 +15,7 @@ MyGame::MyGame() : Game(1200, 1000) {
 	// move that point to the middle
 	allSprites->position = {600, 500};
 	instance->addChild(allSprites);
+	allSprites->addChild(scene);
 
 	player = new Player();
 	player->position = {0, 0};
@@ -24,6 +30,10 @@ MyGame::MyGame() : Game(1200, 1000) {
 	allSprites->addChild(coin);
 
 	coin->addEventListener(questManager, PickedUpEvent::COIN_PICKED_UP);
+
+	// camera = new Camera();
+	// camera.x = ( player->position.x + player->getWidth / 2 ) - 1200 / 2;
+    // camera.y = ( player->position.y + player->getHeight / 2 ) - 1000 / 2;
 }
 
 MyGame::~MyGame() {
@@ -53,6 +63,16 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 		coin->dispatchEvent(pickUp);
 		delete pickUp;
 		coin->visible = false;
+	}
+	if (pressedKeys.find(SDL_SCANCODE_P) != pressedKeys.end()) {
+		if(allSprites->getChild("scene1") != NULL){
+			allSprites->addChild(scene2);
+			allSprites->children.erase(std::remove(allSprites->children.begin(), allSprites->children.end(), scene), allSprites->children.end());
+		}
+		else if(allSprites->getChild("scene2") != NULL){
+			allSprites->addChild(scene);
+			allSprites->children.erase(std::remove(allSprites->children.begin(), allSprites->children.end(), scene2), allSprites->children.end());
+		}
 	}
 
 	Game::update(pressedKeys);
