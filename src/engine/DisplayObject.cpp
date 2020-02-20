@@ -46,7 +46,7 @@ void DisplayObject::loadRGBTexture(int red, int green, int blue) {
 	image = SDL_CreateRGBSurface(0, 100, 100, 32, 0, 0, 0, 0x000000ff);
 	SDL_FillRect(image, NULL, SDL_MapRGB(image->format, red, green, blue));
 	texture = SDL_CreateTextureFromSurface(Game::renderer, image);
-	SDL_SetTextureBlendMode( texture, SDL_BLENDMODE_BLEND );
+	SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
 	setTexture(texture);
 }
 
