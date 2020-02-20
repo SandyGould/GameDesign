@@ -1,6 +1,8 @@
 #include "DisplayObjectContainer.h"
 #include <algorithm>
 
+#include <algorithm>
+
 DisplayObjectContainer::DisplayObjectContainer() : DisplayObject() {
     this->type = "DisplayObjectContainer";
 }
