@@ -1,4 +1,5 @@
 #include "MyGame.h"
+#include <algorithm>
 
 MyGame::MyGame() : Game(1200, 1000) {
 	instance = this;
