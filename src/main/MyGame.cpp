@@ -50,22 +50,30 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
 		if (player->position.x < 120) {
 			player->position.x += 2;
-			camera->position.x -= 2;
+			camera->panRight(2);
 		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
 		if (player->position.x > -140) {
 			player->position.x -= 2;
-			camera->position.x += 2;
+			camera->panLeft(2);
 		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
 		player->position.y += 2;
-		camera->position.y -= 2;
+		camera->panDown(2);
 	}
 	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
 		player->position.y -= 2;
-		camera->position.y += 2;
+		camera->panUp(2);
+	}
+
+	// to test zoom
+	if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
+		camera->zoomIn(.1);
+	}
+	if (pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) {
+		camera->zoomOut(.1);
 	}
 
 	if (player->position.x - player->pivot.x < coin->position.x - coin->pivot.x + coin->width &&
