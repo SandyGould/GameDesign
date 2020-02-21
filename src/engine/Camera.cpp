@@ -1,7 +1,9 @@
 #include "Camera.h"
 
-Camera::Camera():DisplayObjectContainer(){
+Camera::Camera() : DisplayObjectContainer(){
+    this->type = "Camera";
+}
+
+Camera::~Camera() {
 
 }
-Camera::~Camera(){}
-    

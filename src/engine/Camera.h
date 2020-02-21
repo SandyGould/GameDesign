@@ -2,7 +2,9 @@
 #define CAMERA_H
 #include "DisplayObjectContainer.h"
 
-class Camera : public DisplayObjectContainer{ 
+#include "DisplayObjectContainer.h"
+
+class Camera : public DisplayObjectContainer { 
 
 public:
 	Camera();
