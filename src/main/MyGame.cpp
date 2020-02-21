@@ -79,7 +79,7 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 	}
 	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
 		if (player->position.y > -750) {
-			if (player->position.x > 120 && player->position.y > 680 || player->position.x <= 120) {
+			if ((player->position.x > 120 && player->position.y > 680) || player->position.x <= 120) {
 				player->position.y -= 2;
 				camera->follow(-1 * player->position.x + 600, -1 * player->position.y + 500);
 			}
