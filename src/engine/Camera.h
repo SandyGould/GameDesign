@@ -1,7 +1,9 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-class Camera{ 
+#include "DisplayObjectContainer.h"
+
+class Camera : public DisplayObjectContainer { 
 
 public:
 	Camera();

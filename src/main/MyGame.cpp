@@ -4,31 +4,36 @@
 MyGame::MyGame() : Game(1200, 1000) {
 	instance = this;
 
-	scene = new Scene("scene1");
-	scene->loadScene("./resources/scene/test.json");
-	scene2 = new Scene("scene2");
-	scene2->loadScene("./resources/scene/test2.json");
+	//scene = new Scene("scene1");
+	//scene->loadScene("./resources/scene/test.json");
+	//scene2 = new Scene("scene2");
+	//scene2->loadScene("./resources/scene/test2.json");
 
-	allSprites = new DisplayObjectContainer();
+	camera = new Camera();
 
 	questManager = new QuestManager();
 	
 	// move that point to the middle
-	allSprites->position = {600, 500};
-	instance->addChild(allSprites);
-	allSprites->addChild(scene);
+	camera->position = {600, 500};
+	instance->addChild(camera);
+	//allSprites->addChild(scene);
+
+	scene = new Scene();
+	scene->loadScene("./resources/cameraDemo/loadScene.json");
+
+	camera->addChild(scene);
 
 	player = new Player();
 	player->position = {0, 0};
 	player->width = player->height = 100;
 	player->pivot = {50, 50};
-	allSprites->addChild(player);
+	scene->addChild(player);
 
 	coin = new Coin();
-	coin->position = {200, 0};
+	coin->position = {0, -200};
 	coin->width = coin->height = 30;
 	coin->pivot = {15, 15};
-	allSprites->addChild(coin);
+	scene->addChild(coin);
 
 	coin->addEventListener(questManager, PickedUpEvent::COIN_PICKED_UP);
 
@@ -43,38 +48,46 @@ MyGame::~MyGame() {
 
 void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
-		player->position.x += 2;
+		if (player->position.x < 120) {
+			player->position.x += 2;
+			camera->position.x -= 2;
+		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
-		player->position.x -= 2;
+		if (player->position.x > -140) {
+			player->position.x -= 2;
+			camera->position.x += 2;
+		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
 		player->position.y += 2;
+		camera->position.y -= 2;
 	}
 	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
 		player->position.y -= 2;
+		camera->position.y += 2;
 	}
 
 	if (player->position.x - player->pivot.x < coin->position.x - coin->pivot.x + coin->width &&
-		  player->position.x - player->pivot.x + player->width > coin->position.x - coin->pivot.x &&
-		  player->position.y - player->pivot.y < coin->position.y - coin->pivot.y + coin->height &&
-		  player->position.y - player->pivot.y + player-> height > coin->position.y - coin->pivot.y &&
-		  coin->visible){
-		Event* pickUp = new Event(PickedUpEvent::COIN_PICKED_UP, coin);
-		coin->dispatchEvent(pickUp);
-		delete pickUp;
-		coin->visible = false;
+		player->position.x - player->pivot.x + player->width > coin->position.x - coin->pivot.x &&
+		player->position.y - player->pivot.y < coin->position.y - coin->pivot.y + coin->height &&
+		player->position.y - player->pivot.y + player-> height > coin->position.y - coin->pivot.y &&
+		coin->visible){
+			Event* pickUp = new Event(PickedUpEvent::COIN_PICKED_UP, coin);
+			coin->dispatchEvent(pickUp);
+			delete pickUp;
+			coin->visible = false;
 	}
-	if (pressedKeys.find(SDL_SCANCODE_P) != pressedKeys.end()) {
-		if(allSprites->getChild("scene1") != NULL){
-			allSprites->addChild(scene2);
-			allSprites->children.erase(std::remove(allSprites->children.begin(), allSprites->children.end(), scene), allSprites->children.end());
-		}
-		else if(allSprites->getChild("scene2") != NULL){
-			allSprites->addChild(scene);
-			allSprites->children.erase(std::remove(allSprites->children.begin(), allSprites->children.end(), scene2), allSprites->children.end());
-		}
-	}
+	//if (pressedKeys.find(SDL_SCANCODE_P) != pressedKeys.end()) {
+	//	if(allSprites->getChild("scene1") != NULL){
+	//		allSprites->addChild(scene2);
+	//		allSprites->children.erase(std::remove(allSprites->children.begin(), allSprites->children.end(), scene), allSprites->children.end());
+	//	}
+	//	else if(allSprites->getChild("scene2") != NULL){
+	//		allSprites->addChild(scene);
+	//		allSprites->children.erase(std::remove(allSprites->children.begin(), allSprites->children.end(), scene2), allSprites->children.end());
+	//	}
+	//}
 
 	Game::update(pressedKeys);
 }
