@@ -6,6 +6,9 @@ MyGame::MyGame() : Game(1200, 1000) {
 	allSprites = new DisplayObjectContainer();
 
 	questManager = new QuestManager();
+
+	collect = new Sound();
+	collect->setSFX("./resources/sounds/Fruit collect 1.wav");
 	
 	// move that point to the middle
 	allSprites->position = {600, 500};
@@ -27,6 +30,7 @@ MyGame::MyGame() : Game(1200, 1000) {
 }
 
 MyGame::~MyGame() {
+	collect->quitSounds();
 }
 
 
@@ -50,6 +54,7 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 		  player->position.y - player->pivot.y + player-> height > coin->position.y - coin->pivot.y &&
 		  coin->visible){
 		Event* pickUp = new Event(PickedUpEvent::COIN_PICKED_UP, coin);
+		collect->playSFX();
 		coin->dispatchEvent(pickUp);
 		delete pickUp;
 		coin->visible = false;

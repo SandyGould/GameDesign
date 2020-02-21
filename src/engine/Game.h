@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "DisplayObjectContainer.h"
+#include "Sound.h"
 
 #include <vector>
 #include <set>
@@ -32,6 +33,8 @@ private:
 	void initSDL();
 	void quitSDL();
 	std::set<SDL_Scancode> pressedKeys;
+
+	Sound * bgm;
 	
 };
 

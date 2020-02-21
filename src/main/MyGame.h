@@ -9,6 +9,7 @@
 #include "../engine/things/Player.h"
 #include "../engine/QuestManager.h"
 #include "../engine/events/PickedUpEvent.h"
+#include "../engine/Sound.h"
 
 class MyGame : public Game {
 
@@ -31,6 +32,8 @@ private:
 	// DisplayObject* character;
 	Scene* scene;
 	Scene* scene2;
+
+	Sound* collect;
 };
 
 #endif
