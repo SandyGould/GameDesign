@@ -1,7 +1,9 @@
 #include "MyGame.h"
 #include <algorithm>
+#include <iostream>
 
 MyGame::MyGame() : Game(1200, 1000) {
+	
 	instance = this;
 
 	//scene = new Scene("scene1");
@@ -17,6 +19,12 @@ MyGame::MyGame() : Game(1200, 1000) {
 	camera->position = {600, 500};
 	instance->addChild(camera);
 	//allSprites->addChild(scene);
+
+	// set camera limits (so it doesn't go off map)
+	camera->setTopLimit(-150);
+	camera->setLeftLimit(0);
+	camera->setRightLimit(800);
+	camera->setBottomLimit(800);
 
 	scene = new Scene();
 	scene->loadScene("./resources/cameraDemo/loadScene.json");
@@ -48,27 +56,33 @@ MyGame::~MyGame() {
 
 void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
-		if (player->position.x < 120) {
+		if (player->position.x < 120 || (player->position.y >= 680 && player->position.x <= 1160)) {
 			player->position.x += 2;
-			camera->panRight(2);
+			camera->follow(-1 * player->position.x + 600, -1 * player->position.y + 500);
 		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
 		if (player->position.x > -140) {
 			player->position.x -= 2;
-			camera->panLeft(2);
+			camera->follow(-1 * player->position.x + 600, -1 * player->position.y + 500);
 		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-		player->position.y += 2;
-		camera->panDown(2);
+		if (player->position.y < 925) {
+			player->position.y += 2;
+			camera->follow(-1 * player->position.x + 600, -1 * player->position.y + 500);
+		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
-		player->position.y -= 2;
-		camera->panUp(2);
+		if (player->position.y > -750) {
+			if (player->position.x > 120 && player->position.y > 680 || player->position.x <= 120) {
+				player->position.y -= 2;
+				camera->follow(-1 * player->position.x + 600, -1 * player->position.y + 500);
+			}
+		}
 	}
 
-	// to test zoom
+	// to test zoom (delete for demo)
 	if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
 		camera->zoomIn(.1);
 	}

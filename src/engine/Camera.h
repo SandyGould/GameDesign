@@ -12,6 +12,12 @@ public:
 	int viewportWidth = 500;
 	int viewportHeight = 500;
 
+	// limit where the camera can move
+	void setRightLimit(int rightLimit);
+	void setLeftLimit(int leftLimit);
+	void setTopLimit(int topLimit);
+	void setBottomLimit(int bottomLimit);
+
 	// pan left and right by a certain factor
 	void panRight(int factor);
 	void panLeft(int factor);
@@ -22,10 +28,14 @@ public:
 	void zoomIn(double factor);
 	void zoomOut(double factor);
 
+	// custom function to make following a character a little easier/neater
+	void follow(int newX, int newY);
 
 private:
-
-	
+	int rightLimit;
+	int leftLimit;
+	int topLimit;
+	int bottomLimit;
 };
 
 #endif
