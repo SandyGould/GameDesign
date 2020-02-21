@@ -5,15 +5,13 @@
 #include <fstream>
 #include <iostream>
 #include <json.hpp>
+
 using json = nlohmann::json;
-// #include "../dist/json/json.h"
-
-
 
 Scene::Scene() : DisplayObjectContainer(){
     this->type = "Scene";
 }
-Scene::Scene(string id) : DisplayObjectContainer(){
+Scene::Scene(std::string id) : DisplayObjectContainer(){
     this->type = "Scene";
     this->id = id;
 }
@@ -22,7 +20,7 @@ Scene::Scene(string id) : DisplayObjectContainer(){
 // }
 
 	/* Load scene from a file */
-void Scene::loadScene(string sceneFilePath){
+void Scene::loadScene(std::string sceneFilePath){
     std::ifstream i(sceneFilePath);
     json j;
     i >> j;
@@ -43,7 +41,7 @@ void Scene::loadScene(string sceneFilePath){
         temp_do->position.x = j["DO"][z]["x_pos"];
         temp_do->position.y = j["DO"][z]["y_pos"];
         temp_do->rotation = j["DO"][z]["rotation"];
-        temp_do->scaleY = j["DO"][z]["scaleY"];
+        temp_do->scaleX = j["DO"][z]["scaleX"];
         temp_do->scaleY = j["DO"][z]["scaleY"];
         this->addChild(temp_do);
     }
@@ -54,7 +52,7 @@ void Scene::loadScene(string sceneFilePath){
         temp_asprite->position.x = j["ASprite"][z]["x_pos"];
         temp_asprite->position.y = j["ASprite"][z]["y_pos"];
         temp_asprite->rotation = j["ASprite"][z]["rotation"];
-        temp_asprite->scaleY = j["ASprite"][z]["scaleY"];
+        temp_asprite->scaleX = j["ASprite"][z]["scaleX"];
         temp_asprite->scaleY = j["ASprite"][z]["scaleY"];
         this->addChild(temp_asprite);
         temp_asprite->play(j["ASprite"][z]["animName"]);
@@ -62,22 +60,16 @@ void Scene::loadScene(string sceneFilePath){
     for(int z = 0; z < j["Sprite"].size(); z++){
         // std::cout << j["Sprite"][z] << endl;
         Sprite* temp_sprite = new Sprite(j["Sprite"][z]["name"], j["Sprite"][z]["filepath"]);
+        temp_sprite->position.x = j["Sprite"][z]["x_pos"];
+        temp_sprite->position.y = j["Sprite"][z]["y_pos"];
+        temp_sprite->rotation = j["Sprite"][z]["rotation"];
+        temp_sprite->scaleX = j["Sprite"][z]["scaleX"];
+        temp_sprite->scaleY = j["Sprite"][z]["scaleY"];
         this->addChild(temp_sprite);
     }
-    // Json::Value scene_info;
-	// //Json::Reader reader;
-
-    // root = new DisplayObjectContainer();
-
-    // ifstream scene_file(sceneFilePath, ifstream::binary);
-    // scene_file >> scene_info;
-    // for(int x = 0; x < this->children.size();x++){
-    //     std::cout << children[x]->id << endl;
-    // }
-    
 }
 
-void Scene::update(set<SDL_Scancode> pressedKeys){
+void Scene::update(std::set<SDL_Scancode> pressedKeys){
     DisplayObjectContainer::update(pressedKeys);
 }
 void Scene::draw(AffineTransform &at){
