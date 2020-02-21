@@ -10,6 +10,7 @@
 #include "../engine/things/Player.h"
 #include "../engine/QuestManager.h"
 #include "../engine/events/PickedUpEvent.h"
+#include "../engine/Sound.h"
 
 
 class MyGame : public Game {
@@ -24,6 +25,7 @@ public:
 private:
 
 	Camera* camera;
+	bool inZone = false;
 
 	Player* player;
 	Coin* coin;
@@ -33,6 +35,8 @@ private:
 	// DisplayObject* character;
 	Scene* scene;
 	Scene* scene2;
+
+	Sound* collect;
 };
 
 #endif

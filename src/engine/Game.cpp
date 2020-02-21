@@ -16,11 +16,15 @@ Game::Game(int windowWidth, int windowHeight) {
 	this->windowWidth = windowWidth;
 	this->windowHeight = windowHeight;
 
+	bgm = new Sound();
+	bgm->setMusic("./resources/music/alexander-nakarada-tranquil-fields-tense.ogg");
+
 	initSDL();
 	TTF_Init();
 }
 
 Game::~Game() {
+	bgm->quitSounds();
 	quitSDL();
 }
 
@@ -33,7 +37,7 @@ void Game::quitSDL() {
 }
 
 void Game::initSDL() {
-	SDL_Init(SDL_INIT_VIDEO);
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 	IMG_Init(IMG_INIT_PNG);
 
 	window = SDL_CreateWindow("Rebound",
@@ -53,6 +57,7 @@ void Game::start() {
 	bool quit = false;
 	SDL_Event event;
 
+	bgm->playMusic();
 	while (!quit) {
 		auto end = steady_clock::now();
 		milliseconds duration = duration_cast<milliseconds>(end - start);
@@ -76,6 +81,7 @@ void Game::start() {
 			break;
 		}
 	}
+	bgm->pauseMusic();
 }
 
 void Game::update(std::set<SDL_Scancode> pressedKeys) {

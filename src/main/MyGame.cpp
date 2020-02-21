@@ -1,7 +1,9 @@
 #include "MyGame.h"
 #include <algorithm>
+#include <iostream>
 
 MyGame::MyGame() : Game(1200, 1000) {
+	
 	instance = this;
 
 	//scene = new Scene("scene1");
@@ -10,13 +12,23 @@ MyGame::MyGame() : Game(1200, 1000) {
 	//scene2->loadScene("./resources/scene/test2.json");
 
 	camera = new Camera();
+	// inZone = true;
 
 	questManager = new QuestManager();
+
+	collect = new Sound();
+	collect->setSFX("./resources/sounds/Fruit collect 1.wav");
 	
 	// move that point to the middle
 	camera->position = {600, 500};
 	instance->addChild(camera);
 	//allSprites->addChild(scene);
+
+	// set camera limits (so it doesn't go off map)
+	camera->setTopLimit(-50);
+	camera->setLeftLimit(0);
+	camera->setRightLimit(800);
+	camera->setBottomLimit(830);
 
 	scene = new Scene();
 	scene->loadScene("./resources/cameraDemo/loadScene.json");
@@ -43,29 +55,58 @@ MyGame::MyGame() : Game(1200, 1000) {
 }
 
 MyGame::~MyGame() {
+	collect->quitSounds();
 }
 
 
 void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
+	if (player->position.y > -50 && player->position.y < 50){
+		if(!inZone){
+			inZone = true;
+			// std::cout << "zoom in" << std::endl;
+			camera->zoomIn(2);
+		}
+	}
+	else{
+		if(inZone){
+			// std::cout << "zoom out" << std::endl;
+			inZone = false;
+			camera->zoomOut(2);
+		}
+	}
 	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
-		if (player->position.x < 120) {
-			player->position.x += 2;
-			camera->position.x -= 2;
+		if (player->position.x < 120 || (player->position.y >= 680 && player->position.x <= 1160)) {
+			player->position.x += 5;
+			camera->follow(-1 * camera->scaleX * player->position.x + 600, -1 * camera->scaleY * player->position.y + 500);
 		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
 		if (player->position.x > -140) {
-			player->position.x -= 2;
-			camera->position.x += 2;
+			player->position.x -= 5;
+			camera->follow(-1 * camera->scaleX * player->position.x + 600, -1 * camera->scaleY *player->position.y + 500);
 		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-		player->position.y += 2;
-		camera->position.y -= 2;
+		if (player->position.y < 925) {
+			player->position.y += 5;
+			camera->follow(-1 *camera->scaleX* player->position.x + 600, -1 *camera->scaleY *  player->position.y + 500);
+		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
-		player->position.y -= 2;
-		camera->position.y += 2;
+		if (player->position.y > -750) {
+			if ((player->position.x> 120 && player->position.y> 680) || player->position.x <= 120) {
+				player->position.y -= 5;
+				camera->follow(-1 * camera->scaleX * player->position.x + 600, -1 * camera->scaleY * player->position.y + 500);
+			}
+		}
+	}
+
+	// to test zoom (delete for demo)
+	if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
+		camera->zoomIn(1.1);
+	}
+	if (pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) {
+		camera->zoomOut(1.1);
 	}
 
 	if (player->position.x - player->pivot.x < coin->position.x - coin->pivot.x + coin->width &&
@@ -74,6 +115,7 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 		player->position.y - player->pivot.y + player-> height > coin->position.y - coin->pivot.y &&
 		coin->visible){
 			Event* pickUp = new Event(PickedUpEvent::COIN_PICKED_UP, coin);
+			collect->playSFX();
 			coin->dispatchEvent(pickUp);
 			delete pickUp;
 			coin->visible = false;
