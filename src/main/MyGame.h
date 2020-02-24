@@ -9,11 +9,13 @@
 #include "../engine/things/Player.h"
 #include "../engine/QuestManager.h"
 #include "../engine/events/PickedUpEvent.h"
+#include "../engine/Scene.h"
 
 class MyGame : public Game {
 
 public:
 	MyGame();
+	MyGame(string sceneToLoad);
 	virtual ~MyGame();
 
 	void update(std::set<SDL_Scancode> pressedKeys) override;
@@ -21,8 +23,7 @@ public:
 
 private:
 	
-	Player* player;
-	Coin* coin;
+	Scene* curScene;
 
 	DisplayObjectContainer* allSprites;
 
