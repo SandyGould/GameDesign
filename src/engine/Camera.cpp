@@ -37,26 +37,26 @@ void Camera::setBottomLimit(int bottomLimit) {
 }
 
 void Camera::panRight(int factor) {
-    if (this->position.x - factor >= this->leftLimit) {
-        this->position.x -= factor;
+    if (this->pivot.x - factor >= this->leftLimit) {
+        this->pivot.x -= factor;
     }
 }
 
 void Camera::panLeft(int factor) {
-    if (this->position.x + factor <= this->rightLimit) {
-        this->position.x += factor;
+    if (this->pivot.x + factor <= this->rightLimit) {
+        this->pivot.x += factor;
     }
 }
 
 void Camera::panUp(int factor) {
-    if (this->position.y + factor <= this->bottomLimit) {
-        this->position.y += factor;
+    if (this->pivot.y + factor <= this->bottomLimit) {
+        this->pivot.y += factor;
     }
 }
 
 void Camera::panDown(int factor) {
-    if (this->position.y - factor >= this->topLimit) {
-        this->position.y -= factor;
+    if (this->pivot.y - factor >= this->topLimit) {
+        this->pivot.y -= factor;
     }
 }
 	
@@ -74,9 +74,36 @@ void Camera::zoomOut(double factor) {
 
 void Camera::follow(int newX, int newY) {
     if (newX >= leftLimit * scaleX && newX <= rightLimit *scaleX) {
-        this->position.x = newX;
+        this->pivot.x = newX;
     }
     if (newY >= topLimit *scaleY && newY <= bottomLimit * scaleY) {
-        this->position.y = newY;
+        this->pivot.y = newY;
     }
+}
+
+// void Camera::applyTransformations(AffineTransform& at) {
+// 	at.scale(scaleX, scaleY);
+// 	at.rotate(rotation);
+//     at.translate(position.x, position.y);
+// 	at.translate(-pivot.x, -pivot.y);
+// }
+
+// void Camera::reverseTransformations(AffineTransform& at) {
+// 	at.translate(pivot.x, pivot.y);
+//     at.translate(-position.x, -position.y);
+// 	at.rotate(-rotation);
+// 	at.scale(1.0/scaleX, 1.0/scaleY);
+// }
+
+void Camera::draw(AffineTransform& at) {
+    // DisplayObject::draw(at);
+    applyTransformations(at);
+    // undo the parent's pivot
+    // at.translate(pivot.x, pivot.y);
+    for (auto child : children) {
+        child->draw(at);
+    }
+    // redo the parent's pivot
+    // at.translate(-pivot.x, -pivot.y);
+    reverseTransformations(at);
 }

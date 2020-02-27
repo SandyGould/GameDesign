@@ -22,8 +22,10 @@ MyGame::MyGame(string sceneToLoad) : Game(1200, 1000){
 	camera = new Camera();
 	printf("new camera\n");
 	camera->position = {600, 500};
+	camera->pivot = {600, 500};
 	printf("Camera position set\n");
 	instance->addChild(camera);
+	
 	printf("instance added child\n");
 	camera->setTopLimit(-50);
 	camera->setLeftLimit(0);
@@ -49,7 +51,7 @@ MyGame::MyGame(string sceneToLoad) : Game(1200, 1000){
 	curScene->addChild(crosshair);
 	printf("Scene added crosshair\n");
 
-	//player_proto = new Player();
+	//crosshair_proto = new crosshair();
 
 	//for(int z = 0; z < j["Sprite"].size(); z++){
         // std::cout << j["Sprite"][z] << endl;
@@ -79,22 +81,45 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
 		if (crosshair->position.x < 120 || (crosshair->position.y >= 680 && crosshair->position.x <= 1160)) {
 			crosshair->position.x += 5;
-			camera->follow(-1 * camera->scaleX * crosshair->position.x + 600, -1 * camera->scaleY * crosshair->position.y + 500);
+			// camera->follow(-1 * camera->scaleX * crosshair->position.x + 600, -1 * camera->scaleY * crosshair->position.y + 500);
 		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
 		if (crosshair->position.x > -140) {
 			crosshair->position.x -= 5;
-			camera->follow(-1 * camera->scaleX * crosshair->position.x + 600, -1 * camera->scaleY *crosshair->position.y + 500);
+			// camera->follow(-1 * camera->scaleX * crosshair->position.x + 600, -1 * camera->scaleY *crosshair->position.y + 500);
 		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
 		if (crosshair->position.y < 925) {
 			crosshair->position.y += 5;
-			camera->follow(-1 *camera->scaleX* crosshair->position.x + 600, -1 *camera->scaleY *  crosshair->position.y + 500);
+			// camera->follow(-1 *camera->scaleX* crosshair->position.x + 600, -1 *camera->scaleY *  crosshair->position.y + 500);
 		}
 	}
-	
+	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
+		if (crosshair->position.y > -750) {
+			if ((crosshair->position.x> 120 && crosshair->position.y> 680) || crosshair->position.x <= 120) {
+				crosshair->position.y -= 5;
+				// camera->follow(-1 * camera->scaleX * crosshair->position.x + 600, -1 * camera->scaleY * crosshair->position.y + 500);
+			}
+		}
+	}
+	camera->follow(crosshair->position.x, crosshair->position.y);
+	// camera->pivot.y = crosshair->position.y;
+	// to test zoom (delete for demo)
+	if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
+		camera->zoomIn(1.1);
+	}
+	if (pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) {
+		camera->zoomOut(1.1);
+	}
+
+	if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
+		camera->zoomIn(1.1);
+	}
+	if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
+		camera->zoomOut(1.1);
+	}
 	if (pressedKeys.find(SDL_SCANCODE_TAB) != pressedKeys.end()) {
 		if(hasChild == false)
 		{
