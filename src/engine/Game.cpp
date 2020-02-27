@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL_ttf.h>
 
+#include <iostream>
 #include <chrono>
 
 using namespace std::chrono;
@@ -63,17 +64,22 @@ void Game::start() {
 			this->draw(at);
 		}
 
-		SDL_PollEvent(&event);
-		switch (event.type) {
-		case SDL_QUIT:
-			quit = true;
-			break;
-		case SDL_KEYDOWN:
-			pressedKeys.insert(event.key.keysym.scancode);
-			break;
-		case SDL_KEYUP:
-			this->pressedKeys.erase(event.key.keysym.scancode);
-			break;
+		// While there are events to process:
+		while (SDL_PollEvent(&event)) {
+			switch (event.type) {
+			case SDL_QUIT:
+				quit = true;
+				break;
+			case SDL_KEYDOWN:
+				pressedKeys.insert(event.key.keysym.scancode);
+				break;
+			case SDL_KEYUP:
+				this->pressedKeys.erase(event.key.keysym.scancode);
+				break;
+			case SDL_MOUSEBUTTONUP:
+				std::cout << event.button.x << ", " << event.button.y << std::endl;
+				break;
+			}
 		}
 	}
 }
