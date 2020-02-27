@@ -21,6 +21,8 @@ MyGame::MyGame() : Game(1200, 1000) {
 	
 	// move that point to the middle
 	camera->position = {600, 500};
+	camera->pivot = {600, 500};
+
 	instance->addChild(camera);
 	//allSprites->addChild(scene);
 
@@ -32,6 +34,8 @@ MyGame::MyGame() : Game(1200, 1000) {
 
 	scene = new Scene();
 	scene->loadScene("./resources/cameraDemo/loadScene.json");
+
+	// scene->position = {600, 800};
 
 	camera->addChild(scene);
 
@@ -77,35 +81,43 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
 		if (player->position.x < 120 || (player->position.y >= 680 && player->position.x <= 1160)) {
 			player->position.x += 5;
-			camera->follow(-1 * camera->scaleX * player->position.x + 600, -1 * camera->scaleY * player->position.y + 500);
+			// camera->follow(-1 * camera->scaleX * player->position.x + 600, -1 * camera->scaleY * player->position.y + 500);
 		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
 		if (player->position.x > -140) {
 			player->position.x -= 5;
-			camera->follow(-1 * camera->scaleX * player->position.x + 600, -1 * camera->scaleY *player->position.y + 500);
+			// camera->follow(-1 * camera->scaleX * player->position.x + 600, -1 * camera->scaleY *player->position.y + 500);
 		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
 		if (player->position.y < 925) {
 			player->position.y += 5;
-			camera->follow(-1 *camera->scaleX* player->position.x + 600, -1 *camera->scaleY *  player->position.y + 500);
+			// camera->follow(-1 *camera->scaleX* player->position.x + 600, -1 *camera->scaleY *  player->position.y + 500);
 		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
 		if (player->position.y > -750) {
 			if ((player->position.x> 120 && player->position.y> 680) || player->position.x <= 120) {
 				player->position.y -= 5;
-				camera->follow(-1 * camera->scaleX * player->position.x + 600, -1 * camera->scaleY * player->position.y + 500);
+				// camera->follow(-1 * camera->scaleX * player->position.x + 600, -1 * camera->scaleY * player->position.y + 500);
 			}
 		}
 	}
-
+	camera->follow(player->position.x, player->position.y);
+	// camera->pivot.y = player->position.y;
 	// to test zoom (delete for demo)
 	if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
 		camera->zoomIn(1.1);
 	}
 	if (pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) {
+		camera->zoomOut(1.1);
+	}
+
+	if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
+		camera->zoomIn(1.1);
+	}
+	if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
 		camera->zoomOut(1.1);
 	}
 
