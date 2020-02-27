@@ -1,20 +1,42 @@
 #ifndef CAMERA_H
 #define CAMERA_H
+#include "DisplayObjectContainer.h"
 
-class Camera{ 
+#include "DisplayObjectContainer.h"
+
+class Camera : public DisplayObjectContainer { 
 
 public:
 	Camera();
 	~Camera();
 
-	int x = 0;
-	int y = 0;
 	int viewportWidth = 500;
 	int viewportHeight = 500;
 
-private:
+	// limit where the camera can move
+	void setRightLimit(int rightLimit);
+	void setLeftLimit(int leftLimit);
+	void setTopLimit(int topLimit);
+	void setBottomLimit(int bottomLimit);
 
+	// pan left and right by a certain factor
+	void panRight(int factor);
+	void panLeft(int factor);
+	void panUp(int factor);
+	void panDown(int factor);
 	
+	// zoom in and out by a certain factor
+	void zoomIn(double factor);
+	void zoomOut(double factor);
+
+	// custom function to make following a character a little easier/neater
+	void follow(int newX, int newY);
+
+private:
+	int rightLimit;
+	int leftLimit;
+	int topLimit;
+	int bottomLimit;
 };
 
 #endif
