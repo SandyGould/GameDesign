@@ -11,6 +11,9 @@
 #include "../engine/QuestManager.h"
 #include "../engine/events/PickedUpEvent.h"
 #include "../engine/Sound.h"
+#include "../tweens/Tween.h"
+#include "../tweens/TweenJuggler.h"
+#include "../tweens/TweenEvent.h"
 
 
 class MyGame : public Game {
