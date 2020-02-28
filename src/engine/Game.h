@@ -34,6 +34,8 @@ private:
 	void quitSDL();
 	std::unordered_set<SDL_Scancode> pressedKeys;
 
+	bool isDragging;
+
 };
 
 #endif

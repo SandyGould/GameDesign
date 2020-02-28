@@ -19,6 +19,8 @@ Game::Game(int windowWidth, int windowHeight) {
 	this->windowWidth = windowWidth;
 	this->windowHeight = windowHeight;
 
+	this->isDragging = false;
+
 	initSDL();
 	TTF_Init();
 }
@@ -78,10 +80,17 @@ void Game::start() {
 			case SDL_KEYUP:
 				this->pressedKeys.erase(event.key.keysym.scancode);
 				break;
+			case SDL_MOUSEBUTTONDOWN:
+				this->isDragging = true;
+				break;
 			case SDL_MOUSEBUTTONUP:
-				MouseEvent* mouseEvent = new MouseEvent(this, event.button.x, event.button.y, event.button.button, event.button.clicks);
-				this->dispatchEvent(mouseEvent);
-				std::cout << event.button.x << ", " << event.button.y << std::endl;
+				this->dispatchEvent(new MouseEvent(this, event.button.x, event.button.y, event.button.button, event.button.clicks));
+				this->isDragging = false;
+				break;
+			case SDL_MOUSEMOTION:
+				if (this->isDragging) {
+					std::cout << event.motion.x << ", " << event.motion.y << std::endl;
+				}
 				break;
 			}
 		}
