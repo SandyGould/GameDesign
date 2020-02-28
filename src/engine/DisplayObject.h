@@ -70,6 +70,9 @@ private:
 
 	/* Texture currently being drawn. Equal to texture for normal DO */
 	SDL_Texture* curTexture;
+
+	// FIXME: Probably a very dirty hack please find a better way to grab global coords in handleEvent
+	SDL_Rect dstrect;
 };
 
 #endif

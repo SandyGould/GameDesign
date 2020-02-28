@@ -73,7 +73,7 @@ void DisplayObject::draw(AffineTransform& at) {
 		int w = (int)distance(origin, upperRight);
 		int h = (int)distance(upperRight, lowerRight);
 
-		SDL_Rect dstrect = { origin.x, origin.y, w, h };
+		this->dstrect = { origin.x, origin.y, w, h };
 
 		SDL_RendererFlip flip;
 		if (facingRight) {
@@ -93,7 +93,10 @@ void DisplayObject::draw(AffineTransform& at) {
 void DisplayObject::handleEvent(Event* e) {
 	if (e->getType() == MouseEvent::MOUSE_EVENT) {
 		MouseEvent* event = static_cast<MouseEvent*>(e);
-		std::cout << this->id << " handling a mouse event at (" << event->x << ", " << event->y << ")" << std::endl;
+		if (this->dstrect.x <= event->x && event->x <= this->dstrect.x + this->dstrect.w &&
+			this->dstrect.y <= event->y && event->y <= this->dstrect.y + this->dstrect.h) {
+			std::cout << this->id << " handling a mouse event at (" << event->x << ", " << event->y << ")" << std::endl;
+		}
 	}
 }
 
