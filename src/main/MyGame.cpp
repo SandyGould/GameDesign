@@ -152,7 +152,6 @@ void MyGame::copyDisplayObject(DisplayObject *newobj, DisplayObject *oldobj) {
 	//all_objects.addChild(coin_proto);
 	//Player *player_proto = new Player();
 	//all_objects.addChild(player_proto);
-
 }
 
 MyGame::~MyGame() {
@@ -175,77 +174,91 @@ void MyGame::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 		}
 	}
 	*/
+
+	//Move
 	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
-		if (crosshair->position.x < 120 || (crosshair->position.y >= 680 && crosshair->position.x <= 1160)) {
-			crosshair->position.x += 5;
-			// camera->follow(-1 * camera->scaleX * crosshair->position.x + 600, -1 * camera->scaleY * crosshair->position.y + 500);
-		}
+		crosshair->position.x += 5;
 	}
 	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
-		if (crosshair->position.x > -140) {
-			crosshair->position.x -= 5;
-			// camera->follow(-1 * camera->scaleX * crosshair->position.x + 600, -1 * camera->scaleY *crosshair->position.y + 500);
-		}
+		crosshair->position.x -= 5;
 	}
 	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-		if (crosshair->position.y < 925) {
-			crosshair->position.y += 5;
-			// camera->follow(-1 *camera->scaleX* crosshair->position.x + 600, -1 *camera->scaleY *  crosshair->position.y + 500);
-		}
+		crosshair->position.y += 5;
 	}
 	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
-		if (crosshair->position.y > -750) {
-			if ((crosshair->position.x> 120 && crosshair->position.y> 680) || crosshair->position.x <= 120) {
-				crosshair->position.y -= 5;
-				// camera->follow(-1 * camera->scaleX * crosshair->position.x + 600, -1 * camera->scaleY * crosshair->position.y + 500);
-			}
-		}
+		crosshair->position.y -= 5;
 	}
+
 	camera->follow(crosshair->position.x, crosshair->position.y);
+
 	// camera->pivot.y = crosshair->position.y;
-	// to test zoom (delete for demo)
-	if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
+
+	// Zoom
+	if (pressedKeys.find(SDL_SCANCODE_X) != pressedKeys.end()) {
 		camera->zoomIn(1.1);
 	}
-	if (pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) {
+	if (pressedKeys.find(SDL_SCANCODE_Z) != pressedKeys.end()) {
 		camera->zoomOut(1.1);
 	}
 
-	if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
-		camera->zoomIn(1.1);
-	}
-	if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
-		camera->zoomOut(1.1);
-	}
 	if (pressedKeys.find(SDL_SCANCODE_TAB) != pressedKeys.end() && prevKeys.find(SDL_SCANCODE_TAB) == prevKeys.end()) {
 		if(grabbedObj == false)
 		{
-
-			if(obj_ind < all_sprites.size()-1)
-			{
-				printf("obj_ind == %d\n",obj_ind);
-				if(obj_ind > 0)
+			if(pressedKeys.find(SDL_SCANCODE_LSHIFT) != pressedKeys.end() || pressedKeys.find(SDL_SCANCODE_RSHIFT) != pressedKeys.end()){
+				if(obj_ind > 1)
 				{
+					printf("obj_ind == %d\n",obj_ind);
+
 					DisplayObject * myobjc = crosshair->getChild(0);
 					crosshair->removeImmediateChild(myobjc);
+
+					--obj_ind;
+					Sprite * newobj = new Sprite("newobject",all_sprites[obj_ind]);
+					//DisplayObject * childobj = all_objects.getChild(obj_ind);
+					//DisplayObject * newobj = new DisplayObject();
+					//copyDisplayObject(newobj,childobj);
+					crosshair->addChild(newobj);
+					hasChild = true;
 				}
-				obj_ind++;
-				Sprite * newobj = new Sprite("newobject",all_sprites[obj_ind]);
-				//DisplayObject * childobj = all_objects.getChild(obj_ind);
-				//DisplayObject * newobj = new DisplayObject();
-				//copyDisplayObject(newobj,childobj);
-				crosshair->addChild(newobj);
-				hasChild = true;
-
-
-
-			}
-			else
-			{
-				obj_ind = 0;
-				DisplayObject * myobjc = crosshair->getChild(0);
+				else
+				{
+					if(obj_ind == 1){
+						obj_ind = 0;
+						DisplayObject * myobjc = crosshair->getChild(0);
+						crosshair->removeImmediateChild(myobjc);
+						hasChild = false;
+					}else{
+						obj_ind = all_sprites.size()-1;
+						Sprite * newobj = new Sprite("newobject",all_sprites[obj_ind]);
+						crosshair->addChild(newobj);
+						hasChild = true;
+					}
+					
+				}
+			} else{
+				if(obj_ind < all_sprites.size()-1)
+				{
+					printf("obj_ind == %d\n",obj_ind);
+					if(obj_ind > 0)
+					{
+						DisplayObject * myobjc = crosshair->getChild(0);
+						crosshair->removeImmediateChild(myobjc);
+					}
+					obj_ind++;
+					Sprite * newobj = new Sprite("newobject",all_sprites[obj_ind]);
+					//DisplayObject * childobj = all_objects.getChild(obj_ind);
+					//DisplayObject * newobj = new DisplayObject();
+					//copyDisplayObject(newobj,childobj);
+					crosshair->addChild(newobj);
+					hasChild = true;
+				}
+				else
+				{
+					obj_ind = 0;
+					DisplayObject * myobjc = crosshair->getChild(0);
 					crosshair->removeImmediateChild(myobjc);
-				hasChild = false;
+					hasChild = false;
+				}
 			}
 		//	Coin * childcoin = new Coin();
 		//	crosshair->addChild(childcoin);
@@ -258,12 +271,23 @@ void MyGame::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 		//	hasChild = false;
 		//}
 	}
+
+	if (pressedKeys.find(SDL_SCANCODE_BACKSPACE) != pressedKeys.end()){
+		if(obj_ind != 0){
+			obj_ind = 0;
+			DisplayObject * myobjc = crosshair->getChild(0);
+			crosshair->removeImmediateChild(myobjc);
+			hasChild = false;
+		}
+	}
+
 	if (pressedKeys.find(SDL_SCANCODE_RETURN) != pressedKeys.end()) {
 		if(hasChild == true || grabbedObj == true)
 		{
 			DisplayObject* myobj = crosshair->getChild(0);
 			DisplayObject* newobj = new DisplayObjectContainer();
 			copyDisplayObject(newobj,myobj);
+			newobj->position = crosshair->position;
 			curScene->addChild(newobj);
 			crosshair->removeImmediateChild(myobj);
 			hasChild = false;
@@ -304,6 +328,60 @@ void MyGame::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 	}
 	*/
 
+	//Pivot
+	if (pressedKeys.find(SDL_SCANCODE_I) != pressedKeys.end()) {
+		heldPivot.y -= 5;
+	}
+	if (pressedKeys.find(SDL_SCANCODE_J) != pressedKeys.end()) {
+		heldPivot.x -= 5;
+	}
+	if (pressedKeys.find(SDL_SCANCODE_K) != pressedKeys.end()) {
+		heldPivot.y += 5;
+	}
+	if (pressedKeys.find(SDL_SCANCODE_L) != pressedKeys.end()) {
+		heldPivot.x += 5;
+	}
+	if (hasChild){
+		crosshair->getChild(0)->pivot = heldPivot;
+	}
+
+	//Rotation
+	if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
+		heldRotation -= 0.05;
+	}
+	if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
+		heldRotation += 0.05;
+	}
+	if (hasChild){
+		crosshair->getChild(0)->rotation = heldRotation;
+	}
+
+	//Scaling
+	if (pressedKeys.find(SDL_SCANCODE_MINUS) != pressedKeys.end()) {
+		heldScaleX -= 0.05;
+		heldScaleY -= 0.05;
+	}
+	if (pressedKeys.find(SDL_SCANCODE_EQUALS) != pressedKeys.end()) {
+		heldScaleX += 0.05;
+		heldScaleY += 0.05;
+	}
+	if (pressedKeys.find(SDL_SCANCODE_O) != pressedKeys.end()) {
+		heldScaleX -= 0.05;
+	}
+	if (pressedKeys.find(SDL_SCANCODE_P) != pressedKeys.end()) {
+		heldScaleX += 0.05;
+	}
+	if (pressedKeys.find(SDL_SCANCODE_LEFTBRACKET) != pressedKeys.end()) {
+		heldScaleY -= 0.05;
+	}
+	if (pressedKeys.find(SDL_SCANCODE_RIGHTBRACKET) != pressedKeys.end()) {
+		heldScaleY += 0.05;
+	}
+	if (hasChild){
+		crosshair->getChild(0)->scaleX = heldScaleX;
+		crosshair->getChild(0)->scaleY = heldScaleY;
+	}
+
 	// to test zoom (delete for demo)
 	if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end() && pressedKeys.find(SDL_SCANCODE_LCTRL) == pressedKeys.end() && pressedKeys.find(SDL_SCANCODE_RCTRL) == pressedKeys.end()) {
 		camera->zoomIn(1.1);
@@ -324,6 +402,22 @@ void MyGame::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 		string tmp;
 		cin >> tmp;
 		curScene->saveScene(tmp);
+	}
+
+	if (pressedKeys.find(SDL_SCANCODE_R) != pressedKeys.end()){
+		heldPosition = {0, 0};
+		heldPivot = {0, 0};
+		heldScaleX = 1.0;
+		heldScaleY = 1.0;
+		heldRotation = 0.0;
+		if (hasChild){
+			DisplayObject* tmp = crosshair->getChild(0);
+			tmp->position = heldPosition;
+			tmp->pivot = heldPivot;
+			tmp->scaleX = heldScaleX;
+			tmp->scaleY = heldScaleY;
+			tmp->rotation = heldRotation;
+		}
 	}
 
 	prevKeys = pressedKeys;

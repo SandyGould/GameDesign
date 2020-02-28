@@ -45,6 +45,12 @@ private:
 
 	AffineTransform atTest;
 
+	SDL_Point heldPosition = {0, 0};
+	SDL_Point heldPivot = {0, 0};
+	double heldScaleX = 1.0;
+	double heldScaleY = 1.0;
+	double heldRotation = 0.0;
+
 	//DisplayObjectContainer* allSprites;
 
 	QuestManager* questManager;
