@@ -1,6 +1,7 @@
 #include "Game.h"
 
-#include "events/MouseEvent.h"
+#include "events/ClickEvent.h"
+#include "events/DragEvent.h"
 
 #include <SDL2/SDL_ttf.h>
 
@@ -20,6 +21,8 @@ Game::Game(int windowWidth, int windowHeight) {
 
 	this->windowWidth = windowWidth;
 	this->windowHeight = windowHeight;
+
+	this->isDragging = false;
 
 	initSDL();
 	TTF_Init();
@@ -80,10 +83,18 @@ void Game::start() {
 			case SDL_KEYUP:
 				this->pressedKeys.erase(event.key.keysym.scancode);
 				break;
+			case SDL_MOUSEBUTTONDOWN:
+				this->isDragging = true;
+				break;
 			case SDL_MOUSEBUTTONUP:
-				MouseEvent* mouseEvent = new MouseEvent(this, event.button.x, event.button.y, event.button.button, event.button.clicks);
-				this->dispatchEvent(mouseEvent);
-				std::cout << event.button.x << ", " << event.button.y << std::endl;
+				this->dispatchEvent(new ClickEvent(this, event.button.x, event.button.y, event.button.button, event.button.clicks));
+				this->isDragging = false;
+				break;
+			case SDL_MOUSEMOTION:
+				if (this->isDragging) {
+					this->dispatchEvent(new DragEvent(this, event.motion.x, event.motion.y, event.motion.xrel, event.motion.yrel));
+					//std::cout << event.motion.x << ", " << event.motion.y << std::endl;
+				}
 				break;
 			}
 		}

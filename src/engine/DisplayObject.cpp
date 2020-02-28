@@ -1,6 +1,7 @@
 #include "DisplayObject.h"
 #include "Game.h"
-#include "events/MouseEvent.h"
+#include "events/ClickEvent.h"
+#include "events/DragEvent.h"
 
 #include <algorithm>
 #include <cmath>
@@ -113,11 +114,19 @@ void DisplayObject::draw(AffineTransform& at) {
 }
 
 void DisplayObject::handleEvent(Event* e) {
-	if (e->getType() == MouseEvent::MOUSE_EVENT) {
-		MouseEvent* event = static_cast<MouseEvent*>(e);
+	if (e->getType() == ClickEvent::CLICK_EVENT) {
+		ClickEvent* event = static_cast<ClickEvent*>(e);
 		if (this->dstrect.x <= event->x && event->x <= this->dstrect.x + this->dstrect.w &&
 			this->dstrect.y <= event->y && event->y <= this->dstrect.y + this->dstrect.h) {
 			std::cout << this->id << " handling a mouse event at (" << event->x << ", " << event->y << ")" << std::endl;
+		}
+	} else if (e->getType() == DragEvent::DRAG_EVENT) {
+		DragEvent* event = static_cast<DragEvent*>(e);
+		// Move the object to follow the mouse
+		if (this->dstrect.x <= event->x && event->x <= this->dstrect.x + this->dstrect.w &&
+			this->dstrect.y <= event->y && event->y <= this->dstrect.y + this->dstrect.h) {
+			this->position.x += event->xrel;
+			this->position.y += event->yrel;
 		}
 	}
 }
