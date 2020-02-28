@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "AnimatedSprite.h"
+#include "DisplayObjectContainer.h"
 #include <string>
 #include <vector>
 #include <fstream>
@@ -43,7 +44,7 @@ void Scene::loadScene(string sceneFilePath){
         temp_do->position.x = j["DO"][z]["x_pos"];
         temp_do->position.y = j["DO"][z]["y_pos"];
         temp_do->rotation = j["DO"][z]["rotation"];
-        temp_do->scaleY = j["DO"][z]["scaleY"];
+        temp_do->scaleX = j["DO"][z]["scaleX"];
         temp_do->scaleY = j["DO"][z]["scaleY"];
         this->addChild(temp_do);
     }
@@ -54,7 +55,7 @@ void Scene::loadScene(string sceneFilePath){
         temp_asprite->position.x = j["ASprite"][z]["x_pos"];
         temp_asprite->position.y = j["ASprite"][z]["y_pos"];
         temp_asprite->rotation = j["ASprite"][z]["rotation"];
-        temp_asprite->scaleY = j["ASprite"][z]["scaleY"];
+        temp_asprite->scaleX = j["ASprite"][z]["scaleX"];
         temp_asprite->scaleY = j["ASprite"][z]["scaleY"];
         this->addChild(temp_asprite);
         temp_asprite->play(j["ASprite"][z]["animName"]);
@@ -74,7 +75,41 @@ void Scene::loadScene(string sceneFilePath){
     // for(int x = 0; x < this->children.size();x++){
     //     std::cout << children[x]->id << endl;
     // }
+    
+}
 
+void Scene::saveScene(string sceneName){
+    std::ofstream o("./resources/scene/" + sceneName);
+    json DOA = json::array();
+    json DOCA = json::array();
+    json ASA = json::array();
+    json SA = json::array();
+    addToJSON(DOA, DOCA, ASA, SA, this);
+    json j = { {"DO", DOA}, {"DOC", DOCA}, {"ASprite", ASA}, {"Sprite", SA} };
+    o << j;
+}
+
+void Scene::addToJSON(json &DOA, json &DOCA, json &ASA, json &SA, DisplayObject* dObject){
+    //save stuff
+    if (dObject->type == "DisplayObject"){
+        //j["DO"].push_back({ {"name", dObject->id}, {"filepath", dObject->imgPath}, {"x_pos", dObject->position.x}, {"y_pos", dObject->position.y}, {"rotation", dObject->rotation}, {"scaleX", dObject->scaleX}, {"scaleY", dObject->scaleY}, {"parentId", dObject->parentId} });
+    } else if (dObject->type == "DisplayObjectContainer"){
+        cout << "trying" << endl;
+        //json temp = { {"name", dObject->id}, {"filepath", dObject->imgPath}, {"x_pos", dObject->position.x}, {"y_pos", dObject->position.y}, {"rotation", dObject->rotation}, {"scaleX", dObject->scaleX}, {"scaleY", dObject->scaleY}, {"parentId", dObject->parentId} };
+        cout << "really hard" << endl;
+        DOCA.push_back({ {"name", dObject->id}, {"filepath", dObject->imgPath}, {"x_pos", dObject->position.x}, {"y_pos", dObject->position.y}, {"rotation", dObject->rotation}, {"scaleX", dObject->scaleX}, {"scaleY", dObject->scaleY}, {"parentId", dObject->parentId} });
+    } else if (dObject->type == "Sprite"){
+        //j["Sprite"].push_back({ {"name", dObject->id}, {"filepath", dObject->imgPath}, {"x_pos", dObject->position.x}, {"y_pos", dObject->position.y}, {"rotation", dObject->rotation}, {"scaleX", dObject->scaleX}, {"scaleY", dObject->scaleY}, {"parentId", dObject->parentId} });
+    } else if (dObject->type == "AnimatedSprite"){
+        //j["Sprite"].push_back({ {"name", dObject->id}, {"filepath", dObject->imgPath}, {"x_pos", dObject->position.x}, {"y_pos", dObject->position.y}, {"rotation", dObject->rotation}, {"scaleX", dObject->scaleX}, {"scaleY", dObject->scaleY}, {"parentId", dObject->parentId} });
+    }
+
+    if(dObject->type != "DisplayObject"){
+        DisplayObjectContainer* temp = (DisplayObjectContainer*) dObject;
+        for (auto child : temp->children){
+            addToJSON(DOA, DOCA, ASA, SA, child);
+        }
+    }
 }
 
 void Scene::update(unordered_set<SDL_Scancode> pressedKeys){

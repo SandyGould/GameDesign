@@ -23,6 +23,7 @@ DisplayObjectContainer::~DisplayObjectContainer() {
 void DisplayObjectContainer::addChild(DisplayObject* child) {
     children.push_back(child);
     child->parent = this; // make sure to include reverse reference also
+    child->parentId = id;
 }
 
 void DisplayObjectContainer::removeImmediateChild(DisplayObject* child) {
