@@ -52,11 +52,6 @@ void MyGame::setupfiles(string path)
 MyGame::MyGame(string sceneToLoad) : Game(1200, 1000){
 	instance = this;
 	curScene = new Scene();
-
-	//To be uncommented when we have actual scenes to load
-	//This way is just easier to test for now
-
-	
 	
 	camera = new Camera();
 	printf("new camera\n");
@@ -313,6 +308,12 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 	//		allSprites->children.erase(std::remove(allSprites->children.begin(), allSprites->children.end(), scene2), allSprites->children.end());
 	//	}
 	//}
+
+	if (pressedKeys.find(SDL_SCANCODE_Y) != pressedKeys.end()) {
+		string tmp;
+		cin >> tmp;
+		curScene->saveScene(tmp);
+	}
 
 	
 	

@@ -1,12 +1,14 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+#include "DisplayObject.h"
 #include "DisplayObjectContainer.h"
 #include "Sprite.h"
 #include <string>
 #include <vector>
 #include <fstream>
-#include "../dist/json/json.h"
+//#include "../dist/json/json.h"
+#include "json.hpp"
 
 
 
@@ -22,6 +24,9 @@ public:
 
 	/* Load scene from a file */
 	void loadScene(string sceneFilePath);
+	void saveScene(string sceneName);
+	void addToJSON(nlohmann::json &DOA, nlohmann::json &DOCA, nlohmann::json &ASA, nlohmann::json &SA, DisplayObject* dObject);
+
 
 	virtual void update(set<SDL_Scancode> pressedKeys);
 	virtual void draw(AffineTransform &at);

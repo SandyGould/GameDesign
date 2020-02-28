@@ -20,6 +20,7 @@ public:
 	std::string type = "DisplayObject";
 
 	DisplayObject* parent = NULL;
+	std::string parentId = "";
 
 	int red = 0;
 	int green = 0;
