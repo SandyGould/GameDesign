@@ -425,7 +425,7 @@ void MyGame::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 
 void MyGame::draw(AffineTransform& at) {
 	SDL_RenderClear(Game::renderer);
-	SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+	SDL_SetRenderDrawColor(Game::renderer, 90, 90, 90, SDL_ALPHA_OPAQUE);
 	SDL_RenderDrawLine(Game::renderer, 600-crosshair->position.x, 0, 600-crosshair->position.x, 1000);
 	SDL_RenderDrawLine(Game::renderer, 0, 500-crosshair->position.y, 1200, 500-crosshair->position.y);
 	SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
