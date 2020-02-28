@@ -21,6 +21,7 @@ struct Animation {
 	int frameRate;
 	bool loop;
 	int curFrame;
+	std::string basepath;
 };
 
 class AnimatedSprite : public Sprite {
@@ -41,9 +42,10 @@ public:
 
 	bool playing = false;
 
-private:
-	Animation* current;
 	std::vector<Animation*> animations;
+	Animation* current;
+
+private:
 	int frameCount;
 };
 

@@ -29,6 +29,7 @@ void AnimatedSprite::addAnimation(std::string basepath, std::string animName, in
         frameRate,
         loop,
         0,
+        basepath
     };
     for (int i = 0; i < numFrames; i++) {
         Frame* f = new Frame();

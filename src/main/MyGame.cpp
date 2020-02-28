@@ -90,7 +90,7 @@ MyGame::MyGame(string sceneToLoad) : Game(1200, 1000){
 
 
 
-	curScene->addChild(crosshair);
+	camera->addChild(crosshair);
 	printf("Scene added crosshair\n");
 
 

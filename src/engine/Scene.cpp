@@ -92,16 +92,14 @@ void Scene::saveScene(string sceneName){
 void Scene::addToJSON(json &DOA, json &DOCA, json &ASA, json &SA, DisplayObject* dObject){
     //save stuff
     if (dObject->type == "DisplayObject"){
-        //j["DO"].push_back({ {"name", dObject->id}, {"filepath", dObject->imgPath}, {"x_pos", dObject->position.x}, {"y_pos", dObject->position.y}, {"rotation", dObject->rotation}, {"scaleX", dObject->scaleX}, {"scaleY", dObject->scaleY}, {"parentId", dObject->parentId} });
+        DOA.push_back({ {"name", dObject->id}, {"filepath", dObject->imgPath}, {"x_pos", dObject->position.x}, {"y_pos", dObject->position.y}, {"rotation", dObject->rotation}, {"scaleX", dObject->scaleX}, {"scaleY", dObject->scaleY}, {"parentId", dObject->parentId} });
     } else if (dObject->type == "DisplayObjectContainer"){
-        cout << "trying" << endl;
-        //json temp = { {"name", dObject->id}, {"filepath", dObject->imgPath}, {"x_pos", dObject->position.x}, {"y_pos", dObject->position.y}, {"rotation", dObject->rotation}, {"scaleX", dObject->scaleX}, {"scaleY", dObject->scaleY}, {"parentId", dObject->parentId} };
-        cout << "really hard" << endl;
         DOCA.push_back({ {"name", dObject->id}, {"filepath", dObject->imgPath}, {"x_pos", dObject->position.x}, {"y_pos", dObject->position.y}, {"rotation", dObject->rotation}, {"scaleX", dObject->scaleX}, {"scaleY", dObject->scaleY}, {"parentId", dObject->parentId} });
     } else if (dObject->type == "Sprite"){
-        //j["Sprite"].push_back({ {"name", dObject->id}, {"filepath", dObject->imgPath}, {"x_pos", dObject->position.x}, {"y_pos", dObject->position.y}, {"rotation", dObject->rotation}, {"scaleX", dObject->scaleX}, {"scaleY", dObject->scaleY}, {"parentId", dObject->parentId} });
+        SA.push_back({ {"name", dObject->id}, {"filepath", dObject->imgPath}, {"x_pos", dObject->position.x}, {"y_pos", dObject->position.y}, {"rotation", dObject->rotation}, {"scaleX", dObject->scaleX}, {"scaleY", dObject->scaleY}, {"parentId", dObject->parentId} });
     } else if (dObject->type == "AnimatedSprite"){
-        //j["Sprite"].push_back({ {"name", dObject->id}, {"filepath", dObject->imgPath}, {"x_pos", dObject->position.x}, {"y_pos", dObject->position.y}, {"rotation", dObject->rotation}, {"scaleX", dObject->scaleX}, {"scaleY", dObject->scaleY}, {"parentId", dObject->parentId} });
+        Animation* temp = ((AnimatedSprite*) dObject)->current;
+        ASA.push_back({ {"name", dObject->id}, {"basepath", temp->basepath}, {"animName", temp->animName}, {"numFrames", temp->numFrames}, {"frameRate", temp->frameRate}, {"loop", temp->loop}, {"x_pos", dObject->position.x}, {"y_pos", dObject->position.y}, {"rotation", dObject->rotation}, {"scaleX", dObject->scaleX}, {"scaleY", dObject->scaleY}, {"parentId", dObject->parentId} });
     }
 
     if(dObject->type != "DisplayObject"){
