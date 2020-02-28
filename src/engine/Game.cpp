@@ -15,6 +15,8 @@ unsigned int Game::frameCounter = 0;
 
 Game::Game(int windowWidth, int windowHeight) {
 	Game::instance = this;
+	
+	this->type = "Game";
 
 	this->windowWidth = windowWidth;
 	this->windowHeight = windowHeight;

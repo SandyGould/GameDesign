@@ -43,6 +43,8 @@ private:
 	Crosshair* crosshair;
 	Scene* curScene;
 
+	AffineTransform atTest;
+
 	//DisplayObjectContainer* allSprites;
 
 	QuestManager* questManager;

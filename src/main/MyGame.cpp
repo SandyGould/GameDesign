@@ -63,10 +63,10 @@ MyGame::MyGame(string sceneToLoad) : Game(1200, 1000){
 	instance->addChild(camera);
 
 	printf("instance added child\n");
-	camera->setTopLimit(-50);
-	camera->setLeftLimit(0);
-	camera->setRightLimit(800);
-	camera->setBottomLimit(830);
+	//camera->setTopLimit(-50);
+	//camera->setLeftLimit(0);
+	//camera->setRightLimit(800);
+	//camera->setBottomLimit(830);
 
 	curScene->loadScene(sceneToLoad);
 	printf("Loaded scene\n");
@@ -296,26 +296,22 @@ void MyGame::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 	}
 
 	// to test zoom (delete for demo)
-	if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
+	if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end() && pressedKeys.find(SDL_SCANCODE_LCTRL) == pressedKeys.end() && pressedKeys.find(SDL_SCANCODE_RCTRL) == pressedKeys.end()) {
 		camera->zoomIn(1.1);
 	}
 	if (pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) {
 		camera->zoomOut(1.1);
 	}
 
+	
+	if (pressedKeys.find(SDL_SCANCODE_P) != pressedKeys.end()) {
+		if (crosshair != NULL){
+			SDL_Point tempPoint = crosshair->getGlobalPosition(atTest);
+			cout << tempPoint.x << ", " << tempPoint.y << endl;
+		}
+	}
 
-	//if (pressedKeys.find(SDL_SCANCODE_P) != pressedKeys.end()) {
-	//	if(allSprites->getChild("scene1") != NULL){
-	//		allSprites->addChild(scene2);
-	//		allSprites->children.erase(std::remove(allSprites->children.begin(), allSprites->children.end(), scene), allSprites->children.end());
-	//	}
-	//	else if(allSprites->getChild("scene2") != NULL){
-	//		allSprites->addChild(scene);
-	//		allSprites->children.erase(std::remove(allSprites->children.begin(), allSprites->children.end(), scene2), allSprites->children.end());
-	//	}
-	//}
-
-	if (pressedKeys.find(SDL_SCANCODE_Y) != pressedKeys.end()) {
+	if ((pressedKeys.find(SDL_SCANCODE_LCTRL) != pressedKeys.end() || pressedKeys.find(SDL_SCANCODE_RCTRL) != pressedKeys.end()) && pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
 		string tmp;
 		cin >> tmp;
 		curScene->saveScene(tmp);
