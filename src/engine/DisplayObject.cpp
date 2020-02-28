@@ -1,5 +1,6 @@
 #include "DisplayObject.h"
 #include "Game.h"
+#include "events/MouseEvent.h"
 
 #include <algorithm>
 #include <cmath>
@@ -87,6 +88,13 @@ void DisplayObject::draw(AffineTransform& at) {
 	}
 
 	reverseTransformations(at);
+}
+
+void DisplayObject::handleEvent(Event* e) {
+	if (e->getType() == MouseEvent::MOUSE_EVENT) {
+		MouseEvent* event = static_cast<MouseEvent*>(e);
+		std::cout << this->id << " handling a mouse event at (" << event->x << ", " << event->y << ")" << std::endl;
+	}
 }
 
 void DisplayObject::applyTransformations(AffineTransform& at) {

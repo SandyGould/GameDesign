@@ -1,5 +1,7 @@
 #include "MyGame.h"
 
+//#include "../engine/events/MouseEvent.h"
+
 #include <iostream>
 
 using namespace std;
@@ -68,6 +70,10 @@ MyGame::MyGame(string sceneToLoad) : Game(1200, 1000){
 
 	curScene->loadScene(sceneToLoad);
 	printf("Loaded scene\n");
+
+	for (const auto& object : curScene->children) {
+		this->addEventListener(object, "mouse_event"); // TODO: Why doesn't including MouseEvent work
+	}
 	camera->addChild(curScene);
 	printf("Camera added scene\n");
 	cout << sceneToLoad << endl;

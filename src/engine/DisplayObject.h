@@ -12,7 +12,7 @@
 #include <string>
 #include <vector>
 
-class DisplayObject {
+class DisplayObject : public EventListener {
 
 public:
 	std::string id = "DEFAULT_ID";
@@ -36,6 +36,8 @@ public:
 
 	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys);
 	virtual void draw(AffineTransform& at);
+
+	void handleEvent(Event* e) override;
 
 	void loadTexture(std::string filepath);
 	void loadRGBTexture(int red, int green, int blue);
