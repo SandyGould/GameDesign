@@ -107,7 +107,6 @@ void Game::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 }
 
 void Game::draw(AffineTransform& at) {
-	SDL_RenderClear(Game::renderer);
 	DisplayObjectContainer::draw(at);
 	SDL_RenderPresent(Game::renderer);
 }
