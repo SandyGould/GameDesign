@@ -1,6 +1,7 @@
 #include "Game.h"
 
 #include "events/ClickEvent.h"
+#include "events/DragEvent.h"
 
 #include <SDL2/SDL_ttf.h>
 
@@ -89,7 +90,8 @@ void Game::start() {
 				break;
 			case SDL_MOUSEMOTION:
 				if (this->isDragging) {
-					std::cout << event.motion.x << ", " << event.motion.y << std::endl;
+					this->dispatchEvent(new DragEvent(this, event.motion.x, event.motion.y, event.motion.xrel, event.motion.yrel));
+					//std::cout << event.motion.x << ", " << event.motion.y << std::endl;
 				}
 				break;
 			}

@@ -100,9 +100,11 @@ void DisplayObject::handleEvent(Event* e) {
 		}
 	} else if (e->getType() == DragEvent::DRAG_EVENT) {
 		DragEvent* event = static_cast<DragEvent*>(e);
+		// Move the object to follow the mouse
 		if (this->dstrect.x <= event->x && event->x <= this->dstrect.x + this->dstrect.w &&
 			this->dstrect.y <= event->y && event->y <= this->dstrect.y + this->dstrect.h) {
-			// todo
+			this->position.x += event->xrel;
+			this->position.y += event->yrel;
 		}
 	}
 }
