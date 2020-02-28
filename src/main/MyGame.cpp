@@ -159,6 +159,7 @@ MyGame::~MyGame() {
 }
 
 void MyGame::update(std::unordered_set<SDL_Scancode> pressedKeys) {
+	/*
 	if (crosshair->position.y > -50 && crosshair->position.y < 50){
 		if(!inZone){
 			inZone = true;
@@ -173,6 +174,7 @@ void MyGame::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 			camera->zoomOut(2);
 		}
 	}
+	*/
 	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
 		if (crosshair->position.x < 120 || (crosshair->position.y >= 680 && crosshair->position.x <= 1160)) {
 			crosshair->position.x += 5;
@@ -287,7 +289,7 @@ void MyGame::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 
 	}
 
-
+	/*
 	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
 		if (crosshair->position.y > -750) {
 			if ((crosshair->position.x> 120 && crosshair->position.y> 680) || crosshair->position.x <= 120) {
@@ -296,6 +298,7 @@ void MyGame::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 			}
 		}
 	}
+	*/
 
 	// to test zoom (delete for demo)
 	if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end() && pressedKeys.find(SDL_SCANCODE_LCTRL) == pressedKeys.end() && pressedKeys.find(SDL_SCANCODE_RCTRL) == pressedKeys.end()) {
