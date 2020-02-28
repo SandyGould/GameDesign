@@ -261,7 +261,7 @@ void MyGame::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 	if (pressedKeys.find(SDL_SCANCODE_RETURN) != pressedKeys.end()) {
 		if(hasChild == true || grabbedObj == true)
 		{
-			DisplayObject * myobj = crosshair->getChild(0);
+			DisplayObject* myobj = crosshair->getChild(0);
 			DisplayObject* newobj = new DisplayObjectContainer();
 			copyDisplayObject(newobj,myobj);
 			curScene->addChild(newobj);
@@ -269,6 +269,10 @@ void MyGame::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 			hasChild = false;
 			obj_ind = 0;
 			grabbedObj = false;
+
+			this->addEventListener(newobj, ClickEvent::CLICK_EVENT);
+			this->addEventListener(newobj, DragEvent::DRAG_EVENT);
+
 			//bool visible = true;
 			//newcoin->position = mycoin->position;
 			//newcoin->width = mycoin->width;
