@@ -52,6 +52,8 @@ private:
 	// DisplayObject* character;
 	Scene* scene;
 	Scene* scene2;
+
+	std::unordered_set<SDL_Scancode> prevKeys;
 };
 
 #endif

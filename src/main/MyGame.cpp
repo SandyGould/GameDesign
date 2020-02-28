@@ -217,7 +217,7 @@ void MyGame::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 	if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
 		camera->zoomOut(1.1);
 	}
-	if (pressedKeys.find(SDL_SCANCODE_TAB) != pressedKeys.end()) {
+	if (pressedKeys.find(SDL_SCANCODE_TAB) != pressedKeys.end() && prevKeys.find(SDL_SCANCODE_TAB) == prevKeys.end()) {
 		if(grabbedObj == false)
 		{
 
@@ -322,8 +322,7 @@ void MyGame::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 		curScene->saveScene(tmp);
 	}
 
-	
-	
+	prevKeys = pressedKeys;
 	
 	Game::update(pressedKeys);
 }
