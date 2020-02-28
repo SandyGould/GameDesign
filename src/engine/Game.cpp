@@ -1,6 +1,6 @@
 #include "Game.h"
 
-#include "events/MouseEvent.h"
+#include "events/ClickEvent.h"
 
 #include <SDL2/SDL_ttf.h>
 
@@ -84,7 +84,7 @@ void Game::start() {
 				this->isDragging = true;
 				break;
 			case SDL_MOUSEBUTTONUP:
-				this->dispatchEvent(new MouseEvent(this, event.button.x, event.button.y, event.button.button, event.button.clicks));
+				this->dispatchEvent(new ClickEvent(this, event.button.x, event.button.y, event.button.button, event.button.clicks));
 				this->isDragging = false;
 				break;
 			case SDL_MOUSEMOTION:

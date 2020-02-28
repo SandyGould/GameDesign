@@ -139,9 +139,10 @@
     <ClCompile Include="src\engine\DisplayObject.cpp" />
     <ClCompile Include="src\engine\DisplayObjectContainer.cpp" />
     <ClCompile Include="src\engine\events\Collision.cpp" />
+    <ClCompile Include="src\engine\events\DragEvent.cpp" />
     <ClCompile Include="src\engine\events\Event.cpp" />
     <ClCompile Include="src\engine\events\EventDispatcher.cpp" />
-    <ClCompile Include="src\engine\events\MouseEvent.cpp" />
+    <ClCompile Include="src\engine\events\ClickEvent.cpp" />
     <ClCompile Include="src\engine\events\QuestComplete.cpp" />
     <ClCompile Include="src\engine\Game.cpp" />
     <ClCompile Include="src\engine\QuestManager.cpp" />
@@ -160,10 +161,11 @@
     <ClInclude Include="src\engine\DisplayObject.h" />
     <ClInclude Include="src\engine\DisplayObjectContainer.h" />
     <ClInclude Include="src\engine\events\Collision.h" />
+    <ClInclude Include="src\engine\events\DragEvent.h" />
     <ClInclude Include="src\engine\events\Event.h" />
     <ClInclude Include="src\engine\events\EventDispatcher.h" />
     <ClInclude Include="src\engine\events\EventListener.h" />
-    <ClInclude Include="src\engine\events\MouseEvent.h" />
+    <ClInclude Include="src\engine\events\ClickEvent.h" />
     <ClInclude Include="src\engine\events\PickedUpEvent.h" />
     <ClInclude Include="src\engine\events\QuestComplete.h" />
     <ClInclude Include="src\engine\Game.h" />
