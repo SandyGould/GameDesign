@@ -5,7 +5,7 @@ Crosshair::Crosshair() : Sprite("crosshair", "./resources/other/crosshair.png") 
     hasCollision = true;
 }
 
-void Crosshair::update(std::set<SDL_Scancode> pressedKeys) {
+void Crosshair::update(std::unordered_set<SDL_Scancode> pressedKeys) {
     Sprite::update(pressedKeys);
 }
 

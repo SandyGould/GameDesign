@@ -7,14 +7,14 @@
 class Crosshair : public Sprite, public EventDispatcher {
 
 public:
-	
+
 	Crosshair();
 
-	void update(std::set<SDL_Scancode> pressedKeys) override;
+	void update(std::unordered_set<SDL_Scancode> pressedKeys) override;
 	void draw(AffineTransform& at) override;
 
 private:
-	
+
 };
 
 #endif

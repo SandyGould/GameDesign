@@ -10,10 +10,10 @@ public:
 	Sprite(std::string id, std::string filepath);
 	Sprite(std::string id, int red, int green, int blue);
 
-	virtual void update(std::set<SDL_Scancode> pressedKeys);
-	virtual void draw(AffineTransform& at);
+	void update(std::unordered_set<SDL_Scancode> pressedKeys) override;
+	void draw(AffineTransform& at) override;
 private:
-	
+
 };
 
 #endif

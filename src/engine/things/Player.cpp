@@ -5,7 +5,7 @@ Player::Player() : Sprite("player", "./resources/character/Idle_1.png") {
     hasCollision = true;
 }
 
-void Player::update(std::set<SDL_Scancode> pressedKeys) {
+void Player::update(std::unordered_set<SDL_Scancode> pressedKeys) {
     Sprite::update(pressedKeys);
 }
 

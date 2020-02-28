@@ -55,13 +55,13 @@ void DisplayObject::setTexture(SDL_Texture* t) {
 	this->curTexture = t;
 }
 
-void DisplayObject::update(std::set<SDL_Scancode> pressedKeys) {
-	
+void DisplayObject::update(std::unordered_set<SDL_Scancode> pressedKeys) {
+
 }
 
 void DisplayObject::draw(AffineTransform& at) {
 	applyTransformations(at);
-	
+
 	if(curTexture != NULL && visible) {
 		SDL_Point origin = at.transformPoint(0, 0);
 		SDL_Point upperRight = at.transformPoint(width, 0);
@@ -81,9 +81,9 @@ void DisplayObject::draw(AffineTransform& at) {
 		else {
 			flip = SDL_FLIP_HORIZONTAL;
 		}
-		
+
 		SDL_SetTextureAlphaMod(curTexture, alpha);
-		SDL_RenderCopyEx(Game::renderer, curTexture, NULL, &dstrect, calculateRotation(origin, upperRight), &corner, flip);	
+		SDL_RenderCopyEx(Game::renderer, curTexture, NULL, &dstrect, calculateRotation(origin, upperRight), &corner, flip);
 	}
 
 	reverseTransformations(at);

@@ -19,12 +19,12 @@ void MyGame::setupfiles(string path)
 	}
 	DIR *dir;
 	struct dirent *ent;
-	
+
 	if((dir = opendir(path.c_str()) )!= NULL)
 	{
 		while((ent = readdir(dir) )!= NULL)
 		{
-			
+
 			if(!ent->d_name || ent->d_name[0] == '.')
 			{
 				continue;
@@ -56,15 +56,15 @@ MyGame::MyGame(string sceneToLoad) : Game(1200, 1000){
 	//To be uncommented when we have actual scenes to load
 	//This way is just easier to test for now
 
-	
-	
+
+
 	camera = new Camera();
 	printf("new camera\n");
 	camera->position = {600, 500};
 	camera->pivot = {600, 500};
 	printf("Camera position set\n");
 	instance->addChild(camera);
-	
+
 	printf("instance added child\n");
 	camera->setTopLimit(-50);
 	camera->setLeftLimit(0);
@@ -84,7 +84,7 @@ MyGame::MyGame(string sceneToLoad) : Game(1200, 1000){
 	crosshair->position = {0, 0};
 	crosshair->width = crosshair->height = 100;
 	crosshair->pivot = {50, 50};
-	
+
 
 
 	curScene->addChild(crosshair);
@@ -99,7 +99,7 @@ MyGame::MyGame(string sceneToLoad) : Game(1200, 1000){
 	setupfiles("./resources/");
 	printf("Allsprites size = %d\n", all_sprites.size());
 
-	
+
 	//crosshair_proto = new crosshair();
 
 	//for(int z = 0; z < j["Sprite"].size(); z++){
@@ -125,7 +125,7 @@ void MyGame::copyDisplayObjectContainer(DisplayObjectContainer *newobj, DisplayO
 	newobj->id = oldobj->id;
 	newobj->imgPath = oldobj->imgPath;
 	newobj->loadTexture(newobj->imgPath);
-	
+
 
 }
 
@@ -155,7 +155,7 @@ void MyGame::copyDisplayObject(DisplayObject *newobj, DisplayObject *oldobj) {
 MyGame::~MyGame() {
 }
 
-void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
+void MyGame::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 	if (crosshair->position.y > -50 && crosshair->position.y < 50){
 		if(!inZone){
 			inZone = true;
@@ -231,10 +231,10 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 				//copyDisplayObject(newobj,childobj);
 				crosshair->addChild(newobj);
 				hasChild = true;
-				
-				
 
-			} 
+
+
+			}
 			else
 			{
 				obj_ind = 0;
@@ -244,7 +244,7 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 			}
 		//	Coin * childcoin = new Coin();
 		//	crosshair->addChild(childcoin);
-		//	hasChild = true;		
+		//	hasChild = true;
 		}
 		//else
 		//{
@@ -272,18 +272,18 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 			//newcoin->scaleX = mycoin->scaleX;
 			//newcoin->scaleY = mycoin->scaleY;
 			//newcoin->rotation = mycoin->rotation; // in radians
-			
+
 
 			//bool hasCollision = false;
 			//crosshair->removeImmediateChild(mycoin);
 			//printf("About to add child to scene\n");
 			//curScene->addChild(newcoin);
 			//printf("Child added?\n");
-			//hasChild = false;	
+			//hasChild = false;
 		}
-		
+
 	}
-	
+
 
 	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
 		if (crosshair->position.y > -750) {
@@ -302,7 +302,7 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 		camera->zoomOut(1.1);
 	}
 
-	
+
 	//if (pressedKeys.find(SDL_SCANCODE_P) != pressedKeys.end()) {
 	//	if(allSprites->getChild("scene1") != NULL){
 	//		allSprites->addChild(scene2);
@@ -314,9 +314,9 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 	//	}
 	//}
 
-	
-	
-	
+
+
+
 	Game::update(pressedKeys);
 }
 

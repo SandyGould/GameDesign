@@ -7,14 +7,14 @@
 class Player : public Sprite, public EventDispatcher {
 
 public:
-	
+
 	Player();
 
-	void update(std::set<SDL_Scancode> pressedKeys) override;
+	void update(std::unordered_set<SDL_Scancode> pressedKeys) override;
 	void draw(AffineTransform& at) override;
 
 private:
-	
+
 };
 
 #endif

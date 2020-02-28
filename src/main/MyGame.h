@@ -26,13 +26,13 @@ public:
 	MyGame(string sceneToLoad);
 	virtual ~MyGame();
 
-	void update(std::set<SDL_Scancode> pressedKeys) override;
+	void update(std::unordered_set<SDL_Scancode> pressedKeys) override;
 	void draw(AffineTransform& at) override;
 	void copyDisplayObjectContainer(DisplayObjectContainer *newobj, DisplayObjectContainer *oldobj);
 	void copyDisplayObject(DisplayObject* newobj, DisplayObject *oldobj);
 	void setupfiles(string path);
 private:
-	
+
 	Camera* camera;
 	bool inZone = false;
 	bool hasChild = false;

@@ -74,10 +74,10 @@ void Scene::loadScene(string sceneFilePath){
     // for(int x = 0; x < this->children.size();x++){
     //     std::cout << children[x]->id << endl;
     // }
-    
+
 }
 
-void Scene::update(set<SDL_Scancode> pressedKeys){
+void Scene::update(unordered_set<SDL_Scancode> pressedKeys){
     DisplayObjectContainer::update(pressedKeys);
 }
 void Scene::draw(AffineTransform &at){

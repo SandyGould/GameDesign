@@ -36,7 +36,7 @@ public:
 	void replay();
 	void stop();
 
-	virtual void update(std::set<SDL_Scancode> pressedKeys);
+	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys);
 	virtual void draw(AffineTransform& at);
 
 	bool playing = false;

@@ -23,13 +23,13 @@ public:
 	/* Load scene from a file */
 	void loadScene(string sceneFilePath);
 
-	virtual void update(set<SDL_Scancode> pressedKeys);
-	virtual void draw(AffineTransform &at);
+	void update(unordered_set<SDL_Scancode> pressedKeys) override;
+	void draw(AffineTransform &at) override;
 
 
 private:
 	DisplayObjectContainer* root;
-	
+
 };
 
 #endif

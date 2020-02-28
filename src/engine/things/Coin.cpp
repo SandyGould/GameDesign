@@ -9,7 +9,7 @@ Coin::Coin() : Sprite("coin_"+std::to_string(coin_id_counter) , "./resources/sol
     hasCollision = true;
 }
 
-void Coin::update(std::set<SDL_Scancode> pressedKeys){
+void Coin::update(std::unordered_set<SDL_Scancode> pressedKeys){
     Sprite::update(pressedKeys);
 }
 

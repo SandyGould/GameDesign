@@ -1,5 +1,7 @@
 #include "Game.h"
 
+#include "events/MouseEvent.h"
+
 #include <SDL2/SDL_ttf.h>
 
 #include <iostream>
@@ -13,7 +15,7 @@ unsigned int Game::frameCounter = 0;
 
 Game::Game(int windowWidth, int windowHeight) {
 	Game::instance = this;
-	
+
 	this->windowWidth = windowWidth;
 	this->windowHeight = windowHeight;
 
@@ -77,6 +79,8 @@ void Game::start() {
 				this->pressedKeys.erase(event.key.keysym.scancode);
 				break;
 			case SDL_MOUSEBUTTONUP:
+				MouseEvent* mouseEvent = new MouseEvent(this, event.button.x, event.button.y, event.button.button, event.button.clicks);
+				this->dispatchEvent(mouseEvent);
 				std::cout << event.button.x << ", " << event.button.y << std::endl;
 				break;
 			}
@@ -84,7 +88,7 @@ void Game::start() {
 	}
 }
 
-void Game::update(std::set<SDL_Scancode> pressedKeys) {
+void Game::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 	frameCounter++;
 	DisplayObjectContainer::update(pressedKeys);
 }

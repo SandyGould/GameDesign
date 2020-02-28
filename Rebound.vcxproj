@@ -141,6 +141,7 @@
     <ClCompile Include="src\engine\events\Collision.cpp" />
     <ClCompile Include="src\engine\events\Event.cpp" />
     <ClCompile Include="src\engine\events\EventDispatcher.cpp" />
+    <ClCompile Include="src\engine\events\MouseEvent.cpp" />
     <ClCompile Include="src\engine\events\QuestComplete.cpp" />
     <ClCompile Include="src\engine\Game.cpp" />
     <ClCompile Include="src\engine\QuestManager.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="src\engine\events\Event.h" />
     <ClInclude Include="src\engine\events\EventDispatcher.h" />
     <ClInclude Include="src\engine\events\EventListener.h" />
+    <ClInclude Include="src\engine\events\MouseEvent.h" />
     <ClInclude Include="src\engine\events\PickedUpEvent.h" />
     <ClInclude Include="src\engine\events\QuestComplete.h" />
     <ClInclude Include="src\engine\Game.h" />

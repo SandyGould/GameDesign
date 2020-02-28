@@ -2,11 +2,12 @@
 #define GAME_H
 
 #include "DisplayObjectContainer.h"
+#include "events/EventDispatcher.h"
 
 #include <vector>
-#include <set>
+#include <unordered_set>
 
-class Game : public DisplayObjectContainer {
+class Game : public DisplayObjectContainer, public EventDispatcher {
 public:
 	/* Singleton pattern */
 	static Game* instance;
@@ -24,15 +25,15 @@ public:
 	virtual ~Game();
 	void start();
 
-	void update(std::set<SDL_Scancode> pressedKeys) override;
+	void update(std::unordered_set<SDL_Scancode> pressedKeys) override;
 	void draw(AffineTransform& at) override;
 
 private:
 
 	void initSDL();
 	void quitSDL();
-	std::set<SDL_Scancode> pressedKeys;
-	
+	std::unordered_set<SDL_Scancode> pressedKeys;
+
 };
 
 #endif

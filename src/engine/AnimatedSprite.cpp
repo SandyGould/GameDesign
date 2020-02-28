@@ -71,7 +71,7 @@ void AnimatedSprite::stop() {
     this->playing = false;
 }
 
-void AnimatedSprite::update(std::set<SDL_Scancode> pressedKeys) {
+void AnimatedSprite::update(std::unordered_set<SDL_Scancode> pressedKeys) {
     Sprite::update(pressedKeys);
     if (playing) {
         frameCount++;
@@ -91,7 +91,7 @@ void AnimatedSprite::update(std::set<SDL_Scancode> pressedKeys) {
         }
 
     }
-    
+
 }
 
 void AnimatedSprite::draw(AffineTransform& at) {

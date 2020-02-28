@@ -8,7 +8,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#include <set>
+#include <unordered_set>
 #include <string>
 #include <vector>
 
@@ -32,8 +32,8 @@ public:
 	DisplayObject(std::string id, std::string path);
 	DisplayObject(std::string id, int red, int green, int blue);
 	virtual ~DisplayObject();
-	
-	virtual void update(std::set<SDL_Scancode> pressedKeys);
+
+	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys);
 	virtual void draw(AffineTransform& at);
 
 	void loadTexture(std::string filepath);
@@ -61,7 +61,7 @@ public:
 private:
 	double distance(SDL_Point& p1, SDL_Point& p2);
 	double calculateRotation(SDL_Point& origin, SDL_Point& p);
-	
+
 	SDL_Texture* texture = NULL;
 	SDL_Surface* image = NULL;
 

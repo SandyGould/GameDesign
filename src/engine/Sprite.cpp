@@ -12,7 +12,7 @@ Sprite::Sprite(std::string id, int red, int green, int blue) : DisplayObjectCont
     this->type = "Sprite";
 }
 
-void Sprite::update(std::set<SDL_Scancode> pressedKeys) {
+void Sprite::update(std::unordered_set<SDL_Scancode> pressedKeys) {
     DisplayObjectContainer::update(pressedKeys);
 }
 

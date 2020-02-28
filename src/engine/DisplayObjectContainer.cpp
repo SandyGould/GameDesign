@@ -74,7 +74,7 @@ DisplayObject* DisplayObjectContainer::getChild(std::string id) {
     return nullptr;
 }
 
-void DisplayObjectContainer::update(std::set<SDL_Scancode> pressedKeys) {
+void DisplayObjectContainer::update(std::unordered_set<SDL_Scancode> pressedKeys) {
     DisplayObject::update(pressedKeys);
     for (auto child : children) {
         child->update(pressedKeys);
