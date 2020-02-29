@@ -73,37 +73,10 @@ void Camera::zoomOut(double factor) {
 }
 
 void Camera::follow(int newX, int newY) {
-    if (newX >= leftLimit * scaleX && newX <= rightLimit *scaleX) {
+    if (newX >= leftLimit * scaleX && newX <= rightLimit * scaleX) {
         this->pivot.x = newX;
     }
     if (newY >= topLimit *scaleY && newY <= bottomLimit * scaleY) {
         this->pivot.y = newY;
     }
-}
-
-// void Camera::applyTransformations(AffineTransform& at) {
-// 	at.scale(scaleX, scaleY);
-// 	at.rotate(rotation);
-//     at.translate(position.x, position.y);
-// 	at.translate(-pivot.x, -pivot.y);
-// }
-
-// void Camera::reverseTransformations(AffineTransform& at) {
-// 	at.translate(pivot.x, pivot.y);
-//     at.translate(-position.x, -position.y);
-// 	at.rotate(-rotation);
-// 	at.scale(1.0/scaleX, 1.0/scaleY);
-// }
-
-void Camera::draw(AffineTransform& at) {
-    // DisplayObject::draw(at);
-    applyTransformations(at);
-    // undo the parent's pivot
-    // at.translate(pivot.x, pivot.y);
-    for (auto child : children) {
-        child->draw(at);
-    }
-    // redo the parent's pivot
-    // at.translate(-pivot.x, -pivot.y);
-    reverseTransformations(at);
 }

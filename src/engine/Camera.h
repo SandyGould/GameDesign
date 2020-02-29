@@ -32,10 +32,6 @@ public:
 	// custom function to make following a character a little easier/neater
 	void follow(int newX, int newY);
 
-	// void applyTransformations(AffineTransform &at);
-	// void reverseTransformations(AffineTransform &at);
-	void draw(AffineTransform &at);
-
 private:
 	int rightLimit;
 	int leftLimit;
