@@ -31,6 +31,9 @@ public:
 	void copyDisplayObjectContainer(DisplayObjectContainer *newobj, DisplayObjectContainer *oldobj);
 	void copyDisplayObject(DisplayObject* newobj, DisplayObject *oldobj);
 	void setupfiles(string path);
+
+	// TODO: Probably should be in a LevelEditor class or something.
+	void addEventListeners(std::vector<DisplayObject*> objects);
 private:
 
 	Camera* camera;

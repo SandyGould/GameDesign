@@ -93,7 +93,6 @@ void Game::start() {
 			case SDL_MOUSEMOTION:
 				if (this->isDragging) {
 					this->dispatchEvent(new DragEvent(this, event.motion.x, event.motion.y, event.motion.xrel, event.motion.yrel));
-					//std::cout << event.motion.x << ", " << event.motion.y << std::endl;
 				}
 				break;
 			}

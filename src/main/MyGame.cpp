@@ -70,10 +70,8 @@ MyGame::MyGame(string sceneToLoad) : Game(1200, 1000){
 	curScene->loadScene(sceneToLoad);
 	printf("Loaded scene\n");
 
-	for (const auto& object : curScene->children) {
-		this->addEventListener(object, ClickEvent::CLICK_EVENT);
-		this->addEventListener(object, DragEvent::DRAG_EVENT);
-	}
+	addEventListeners(curScene->children);
+
 	camera->addChild(curScene);
 	printf("Camera added scene\n");
 	cout << sceneToLoad << endl;
@@ -104,10 +102,10 @@ MyGame::MyGame(string sceneToLoad) : Game(1200, 1000){
 	//crosshair_proto = new crosshair();
 
 	//for(int z = 0; z < j["Sprite"].size(); z++){
-        // std::cout << j["Sprite"][z] << endl;
-      //  Sprite* temp_sprite = new Sprite(j["Sprite"][z]["name"], j["Sprite"][z]["filepath"]);
-        //this->addChild(temp_sprite);
-    //}
+		// std::cout << j["Sprite"][z] << endl;
+	  //  Sprite* temp_sprite = new Sprite(j["Sprite"][z]["name"], j["Sprite"][z]["filepath"]);
+		//this->addChild(temp_sprite);
+	//}
 }
 
 //change this to containers
@@ -150,6 +148,18 @@ void MyGame::copyDisplayObject(DisplayObject *newobj, DisplayObject *oldobj) {
 	//all_objects.addChild(coin_proto);
 	//Player *player_proto = new Player();
 	//all_objects.addChild(player_proto);
+}
+
+void MyGame::addEventListeners(std::vector<DisplayObject*> objects) {
+	for (const auto& object : objects) {
+		if (object->type != "DisplayObject") {
+			DisplayObjectContainer* container = static_cast<DisplayObjectContainer*>(object);
+			this->addEventListeners(container->children);
+		}
+
+		this->addEventListener(object, ClickEvent::CLICK_EVENT);
+		this->addEventListener(object, DragEvent::DRAG_EVENT);
+	}
 }
 
 MyGame::~MyGame() {

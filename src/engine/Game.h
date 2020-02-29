@@ -7,6 +7,13 @@
 #include <vector>
 #include <unordered_set>
 
+enum class DragState {
+	NONE,
+	START,
+	DRAGGING,
+	END,
+};
+
 class Game : public DisplayObjectContainer, public EventDispatcher {
 public:
 	/* Singleton pattern */
@@ -34,7 +41,10 @@ private:
 	void quitSDL();
 	std::unordered_set<SDL_Scancode> pressedKeys;
 
+	DisplayObject* selected;
+
 	bool isDragging;
+	DragState dragState;
 
 };
 
