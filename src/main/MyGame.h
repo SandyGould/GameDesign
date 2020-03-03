@@ -32,6 +32,8 @@ private:
 
 	Player* player;
 	Coin* coin;
+	Coin* coin1;
+	Coin* coin2;
 	
 	QuestManager* questManager;
 
