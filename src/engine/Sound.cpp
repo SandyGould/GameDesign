@@ -2,10 +2,10 @@
 #include <iostream>
 
 Sound::Sound(){
-	int audio_rate = 22050;
-	Uint16 audio_format = AUDIO_S16;
-	int audio_channels = 2;
-	int audio_buffers=4096;
+	int audio_rate = MIX_DEFAULT_FREQUENCY;
+	Uint16 audio_format = MIX_DEFAULT_FORMAT;
+	int audio_channels = MIX_DEFAULT_CHANNELS;
+	int audio_buffers=512;
 
 	if(Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers)){
 		std::cout << "Unable to open audio: " << Mix_GetError() << std::endl;
