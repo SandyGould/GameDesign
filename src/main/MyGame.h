@@ -40,6 +40,7 @@ private:
 	Scene* scene2;
 
 	Sound* collect;
+	Tween* player_tween;
 };
 
 #endif

@@ -1,8 +1,6 @@
 #include <climits>
 #include "Camera.h"
 
-// To Do - add functionality for pivot of camera to follow player (for zoom)
-
 Camera::Camera() : DisplayObjectContainer(){
     this->type = "Camera";
 

@@ -1,5 +1,6 @@
 #include "MyGame.h"
 
+
 // SDL tries to redefine main? Need to investigate later
 #undef main
 

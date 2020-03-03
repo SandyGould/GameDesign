@@ -53,6 +53,13 @@ MyGame::MyGame() : Game(1200, 1000) {
 
 	coin->addEventListener(questManager, PickedUpEvent::COIN_PICKED_UP);
 
+	player_tween = new Tween(player);
+
+	player_tween->animate(TweenableParams::SCALE_X, 5.0, 1.0, 500);
+	player_tween->animate(TweenableParams::SCALE_Y, 5.0, 1.0, 500);
+	player_tween->animate(TweenableParams::ALPHA, 0, 255, 500);
+	player_tween->animate(TweenableParams::ROTATION, 0, 2 * 3.1415269, 500);
+
 	// camera = new Camera();
 	// camera.x = ( player->position.x + player->getWidth / 2 ) - 1200 / 2;
     // camera.y = ( player->position.y + player->getHeight / 2 ) - 1000 / 2;
@@ -81,31 +88,27 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
 		if (player->position.x < 120 || (player->position.y >= 680 && player->position.x <= 1160)) {
 			player->position.x += 5;
-			// camera->follow(-1 * camera->scaleX * player->position.x + 600, -1 * camera->scaleY * player->position.y + 500);
 		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
 		if (player->position.x > -140) {
 			player->position.x -= 5;
-			// camera->follow(-1 * camera->scaleX * player->position.x + 600, -1 * camera->scaleY *player->position.y + 500);
 		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
 		if (player->position.y < 925) {
 			player->position.y += 5;
-			// camera->follow(-1 *camera->scaleX* player->position.x + 600, -1 *camera->scaleY *  player->position.y + 500);
 		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
 		if (player->position.y > -750) {
 			if ((player->position.x> 120 && player->position.y> 680) || player->position.x <= 120) {
 				player->position.y -= 5;
-				// camera->follow(-1 * camera->scaleX * player->position.x + 600, -1 * camera->scaleY * player->position.y + 500);
 			}
 		}
 	}
 	camera->follow(player->position.x, player->position.y);
-	// camera->pivot.y = player->position.y;
+
 	// to test zoom (delete for demo)
 	if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
 		camera->zoomIn(1.1);
@@ -142,7 +145,7 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 	//		allSprites->children.erase(std::remove(allSprites->children.begin(), allSprites->children.end(), scene2), allSprites->children.end());
 	//	}
 	//}
-
+	player_tween->update();
 	Game::update(pressedKeys);
 }
 
