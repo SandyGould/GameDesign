@@ -159,7 +159,7 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 	if (pressedKeys.find(SDL_SCANCODE_RETURN) != pressedKeys.end()) {
 		if (hasChild == true || grabbedObj == true) {
 			DisplayObject* myobj = crosshair->getChild(0);
-			DisplayObject* newobj = myobj;
+			DisplayObject* newobj = new DisplayObject(*myobj);
 			newobj->position = crosshair->position;
 			curScene->addChild(newobj);
 			crosshair->removeImmediateChild(myobj);
