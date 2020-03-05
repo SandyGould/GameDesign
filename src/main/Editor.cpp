@@ -29,10 +29,7 @@ Editor::Editor(const string& sceneToLoad) : Game(1200, 800) {
 	crosshair->width = crosshair->height = 100;
 	crosshair->pivot = {50, 50};
 
-
-
 	camera->addChild(crosshair);
-	printf("Scene added crosshair\n");
 
 	setupfiles("./resources/");
 }
@@ -52,7 +49,6 @@ void Editor::setupfiles(const string& path) {
 			} else if (ent->d_type == DT_DIR) {
 				setupfiles(path + ent->d_name + "/");
 			} else {
-				printf("%s\n", ent->d_name);
 				all_sprites.push_back(path + ent->d_name);
 			}
 
