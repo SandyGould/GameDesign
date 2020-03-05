@@ -153,7 +153,7 @@
     <ClCompile Include="src\engine\things\Player.cpp" />
     <ClCompile Include="src\main\Editor.cpp" />
     <ClCompile Include="src\main\main.cpp" />
-    <ClCompile Include="src\main\MyGame.cpp" />
+    <ClCompile Include="src\main\Rebound.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\AffineTransform.h" />
@@ -179,7 +179,7 @@
     <ClInclude Include="src\engine\things\Crosshair.h" />
     <ClInclude Include="src\engine\things\Player.h" />
     <ClInclude Include="src\main\Editor.h" />
-    <ClInclude Include="src\main\MyGame.h" />
+    <ClInclude Include="src\main\Rebound.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

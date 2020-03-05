@@ -1,4 +1,4 @@
-#include "MyGame.h"
+#include "Rebound.h"
 #include "Editor.h"
 
 #include <string>
@@ -14,8 +14,8 @@ int main(int argc, char** argv) {
 		Editor editor(scene);
 		editor.start();
 	} else {
-		MyGame myGame;
-		myGame.start();
+		Rebound rebound;
+		rebound.start();
 	}
 
 	return 0;
