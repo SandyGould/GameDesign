@@ -11,6 +11,8 @@
 #include "../engine/QuestManager.h"
 #include "../engine/events/PickedUpEvent.h"
 #include "../engine/Sound.h"
+#include "../tweens/Tween.h"
+#include "../tweens/TweenJuggler.h"
 
 
 class MyGame : public Game {
@@ -29,6 +31,8 @@ private:
 
 	Player* player;
 	Coin* coin;
+	Coin* coin1;
+	Coin* coin2;
 	
 	QuestManager* questManager;
 
@@ -37,6 +41,11 @@ private:
 	Scene* scene2;
 
 	Sound* collect;
+	Tween* player_tween;
+	Tween* coin_tween1;
+	Tween* coin_tween2;
+	Tween* coin_tween3;
+	TweenJuggler* juggler;
 };
 
 #endif
