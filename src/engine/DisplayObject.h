@@ -12,7 +12,7 @@
 #include <string>
 #include <vector>
 
-class DisplayObject : public EventListener {
+class DisplayObject {
 
 public:
 	std::string id = "DEFAULT_ID";
@@ -38,8 +38,6 @@ public:
 	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys);
 	virtual void draw(AffineTransform& at);
 
-	void handleEvent(Event* e) override;
-
 	void loadTexture(std::string filepath);
 	void loadRGBTexture(int red, int green, int blue);
 	void setTexture(SDL_Texture* t);
@@ -64,6 +62,9 @@ public:
 
 	bool hasCollision = false;
 
+	// FIXME: Probably a very dirty hack please find a better way to grab global coords
+	SDL_Rect dstrect;
+
 private:
 	double distance(SDL_Point& p1, SDL_Point& p2);
 	double calculateRotation(SDL_Point& origin, SDL_Point& p);
@@ -73,9 +74,6 @@ private:
 
 	/* Texture currently being drawn. Equal to texture for normal DO */
 	SDL_Texture* curTexture;
-
-	// FIXME: Probably a very dirty hack please find a better way to grab global coords in handleEvent
-	SDL_Rect dstrect;
 };
 
 #endif

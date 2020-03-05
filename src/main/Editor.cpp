@@ -20,8 +20,6 @@ Editor::Editor(const string& sceneToLoad) : Game(1200, 800) {
 
 	curScene->loadScene(sceneToLoad);
 
-	addEventListeners(curScene->children);
-
 	camera->addChild(curScene);
 
 	crosshair = new Crosshair();
@@ -30,6 +28,9 @@ Editor::Editor(const string& sceneToLoad) : Game(1200, 800) {
 	crosshair->pivot = {50, 50};
 
 	camera->addChild(crosshair);
+
+	this->dispatcher.addEventListener(this, ClickEvent::CLICK_EVENT);
+	this->dispatcher.addEventListener(this, DragEvent::DRAG_EVENT);
 
 	setupfiles("./resources/");
 }
@@ -57,18 +58,6 @@ void Editor::setupfiles(const string& path) {
 	} else {
 		perror("");
 		printf("Could not open...");
-	}
-}
-
-void Editor::addEventListeners(vector<DisplayObject*> objects) {
-	for (const auto& object : objects) {
-		if (object->type != "DisplayObject") {
-			DisplayObjectContainer* container = static_cast<DisplayObjectContainer*>(object);
-			this->addEventListeners(container->children);
-		}
-
-		this->dispatcher.addEventListener(object, ClickEvent::CLICK_EVENT);
-		this->dispatcher.addEventListener(object, DragEvent::DRAG_EVENT);
 	}
 }
 
@@ -108,9 +97,6 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 
 					--obj_ind;
 					Sprite* newobj = new Sprite("newobject", all_sprites[obj_ind]);
-					//DisplayObject * childobj = all_objects.getChild(obj_ind);
-					//DisplayObject * newobj = new DisplayObject();
-					//copyDisplayObject(newobj,childobj);
 					crosshair->addChild(newobj);
 					hasChild = true;
 				} else {
@@ -166,9 +152,6 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 			hasChild = false;
 			obj_ind = 0;
 			grabbedObj = false;
-
-			this->dispatcher.addEventListener(newobj, ClickEvent::CLICK_EVENT);
-			this->dispatcher.addEventListener(newobj, DragEvent::DRAG_EVENT);
 		}
 	}
 
@@ -276,4 +259,56 @@ void Editor::draw(AffineTransform& at) {
 	SDL_RenderDrawLine(Game::renderer, 0, this->windowHeight / 2 - crosshair->position.y, this->windowWidth, this->windowHeight / 2 - crosshair->position.y);
 	SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 	Game::draw(at);
+}
+
+void Editor::handleEvent(Event* e) {
+	if (e->getType() == ClickEvent::CLICK_EVENT) {
+		ClickEvent* event = static_cast<ClickEvent*>(e);
+		this->selectObject(this, event->x, event->y);
+		
+
+	} else if (e->getType() == DragEvent::DRAG_EVENT) {
+		DragEvent* event = static_cast<DragEvent*>(e);
+		this->dragObject(this, event->x, event->y, event->xrel, event->yrel);
+	}
+}
+
+bool Editor::selectObject(DisplayObject* object, int x, int y) {
+	if (object->type != "DisplayObject") {
+		DisplayObjectContainer* container = static_cast<DisplayObjectContainer*>(object);
+		for (auto it = container->children.crbegin(); it != container->children.crend(); it++) {
+			if (this->selectObject(*it, x, y)) {
+				return true;
+			}
+		}
+	}
+
+	if (object->dstrect.x <= x && x <= object->dstrect.x + object->dstrect.w &&
+		object->dstrect.y <= y && y <= object->dstrect.y + object->dstrect.h) {
+		this->selected = object;
+		std::cout << object->id << " handling a mouse event at (" << x << ", " << y << ")" << std::endl;
+		return true;
+	}
+	return false;
+}
+
+bool Editor::dragObject(DisplayObject* object, int x, int y, int xrel, int yrel) {
+	if (object->type != "DisplayObject") {
+		DisplayObjectContainer* container = static_cast<DisplayObjectContainer*>(object);
+		for (auto it = container->children.crbegin(); it != container->children.crend(); it++) {
+			if (this->dragObject(*it, x, y, xrel, yrel)) {
+				return true;
+			}
+		}
+	}
+
+	// Move the object to follow the mouse
+	if (this->selected  == object &&
+		object->dstrect.x <= x && x <= object->dstrect.x + object->dstrect.w &&
+		object->dstrect.y <= y && y <= object->dstrect.y + object->dstrect.h) {
+		object->position.x += xrel;
+		object->position.y += yrel;
+		return true;
+	}
+	return false;
 }
