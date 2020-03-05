@@ -35,6 +35,9 @@ public:
 	void update(std::unordered_set<SDL_Scancode> pressedKeys) override;
 	void draw(AffineTransform& at) override;
 
+	// This happens after drawing but before rendering
+	virtual void draw_post() {};
+
 protected:
 	EventDispatcher dispatcher;
 

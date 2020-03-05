@@ -21,7 +21,7 @@ public:
 	void setupfiles(const string& path);
 
 	void update(std::unordered_set<SDL_Scancode> pressedKeys) override;
-	void draw(AffineTransform& at) override;
+	void draw_post() override;
 
 	void handleEvent(Event* e) override;
 
