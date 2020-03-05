@@ -32,6 +32,8 @@ Editor::Editor(const string& sceneToLoad) : Game(1200, 800) {
 	this->dispatcher.addEventListener(this, ClickEvent::CLICK_EVENT);
 	this->dispatcher.addEventListener(this, DragEvent::DRAG_EVENT);
 
+	this->selected = nullptr;
+
 	setupfiles("./resources/");
 }
 
@@ -257,6 +259,10 @@ void Editor::draw(AffineTransform& at) {
 	SDL_SetRenderDrawColor(Game::renderer, 90, 90, 90, SDL_ALPHA_OPAQUE);
 	SDL_RenderDrawLine(Game::renderer, this->windowWidth / 2 - crosshair->position.x, 0, this->windowWidth / 2 - crosshair->position.x, this->windowHeight);
 	SDL_RenderDrawLine(Game::renderer, 0, this->windowHeight / 2 - crosshair->position.y, this->windowWidth, this->windowHeight / 2 - crosshair->position.y);
+	if (this->selected) {
+		SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+		SDL_RenderDrawRect(Game::renderer, &this->selected->dstrect);
+	}
 	SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 	Game::draw(at);
 }
@@ -264,9 +270,9 @@ void Editor::draw(AffineTransform& at) {
 void Editor::handleEvent(Event* e) {
 	if (e->getType() == ClickEvent::CLICK_EVENT) {
 		ClickEvent* event = static_cast<ClickEvent*>(e);
-		this->selectObject(this, event->x, event->y);
-		
-
+		if (!this->selectObject(this, event->x, event->y)) {
+			this->selected = nullptr;
+		}
 	} else if (e->getType() == DragEvent::DRAG_EVENT) {
 		DragEvent* event = static_cast<DragEvent*>(e);
 		this->dragObject(this, event->x, event->y, event->xrel, event->yrel);
@@ -286,7 +292,6 @@ bool Editor::selectObject(DisplayObject* object, int x, int y) {
 	if (object->dstrect.x <= x && x <= object->dstrect.x + object->dstrect.w &&
 		object->dstrect.y <= y && y <= object->dstrect.y + object->dstrect.h) {
 		this->selected = object;
-		std::cout << object->id << " handling a mouse event at (" << x << ", " << y << ")" << std::endl;
 		return true;
 	}
 	return false;
