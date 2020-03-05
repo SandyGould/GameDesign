@@ -33,6 +33,23 @@ DisplayObject::DisplayObject(std::string id, int red, int green, int blue) {
 	this->loadRGBTexture(red, green, blue);
 }
 
+DisplayObject::DisplayObject(const DisplayObject& other) {
+	this->position = other.position;
+	this->width = other.width;
+	this->height = other.height;
+	this->pivot = other.pivot;
+	this->scaleX = other.scaleX;
+	this->scaleY = other.scaleY;
+	this->rotation = other.rotation; // in radians
+	this->facingRight = other.facingRight;
+	this->hasCollision = other.hasCollision;
+	// copy(static_cast<DisplayObjectContainer*>(other)->children.begin(), (static_cast<DisplayObjectContainer*>(other)->children.end()), back_inserter((static_cast<DisplayObjectContainer*>(this)->children)));
+	// copy(static_cast<DisplayObjectContainer*>(other)->collisionList.begin(), static_cast<DisplayObjectContainer*>(other)->collisionList.end(), back_inserter(static_cast<DisplayObjectContainer*>(this)->collisionList));
+	this->id = other.id + "_copy";
+	this->imgPath = other.imgPath;
+	this->loadTexture(this->imgPath);
+}
+
 DisplayObject::~DisplayObject() {
 	//TODO: Get this freeing working
 	if(image != NULL) SDL_FreeSurface(image);

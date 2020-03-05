@@ -32,6 +32,7 @@ public:
 	DisplayObject();
 	DisplayObject(std::string id, std::string path);
 	DisplayObject(std::string id, int red, int green, int blue);
+	DisplayObject(const DisplayObject& other);
 	virtual ~DisplayObject();
 
 	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys);

@@ -151,6 +151,7 @@
     <ClCompile Include="src\engine\things\Coin.cpp" />
     <ClCompile Include="src\engine\things\Crosshair.cpp" />
     <ClCompile Include="src\engine\things\Player.cpp" />
+    <ClCompile Include="src\main\Editor.cpp" />
     <ClCompile Include="src\main\main.cpp" />
     <ClCompile Include="src\main\MyGame.cpp" />
   </ItemGroup>
@@ -177,6 +178,7 @@
     <ClInclude Include="src\engine\things\Coin.h" />
     <ClInclude Include="src\engine\things\Crosshair.h" />
     <ClInclude Include="src\engine\things\Player.h" />
+    <ClInclude Include="src\main\Editor.h" />
     <ClInclude Include="src\main\MyGame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
