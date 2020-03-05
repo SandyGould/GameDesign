@@ -5,12 +5,12 @@
 
 Tween::Tween(DisplayObject* object) {
     this->currObject = object;
-    this->perc_change = 0;
+    this->amountChange = 0;
 }
 
 Tween::Tween(DisplayObject* object, TweenTransitions transition) {
     this->currObject = object;
-    this->perc_change = 0;
+    this->amountChange = 0;
 }
 
 Tween::~Tween() { 
@@ -23,21 +23,17 @@ void Tween::animate(TweenableParams fieldToAnimate, double startVal, double endV
 }
 
 void Tween::update() {
-    if (this->currTweening.size() == 0) {
-        return;
-    }
-
     std::list<TweenParam*>::iterator it;
     for (it = this->currTweening.begin(); it != this->currTweening.end(); it++) {
         // calculate (linear) change manually for now,
         // replace w/ transition function in the future
-        this->perc_change = ((*it)->getEndVal() - (*it)->getStartVal()) / (*it)->getTweenTime();
+        this->amountChange = ((*it)->getEndVal() - (*it)->getStartVal()) / (*it)->getTweenTime();
 
         // update current value of the TweenParam
-        this->setValue((*it)->getParam(), (*it)->getCurrVal() + this->perc_change);
+        this->setValue((*it)->getParam(), (*it)->getCurrVal() + this->amountChange);
         
         if ((*it)->isComplete()) { 
-            this->currTweening.erase(it--); // remove the param if done w/ tweening; performance
+            this->currTweening.erase(it--); // remove the param if done w/ tweening
         }
         else {
             if ((*it)->getParam().getKey() == "ALPHA") {
@@ -69,4 +65,12 @@ void Tween::setValue(TweenableParams param, double value) {
             (*it)->setCurrVal(value);
         }
     }
+}
+
+bool Tween::isComplete() {
+    // tween is complete if no more parameters left to tween
+    if (this->currTweening.size() == 0) {
+        return true;
+    }
+    return false;
 }

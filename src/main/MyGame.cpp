@@ -69,12 +69,27 @@ MyGame::MyGame() : Game(1200, 1000) {
 	coin1->addEventListener(questManager, PickedUpEvent::COIN_PICKED_UP);
 	coin2->addEventListener(questManager, PickedUpEvent::COIN_PICKED_UP);
 
-	player_tween = new Tween(player);
+	// tween fun!
+	juggler = new TweenJuggler();
 
-	player_tween->animate(TweenableParams::SCALE_X, 5.0, 1.0, 500);
-	player_tween->animate(TweenableParams::SCALE_Y, 5.0, 1.0, 500);
+	player_tween = new Tween(player);
+	coin_tween1 = new Tween(coin);
+	coin_tween2 = new Tween(coin2);
+	coin_tween3 = new Tween(coin1);
+
+	player_tween->animate(TweenableParams::SCALE_X, 5.0, 1.0, 250);
+	player_tween->animate(TweenableParams::SCALE_Y, 5.0, 1.0, 400);
 	player_tween->animate(TweenableParams::ALPHA, 0, 255, 500);
-	player_tween->animate(TweenableParams::ROTATION, 0, 2 * 3.1415269, 500);
+	player_tween->animate(TweenableParams::ROTATION, 0, 2 * 3.141592653589, 100);
+
+	coin_tween1->animate(TweenableParams::ROTATION, 0, 2 * 3.141592653589, 500);
+	coin_tween2->animate(TweenableParams::ROTATION, 0, 2 * 3.141592653589, 700);
+	coin_tween3->animate(TweenableParams::ROTATION, 0, 2 * 3.141592653589, 300);
+
+	juggler->add(coin_tween1);
+	juggler->add(coin_tween2);
+	juggler->add(coin_tween3);
+	juggler->add(player_tween);
 
 	// camera = new Camera();
 	// camera.x = ( player->position.x + player->getWidth / 2 ) - 1200 / 2;
@@ -83,6 +98,7 @@ MyGame::MyGame() : Game(1200, 1000) {
 
 MyGame::~MyGame() {
 	collect->quitSounds();
+	delete juggler;
 }
 
 
@@ -188,7 +204,7 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 	//		allSprites->children.erase(std::remove(allSprites->children.begin(), allSprites->children.end(), scene2), allSprites->children.end());
 	//	}
 	//}
-	player_tween->update();
+	juggler->nextFrame();
 	Game::update(pressedKeys);
 }
 

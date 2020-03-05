@@ -17,11 +17,12 @@ class Tween {
         void animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time);
         void update(); //invoked once per frame by the TweenJuggler. Updates this tween / DisplayObject
         void setValue(TweenableParams param, double value);
+        bool isComplete();
      
     private:
         DisplayObject *currObject;
         std::list<TweenParam*> currTweening;
-        double perc_change;
+        double amountChange;
 
 };
 

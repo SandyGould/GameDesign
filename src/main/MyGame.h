@@ -13,7 +13,6 @@
 #include "../engine/Sound.h"
 #include "../tweens/Tween.h"
 #include "../tweens/TweenJuggler.h"
-#include "../tweens/TweenEvent.h"
 
 
 class MyGame : public Game {
@@ -43,6 +42,10 @@ private:
 
 	Sound* collect;
 	Tween* player_tween;
+	Tween* coin_tween1;
+	Tween* coin_tween2;
+	Tween* coin_tween3;
+	TweenJuggler* juggler;
 };
 
 #endif
