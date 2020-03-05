@@ -11,11 +11,13 @@ using namespace std;
 int main(int argc, char** argv) {
 	if (argc == 2) {
 		string scene(argv[1]);
-		Editor editor(scene);
-		editor.start();
+
+		// Making this not a pointer causes SDL assert errors when quitting?
+		Editor* editor = new Editor(scene);
+		editor->start();
 	} else {
-		Rebound rebound;
-		rebound.start();
+		Rebound* rebound = new Rebound();
+		rebound->start();
 	}
 
 	return 0;
