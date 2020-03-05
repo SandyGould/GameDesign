@@ -58,6 +58,8 @@ public:
 
 	bool hasCollision = false;
 
+	int parallaxSpeed = 1;
+
 private:
 	double distance(SDL_Point& p1, SDL_Point& p2);
 	double calculateRotation(SDL_Point& origin, SDL_Point& p);
