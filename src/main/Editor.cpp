@@ -66,19 +66,17 @@ void Editor::setupfiles(const string& path) {
 void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 	//Move
 	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
-		crosshair->position.x += 5;
+		camera->panRight(5);
 	}
 	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
-		crosshair->position.x -= 5;
+		camera->panLeft(5);
 	}
 	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-		crosshair->position.y += 5;
+		camera->panDown(5);
 	}
 	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
-		crosshair->position.y -= 5;
+		camera->panUp(5);
 	}
-
-	camera->follow(crosshair->position.x, crosshair->position.y);
 
 	// Zoom
 	if (pressedKeys.find(SDL_SCANCODE_X) != pressedKeys.end()) {
