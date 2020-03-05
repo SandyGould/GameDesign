@@ -87,12 +87,12 @@ void Game::start() {
 				this->isDragging = true;
 				break;
 			case SDL_MOUSEBUTTONUP:
-				this->dispatchEvent(new ClickEvent(this, event.button.x, event.button.y, event.button.button, event.button.clicks));
+				this->dispatcher.dispatchEvent(new ClickEvent(event.button.x, event.button.y, event.button.button, event.button.clicks));
 				this->isDragging = false;
 				break;
 			case SDL_MOUSEMOTION:
 				if (this->isDragging) {
-					this->dispatchEvent(new DragEvent(this, event.motion.x, event.motion.y, event.motion.xrel, event.motion.yrel));
+					this->dispatcher.dispatchEvent(new DragEvent(event.motion.x, event.motion.y, event.motion.xrel, event.motion.yrel));
 				}
 				break;
 			}

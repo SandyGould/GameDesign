@@ -14,7 +14,7 @@ enum class DragState {
 	END,
 };
 
-class Game : public DisplayObjectContainer, public EventDispatcher {
+class Game : public DisplayObjectContainer {
 public:
 	/* Singleton pattern */
 	static Game* instance;
@@ -34,6 +34,9 @@ public:
 
 	void update(std::unordered_set<SDL_Scancode> pressedKeys) override;
 	void draw(AffineTransform& at) override;
+
+protected:
+	EventDispatcher dispatcher;
 
 private:
 

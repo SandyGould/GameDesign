@@ -157,8 +157,8 @@ void MyGame::addEventListeners(std::vector<DisplayObject*> objects) {
 			this->addEventListeners(container->children);
 		}
 
-		this->addEventListener(object, ClickEvent::CLICK_EVENT);
-		this->addEventListener(object, DragEvent::DRAG_EVENT);
+		this->dispatcher.addEventListener(object, ClickEvent::CLICK_EVENT);
+		this->dispatcher.addEventListener(object, DragEvent::DRAG_EVENT);
 	}
 }
 
@@ -302,8 +302,8 @@ void MyGame::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 			obj_ind = 0;
 			grabbedObj = false;
 
-			this->addEventListener(newobj, ClickEvent::CLICK_EVENT);
-			this->addEventListener(newobj, DragEvent::DRAG_EVENT);
+			this->dispatcher.addEventListener(newobj, ClickEvent::CLICK_EVENT);
+			this->dispatcher.addEventListener(newobj, DragEvent::DRAG_EVENT);
 
 			//bool visible = true;
 			//newcoin->position = mycoin->position;

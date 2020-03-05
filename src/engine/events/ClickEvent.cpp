@@ -1,6 +1,6 @@
 #include "ClickEvent.h"
 
-ClickEvent::ClickEvent(EventDispatcher* source, int x, int y, int button, int clicks) : Event(ClickEvent::CLICK_EVENT, source) {
+ClickEvent::ClickEvent(int x, int y, int button, int clicks) : Event(ClickEvent::CLICK_EVENT) {
 	this->x = x;
 	this->y = y;
 	this->button = button;
