@@ -84,10 +84,10 @@ void Game::start() {
 				this->pressedKeys.erase(event.key.keysym.scancode);
 				break;
 			case SDL_MOUSEBUTTONDOWN:
+				this->dispatcher.dispatchEvent(new ClickEvent(event.button.x, event.button.y, event.button.button, event.button.clicks));
 				this->isDragging = true;
 				break;
 			case SDL_MOUSEBUTTONUP:
-				this->dispatcher.dispatchEvent(new ClickEvent(event.button.x, event.button.y, event.button.button, event.button.clicks));
 				this->isDragging = false;
 				break;
 			case SDL_MOUSEMOTION:

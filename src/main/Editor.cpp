@@ -97,9 +97,6 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 
 					--obj_ind;
 					Sprite* newobj = new Sprite("newobject", all_sprites[obj_ind]);
-					//DisplayObject * childobj = all_objects.getChild(obj_ind);
-					//DisplayObject * newobj = new DisplayObject();
-					//copyDisplayObject(newobj,childobj);
 					crosshair->addChild(newobj);
 					hasChild = true;
 				} else {
@@ -288,6 +285,7 @@ bool Editor::selectObject(DisplayObject* object, int x, int y) {
 
 	if (object->dstrect.x <= x && x <= object->dstrect.x + object->dstrect.w &&
 		object->dstrect.y <= y && y <= object->dstrect.y + object->dstrect.h) {
+		this->selected = object;
 		std::cout << object->id << " handling a mouse event at (" << x << ", " << y << ")" << std::endl;
 		return true;
 	}
@@ -305,7 +303,8 @@ bool Editor::dragObject(DisplayObject* object, int x, int y, int xrel, int yrel)
 	}
 
 	// Move the object to follow the mouse
-	if (object->dstrect.x <= x && x <= object->dstrect.x + object->dstrect.w &&
+	if (this->selected  == object &&
+		object->dstrect.x <= x && x <= object->dstrect.x + object->dstrect.w &&
 		object->dstrect.y <= y && y <= object->dstrect.y + object->dstrect.h) {
 		object->position.x += xrel;
 		object->position.y += yrel;
