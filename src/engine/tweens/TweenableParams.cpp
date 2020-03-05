@@ -8,7 +8,7 @@ TweenableParams::TweenableParams(std::string key) {
     this->key = key; 
 }
 
-TweenableParams::~TweenableParams() {}
+TweenableParams::~TweenableParams() { }
 
 std::string TweenableParams::getKey(){ 
     return this->key; 

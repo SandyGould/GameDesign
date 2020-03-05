@@ -11,16 +11,16 @@
 class TweenJuggler { 
 
     public:
-	    TweenJuggler();
-        ~TweenJuggler();
+	    ~TweenJuggler();
         void add(Tween* tween);
         void nextFrame();  //invoked every frame by Game, calls update() on every Tween and cleans up old / complete Tweens
-        //sstatic TweenJuggler* getInstance();
+        static TweenJuggler* getInstance();
         
     private:
-        //static TweenJuggler* instance;
+        TweenJuggler();
+        static TweenJuggler* instance;
         std::list<Tween*> tweenList;
-        //bool created = false;
+        bool created = false;
 
 };
 

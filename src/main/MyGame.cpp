@@ -70,7 +70,7 @@ MyGame::MyGame() : Game(1200, 1000) {
 	coin2->addEventListener(questManager, PickedUpEvent::COIN_PICKED_UP);
 
 	// tween fun!
-	juggler = new TweenJuggler();
+	juggler = juggler->getInstance();
 
 	player_tween = new Tween(player);
 	coin_tween1 = new Tween(coin);
@@ -86,10 +86,10 @@ MyGame::MyGame() : Game(1200, 1000) {
 	coin_tween2->animate(TweenableParams::ROTATION, 0, 2 * 3.141592653589, 700);
 	coin_tween3->animate(TweenableParams::ROTATION, 0, 2 * 3.141592653589, 300);
 
-	juggler->add(coin_tween1);
-	juggler->add(coin_tween2);
-	juggler->add(coin_tween3);
-	juggler->add(player_tween);
+	juggler->getInstance()->add(coin_tween1);
+	juggler->getInstance()->add(coin_tween2);
+	juggler->getInstance()->add(coin_tween3);
+	juggler->getInstance()->add(player_tween);
 
 	// camera = new Camera();
 	// camera.x = ( player->position.x + player->getWidth / 2 ) - 1200 / 2;

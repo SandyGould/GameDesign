@@ -6,6 +6,7 @@
 // A list of fields representing the parameters of a Sprite that can be Tweened.
 
 class TweenableParams { 
+	
 
 	public:
 		TweenableParams();

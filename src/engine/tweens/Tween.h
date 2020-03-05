@@ -23,6 +23,7 @@ class Tween {
         DisplayObject *currObject;
         std::list<TweenParam*> currTweening;
         double amountChange;
+        // TweenTransitions* transition;
 
 };
 

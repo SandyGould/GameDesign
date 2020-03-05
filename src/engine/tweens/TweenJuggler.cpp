@@ -1,22 +1,19 @@
 #include "TweenJuggler.h"
-#include <iostream>
 
-TweenJuggler::TweenJuggler() {
-    // if (created) {
-    //     std::cout << "Juggler already instantiated!" << std::endl;
-    // }
-    // else {
-    //     this->instance = this;
-    // }
-}
+TweenJuggler::TweenJuggler() { }
 
 TweenJuggler::~TweenJuggler() {
     tweenList.clear();
 }
 
-// TweenJuggler* TweenJuggler::getInstance() {
-//     return instance;
-// }
+TweenJuggler* TweenJuggler::getInstance() {
+    if (!instance) {
+        instance = new TweenJuggler();
+    }
+    else {
+        return instance;
+    }
+}
 
 void TweenJuggler::add(Tween* tween) {
     // throw event - tween starting
@@ -24,7 +21,6 @@ void TweenJuggler::add(Tween* tween) {
 }
 
 void TweenJuggler::nextFrame() {
-    //std::cout << tweenList.size() << std::endl;
     std::list<Tween*>::iterator it;
     for (it = this->tweenList.begin(); it != this->tweenList.end(); it++) {
         if ((*it)->isComplete()) {
@@ -37,3 +33,4 @@ void TweenJuggler::nextFrame() {
     }
 }
 
+TweenJuggler* TweenJuggler::instance = 0;
