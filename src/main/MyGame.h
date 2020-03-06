@@ -16,7 +16,7 @@ public:
 	MyGame();
 	virtual ~MyGame();
 
-	void update(std::set<SDL_Scancode> pressedKeys) override;
+	void update(std::set<SDL_Scancode> pressedKeys);
 	void draw(AffineTransform& at) override;
 
 private:

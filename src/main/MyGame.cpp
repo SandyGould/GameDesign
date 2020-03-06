@@ -31,7 +31,7 @@ MyGame::~MyGame() {
 
 
 void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
-	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
+	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end() ) {
 		player->position.x += 2;
 	}
 	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
@@ -42,6 +42,12 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 	}
 	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
 		player->position.y -= 2;
+	}
+	if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
+		player->alpha -= 2;
+	}
+	if (pressedKeys.find(SDL_SCANCODE_E) != pressedKeys.end()) {
+		player->alpha += 2;
 	}
 
 	if (player->position.x - player->pivot.x < coin->position.x - coin->pivot.x + coin->width &&

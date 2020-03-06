@@ -1,7 +1,7 @@
 #include "Game.h"
 
 #include <SDL2/SDL_ttf.h>
-
+#include <iostream>
 #include <chrono>
 
 using namespace std::chrono;
@@ -27,6 +27,8 @@ Game::~Game() {
 void Game::quitSDL() {
 	SDL_DestroyRenderer(Game::renderer);
 	SDL_DestroyWindow(window);
+	SDL_GameControllerClose(gameController);
+    gameController = NULL;
 
 	IMG_Quit();
 	SDL_Quit();
@@ -36,6 +38,16 @@ void Game::initSDL() {
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER);
 	IMG_Init(IMG_INIT_PNG);
 
+	// In theory this will go through every "Joystick" in and open the first controller.
+	for (int i = 0; i < SDL_NumJoysticks(); ++i) {
+    	if (SDL_IsGameController(i)) {
+       		gameController = SDL_GameControllerOpen(i); //opens the first controller.
+			if (gameController) { //checks to make sure the controller opened correctly.
+				break;
+			}
+			//We could throw an error after this but lol no :)
+		}
+    }
 	window = SDL_CreateWindow("Rebound",
 	                          SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 	                          this->windowWidth, this->windowHeight,
@@ -74,6 +86,28 @@ void Game::start() {
 		case SDL_KEYUP:
 			this->pressedKeys.erase(event.key.keysym.scancode);
 			break;
+		case SDL_JOYAXISMOTION: //For now I'm doing some shit to place the results of the joystick movement into PressedKeys. 
+			//We could replace this with a set but that's just real screwy and it's 1:30 am. : )
+			if(event.jaxis.which == 0){ //On the x axis.
+				if(event.jaxis.value < -JOYSTICK_DEAD_ZONE)
+					this->pressedKeys.insert(SDL_SCANCODE_LEFT);
+				if(event.jaxis.value > JOYSTICK_DEAD_ZONE)
+					this->pressedKeys.insert(SDL_SCANCODE_RIGHT);
+			}
+			else
+			{
+				if(event.jaxis.value < -JOYSTICK_DEAD_ZONE)
+					this->pressedKeys.insert(SDL_SCANCODE_DOWN);
+				if(event.jaxis.value > JOYSTICK_DEAD_ZONE)
+					this->pressedKeys.insert(SDL_SCANCODE_UP);
+			}
+		case SDL_CONTROLLERBUTTONDOWN:
+			switch(event.cbutton.button){
+				case SDL_CONTROLLER_BUTTON_A:
+					this->pressedKeys.insert(SDL_SCANCODE_Q);
+				case SDL_CONTROLLER_BUTTON_X:
+					this->pressedKeys.insert(SDL_SCANCODE_E);
+			}
 		}
 	}
 }

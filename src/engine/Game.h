@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <set>
+#include <map>
 
 class Game : public DisplayObjectContainer {
 public:
@@ -16,7 +17,7 @@ public:
 
 	SDL_Window* window;
 	static SDL_Renderer* renderer;
-	SDL_GameController* GameController = NULL;
+	SDL_GameController* gameController = NULL;
 
 	//Global frame counter
 	static unsigned int frameCounter;
@@ -25,7 +26,8 @@ public:
 	virtual ~Game();
 	void start();
 
-	void update(std::set<SDL_Scancode> pressedKeys) override;
+	void update(std::set<SDL_Scancode> pressedKeys);
+	//void update(std::set<SDL_Scancode> pressedKeys, std::map<std::string, int> joystickMovement);
 	void draw(AffineTransform& at) override;
 
 private:
@@ -33,6 +35,7 @@ private:
 	void initSDL();
 	void quitSDL();
 	std::set<SDL_Scancode> pressedKeys;
+	std::map<std::string, int> joystickMovement;
 	
 };
 
