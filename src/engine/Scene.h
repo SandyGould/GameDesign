@@ -5,10 +5,12 @@
 #include "DisplayObjectContainer.h"
 #include "AnimatedSprite.h"
 #include "Sprite.h"
+
+#include "json.hpp"
+
 #include <string>
 #include <vector>
 #include <fstream>
-#include <json.hpp>
 
 using json = nlohmann::json;
 
