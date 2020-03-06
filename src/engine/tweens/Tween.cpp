@@ -6,11 +6,13 @@
 Tween::Tween(DisplayObject* object) {
     this->currObject = object;
     this->amountChange = 0;
+    this->timeElapsed = 0;
 }
 
 Tween::Tween(DisplayObject* object, TweenTransitions transition) {
     this->currObject = object;
     this->amountChange = 0;
+    this->timeElapsed = 0;
 }
 
 Tween::~Tween() { 
@@ -27,6 +29,10 @@ void Tween::update() {
     for (it = this->currTweening.begin(); it != this->currTweening.end(); it++) {
         // calculate (linear) change manually for now,
         // replace w/ transition function in the future
+        
+        // percent done!
+        double percTime = this->timeElapsed / (*it)->getTweenTime();
+        // std::cout << percTime << std::endl;
         this->amountChange = ((*it)->getEndVal() - (*it)->getStartVal()) / (*it)->getTweenTime();
 
         // update current value of the TweenParam

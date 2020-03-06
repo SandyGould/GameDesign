@@ -4,6 +4,8 @@
 
 using namespace std;
 
+int value = 1; 
+
 MyGame::MyGame() : Game(1200, 1000) {
 	
 	instance = this;
@@ -29,10 +31,10 @@ MyGame::MyGame() : Game(1200, 1000) {
 	//allSprites->addChild(scene);
 
 	// set camera limits (so it doesn't go off map)
-	camera->setTopLimit(-50);
-	camera->setLeftLimit(0);
-	camera->setRightLimit(800);
-	camera->setBottomLimit(830);
+	//camera->setTopLimit(-50);
+	//camera->setLeftLimit(0);
+	//camera->setRightLimit(600);
+	//camera->setBottomLimit(830);
 
 	scene = new Scene();
 	scene->loadScene("./resources/cameraDemo/loadScene.json");
@@ -140,7 +142,6 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 		}
 	}
 	camera->follow(player->position.x, player->position.y);
-
 	// to test zoom (delete for demo)
 	if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
 		camera->zoomIn(1.1);
@@ -206,6 +207,7 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 	//}
 	juggler->nextFrame();
 	Game::update(pressedKeys);
+	
 }
 
 void MyGame::draw(AffineTransform& at) {
