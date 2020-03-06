@@ -1,6 +1,7 @@
 #include "MyGame.h"
 #include <algorithm>
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -79,14 +80,16 @@ MyGame::MyGame() : Game(1200, 1000) {
 	coin_tween2 = new Tween(coin2);
 	coin_tween3 = new Tween(coin1);
 
-	player_tween->animate(TweenableParams::SCALE_X, 5.0, 1.0, 250);
-	player_tween->animate(TweenableParams::SCALE_Y, 5.0, 1.0, 400);
-	player_tween->animate(TweenableParams::ALPHA, 0, 255, 500);
-	player_tween->animate(TweenableParams::ROTATION, 0, 2 * 3.141592653589, 100);
+	player_tween->animate(TweenableParams::SCALE_X, 5.0, 1.0, 100);
+	player_tween->animate(TweenableParams::SCALE_Y, 5.0, 1.0, 100);
+	player_tween->animate(TweenableParams::ALPHA, 0, 255, 100);
+	player_tween->animate(TweenableParams::ROTATION, 0, 50, 100);
+	player_tween->animate(TweenableParams::X, 0, 10, 100);
+	player_tween->animate(TweenableParams::Y, 0, 10, 100);
 
-	coin_tween1->animate(TweenableParams::ROTATION, 0, 2 * 3.141592653589, 500);
-	coin_tween2->animate(TweenableParams::ROTATION, 0, 2 * 3.141592653589, 700);
-	coin_tween3->animate(TweenableParams::ROTATION, 0, 2 * 3.141592653589, 300);
+	coin_tween1->animate(TweenableParams::ROTATION, 0, 2 * M_PI, 500);
+	coin_tween2->animate(TweenableParams::ROTATION, 0, 2 * M_PI, 700);
+	coin_tween3->animate(TweenableParams::ROTATION, 0, 2 * M_PI, 300);
 
 	juggler->getInstance()->add(coin_tween1);
 	juggler->getInstance()->add(coin_tween2);

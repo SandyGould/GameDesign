@@ -16,7 +16,7 @@ public:
 	};
     
     TweenEvent(std::string eventType, Tween tween);
-    Tween getTween();
+    Tween * getTween();
 };
 
 #endif

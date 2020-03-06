@@ -34,6 +34,11 @@ void TweenParam::setCurrVal(double value) {
     this->currVal = value;
 }
 
+void TweenParam::setCurrChange(double amtChange){
+    double totalChange = this->endVal - this->startVal;
+    this->currVal = this->startVal + totalChange * amtChange;
+}
+
 bool TweenParam::isComplete(){
     // if the start value was less than the end value and the current value is now greater than/equal to end val
     if (this->startVal <= this->endVal && this->currVal >= this->endVal) {
