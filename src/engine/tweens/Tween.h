@@ -16,7 +16,7 @@ class Tween {
         ~Tween();
         void animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time);
         void update(); //invoked once per frame by the TweenJuggler. Updates this tween / DisplayObject
-        // void setValue(TweenableParams param, double value);
+        void setValue(TweenableParams param, double value);
         bool isComplete();
         void incrementTime() { this-> timeElapsed += 1; }
      
