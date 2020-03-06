@@ -24,10 +24,20 @@ struct Animation {
 	std::string basepath;
 };
 
+struct sheetAnim{
+	SDL_Surface* sheet_surface;
+	SDL_Texture* sheet_texture;
+};
+
+struct sheetFrame{
+
+};
+
 class AnimatedSprite : public Sprite {
 public:
 	AnimatedSprite();
 	AnimatedSprite(std::string id);
+	AnimatedSprite(std::string id, std::string spritesheet, std::string sheet_anims);
 	~AnimatedSprite();
 
 	void addAnimation(std::string basepath, std::string animName, int numFrames, int frameRate, bool loop);
@@ -43,10 +53,13 @@ public:
 	bool playing = false;
 
 	std::vector<Animation*> animations;
+	std::vector<Animation*> sheetAnimations;
 	Animation* current;
+	sheetAnim* curSheetAnim;
 
 private:
 	int frameCount;
+	bool isSheet = false;
 };
 
 #endif

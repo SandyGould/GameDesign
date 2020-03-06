@@ -1,5 +1,9 @@
 #include "AnimatedSprite.h"
 #include "Game.h"
+#include "json.hpp"
+#include <fstream>
+
+using json = nlohmann::json;
 
 AnimatedSprite::AnimatedSprite() : Sprite() {
     this->type = "AnimatedSprite";
@@ -7,6 +11,17 @@ AnimatedSprite::AnimatedSprite() : Sprite() {
 
 AnimatedSprite::AnimatedSprite(std::string id) : Sprite(id, 0, 0, 0) {
     this->type = "AnimatedSprite";
+}
+
+AnimatedSprite::AnimatedSprite(std::string id, std::string spritesheet, std::string sheet_anims) : Sprite(id, 0, 0, 0) {
+    this->type = "AnimatedSprite";
+    std::ifstream i(sheet_anims);
+    json j;
+    i >> j;
+
+    for(int k = 0; k < j["frames"].size(); ++k){
+
+    }
 }
 
 AnimatedSprite::~AnimatedSprite() {

@@ -12,6 +12,7 @@ public:
 
 	void update(std::unordered_set<SDL_Scancode> pressedKeys) override;
 	void draw(AffineTransform& at) override;
+	void draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src = NULL) override;
 private:
 
 };

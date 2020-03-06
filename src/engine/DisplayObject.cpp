@@ -111,7 +111,7 @@ void DisplayObject::draw(AffineTransform& at) {
 	DisplayObject::draw(at, Game::renderer);
 }
 
-void DisplayObject::draw(AffineTransform& at, SDL_Renderer* r) {
+void DisplayObject::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
 	applyTransformations(at);
 
 	if(curTexture != NULL && visible) {

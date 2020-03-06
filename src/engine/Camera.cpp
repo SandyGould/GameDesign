@@ -84,7 +84,7 @@ void Camera::draw(AffineTransform& at) {
     Camera::draw(at, Game::renderer);
 }
 
-void Camera::draw(AffineTransform& at, SDL_Renderer* r) {
+void Camera::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
     applyTransformations(at);
 
     for (auto child : children) {

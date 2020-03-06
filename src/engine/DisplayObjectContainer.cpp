@@ -91,7 +91,7 @@ void DisplayObjectContainer::draw(AffineTransform& at) {
     DisplayObjectContainer::draw(at, Game::renderer);
 }
 
-void DisplayObjectContainer::draw(AffineTransform& at, SDL_Renderer* r) {
+void DisplayObjectContainer::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
     DisplayObject::draw(at, r);
     applyTransformations(at);
     // undo the parent's pivot

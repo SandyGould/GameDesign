@@ -38,7 +38,7 @@ public:
 
 	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys);
 	virtual void draw(AffineTransform& at);
-	virtual void draw(AffineTransform& at, SDL_Renderer* r);
+	virtual void draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src = NULL);
 
 	void loadTexture(std::string filepath, SDL_Renderer* r);
 	void loadRGBTexture(int red, int green, int blue);
