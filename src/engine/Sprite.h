@@ -10,7 +10,7 @@ public:
 	Sprite(std::string id, std::string filepath);
 	Sprite(std::string id, int red, int green, int blue);
 
-	virtual void update(std::set<SDL_Scancode> pressedKeys);
+	virtual void update(std::set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
 	virtual void draw(AffineTransform& at);
 private:
 	

@@ -12,8 +12,8 @@ Sprite::Sprite(std::string id, int red, int green, int blue) : DisplayObjectCont
     this->type = "Sprite";
 }
 
-void Sprite::update(std::set<SDL_Scancode> pressedKeys) {
-    DisplayObjectContainer::update(pressedKeys);
+void Sprite::update(std::set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+    DisplayObjectContainer::update(pressedKeys, joystickState, pressedButtons);
 }
 
 void Sprite::draw(AffineTransform& at) {

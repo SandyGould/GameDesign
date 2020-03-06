@@ -71,8 +71,8 @@ void AnimatedSprite::stop() {
     this->playing = false;
 }
 
-void AnimatedSprite::update(std::set<SDL_Scancode> pressedKeys) {
-    Sprite::update(pressedKeys);
+void AnimatedSprite::update(std::set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+    Sprite::update(pressedKeys, joystickState, pressedButtons);
     if (playing) {
         frameCount++;
         if (frameCount % current->frameRate == 0) {

@@ -9,8 +9,14 @@
 #include <SDL2/SDL_image.h>
 
 #include <set>
+#include <unordered_set>
 #include <string>
 #include <vector>
+
+struct jState {
+	Sint16 xVal;
+	Sint16 yVal;
+};
 
 class DisplayObject {
 
@@ -33,7 +39,7 @@ public:
 	DisplayObject(std::string id, int red, int green, int blue);
 	virtual ~DisplayObject();
 	
-	virtual void update(std::set<SDL_Scancode> pressedKeys);
+	virtual void update(std::set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
 	virtual void draw(AffineTransform& at);
 
 	void loadTexture(std::string filepath);

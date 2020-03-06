@@ -26,7 +26,7 @@ public:
 	virtual DisplayObject* getChild(int index);
 	virtual DisplayObject* getChild(std::string id);
 
-	void update(std::set<SDL_Scancode> pressedKeys) override;
+	void update(std::set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) override;
 	void draw(AffineTransform& at) override;
 
 	std::vector<DisplayObject*> children;

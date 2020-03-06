@@ -9,8 +9,8 @@ Coin::Coin() : Sprite("coin_"+std::to_string(coin_id_counter) , "./resources/sol
     hasCollision = true;
 }
 
-void Coin::update(std::set<SDL_Scancode> pressedKeys){
-    Sprite::update(pressedKeys);
+void Coin::update(std::set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
+    Sprite::update(pressedKeys, joystickState, pressedButtons);
 }
 
 void Coin::draw(AffineTransform& at){
