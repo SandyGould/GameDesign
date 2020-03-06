@@ -56,7 +56,18 @@ void DisplayObject::setTexture(SDL_Texture* t) {
 }
 
 void DisplayObject::update(std::set<SDL_Scancode> pressedKeys) {
-	
+	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
+		position.x -= parallaxSpeed;
+	}
+	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
+		position.x += parallaxSpeed;
+	}
+	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
+		position.y -= parallaxSpeed;
+	}
+	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
+		position.y += parallaxSpeed;
+	}
 }
 
 void DisplayObject::draw(AffineTransform& at) {

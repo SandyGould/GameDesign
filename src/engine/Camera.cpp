@@ -79,6 +79,7 @@ void Camera::follow(int newX, int newY) {
     }
 }
 
+
 // void Camera::applyTransformations(AffineTransform& at) {
 // 	at.scale(scaleX, scaleY);
 // 	at.rotate(rotation);

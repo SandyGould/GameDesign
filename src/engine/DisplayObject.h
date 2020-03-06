@@ -58,7 +58,7 @@ public:
 
 	bool hasCollision = false;
 
-	int parallaxSpeed = 1;
+	double parallaxSpeed = 0.0;
 
 private:
 	double distance(SDL_Point& p1, SDL_Point& p2);
