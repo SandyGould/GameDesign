@@ -32,7 +32,8 @@ public:
 	// custom function to make following a character a little easier/neater
 	void follow(int newX, int newY);
 
-	void draw(AffineTransform &at);
+	void draw(AffineTransform &at) override;
+	void draw(AffineTransform& at, SDL_Renderer* r) override;
 
 private:
 	int rightLimit;

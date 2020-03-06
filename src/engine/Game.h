@@ -42,10 +42,10 @@ protected:
 	EventDispatcher dispatcher;
 
 private:
+	std::unordered_set<SDL_Scancode> pressedKeys;
 
 	void initSDL();
 	void quitSDL();
-	std::unordered_set<SDL_Scancode> pressedKeys;
 
 	DisplayObject* selected;
 

@@ -14,6 +14,7 @@ public:
 
 	DisplayObjectContainer();
 	DisplayObjectContainer(std::string id, std::string filepath);
+	DisplayObjectContainer(std::string id, std::string filepath, SDL_Renderer* r);
 	DisplayObjectContainer(std::string id, int red, int green, int blue);
 	virtual ~DisplayObjectContainer();
 
@@ -29,6 +30,7 @@ public:
 
 	void update(std::unordered_set<SDL_Scancode> pressedKeys) override;
 	void draw(AffineTransform& at) override;
+	void draw(AffineTransform& at, SDL_Renderer* r) override;
 
 	std::vector<DisplayObject*> children;
 	std::vector<DisplayObject*> collisionList;

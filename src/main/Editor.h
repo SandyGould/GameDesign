@@ -10,6 +10,7 @@
 #include <iterator>
 #include <algorithm>
 #include <dirent.h>
+#include <filesystem>
 
 using namespace std;
 
@@ -21,7 +22,15 @@ public:
 	void setupfiles(const string& path);
 
 	void update(std::unordered_set<SDL_Scancode> pressedKeys) override;
+	void draw(AffineTransform& at) override;
+	void initSDL();
 	void draw_post() override;
+
+	SDL_Window* assets_window;
+	SDL_Renderer* assets_renderer;
+
+	SDL_Window* edit_window;
+	SDL_Renderer* edit_renderer;
 
 	void handleEvent(Event* e) override;
 
@@ -37,6 +46,16 @@ private:
 	vector<string> all_sprites;
 	Crosshair* crosshair;
 	Scene* curScene;
+
+	vector<Sprite*> sprites;
+	vector<DisplayObjectContainer*> docs;
+	vector<AnimatedSprite*> aSprites;
+
+	DisplayObjectContainer* assets;
+	DisplayObjectContainer* assets_sprites;
+	DisplayObjectContainer* assets_docs;
+	DisplayObjectContainer* assets_aSprites;
+	DisplayObjectContainer* edit;
 
 	AffineTransform atTest;
 

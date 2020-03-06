@@ -19,7 +19,14 @@ DisplayObject::DisplayObject(std::string id, std::string filepath) {
 	this->id = id;
 	this->imgPath = filepath;
 
-	loadTexture(filepath);
+	loadTexture(filepath, Game::renderer);
+}
+
+DisplayObject::DisplayObject(std::string id, std::string filepath, SDL_Renderer* r) {
+	this->id = id;
+	this->imgPath = filepath;
+
+	loadTexture(filepath, r);
 }
 
 DisplayObject::DisplayObject(std::string id, int red, int green, int blue) {
@@ -47,7 +54,7 @@ DisplayObject::DisplayObject(const DisplayObject& other) {
 	// copy(static_cast<DisplayObjectContainer*>(other)->collisionList.begin(), static_cast<DisplayObjectContainer*>(other)->collisionList.end(), back_inserter(static_cast<DisplayObjectContainer*>(this)->collisionList));
 	this->id = other.id + "_copy";
 	this->imgPath = other.imgPath;
-	this->loadTexture(this->imgPath);
+	this->loadTexture(this->imgPath, Game::renderer);
 }
 
 DisplayObject::~DisplayObject() {
@@ -56,9 +63,9 @@ DisplayObject::~DisplayObject() {
 	if(texture != NULL) SDL_DestroyTexture(texture);
 }
 
-void DisplayObject::loadTexture(std::string filepath) {
+void DisplayObject::loadTexture(std::string filepath, SDL_Renderer* r) {
 	image = IMG_Load(filepath.c_str());
-	texture = SDL_CreateTextureFromSurface(Game::renderer, image);
+	texture = SDL_CreateTextureFromSurface(r, image);
 	setTexture(texture);
 }
 
@@ -101,6 +108,10 @@ void DisplayObject::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 }
 
 void DisplayObject::draw(AffineTransform& at) {
+	DisplayObject::draw(at, Game::renderer);
+}
+
+void DisplayObject::draw(AffineTransform& at, SDL_Renderer* r) {
 	applyTransformations(at);
 
 	if(curTexture != NULL && visible) {
@@ -124,7 +135,7 @@ void DisplayObject::draw(AffineTransform& at) {
 		}
 
 		SDL_SetTextureAlphaMod(curTexture, alpha);
-		SDL_RenderCopyEx(Game::renderer, curTexture, NULL, &dstrect, calculateRotation(origin, upperRight), &corner, flip);
+		SDL_RenderCopyEx(r, curTexture, NULL, &dstrect, calculateRotation(origin, upperRight), &corner, flip);
 	}
 
 	reverseTransformations(at);

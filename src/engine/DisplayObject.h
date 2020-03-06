@@ -31,14 +31,16 @@ public:
 
 	DisplayObject();
 	DisplayObject(std::string id, std::string path);
+	DisplayObject(std::string id, std::string path, SDL_Renderer* r);
 	DisplayObject(std::string id, int red, int green, int blue);
 	DisplayObject(const DisplayObject& other);
 	virtual ~DisplayObject();
 
 	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys);
 	virtual void draw(AffineTransform& at);
+	virtual void draw(AffineTransform& at, SDL_Renderer* r);
 
-	void loadTexture(std::string filepath);
+	void loadTexture(std::string filepath, SDL_Renderer* r);
 	void loadRGBTexture(int red, int green, int blue);
 	void setTexture(SDL_Texture* t);
 

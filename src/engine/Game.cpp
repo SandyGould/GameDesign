@@ -77,6 +77,11 @@ void Game::start() {
 			case SDL_QUIT:
 				quit = true;
 				break;
+			case SDL_WINDOWEVENT:
+				if (event.window.event == SDL_WINDOWEVENT_CLOSE){
+					quit = true;
+				}
+				break;
 			case SDL_KEYDOWN:
 				pressedKeys.insert(event.key.keysym.scancode);
 				break;
@@ -84,8 +89,10 @@ void Game::start() {
 				this->pressedKeys.erase(event.key.keysym.scancode);
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				this->dispatcher.dispatchEvent(new ClickEvent(event.button.x, event.button.y, event.button.button, event.button.clicks));
-				this->isDragging = true;
+				if (event.button.windowID == SDL_GetWindowID(window)){
+					this->dispatcher.dispatchEvent(new ClickEvent(event.button.x, event.button.y, event.button.button, event.button.clicks));
+					this->isDragging = true;
+				}
 				break;
 			case SDL_MOUSEBUTTONUP:
 				this->isDragging = false;

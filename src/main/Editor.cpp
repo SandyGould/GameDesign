@@ -5,11 +5,17 @@
 
 #include <iostream>
 
+namespace fs = std::filesystem;
+
+using namespace std;
+
 Editor::Editor() : Editor("./resources/scene/blank.json") {
 
 }
 
 Editor::Editor(const string& sceneToLoad) : Game(1200, 800) {
+	initSDL();
+
 	instance = this;
 	curScene = new Scene();
 
@@ -34,48 +40,71 @@ Editor::Editor(const string& sceneToLoad) : Game(1200, 800) {
 
 	this->selected = nullptr;
 
-	setupfiles("./resources/");
+	assets = new DisplayObjectContainer();
+	assets_docs = new DisplayObjectContainer();
+
+	setupfiles("./resources/assets");
 }
 
 void Editor::setupfiles(const string& path) {
-	if (path.compare("./resources/other/") == 0 || path.compare("./resources/scene/") == 0) {
-		return;
-	}
-	DIR* dir;
-	struct dirent* ent;
+	for (const auto & entry : fs::directory_iterator(path)){
+		if (entry.path() == "./resources/assets/Animated_Sprites"){
+			for (const auto & AS : fs::directory_iterator(entry.path())){
+				AnimatedSprite* temp = new AnimatedSprite();
 
-	if ((dir = opendir(path.c_str())) != NULL) {
-		while ((ent = readdir(dir)) != NULL) {
+				for (const auto & anim : fs::directory_iterator(AS.path())){
+					// temp->
+				}
 
-			if (!ent->d_name || ent->d_name[0] == '.') {
-				continue;
-			} else if (ent->d_type == DT_DIR) {
-				setupfiles(path + ent->d_name + "/");
-			} else {
-				all_sprites.push_back(path + ent->d_name);
+				aSprites.push_back(temp);
 			}
-
+		} else if (entry.path() == "./resources/assets/Display_Objects"){
+			for (const auto & DO : fs::directory_iterator(entry.path())){
+				docs.push_back(new DisplayObjectContainer("test", DO.path(), assets_renderer));
+			}
+		} else if (entry.path() == "./resources/assets/Sprites"){
+			for (const auto & S : fs::directory_iterator(entry.path())){
+				// std::cout << S.path() << std::endl;
+			}
 		}
-		closedir(dir);
-	} else {
-		perror("");
-		printf("Could not open...");
 	}
+	for (int i = 0; i < docs.size(); ++i){
+		docs[i]->position.x = i%2==0 ? 0 : 150;
+		docs[i]->position.y = (i/2)*150;
+		assets_docs->addChild(docs[i]);
+	}
+	assets->addChild(assets_docs);
 }
 
 void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 	//Move
 	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
-		camera->panRight(5);
+		int f = (int) 5*(1/camera->scaleX);
+		if (f < 1){
+			f = 1;
+		}
+		camera->panRight(f);
 	}
 	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
-		camera->panLeft(5);
+		int f = (int) 5*(1/camera->scaleX);
+		if (f < 1){
+			f = 1;
+		}
+		camera->panLeft(f);
 	}
 	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-		camera->panDown(5);
+		int f = (int) 5*(1/camera->scaleY);
+		if (f < 1){
+			f = 1;
+		}
+		camera->panDown(f);
 	}
 	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
-		camera->panUp(5);
+		int f = (int) 5*(1/camera->scaleY);
+		if (f < 1){
+			f = 1;
+		}
+		camera->panUp(f);
 	}
 
 	// Zoom
@@ -209,22 +238,6 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 		crosshair->getChild(0)->scaleY = heldScaleY;
 	}
 
-	// to test zoom (delete for demo)
-	if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end() && pressedKeys.find(SDL_SCANCODE_LCTRL) == pressedKeys.end() && pressedKeys.find(SDL_SCANCODE_RCTRL) == pressedKeys.end()) {
-		camera->zoomIn(1.1);
-	}
-	if (pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) {
-		camera->zoomOut(1.1);
-	}
-
-
-	if (pressedKeys.find(SDL_SCANCODE_P) != pressedKeys.end()) {
-		if (crosshair != NULL) {
-			SDL_Point tempPoint = crosshair->getGlobalPosition(atTest);
-			cout << tempPoint.x << ", " << tempPoint.y << endl;
-		}
-	}
-
 	if ((pressedKeys.find(SDL_SCANCODE_LCTRL) != pressedKeys.end() || pressedKeys.find(SDL_SCANCODE_RCTRL) != pressedKeys.end()) && pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
 		string tmp;
 		cin >> tmp;
@@ -250,6 +263,34 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 	prevKeys = pressedKeys;
 
 	Game::update(pressedKeys);
+}
+
+void Editor::draw(AffineTransform& at){
+	Game::draw(at);
+
+	SDL_SetRenderDrawColor(Editor::assets_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderClear(Editor::assets_renderer);
+	assets->draw(at, Editor::assets_renderer);
+	SDL_RenderPresent(Editor::assets_renderer);
+
+	SDL_SetRenderDrawColor(Editor::edit_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderClear(Editor::edit_renderer);
+	SDL_RenderPresent(Editor::edit_renderer);
+}
+
+void Editor::initSDL() {
+	assets_window = SDL_CreateWindow("Assets",
+	                          0, 500,
+	                          300, 450,
+	                          SDL_WINDOW_ALLOW_HIGHDPI);
+
+	edit_window = SDL_CreateWindow("Edit",
+	                          0, 0,
+	                          300, 450,
+	                          SDL_WINDOW_ALLOW_HIGHDPI);
+
+	assets_renderer = SDL_CreateRenderer(assets_window, -1, 0);
+	edit_renderer = SDL_CreateRenderer(edit_window, -1, 0);
 }
 
 void Editor::draw_post() {

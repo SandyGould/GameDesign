@@ -1,4 +1,6 @@
 #include "DisplayObjectContainer.h"
+#include "Game.h"
+
 #include <algorithm>
 
 DisplayObjectContainer::DisplayObjectContainer() : DisplayObject() {
@@ -6,6 +8,10 @@ DisplayObjectContainer::DisplayObjectContainer() : DisplayObject() {
 }
 
 DisplayObjectContainer::DisplayObjectContainer(std::string id, std::string filepath) : DisplayObject(id, filepath) {
+    this->type = "DisplayObjectContainer";
+}
+
+DisplayObjectContainer::DisplayObjectContainer(std::string id, std::string filepath, SDL_Renderer* r) : DisplayObject(id, filepath, r) {
     this->type = "DisplayObjectContainer";
 }
 
@@ -82,12 +88,16 @@ void DisplayObjectContainer::update(std::unordered_set<SDL_Scancode> pressedKeys
 }
 
 void DisplayObjectContainer::draw(AffineTransform& at) {
-    DisplayObject::draw(at);
+    DisplayObjectContainer::draw(at, Game::renderer);
+}
+
+void DisplayObjectContainer::draw(AffineTransform& at, SDL_Renderer* r) {
+    DisplayObject::draw(at, r);
     applyTransformations(at);
     // undo the parent's pivot
     at.translate(pivot.x, pivot.y);
     for (auto child : children) {
-        child->draw(at);
+        child->draw(at, r);
     }
     // redo the parent's pivot
     at.translate(-pivot.x, -pivot.y);
