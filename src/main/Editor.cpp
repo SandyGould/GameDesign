@@ -60,7 +60,7 @@ void Editor::setupfiles(const string& path) {
 			}
 		} else if (entry.path() == "./resources/assets/Display_Objects"){
 			for (const auto & DO : fs::directory_iterator(entry.path())){
-				docs.push_back(new DisplayObjectContainer("test", DO.path(), assets_renderer));
+				docs.push_back(new DisplayObjectContainer("test", DO.path().string(), assets_renderer));
 			}
 		} else if (entry.path() == "./resources/assets/Sprites"){
 			for (const auto & S : fs::directory_iterator(entry.path())){
