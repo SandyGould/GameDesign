@@ -3,35 +3,35 @@
 
 #include "DisplayObject.h"
 #include "DisplayObjectContainer.h"
+#include "AnimatedSprite.h"
 #include "Sprite.h"
 #include <string>
 #include <vector>
 #include <fstream>
-//#include "../dist/json/json.h"
-#include "json.hpp"
+#include <json.hpp>
 
-
-
-
-using namespace std;
+using json = nlohmann::json;
 
 class Scene : public DisplayObjectContainer{
 
 public:
 	Scene();
-	Scene(string id);
+	Scene(std::string id);
 	// virtual ~Scene();
 
 	/* Load scene from a file */
-	void loadScene(string sceneFilePath);
-	void saveScene(string sceneName);
+	void loadScene(std::string sceneFilePath);
+	void saveScene(std::string sceneName);
 	void addToJSON(nlohmann::json &DOA, nlohmann::json &DOCA, nlohmann::json &ASA, nlohmann::json &SA, DisplayObject* dObject);
 
 
-	void update(unordered_set<SDL_Scancode> pressedKeys) override;
+	void update(std::unordered_set<SDL_Scancode> pressedKeys) override;
 	void draw(AffineTransform &at) override;
 
-
+	DisplayObjectContainer* generateDOC(json j);
+	AnimatedSprite* generateAS(json j);
+	Sprite* generateSprite(json j);
+	
 private:
 	DisplayObjectContainer* root;
 

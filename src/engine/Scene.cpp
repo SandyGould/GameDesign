@@ -7,14 +7,13 @@
 #include <iostream>
 #include "json.hpp"
 using json = nlohmann::json;
-// #include "../dist/json/json.h"
 
-
+using namespace std;
 
 Scene::Scene() : DisplayObjectContainer(){
     this->type = "Scene";
 }
-Scene::Scene(string id) : DisplayObjectContainer(){
+Scene::Scene(std::string id) : DisplayObjectContainer(){
     this->type = "Scene";
     this->id = id;
 }
@@ -23,59 +22,76 @@ Scene::Scene(string id) : DisplayObjectContainer(){
 // }
 
 	/* Load scene from a file */
-void Scene::loadScene(string sceneFilePath){
+void Scene::loadScene(std::string sceneFilePath){
     std::ifstream i(sceneFilePath);
     json j;
     i >> j;
-    for(int z = 0; z < j["DOC"].size(); z++){
-        // std::cout << j["DOC"][z] << endl;
-        DisplayObjectContainer* temp_doc = new DisplayObjectContainer(j["DOC"][z]["name"], j["DOC"][z]["filepath"]);
-        /* Assuming we have these fields in the json for each object */
-        temp_doc->position.x = j["DOC"][z]["x_pos"];
-        temp_doc->position.y = j["DOC"][z]["y_pos"];
-        temp_doc->rotation = j["DOC"][z]["rotation"];
-        temp_doc->scaleX = j["DOC"][z]["scaleX"];
-        temp_doc->scaleY = j["DOC"][z]["scaleY"];
-        this->addChild(temp_doc);
-    }
-    for(int z = 0; z < j["DO"].size(); z++){
-        // std::cout << j["DO"][z] << endl;
-        DisplayObject* temp_do = new DisplayObject(j["DO"][z]["name"], j["DO"][z]["filepath"]);
-        temp_do->position.x = j["DO"][z]["x_pos"];
-        temp_do->position.y = j["DO"][z]["y_pos"];
-        temp_do->rotation = j["DO"][z]["rotation"];
-        temp_do->scaleX = j["DO"][z]["scaleX"];
-        temp_do->scaleY = j["DO"][z]["scaleY"];
-        this->addChild(temp_do);
-    }
-    for(int z = 0; z < j["ASprite"].size(); z++){
-        // std::cout << j["ASprite"][z] << endl;
-        AnimatedSprite* temp_asprite = new AnimatedSprite(j["ASprite"][z]["name"]);
-        temp_asprite->addAnimation(j["ASprite"][z]["basepath"], j["ASprite"][z]["animName"], j["ASprite"][z]["numFrames"], j["ASprite"][z]["frameRate"], j["ASprite"][z]["loop"]);
-        temp_asprite->position.x = j["ASprite"][z]["x_pos"];
-        temp_asprite->position.y = j["ASprite"][z]["y_pos"];
-        temp_asprite->rotation = j["ASprite"][z]["rotation"];
-        temp_asprite->scaleX = j["ASprite"][z]["scaleX"];
-        temp_asprite->scaleY = j["ASprite"][z]["scaleY"];
-        this->addChild(temp_asprite);
-        temp_asprite->play(j["ASprite"][z]["animName"]);
-    }
-    for(int z = 0; z < j["Sprite"].size(); z++){
-        // std::cout << j["Sprite"][z] << endl;
-        Sprite* temp_sprite = new Sprite(j["Sprite"][z]["name"], j["Sprite"][z]["filepath"]);
-        this->addChild(temp_sprite);
-    }
-    // Json::Value scene_info;
-	// //Json::Reader reader;
+    for(int z = 0; z < j["Scene"].size(); z++){
+        DisplayObjectContainer *temp_layer = new DisplayObjectContainer();
+        std::string layer_value = "L" + std::to_string(z);
+        json json_layer = j["Scene"][z][layer_value];
 
-    // root = new DisplayObjectContainer();
+        temp_layer->parallaxSpeed = json_layer["speed"];
 
-    // ifstream scene_file(sceneFilePath, ifstream::binary);
-    // scene_file >> scene_info;
-    // for(int x = 0; x < this->children.size();x++){
-    //     std::cout << children[x]->id << endl;
-    // }
-    
+        for(int y = 0; y < json_layer["objects"].size(); y++){
+            // std::cout << "type: " + json_layer["objects"][y]["type"].get<std::string>() << std::endl;
+            
+            // DisplayObjectContainer* parent = temp_layer;
+            // if(json_layer["objects"][y]["parentHierarchy"].size() > 0){
+            //     parent = find_parent(json_layer["objects"][y]["parentHierarchy"], temp_layer);
+            // } 
+
+            std::string obj_type = json_layer["objects"][y]["type"].get<std::string>();
+            if(obj_type.compare("DOC") == 0){
+                temp_layer->addChild(generateDOC(json_layer["objects"][y]));
+            }
+            else if(obj_type.compare("AnimatedSprite") == 0){
+                temp_layer->addChild(generateAS(json_layer["objects"][y]));
+            }
+            else if(obj_type.compare("Sprite") == 0){
+                temp_layer->addChild(generateSprite(json_layer["objects"][y]));
+            }
+        }
+        this->addChild(temp_layer);
+    }
+}
+
+DisplayObjectContainer* Scene::generateDOC(json j){
+    DisplayObjectContainer* temp_doc = new DisplayObjectContainer(j["name"], j["filepath"]);
+    temp_doc->position.x = j["x_pos"];
+    temp_doc->position.y = j["y_pos"];
+    temp_doc->rotation = j["rotation"];
+    temp_doc->scaleX = j["scaleX"];
+    temp_doc->scaleY = j["scaleY"];
+    return temp_doc;
+}
+
+AnimatedSprite* Scene::generateAS(json j){
+    AnimatedSprite* temp_asprite = new AnimatedSprite(j["name"]);
+    if(j["animations"].size() > 0){
+        json ani_json = j["animations"];
+        for(int x = 0; x < j["animations"].size(); x++){
+            temp_asprite->addAnimation(ani_json[x]["basepath"], ani_json[x]["animName"], ani_json[x]["numFrames"], ani_json[x]["frameRate"], ani_json[x]["loop"]);
+        }
+        temp_asprite->play(ani_json[0]["animName"]);
+    }
+    // temp_asprite->addAnimation(j["ASprite"][z]["basepath"], j["ASprite"][z]["animName"], j["ASprite"][z]["numFrames"], j["ASprite"][z]["frameRate"], j["ASprite"][z]["loop"]);
+    temp_asprite->position.x = j["x_pos"];
+    temp_asprite->position.y = j["y_pos"];
+    temp_asprite->rotation = j["rotation"];
+    temp_asprite->scaleX = j["scaleX"];
+    temp_asprite->scaleY = j["scaleY"];
+    return temp_asprite;
+}
+
+Sprite* Scene::generateSprite(json j){
+    Sprite* temp_sprite = new Sprite(j["name"], j["filepath"]);
+    temp_sprite->position.x = j["x_pos"];
+    temp_sprite->position.y = j["y_pos"];
+    temp_sprite->rotation = j["rotation"];
+    temp_sprite->scaleX = j["scaleX"];
+    temp_sprite->scaleY = j["scaleY"];
+    return temp_sprite;
 }
 
 void Scene::saveScene(string sceneName){

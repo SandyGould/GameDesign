@@ -6,6 +6,7 @@
 #include <vector>
 // #include "Event.h"
 #include <string>
+#include <algorithm>
 
 class DisplayObjectContainer : public DisplayObject {
 

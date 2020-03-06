@@ -41,7 +41,7 @@ void Game::quitSDL() {
 }
 
 void Game::initSDL() {
-	SDL_Init(SDL_INIT_VIDEO);
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 	IMG_Init(IMG_INIT_PNG);
 
 	window = SDL_CreateWindow("Rebound",

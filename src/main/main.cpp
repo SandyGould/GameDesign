@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 
+
 // SDL tries to redefine main? Need to investigate later
 #undef main
 

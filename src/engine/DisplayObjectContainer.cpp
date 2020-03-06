@@ -1,5 +1,4 @@
 #include "DisplayObjectContainer.h"
-
 #include <algorithm>
 
 DisplayObjectContainer::DisplayObjectContainer() : DisplayObject() {

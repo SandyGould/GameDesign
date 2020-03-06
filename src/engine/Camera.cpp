@@ -1,8 +1,6 @@
 #include <climits>
 #include "Camera.h"
 
-// To Do - add functionality for pivot of camera to follow player (for zoom)
-
 Camera::Camera() : DisplayObjectContainer(){
     this->type = "Camera";
 
@@ -37,26 +35,26 @@ void Camera::setBottomLimit(int bottomLimit) {
 }
 
 void Camera::panRight(int factor) {
-    if (this->pivot.x - factor >= this->leftLimit) {
-        this->pivot.x -= factor;
-    }
-}
-
-void Camera::panLeft(int factor) {
     if (this->pivot.x + factor <= this->rightLimit) {
         this->pivot.x += factor;
     }
 }
 
+void Camera::panLeft(int factor) {
+    if (this->pivot.x - factor >= this->leftLimit) {
+        this->pivot.x -= factor;
+    }
+}
+
 void Camera::panUp(int factor) {
-    if (this->pivot.y + factor <= this->bottomLimit) {
-        this->pivot.y += factor;
+    if (this->pivot.y - factor >= this->topLimit) {
+        this->pivot.y -= factor;
     }
 }
 
 void Camera::panDown(int factor) {
-    if (this->pivot.y - factor >= this->topLimit) {
-        this->pivot.y -= factor;
+    if (this->pivot.y + factor <= this->bottomLimit) {
+        this->pivot.y += factor;
     }
 }
 	
@@ -79,4 +77,14 @@ void Camera::follow(int newX, int newY) {
     if (newY >= topLimit *scaleY && newY <= bottomLimit * scaleY) {
         this->pivot.y = newY;
     }
+}
+
+void Camera::draw(AffineTransform& at) {
+    applyTransformations(at);
+
+    for (auto child : children) {
+        child->draw(at);
+    }
+
+    reverseTransformations(at);
 }
