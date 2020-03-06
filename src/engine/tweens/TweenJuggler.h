@@ -20,8 +20,6 @@ class TweenJuggler {
         TweenJuggler();
         static TweenJuggler* instance;
         std::list<Tween*> tweenList;
-        bool created = false;
-
 };
 
 #endif

@@ -35,26 +35,26 @@ void Camera::setBottomLimit(int bottomLimit) {
 }
 
 void Camera::panRight(int factor) {
-    if (this->pivot.x - factor >= this->leftLimit) {
-        this->pivot.x -= factor;
-    }
-}
-
-void Camera::panLeft(int factor) {
     if (this->pivot.x + factor <= this->rightLimit) {
         this->pivot.x += factor;
     }
 }
 
+void Camera::panLeft(int factor) {
+    if (this->pivot.x - factor >= this->leftLimit) {
+        this->pivot.x -= factor;
+    }
+}
+
 void Camera::panUp(int factor) {
-    if (this->pivot.y + factor <= this->bottomLimit) {
-        this->pivot.y += factor;
+    if (this->pivot.y - factor >= this->topLimit) {
+        this->pivot.y -= factor;
     }
 }
 
 void Camera::panDown(int factor) {
-    if (this->pivot.y - factor >= this->topLimit) {
-        this->pivot.y -= factor;
+    if (this->pivot.y + factor <= this->bottomLimit) {
+        this->pivot.y += factor;
     }
 }
 	

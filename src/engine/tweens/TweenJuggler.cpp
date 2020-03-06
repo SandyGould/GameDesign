@@ -10,9 +10,7 @@ TweenJuggler* TweenJuggler::getInstance() {
     if (!instance) {
         instance = new TweenJuggler();
     }
-    else {
-        return instance;
-    }
+    return instance;
 }
 
 void TweenJuggler::add(Tween* tween) {
@@ -29,6 +27,7 @@ void TweenJuggler::nextFrame() {
         }
         else {
             (*it)->update();
+            (*it)->incrementTime();
         }
     }
 }

@@ -15,6 +15,7 @@ class TweenParam {
         double getTweenTime();
         double getCurrVal();
         void setCurrVal(double value);
+        void setCurrChange(double amountChange);
         bool isComplete();
     
     private:
