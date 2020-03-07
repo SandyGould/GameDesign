@@ -4,12 +4,13 @@
 #include "../engine/Camera.h"
 #include "../engine/Scene.h"
 #include "../engine/events/EventListener.h"
+#include "../engine/events/MouseDownEvent.h"
+#include "../engine/events/MouseUpEvent.h"
 #include "../engine/things/Crosshair.h"
 
 #include <vector>
 #include <iterator>
 #include <algorithm>
-#include <dirent.h>
 #include <filesystem>
 
 using namespace std;
@@ -34,8 +35,8 @@ public:
 
 	void handleEvent(Event* e) override;
 
-	bool selectObject(DisplayObject* object, int x, int y);
-	bool dragObject(DisplayObject* object, int x, int y, int xrel, int yrel);
+	bool onMouseDown(DisplayObject* object, MouseDownEvent* event);
+	bool onMouseUp(DisplayObject* object, MouseUpEvent* event);
 
 private:
 	Camera* camera;
@@ -65,7 +66,7 @@ private:
 	double heldScaleY = 1.0;
 	double heldRotation = 0.0;
 
-	DisplayObject* selected;
+	unordered_set<DisplayObject*> selected;
 
-	std::unordered_set<SDL_Scancode> prevKeys;
+	unordered_set<SDL_Scancode> prevKeys;
 };

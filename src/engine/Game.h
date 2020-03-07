@@ -1,5 +1,4 @@
-#ifndef GAME_H
-#define GAME_H
+#pragma once
 
 #include "DisplayObjectContainer.h"
 #include "events/EventDispatcher.h"
@@ -7,11 +6,13 @@
 #include <vector>
 #include <unordered_set>
 
-enum class DragState {
+enum class MouseState {
 	NONE,
-	START,
+	CLICKING,
+	//START,
+	//DRAGGING,
 	DRAGGING,
-	END,
+	//END,
 };
 
 class Game : public DisplayObjectContainer {
@@ -49,9 +50,7 @@ private:
 
 	DisplayObject* selected;
 
-	bool isDragging;
-	DragState dragState;
+	MouseState mouseState;
 
+	SDL_Keymod modifiers;
 };
-
-#endif

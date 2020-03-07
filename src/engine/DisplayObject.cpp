@@ -1,7 +1,5 @@
 #include "DisplayObject.h"
 #include "Game.h"
-#include "events/ClickEvent.h"
-#include "events/DragEvent.h"
 
 #include <algorithm>
 #include <cmath>

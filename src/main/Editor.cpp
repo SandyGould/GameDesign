@@ -1,7 +1,8 @@
 #include "Editor.h"
 
-#include "../engine/events/ClickEvent.h"
+#include "../engine/events/MouseDownEvent.h"
 #include "../engine/events/DragEvent.h"
+#include "../engine/events/MouseUpEvent.h"
 
 #include <iostream>
 
@@ -35,10 +36,9 @@ Editor::Editor(const string& sceneToLoad) : Game(1200, 800) {
 
 	camera->addChild(crosshair);
 
-	this->dispatcher.addEventListener(this, ClickEvent::CLICK_EVENT);
+	this->dispatcher.addEventListener(this, MouseDownEvent::MOUSE_DOWN_EVENT);
 	this->dispatcher.addEventListener(this, DragEvent::DRAG_EVENT);
-
-	this->selected = nullptr;
+	this->dispatcher.addEventListener(this, MouseUpEvent::MOUSE_UP_EVENT);
 
 	assets = new DisplayObjectContainer();
 	assets_docs = new DisplayObjectContainer();
@@ -265,7 +265,7 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 	Game::update(pressedKeys);
 }
 
-void Editor::draw(AffineTransform& at){
+void Editor::draw(AffineTransform& at) {
 	Game::draw(at);
 
 	SDL_SetRenderDrawColor(Editor::assets_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
@@ -280,14 +280,14 @@ void Editor::draw(AffineTransform& at){
 
 void Editor::initSDL() {
 	assets_window = SDL_CreateWindow("Assets",
-	                          0, 500,
-	                          300, 450,
-	                          SDL_WINDOW_ALLOW_HIGHDPI);
+									 0, 500,
+									 300, 450,
+									 SDL_WINDOW_ALLOW_HIGHDPI);
 
 	edit_window = SDL_CreateWindow("Edit",
-	                          0, 0,
-	                          300, 450,
-	                          SDL_WINDOW_ALLOW_HIGHDPI);
+								   0, 0,
+								   300, 450,
+								   SDL_WINDOW_ALLOW_HIGHDPI);
 
 	assets_renderer = SDL_CreateRenderer(assets_window, -1, 0);
 	edit_renderer = SDL_CreateRenderer(edit_window, -1, 0);
@@ -297,59 +297,89 @@ void Editor::draw_post() {
 	SDL_SetRenderDrawColor(Game::renderer, 90, 90, 90, SDL_ALPHA_OPAQUE);
 	SDL_RenderDrawLine(Game::renderer, this->windowWidth / 2 - crosshair->position.x, 0, this->windowWidth / 2 - crosshair->position.x, this->windowHeight);
 	SDL_RenderDrawLine(Game::renderer, 0, this->windowHeight / 2 - crosshair->position.y, this->windowWidth, this->windowHeight / 2 - crosshair->position.y);
-	if (this->selected) {
+	for (DisplayObject* object : this->selected) {
 		SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-		SDL_RenderDrawRect(Game::renderer, &this->selected->dstrect);
+		SDL_RenderDrawRect(Game::renderer, &object->dstrect);
 	}
 }
 
 void Editor::handleEvent(Event* e) {
-	if (e->getType() == ClickEvent::CLICK_EVENT) {
-		ClickEvent* event = static_cast<ClickEvent*>(e);
-		if (!this->selectObject(this, event->x, event->y)) {
-			this->selected = nullptr;
+	if (e->getType() == MouseDownEvent::MOUSE_DOWN_EVENT) {
+		MouseDownEvent* event = static_cast<MouseDownEvent*>(e);
+		if (!this->onMouseDown(this, event)) {
+			this->selected.clear();
 		}
 	} else if (e->getType() == DragEvent::DRAG_EVENT) {
 		DragEvent* event = static_cast<DragEvent*>(e);
-		this->dragObject(this, event->x, event->y, event->xrel, event->yrel);
+		for (DisplayObject* object : this->selected) {
+			object->position.x += event->xrel;
+			object->position.y += event->yrel;
+		}
+	} else if (e->getType() == MouseUpEvent::MOUSE_UP_EVENT) {
+		MouseUpEvent* event = static_cast<MouseUpEvent*>(e);
+		this->onMouseUp(this, event);
 	}
 }
 
-bool Editor::selectObject(DisplayObject* object, int x, int y) {
+bool Editor::onMouseDown(DisplayObject* object, MouseDownEvent* event) {
 	if (object->type != "DisplayObject") {
 		DisplayObjectContainer* container = static_cast<DisplayObjectContainer*>(object);
+		// Reverse iterator to check the topmost objects first
 		for (auto it = container->children.crbegin(); it != container->children.crend(); it++) {
-			if (this->selectObject(*it, x, y)) {
+			if (this->onMouseDown(*it, event)) {
 				return true;
 			}
 		}
 	}
 
-	if (object->dstrect.x <= x && x <= object->dstrect.x + object->dstrect.w &&
-		object->dstrect.y <= y && y <= object->dstrect.y + object->dstrect.h) {
-		this->selected = object;
+	if (object->dstrect.x <= event->x && event->x <= object->dstrect.x + object->dstrect.w &&
+		object->dstrect.y <= event->y && event->y <= object->dstrect.y + object->dstrect.h) {
+		if (!(event->modifiers & KMOD_CTRL)) {
+			// If this object is not already selected and we are not ctrl-clicking,
+			// unselect everything
+			if (this->selected.find(object) == this->selected.cend()) {
+				this->selected.clear();
+			}
+			
+			// Then mark this object as selected
+			this->selected.insert(object);
+		}
 		return true;
 	}
 	return false;
 }
 
-bool Editor::dragObject(DisplayObject* object, int x, int y, int xrel, int yrel) {
+bool Editor::onMouseUp(DisplayObject* object, MouseUpEvent* event) {
 	if (object->type != "DisplayObject") {
 		DisplayObjectContainer* container = static_cast<DisplayObjectContainer*>(object);
+		// Reverse iterator to check the topmost objects first
 		for (auto it = container->children.crbegin(); it != container->children.crend(); it++) {
-			if (this->dragObject(*it, x, y, xrel, yrel)) {
+			if (this->onMouseUp(*it, event)) {
 				return true;
 			}
 		}
 	}
 
-	// Move the object to follow the mouse
-	if (this->selected  == object &&
-		object->dstrect.x <= x && x <= object->dstrect.x + object->dstrect.w &&
-		object->dstrect.y <= y && y <= object->dstrect.y + object->dstrect.h) {
-		object->position.x += xrel;
-		object->position.y += yrel;
+	if (object->dstrect.x <= event->x && event->x <= object->dstrect.x + object->dstrect.w &&
+		object->dstrect.y <= event->y && event->y <= object->dstrect.y + object->dstrect.h) {
+		if (!(event->modifiers & KMOD_CTRL)) {
+			// If this object is already selected and we are not ctrl-clicking,
+			// clear everything and select ourselves
+			if (this->selected.find(object) != this->selected.cend()) {
+				this->selected.clear();
+				this->selected.insert(object);
+			}
+		} else {
+			if (this->selected.find(object) != this->selected.cend()) {
+				// If ctrl-click and we are already selected, unselect only ourselves
+				this->selected.erase(object);
+			} else {
+				// If ctrl-click and we are not already selected, select ourselves
+				this->selected.insert(object);
+			}
+		}
 		return true;
 	}
+
 	return false;
 }
