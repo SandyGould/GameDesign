@@ -184,6 +184,21 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 		}
 	}
 
+	if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_X) != pressedKeys.end() &&
+		prevKeys.find(SDL_SCANCODE_X) == prevKeys.end()) {
+		this->cut(this->selected);
+	}
+
+	if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_C) != pressedKeys.end() &&
+		prevKeys.find(SDL_SCANCODE_C) == prevKeys.end()) {
+		this->copy(this->selected);
+	}
+
+	if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_V) != pressedKeys.end() &&
+		prevKeys.find(SDL_SCANCODE_V) == prevKeys.end()) {
+		this->paste();
+	}
+
 	//Pivot
 	if (pressedKeys.find(SDL_SCANCODE_I) != pressedKeys.end()) {
 		heldPivot.y -= 5;
@@ -301,6 +316,42 @@ void Editor::draw_post() {
 		SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
 		SDL_RenderDrawRect(Game::renderer, &object->dstrect);
 	}
+}
+
+void Editor::cut(unordered_set<DisplayObject*> objects) {
+	cout << "Not implemented :(" << endl;
+	// TODO: Need to somehow remove elements from scene
+	/*this->copied.clear();
+	for (DisplayObject* object : objects) {
+		this->copied.insert(object);
+	}*/
+}
+
+void Editor::copy(unordered_set<DisplayObject*> objects) {
+	this->copied.clear();
+	for (DisplayObject* object : objects) {
+		// Make the copy now so that future changes won't affect the copy
+		DisplayObject* copy = new DisplayObject(*object);
+
+		// Offset a bit
+		copy->position.x += 16;
+		copy->position.y += 16;
+
+		this->copied.insert(copy);
+	}
+}
+
+void Editor::paste() {
+	this->selected.clear();
+	for (DisplayObject* object : this->copied) {
+		// TODO: This always inserts at the root.
+		// Should that always be the case?
+		this->curScene->addChild(object);
+		this->selected.insert(object);
+	}
+
+	// Pre-emptively get ready to copy the same objects again
+	this->copy(this->copied);
 }
 
 void Editor::handleEvent(Event* e) {

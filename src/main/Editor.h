@@ -22,21 +22,25 @@ public:
 
 	void setupfiles(const string& path);
 
-	void update(std::unordered_set<SDL_Scancode> pressedKeys) override;
+	void update(unordered_set<SDL_Scancode> pressedKeys) override;
 	void draw(AffineTransform& at) override;
 	void initSDL();
 	void draw_post() override;
+
+	void cut(unordered_set<DisplayObject*> objects);
+	void copy(unordered_set<DisplayObject*> objects);
+	void paste();
+
+	void handleEvent(Event* e) override;
+
+	bool onMouseDown(DisplayObject* object, MouseDownEvent* event);
+	bool onMouseUp(DisplayObject* object, MouseUpEvent* event);
 
 	SDL_Window* assets_window;
 	SDL_Renderer* assets_renderer;
 
 	SDL_Window* edit_window;
 	SDL_Renderer* edit_renderer;
-
-	void handleEvent(Event* e) override;
-
-	bool onMouseDown(DisplayObject* object, MouseDownEvent* event);
-	bool onMouseUp(DisplayObject* object, MouseUpEvent* event);
 
 private:
 	Camera* camera;
@@ -67,6 +71,7 @@ private:
 	double heldRotation = 0.0;
 
 	unordered_set<DisplayObject*> selected;
+	unordered_set<DisplayObject*> copied;
 
 	unordered_set<SDL_Scancode> prevKeys;
 };
