@@ -123,13 +123,13 @@ void Game::start() {
 
 void Game::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 	frameCounter++;
-	DisplayObjectContainer::update(pressedKeys);
+	DisplayObject::update(pressedKeys);
 }
 
 void Game::draw(AffineTransform& at) {
 	SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(Game::renderer);
-	DisplayObjectContainer::draw(at);
+	DisplayObject::draw(at);
 	this->draw_post();
 	SDL_RenderPresent(Game::renderer);
 }

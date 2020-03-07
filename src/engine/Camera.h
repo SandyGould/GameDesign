@@ -1,14 +1,12 @@
-#ifndef CAMERA_H
-#define CAMERA_H
-#include "DisplayObjectContainer.h"
+#pragma once
 
-#include "DisplayObjectContainer.h"
+#include "DisplayObject.h"
 
-class Camera : public DisplayObjectContainer { 
+class Camera : public DisplayObject {
 
 public:
 	Camera();
-	~Camera();
+	~Camera() override;
 
 	int viewportWidth = 500;
 	int viewportHeight = 500;
@@ -32,14 +30,9 @@ public:
 	// custom function to make following a character a little easier/neater
 	void follow(int newX, int newY);
 
-	void draw(AffineTransform &at) override;
-	void draw(AffineTransform& at, SDL_Renderer* r) override;
-
 private:
 	int rightLimit;
 	int leftLimit;
 	int topLimit;
 	int bottomLimit;
 };
-
-#endif

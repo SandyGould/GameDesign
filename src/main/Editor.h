@@ -53,14 +53,14 @@ private:
 	Scene* curScene;
 
 	vector<Sprite*> sprites;
-	vector<DisplayObjectContainer*> docs;
+	vector<DisplayObject*> docs;
 	vector<AnimatedSprite*> aSprites;
 
-	DisplayObjectContainer* assets;
-	DisplayObjectContainer* assets_sprites;
-	DisplayObjectContainer* assets_docs;
-	DisplayObjectContainer* assets_aSprites;
-	DisplayObjectContainer* edit;
+	DisplayObject* assets;
+	DisplayObject* assets_sprites;
+	DisplayObject* assets_docs;
+	DisplayObject* assets_aSprites;
+	DisplayObject* edit;
 
 	AffineTransform atTest;
 

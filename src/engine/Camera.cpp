@@ -2,7 +2,7 @@
 #include "Camera.h"
 #include "Game.h"
 
-Camera::Camera() : DisplayObjectContainer(){
+Camera::Camera() : DisplayObject() {
     this->type = "Camera";
 
     // set default limits (camera can go anywhere)
@@ -79,18 +79,3 @@ void Camera::follow(int newX, int newY) {
         this->pivot.y = newY;
     }
 }
-
-void Camera::draw(AffineTransform& at) {
-    Camera::draw(at, Game::renderer);
-}
-
-void Camera::draw(AffineTransform& at, SDL_Renderer* r) {
-    applyTransformations(at);
-
-    for (auto child : children) {
-        child->draw(at, r);
-    }
-
-    reverseTransformations(at);
-}
-

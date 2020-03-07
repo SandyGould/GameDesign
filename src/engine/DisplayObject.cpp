@@ -69,6 +69,10 @@ DisplayObject::~DisplayObject() {
     if (texture != NULL) {
         SDL_DestroyTexture(texture);
     }
+
+    for (auto* child : children) {
+        delete child;
+    }
 }
 
 void DisplayObject::loadTexture(std::string filepath, SDL_Renderer* r) {
@@ -111,7 +115,67 @@ void DisplayObject::setTexture(SDL_Texture* t) {
     this->curTexture = t;
 }
 
-void DisplayObject::update(std::unordered_set<SDL_Scancode> pressedKeys) {}
+void DisplayObject::addChild(DisplayObject* child) {
+    children.push_back(child);
+    child->parent = this; // make sure to include reverse reference also
+    child->parentId = id;
+}
+
+void DisplayObject::removeImmediateChild(DisplayObject* child) {
+    auto it = std::find(this->children.cbegin(), this->children.cend(), child);
+    if (it != this->children.cend()) {
+        delete *it;
+        this->children.erase(it);
+    }
+}
+
+void DisplayObject::removeImmediateChild(std::string id) {
+    auto it = std::find_if(this->children.cbegin(), this->children.cend(), [&](const auto child) { return child->id == id; });
+    if (it != this->children.cend()) {
+        delete *it;
+        this->children.erase(it);
+    }
+}
+
+void DisplayObject::removeChild(size_t index) {
+    if (index < children.size()) {
+        delete children[index];
+        children.erase(children.begin() + index);
+    }
+}
+
+void DisplayObject::removeThis() {
+    if (this->parent != NULL) {
+        this->parent->removeImmediateChild(this);
+    }
+}
+
+int DisplayObject::numChildren() {
+    return this->children.size();
+}
+
+DisplayObject* DisplayObject::getChild(int index) {
+    if (index < 0 || index > numChildren()) {
+        return NULL;
+    } else {
+        return children[index];
+    }
+}
+
+DisplayObject* DisplayObject::getChild(std::string id) {
+    for (auto* child : children) {
+        if (child->id == id) {
+            return child;
+        }
+    }
+    return nullptr;
+}
+
+void DisplayObject::update(std::unordered_set<SDL_Scancode> pressedKeys) {
+    for (auto* child : children) {
+        child->update(pressedKeys);
+    }
+}
 
 void DisplayObject::draw(AffineTransform& at) {
     DisplayObject::draw(at, Game::renderer);
@@ -142,6 +206,14 @@ void DisplayObject::draw(AffineTransform& at, SDL_Renderer* r) {
         SDL_SetTextureAlphaMod(curTexture, alpha);
         SDL_RenderCopyEx(r, curTexture, NULL, &dstrect, calculateRotation(origin, upperRight), &corner, flip);
     }
+
+    // undo the parent's pivot
+    at.translate(pivot.x, pivot.y);
+    for (auto* child : children) {
+        child->draw(at, r);
+    }
+    // redo the parent's pivot
+    at.translate(-pivot.x, -pivot.y);
 
     reverseTransformations(at);
 }

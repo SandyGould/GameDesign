@@ -1,21 +1,13 @@
 #include "Sprite.h"
 
-Sprite::Sprite() : DisplayObjectContainer() {
+Sprite::Sprite() : DisplayObject() {
     this->type = "Sprite";
 }
 
-Sprite::Sprite(std::string id, std::string filepath) : DisplayObjectContainer(id, filepath) {
+Sprite::Sprite(std::string id, std::string filepath) : DisplayObject(id, filepath) {
     this->type = "Sprite";
 }
 
-Sprite::Sprite(std::string id, int red, int green, int blue) : DisplayObjectContainer(id, red, green, blue) {
+Sprite::Sprite(std::string id, int red, int green, int blue) : DisplayObject(id, red, green, blue) {
     this->type = "Sprite";
-}
-
-void Sprite::update(std::unordered_set<SDL_Scancode> pressedKeys) {
-    DisplayObjectContainer::update(pressedKeys);
-}
-
-void Sprite::draw(AffineTransform& at) {
-    DisplayObjectContainer::draw(at);
 }

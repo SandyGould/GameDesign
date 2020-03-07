@@ -40,8 +40,8 @@ Editor::Editor(const string& sceneToLoad) : Game(1200, 800) {
 	this->dispatcher.addEventListener(this, DragEvent::DRAG_EVENT);
 	this->dispatcher.addEventListener(this, MouseUpEvent::MOUSE_UP_EVENT);
 
-	assets = new DisplayObjectContainer();
-	assets_docs = new DisplayObjectContainer();
+	assets = new DisplayObject();
+	assets_docs = new DisplayObject();
 
 	setupfiles("./resources/assets");
 }
@@ -60,7 +60,7 @@ void Editor::setupfiles(const string& path) {
 			}
 		} else if (entry.path() == "./resources/assets/Display_Objects"){
 			for (const auto & DO : fs::directory_iterator(entry.path())){
-				docs.push_back(new DisplayObjectContainer("test", DO.path().string(), assets_renderer));
+				docs.push_back(new DisplayObject("test", DO.path().string(), assets_renderer));
 			}
 		} else if (entry.path() == "./resources/assets/Sprites"){
 			for (const auto & S : fs::directory_iterator(entry.path())){
@@ -373,15 +373,12 @@ void Editor::handleEvent(Event* e) {
 }
 
 bool Editor::onMouseDown(DisplayObject* object, MouseDownEvent* event) {
-	if (object->type != "DisplayObject") {
-		DisplayObjectContainer* container = static_cast<DisplayObjectContainer*>(object);
-		// Reverse iterator to check the topmost objects first
-		for (auto it = container->children.crbegin(); it != container->children.crend(); it++) {
-			if (this->onMouseDown(*it, event)) {
-				return true;
-			}
-		}
-	}
+    // Reverse iterator to check the topmost objects first
+    for (auto it = object->children.crbegin(); it != object->children.crend(); it++) {
+        if (this->onMouseDown(*it, event)) {
+            return true;
+        }
+    }
 
 	if (object->dstrect.x <= event->x && event->x <= object->dstrect.x + object->dstrect.w &&
 		object->dstrect.y <= event->y && event->y <= object->dstrect.y + object->dstrect.h) {
@@ -401,15 +398,12 @@ bool Editor::onMouseDown(DisplayObject* object, MouseDownEvent* event) {
 }
 
 bool Editor::onMouseUp(DisplayObject* object, MouseUpEvent* event) {
-	if (object->type != "DisplayObject") {
-		DisplayObjectContainer* container = static_cast<DisplayObjectContainer*>(object);
-		// Reverse iterator to check the topmost objects first
-		for (auto it = container->children.crbegin(); it != container->children.crend(); it++) {
-			if (this->onMouseUp(*it, event)) {
-				return true;
-			}
-		}
-	}
+    // Reverse iterator to check the topmost objects first
+    for (auto it = object->children.crbegin(); it != object->children.crend(); it++) {
+        if (this->onMouseUp(*it, event)) {
+            return true;
+        }
+    }
 
 	if (object->dstrect.x <= event->x && event->x <= object->dstrect.x + object->dstrect.w &&
 		object->dstrect.y <= event->y && event->y <= object->dstrect.y + object->dstrect.h) {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DisplayObjectContainer.h"
+#include "DisplayObject.h"
 #include "events/EventDispatcher.h"
 
 #include <vector>
@@ -15,7 +15,7 @@ enum class MouseState {
 	//END,
 };
 
-class Game : public DisplayObjectContainer {
+class Game : public DisplayObject {
 public:
 	/* Singleton pattern */
 	static Game* instance;

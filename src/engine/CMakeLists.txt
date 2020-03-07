@@ -6,7 +6,6 @@ target_sources(rebound PRIVATE
         AnimatedSprite.cpp
         Camera.cpp
         DisplayObject.cpp
-        DisplayObjectContainer.cpp
         Game.cpp
         QuestManager.cpp
         Scene.cpp
