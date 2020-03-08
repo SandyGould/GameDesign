@@ -1,8 +1,6 @@
 #include "Editor.h"
 
-#include "../engine/events/MouseDownEvent.h"
 #include "../engine/events/DragEvent.h"
-#include "../engine/events/MouseUpEvent.h"
 
 #include <iostream>
 
@@ -10,366 +8,365 @@ namespace fs = std::filesystem;
 
 using namespace std;
 
-Editor::Editor() : Editor("./resources/scene/blank.json") {
+Editor::Editor()
+    : Editor("./resources/scene/blank.json") {}
 
-}
+Editor::Editor(const string& sceneToLoad)
+    : Game(1200, 800) {
+    initSDL();
 
-Editor::Editor(const string& sceneToLoad) : Game(1200, 800) {
-	initSDL();
+    instance = this;
+    curScene = new Scene();
 
-	instance = this;
-	curScene = new Scene();
+    camera = new Camera();
+    camera->position = {this->windowWidth / 2, this->windowHeight / 2};
+    camera->pivot = {this->windowWidth / 2, this->windowHeight / 2};
+    instance->addChild(camera);
 
-	camera = new Camera();
-	camera->position = {this->windowWidth / 2, this->windowHeight / 2};
-	camera->pivot = {this->windowWidth / 2, this->windowHeight / 2};
-	instance->addChild(camera);
+    curScene->loadScene(sceneToLoad);
 
-	curScene->loadScene(sceneToLoad);
+    camera->addChild(curScene);
 
-	camera->addChild(curScene);
+    crosshair = new Crosshair();
+    crosshair->position = {0, 0};
+    crosshair->width = crosshair->height = 100;
+    crosshair->pivot = {50, 50};
 
-	crosshair = new Crosshair();
-	crosshair->position = {0, 0};
-	crosshair->width = crosshair->height = 100;
-	crosshair->pivot = {50, 50};
+    camera->addChild(crosshair);
 
-	camera->addChild(crosshair);
+    this->dispatcher.addEventListener(this, MouseDownEvent::MOUSE_DOWN_EVENT);
+    this->dispatcher.addEventListener(this, DragEvent::DRAG_EVENT);
+    this->dispatcher.addEventListener(this, MouseUpEvent::MOUSE_UP_EVENT);
 
-	this->dispatcher.addEventListener(this, MouseDownEvent::MOUSE_DOWN_EVENT);
-	this->dispatcher.addEventListener(this, DragEvent::DRAG_EVENT);
-	this->dispatcher.addEventListener(this, MouseUpEvent::MOUSE_UP_EVENT);
+    assets = new DisplayObject();
+    assets_docs = new DisplayObject();
 
-	assets = new DisplayObject();
-	assets_docs = new DisplayObject();
-
-	setupfiles("./resources/assets");
+    setupfiles("./resources/assets");
 }
 
 void Editor::setupfiles(const string& path) {
-	for (const auto & entry : fs::directory_iterator(path)){
-		if (entry.path() == "./resources/assets/Animated_Sprites"){
-			for (const auto & AS : fs::directory_iterator(entry.path())){
-				AnimatedSprite* temp = new AnimatedSprite();
+    for (const auto& entry : fs::directory_iterator(path)) {
+        if (entry.path() == "./resources/assets/Animated_Sprites") {
+            for (const auto& AS : fs::directory_iterator(entry.path())) {
+                AnimatedSprite* temp = new AnimatedSprite();
 
-				for (const auto & anim : fs::directory_iterator(AS.path())){
-					// temp->
-				}
+                for (const auto& anim : fs::directory_iterator(AS.path())) {
+                    // temp->
+                }
 
-				aSprites.push_back(temp);
-			}
-		} else if (entry.path() == "./resources/assets/Display_Objects"){
-			for (const auto & DO : fs::directory_iterator(entry.path())){
-				docs.push_back(new DisplayObject("test", DO.path().string(), assets_renderer));
-			}
-		} else if (entry.path() == "./resources/assets/Sprites"){
-			for (const auto & S : fs::directory_iterator(entry.path())){
-				// std::cout << S.path() << std::endl;
-			}
-		}
-	}
-	for (int i = 0; i < docs.size(); ++i){
-		docs[i]->position.x = i%2==0 ? 0 : 150;
-		docs[i]->position.y = (i/2)*150;
-		assets_docs->addChild(docs[i]);
-	}
-	assets->addChild(assets_docs);
+                aSprites.push_back(temp);
+            }
+        } else if (entry.path() == "./resources/assets/Display_Objects") {
+            for (const auto& DO : fs::directory_iterator(entry.path())) {
+                docs.push_back(new DisplayObject("test", DO.path().string(), assets_renderer));
+            }
+        } else if (entry.path() == "./resources/assets/Sprites") {
+            for (const auto& S : fs::directory_iterator(entry.path())) {
+                // std::cout << S.path() << std::endl;
+            }
+        }
+    }
+    for (int i = 0; i < docs.size(); ++i) {
+        docs[i]->position.x = i % 2 == 0 ? 0 : 150;
+        docs[i]->position.y = (i / 2) * 150;
+        assets_docs->addChild(docs[i]);
+    }
+    assets->addChild(assets_docs);
 }
 
 void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys) {
-	//Move
-	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
-		int f = (int) 5*(1/camera->scaleX);
-		if (f < 1){
-			f = 1;
-		}
-		camera->panRight(f);
-	}
-	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
-		int f = (int) 5*(1/camera->scaleX);
-		if (f < 1){
-			f = 1;
-		}
-		camera->panLeft(f);
-	}
-	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-		int f = (int) 5*(1/camera->scaleY);
-		if (f < 1){
-			f = 1;
-		}
-		camera->panDown(f);
-	}
-	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
-		int f = (int) 5*(1/camera->scaleY);
-		if (f < 1){
-			f = 1;
-		}
-		camera->panUp(f);
-	}
+    // Move
+    if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
+        int f = (int)5 * (1 / camera->scaleX);
+        if (f < 1) {
+            f = 1;
+        }
+        camera->panRight(f);
+    }
+    if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
+        int f = (int)5 * (1 / camera->scaleX);
+        if (f < 1) {
+            f = 1;
+        }
+        camera->panLeft(f);
+    }
+    if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
+        int f = (int)5 * (1 / camera->scaleY);
+        if (f < 1) {
+            f = 1;
+        }
+        camera->panDown(f);
+    }
+    if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
+        int f = (int)5 * (1 / camera->scaleY);
+        if (f < 1) {
+            f = 1;
+        }
+        camera->panUp(f);
+    }
 
-	// Zoom
-	if (pressedKeys.find(SDL_SCANCODE_X) != pressedKeys.end()) {
-		camera->zoomIn(1.1);
-	}
-	if (pressedKeys.find(SDL_SCANCODE_Z) != pressedKeys.end()) {
-		camera->zoomOut(1.1);
-	}
+    // Zoom
+    if (pressedKeys.find(SDL_SCANCODE_X) != pressedKeys.end()) {
+        camera->zoomIn(1.1);
+    }
+    if (pressedKeys.find(SDL_SCANCODE_Z) != pressedKeys.end()) {
+        camera->zoomOut(1.1);
+    }
 
-	if (pressedKeys.find(SDL_SCANCODE_TAB) != pressedKeys.end() && prevKeys.find(SDL_SCANCODE_TAB) == prevKeys.end()) {
-		if (grabbedObj == false) {
-			if (pressedKeys.find(SDL_SCANCODE_LSHIFT) != pressedKeys.end() || pressedKeys.find(SDL_SCANCODE_RSHIFT) != pressedKeys.end()) {
-				if (obj_ind > 1) {
-					printf("obj_ind == %d\n", obj_ind);
+    if (pressedKeys.find(SDL_SCANCODE_TAB) != pressedKeys.end() && prevKeys.find(SDL_SCANCODE_TAB) == prevKeys.end()) {
+        if (!grabbedObj) {
+            if (pressedKeys.find(SDL_SCANCODE_LSHIFT) != pressedKeys.end() || pressedKeys.find(SDL_SCANCODE_RSHIFT) != pressedKeys.end()) {
+                if (obj_ind > 1) {
+                    printf("obj_ind == %d\n", obj_ind);
 
-					DisplayObject* myobjc = crosshair->getChild(0);
-					crosshair->removeImmediateChild(myobjc);
+                    DisplayObject* myobjc = crosshair->getChild(0);
+                    crosshair->removeImmediateChild(myobjc);
 
-					--obj_ind;
-					Sprite* newobj = new Sprite("newobject", all_sprites[obj_ind]);
-					crosshair->addChild(newobj);
-					hasChild = true;
-				} else {
-					if (obj_ind == 1) {
-						obj_ind = 0;
-						DisplayObject* myobjc = crosshair->getChild(0);
-						crosshair->removeImmediateChild(myobjc);
-						hasChild = false;
-					} else {
-						obj_ind = all_sprites.size() - 1;
-						Sprite* newobj = new Sprite("newobject", all_sprites[obj_ind]);
-						crosshair->addChild(newobj);
-						hasChild = true;
-					}
+                    --obj_ind;
+                    Sprite* newobj = new Sprite("newobject", all_sprites[obj_ind]);
+                    crosshair->addChild(newobj);
+                    hasChild = true;
+                } else {
+                    if (obj_ind == 1) {
+                        obj_ind = 0;
+                        DisplayObject* myobjc = crosshair->getChild(0);
+                        crosshair->removeImmediateChild(myobjc);
+                        hasChild = false;
+                    } else {
+                        obj_ind = all_sprites.size() - 1;
+                        Sprite* newobj = new Sprite("newobject", all_sprites[obj_ind]);
+                        crosshair->addChild(newobj);
+                        hasChild = true;
+                    }
+                }
+            } else {
+                if (obj_ind < all_sprites.size() - 1) {
+                    if (obj_ind > 0) {
+                        DisplayObject* myobjc = crosshair->getChild(0);
+                        crosshair->removeImmediateChild(myobjc);
+                    }
+                    obj_ind++;
+                    Sprite* newobj = new Sprite("newobject", all_sprites[obj_ind]);
+                    crosshair->addChild(newobj);
+                    hasChild = true;
+                } else {
+                    obj_ind = 0;
+                    DisplayObject* myobjc = crosshair->getChild(0);
+                    crosshair->removeImmediateChild(myobjc);
+                    hasChild = false;
+                }
+            }
+        }
+    }
 
-				}
-			} else {
-				if (obj_ind < all_sprites.size() - 1) {
-					if (obj_ind > 0) {
-						DisplayObject* myobjc = crosshair->getChild(0);
-						crosshair->removeImmediateChild(myobjc);
-					}
-					obj_ind++;
-					Sprite* newobj = new Sprite("newobject", all_sprites[obj_ind]);
-					crosshair->addChild(newobj);
-					hasChild = true;
-				} else {
-					obj_ind = 0;
-					DisplayObject* myobjc = crosshair->getChild(0);
-					crosshair->removeImmediateChild(myobjc);
-					hasChild = false;
-				}
-			}
-		}
-	}
+    if (pressedKeys.find(SDL_SCANCODE_BACKSPACE) != pressedKeys.end()) {
+        if (obj_ind != 0) {
+            obj_ind = 0;
+            DisplayObject* myobjc = crosshair->getChild(0);
+            crosshair->removeImmediateChild(myobjc);
+            hasChild = false;
+        }
+    }
 
-	if (pressedKeys.find(SDL_SCANCODE_BACKSPACE) != pressedKeys.end()) {
-		if (obj_ind != 0) {
-			obj_ind = 0;
-			DisplayObject* myobjc = crosshair->getChild(0);
-			crosshair->removeImmediateChild(myobjc);
-			hasChild = false;
-		}
-	}
+    if (pressedKeys.find(SDL_SCANCODE_RETURN) != pressedKeys.end()) {
+        if (hasChild || grabbedObj) {
+            DisplayObject* myobj = crosshair->getChild(0);
+            DisplayObject* newobj = new DisplayObject(*myobj);
+            newobj->position = crosshair->position;
+            curScene->addChild(newobj);
+            crosshair->removeImmediateChild(myobj);
+            hasChild = false;
+            obj_ind = 0;
+            grabbedObj = false;
+        }
+    }
 
-	if (pressedKeys.find(SDL_SCANCODE_RETURN) != pressedKeys.end()) {
-		if (hasChild == true || grabbedObj == true) {
-			DisplayObject* myobj = crosshair->getChild(0);
-			DisplayObject* newobj = new DisplayObject(*myobj);
-			newobj->position = crosshair->position;
-			curScene->addChild(newobj);
-			crosshair->removeImmediateChild(myobj);
-			hasChild = false;
-			obj_ind = 0;
-			grabbedObj = false;
-		}
-	}
+    if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_X) != pressedKeys.end() &&
+        prevKeys.find(SDL_SCANCODE_X) == prevKeys.end()) {
+        this->cut(this->selected);
+    }
 
-	if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_X) != pressedKeys.end() &&
-		prevKeys.find(SDL_SCANCODE_X) == prevKeys.end()) {
-		this->cut(this->selected);
-	}
+    if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_C) != pressedKeys.end() &&
+        prevKeys.find(SDL_SCANCODE_C) == prevKeys.end()) {
+        this->copy(this->selected);
+    }
 
-	if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_C) != pressedKeys.end() &&
-		prevKeys.find(SDL_SCANCODE_C) == prevKeys.end()) {
-		this->copy(this->selected);
-	}
+    if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_V) != pressedKeys.end() &&
+        prevKeys.find(SDL_SCANCODE_V) == prevKeys.end()) {
+        this->paste();
+    }
 
-	if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_V) != pressedKeys.end() &&
-		prevKeys.find(SDL_SCANCODE_V) == prevKeys.end()) {
-		this->paste();
-	}
+    // Pivot
+    if (pressedKeys.find(SDL_SCANCODE_I) != pressedKeys.end()) {
+        heldPivot.y -= 5;
+    }
+    if (pressedKeys.find(SDL_SCANCODE_J) != pressedKeys.end()) {
+        heldPivot.x -= 5;
+    }
+    if (pressedKeys.find(SDL_SCANCODE_K) != pressedKeys.end()) {
+        heldPivot.y += 5;
+    }
+    if (pressedKeys.find(SDL_SCANCODE_L) != pressedKeys.end()) {
+        heldPivot.x += 5;
+    }
+    if (hasChild) {
+        crosshair->getChild(0)->pivot = heldPivot;
+    }
 
-	//Pivot
-	if (pressedKeys.find(SDL_SCANCODE_I) != pressedKeys.end()) {
-		heldPivot.y -= 5;
-	}
-	if (pressedKeys.find(SDL_SCANCODE_J) != pressedKeys.end()) {
-		heldPivot.x -= 5;
-	}
-	if (pressedKeys.find(SDL_SCANCODE_K) != pressedKeys.end()) {
-		heldPivot.y += 5;
-	}
-	if (pressedKeys.find(SDL_SCANCODE_L) != pressedKeys.end()) {
-		heldPivot.x += 5;
-	}
-	if (hasChild) {
-		crosshair->getChild(0)->pivot = heldPivot;
-	}
+    // Rotation
+    if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
+        heldRotation -= 0.05;
+    }
+    if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
+        heldRotation += 0.05;
+    }
+    if (hasChild) {
+        crosshair->getChild(0)->rotation = heldRotation;
+    }
 
-	//Rotation
-	if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
-		heldRotation -= 0.05;
-	}
-	if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
-		heldRotation += 0.05;
-	}
-	if (hasChild) {
-		crosshair->getChild(0)->rotation = heldRotation;
-	}
+    // Scaling
+    if (pressedKeys.find(SDL_SCANCODE_MINUS) != pressedKeys.end()) {
+        heldScaleX -= 0.05;
+        heldScaleY -= 0.05;
+    }
+    if (pressedKeys.find(SDL_SCANCODE_EQUALS) != pressedKeys.end()) {
+        heldScaleX += 0.05;
+        heldScaleY += 0.05;
+    }
+    if (pressedKeys.find(SDL_SCANCODE_O) != pressedKeys.end()) {
+        heldScaleX -= 0.05;
+    }
+    if (pressedKeys.find(SDL_SCANCODE_P) != pressedKeys.end()) {
+        heldScaleX += 0.05;
+    }
+    if (pressedKeys.find(SDL_SCANCODE_LEFTBRACKET) != pressedKeys.end()) {
+        heldScaleY -= 0.05;
+    }
+    if (pressedKeys.find(SDL_SCANCODE_RIGHTBRACKET) != pressedKeys.end()) {
+        heldScaleY += 0.05;
+    }
+    if (hasChild) {
+        crosshair->getChild(0)->scaleX = heldScaleX;
+        crosshair->getChild(0)->scaleY = heldScaleY;
+    }
 
-	//Scaling
-	if (pressedKeys.find(SDL_SCANCODE_MINUS) != pressedKeys.end()) {
-		heldScaleX -= 0.05;
-		heldScaleY -= 0.05;
-	}
-	if (pressedKeys.find(SDL_SCANCODE_EQUALS) != pressedKeys.end()) {
-		heldScaleX += 0.05;
-		heldScaleY += 0.05;
-	}
-	if (pressedKeys.find(SDL_SCANCODE_O) != pressedKeys.end()) {
-		heldScaleX -= 0.05;
-	}
-	if (pressedKeys.find(SDL_SCANCODE_P) != pressedKeys.end()) {
-		heldScaleX += 0.05;
-	}
-	if (pressedKeys.find(SDL_SCANCODE_LEFTBRACKET) != pressedKeys.end()) {
-		heldScaleY -= 0.05;
-	}
-	if (pressedKeys.find(SDL_SCANCODE_RIGHTBRACKET) != pressedKeys.end()) {
-		heldScaleY += 0.05;
-	}
-	if (hasChild) {
-		crosshair->getChild(0)->scaleX = heldScaleX;
-		crosshair->getChild(0)->scaleY = heldScaleY;
-	}
+    if ((pressedKeys.find(SDL_SCANCODE_LCTRL) != pressedKeys.end() ||
+         pressedKeys.find(SDL_SCANCODE_RCTRL) != pressedKeys.end()) &&
+        pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
+        string tmp;
+        cin >> tmp;
+        curScene->saveScene(tmp);
+    }
 
-	if ((pressedKeys.find(SDL_SCANCODE_LCTRL) != pressedKeys.end() || pressedKeys.find(SDL_SCANCODE_RCTRL) != pressedKeys.end()) && pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
-		string tmp;
-		cin >> tmp;
-		curScene->saveScene(tmp);
-	}
+    if (pressedKeys.find(SDL_SCANCODE_R) != pressedKeys.end()) {
+        heldPosition = {0, 0};
+        heldPivot = {0, 0};
+        heldScaleX = 1.0;
+        heldScaleY = 1.0;
+        heldRotation = 0.0;
+        if (hasChild) {
+            DisplayObject* tmp = crosshair->getChild(0);
+            tmp->position = heldPosition;
+            tmp->pivot = heldPivot;
+            tmp->scaleX = heldScaleX;
+            tmp->scaleY = heldScaleY;
+            tmp->rotation = heldRotation;
+        }
+    }
 
-	if (pressedKeys.find(SDL_SCANCODE_R) != pressedKeys.end()) {
-		heldPosition = {0, 0};
-		heldPivot = {0, 0};
-		heldScaleX = 1.0;
-		heldScaleY = 1.0;
-		heldRotation = 0.0;
-		if (hasChild) {
-			DisplayObject* tmp = crosshair->getChild(0);
-			tmp->position = heldPosition;
-			tmp->pivot = heldPivot;
-			tmp->scaleX = heldScaleX;
-			tmp->scaleY = heldScaleY;
-			tmp->rotation = heldRotation;
-		}
-	}
+    prevKeys = pressedKeys;
 
-	prevKeys = pressedKeys;
-
-	Game::update(pressedKeys);
+    Game::update(pressedKeys);
 }
 
 void Editor::draw(AffineTransform& at) {
-	Game::draw(at);
+    Game::draw(at);
 
-	SDL_SetRenderDrawColor(Editor::assets_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-	SDL_RenderClear(Editor::assets_renderer);
-	assets->draw(at, Editor::assets_renderer);
-	SDL_RenderPresent(Editor::assets_renderer);
+    SDL_SetRenderDrawColor(Editor::assets_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_RenderClear(Editor::assets_renderer);
+    assets->draw(at, Editor::assets_renderer);
+    SDL_RenderPresent(Editor::assets_renderer);
 
-	SDL_SetRenderDrawColor(Editor::edit_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-	SDL_RenderClear(Editor::edit_renderer);
-	SDL_RenderPresent(Editor::edit_renderer);
+    SDL_SetRenderDrawColor(Editor::edit_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_RenderClear(Editor::edit_renderer);
+    SDL_RenderPresent(Editor::edit_renderer);
 }
 
 void Editor::initSDL() {
-	assets_window = SDL_CreateWindow("Assets",
-									 0, 500,
-									 300, 450,
-									 SDL_WINDOW_ALLOW_HIGHDPI);
+    assets_window = SDL_CreateWindow("Assets", 0, 500, 300, 450, SDL_WINDOW_ALLOW_HIGHDPI);
 
-	edit_window = SDL_CreateWindow("Edit",
-								   0, 0,
-								   300, 450,
-								   SDL_WINDOW_ALLOW_HIGHDPI);
+    edit_window = SDL_CreateWindow("Edit", 0, 0, 300, 450, SDL_WINDOW_ALLOW_HIGHDPI);
 
-	assets_renderer = SDL_CreateRenderer(assets_window, -1, 0);
-	edit_renderer = SDL_CreateRenderer(edit_window, -1, 0);
+    assets_renderer = SDL_CreateRenderer(assets_window, -1, 0);
+    edit_renderer = SDL_CreateRenderer(edit_window, -1, 0);
 }
 
 void Editor::draw_post() {
-	SDL_SetRenderDrawColor(Game::renderer, 90, 90, 90, SDL_ALPHA_OPAQUE);
-	SDL_RenderDrawLine(Game::renderer, this->windowWidth / 2 - crosshair->position.x, 0, this->windowWidth / 2 - crosshair->position.x, this->windowHeight);
-	SDL_RenderDrawLine(Game::renderer, 0, this->windowHeight / 2 - crosshair->position.y, this->windowWidth, this->windowHeight / 2 - crosshair->position.y);
-	for (DisplayObject* object : this->selected) {
-		SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-		SDL_RenderDrawRect(Game::renderer, &object->dstrect);
-	}
+    SDL_SetRenderDrawColor(Game::renderer, 90, 90, 90, SDL_ALPHA_OPAQUE);
+    SDL_RenderDrawLine(Game::renderer,
+                       this->windowWidth / 2 - crosshair->position.x, 0,
+                       this->windowWidth / 2 - crosshair->position.x, this->windowHeight);
+    SDL_RenderDrawLine(Game::renderer,
+                       0, this->windowHeight / 2 - crosshair->position.y,
+                       this->windowWidth, this->windowHeight / 2 - crosshair->position.y);
+    for (DisplayObject* object : this->selected) {
+        SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+        SDL_RenderDrawRect(Game::renderer, &object->dstrect);
+    }
 }
 
 void Editor::cut(unordered_set<DisplayObject*> objects) {
-	cout << "Not implemented :(" << endl;
-	// TODO: Need to somehow remove elements from scene
-	/*this->copied.clear();
-	for (DisplayObject* object : objects) {
-		this->copied.insert(object);
-	}*/
+    cout << "Not implemented :(" << endl;
+    // TODO: Need to somehow remove elements from scene
+    /*this->copied.clear();
+    for (DisplayObject* object : objects) {
+        this->copied.insert(object);
+    }*/
 }
 
 void Editor::copy(unordered_set<DisplayObject*> objects) {
-	this->copied.clear();
-	for (DisplayObject* object : objects) {
-		// Make the copy now so that future changes won't affect the copy
-		DisplayObject* copy = new DisplayObject(*object);
+    this->copied.clear();
+    for (DisplayObject* object : objects) {
+        // Make the copy now so that future changes won't affect the copy
+        DisplayObject* copy = new DisplayObject(*object);
 
-		// Offset a bit
-		copy->position.x += 16;
-		copy->position.y += 16;
+        // Offset a bit
+        copy->position.x += 16;
+        copy->position.y += 16;
 
-		this->copied.insert(copy);
-	}
+        this->copied.insert(copy);
+    }
 }
 
 void Editor::paste() {
-	this->selected.clear();
-	for (DisplayObject* object : this->copied) {
-		// TODO: This always inserts at the root.
-		// Should that always be the case?
-		this->curScene->addChild(object);
-		this->selected.insert(object);
-	}
+    this->selected.clear();
+    for (DisplayObject* object : this->copied) {
+        // TODO: This always inserts at the root.
+        // Should that always be the case?
+        this->curScene->addChild(object);
+        this->selected.insert(object);
+    }
 
-	// Pre-emptively get ready to copy the same objects again
-	this->copy(this->copied);
+    // Pre-emptively get ready to copy the same objects again
+    this->copy(this->copied);
 }
 
 void Editor::handleEvent(Event* e) {
-	if (e->getType() == MouseDownEvent::MOUSE_DOWN_EVENT) {
-		MouseDownEvent* event = static_cast<MouseDownEvent*>(e);
-		if (!this->onMouseDown(this, event)) {
-			this->selected.clear();
-		}
-	} else if (e->getType() == DragEvent::DRAG_EVENT) {
-		DragEvent* event = static_cast<DragEvent*>(e);
-		for (DisplayObject* object : this->selected) {
-			object->position.x += event->xrel;
-			object->position.y += event->yrel;
-		}
-	} else if (e->getType() == MouseUpEvent::MOUSE_UP_EVENT) {
-		MouseUpEvent* event = static_cast<MouseUpEvent*>(e);
-		this->onMouseUp(this, event);
-	}
+    if (e->getType() == MouseDownEvent::MOUSE_DOWN_EVENT) {
+        MouseDownEvent* event = static_cast<MouseDownEvent*>(e);
+        if (!this->onMouseDown(this, event)) {
+            this->selected.clear();
+        }
+    } else if (e->getType() == DragEvent::DRAG_EVENT) {
+        DragEvent* event = static_cast<DragEvent*>(e);
+        for (DisplayObject* object : this->selected) {
+            object->position.x += event->xrel;
+            object->position.y += event->yrel;
+        }
+    } else if (e->getType() == MouseUpEvent::MOUSE_UP_EVENT) {
+        MouseUpEvent* event = static_cast<MouseUpEvent*>(e);
+        this->onMouseUp(this, event);
+    }
 }
 
 bool Editor::onMouseDown(DisplayObject* object, MouseDownEvent* event) {
@@ -380,21 +377,21 @@ bool Editor::onMouseDown(DisplayObject* object, MouseDownEvent* event) {
         }
     }
 
-	if (object->dstrect.x <= event->x && event->x <= object->dstrect.x + object->dstrect.w &&
-		object->dstrect.y <= event->y && event->y <= object->dstrect.y + object->dstrect.h) {
-		if (!(event->modifiers & KMOD_CTRL)) {
-			// If this object is not already selected and we are not ctrl-clicking,
-			// unselect everything
-			if (this->selected.find(object) == this->selected.cend()) {
-				this->selected.clear();
-			}
-			
-			// Then mark this object as selected
-			this->selected.insert(object);
-		}
-		return true;
-	}
-	return false;
+    if (object->dstrect.x <= event->x && event->x <= object->dstrect.x + object->dstrect.w &&
+        object->dstrect.y <= event->y && event->y <= object->dstrect.y + object->dstrect.h) {
+        if (!(event->modifiers & KMOD_CTRL)) {
+            // If this object is not already selected and we are not ctrl-clicking,
+            // unselect everything
+            if (this->selected.find(object) == this->selected.cend()) {
+                this->selected.clear();
+            }
+
+            // Then mark this object as selected
+            this->selected.insert(object);
+        }
+        return true;
+    }
+    return false;
 }
 
 bool Editor::onMouseUp(DisplayObject* object, MouseUpEvent* event) {
@@ -405,26 +402,26 @@ bool Editor::onMouseUp(DisplayObject* object, MouseUpEvent* event) {
         }
     }
 
-	if (object->dstrect.x <= event->x && event->x <= object->dstrect.x + object->dstrect.w &&
-		object->dstrect.y <= event->y && event->y <= object->dstrect.y + object->dstrect.h) {
-		if (!(event->modifiers & KMOD_CTRL)) {
-			// If this object is already selected and we are not ctrl-clicking,
-			// clear everything and select ourselves
-			if (this->selected.find(object) != this->selected.cend()) {
-				this->selected.clear();
-				this->selected.insert(object);
-			}
-		} else {
-			if (this->selected.find(object) != this->selected.cend()) {
-				// If ctrl-click and we are already selected, unselect only ourselves
-				this->selected.erase(object);
-			} else {
-				// If ctrl-click and we are not already selected, select ourselves
-				this->selected.insert(object);
-			}
-		}
-		return true;
-	}
+    if (object->dstrect.x <= event->x && event->x <= object->dstrect.x + object->dstrect.w &&
+        object->dstrect.y <= event->y && event->y <= object->dstrect.y + object->dstrect.h) {
+        if (!(event->modifiers & KMOD_CTRL)) {
+            // If this object is already selected and we are not ctrl-clicking,
+            // clear everything and select ourselves
+            if (this->selected.find(object) != this->selected.cend()) {
+                this->selected.clear();
+                this->selected.insert(object);
+            }
+        } else {
+            if (this->selected.find(object) != this->selected.cend()) {
+                // If ctrl-click and we are already selected, unselect only ourselves
+                this->selected.erase(object);
+            } else {
+                // If ctrl-click and we are not already selected, select ourselves
+                this->selected.insert(object);
+            }
+        }
+        return true;
+    }
 
-	return false;
+    return false;
 }
