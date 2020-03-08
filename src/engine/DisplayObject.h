@@ -29,7 +29,8 @@ public:
 	bool isRGB = false;
 
 	DisplayObject();
-	DisplayObject(std::string id, std::string path);
+    DisplayObject(std::string id);
+    DisplayObject(std::string id, std::string path);
 	DisplayObject(std::string id, std::string path, SDL_Renderer* r);
 	DisplayObject(std::string id, int red, int green, int blue);
 	DisplayObject(const DisplayObject& other);

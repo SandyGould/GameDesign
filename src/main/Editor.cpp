@@ -307,6 +307,8 @@ void Editor::initSDL() {
 void Editor::draw_post() {
     SDL_SetRenderDrawColor(Game::renderer, 90, 90, 90, SDL_ALPHA_OPAQUE);
 
+    // Draw gridlines.
+    // FIXME: Works as long as you don't zoom 🙃
     int startX = this->camera->getGlobalPosition().x % 80;
     for (int x = startX; x < this->windowWidth; x += lround(80 * this->camera->getZoom())) {
         SDL_RenderDrawLine(Game::renderer, x, 0, x, this->windowHeight);

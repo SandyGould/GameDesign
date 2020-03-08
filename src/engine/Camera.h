@@ -6,7 +6,7 @@ class Camera : public DisplayObject {
 
 public:
 	Camera();
-	~Camera() override;
+	~Camera() override = default;
 
 	int viewportWidth = 500;
 	int viewportHeight = 500;

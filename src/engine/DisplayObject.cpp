@@ -14,6 +14,10 @@ DisplayObject::DisplayObject() {
     curTexture = NULL;
 }
 
+DisplayObject::DisplayObject(std::string id) : DisplayObject() {
+    this->id = id;
+}
+
 DisplayObject::DisplayObject(std::string id, std::string filepath) {
     this->id = id;
     this->imgPath = filepath;

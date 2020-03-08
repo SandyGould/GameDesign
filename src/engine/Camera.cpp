@@ -2,7 +2,7 @@
 #include "Camera.h"
 #include "Game.h"
 
-Camera::Camera() : DisplayObject() {
+Camera::Camera() : DisplayObject("camera") {
     this->type = "Camera";
 
     // set default limits (camera can go anywhere)
@@ -13,10 +13,6 @@ Camera::Camera() : DisplayObject() {
 
     this->width = this->viewportWidth;
     this->height = this->viewportHeight;
-}
-
-Camera::~Camera() {
-
 }
 
 void Camera::setRightLimit(int rightLimit) {
