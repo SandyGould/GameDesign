@@ -1,6 +1,7 @@
 #include "Game.h"
 
-#include "events/ClickEvent.h"
+#include "events/MouseDownEvent.h"
+#include "events/MouseUpEvent.h"
 #include "events/DragEvent.h"
 
 #include <SDL2/SDL_ttf.h>
@@ -14,7 +15,7 @@ SDL_Renderer* Game::renderer;
 Game* Game::instance;
 unsigned int Game::frameCounter = 0;
 
-Game::Game(int windowWidth, int windowHeight) {
+Game::Game(int windowWidth, int windowHeight) : DisplayObject("game") {
 	Game::instance = this;
 	
 	this->type = "Game";
@@ -22,7 +23,7 @@ Game::Game(int windowWidth, int windowHeight) {
 	this->windowWidth = windowWidth;
 	this->windowHeight = windowHeight;
 
-	this->isDragging = false;
+	this->mouseState = MouseState::NONE;
 
 	initSDL();
 	TTF_Init();
@@ -89,16 +90,29 @@ void Game::start() {
 				this->pressedKeys.erase(event.key.keysym.scancode);
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				if (event.button.windowID == SDL_GetWindowID(window)){
-					this->dispatcher.dispatchEvent(new ClickEvent(event.button.x, event.button.y, event.button.button, event.button.clicks));
-					this->isDragging = true;
+				if (event.button.windowID == SDL_GetWindowID(window)) {
+					this->modifiers = SDL_GetModState();
+					this->dispatcher.dispatchEvent(new MouseDownEvent(event.button.x, event.button.y, event.button.button, event.button.clicks, this->modifiers));
+					this->mouseState = MouseState::CLICKING;
 				}
 				break;
 			case SDL_MOUSEBUTTONUP:
-				this->isDragging = false;
+				if (this->mouseState == MouseState::CLICKING) {
+					this->dispatcher.dispatchEvent(new MouseUpEvent(event.button.x, event.button.y, event.button.button, event.button.clicks, this->modifiers));
+					// We could throw in a ClickEvent here if we needed to
+				}
+
+				// Or a DragEndEvent
+
+				this->mouseState = MouseState::NONE;
 				break;
 			case SDL_MOUSEMOTION:
-				if (this->isDragging) {
+				if (this->mouseState == MouseState::CLICKING) {
+					this->mouseState = MouseState::DRAGGING;
+					// We could throw in a DragStartEvent here if we needed to
+				}
+
+				if (this->mouseState == MouseState::DRAGGING) {
 					this->dispatcher.dispatchEvent(new DragEvent(event.motion.x, event.motion.y, event.motion.xrel, event.motion.yrel));
 				}
 				break;
@@ -109,13 +123,13 @@ void Game::start() {
 
 void Game::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 	frameCounter++;
-	DisplayObjectContainer::update(pressedKeys);
+	DisplayObject::update(pressedKeys);
 }
 
 void Game::draw(AffineTransform& at) {
 	SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(Game::renderer);
-	DisplayObjectContainer::draw(at);
+	DisplayObject::draw(at);
 	this->draw_post();
 	SDL_RenderPresent(Game::renderer);
 }

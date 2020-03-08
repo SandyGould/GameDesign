@@ -35,7 +35,6 @@ struct sheetFrame{
 
 class AnimatedSprite : public Sprite {
 public:
-	AnimatedSprite();
 	AnimatedSprite(std::string id);
 	AnimatedSprite(std::string id, std::string spritesheet, std::string sheet_anims);
 	~AnimatedSprite();

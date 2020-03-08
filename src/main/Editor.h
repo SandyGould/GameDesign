@@ -4,12 +4,13 @@
 #include "../engine/Camera.h"
 #include "../engine/Scene.h"
 #include "../engine/events/EventListener.h"
+#include "../engine/events/MouseDownEvent.h"
+#include "../engine/events/MouseUpEvent.h"
 #include "../engine/things/Crosshair.h"
 
 #include <vector>
 #include <iterator>
 #include <algorithm>
-#include <dirent.h>
 #include <filesystem>
 
 using namespace std;
@@ -21,21 +22,25 @@ public:
 
 	void setupfiles(const string& path);
 
-	void update(std::unordered_set<SDL_Scancode> pressedKeys) override;
+	void update(unordered_set<SDL_Scancode> pressedKeys) override;
 	void draw(AffineTransform& at) override;
 	void initSDL();
 	void draw_post() override;
+
+	void cut(unordered_set<DisplayObject*> objects);
+	void copy(unordered_set<DisplayObject*> objects);
+	void paste();
+
+	void handleEvent(Event* e) override;
+
+	bool onMouseDown(DisplayObject* object, MouseDownEvent* event);
+	bool onMouseUp(DisplayObject* object, MouseUpEvent* event);
 
 	SDL_Window* assets_window;
 	SDL_Renderer* assets_renderer;
 
 	SDL_Window* edit_window;
 	SDL_Renderer* edit_renderer;
-
-	void handleEvent(Event* e) override;
-
-	bool selectObject(DisplayObject* object, int x, int y);
-	bool dragObject(DisplayObject* object, int x, int y, int xrel, int yrel);
 
 private:
 	Camera* camera;
@@ -48,14 +53,14 @@ private:
 	Scene* curScene;
 
 	vector<Sprite*> sprites;
-	vector<DisplayObjectContainer*> docs;
+	vector<DisplayObject*> dos;
 	vector<AnimatedSprite*> aSprites;
 
-	DisplayObjectContainer* assets;
-	DisplayObjectContainer* assets_sprites;
-	DisplayObjectContainer* assets_docs;
-	DisplayObjectContainer* assets_aSprites;
-	DisplayObjectContainer* edit;
+	DisplayObject* assets;
+	DisplayObject* assets_sprites;
+	DisplayObject* assets_dos;
+	DisplayObject* assets_aSprites;
+	DisplayObject* edit;
 
 	AffineTransform atTest;
 
@@ -65,7 +70,8 @@ private:
 	double heldScaleY = 1.0;
 	double heldRotation = 0.0;
 
-	DisplayObject* selected;
+	unordered_set<DisplayObject*> selected;
+	unordered_set<DisplayObject*> copied;
 
-	std::unordered_set<SDL_Scancode> prevKeys;
+	unordered_set<SDL_Scancode> prevKeys;
 };

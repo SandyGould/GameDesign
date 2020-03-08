@@ -1,12 +1,11 @@
-#ifndef SPRITE_H
-#define SPRITE_H
+#pragma once
 
-#include "DisplayObjectContainer.h"
+#include "DisplayObject.h"
 
-class Sprite : public DisplayObjectContainer {
+class Sprite : public DisplayObject {
 
 public:
-	Sprite();
+	Sprite(std::string id);
 	Sprite(std::string id, std::string filepath);
 	Sprite(std::string id, int red, int green, int blue);
 
@@ -16,5 +15,3 @@ public:
 private:
 
 };
-
-#endif

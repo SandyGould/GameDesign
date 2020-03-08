@@ -2,7 +2,7 @@
 #include "Camera.h"
 #include "Game.h"
 
-Camera::Camera() : DisplayObjectContainer(){
+Camera::Camera() : DisplayObject("camera") {
     this->type = "Camera";
 
     // set default limits (camera can go anywhere)
@@ -13,10 +13,6 @@ Camera::Camera() : DisplayObjectContainer(){
 
     this->width = this->viewportWidth;
     this->height = this->viewportHeight;
-}
-
-Camera::~Camera() {
-
 }
 
 void Camera::setRightLimit(int rightLimit) {
@@ -58,7 +54,7 @@ void Camera::panDown(int factor) {
         this->pivot.y += factor;
     }
 }
-	
+
 void Camera::zoomIn(double factor) {
     this->scaleX *= factor;
     this->scaleY *= factor;
@@ -69,6 +65,10 @@ void Camera::zoomOut(double factor) {
         this->scaleX /= factor;
         this->scaleY /= factor;    
     // }
+}
+
+double Camera::getZoom() {
+    return this->scaleX;
 }
 
 void Camera::follow(int newX, int newY) {

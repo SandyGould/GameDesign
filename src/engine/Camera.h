@@ -1,14 +1,12 @@
-#ifndef CAMERA_H
-#define CAMERA_H
-#include "DisplayObjectContainer.h"
+#pragma once
 
-#include "DisplayObjectContainer.h"
+#include "DisplayObject.h"
 
-class Camera : public DisplayObjectContainer { 
+class Camera : public DisplayObject {
 
 public:
 	Camera();
-	~Camera();
+	~Camera() override = default;
 
 	int viewportWidth = 500;
 	int viewportHeight = 500;
@@ -29,6 +27,8 @@ public:
 	void zoomIn(double factor);
 	void zoomOut(double factor);
 
+    double getZoom();
+
 	// custom function to make following a character a little easier/neater
 	void follow(int newX, int newY);
 
@@ -41,5 +41,3 @@ private:
 	int topLimit;
 	int bottomLimit;
 };
-
-#endif

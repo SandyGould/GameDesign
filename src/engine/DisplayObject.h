@@ -1,5 +1,4 @@
-#ifndef DISPLAYOBJECT_H
-#define DISPLAYOBJECT_H
+#pragma once
 
 #include "AffineTransform.h"
 #include "events/EventDispatcher.h"
@@ -29,25 +28,35 @@ public:
 
 	bool isRGB = false;
 
-	DisplayObject();
-	DisplayObject(std::string id, std::string path);
+    DisplayObject(std::string id);
+    DisplayObject(std::string id, std::string path);
 	DisplayObject(std::string id, std::string path, SDL_Renderer* r);
 	DisplayObject(std::string id, int red, int green, int blue);
 	DisplayObject(const DisplayObject& other);
 	virtual ~DisplayObject();
 
+    void loadTexture(std::string filepath, SDL_Renderer* r);
+    void loadRGBTexture(int red, int green, int blue);
+    void setTexture(SDL_Texture* t);
+
+    void addChild(DisplayObject* child);
+    void removeImmediateChild(DisplayObject* child);
+    void removeImmediateChild(std::string id);
+    void removeChild(size_t index);
+    void removeThis();
+
+    int numChildren();
+    DisplayObject* getChild(int index);
+    DisplayObject* getChild(std::string id);
+
 	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys);
 	virtual void draw(AffineTransform& at);
 	virtual void draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src = NULL);
 
-	void loadTexture(std::string filepath, SDL_Renderer* r);
-	void loadRGBTexture(int red, int green, int blue);
-	void setTexture(SDL_Texture* t);
-
 	void applyTransformations(AffineTransform& at);
 	void reverseTransformations(AffineTransform& at);
 
-	SDL_Point getGlobalPosition(AffineTransform& at);
+	SDL_Point getGlobalPosition();
 
 	int getWidth();
 	int getHeight();
@@ -68,6 +77,8 @@ public:
 	SDL_Rect dstrect;
 	int parallaxSpeed = 1;
 
+    std::vector<DisplayObject*> children;
+
 private:
 	double distance(SDL_Point& p1, SDL_Point& p2);
 	double calculateRotation(SDL_Point& origin, SDL_Point& p);
@@ -78,5 +89,3 @@ private:
 	/* Texture currently being drawn. Equal to texture for normal DO */
 	SDL_Texture* curTexture;
 };
-
-#endif

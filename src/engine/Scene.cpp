@@ -1,6 +1,5 @@
 #include "Scene.h"
 #include "AnimatedSprite.h"
-#include "DisplayObjectContainer.h"
 #include <string>
 #include <vector>
 #include <fstream>
@@ -10,12 +9,10 @@ using json = nlohmann::json;
 
 using namespace std;
 
-Scene::Scene() : DisplayObjectContainer(){
+Scene::Scene() : Scene("scene") {}
+
+Scene::Scene(std::string id) : DisplayObject(id) {
     this->type = "Scene";
-}
-Scene::Scene(std::string id) : DisplayObjectContainer(){
-    this->type = "Scene";
-    this->id = id;
 }
 // Scene::~Scene(){
 //     delete this;
@@ -27,8 +24,8 @@ void Scene::loadScene(std::string sceneFilePath){
     json j;
     i >> j;
     for(int z = 0; z < j["Scene"].size(); z++){
-        DisplayObjectContainer *temp_layer = new DisplayObjectContainer();
         std::string layer_value = "L" + std::to_string(z);
+        DisplayObject* temp_layer = new DisplayObject(layer_value);
         json json_layer = j["Scene"][z][layer_value];
 
         temp_layer->parallaxSpeed = json_layer["speed"];
@@ -42,8 +39,8 @@ void Scene::loadScene(std::string sceneFilePath){
             // } 
 
             std::string obj_type = json_layer["objects"][y]["type"].get<std::string>();
-            if(obj_type.compare("DOC") == 0){
-                temp_layer->addChild(generateDOC(json_layer["objects"][y]));
+            if(obj_type.compare("DO") == 0){
+                temp_layer->addChild(generateDO(json_layer["objects"][y]));
             }
             else if(obj_type.compare("AnimatedSprite") == 0){
                 temp_layer->addChild(generateAS(json_layer["objects"][y]));
@@ -56,14 +53,14 @@ void Scene::loadScene(std::string sceneFilePath){
     }
 }
 
-DisplayObjectContainer* Scene::generateDOC(json j){
-    DisplayObjectContainer* temp_doc = new DisplayObjectContainer(j["name"], j["filepath"]);
-    temp_doc->position.x = j["x_pos"];
-    temp_doc->position.y = j["y_pos"];
-    temp_doc->rotation = j["rotation"];
-    temp_doc->scaleX = j["scaleX"];
-    temp_doc->scaleY = j["scaleY"];
-    return temp_doc;
+DisplayObject* Scene::generateDO(json j){
+    DisplayObject* temp_do = new DisplayObject(j["name"], j["filepath"]);
+    temp_do->position.x = j["x_pos"];
+    temp_do->position.y = j["y_pos"];
+    temp_do->rotation = j["rotation"];
+    temp_do->scaleX = j["scaleX"];
+    temp_do->scaleY = j["scaleY"];
+    return temp_do;
 }
 
 AnimatedSprite* Scene::generateAS(json j){
@@ -97,20 +94,17 @@ Sprite* Scene::generateSprite(json j){
 void Scene::saveScene(string sceneName){
     std::ofstream o("./resources/scene/" + sceneName);
     json DOA = json::array();
-    json DOCA = json::array();
     json ASA = json::array();
     json SA = json::array();
-    addToJSON(DOA, DOCA, ASA, SA, this);
-    json j = { {"DO", DOA}, {"DOC", DOCA}, {"ASprite", ASA}, {"Sprite", SA} };
+    addToJSON(DOA, ASA, SA, this);
+    json j = { {"DO", DOA}, {"ASprite", ASA}, {"Sprite", SA} };
     o << j;
 }
 
-void Scene::addToJSON(json &DOA, json &DOCA, json &ASA, json &SA, DisplayObject* dObject){
+void Scene::addToJSON(json &DOA, json &ASA, json &SA, DisplayObject* dObject){
     //save stuff
     if (dObject->type == "DisplayObject"){
         DOA.push_back({ {"name", dObject->id}, {"filepath", dObject->imgPath}, {"x_pos", dObject->position.x}, {"y_pos", dObject->position.y}, {"rotation", dObject->rotation}, {"scaleX", dObject->scaleX}, {"scaleY", dObject->scaleY}, {"parentId", dObject->parentId} });
-    } else if (dObject->type == "DisplayObjectContainer"){
-        DOCA.push_back({ {"name", dObject->id}, {"filepath", dObject->imgPath}, {"x_pos", dObject->position.x}, {"y_pos", dObject->position.y}, {"rotation", dObject->rotation}, {"scaleX", dObject->scaleX}, {"scaleY", dObject->scaleY}, {"parentId", dObject->parentId} });
     } else if (dObject->type == "Sprite"){
         SA.push_back({ {"name", dObject->id}, {"filepath", dObject->imgPath}, {"x_pos", dObject->position.x}, {"y_pos", dObject->position.y}, {"rotation", dObject->rotation}, {"scaleX", dObject->scaleX}, {"scaleY", dObject->scaleY}, {"parentId", dObject->parentId} });
     } else if (dObject->type == "AnimatedSprite"){
@@ -118,17 +112,7 @@ void Scene::addToJSON(json &DOA, json &DOCA, json &ASA, json &SA, DisplayObject*
         ASA.push_back({ {"name", dObject->id}, {"basepath", temp->basepath}, {"animName", temp->animName}, {"numFrames", temp->numFrames}, {"frameRate", temp->frameRate}, {"loop", temp->loop}, {"x_pos", dObject->position.x}, {"y_pos", dObject->position.y}, {"rotation", dObject->rotation}, {"scaleX", dObject->scaleX}, {"scaleY", dObject->scaleY}, {"parentId", dObject->parentId} });
     }
 
-    if(dObject->type != "DisplayObject"){
-        DisplayObjectContainer* temp = (DisplayObjectContainer*) dObject;
-        for (auto child : temp->children){
-            addToJSON(DOA, DOCA, ASA, SA, child);
-        }
+    for (auto* child : dObject->children) {
+        addToJSON(DOA, ASA, SA, child);
     }
-}
-
-void Scene::update(unordered_set<SDL_Scancode> pressedKeys){
-    DisplayObjectContainer::update(pressedKeys);
-}
-void Scene::draw(AffineTransform &at){
-    DisplayObjectContainer::draw(at);
 }
