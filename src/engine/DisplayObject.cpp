@@ -208,12 +208,10 @@ void DisplayObject::draw(AffineTransform& at, SDL_Renderer* r) {
     }
 
     // undo the parent's pivot
-    at.translate(pivot.x, pivot.y);
     for (auto* child : children) {
         child->draw(at, r);
     }
     // redo the parent's pivot
-    at.translate(-pivot.x, -pivot.y);
 
     reverseTransformations(at);
 }
