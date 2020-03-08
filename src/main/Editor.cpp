@@ -391,8 +391,8 @@ void Editor::handleEvent(Event* e) {
     } else if (e->getType() == DragEvent::DRAG_EVENT) {
         DragEvent* event = static_cast<DragEvent*>(e);
         for (DisplayObject* object : this->selected) {
-            object->position.x += event->xrel;
-            object->position.y += event->yrel;
+            object->position.x += lround(event->xrel * (1/camera->getZoom()));
+            object->position.y += lround(event->yrel * (1/camera->getZoom()));
         }
     } else if (e->getType() == MouseUpEvent::MOUSE_UP_EVENT) {
         MouseUpEvent* event = static_cast<MouseUpEvent*>(e);
