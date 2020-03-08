@@ -16,19 +16,22 @@ DisplayObject::DisplayObject(std::string id) {
     this->curTexture = NULL;
 }
 
-DisplayObject::DisplayObject(std::string id, std::string filepath) : DisplayObject(id) {
+DisplayObject::DisplayObject(std::string id, std::string filepath)
+    : DisplayObject(id) {
     this->imgPath = filepath;
 
     loadTexture(filepath, Game::renderer);
 }
 
-DisplayObject::DisplayObject(std::string id, std::string filepath, SDL_Renderer* r) : DisplayObject(id) {
+DisplayObject::DisplayObject(std::string id, std::string filepath, SDL_Renderer* r)
+    : DisplayObject(id) {
     this->imgPath = filepath;
 
     loadTexture(filepath, r);
 }
 
-DisplayObject::DisplayObject(std::string id, int red, int green, int blue) : DisplayObject(id) {
+DisplayObject::DisplayObject(std::string id, int red, int green, int blue)
+    : DisplayObject(id) {
     this->id = id;
 
     this->red = red;
@@ -99,9 +102,9 @@ SDL_Point DisplayObject::getGlobalPosition() {
     AffineTransform at;
     for (auto i = parentList.rbegin(); i != parentList.rend(); ++i) {
         (*i)->applyTransformations(at);
-		if ((*i)->type != "Camera"){
-        	at.translate((*i)->pivot.x, (*i)->pivot.y);
-		}
+        if ((*i)->type != "Camera") {
+            at.translate((*i)->pivot.x, (*i)->pivot.y);
+        }
     }
 
     applyTransformations(at);
@@ -109,9 +112,9 @@ SDL_Point DisplayObject::getGlobalPosition() {
     reverseTransformations(at);
 
     for (auto i = parentList.begin(); i != parentList.end(); ++i) {
-        if ((*i)->type != "Camera"){
-        	at.translate(-(*i)->pivot.x, -(*i)->pivot.y);
-		}
+        if ((*i)->type != "Camera") {
+            at.translate(-(*i)->pivot.x, -(*i)->pivot.y);
+        }
         (*i)->reverseTransformations(at);
     }
     return origin;
@@ -214,12 +217,12 @@ void DisplayObject::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
     }
 
     // undo the parent's pivot
-	at.translate(pivot.x, pivot.y);
+    at.translate(pivot.x, pivot.y);
     for (auto* child : children) {
         child->draw(at, r);
     }
     // redo the parent's pivot
-	at.translate(-pivot.x, -pivot.y);
+    at.translate(-pivot.x, -pivot.y);
 
     reverseTransformations(at);
 }

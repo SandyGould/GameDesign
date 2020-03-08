@@ -320,22 +320,22 @@ void Editor::draw_post() {
     // Draw gridlines.
     int startX = this->camera->getGlobalPosition().x % lround(80 * this->camera->getZoom());
     for (int x = startX; x < this->windowWidth; x += lround(80 * this->camera->getZoom())) {
-        if (x - this->camera->getGlobalPosition().x == 0){
+        if (x - this->camera->getGlobalPosition().x == 0) {
             SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
         }
         SDL_RenderDrawLine(Game::renderer, x, 0, x, this->windowHeight);
-        if (x - this->camera->getGlobalPosition().x == 0){
+        if (x - this->camera->getGlobalPosition().x == 0) {
             SDL_SetRenderDrawColor(Game::renderer, 90, 90, 90, SDL_ALPHA_OPAQUE);
         }
     }
 
     int startY = this->camera->getGlobalPosition().y % lround(80 * this->camera->getZoom());
     for (int y = startY; y < this->windowHeight; y += lround(80 * this->camera->getZoom())) {
-        if (y - this->camera->getGlobalPosition().y == 0){
-            SDL_SetRenderDrawColor(Game::renderer, 200, 200, 200, SDL_ALPHA_OPAQUE);
+        if (y - this->camera->getGlobalPosition().y == 0) {
+            SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
         }
         SDL_RenderDrawLine(Game::renderer, 0, y, this->windowWidth, y);
-        if (y - this->camera->getGlobalPosition().y == 0){
+        if (y - this->camera->getGlobalPosition().y == 0) {
             SDL_SetRenderDrawColor(Game::renderer, 90, 90, 90, SDL_ALPHA_OPAQUE);
         }
     }
