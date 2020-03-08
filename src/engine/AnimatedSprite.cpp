@@ -1,11 +1,7 @@
 #include "AnimatedSprite.h"
 #include "Game.h"
 
-AnimatedSprite::AnimatedSprite() : Sprite() {
-    this->type = "AnimatedSprite";
-}
-
-AnimatedSprite::AnimatedSprite(std::string id) : Sprite(id, 0, 0, 0) {
+AnimatedSprite::AnimatedSprite(std::string id) : Sprite(id) {
     this->type = "AnimatedSprite";
 }
 

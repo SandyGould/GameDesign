@@ -8,32 +8,27 @@
 
 constexpr auto PI = 3.14159265;
 
-DisplayObject::DisplayObject() {
-    image = NULL;
-    texture = NULL;
-    curTexture = NULL;
+DisplayObject::DisplayObject(std::string id) {
+    this->id = id;
+
+    this->image = NULL;
+    this->texture = NULL;
+    this->curTexture = NULL;
 }
 
-DisplayObject::DisplayObject(std::string id) : DisplayObject() {
-    this->id = id;
-}
-
-DisplayObject::DisplayObject(std::string id, std::string filepath) {
-    this->id = id;
+DisplayObject::DisplayObject(std::string id, std::string filepath) : DisplayObject(id) {
     this->imgPath = filepath;
 
     loadTexture(filepath, Game::renderer);
 }
 
-DisplayObject::DisplayObject(std::string id, std::string filepath, SDL_Renderer* r) {
-    this->id = id;
+DisplayObject::DisplayObject(std::string id, std::string filepath, SDL_Renderer* r) : DisplayObject(id) {
     this->imgPath = filepath;
 
     loadTexture(filepath, r);
 }
 
-DisplayObject::DisplayObject(std::string id, int red, int green, int blue) {
-    isRGB = true;
+DisplayObject::DisplayObject(std::string id, int red, int green, int blue) : DisplayObject(id) {
     this->id = id;
 
     this->red = red;
@@ -189,6 +184,7 @@ void DisplayObject::draw(AffineTransform& at) {
 }
 
 void DisplayObject::draw(AffineTransform& at, SDL_Renderer* r) {
+    std::cout << this->id << std::endl;
     applyTransformations(at);
 
     if (curTexture != NULL && visible) {

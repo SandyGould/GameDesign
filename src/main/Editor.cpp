@@ -39,8 +39,8 @@ Editor::Editor(const string& sceneToLoad)
     this->dispatcher.addEventListener(this, DragEvent::DRAG_EVENT);
     this->dispatcher.addEventListener(this, MouseUpEvent::MOUSE_UP_EVENT);
 
-    assets = new DisplayObject();
-    assets_docs = new DisplayObject();
+    assets = new DisplayObject("assets");
+    assets_dos = new DisplayObject("assets_dos");
 
     setupfiles("./resources/assets");
 }
@@ -49,7 +49,7 @@ void Editor::setupfiles(const string& path) {
     for (const auto& entry : fs::directory_iterator(path)) {
         if (entry.path() == "./resources/assets/Animated_Sprites") {
             for (const auto& AS : fs::directory_iterator(entry.path())) {
-                AnimatedSprite* temp = new AnimatedSprite();
+                AnimatedSprite* temp = new AnimatedSprite(AS.path().stem().string());
 
                 for (const auto& anim : fs::directory_iterator(AS.path())) {
                     // temp->
@@ -59,7 +59,7 @@ void Editor::setupfiles(const string& path) {
             }
         } else if (entry.path() == "./resources/assets/Display_Objects") {
             for (const auto& DO : fs::directory_iterator(entry.path())) {
-                docs.push_back(new DisplayObject("test", DO.path().string(), assets_renderer));
+                dos.push_back(new DisplayObject(DO.path().stem().string(), DO.path().string(), assets_renderer));
             }
         } else if (entry.path() == "./resources/assets/Sprites") {
             for (const auto& S : fs::directory_iterator(entry.path())) {
@@ -67,12 +67,12 @@ void Editor::setupfiles(const string& path) {
             }
         }
     }
-    for (int i = 0; i < docs.size(); ++i) {
-        docs[i]->position.x = i % 2 == 0 ? 0 : 150;
-        docs[i]->position.y = (i / 2) * 150;
-        assets_docs->addChild(docs[i]);
+    for (int i = 0; i < dos.size(); ++i) {
+        dos[i]->position.x = i % 2 == 0 ? 0 : 150;
+        dos[i]->position.y = (i / 2) * 150;
+        assets_dos->addChild(dos[i]);
     }
-    assets->addChild(assets_docs);
+    assets->addChild(assets_dos);
 }
 
 void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys) {

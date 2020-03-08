@@ -15,7 +15,7 @@ SDL_Renderer* Game::renderer;
 Game* Game::instance;
 unsigned int Game::frameCounter = 0;
 
-Game::Game(int windowWidth, int windowHeight) {
+Game::Game(int windowWidth, int windowHeight) : DisplayObject("game") {
 	Game::instance = this;
 	
 	this->type = "Game";

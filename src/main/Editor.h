@@ -53,12 +53,12 @@ private:
 	Scene* curScene;
 
 	vector<Sprite*> sprites;
-	vector<DisplayObject*> docs;
+	vector<DisplayObject*> dos;
 	vector<AnimatedSprite*> aSprites;
 
 	DisplayObject* assets;
 	DisplayObject* assets_sprites;
-	DisplayObject* assets_docs;
+	DisplayObject* assets_dos;
 	DisplayObject* assets_aSprites;
 	DisplayObject* edit;
 

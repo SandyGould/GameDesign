@@ -1,6 +1,6 @@
 #include "Sprite.h"
 
-Sprite::Sprite() : DisplayObject() {
+Sprite::Sprite(std::string id) : DisplayObject(id) {
     this->type = "Sprite";
 }
 

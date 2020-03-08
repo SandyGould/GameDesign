@@ -9,12 +9,10 @@ using json = nlohmann::json;
 
 using namespace std;
 
-Scene::Scene() : DisplayObject() {
+Scene::Scene() : Scene("scene") {}
+
+Scene::Scene(std::string id) : DisplayObject(id) {
     this->type = "Scene";
-}
-Scene::Scene(std::string id) : DisplayObject() {
-    this->type = "Scene";
-    this->id = id;
 }
 // Scene::~Scene(){
 //     delete this;
@@ -26,8 +24,8 @@ void Scene::loadScene(std::string sceneFilePath){
     json j;
     i >> j;
     for(int z = 0; z < j["Scene"].size(); z++){
-        DisplayObject* temp_layer = new DisplayObject();
         std::string layer_value = "L" + std::to_string(z);
+        DisplayObject* temp_layer = new DisplayObject(layer_value);
         json json_layer = j["Scene"][z][layer_value];
 
         temp_layer->parallaxSpeed = json_layer["speed"];

@@ -26,9 +26,8 @@ struct Animation {
 
 class AnimatedSprite : public Sprite {
 public:
-	AnimatedSprite();
 	AnimatedSprite(std::string id);
-	~AnimatedSprite();
+	~AnimatedSprite() override;
 
 	void addAnimation(std::string basepath, std::string animName, int numFrames, int frameRate, bool loop);
 	Animation* getAnimation(std::string animName);
