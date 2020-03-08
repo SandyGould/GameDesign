@@ -14,6 +14,8 @@ cmake-build-debug/
 *.userosscache
 *.sln.docstates
 
+.idea/
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
