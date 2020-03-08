@@ -56,7 +56,7 @@ public:
 	void applyTransformations(AffineTransform& at);
 	void reverseTransformations(AffineTransform& at);
 
-	SDL_Point getGlobalPosition(AffineTransform& at);
+	SDL_Point getGlobalPosition();
 
 	int getWidth();
 	int getHeight();

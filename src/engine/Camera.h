@@ -27,6 +27,8 @@ public:
 	void zoomIn(double factor);
 	void zoomOut(double factor);
 
+    double getZoom();
+
 	// custom function to make following a character a little easier/neater
 	void follow(int newX, int newY);
 

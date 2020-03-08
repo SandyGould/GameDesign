@@ -89,23 +89,26 @@ void DisplayObject::loadRGBTexture(int red, int green, int blue) {
     setTexture(texture);
 }
 
-SDL_Point DisplayObject::getGlobalPosition(AffineTransform& at) {
-    DisplayObject* temp = this->parent;
+SDL_Point DisplayObject::getGlobalPosition() {
+    DisplayObject* parent = this->parent;
     std::vector<DisplayObject*> parentList;
-    // && temp->type != "Scene"
-    while (temp != NULL) {
-        parentList.push_back(temp);
-        temp = temp->parent;
+    while (parent != NULL) {
+        parentList.push_back(parent);
+        parent = parent->parent;
     }
+
+    AffineTransform at;
     for (auto i = parentList.rbegin(); i != parentList.rend(); ++i) {
         (*i)->applyTransformations(at);
-        at.translate((*i)->pivot.x, (*i)->pivot.y);
+        // at.translate((*i)->pivot.x, (*i)->pivot.y);
     }
+
     applyTransformations(at);
     SDL_Point origin = at.transformPoint(0, 0);
     reverseTransformations(at);
+
     for (auto i = parentList.begin(); i != parentList.end(); ++i) {
-        at.translate(-(*i)->pivot.x, -(*i)->pivot.y);
+        // at.translate(-(*i)->pivot.x, -(*i)->pivot.y);
         (*i)->reverseTransformations(at);
     }
     return origin;

@@ -2,6 +2,7 @@
 
 #include "../engine/events/DragEvent.h"
 
+#include <cmath>
 #include <iostream>
 
 namespace fs = std::filesystem;
@@ -113,9 +114,11 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys) {
         camera->zoomOut(1.1);
     }
 
-    if (pressedKeys.find(SDL_SCANCODE_TAB) != pressedKeys.end() && prevKeys.find(SDL_SCANCODE_TAB) == prevKeys.end()) {
+    if (pressedKeys.find(SDL_SCANCODE_TAB) != pressedKeys.end() &&
+        prevKeys.find(SDL_SCANCODE_TAB) == prevKeys.end()) {
         if (!grabbedObj) {
-            if (pressedKeys.find(SDL_SCANCODE_LSHIFT) != pressedKeys.end() || pressedKeys.find(SDL_SCANCODE_RSHIFT) != pressedKeys.end()) {
+            if (pressedKeys.find(SDL_SCANCODE_LSHIFT) != pressedKeys.end() ||
+                pressedKeys.find(SDL_SCANCODE_RSHIFT) != pressedKeys.end()) {
                 if (obj_ind > 1) {
                     printf("obj_ind == %d\n", obj_ind);
 
@@ -303,12 +306,17 @@ void Editor::initSDL() {
 
 void Editor::draw_post() {
     SDL_SetRenderDrawColor(Game::renderer, 90, 90, 90, SDL_ALPHA_OPAQUE);
-    SDL_RenderDrawLine(Game::renderer,
-                       this->windowWidth / 2 - crosshair->position.x, 0,
-                       this->windowWidth / 2 - crosshair->position.x, this->windowHeight);
-    SDL_RenderDrawLine(Game::renderer,
-                       0, this->windowHeight / 2 - crosshair->position.y,
-                       this->windowWidth, this->windowHeight / 2 - crosshair->position.y);
+
+    int startX = this->camera->getGlobalPosition().x % 80;
+    for (int x = startX; x < this->windowWidth; x += lround(80 * this->camera->getZoom())) {
+        SDL_RenderDrawLine(Game::renderer, x, 0, x, this->windowHeight);
+    }
+
+    int startY = this->camera->getGlobalPosition().y % 80;
+    for (int y = startY; y < this->windowHeight; y += lround(80 * this->camera->getZoom())) {
+        SDL_RenderDrawLine(Game::renderer, 0, y, this->windowWidth, y);
+    }
+
     for (DisplayObject* object : this->selected) {
         SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
         SDL_RenderDrawRect(Game::renderer, &object->dstrect);

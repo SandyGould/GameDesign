@@ -58,7 +58,7 @@ void Camera::panDown(int factor) {
         this->pivot.y += factor;
     }
 }
-	
+
 void Camera::zoomIn(double factor) {
     this->scaleX *= factor;
     this->scaleY *= factor;
@@ -69,6 +69,10 @@ void Camera::zoomOut(double factor) {
         this->scaleX /= factor;
         this->scaleY /= factor;    
     // }
+}
+
+double Camera::getZoom() {
+    return this->scaleX;
 }
 
 void Camera::follow(int newX, int newY) {
