@@ -75,6 +75,9 @@ private:
 
 	unordered_set<SDL_Scancode> prevKeys;
 
-    double displacementX = 0.0;
-    double displacementY = 0.0;
+    // Oh boy
+    unordered_map<DisplayObject*, double> displacementX;
+    unordered_map<DisplayObject*, double> displacementY;
+
+    static constexpr int GRID_SIZE = 80;
 };
