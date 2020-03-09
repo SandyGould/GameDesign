@@ -63,7 +63,7 @@ void Camera::zoomIn(double factor) {
 void Camera::zoomOut(double factor) {
     // if ((scaleX - factor > 0) && (scaleY - factor) > 0) {
         this->scaleX /= factor;
-        this->scaleY /= factor;    
+        this->scaleY /= factor;
     // }
 }
 

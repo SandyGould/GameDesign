@@ -74,4 +74,7 @@ private:
 	unordered_set<DisplayObject*> copied;
 
 	unordered_set<SDL_Scancode> prevKeys;
+
+    double displacementX = 0.0;
+    double displacementY = 0.0;
 };
