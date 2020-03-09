@@ -27,8 +27,8 @@ public:
 	void initSDL();
 	void draw_post() override;
 
-	void cut(unordered_set<DisplayObject*> objects);
-	void copy(unordered_set<DisplayObject*> objects);
+	void cut(const unordered_set<DisplayObject*>& objects);
+	void copy(const unordered_set<DisplayObject*>& objects);
 	void paste();
 
 	void handleEvent(Event* e) override;
@@ -44,7 +44,6 @@ public:
 
 private:
 	Camera* camera;
-	bool inZone = false;
 	bool hasChild = false;
 	bool grabbedObj = false;
 	int obj_ind = 0;

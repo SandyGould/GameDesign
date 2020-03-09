@@ -348,7 +348,7 @@ void Editor::draw_post() {
     }
 }
 
-void Editor::cut(unordered_set<DisplayObject*> objects) {
+void Editor::cut(const unordered_set<DisplayObject*>& objects) {
     this->copied.clear();
     for (DisplayObject* object : objects) {
         DisplayObject* copy = new DisplayObject(*object);
@@ -361,7 +361,7 @@ void Editor::cut(unordered_set<DisplayObject*> objects) {
     }
 }
 
-void Editor::copy(unordered_set<DisplayObject*> objects) {
+void Editor::copy(const unordered_set<DisplayObject*>& objects) {
     this->copied.clear();
     for (DisplayObject* object : objects) {
         // Make the copy now so that future changes won't affect the copy
