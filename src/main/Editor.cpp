@@ -111,10 +111,10 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys) {
     }
 
     // Zoom
-    if (pressedKeys.find(SDL_SCANCODE_X) != pressedKeys.end()) {
+    if (!(SDL_GetModState() & KMOD_CTRL) && pressedKeys.find(SDL_SCANCODE_X) != pressedKeys.end()) {
         camera->zoomIn(1.1);
     }
-    if (pressedKeys.find(SDL_SCANCODE_Z) != pressedKeys.end()) {
+    if (!(SDL_GetModState() & KMOD_CTRL) && pressedKeys.find(SDL_SCANCODE_Z) != pressedKeys.end()) {
         camera->zoomOut(1.1);
     }
 
@@ -349,12 +349,16 @@ void Editor::draw_post() {
 }
 
 void Editor::cut(unordered_set<DisplayObject*> objects) {
-    cout << "Not implemented :(" << endl;
-    // TODO: Need to somehow remove elements from scene
-    /*this->copied.clear();
+    this->copied.clear();
     for (DisplayObject* object : objects) {
-        this->copied.insert(object);
-    }*/
+        DisplayObject* copy = new DisplayObject(*object);
+        this->copied.insert(copy);
+        object->removeThis();
+
+        this->selected.erase(object);
+        this->displacementX.erase(object);
+        this->displacementY.erase(object);
+    }
 }
 
 void Editor::copy(unordered_set<DisplayObject*> objects) {
