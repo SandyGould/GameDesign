@@ -25,6 +25,7 @@ public:
 	int green = 0;
 	int blue = 0;
 	int alpha = 255;
+	SDL_Rect sourceRect = {0,0,416,454};
 
 	bool isRGB = false;
 

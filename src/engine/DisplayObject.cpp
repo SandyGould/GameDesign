@@ -83,7 +83,7 @@ void DisplayObject::draw(AffineTransform& at) {
 		}
 		
 		SDL_SetTextureAlphaMod(curTexture, alpha);
-		SDL_RenderCopyEx(Game::renderer, curTexture, NULL, &dstrect, calculateRotation(origin, upperRight), &corner, flip);	
+		SDL_RenderCopyEx(Game::renderer, curTexture, &sourceRect, &dstrect, calculateRotation(origin, upperRight), &corner, flip);	
 	}
 
 	reverseTransformations(at);

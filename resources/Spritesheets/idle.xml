@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:9215aed373181b754e7cb07697890850:db393a427291dfab9126bac610993047:9f5c17b1edcaef90ffec515cc3bb7e6f$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="idle.png" width="1664" height="1816">
+    <sprite n="Idle_1.png" x="0" y="0" w="416" h="454"/>
+    <sprite n="Idle_2.png" x="416" y="0" w="416" h="454"/>
+    <sprite n="Idle_3.png" x="832" y="0" w="416" h="454"/>
+    <sprite n="Idle_4.png" x="1248" y="0" w="416" h="454"/>
+    <sprite n="Idle_5.png" x="0" y="454" w="416" h="454"/>
+    <sprite n="Idle_6.png" x="416" y="454" w="416" h="454"/>
+    <sprite n="Idle_7.png" x="832" y="454" w="416" h="454"/>
+    <sprite n="Idle_8.png" x="1248" y="454" w="416" h="454"/>
+    <sprite n="Idle_9.png" x="0" y="908" w="416" h="454"/>
+    <sprite n="Idle_10.png" x="416" y="908" w="416" h="454"/>
+    <sprite n="Idle_11.png" x="832" y="908" w="416" h="454"/>
+    <sprite n="Idle_12.png" x="1248" y="908" w="416" h="454"/>
+    <sprite n="Idle_13.png" x="0" y="1362" w="416" h="454"/>
+    <sprite n="Idle_14.png" x="416" y="1362" w="416" h="454"/>
+    <sprite n="Idle_15.png" x="832" y="1362" w="416" h="454"/>
+    <sprite n="Idle_16.png" x="1248" y="1362" w="416" h="454"/>
+</TextureAtlas>

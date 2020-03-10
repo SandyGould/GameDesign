@@ -8,10 +8,12 @@
 
 #include <vector>
 #include <string>
+#include <utility>
 
 struct Frame {
 	SDL_Surface* image;
 	SDL_Texture* texture;
+	SDL_Rect source;
 };
 
 struct Animation {
@@ -23,13 +25,16 @@ struct Animation {
 	int curFrame;
 };
 
+
 class AnimatedSprite : public Sprite {
 public:
 	AnimatedSprite();
 	AnimatedSprite(std::string id);
+	AnimatedSprite(std::string id, std::string spritesheet, std::string xml);
 	~AnimatedSprite();
 
 	void addAnimation(std::string basepath, std::string animName, int numFrames, int frameRate, bool loop);
+	void spritesheetAnimation(std::string animName, int numFrames, int frameRate, bool loop);
 	Animation* getAnimation(std::string animName);
 
 	void play(std::string animName);
@@ -40,11 +45,16 @@ public:
 	virtual void draw(AffineTransform& at);
 
 	bool playing = false;
+	bool useSheet = false;
+	void parse(std::string xml);
+	std::vector<std::pair<int,int>> xy;
 
 private:
 	Animation* current;
 	std::vector<Animation*> animations;
 	int frameCount;
+	
+	
 };
 
 #endif

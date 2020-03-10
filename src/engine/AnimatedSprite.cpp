@@ -1,5 +1,7 @@
 #include "AnimatedSprite.h"
 #include "Game.h"
+#include "pugixml.hpp"
+#include <fstream>
 
 AnimatedSprite::AnimatedSprite() : Sprite() {
     this->type = "AnimatedSprite";
@@ -8,6 +10,27 @@ AnimatedSprite::AnimatedSprite() : Sprite() {
 AnimatedSprite::AnimatedSprite(std::string id) : Sprite(id, 0, 0, 0) {
     this->type = "AnimatedSprite";
 }
+
+//Spritesheet constructor
+AnimatedSprite::AnimatedSprite(std::string id, std::string spritesheet, std::string xml) : Sprite(id, spritesheet){
+    this->type = "AnimatedSprite";
+    parse(xml);
+}
+
+void AnimatedSprite::parse(std::string xml){
+    //for more information about this library look here https://stackoverflow.com/questions/39067300/c-parsing-sub-nodes-of-xml
+    int x;
+    int y;
+    pugi::xml_document doc;
+    pugi::xml_parse_result result = doc.load_file(xml.c_str());
+    for(auto sprite: doc.child("TextureAtlas").child("Sprite")){
+        x = sprite.attribute("x").as_int();
+        y = sprite.attribute("y").as_int();
+        std::pair<int,int> newPair(x,y);
+        xy.push_back(newPair);
+    }
+}
+
 
 AnimatedSprite::~AnimatedSprite() {
     for (Animation* an : animations) {
@@ -38,6 +61,27 @@ void AnimatedSprite::addAnimation(std::string basepath, std::string animName, in
         anim->frames[i] = f;
     }
     animations.push_back(anim);
+}
+
+void AnimatedSprite::spritesheetAnimation(std::string animName, int numFrames, int frameRate, bool loop){
+    Animation* anim = new Animation{
+        new Frame * [numFrames], // new frame pointer array of size numFrames;
+        animName,
+        numFrames,
+        frameRate,
+        loop,
+        0,
+    };
+    useSheet = true;
+    SDL_Rect frameSource = {0,0,416,454};
+    for(int i = 0; i< numFrames; i++){
+        Frame* f = new Frame();
+        frameSource.x = xy[i].first;
+        frameSource.y = xy[i].second;
+        f->source = frameSource;
+        anim->frames[i] = f;
+    }
+    
 }
 
 Animation* AnimatedSprite::getAnimation(std::string animName) {
@@ -87,7 +131,13 @@ void AnimatedSprite::update(std::set<SDL_Scancode> pressedKeys) {
                     stop();
                 }
             }
-            DisplayObject::setTexture(current->frames[current->curFrame]->texture);
+            //We update the location of the image each frame
+            if(useSheet){
+                sourceRect = current->frames[current->curFrame]->source;
+            }
+            else{
+                DisplayObject::setTexture(current->frames[current->curFrame]->texture);
+            }
         }
 
     }
