@@ -6,6 +6,9 @@
 #include "../engine/events/EventListener.h"
 #include "../engine/events/MouseDownEvent.h"
 #include "../engine/events/MouseUpEvent.h"
+#include "../engine/events/MouseMotionEvent.h"
+#include "../engine/events/WindowEnterEvent.h"
+#include "../engine/events/WindowExitEvent.h"
 #include "../engine/things/Crosshair.h"
 
 #include <vector>
@@ -26,10 +29,12 @@ public:
 	void draw(AffineTransform& at) override;
 	void initSDL();
 	void draw_post() override;
+	void clearRenderers() override;
+	void presentRenderers() override;
 
 	void cut(unordered_set<DisplayObject*> objects);
-	void copy(unordered_set<DisplayObject*> objects);
-	void paste();
+	void copy(unordered_set<DisplayObject*> objects, bool keepHierarchy = true);
+	void paste(MouseDownEvent* event = NULL);
 
 	void handleEvent(Event* e) override;
 
@@ -61,6 +66,11 @@ private:
 	DisplayObject* assets_dos;
 	DisplayObject* assets_aSprites;
 	DisplayObject* edit;
+
+	bool mainWindowActive = true;
+	bool assetsWindowActive = false;
+	bool editWindowActive = false;
+	DisplayObject* selectedAsset = NULL;
 
 	AffineTransform atTest;
 

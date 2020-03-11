@@ -1,0 +1,7 @@
+TODO:
+
+- FIX CONTROL CLICKING IN ASSETS WINDOW???
+- Create assets menu
+- Selected asset invisible upon exiting main window
+
+- Make displayobject IDs unique?

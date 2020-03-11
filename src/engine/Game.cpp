@@ -3,6 +3,9 @@
 #include "events/MouseDownEvent.h"
 #include "events/MouseUpEvent.h"
 #include "events/DragEvent.h"
+#include "events/WindowEnterEvent.h"
+#include "events/WindowExitEvent.h"
+#include "events/MouseMotionEvent.h"
 
 #include <SDL2/SDL_ttf.h>
 
@@ -81,6 +84,12 @@ void Game::start() {
 			case SDL_WINDOWEVENT:
 				if (event.window.event == SDL_WINDOWEVENT_CLOSE){
 					quit = true;
+				} else if (event.window.event == SDL_WINDOWEVENT_ENTER){
+					this->modifiers = SDL_GetModState();
+					this->dispatcher.dispatchEvent(new WindowEnterEvent(event.window.windowID, this->modifiers));
+				} else if (event.window.event == SDL_WINDOWEVENT_LEAVE){
+					this->modifiers = SDL_GetModState();
+					this->dispatcher.dispatchEvent(new WindowExitEvent(event.window.windowID, this->modifiers));
 				}
 				break;
 			case SDL_KEYDOWN:
@@ -90,15 +99,13 @@ void Game::start() {
 				this->pressedKeys.erase(event.key.keysym.scancode);
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				if (event.button.windowID == SDL_GetWindowID(window)) {
-					this->modifiers = SDL_GetModState();
-					this->dispatcher.dispatchEvent(new MouseDownEvent(event.button.x, event.button.y, event.button.button, event.button.clicks, this->modifiers));
-					this->mouseState = MouseState::CLICKING;
-				}
+				this->modifiers = SDL_GetModState();
+				this->dispatcher.dispatchEvent(new MouseDownEvent(event.button.x, event.button.y, event.button.button, event.button.clicks, event.button.windowID, this->modifiers));
+				this->mouseState = MouseState::CLICKING;
 				break;
 			case SDL_MOUSEBUTTONUP:
 				if (this->mouseState == MouseState::CLICKING) {
-					this->dispatcher.dispatchEvent(new MouseUpEvent(event.button.x, event.button.y, event.button.button, event.button.clicks, this->modifiers));
+					this->dispatcher.dispatchEvent(new MouseUpEvent(event.button.x, event.button.y, event.button.button, event.button.clicks, event.button.windowID, this->modifiers));
 					// We could throw in a ClickEvent here if we needed to
 				}
 
@@ -107,18 +114,30 @@ void Game::start() {
 				this->mouseState = MouseState::NONE;
 				break;
 			case SDL_MOUSEMOTION:
+				this->modifiers = SDL_GetModState();
+				this->dispatcher.dispatchEvent(new MouseMotionEvent(event.motion.x, event.motion.y, event.motion.windowID, this->modifiers));
+
 				if (this->mouseState == MouseState::CLICKING) {
 					this->mouseState = MouseState::DRAGGING;
 					// We could throw in a DragStartEvent here if we needed to
 				}
 
 				if (this->mouseState == MouseState::DRAGGING) {
-					this->dispatcher.dispatchEvent(new DragEvent(event.motion.x, event.motion.y, event.motion.xrel, event.motion.yrel));
+					this->dispatcher.dispatchEvent(new DragEvent(event.motion.x, event.motion.y, event.motion.xrel, event.motion.yrel, event.motion.windowID));
 				}
 				break;
 			}
 		}
 	}
+}
+
+void Game::clearRenderers(){
+	SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderClear(Game::renderer);
+}
+
+void Game::presentRenderers(){
+	SDL_RenderPresent(Game::renderer);
 }
 
 void Game::update(std::unordered_set<SDL_Scancode> pressedKeys) {
@@ -127,9 +146,8 @@ void Game::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 }
 
 void Game::draw(AffineTransform& at) {
-	SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-	SDL_RenderClear(Game::renderer);
+	this->clearRenderers();
 	DisplayObject::draw(at);
 	this->draw_post();
-	SDL_RenderPresent(Game::renderer);
+	this->presentRenderers();
 }

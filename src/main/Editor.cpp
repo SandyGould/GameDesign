@@ -38,6 +38,9 @@ Editor::Editor(const string& sceneToLoad)
     this->dispatcher.addEventListener(this, MouseDownEvent::MOUSE_DOWN_EVENT);
     this->dispatcher.addEventListener(this, DragEvent::DRAG_EVENT);
     this->dispatcher.addEventListener(this, MouseUpEvent::MOUSE_UP_EVENT);
+    this->dispatcher.addEventListener(this, MouseMotionEvent::MOUSE_MOTION_EVENT);
+    this->dispatcher.addEventListener(this, WindowEnterEvent::WINDOW_ENTER_EVENT);    
+    this->dispatcher.addEventListener(this, WindowExitEvent::WINDOW_EXIT_EVENT); 
 
     assets = new DisplayObject("assets");
     assets_dos = new DisplayObject("assets_dos");
@@ -186,6 +189,14 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys) {
         }
     }
 
+    if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end()){
+        this->selected.clear();
+        if (selectedAsset){
+            curScene->removeImmediateChild(selectedAsset);
+            selectedAsset = NULL;
+        }
+    }
+
     if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_X) != pressedKeys.end() &&
         prevKeys.find(SDL_SCANCODE_X) == prevKeys.end()) {
         this->cut(this->selected);
@@ -256,11 +267,9 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys) {
     }
 
     if (pressedKeys.find(SDL_SCANCODE_Y) != pressedKeys.end()) {
-        cout << "X: " << crosshair->getGlobalPosition().x << " Y: " << crosshair->getGlobalPosition().y << endl;
-    }
-
-    if (pressedKeys.find(SDL_SCANCODE_U) != pressedKeys.end()) {
-        cout << "X: " << crosshair->dstrect.x << " Y: " << crosshair->dstrect.y << endl;
+        for (DisplayObject* object : this->selected) {
+            cout << object->id << endl;
+        }
     }
 
     if ((pressedKeys.find(SDL_SCANCODE_LCTRL) != pressedKeys.end() ||
@@ -293,16 +302,13 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 }
 
 void Editor::draw(AffineTransform& at) {
-    Game::draw(at);
+    this->clearRenderers();
+	DisplayObject::draw(at);
 
-    SDL_SetRenderDrawColor(Editor::assets_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-    SDL_RenderClear(Editor::assets_renderer);
     assets->draw(at, Editor::assets_renderer);
-    SDL_RenderPresent(Editor::assets_renderer);
 
-    SDL_SetRenderDrawColor(Editor::edit_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-    SDL_RenderClear(Editor::edit_renderer);
-    SDL_RenderPresent(Editor::edit_renderer);
+	this->draw_post();
+	this->presentRenderers();
 }
 
 void Editor::initSDL() {
@@ -340,10 +346,33 @@ void Editor::draw_post() {
         }
     }
 
-    SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-    for (DisplayObject* object : this->selected) {
-        SDL_RenderDrawRect(Game::renderer, &object->dstrect);
+    SDL_Renderer* tempR = Game::renderer;
+    if (assetsWindowActive || selectedAsset){
+        tempR = assets_renderer;
+    } else if (editWindowActive){
+        tempR = edit_renderer;
     }
+    
+    SDL_SetRenderDrawColor(tempR, 255, 255, 255, SDL_ALPHA_OPAQUE);
+    for (DisplayObject* object : this->selected) {
+        SDL_RenderDrawRect(tempR, &object->dstrect);
+    }
+}
+
+void Editor::clearRenderers(){
+    Game::clearRenderers();
+
+    SDL_SetRenderDrawColor(Editor::assets_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_RenderClear(Editor::assets_renderer);
+    
+    SDL_SetRenderDrawColor(Editor::edit_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_RenderClear(Editor::edit_renderer);
+}
+
+void Editor::presentRenderers(){
+    Game::presentRenderers();
+    SDL_RenderPresent(Editor::assets_renderer);
+    SDL_RenderPresent(Editor::edit_renderer);
 }
 
 void Editor::cut(unordered_set<DisplayObject*> objects) {
@@ -355,7 +384,7 @@ void Editor::cut(unordered_set<DisplayObject*> objects) {
     }*/
 }
 
-void Editor::copy(unordered_set<DisplayObject*> objects) {
+void Editor::copy(unordered_set<DisplayObject*> objects, bool keepHierarchy) {
     this->copied.clear();
     for (DisplayObject* object : objects) {
         // Make the copy now so that future changes won't affect the copy
@@ -365,17 +394,38 @@ void Editor::copy(unordered_set<DisplayObject*> objects) {
         copy->position.x += 16;
         copy->position.y += 16;
 
+        if (!keepHierarchy){
+            copy->parent = NULL;
+            copy->children.clear();
+        }
+
         this->copied.insert(copy);
+
+    }
+    if (selectedAsset){
+        selectedAsset = *copied.begin();
+        curScene->addChild(selectedAsset);
     }
 }
 
-void Editor::paste() {
-    this->selected.clear();
+void Editor::paste(MouseDownEvent* event) {
+    if (!event){
+        this->selected.clear();
+    }
     for (DisplayObject* object : this->copied) {
         // TODO: This always inserts at the root.
         // Should that always be the case?
         this->curScene->addChild(object);
-        this->selected.insert(object);
+        if (!event){
+            this->selected.insert(object);
+        } // else{
+        //     object->position.x = -lround((1/camera->getZoom())*this->windowWidth  / 2);
+        //     object->position.y = -lround((1/camera->getZoom())*this->windowHeight / 2);
+        //     object->position.x += camera->pivot.x;
+        //     object->position.x += lround(event->x*(1/camera->getZoom()));
+        //     object->position.y += camera->pivot.y;
+        //     object->position.y += lround(event->y*(1/camera->getZoom()));
+        // }
     }
 
     // Pre-emptively get ready to copy the same objects again
@@ -385,18 +435,116 @@ void Editor::paste() {
 void Editor::handleEvent(Event* e) {
     if (e->getType() == MouseDownEvent::MOUSE_DOWN_EVENT) {
         MouseDownEvent* event = static_cast<MouseDownEvent*>(e);
-        if (!this->onMouseDown(this, event)) {
+        if (event->wID == SDL_GetWindowID(assets_window)){
+            assetsWindowActive = true;
+            editWindowActive = mainWindowActive = false;
+
+            DisplayObject* temp = NULL;
+            if (!this->selected.empty()){
+                temp = *(this->selected.begin());
+            }
             this->selected.clear();
+            if (this->onMouseDown(assets->getChild(0), event)){
+                if (*this->selected.begin() == temp){
+                    this->selected.clear();
+                    if (selectedAsset){
+                        curScene->removeImmediateChild(selectedAsset);
+                        selectedAsset = NULL;
+                    }
+                } else{
+                    this->copy(this->selected, false);
+                    selectedAsset = *copied.begin();
+                    selectedAsset->visible = false;
+                    curScene->addChild(selectedAsset);
+                }
+            }
+
+        } else if (event->wID == SDL_GetWindowID(edit_window)){
+            editWindowActive = true;
+            assetsWindowActive = mainWindowActive = false;
+
+        } else{
+            mainWindowActive = true;
+            assetsWindowActive = editWindowActive = false;
+            if (selectedAsset){
+                this->paste(event);
+                if (selectedAsset){
+                    selectedAsset->position.x = -lround((1/camera->getZoom())*this->windowWidth  / 2);
+                    selectedAsset->position.y = -lround((1/camera->getZoom())*this->windowHeight / 2);
+                    selectedAsset->position.x += camera->pivot.x;
+                    selectedAsset->position.x += lround(event->x*(1/camera->getZoom()));
+                    selectedAsset->position.y += camera->pivot.y;
+                    selectedAsset->position.y += lround(event->y*(1/camera->getZoom()));
+                }
+            } else if (!this->onMouseDown(this, event)) {
+                this->selected.clear();
+            }
         }
     } else if (e->getType() == DragEvent::DRAG_EVENT) {
         DragEvent* event = static_cast<DragEvent*>(e);
-        for (DisplayObject* object : this->selected) {
-            object->position.x += lround(event->xrel * (1/camera->getZoom()));
-            object->position.y += lround(event->yrel * (1/camera->getZoom()));
+        if (event->wID == SDL_GetWindowID(assets_window)){
+            assetsWindowActive = true;
+            editWindowActive = mainWindowActive = false;
+
+        } else if (event->wID == SDL_GetWindowID(edit_window)){
+            editWindowActive = true;
+            assetsWindowActive = mainWindowActive = false;
+
+        } else if (event->wID == SDL_GetWindowID(this->window) && !selectedAsset){
+            mainWindowActive = true;
+            assetsWindowActive = editWindowActive = false;
+
+            for (DisplayObject* object : this->selected) {
+                object->position.x += lround(event->xrel * (1/camera->getZoom()));
+                object->position.y += lround(event->yrel * (1/camera->getZoom()));
+            }
         }
+        
     } else if (e->getType() == MouseUpEvent::MOUSE_UP_EVENT) {
         MouseUpEvent* event = static_cast<MouseUpEvent*>(e);
         this->onMouseUp(this, event);
+    } else if (e->getType() == MouseMotionEvent::MOUSE_MOTION_EVENT) {
+        MouseMotionEvent* event = static_cast<MouseMotionEvent*>(e);
+        if (selectedAsset && event->wID == SDL_GetWindowID(this->window)){
+            if (selectedAsset && !selectedAsset->visible){
+                selectedAsset->visible = true;
+            }
+            selectedAsset->position.x = -lround((1/camera->getZoom())*this->windowWidth  / 2);
+            selectedAsset->position.y = -lround((1/camera->getZoom())*this->windowHeight / 2);
+            selectedAsset->position.x += camera->pivot.x;
+            selectedAsset->position.x += lround(event->x*(1/camera->getZoom()));
+            selectedAsset->position.y += camera->pivot.y;
+            selectedAsset->position.y += lround(event->y*(1/camera->getZoom()));
+        }
+    } else if (e->getType() == WindowEnterEvent::WINDOW_ENTER_EVENT) {
+        WindowEnterEvent* event = static_cast<WindowEnterEvent*>(e);
+        if (event->wID == SDL_GetWindowID(assets_window)){
+            assetsWindowActive = true;
+            editWindowActive = mainWindowActive = false;
+            
+            SDL_SetWindowInputFocus(assets_window);
+        } else if (event->wID == SDL_GetWindowID(edit_window)){
+            editWindowActive = true;
+            assetsWindowActive = mainWindowActive = false;
+
+            SDL_SetWindowInputFocus(edit_window);
+        } else if (event->wID == SDL_GetWindowID(this->window)){
+            mainWindowActive = true;
+            assetsWindowActive = editWindowActive = false;
+
+            SDL_SetWindowInputFocus(this->window);
+
+            if (selectedAsset){
+                selectedAsset->visible = true;
+            }
+        }
+        
+    } else if (e->getType() == WindowExitEvent::WINDOW_EXIT_EVENT) {
+        WindowExitEvent* event = static_cast<WindowExitEvent*>(e);
+        if (selectedAsset && event->wID == SDL_GetWindowID(this->window)){
+            selectedAsset->visible = false;
+        }
+        
     }
 }
 

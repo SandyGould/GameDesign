@@ -33,6 +33,9 @@ public:
 	virtual ~Game();
 	void start();
 
+	virtual void clearRenderers();
+	virtual void presentRenderers();
+
 	void update(std::unordered_set<SDL_Scancode> pressedKeys) override;
 	void draw(AffineTransform& at) override;
 
