@@ -32,8 +32,8 @@ public:
 	void clearRenderers() override;
 	void presentRenderers() override;
 
-	void cut(unordered_set<DisplayObject*> objects);
-	void copy(unordered_set<DisplayObject*> objects, bool keepHierarchy = true);
+	void cut(const unordered_set<DisplayObject*>& objects);
+	void copy(const unordered_set<DisplayObject*>& objects, bool keepHierarchy = true);
 	void paste(MouseDownEvent* event = NULL);
 
 	void handleEvent(Event* e) override;
@@ -49,7 +49,6 @@ public:
 
 private:
 	Camera* camera;
-	bool inZone = false;
 	bool hasChild = false;
 	bool grabbedObj = false;
 	int obj_ind = 0;
@@ -84,4 +83,10 @@ private:
 	unordered_set<DisplayObject*> copied;
 
 	unordered_set<SDL_Scancode> prevKeys;
+
+    // Oh boy
+    unordered_map<DisplayObject*, double> displacementX;
+    unordered_map<DisplayObject*, double> displacementY;
+
+    static constexpr int GRID_SIZE = 80;
 };

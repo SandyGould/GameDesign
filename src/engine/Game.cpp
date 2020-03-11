@@ -1,5 +1,7 @@
 #include "Game.h"
 
+#include "events/DragEvent.h"
+#include "events/DragStartEvent.h"
 #include "events/MouseDownEvent.h"
 #include "events/MouseUpEvent.h"
 #include "events/DragEvent.h"
@@ -8,9 +10,8 @@
 #include "events/MouseMotionEvent.h"
 
 #include <SDL2/SDL_ttf.h>
-
-#include <iostream>
 #include <chrono>
+#include <iostream>
 
 using namespace std::chrono;
 
@@ -119,7 +120,7 @@ void Game::start() {
 
 				if (this->mouseState == MouseState::CLICKING) {
 					this->mouseState = MouseState::DRAGGING;
-					// We could throw in a DragStartEvent here if we needed to
+					this->dispatcher.dispatchEvent(new DragStartEvent(event.motion.x, event.motion.y));
 				}
 
 				if (this->mouseState == MouseState::DRAGGING) {
