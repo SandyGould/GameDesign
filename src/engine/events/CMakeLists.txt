@@ -5,5 +5,8 @@ target_sources(rebound PRIVATE
         Event.cpp
         EventDispatcher.cpp
         MouseDownEvent.cpp
+        MouseMotionEvent.cpp
         MouseUpEvent.cpp
-        QuestComplete.cpp)
+        QuestComplete.cpp
+        WindowEnterEvent.cpp
+        WindowExitEvent.cpp)

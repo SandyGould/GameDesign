@@ -124,7 +124,7 @@ void Game::start() {
 				}
 
 				if (this->mouseState == MouseState::DRAGGING) {
-					this->dispatcher.dispatchEvent(new DragEvent(event.motion.x, event.motion.y, event.motion.xrel, event.motion.yrel, event.motion.windowID));
+					this->dispatcher.dispatchEvent(new DragEvent(event.motion.x, event.motion.y, event.motion.xrel, event.motion.yrel, event.motion.windowID, this->modifiers));
 				}
 				break;
 			}

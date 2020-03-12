@@ -29,7 +29,6 @@ BreakBeforeBraces: Attach
 BreakInheritanceList: BeforeColon
 BreakBeforeTernaryOperators: true
 BreakConstructorInitializers: BeforeColon
-BreakAfterJavaFieldAnnotations: false
 BreakStringLiterals: true
 ColumnLimit: 0
 CompactNamespaces: false
@@ -44,7 +43,6 @@ IndentCaseLabels: false
 IndentPPDirectives: None
 IndentWidth: 4
 IndentWrappedFunctionNames: false
-KeepEmptyLinesAtTheStartOfBlocks: true
 MacroBlockBegin: ''
 MacroBlockEnd:   ''
 MaxEmptyLinesToKeep: 1
