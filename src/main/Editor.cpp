@@ -349,10 +349,8 @@ void Editor::draw_post() {
     }
 
     SDL_Renderer* tempR = Game::renderer;
-    if (assetsWindowActive || selectedAsset){
+    if (selectedAsset){
         tempR = assets_renderer;
-    } else if (editWindowActive){
-        tempR = edit_renderer;
     }
     
     SDL_SetRenderDrawColor(tempR, 255, 255, 255, SDL_ALPHA_OPAQUE);
@@ -451,13 +449,13 @@ void Editor::handleEvent(Event* e) {
                 temp = *(this->selected.begin());
             }
             this->selected.clear();
+            if (selectedAsset){
+                curScene->removeImmediateChild(selectedAsset);
+                selectedAsset = NULL;
+            }
             if (this->onMouseDown(assets->getChild(0), event)){
                 if (*this->selected.begin() == temp){
                     this->selected.clear();
-                    if (selectedAsset){
-                        curScene->removeImmediateChild(selectedAsset);
-                        selectedAsset = NULL;
-                    }
                 } else{
                     this->copy(this->selected, false);
                     selectedAsset = *copied.begin();

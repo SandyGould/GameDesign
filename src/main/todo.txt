@@ -2,6 +2,18 @@ TODO:
 
 - FIX CONTROL CLICKING IN ASSETS WINDOW???
 - Create assets menu
-- Selected asset invisible upon exiting main window
+- Load in sprites and animated sprites correctly
 
 - Make displayobject IDs unique?
+
+- Create edit main view
+  - ID field
+  - Position fields
+  - Pivot fields
+  - Scale fields
+  - Rotation fields
+- Set parent feature
+- Edit scene tab
+
+- Fix box drawing on whatever window is currently active. 
+(Temp fixed: consider adding renderer field to display objects though).
