@@ -525,10 +525,11 @@ void Editor::handleEvent(Event* e) {
                 // Move the object based on the current zoom level (pixel movement != screen movement),
                 // being sure to truncate (round towards zero) the amount we move by.
                 // Snap by the threshold (but use raw pixels as the AffineTransform will handle zoom).
-                // We must truncate and not round() in cases such as zoom = 2.0, where rounding causes
+                // We must truncate and not round in cases such as zoom = 2.0, where rounding causes
                 // us to *always* round away from zero, resulting in mouse/object de-sync.
-                object->position.x += static_cast<int>((threshold / this->camera->getZoom()) * trunc(this->displacementX.at(object) / threshold));
-                object->position.y += static_cast<int>((threshold / this->camera->getZoom()) * trunc(this->displacementY.at(object) / threshold));
+                double pixels = threshold / this->camera->getZoom();
+                object->position.x += static_cast<int>(pixels * trunc(this->displacementX.at(object) / threshold));
+                object->position.y += static_cast<int>(pixels * trunc(this->displacementY.at(object) / threshold));
 
                 // Now that we've moved the object, reset the displacement we need to move by
                 // for the _next_ iteration by calculating the unused remainder.
