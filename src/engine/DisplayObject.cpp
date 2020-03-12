@@ -63,18 +63,18 @@ DisplayObject::DisplayObject(const DisplayObject& other) {
 }
 
 DisplayObject::~DisplayObject() {
-    // TODO: Get this freeing working
-    // if (image != NULL) {
-    //     SDL_FreeSurface(image);
-    // }
+    //TODO: Get this freeing working
+    if (image != NULL) {
+        SDL_FreeSurface(image);
+    }
 
-    // if (texture != NULL) {
-    //     SDL_DestroyTexture(texture);
-    // }
+    if (texture != NULL) {
+        SDL_DestroyTexture(texture);
+    }
 
-    // for (auto* child : children) {
-    //     delete child;
-    // }
+    for (auto* child : children) {
+        delete child;
+    }
 }
 
 void DisplayObject::loadTexture(std::string filepath, SDL_Renderer* r) {

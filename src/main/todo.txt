@@ -14,6 +14,7 @@ TODO:
   - Rotation fields
 - Set parent feature
 - Edit scene tab
+- Align with grid button
 
 - Fix box drawing on whatever window is currently active. 
 (Temp fixed: consider adding renderer field to display objects though).
