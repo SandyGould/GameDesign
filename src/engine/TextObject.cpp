@@ -1,0 +1,62 @@
+#include "TextObject.h"
+
+using namespace std;
+
+TextObject::TextObject(string id) : TextObject(id, "", Game::font) {
+    
+}
+
+TextObject::TextObject(string id, string text) : TextObject(id, text, Game::font) {
+    
+}
+
+TextObject::TextObject(string id, string text, TTF_Font* font) : TextObject(id, text, font, Game::renderer) {
+
+}
+
+TextObject::TextObject(string id, string text, TTF_Font* font, SDL_Renderer* r) : DisplayObject(id) {
+    this->type = "TextObject";
+
+    this->text = text;
+    this->font = font;
+
+    this->r = r;
+
+    this->setText(this->text);
+}
+
+//Not currently supported
+// TextObject::TextObject(const TextObject& other) {
+    
+// }
+
+TextObject::~TextObject() {
+
+}
+
+void TextObject::setText(string text){
+    this->text = text;
+
+    if (this->text.length() == 0){
+        this->text = " ";
+    }
+
+    SDL_Surface* temp = TTF_RenderText_Solid(this->font, this->text.c_str(), textColor);
+    this->width = temp->w;
+    this->height = temp->h;
+    this->setSurface(temp);
+    this->setTexture(SDL_CreateTextureFromSurface(this->r, temp));
+}
+
+void TextObject::update(std::unordered_set<SDL_Scancode> pressedKeys) {
+    DisplayObject::update(pressedKeys);
+}
+
+void TextObject::draw(AffineTransform& at) {
+    DisplayObject::draw(at, Game::renderer);
+}
+
+void TextObject::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
+    DisplayObject::draw(at, r, src);
+}
+

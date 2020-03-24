@@ -42,10 +42,53 @@ Editor::Editor(const string& sceneToLoad)
     this->dispatcher.addEventListener(this, MouseUpEvent::MOUSE_UP_EVENT);
     this->dispatcher.addEventListener(this, MouseMotionEvent::MOUSE_MOTION_EVENT);
     this->dispatcher.addEventListener(this, WindowEnterEvent::WINDOW_ENTER_EVENT);    
-    this->dispatcher.addEventListener(this, WindowExitEvent::WINDOW_EXIT_EVENT); 
+    this->dispatcher.addEventListener(this, WindowExitEvent::WINDOW_EXIT_EVENT);
+    this->dispatcher.addEventListener(this, TextInputEvent::TEXT_INPUT_EVENT); 
+    this->dispatcher.addEventListener(this, TextEditEvent::TEXT_EDIT_EVENT);
+    this->dispatcher.addEventListener(this, MouseWheelEvent::MOUSE_WHEEL_EVENT);
 
     assets = new DisplayObject("assets");
     assets_dos = new DisplayObject("assets_dos");
+
+    edit = new DisplayObject("edit");
+
+    TextObject* idLabel = new TextObject(string("idLabel"), string("ID:"), Game::font, edit_renderer);
+
+    TextObject* posLabel  = new TextObject(string("posLabel"),  string("Position"), Game::font, edit_renderer);
+    TextObject* posXLabel = new TextObject(string("posXLabel"), string("X:"),       Game::font, edit_renderer);
+    TextObject* posYLabel = new TextObject(string("posYLabel"), string("Y:"),       Game::font, edit_renderer);
+    posLabel->position = {0, 60};
+    posXLabel->position = {0, 100};
+    posYLabel->position = {150, 100};
+
+    TextObject* pivLabel  = new TextObject(string("pivLabel"),  string("Pivot"), Game::font, edit_renderer);
+    TextObject* pivXLabel = new TextObject(string("pivXLabel"), string("X:"),    Game::font, edit_renderer);
+    TextObject* pivYLabel = new TextObject(string("pivYLabel"), string("Y:"),    Game::font, edit_renderer);
+    pivLabel->position = {0, 160};
+    pivXLabel->position = {0, 200};
+    pivYLabel->position = {150, 200};
+
+    TextObject* scaleLabel  = new TextObject(string("scaleLabel"),  string("Scale"), Game::font, edit_renderer);
+    TextObject* scaleXLabel = new TextObject(string("scaleXLabel"), string("X:"),    Game::font, edit_renderer);
+    TextObject* scaleYLabel = new TextObject(string("scaleYLabel"), string("Y:"),    Game::font, edit_renderer);
+    scaleLabel->position = {0, 260};
+    scaleXLabel->position = {0, 300};
+    scaleYLabel->position = {150, 300};
+
+    TextObject* rotLabel = new TextObject(string("rotLabel"), string("Rotation:"), Game::font, edit_renderer);
+    rotLabel->position = {0, 360};
+    
+    edit->addChild(idLabel);
+    edit->addChild(posLabel);
+    edit->addChild(posXLabel);
+    edit->addChild(posYLabel);
+    edit->addChild(pivLabel);
+    edit->addChild(pivXLabel);
+    edit->addChild(pivYLabel);
+    edit->addChild(scaleLabel);
+    edit->addChild(scaleXLabel);
+    edit->addChild(scaleYLabel);
+    edit->addChild(rotLabel);
 
     setupfiles("./resources/assets");
 }
@@ -54,13 +97,21 @@ void Editor::setupfiles(const string& path) {
     for (const auto& entry : fs::directory_iterator(path)) {
         if (entry.path() == "./resources/assets/Animated_Sprites") {
             for (const auto& AS : fs::directory_iterator(entry.path())) {
-                AnimatedSprite* temp = new AnimatedSprite(AS.path().stem().string());
+                if (AS.path().string().find("Spritesheet") == string::npos){
+                    AnimatedSprite* temp = new AnimatedSprite(AS.path().stem().string(), assets_renderer);
 
-                for (const auto& anim : fs::directory_iterator(AS.path())) {
-                    // temp->
+                    for (const auto& anim : fs::directory_iterator(AS.path())) {
+                        int count = 0;
+                        for (const auto& frame : fs::directory_iterator(anim.path())) {
+                            ++count;
+                        }
+                        temp->addAnimation(anim.path().string() + "/", anim.path().stem().string(), count, 1, true, assets_renderer);
+                        temp->play(anim.path().stem());
+                        //temp->stop();
+                    }
+
+                    aSprites.push_back(temp);
                 }
-
-                aSprites.push_back(temp);
             }
         } else if (entry.path() == "./resources/assets/Display_Objects") {
             for (const auto& DO : fs::directory_iterator(entry.path())) {
@@ -68,236 +119,267 @@ void Editor::setupfiles(const string& path) {
             }
         } else if (entry.path() == "./resources/assets/Sprites") {
             for (const auto& S : fs::directory_iterator(entry.path())) {
-                // std::cout << S.path() << std::endl;
+                sprites.push_back(new Sprite(S.path().stem().string(), S.path().string(), assets_renderer));
             }
         }
     }
+    for (int i = 0; i < aSprites.size(); ++i) {
+        //aSprites[i]->position.x = i % 2 == 0 ? 0 : 150;
+        //aSprites[i]->position.y = (i / 2) * 150;
+        //aSprites[i]->height = 150;
+        //aSprites[i]->width = 150;
+        assets->addChild(aSprites[i]);
+    }
     for (int i = 0; i < dos.size(); ++i) {
-        dos[i]->position.x = i % 2 == 0 ? 0 : 150;
-        dos[i]->position.y = (i / 2) * 150;
+        dos[i]->position.x = (i + aSprites.size()) % 2 == 0 ? 0 : 150;
+        dos[i]->position.y = ((i + aSprites.size()) / 2) * 150;
         dos[i]->height = 150;
         dos[i]->width = 150;
-        assets_dos->addChild(dos[i]);
+        assets->addChild(dos[i]);
     }
-    assets->addChild(assets_dos);
+    for (int i = 0; i < sprites.size(); ++i) {
+        sprites[i]->position.x = (i + aSprites.size() + dos.size()) % 2 == 0 ? 0 : 150;
+        sprites[i]->position.y = ((i + aSprites.size() + dos.size()) / 2) * 150;
+        sprites[i]->height = 150;
+        sprites[i]->width = 150;
+        assets->addChild(sprites[i]);
+    }
 }
 
 void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys) {
-    // Move
-    if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
-        int f = (int)5 * (1 / camera->scaleX);
-        if (f < 1) {
-            f = 1;
-        }
-        camera->panRight(f);
-    }
-    if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
-        int f = (int)5 * (1 / camera->scaleX);
-        if (f < 1) {
-            f = 1;
-        }
-        camera->panLeft(f);
-    }
-    if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-        int f = (int)5 * (1 / camera->scaleY);
-        if (f < 1) {
-            f = 1;
-        }
-        camera->panDown(f);
-    }
-    if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
-        int f = (int)5 * (1 / camera->scaleY);
-        if (f < 1) {
-            f = 1;
-        }
-        camera->panUp(f);
-    }
+    // Check if we are in text input mode
+    if (SDL_IsTextInputActive() == SDL_TRUE){
+        // If we are in text input mode, these commands are active
 
-    // Zoom
-    if (!(SDL_GetModState() & KMOD_CTRL) && pressedKeys.find(SDL_SCANCODE_X) != pressedKeys.end()) {
-        camera->zoomIn(1.1);
-    }
-    if (!(SDL_GetModState() & KMOD_CTRL) && pressedKeys.find(SDL_SCANCODE_Z) != pressedKeys.end()) {
-        camera->zoomOut(1.1);
-    }
+        if (pressedKeys.find(SDL_SCANCODE_BACKSPACE) != pressedKeys.end() &&
+        prevKeys.find(SDL_SCANCODE_BACKSPACE) == prevKeys.end()){
+            attributeSelected->text.pop_back();
+            attributeSelected->setText(attributeSelected->text);
+            
+            this->updateAttribute();
+        }
+    } else{
+        // If we are not in text input mode, these normal controls are active
 
-    if (pressedKeys.find(SDL_SCANCODE_TAB) != pressedKeys.end() &&
-        prevKeys.find(SDL_SCANCODE_TAB) == prevKeys.end()) {
-        if (!grabbedObj) {
-            if (pressedKeys.find(SDL_SCANCODE_LSHIFT) != pressedKeys.end() ||
-                pressedKeys.find(SDL_SCANCODE_RSHIFT) != pressedKeys.end()) {
-                if (obj_ind > 1) {
-                    printf("obj_ind == %d\n", obj_ind);
+        // Move camera around scene
+        if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
+            int f = (int)5 * (1 / camera->scaleX);
+            if (f < 1) {
+                f = 1;
+            }
+            camera->panRight(f);
+        }
+        if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
+            int f = (int)5 * (1 / camera->scaleX);
+            if (f < 1) {
+                f = 1;
+            }
+            camera->panLeft(f);
+        }
+        if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
+            int f = (int)5 * (1 / camera->scaleY);
+            if (f < 1) {
+                f = 1;
+            }
+            camera->panDown(f);
+        }
+        if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
+            int f = (int)5 * (1 / camera->scaleY);
+            if (f < 1) {
+                f = 1;
+            }
+            camera->panUp(f);
+        }
 
-                    DisplayObject* myobjc = crosshair->getChild(0);
-                    crosshair->removeImmediateChild(myobjc);
+        // Zoom camera in and out
+        if (!(SDL_GetModState() & KMOD_CTRL) && pressedKeys.find(SDL_SCANCODE_X) != pressedKeys.end()) {
+            camera->zoomIn(1.1);
+        }
+        if (!(SDL_GetModState() & KMOD_CTRL) && pressedKeys.find(SDL_SCANCODE_Z) != pressedKeys.end()) {
+            camera->zoomOut(1.1);
+        }
 
-                    --obj_ind;
-                    Sprite* newobj = new Sprite("newobject", all_sprites[obj_ind]);
-                    crosshair->addChild(newobj);
-                    hasChild = true;
-                } else {
-                    if (obj_ind == 1) {
-                        obj_ind = 0;
-                        DisplayObject* myobjc = crosshair->getChild(0);
-                        crosshair->removeImmediateChild(myobjc);
-                        hasChild = false;
-                    } else {
-                        obj_ind = all_sprites.size() - 1;
-                        Sprite* newobj = new Sprite("newobject", all_sprites[obj_ind]);
-                        crosshair->addChild(newobj);
-                        hasChild = true;
-                    }
-                }
-            } else {
-                if (obj_ind < all_sprites.size() - 1) {
-                    if (obj_ind > 0) {
-                        DisplayObject* myobjc = crosshair->getChild(0);
-                        crosshair->removeImmediateChild(myobjc);
-                    }
-                    obj_ind++;
-                    Sprite* newobj = new Sprite("newobject", all_sprites[obj_ind]);
-                    crosshair->addChild(newobj);
-                    hasChild = true;
-                } else {
-                    obj_ind = 0;
-                    DisplayObject* myobjc = crosshair->getChild(0);
-                    crosshair->removeImmediateChild(myobjc);
-                    hasChild = false;
-                }
+        //Old version of choosing objects to place, probably obsolete
+
+        // if (pressedKeys.find(SDL_SCANCODE_TAB) != pressedKeys.end() &&
+        //     prevKeys.find(SDL_SCANCODE_TAB) == prevKeys.end() &&
+        //     false) {
+        //     if (!grabbedObj) {
+        //         if (pressedKeys.find(SDL_SCANCODE_LSHIFT) != pressedKeys.end() ||
+        //             pressedKeys.find(SDL_SCANCODE_RSHIFT) != pressedKeys.end()) {
+        //             if (obj_ind > 1) {
+        //                 printf("obj_ind == %d\n", obj_ind);
+
+        //                 DisplayObject* myobjc = crosshair->getChild(0);
+        //                 crosshair->removeImmediateChild(myobjc);
+
+        //                 --obj_ind;
+        //                 Sprite* newobj = new Sprite("newobject", all_sprites[obj_ind]);
+        //                 crosshair->addChild(newobj);
+        //                 hasChild = true;
+        //             } else {
+        //                 if (obj_ind == 1) {
+        //                     obj_ind = 0;
+        //                     DisplayObject* myobjc = crosshair->getChild(0);
+        //                     crosshair->removeImmediateChild(myobjc);
+        //                     hasChild = false;
+        //                 } else {
+        //                     obj_ind = all_sprites.size() - 1;
+        //                     Sprite* newobj = new Sprite("newobject", all_sprites[obj_ind]);
+        //                     crosshair->addChild(newobj);
+        //                     hasChild = true;
+        //                 }
+        //             }
+        //         } else {
+        //             if (obj_ind < all_sprites.size() - 1) {
+        //                 if (obj_ind > 0) {
+        //                     DisplayObject* myobjc = crosshair->getChild(0);
+        //                     crosshair->removeImmediateChild(myobjc);
+        //                 }
+        //                 obj_ind++;
+        //                 Sprite* newobj = new Sprite("newobject", all_sprites[obj_ind]);
+        //                 crosshair->addChild(newobj);
+        //                 hasChild = true;
+        //             } else {
+        //                 obj_ind = 0;
+        //                 DisplayObject* myobjc = crosshair->getChild(0);
+        //                 crosshair->removeImmediateChild(myobjc);
+        //                 hasChild = false;
+        //             }
+        //         }
+        //     }
+        // }
+
+        // if (pressedKeys.find(SDL_SCANCODE_RETURN) != pressedKeys.end()) {
+        //     if (hasChild || grabbedObj) {
+        //         DisplayObject* myobj = crosshair->getChild(0);
+        //         DisplayObject* newobj = new DisplayObject(*myobj);
+        //         newobj->position = crosshair->position;
+        //         curScene->addChild(newobj);
+        //         crosshair->removeImmediateChild(myobj);
+        //         hasChild = false;
+        //         obj_ind = 0;
+        //         grabbedObj = false;
+        //     }
+        // }
+
+        // Deselect objects and assets
+        if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end()){
+            this->selected.clear();
+            if (selectedAsset){
+                curScene->removeImmediateChild(selectedAsset);
+                selectedAsset = NULL;
+            }
+            editSelected = NULL;
+        }
+
+        // Cut, copy, and paste objects
+        if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_X) != pressedKeys.end() &&
+            prevKeys.find(SDL_SCANCODE_X) == prevKeys.end()) {
+            this->cut(this->selected);
+        }
+
+        if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_C) != pressedKeys.end() &&
+            prevKeys.find(SDL_SCANCODE_C) == prevKeys.end()) {
+            this->copy(this->selected);
+        }
+
+        if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_V) != pressedKeys.end() &&
+            prevKeys.find(SDL_SCANCODE_V) == prevKeys.end()) {
+            this->paste();
+        }
+
+        // Old version of editing object attributes, probably obsolete now
+
+        // // Pivot
+        // if (pressedKeys.find(SDL_SCANCODE_I) != pressedKeys.end()) {
+        //     heldPivot.y -= 5;
+        // }
+        // if (pressedKeys.find(SDL_SCANCODE_J) != pressedKeys.end()) {
+        //     heldPivot.x -= 5;
+        // }
+        // if (pressedKeys.find(SDL_SCANCODE_K) != pressedKeys.end()) {
+        //     heldPivot.y += 5;
+        // }
+        // if (pressedKeys.find(SDL_SCANCODE_L) != pressedKeys.end()) {
+        //     heldPivot.x += 5;
+        // }
+        // if (hasChild) {
+        //     crosshair->getChild(0)->pivot = heldPivot;
+        // }
+
+        // // Rotation
+        // if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
+        //     heldRotation -= 0.05;
+        // }
+        // if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
+        //     heldRotation += 0.05;
+        // }
+        // if (hasChild) {
+        //     crosshair->getChild(0)->rotation = heldRotation;
+        // }
+
+        // // Scaling
+        // if (pressedKeys.find(SDL_SCANCODE_MINUS) != pressedKeys.end()) {
+        //     heldScaleX -= 0.05;
+        //     heldScaleY -= 0.05;
+        // }
+        // if (pressedKeys.find(SDL_SCANCODE_EQUALS) != pressedKeys.end()) {
+        //     heldScaleX += 0.05;
+        //     heldScaleY += 0.05;
+        // }
+        // if (pressedKeys.find(SDL_SCANCODE_O) != pressedKeys.end()) {
+        //     heldScaleX -= 0.05;
+        // }
+        // if (pressedKeys.find(SDL_SCANCODE_P) != pressedKeys.end()) {
+        //     heldScaleX += 0.05;
+        // }
+        // if (pressedKeys.find(SDL_SCANCODE_LEFTBRACKET) != pressedKeys.end()) {
+        //     heldScaleY -= 0.05;
+        // }
+        // if (pressedKeys.find(SDL_SCANCODE_RIGHTBRACKET) != pressedKeys.end()) {
+        //     heldScaleY += 0.05;
+        // }
+        // if (hasChild) {
+        //     crosshair->getChild(0)->scaleX = heldScaleX;
+        //     crosshair->getChild(0)->scaleY = heldScaleY;
+        // }
+
+        // Jason's debugging tool
+        if (pressedKeys.find(SDL_SCANCODE_Y) != pressedKeys.end()) {
+            if (SDL_IsTextInputActive() == SDL_TRUE){
+                cout << "Text input is active" << endl;
             }
         }
-    }
 
-    if (pressedKeys.find(SDL_SCANCODE_BACKSPACE) != pressedKeys.end()) {
-        if (obj_ind != 0) {
-            obj_ind = 0;
-            DisplayObject* myobjc = crosshair->getChild(0);
-            crosshair->removeImmediateChild(myobjc);
-            hasChild = false;
+        // Save scene to file
+        if ((pressedKeys.find(SDL_SCANCODE_LCTRL) != pressedKeys.end() ||
+            pressedKeys.find(SDL_SCANCODE_RCTRL) != pressedKeys.end()) &&
+            pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
+            string tmp;
+            cin >> tmp;
+            curScene->saveScene(tmp);
         }
-    }
 
-    if (pressedKeys.find(SDL_SCANCODE_RETURN) != pressedKeys.end()) {
-        if (hasChild || grabbedObj) {
-            DisplayObject* myobj = crosshair->getChild(0);
-            DisplayObject* newobj = new DisplayObject(*myobj);
-            newobj->position = crosshair->position;
-            curScene->addChild(newobj);
-            crosshair->removeImmediateChild(myobj);
-            hasChild = false;
-            obj_ind = 0;
-            grabbedObj = false;
-        }
-    }
+        // Part of the old attribute editing system
 
-    if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end()){
-        this->selected.clear();
-        if (selectedAsset){
-            curScene->removeImmediateChild(selectedAsset);
-            selectedAsset = NULL;
-        }
+        // if (pressedKeys.find(SDL_SCANCODE_R) != pressedKeys.end()) {
+        //     heldPosition = {0, 0};
+        //     heldPivot = {0, 0};
+        //     heldScaleX = 1.0;
+        //     heldScaleY = 1.0;
+        //     heldRotation = 0.0;
+        //     if (hasChild) {
+        //         DisplayObject* tmp = crosshair->getChild(0);
+        //         tmp->position = heldPosition;
+        //         tmp->pivot = heldPivot;
+        //         tmp->scaleX = heldScaleX;
+        //         tmp->scaleY = heldScaleY;
+        //         tmp->rotation = heldRotation;
+        //     }
+        // }
     }
-
-    if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_X) != pressedKeys.end() &&
-        prevKeys.find(SDL_SCANCODE_X) == prevKeys.end()) {
-        this->cut(this->selected);
-    }
-
-    if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_C) != pressedKeys.end() &&
-        prevKeys.find(SDL_SCANCODE_C) == prevKeys.end()) {
-        this->copy(this->selected);
-    }
-
-    if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_V) != pressedKeys.end() &&
-        prevKeys.find(SDL_SCANCODE_V) == prevKeys.end()) {
-        this->paste();
-    }
-
-    // Pivot
-    if (pressedKeys.find(SDL_SCANCODE_I) != pressedKeys.end()) {
-        heldPivot.y -= 5;
-    }
-    if (pressedKeys.find(SDL_SCANCODE_J) != pressedKeys.end()) {
-        heldPivot.x -= 5;
-    }
-    if (pressedKeys.find(SDL_SCANCODE_K) != pressedKeys.end()) {
-        heldPivot.y += 5;
-    }
-    if (pressedKeys.find(SDL_SCANCODE_L) != pressedKeys.end()) {
-        heldPivot.x += 5;
-    }
-    if (hasChild) {
-        crosshair->getChild(0)->pivot = heldPivot;
-    }
-
-    // Rotation
-    if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
-        heldRotation -= 0.05;
-    }
-    if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
-        heldRotation += 0.05;
-    }
-    if (hasChild) {
-        crosshair->getChild(0)->rotation = heldRotation;
-    }
-
-    // Scaling
-    if (pressedKeys.find(SDL_SCANCODE_MINUS) != pressedKeys.end()) {
-        heldScaleX -= 0.05;
-        heldScaleY -= 0.05;
-    }
-    if (pressedKeys.find(SDL_SCANCODE_EQUALS) != pressedKeys.end()) {
-        heldScaleX += 0.05;
-        heldScaleY += 0.05;
-    }
-    if (pressedKeys.find(SDL_SCANCODE_O) != pressedKeys.end()) {
-        heldScaleX -= 0.05;
-    }
-    if (pressedKeys.find(SDL_SCANCODE_P) != pressedKeys.end()) {
-        heldScaleX += 0.05;
-    }
-    if (pressedKeys.find(SDL_SCANCODE_LEFTBRACKET) != pressedKeys.end()) {
-        heldScaleY -= 0.05;
-    }
-    if (pressedKeys.find(SDL_SCANCODE_RIGHTBRACKET) != pressedKeys.end()) {
-        heldScaleY += 0.05;
-    }
-    if (hasChild) {
-        crosshair->getChild(0)->scaleX = heldScaleX;
-        crosshair->getChild(0)->scaleY = heldScaleY;
-    }
-
-    if (pressedKeys.find(SDL_SCANCODE_Y) != pressedKeys.end()) {
-        for (DisplayObject* object : this->selected) {
-            cout << object->id << endl;
-        }
-    }
-
-    if ((pressedKeys.find(SDL_SCANCODE_LCTRL) != pressedKeys.end() ||
-         pressedKeys.find(SDL_SCANCODE_RCTRL) != pressedKeys.end()) &&
-        pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
-        string tmp;
-        cin >> tmp;
-        curScene->saveScene(tmp);
-    }
-
-    if (pressedKeys.find(SDL_SCANCODE_R) != pressedKeys.end()) {
-        heldPosition = {0, 0};
-        heldPivot = {0, 0};
-        heldScaleX = 1.0;
-        heldScaleY = 1.0;
-        heldRotation = 0.0;
-        if (hasChild) {
-            DisplayObject* tmp = crosshair->getChild(0);
-            tmp->position = heldPosition;
-            tmp->pivot = heldPivot;
-            tmp->scaleX = heldScaleX;
-            tmp->scaleY = heldScaleY;
-            tmp->rotation = heldRotation;
-        }
-    }
-
+    
     prevKeys = pressedKeys;
 
     Game::update(pressedKeys);
@@ -308,6 +390,7 @@ void Editor::draw(AffineTransform& at) {
 	DisplayObject::draw(at);
 
     assets->draw(at, Editor::assets_renderer);
+    edit->draw(at, Editor::edit_renderer);
 
 	this->draw_post();
 	this->presentRenderers();
@@ -453,7 +536,7 @@ void Editor::handleEvent(Event* e) {
                 curScene->removeImmediateChild(selectedAsset);
                 selectedAsset = NULL;
             }
-            if (this->onMouseDown(assets->getChild(0), event)){
+            if (this->onMouseDown(assets, event)){
                 if (*this->selected.begin() == temp){
                     this->selected.clear();
                 } else{
@@ -467,6 +550,12 @@ void Editor::handleEvent(Event* e) {
         } else if (event->wID == SDL_GetWindowID(edit_window)){
             editWindowActive = true;
             assetsWindowActive = mainWindowActive = false;
+
+            this->attributeSelected = NULL;
+
+            if (this->onMouseDown(edit, event)){
+
+            }
 
         } else{
             mainWindowActive = true;
@@ -484,6 +573,66 @@ void Editor::handleEvent(Event* e) {
             } else if (!this->onMouseDown(this, event)) {
                 this->selected.clear();
             }
+        }
+        
+        // Remove the children that show values if selected differs from currently displayed values
+        if (selected.size() != 1 || editSelected != *selected.begin()){
+            // Store pre-modification number of children
+            int tempNumChildren = edit->numChildren();
+
+            //Delete all children beyond the default 11 that are always displayed
+            for (int i = 11; i < tempNumChildren; ++i){
+                edit->removeImmediateChild(edit->getChild(11));
+            }
+
+            // Clear the editable objects
+            editable.clear();
+        }
+        
+        // Update edit window if there is one non-asset object selected that differs from currently displayed object
+        if (!selectedAsset && selected.size() == 1 && editSelected != *selected.begin()){ 
+            editSelected = *selected.begin();
+
+            TextObject* idText = new TextObject(string("idText"), string(editSelected->id) , Game::font, edit_renderer);
+            idText->position = {37, 0};
+
+            TextObject* posXText = new TextObject(string("posXText"),  to_string(editSelected->position.x), Game::font, edit_renderer);
+            TextObject* posYText = new TextObject(string("posYText"),  to_string(editSelected->position.y), Game::font, edit_renderer);
+            posXText->position = {25, 100};
+            posYText->position = {175, 100};
+
+            TextObject* pivXText = new TextObject(string("pivXText"),  to_string(editSelected->pivot.x), Game::font, edit_renderer);
+            TextObject* pivYText = new TextObject(string("pivYText"),  to_string(editSelected->pivot.y), Game::font, edit_renderer);
+            pivXText->position = {25, 200};
+            pivYText->position = {175, 200};
+
+            TextObject* scaleXText = new TextObject(string("scaleXText"),  to_string(editSelected->scaleX), Game::font, edit_renderer);
+            TextObject* scaleYText = new TextObject(string("scaleYText"),  to_string(editSelected->scaleY), Game::font, edit_renderer);
+            scaleXText->position = {25, 300};
+            scaleYText->position = {175, 300};
+
+            TextObject* rotText = new TextObject(string("rotText"),  to_string(editSelected->rotation), Game::font, edit_renderer);
+            rotText->position = {110, 360};
+            
+            edit->addChild(idText);
+            edit->addChild(posXText);
+            edit->addChild(posYText);
+            edit->addChild(pivXText);
+            edit->addChild(pivYText);
+            edit->addChild(scaleXText);
+            edit->addChild(scaleYText);
+            edit->addChild(rotText);
+
+            editable.insert(idText);
+            editable.insert(posXText);
+            editable.insert(posYText);
+            editable.insert(pivXText);
+            editable.insert(pivYText);
+            editable.insert(scaleXText);
+            editable.insert(scaleYText);
+            editable.insert(rotText);
+        } else if (selected.size() == 1 && editSelected != *selected.begin()){
+            editSelected = NULL;
         }
     } else if (e->getType() == DragStartEvent::DRAG_START_EVENT) {
         this->displacementX.clear();
@@ -542,7 +691,32 @@ void Editor::handleEvent(Event* e) {
         }
     } else if (e->getType() == MouseUpEvent::MOUSE_UP_EVENT) {
         MouseUpEvent* event = static_cast<MouseUpEvent*>(e);
-        this->onMouseUp(this, event);
+        if (event->wID == SDL_GetWindowID(edit_window)){
+            if (this->onMouseUp(edit, event)){
+                SDL_StartTextInput();
+                SDL_SetTextInputRect(&attributeSelected->dstrect);
+                cout << "Started input" << endl;
+            } else{
+                if (SDL_IsTextInputActive() == SDL_TRUE){
+                    SDL_StopTextInput();
+                    cout << "Stopped input" << endl;
+                    attributeSelected = NULL;
+                }
+            }
+        } else if (event->wID == SDL_GetWindowID(this->window)){
+            this->onMouseUp(this, event);
+            if (SDL_IsTextInputActive() == SDL_TRUE){
+                SDL_StopTextInput();
+                cout << "Stopped input" << endl;
+                attributeSelected = NULL;
+            }
+        } else if (event->wID == SDL_GetWindowID(assets_window)){
+            if (SDL_IsTextInputActive() == SDL_TRUE){
+                SDL_StopTextInput();
+                cout << "Stopped input" << endl;
+                attributeSelected = NULL;
+            }
+        }
     } else if (e->getType() == MouseMotionEvent::MOUSE_MOTION_EVENT) {
         MouseMotionEvent* event = static_cast<MouseMotionEvent*>(e);
         if (selectedAsset && event->wID == SDL_GetWindowID(this->window)){
@@ -585,6 +759,48 @@ void Editor::handleEvent(Event* e) {
             selectedAsset->visible = false;
         }
         
+    } else if (e->getType() == TextInputEvent::TEXT_INPUT_EVENT){
+        TextInputEvent* event = static_cast<TextInputEvent*>(e);
+        if (attributeSelected){
+            if (attributeSelected->id == "idText"){
+                attributeSelected->setText(string(attributeSelected->text + event->text));
+            } else{
+                if (isdigit(event->text[0]) ||
+                    (event->text[0] == '.' && attributeSelected->text.find(".") == string::npos && attributeSelected->text != " " && attributeSelected->text != "-") ||
+                    (event->text[0] == '-' && attributeSelected->text == " ")){
+
+                    string strNew = "";
+                    if (attributeSelected->text != " "){
+                        strNew += attributeSelected->text;
+                    }
+                    attributeSelected->setText(string(strNew + event->text));
+                }
+            }
+            this->updateAttribute();
+        }
+    } else if (e->getType() == TextEditEvent::TEXT_EDIT_EVENT){
+        cout << "Editing is happening" << endl;
+        TextEditEvent* event = static_cast<TextEditEvent*>(e);
+        if (attributeSelected){
+            if (attributeSelected->id == "idText"){
+                attributeSelected->setText(event->text);
+            } else{
+                if (isdigit(event->text[0]) || event->text[0] == '.'){
+                    attributeSelected->setText(event->text);
+                }
+            }
+        }
+    } else if (e->getType() == MouseWheelEvent::MOUSE_WHEEL_EVENT){
+        MouseWheelEvent* event = static_cast<MouseWheelEvent*>(e);
+        if (event->wID == SDL_GetWindowID(assets_window)){
+            assets->position.y += event->y * 20;
+            if (assets->position.y < -((assets->numChildren()+1)/2)*150){
+                assets->position.y = 0;
+            }
+            if (assets->position.y > 450){
+                assets->position.y = -((assets->numChildren()+1)/2)*150 + 150;
+            }
+        }
     }
 }
 
@@ -598,7 +814,7 @@ bool Editor::onMouseDown(DisplayObject* object, MouseDownEvent* event) {
 
     if (object->dstrect.x <= event->x && event->x <= object->dstrect.x + object->dstrect.w &&
         object->dstrect.y <= event->y && event->y <= object->dstrect.y + object->dstrect.h) {
-        if (!(event->modifiers & KMOD_CTRL)) {
+        if (!(event->modifiers & KMOD_CTRL) && event->wID != SDL_GetWindowID(edit_window)) {
             // If this object is not already selected and we are not ctrl-clicking,
             // unselect everything
             if (this->selected.find(object) == this->selected.cend()) {
@@ -623,7 +839,13 @@ bool Editor::onMouseUp(DisplayObject* object, MouseUpEvent* event) {
 
     if (object->dstrect.x <= event->x && event->x <= object->dstrect.x + object->dstrect.w &&
         object->dstrect.y <= event->y && event->y <= object->dstrect.y + object->dstrect.h) {
-        if (!(event->modifiers & KMOD_CTRL)) {
+        if (event->wID == SDL_GetWindowID(edit_window)){
+            if (editable.find(object) != editable.end() && object->type == "TextObject"){
+                attributeSelected = (TextObject*) object;
+                return true;
+            }
+            return false;
+        } else if (!(event->modifiers & KMOD_CTRL)) {
             // If this object is already selected and we are not ctrl-clicking,
             // clear everything and select ourselves
             if (this->selected.find(object) != this->selected.cend()) {
@@ -643,4 +865,52 @@ bool Editor::onMouseUp(DisplayObject* object, MouseUpEvent* event) {
     }
 
     return false;
+}
+
+void Editor::updateAttribute(){
+    // Fetch the current text of the attribute
+    string valToSet = attributeSelected->text;
+
+    // If we are updating the id, set immediately and return
+    if (attributeSelected->id == "idText"){
+        editSelected->id = valToSet;
+        return;
+    }
+
+    // If the value is a single space or minus
+    // set the value to 0.0001 if we are updating scale, set to 0 otherwise
+    if (valToSet == " " || valToSet == "-"){
+        if (attributeSelected->id == "scaleXText" || attributeSelected->id == "scaleYText"){
+            valToSet = "0.0001";
+        } else {
+            valToSet = "0";
+        }
+    }
+
+    // Check what field we are updating, and do so accordingly
+    if (attributeSelected->id == "posXText"){
+        editSelected->position.x = stoi(valToSet);
+    } else if (attributeSelected->id == "posYText"){
+        editSelected->position.y = stoi(valToSet);
+    } else if (attributeSelected->id == "pivXText"){
+        editSelected->pivot.x = stoi(valToSet);
+    } else if (attributeSelected->id == "pivYText"){
+        editSelected->pivot.y = stoi(valToSet);
+    } else if (attributeSelected->id == "scaleXText"){
+        double val = stod(valToSet);
+        if (val - 0.0001 < 0){
+            editSelected->scaleX = 0.0001;
+        } else{
+            editSelected->scaleX = val;
+        }
+    } else if (attributeSelected->id == "scaleYText"){
+        double val = stod(valToSet);
+        if (val - 0.0001 < 0){
+            editSelected->scaleY = 0.0001;
+        } else{
+            editSelected->scaleY = val;
+        }
+    } else if (attributeSelected->id == "rotText"){
+        editSelected->rotation = stod(valToSet);
+    }
 }

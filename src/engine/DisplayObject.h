@@ -32,12 +32,15 @@ public:
     DisplayObject(std::string id, std::string path);
 	DisplayObject(std::string id, std::string path, SDL_Renderer* r);
 	DisplayObject(std::string id, int red, int green, int blue);
+	DisplayObject(std::string id, int red, int green, int blue, int width, int height);
+	DisplayObject(std::string id, int red, int green, int blue, int width, int height, SDL_Renderer* r);
 	DisplayObject(const DisplayObject& other);
 	virtual ~DisplayObject();
 
     void loadTexture(std::string filepath, SDL_Renderer* r);
-    void loadRGBTexture(int red, int green, int blue);
+    void loadRGBTexture(int red, int green, int blue, int width, int height, SDL_Renderer* r);
     void setTexture(SDL_Texture* t);
+	void setSurface(SDL_Surface* s);
 
     void addChild(DisplayObject* child);
     void removeImmediateChild(DisplayObject* child);
@@ -70,6 +73,8 @@ public:
 	double scaleY = 1.0;
 	double rotation = 0.0; // in radians
 	bool facingRight = true;
+
+	SDL_Renderer* r;
 
 	bool hasCollision = false;
 

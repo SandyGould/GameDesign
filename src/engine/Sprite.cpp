@@ -1,16 +1,19 @@
 #include "Sprite.h"
 #include "Game.h"
 
-Sprite::Sprite(std::string id) : DisplayObject(id) {
+Sprite::Sprite(std::string id, SDL_Renderer *r) : DisplayObject(id) {
     this->type = "Sprite";
+    this->r = r;
 }
 
-Sprite::Sprite(std::string id, std::string filepath) : DisplayObject(id, filepath) {
+Sprite::Sprite(std::string id, std::string filepath, SDL_Renderer *r) : DisplayObject(id, filepath) {
     this->type = "Sprite";
+    this->r = r;
 }
 
-Sprite::Sprite(std::string id, int red, int green, int blue) : DisplayObject(id, red, green, blue) {
+Sprite::Sprite(std::string id, int red, int green, int blue, SDL_Renderer *r) : DisplayObject(id, red, green, blue) {
     this->type = "Sprite";
+    this->r = r;
 }
 
 void Sprite::update(std::unordered_set<SDL_Scancode> pressedKeys) {

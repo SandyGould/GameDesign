@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DisplayObject.h"
+#include <SDL2/SDL_ttf.h>
 #include "events/EventDispatcher.h"
 
 #include <vector>
@@ -25,6 +26,7 @@ public:
 
 	SDL_Window* window;
 	static SDL_Renderer* renderer;
+	static TTF_Font* font;
 
 	//Global frame counter
 	static unsigned int frameCounter;

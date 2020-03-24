@@ -9,6 +9,9 @@
 #include "../engine/events/MouseMotionEvent.h"
 #include "../engine/events/WindowEnterEvent.h"
 #include "../engine/events/WindowExitEvent.h"
+#include "../engine/events/TextInputEvent.h"
+#include "../engine/events/TextEditEvent.h"
+#include "../engine/events/MouseWheelEvent.h"
 #include "../engine/things/Crosshair.h"
 
 #include <vector>
@@ -70,6 +73,11 @@ private:
 	bool assetsWindowActive = false;
 	bool editWindowActive = false;
 	DisplayObject* selectedAsset = NULL;
+
+	DisplayObject* editSelected = NULL;
+	TextObject* attributeSelected = NULL;
+	unordered_set<DisplayObject*> editable;
+	void updateAttribute();
 
 	AffineTransform atTest;
 

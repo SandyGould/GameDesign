@@ -11,6 +11,8 @@ constexpr auto PI = 3.14159265;
 DisplayObject::DisplayObject(std::string id) {
     this->id = id;
 
+    this->r = Game::renderer;
+
     this->image = NULL;
     this->texture = NULL;
     this->curTexture = NULL;
@@ -26,11 +28,20 @@ DisplayObject::DisplayObject(std::string id, std::string filepath)
 DisplayObject::DisplayObject(std::string id, std::string filepath, SDL_Renderer* r)
     : DisplayObject(id) {
     this->imgPath = filepath;
+    this->r = r;
 
     loadTexture(filepath, r);
 }
 
 DisplayObject::DisplayObject(std::string id, int red, int green, int blue)
+    : DisplayObject(id, red, green, blue, 100, 100) {
+}
+
+DisplayObject::DisplayObject(std::string id, int red, int green, int blue, int width, int height)
+    : DisplayObject(id, red, green, blue, width, height, Game::renderer) {
+}
+
+DisplayObject::DisplayObject(std::string id, int red, int green, int blue, int width, int height, SDL_Renderer* r)
     : DisplayObject(id) {
     this->id = id;
 
@@ -38,7 +49,12 @@ DisplayObject::DisplayObject(std::string id, int red, int green, int blue)
     this->blue = blue;
     this->green = green;
 
-    this->loadRGBTexture(red, green, blue);
+    this->width = width;
+    this->height = height;
+
+    this->r = r;
+
+    this->loadRGBTexture(red, green, blue, width, height, r);
 }
 
 DisplayObject::DisplayObject(const DisplayObject& other) {
@@ -83,10 +99,10 @@ void DisplayObject::loadTexture(std::string filepath, SDL_Renderer* r) {
     setTexture(texture);
 }
 
-void DisplayObject::loadRGBTexture(int red, int green, int blue) {
-    image = SDL_CreateRGBSurface(0, 100, 100, 32, 0, 0, 0, 0x000000ff);
+void DisplayObject::loadRGBTexture(int red, int green, int blue, int width, int height, SDL_Renderer* r) {
+    image = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0x000000ff);
     SDL_FillRect(image, NULL, SDL_MapRGB(image->format, red, green, blue));
-    texture = SDL_CreateTextureFromSurface(Game::renderer, image);
+    texture = SDL_CreateTextureFromSurface(r, image);
     SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
     setTexture(texture);
 }
@@ -257,4 +273,11 @@ double DisplayObject::calculateRotation(SDL_Point& origin, SDL_Point& p) {
     int y = p.y - origin.y;
     int x = p.x - origin.x;
     return std::atan2(y, x) * 180 / PI;
+}
+
+void DisplayObject::setSurface(SDL_Surface* s) {
+    if (this->image){
+        SDL_FreeSurface(this->image);
+    }
+    this->image = s;
 }

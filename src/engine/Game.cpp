@@ -8,14 +8,17 @@
 #include "events/WindowEnterEvent.h"
 #include "events/WindowExitEvent.h"
 #include "events/MouseMotionEvent.h"
+#include "events/TextInputEvent.h"
+#include "events/TextEditEvent.h"
+#include "events/MouseWheelEvent.h"
 
-#include <SDL2/SDL_ttf.h>
 #include <chrono>
 #include <iostream>
 
 using namespace std::chrono;
 
 SDL_Renderer* Game::renderer;
+TTF_Font* Game::font;
 Game* Game::instance;
 unsigned int Game::frameCounter = 0;
 
@@ -31,6 +34,7 @@ Game::Game(int windowWidth, int windowHeight) : DisplayObject("game") {
 
 	initSDL();
 	TTF_Init();
+	font = TTF_OpenFont("./resources/fonts/open-sans/OpenSans-Regular.ttf", 24);
 }
 
 Game::~Game() {
@@ -55,6 +59,8 @@ void Game::initSDL() {
 	                          SDL_WINDOW_ALLOW_HIGHDPI);
 
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+
+	SDL_StopTextInput();
 
 	Game::renderer = renderer;
 }
@@ -126,6 +132,17 @@ void Game::start() {
 				if (this->mouseState == MouseState::DRAGGING) {
 					this->dispatcher.dispatchEvent(new DragEvent(event.motion.x, event.motion.y, event.motion.xrel, event.motion.yrel, event.motion.windowID, this->modifiers));
 				}
+				break;
+			case SDL_MOUSEWHEEL:
+				this->dispatcher.dispatchEvent(new MouseWheelEvent(event.wheel.x, event.wheel.y, event.wheel.windowID));
+				break;
+			case SDL_TEXTINPUT:
+				this->modifiers = SDL_GetModState();
+				this->dispatcher.dispatchEvent(new TextInputEvent(event.text.text, event.text.windowID, this->modifiers));
+				break;
+			case SDL_TEXTEDITING:
+				this->modifiers = SDL_GetModState();
+				this->dispatcher.dispatchEvent(new TextEditEvent(event.edit.text, event.edit.start, event.edit.length, event.edit.windowID, this->modifiers));
 				break;
 			}
 		}

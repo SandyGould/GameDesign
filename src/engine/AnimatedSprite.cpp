@@ -5,12 +5,14 @@
 
 using json = nlohmann::json;
 
-AnimatedSprite::AnimatedSprite(std::string id) : Sprite(id) {
+AnimatedSprite::AnimatedSprite(std::string id, SDL_Renderer *r) : Sprite(id) {
     this->type = "AnimatedSprite";
+    this->r = r;
 }
 
-AnimatedSprite::AnimatedSprite(std::string id, std::string spritesheet, std::string sheet_anims) : Sprite(id, 0, 0, 0) {
+AnimatedSprite::AnimatedSprite(std::string id, std::string spritesheet, std::string sheet_anims, SDL_Renderer *r) : Sprite(id, 0, 0, 0) {
     this->type = "AnimatedSprite";
+    this->r = r;
     std::ifstream i(sheet_anims);
     json j;
     i >> j;
@@ -32,7 +34,7 @@ AnimatedSprite::~AnimatedSprite() {
     }
 }
 
-void AnimatedSprite::addAnimation(std::string basepath, std::string animName, int numFrames, int frameRate, bool loop) {
+void AnimatedSprite::addAnimation(std::string basepath, std::string animName, int numFrames, int frameRate, bool loop, SDL_Renderer *r) {
     Animation* anim = new Animation{
         new Frame * [numFrames], // new frame pointer array of size numFrames;
         animName,
@@ -46,7 +48,7 @@ void AnimatedSprite::addAnimation(std::string basepath, std::string animName, in
         Frame* f = new Frame();
         std::string path = basepath + animName + "_" + std::to_string(i + 1) + ".png";
         f->image = IMG_Load(path.c_str());
-        f->texture = SDL_CreateTextureFromSurface(Game::renderer, f->image);
+        f->texture = SDL_CreateTextureFromSurface(r, f->image);
         anim->frames[i] = f;
     }
     animations.push_back(anim);
@@ -107,5 +109,9 @@ void AnimatedSprite::update(std::unordered_set<SDL_Scancode> pressedKeys) {
 }
 
 void AnimatedSprite::draw(AffineTransform& at) {
-    Sprite::draw(at);
+    AnimatedSprite::draw(at, Game::renderer, NULL);
+}
+
+void AnimatedSprite::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
+    Sprite::draw(at, r, src);
 }
