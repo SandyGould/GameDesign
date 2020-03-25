@@ -35,7 +35,7 @@ MyGame::~MyGame() {
 }
 
 
-void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
+void MyGame::update(std::set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
 	keyPressed = false;
 
 	if(jumping == true)
@@ -58,81 +58,81 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 		//30 frames ina jump
 	}
 
-
-	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end() ) {
-		keyPressed = true;
-		player->position.x += 2;
-		if(walking == false && jumping == false)
-		{
-			walking = true;
-			player->play("Run");
-		}
-	}
-	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
-		player->position.x -= 2;
-		keyPressed = true;
-		if(walking == false && jumping == false)
-		{
-			walking = true;
-			player->play("Run");
-		}
-		
-
-	}
-	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-		
-	}
-	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
-		if(jumping == false)
-		{
-			player->position.y -= 2;
-			keyPressed = true;
-			jumping = true;
-			player->play("Jump");
-			jumpframes = 0;
-		}
-	}
-	if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
-		player->alpha -= 2;
-	}
-	if (pressedKeys.find(SDL_SCANCODE_E) != pressedKeys.end()) {
-		player->alpha += 2;
-
-
-	}
-void MyGame::update(std::set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
 	if (pressedButtons.empty() && abs(joystickState.xVal) - DEAD_ZONE < 0 && abs(joystickState.yVal) - DEAD_ZONE < 0){
 		if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end() ) {
+			keyPressed = true;
 			player->position.x += 2;
+			if(walking == false && jumping == false)
+			{
+				walking = true;
+				player->play("Run");
+			}
 		}
 		if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
 			player->position.x -= 2;
+			keyPressed = true;
+			if(walking == false && jumping == false)
+			{
+				walking = true;
+				player->play("Run");
+			}
+			
+
 		}
 		if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-			player->position.y += 2;
+			
 		}
 		if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
-			player->position.y -= 2;
+			if(jumping == false)
+			{
+				player->position.y -= 2;
+				keyPressed = true;
+				jumping = true;
+				player->play("Jump");
+				jumpframes = 0;
+			}
 		}
 		if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
 			player->alpha -= 2;
 		}
 		if (pressedKeys.find(SDL_SCANCODE_E) != pressedKeys.end()) {
 			player->alpha += 2;
-		}
 
-		
+
+		}
+	
 	} else{
-		player->position.x += joystickState.xVal/8000;
-		player->position.y += joystickState.yVal/8000;
+		if(abs(joystickState.xVal) - DEAD_ZONE < 0)
+		{
+			
+			player->position.x += joystickState.xVal/8000;
+			keyPressed = true;
+			if(walking == false && jumping == false)
+			{
+				walking = true;
+				player->play("Run");
+			}
+		}
+		//if(abs(joystickState.xVal) - DEAD_ZONE < 0 )
+		//{
+		//	player->position.y += joystickState.yVal/8000;
+		//}
 		if (pressedButtons.find(SDL_CONTROLLER_BUTTON_A) != pressedButtons.end()){
-			player->scaleX += 0.1;
-			player->scaleY += 0.1;
+			if(jumping == false)
+			{
+				player->position.y -= 2;
+				keyPressed = true;
+				jumping = true;
+				player->play("Jump");
+				jumpframes = 0;
+			}
+			//player->scaleX += 0.1;
+			//player->scaleY += 0.1;
 		}
-		if (pressedButtons.find(SDL_CONTROLLER_BUTTON_B) != pressedButtons.end()){
-			player->scaleX -= 0.1;
-			player->scaleY -= 0.1;
-		}
+		//if (pressedButtons.find(SDL_CONTROLLER_BUTTON_B) != pressedButtons.end()){
+		//	player->scaleX -= 0.1;
+		//	player->scaleY -= 0.1;
+		//}
 	}
 
 	if(keyPressed == false)
@@ -155,9 +155,13 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys, jState joystickState, st
 		delete pickUp;
 		coin->visible = false;
 	}
-
 	Game::update(pressedKeys, joystickState, pressedButtons);
 }
+
+
+	
+
+	
 
 void MyGame::draw(AffineTransform& at) {
 	Game::draw(at);
