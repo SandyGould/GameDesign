@@ -2,9 +2,10 @@
 #define PLAYER_H
 
 #include "../Sprite.h"
+#include "../AnimatedSprite.h"
 #include "../events/EventDispatcher.h"
 
-class Player : public Sprite, public EventDispatcher {
+class Player : public AnimatedSprite, public EventDispatcher {
 
 public:
 	

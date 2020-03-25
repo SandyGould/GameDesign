@@ -1,0 +1,29 @@
+To make spritesheets, you're going to need TexturePacker(https://www.codeandweb.com/texturepacker). I think on first startup it'll ask you what you're making- just make sure to say you want to use generic XML as the format.
+
+In the program, click Edit->Open Smart Folder and select the folder you want the sprites to come from (or you can manually add them one by one through other methods). It's very likely the default sheet won't be enough for the sprites, 
+so you'll have to go to the settings panel and adjust the sheet's size under Layout. If you get something about pro features in the bottom of the screen, you'll need to click Disable Pro Features so you can be allowed to save the sheet. 
+To save, first you'll need to go to the Data tab under Settings, make sure the format is "XML (generic)", then click on the folder icon to select a path to save the file to. Then click "Publish Sprite Sheet" and save the .png file.
+Unless I'm missing something here, you can't really define the animations from within Texture Packer itself. You'll have to modify the XML to make it compliant with what we're doing. 
+Open the .xml file you created previously, and encase each group of sprites corresponding to an animation within a pair of <Anim> tags. On the opening tag, fill in the name, number of frames, framerate, and loop flag. 
+When you're done, you .xml file should look something like this:
+
+*texture packer comments*
+
+	<TextureAtlas imagePath="test.png" width="7904" height="3322">
+		<Anim name ="Idle" numFrames="3" frameRate="1" loop="true"> 
+			
+  		  	<sprite n="Idle_1.png" x="2404" y="1004" w="416" h="454"/>
+  			<sprite n="Idle_2.png" x="2820" y="1004" w="416" h="454"/>
+   		 	<sprite n="Idle_3.png" x="3236" y="1004" w="416" h="454"/>	
+		</Anim>
+		<Anim name ="Jump" numFrames="4" frameRate="2" loop="false"> 
+			
+			<sprite n="Jump_1.png" x="1248" y="1506" w="416" h="454"/>
+			<sprite n="Jump_2.png" x="1664" y="1506" w="416" h="454"/>
+ 			<sprite n="Jump_3.png" x="2080" y="1506" w="416" h="454"/>
+ 			<sprite n="Jump_4.png" x="2496" y="1506" w="416" h="454"/>
+		</Anim>
+	</TextureAtlas>
+
+Don't mess with the <TextureAtlas> tags, or else this won't work at all . To make this work in the actual engine, you'll need to have whatever object you create be an 
+AnimatedSprite, constructed in this format: AnimatedSprite(id,path to spritesheet, path to xml), all of these being strings. Simply use play(string animname) to play the animation you want and stop() to stop it.

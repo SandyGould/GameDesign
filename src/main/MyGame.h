@@ -31,6 +31,11 @@ private:
 	// DisplayObject* character;
 	Scene* scene;
 	Scene* scene2;
+	bool keyPressed;
+	bool walking;
+	bool jumping;
+	int jumpframes;
+	
 };
 
 #endif

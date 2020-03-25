@@ -22,7 +22,10 @@ MyGame::MyGame() : Game(1200, 1000) {
 	coin->width = coin->height = 30;
 	coin->pivot = {15, 15};
 	allSprites->addChild(coin);
-
+	walking = false;
+	jumping = false;
+	jumpframes = 0;
+	player->play("Idle");
 	coin->addEventListener(questManager, PickedUpEvent::COIN_PICKED_UP);
 }
 
@@ -31,23 +34,77 @@ MyGame::~MyGame() {
 
 
 void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
+	keyPressed = false;
+
+	if(jumping == true)
+	{
+		if(jumpframes < 15)
+		{
+			player->position.y -= 2;
+		}
+		else
+		{
+			player->position.y += 2;
+		}
+		
+		jumpframes += 1;
+		if(jumpframes == 30)
+		{
+			jumping = false;
+			player->stop();
+		}
+		//30 frames ina jump
+	}
+
+
 	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end() ) {
+		keyPressed = true;
 		player->position.x += 2;
+		if(walking == false && jumping == false)
+		{
+			walking = true;
+			player->play("Run");
+		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
 		player->position.x -= 2;
+		keyPressed = true;
+		if(walking == false && jumping == false)
+		{
+			walking = true;
+			player->play("Run");
+		}
+		
+
 	}
 	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-		player->position.y += 2;
+		
 	}
 	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
-		player->position.y -= 2;
+		if(jumping == false)
+		{
+			player->position.y -= 2;
+			keyPressed = true;
+			jumping = true;
+			player->play("Jump");
+			jumpframes = 0;
+		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
 		player->alpha -= 2;
 	}
 	if (pressedKeys.find(SDL_SCANCODE_E) != pressedKeys.end()) {
 		player->alpha += 2;
+	}
+
+	if(keyPressed == false)
+	{
+		if(jumping == false)
+		 {
+			walking = false;
+			player->stop();
+			player->play("Idle");
+		}
 	}
 
 	if (player->position.x - player->pivot.x < coin->position.x - coin->pivot.x + coin->width &&

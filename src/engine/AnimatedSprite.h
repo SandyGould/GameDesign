@@ -11,13 +11,17 @@
 #include <utility>
 
 struct Frame {
-	SDL_Surface* image;
-	SDL_Texture* texture;
-	SDL_Rect source;
+	//SDL_Surface* image;
+	//SDL_Texture* texture;
+	//SDL_Rect source;
+	int x;
+	int y;
+	int w;
+	int h;
 };
 
 struct Animation {
-	Frame** frames;
+	SDL_Rect ** frames;
 	std::string animName;
 	int numFrames;
 	int frameRate;
@@ -43,15 +47,19 @@ public:
 
 	virtual void update(std::set<SDL_Scancode> pressedKeys);
 	virtual void draw(AffineTransform& at);
-
 	bool playing = false;
 	bool useSheet = false;
 	void parse(std::string xml);
-	std::vector<std::pair<int,int>> xy;
+	    std::vector<std::pair<int,int>> xy;
+	std::string sheetpath;
+	std::vector<Animation*> animations;
+	SDL_Surface* image;
+	SDL_Texture* texture;
+	//SDL_Rect source;
 
 private:
 	Animation* current;
-	std::vector<Animation*> animations;
+	
 	int frameCount;
 	
 	

@@ -44,6 +44,8 @@ public:
 	void applyTransformations(AffineTransform& at);
 	void reverseTransformations(AffineTransform& at);
 
+	void updateSourceRect(SDL_Rect* s);
+
 	int getWidth();
 	int getHeight();
 

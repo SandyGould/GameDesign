@@ -103,6 +103,14 @@ void DisplayObject::reverseTransformations(AffineTransform& at) {
 	at.translate(-position.x, -position.y);
 }
 
+void DisplayObject::updateSourceRect(SDL_Rect* s)
+{
+	sourceRect.x = s->x;
+	sourceRect.y = s->y;
+	sourceRect.h = s->h;
+	sourceRect.w = s->w;
+}
+
 int DisplayObject::getWidth() {
 	return this->image->w;
 }
