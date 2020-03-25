@@ -55,7 +55,7 @@ void DisplayObject::setTexture(SDL_Texture* t) {
 	this->curTexture = t;
 }
 
-void DisplayObject::update(std::set<SDL_Scancode> pressedKeys) {
+void DisplayObject::update(std::set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
 	
 }
 

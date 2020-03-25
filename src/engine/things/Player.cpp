@@ -5,8 +5,10 @@ Player::Player() : AnimatedSprite("player", "./resources/Spritesheets/test.png",
     hasCollision = true;
 }
 
-void Player::update(std::set<SDL_Scancode> pressedKeys) {
-    AnimatedSprite::update(pressedKeys);
+
+
+void Player::update(std::set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+    AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
 }
 
 void Player::draw(AffineTransform& at) {

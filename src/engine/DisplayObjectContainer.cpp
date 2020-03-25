@@ -74,10 +74,10 @@ DisplayObject* DisplayObjectContainer::getChild(std::string id) {
     return nullptr;
 }
 
-void DisplayObjectContainer::update(std::set<SDL_Scancode> pressedKeys) {
-    DisplayObject::update(pressedKeys);
+void DisplayObjectContainer::update(std::set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+    DisplayObject::update(pressedKeys, joystickState, pressedButtons);
     for (auto child : children) {
-        child->update(pressedKeys);
+        child->update(pressedKeys, joystickState, pressedButtons);
     }
 }
 

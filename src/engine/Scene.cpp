@@ -77,8 +77,8 @@ void Scene::loadScene(string sceneFilePath){
     
 }
 
-void Scene::update(set<SDL_Scancode> pressedKeys){
-    DisplayObjectContainer::update(pressedKeys);
+void Scene::update(set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
+    DisplayObjectContainer::update(pressedKeys, joystickState, pressedButtons);
 }
 void Scene::draw(AffineTransform &at){
     DisplayObjectContainer::draw(at);

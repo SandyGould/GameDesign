@@ -70,7 +70,7 @@ void Game::start() {
 		milliseconds duration = duration_cast<milliseconds>(end - start);
 		if (duration > ms_per_frame) {
 			start = end;
-			this->update(pressedKeys);
+			this->update(pressedKeys, joystickState, pressedButtons);
 			AffineTransform at;
 			this->draw(at);
 		}
@@ -86,35 +86,26 @@ void Game::start() {
 		case SDL_KEYUP:
 			this->pressedKeys.erase(event.key.keysym.scancode);
 			break;
-		case SDL_JOYAXISMOTION: //For now I'm doing some shit to place the results of the joystick movement into PressedKeys. 
-			//We could replace this with a set but that's just real screwy and it's 1:30 am. : )
-			if(event.jaxis.which == 0){ //On the x axis.
-				if(event.jaxis.value < -JOYSTICK_DEAD_ZONE)
-					this->pressedKeys.insert(SDL_SCANCODE_LEFT);
-				if(event.jaxis.value > JOYSTICK_DEAD_ZONE)
-					this->pressedKeys.insert(SDL_SCANCODE_RIGHT);
+		case SDL_JOYAXISMOTION:
+			if(event.jaxis.axis == 0){ //On the x axis.
+				this->joystickState.xVal = event.jaxis.value;
+			} else if (event.jaxis.axis == 1) {
+				this->joystickState.yVal = event.jaxis.value;
 			}
-			else
-			{
-				if(event.jaxis.value < -JOYSTICK_DEAD_ZONE)
-					this->pressedKeys.insert(SDL_SCANCODE_DOWN);
-				if(event.jaxis.value > JOYSTICK_DEAD_ZONE)
-					this->pressedKeys.insert(SDL_SCANCODE_UP);
-			}
+			break;
 		case SDL_CONTROLLERBUTTONDOWN:
-			switch(event.cbutton.button){
-				case SDL_CONTROLLER_BUTTON_A:
-					this->pressedKeys.insert(SDL_SCANCODE_Q);
-				case SDL_CONTROLLER_BUTTON_X:
-					this->pressedKeys.insert(SDL_SCANCODE_E);
-			}
+			this->pressedButtons.insert(event.cbutton.button);
+			break;
+		case SDL_CONTROLLERBUTTONUP:
+			this->pressedButtons.erase(event.cbutton.button);
+			break;
 		}
 	}
 }
 
-void Game::update(std::set<SDL_Scancode> pressedKeys) {
+void Game::update(std::set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
 	frameCounter++;
-	DisplayObjectContainer::update(pressedKeys);
+	DisplayObjectContainer::update(pressedKeys, joystickState, pressedButtons);
 }
 
 void Game::draw(AffineTransform& at) {

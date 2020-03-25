@@ -23,7 +23,7 @@ public:
 	/* Load scene from a file */
 	void loadScene(string sceneFilePath);
 
-	virtual void update(set<SDL_Scancode> pressedKeys);
+	virtual void update(set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
 	virtual void draw(AffineTransform &at);
 
 

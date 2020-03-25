@@ -45,7 +45,7 @@ public:
 	void replay();
 	void stop();
 
-	virtual void update(std::set<SDL_Scancode> pressedKeys);
+	virtual void update(std::set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
 	virtual void draw(AffineTransform& at);
 	bool playing = false;
 	bool useSheet = false;

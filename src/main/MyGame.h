@@ -16,11 +16,12 @@ public:
 	MyGame();
 	virtual ~MyGame();
 
-	void update(std::set<SDL_Scancode> pressedKeys);
+	void update(std::set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
 	void draw(AffineTransform& at) override;
 
 private:
-	
+	const int DEAD_ZONE = 8000;
+
 	Player* player;
 	Coin* coin;
 
