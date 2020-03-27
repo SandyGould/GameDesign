@@ -315,6 +315,14 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
             this->paste();
         }
 
+        if (pressedKeys.find(SDL_SCANCODE_DELETE) != pressedKeys.end() &&
+            prevKeys.find(SDL_SCANCODE_DELETE) == prevKeys.end()) {
+            for (DisplayObject* object : this->selected){
+                object->removeThis();
+            }
+            this->selected.clear();
+        }
+
         // Old version of editing object attributes, probably obsolete now
 
         // // Pivot
@@ -509,8 +517,31 @@ void Editor::presentRenderers(){
 }
 
 void Editor::cut(const unordered_set<DisplayObject*>& objects) {
+    // this->copied.clear();
+    // if (!objects.empty()){
+    //     for (DisplayObject* object : objects) {
+    //         DisplayObject* copy;
+    //         if (object->type == "DisplayObject"){
+    //             copy = new DisplayObject(*object);
+    //         } else if (object->type == "Sprite"){
+    //             copy = new Sprite(*object);
+    //         } else if (object->type == "AnimatedSprite"){
+    //             copy = new AnimatedSprite(*object);
+    //         }
+    //         copy->r = Game::renderer;
+            
+    //         this->copied.insert(copy);
+    //         object->removeThis();
+
+    //         this->selected.erase(object);
+    //         this->displacementX.erase(object);
+    //         this->displacementY.erase(object);
+    //     }
+    // }
+
     this->copied.clear();
     for (DisplayObject* object : objects) {
+        // Make the copy now so that future changes won't affect the copy
         DisplayObject* copy;
         if (object->type == "DisplayObject"){
             copy = new DisplayObject(*object);
@@ -520,14 +551,24 @@ void Editor::cut(const unordered_set<DisplayObject*>& objects) {
             copy = new AnimatedSprite(*object);
         }
         copy->r = Game::renderer;
-        
+
+        // Offset a bit
+        copy->position.x += 16;
+        copy->position.y += 16;
+
+        // if (!keepHierarchy){
+        //     copy->parent = NULL;
+        //     copy->children.clear();
+        // }
+
         this->copied.insert(copy);
+
         object->removeThis();
 
-        this->selected.erase(object);
         this->displacementX.erase(object);
         this->displacementY.erase(object);
     }
+    this->selected.clear();
 }
 
 void Editor::copy(const unordered_set<DisplayObject*>& objects, bool keepHierarchy) {

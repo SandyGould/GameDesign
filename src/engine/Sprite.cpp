@@ -18,10 +18,21 @@ Sprite::Sprite(std::string id, int red, int green, int blue, SDL_Renderer *r) : 
 
 Sprite::Sprite(const DisplayObject& other) : DisplayObject(other.id){
     if (other.type == "Sprite"){
-        Sprite S = static_cast<Sprite>(other);
-        this->id = S.id + "_copy";
-        this->type = S.type;
-        this->r = S.r;
+        Sprite* S = (Sprite*) &other;
+        this->id = S->id + "_copy";
+        this->type = S->type;
+        this->r = S->r;
+        this->position = S->position;
+        this->width = S->width;
+        this->height = S->height;
+        this->pivot = S->pivot;
+        this->scaleX = S->scaleX;
+        this->scaleY = S->scaleY;
+        this->rotation = S->rotation;
+        this->facingRight = S->facingRight;
+        this->hasCollision = S->hasCollision;
+        this->imgPath = S->imgPath;
+        this->loadTexture(this->imgPath, Game::renderer);
     } else{
         this->type = "Sprite";
         this->id = "FAILED_COPY";
