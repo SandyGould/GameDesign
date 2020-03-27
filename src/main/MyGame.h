@@ -7,6 +7,7 @@
 #include "../engine/Scene.h"
 #include "../engine/things/Coin.h"
 #include "../engine/things/Player.h"
+#include "../engine/things/Shield.h"
 #include "../engine/QuestManager.h"
 #include "../engine/events/PickedUpEvent.h"
 
@@ -20,9 +21,10 @@ public:
 	void draw(AffineTransform& at) override;
 
 private:
-	
+
 	Player* player;
 	Coin* coin;
+	Shield* shield;
 
 	DisplayObjectContainer* allSprites;
 
