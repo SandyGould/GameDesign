@@ -1,8 +1,13 @@
 #include "MyGame.h"
 #include "math.h"
+#include <iostream>
+
+#define HISTORY_SIZE 8
 
 MyGame::MyGame() : Game(1200, 1000) {
 	instance = this;
+
+	history = new std::set<SDL_Scancode> [HISTORY_SIZE];
 
 	allSprites = new DisplayObjectContainer();
 
@@ -42,20 +47,40 @@ MyGame::~MyGame() {
 void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 	// CHARACTER MOVEMENT
 	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
-		player->position.x += 4;
-		player->changeStamina(-3);
+		if (checkDoubleTaps(SDL_SCANCODE_RIGHT)) {
+			player->position.x += 20;
+			player->changeStamina(-100);
+		} else {
+			player->position.x += 4;
+			player->changeStamina(-3);
+		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
-		player->position.x -= 4;
-		player->changeStamina(-3);
+		if (checkDoubleTaps(SDL_SCANCODE_LEFT)) {
+			player->position.x -= 20;
+			player->changeStamina(-100);
+		} else {
+			player->position.x -= 4;
+			player->changeStamina(-3);
+		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-		player->position.y += 4;
-		player->changeStamina(-3);
+		if (checkDoubleTaps(SDL_SCANCODE_DOWN)) {
+			player->position.y += 20;
+			player->changeStamina(-100);
+		} else {
+			player->position.y += 4;
+			player->changeStamina(-3);
+		}
 	}
 	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
-		player->position.y -= 4;
-		player->changeStamina(-3);
+		if (checkDoubleTaps(SDL_SCANCODE_UP)) {
+			player->position.y -= 20;
+			player->changeStamina(-100);
+		} else {
+			player->position.y -= 4;
+			player->changeStamina(-3);
+		}
 	}
 
 	// SHIELD CONTROLS
@@ -98,9 +123,31 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 		coin->visible = false;
 	}
 
+	updateHistory(pressedKeys);
+
 	Game::update(pressedKeys);
 }
 
 void MyGame::draw(AffineTransform& at) {
 	Game::draw(at);
+}
+
+void MyGame::updateHistory(std::set<SDL_Scancode> pressedKeys) {
+	for (int i = 0; i < HISTORY_SIZE-1; i++) {
+		history[i] = history[i+1];
+	}
+	history[HISTORY_SIZE-1] = pressedKeys;
+}
+
+bool MyGame::checkDoubleTaps(SDL_Scancode key) {
+	for (int i = HISTORY_SIZE-1; i >= 1; i--) {
+		if (history[i].find(key) == history[i].end()) {
+			for (int k = i-1; k >= 0; k--) {
+				if (history[k].find(key) != history[k].end()) {
+					return true;
+				}
+			}
+		}
+	}
+	return false;
 }

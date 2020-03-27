@@ -17,6 +17,9 @@ public:
 	MyGame();
 	virtual ~MyGame();
 
+	void updateHistory(std::set<SDL_Scancode> pressedKeys);
+	bool checkDoubleTaps(SDL_Scancode key);
+
 	void update(std::set<SDL_Scancode> pressedKeys) override;
 	void draw(AffineTransform& at) override;
 
@@ -29,6 +32,8 @@ private:
 	DisplayObjectContainer* allSprites;
 
 	QuestManager* questManager;
+
+	std::set<SDL_Scancode>* history;
 
 	// DisplayObject* character;
 	Scene* scene;
