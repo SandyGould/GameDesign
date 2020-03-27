@@ -2,7 +2,7 @@
     "Scene":[
         {
             "L0":{
-                "speed":1,
+                "speed":0,
                 "objects":[
                     {
                         "type":"DisplayObject",
@@ -130,7 +130,11 @@
         },
         {
             "L1":{
+<<<<<<< HEAD
                 "speed":2,
+=======
+                "speed":1,
+>>>>>>> merge_sfx
                 "objects":[
                     {
                         "type":"Sprite",
@@ -139,8 +143,8 @@
                         "x_pos":0,
                         "y_pos": 200,
                         "rotation":0,
-                        "scaleX":0.5,
-                        "scaleY":0.5,
+                        "scaleX":1,
+                        "scaleY":1,
                         "parentHierarchy":[]
                     }
                 ]

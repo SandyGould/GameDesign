@@ -27,7 +27,6 @@ void Scene::loadScene(std::string sceneFilePath){
         std::string layer_value = "L" + std::to_string(z);
         DisplayObject* temp_layer = new DisplayObject(layer_value);
         json json_layer = j["Scene"][z][layer_value];
-
         temp_layer->parallaxSpeed = json_layer["speed"];
         
         for(int y = 0; y < json_layer["objects"].size(); ++y){

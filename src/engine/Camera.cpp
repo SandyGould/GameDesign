@@ -80,6 +80,21 @@ void Camera::follow(int newX, int newY) {
     }
 }
 
+
+// void Camera::applyTransformations(AffineTransform& at) {
+// 	at.scale(scaleX, scaleY);
+// 	at.rotate(rotation);
+//     at.translate(position.x, position.y);
+// 	at.translate(-pivot.x, -pivot.y);
+// }
+
+// void Camera::reverseTransformations(AffineTransform& at) {
+// 	at.translate(pivot.x, pivot.y);
+//     at.translate(-position.x, -position.y);
+// 	at.rotate(-rotation);
+// 	at.scale(1.0/scaleX, 1.0/scaleY);
+// }
+
 void Camera::draw(AffineTransform& at) {
     Camera::draw(at, Game::renderer);
 }
