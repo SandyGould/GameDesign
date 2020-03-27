@@ -130,11 +130,7 @@
         },
         {
             "L1":{
-<<<<<<< HEAD
-                "speed":2,
-=======
                 "speed":1,
->>>>>>> merge_sfx
                 "objects":[
                     {
                         "type":"Sprite",
