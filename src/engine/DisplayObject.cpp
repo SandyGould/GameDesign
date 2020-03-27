@@ -119,6 +119,33 @@ int DisplayObject::getHeight() {
 	return this->image->h;
 }
 
+AffineTransform DisplayObject::getGlobalTransform()
+{
+	AffineTransform at;
+	//if DO has parent
+	if(parent != NULL)
+	{
+		at = parent->getGlobalTransform();
+		at.translate(parent->pivot.x, parent->pivot.y);
+	}
+	
+	//at = parent's global
+	//undo parent's pivot
+	//apply this object's transform to at
+	this->applyTransformations(at);
+	return at;
+	//return at
+}
+
+void DisplayObject::getHitbox()
+{
+	globalTransform = this->getGlobalTransform();
+	hitbox_ul = globalTransform.transformPoint(hitbox_ul.x, hitbox_ul.y);
+	hitbox_ur = globalTransform.transformPoint(hitbox_ur.x, hitbox_ur.y);
+	hitbox_lr = globalTransform.transformPoint(hitbox_lr.x, hitbox_lr.y);
+	hitbox_ll = globalTransform.transformPoint(hitbox_ll.x, hitbox_ll.y);
+}
+
 double DisplayObject::distance(SDL_Point& p1, SDL_Point& p2) {
 	return std::sqrt(((p2.y - p1.y) * (p2.y - p1.y)) + ((p2.x - p1.x) * (p2.x - p1.x)));
 }

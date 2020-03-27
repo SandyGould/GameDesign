@@ -55,8 +55,21 @@ public:
 	int getWidth();
 	int getHeight();
 
+	AffineTransform globalTransform;
+	AffineTransform getGlobalTransform();
+
 	bool visible = true;
 	SDL_Point position = {0, 0};
+	int hitbox_width = 100;
+	int hitbox_height = 100;
+	SDL_Point hitbox_ul = {0,0};
+	SDL_Point hitbox_ur = {hitbox_width, 0};
+	SDL_Point hitbox_lr = {hitbox_width, hitbox_height};
+	SDL_Point hitbox_ll = {0, hitbox_height};
+	
+	void getHitbox();
+
+
 	int width = 100;
 	int height = 100;
 	SDL_Point pivot = {0, 0};
