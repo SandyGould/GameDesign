@@ -1,0 +1,41 @@
+Someone is going to have to walk me through this parser thing and the camera. Because otherwise it's going to be wonky
+
+
+arrows- move camera/object
+g- toggle grid
+t- snap to grid
+q- scale up
+w- scale down
+a- rotate clockwise
+d- rotate counterclockwise
+i- change id
+Enter- place/grab
+Tab- cycle through assets
+shfit tab- cycle backwards
+
+How do I know if the crosshair is over occupied space?
+
+
+- Pickup objects
+- translate crosshair coordinates to global
+- Editing
+- Grid snap
+- Fixing the camera
+- Saving to JSOn
+- How to stock the objects 
+
+local to global- put in object's local coordinate, multiplying it by every single parent it has. 
+
+global to local is the opposite
+
+check if you're clicking on something- get position of coursor, loop over all objects, get the bounding box, check if in bounds, 
+
+Switch to new camera
+
+Clone object method-
+global to local method-
+local to global method-
+
+
+displayobjet with all the placeable stuff as children, clone child and give it to crosshair.
+Boundary around level.

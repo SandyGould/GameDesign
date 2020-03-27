@@ -1,17 +1,19 @@
-#ifndef SCENE_H
-#define SCENE_H
+#pragma once
 
-#include "DisplayObjectContainer.h"
+#include "DisplayObject.h"
 #include "AnimatedSprite.h"
 #include "Sprite.h"
+#include "TextObject.h"
+
+#include "json.hpp"
+
 #include <string>
 #include <vector>
 #include <fstream>
-#include <json.hpp>
 
 using json = nlohmann::json;
 
-class Scene : public DisplayObjectContainer{
+class Scene : public DisplayObject {
 
 public:
 	Scene();
@@ -20,16 +22,17 @@ public:
 
 	/* Load scene from a file */
 	void loadScene(std::string sceneFilePath);
+	void saveScene(std::string sceneName);
+	void addToJSON(nlohmann::json &Layer, DisplayObject* dObject);
 
-	DisplayObjectContainer* generateDOC(json j);
+	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
+	// virtual void draw(AffineTransform &at);
+
+	DisplayObject* generateDO(json j);
 	AnimatedSprite* generateAS(json j);
 	Sprite* generateSprite(json j);
-
-	virtual void update(std::set<SDL_Scancode> pressedKeys);
-	virtual void draw(AffineTransform &at);
 	
 private:
-	
-};
+	DisplayObject* root;
 
-#endif
+};

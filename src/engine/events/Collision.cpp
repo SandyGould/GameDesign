@@ -2,7 +2,7 @@
 
 #include <string>
 
-Collision::Collision(std::string type, EventDispatcher* source, std::string DO_id) : Event(type, source){
+Collision::Collision(std::string type, std::string DO_id) : Event(type){
     this->DO_id = DO_id;
 }
 

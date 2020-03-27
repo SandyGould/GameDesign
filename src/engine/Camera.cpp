@@ -1,7 +1,8 @@
 #include <climits>
 #include "Camera.h"
+#include "Game.h"
 
-Camera::Camera() : DisplayObjectContainer(){
+Camera::Camera() : DisplayObject("camera") {
     this->type = "Camera";
 
     // set default limits (camera can go anywhere)
@@ -12,10 +13,6 @@ Camera::Camera() : DisplayObjectContainer(){
 
     this->width = this->viewportWidth;
     this->height = this->viewportHeight;
-}
-
-Camera::~Camera() {
-
 }
 
 void Camera::setRightLimit(int rightLimit) {
@@ -57,7 +54,7 @@ void Camera::panDown(int factor) {
         this->pivot.y += factor;
     }
 }
-	
+
 void Camera::zoomIn(double factor) {
     this->scaleX *= factor;
     this->scaleY *= factor;
@@ -66,12 +63,16 @@ void Camera::zoomIn(double factor) {
 void Camera::zoomOut(double factor) {
     // if ((scaleX - factor > 0) && (scaleY - factor) > 0) {
         this->scaleX /= factor;
-        this->scaleY /= factor;    
+        this->scaleY /= factor;
     // }
 }
 
+double Camera::getZoom() {
+    return this->scaleX;
+}
+
 void Camera::follow(int newX, int newY) {
-    if (newX >= leftLimit * scaleX && newX <= rightLimit *scaleX) {
+    if (newX >= leftLimit * scaleX && newX <= rightLimit * scaleX) {
         this->pivot.x = newX;
     }
     if (newY >= topLimit *scaleY && newY <= bottomLimit * scaleY) {
@@ -95,14 +96,16 @@ void Camera::follow(int newX, int newY) {
 // }
 
 void Camera::draw(AffineTransform& at) {
-    // DisplayObject::draw(at);
+    Camera::draw(at, Game::renderer);
+}
+
+void Camera::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
     applyTransformations(at);
-    // undo the parent's pivot
-    // at.translate(pivot.x, pivot.y);
+
     for (auto child : children) {
-        child->draw(at);
+        child->draw(at, r);
     }
-    // redo the parent's pivot
-    // at.translate(-pivot.x, -pivot.y);
+
     reverseTransformations(at);
 }
+

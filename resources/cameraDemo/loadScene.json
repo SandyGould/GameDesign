@@ -5,7 +5,7 @@
                 "speed":0,
                 "objects":[
                     {
-                        "type":"DOC",
+                        "type":"DisplayObject",
                         "name":"grass",
                         "filepath":"./resources/cameraDemo/GrassPath.png",
                         "x_pos":-800,
@@ -130,7 +130,11 @@
         },
         {
             "L1":{
+<<<<<<< HEAD
+                "speed":2,
+=======
                 "speed":1,
+>>>>>>> merge_sfx
                 "objects":[
                     {
                         "type":"Sprite",
