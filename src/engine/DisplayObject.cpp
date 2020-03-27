@@ -196,9 +196,9 @@ DisplayObject* DisplayObject::getChild(std::string id) {
     return nullptr;
 }
 
-void DisplayObject::update(std::unordered_set<SDL_Scancode> pressedKeys) {
+void DisplayObject::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
     for (auto* child : children) {
-        child->update(pressedKeys);
+        child->update(pressedKeys, joystickState, pressedButtons);
     }
 }
 
@@ -229,7 +229,7 @@ void DisplayObject::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
         }
 
         SDL_SetTextureAlphaMod(curTexture, alpha);
-        SDL_RenderCopyEx(r, curTexture, src, &dstrect, calculateRotation(origin, upperRight), &corner, flip);
+        SDL_RenderCopyEx(r, curTexture, sourceRect, &dstrect, calculateRotation(origin, upperRight), &corner, flip);
     }
 
     // undo the parent's pivot
@@ -255,6 +255,17 @@ void DisplayObject::reverseTransformations(AffineTransform& at) {
     at.scale(1.0 / scaleX, 1.0 / scaleY);
     at.rotate(-rotation);
     at.translate(-position.x, -position.y);
+}
+
+void DisplayObject::updateSourceRect(SDL_Rect* s)
+{
+    if (!sourceRect){
+        sourceRect = new SDL_Rect();
+    }
+    sourceRect->x = s->x;
+    sourceRect->y = s->y;
+    sourceRect->h = s->h;
+    sourceRect->w = s->w;
 }
 
 int DisplayObject::getWidth() {

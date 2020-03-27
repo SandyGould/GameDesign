@@ -23,7 +23,10 @@ public:
 	/* Load scene from a file */
 	void loadScene(std::string sceneFilePath);
 	void saveScene(std::string sceneName);
-	void addToJSON(nlohmann::json &DOA, nlohmann::json &ASA, nlohmann::json &SA, DisplayObject* dObject);
+	void addToJSON(nlohmann::json &Layer, DisplayObject* dObject);
+
+	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
+	// virtual void draw(AffineTransform &at);
 
 	DisplayObject* generateDO(json j);
 	AnimatedSprite* generateAS(json j);

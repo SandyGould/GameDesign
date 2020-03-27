@@ -6,6 +6,8 @@
 
 #include <vector>
 #include <unordered_set>
+#include <set>
+#include <map>
 
 enum class MouseState {
 	NONE,
@@ -15,6 +17,7 @@ enum class MouseState {
 	DRAGGING,
 	//END,
 };
+
 
 class Game : public DisplayObject {
 public:
@@ -27,6 +30,7 @@ public:
 	SDL_Window* window;
 	static SDL_Renderer* renderer;
 	static TTF_Font* font;
+	SDL_GameController* gameController = NULL;
 
 	//Global frame counter
 	static unsigned int frameCounter;
@@ -38,7 +42,7 @@ public:
 	virtual void clearRenderers();
 	virtual void presentRenderers();
 
-	void update(std::unordered_set<SDL_Scancode> pressedKeys) override;
+	void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) override;
 	void draw(AffineTransform& at) override;
 
 	// This happens after drawing but before rendering
@@ -53,7 +57,13 @@ private:
 	void initSDL();
 	void quitSDL();
 
-	DisplayObject* selected;
+	const int JOYSTICK_DEAD_ZONE = 8000; //We can change this to have a better feel later!
+	jState joystickState = {0, 0};
+
+	std::unordered_set<Uint8> pressedButtons;
+	std::map<std::string, int> joystickMovement;
+
+	// DisplayObject* selected;
 
 	MouseState mouseState;
 

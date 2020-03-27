@@ -11,6 +11,11 @@
 #include <string>
 #include <vector>
 
+struct jState {
+	Sint16 xVal;
+	Sint16 yVal;
+};
+
 class DisplayObject {
 
 public:
@@ -25,6 +30,7 @@ public:
 	int green = 0;
 	int blue = 0;
 	int alpha = 255;
+	SDL_Rect* sourceRect = NULL;
 
 	bool isRGB = false;
 
@@ -52,7 +58,7 @@ public:
     DisplayObject* getChild(int index);
     DisplayObject* getChild(std::string id);
 
-	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys);
+	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
 	virtual void draw(AffineTransform& at);
 	virtual void draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src = NULL);
 
@@ -60,6 +66,7 @@ public:
 	void reverseTransformations(AffineTransform& at);
 
 	SDL_Point getGlobalPosition();
+	void updateSourceRect(SDL_Rect* s);
 
 	int getWidth();
 	int getHeight();

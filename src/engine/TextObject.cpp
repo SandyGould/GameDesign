@@ -48,8 +48,8 @@ void TextObject::setText(string text){
     this->setTexture(SDL_CreateTextureFromSurface(this->r, temp));
 }
 
-void TextObject::update(std::unordered_set<SDL_Scancode> pressedKeys) {
-    DisplayObject::update(pressedKeys);
+void TextObject::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+    DisplayObject::update(pressedKeys, joystickState, pressedButtons);
 }
 
 void TextObject::draw(AffineTransform& at) {

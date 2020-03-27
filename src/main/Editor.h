@@ -28,7 +28,7 @@ public:
 
 	void setupfiles(const string& path);
 
-	void update(unordered_set<SDL_Scancode> pressedKeys) override;
+	void update(unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) override;
 	void draw(AffineTransform& at) override;
 	void initSDL();
 	void draw_post() override;
@@ -77,7 +77,9 @@ private:
 	DisplayObject* editSelected = NULL;
 	TextObject* attributeSelected = NULL;
 	unordered_set<DisplayObject*> editable;
+	bool setParentMode = false;
 	void updateAttribute();
+	uint layer = 0;
 
 	AffineTransform atTest;
 
