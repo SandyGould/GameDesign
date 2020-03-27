@@ -43,37 +43,49 @@ void MyGame::update(std::set<SDL_Scancode> pressedKeys) {
 	// CHARACTER MOVEMENT
 	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
 		player->position.x += 4;
+		player->changeStamina(-3);
 	}
 	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
 		player->position.x -= 4;
+		player->changeStamina(-3);
 	}
 	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
 		player->position.y += 4;
+		player->changeStamina(-3);
 	}
 	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
 		player->position.y -= 4;
+		player->changeStamina(-3);
 	}
+
 	// SHIELD CONTROLS
 	if (pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end()) {
 		shield->position.x = 110;
 		shield->position.y = 0;
 		shield->rotation = 0;
+		player->changeStamina(-2);
 	}
 	if (pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) {
 		shield->position.x = -50;
 		shield->position.y = 0;
 		shield->rotation = 0;
+		player->changeStamina(-2);
 	}
 	if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
 		shield->position.x = 0;
 		shield->position.y = 100;
 		shield->rotation = M_PI/2;
+		player->changeStamina(-2);
 	}
 	if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
 		shield->position.x = 0;
 		shield->position.y = -100;
 		shield->rotation = -M_PI/2;
+		player->changeStamina(-2);
 	}
+
+	// STAMINA REFRESH
+	player->changeStamina(2);
 
 	if (player->position.x - player->pivot.x < coin->position.x - coin->pivot.x + coin->width &&
 		  player->position.x - player->pivot.x + player->width > coin->position.x - coin->pivot.x &&
