@@ -307,11 +307,9 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
         }
 
         // Save scene to file
-        if ((pressedKeys.find(SDL_SCANCODE_LCTRL) != pressedKeys.end() ||
-            pressedKeys.find(SDL_SCANCODE_RCTRL) != pressedKeys.end()) &&
-            pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
+        if ((SDL_GetModState() & KMOD_CTRL) && pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
             string tmp;
-            cin >> tmp;
+            getline(cin, tmp);
             curScene->saveScene(tmp);
         }
     }
