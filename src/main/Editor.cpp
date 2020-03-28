@@ -29,13 +29,6 @@ Editor::Editor(const string& sceneToLoad)
 
     camera->addChild(curScene);
 
-    crosshair = new Crosshair();
-    crosshair->position = {0, 0};
-    crosshair->width = crosshair->height = 100;
-    crosshair->pivot = {50, 50};
-
-    camera->addChild(crosshair);
-
     this->dispatcher.addEventListener(this, MouseDownEvent::MOUSE_DOWN_EVENT);
     this->dispatcher.addEventListener(this, DragEvent::DRAG_EVENT);
     this->dispatcher.addEventListener(this, DragStartEvent::DRAG_START_EVENT);
@@ -225,70 +218,6 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
             camera->zoomOut(1.1);
         }
 
-        //Old version of choosing objects to place, probably obsolete
-
-        // if (pressedKeys.find(SDL_SCANCODE_TAB) != pressedKeys.end() &&
-        //     prevKeys.find(SDL_SCANCODE_TAB) == prevKeys.end() &&
-        //     false) {
-        //     if (!grabbedObj) {
-        //         if (pressedKeys.find(SDL_SCANCODE_LSHIFT) != pressedKeys.end() ||
-        //             pressedKeys.find(SDL_SCANCODE_RSHIFT) != pressedKeys.end()) {
-        //             if (obj_ind > 1) {
-        //                 printf("obj_ind == %d\n", obj_ind);
-
-        //                 DisplayObject* myobjc = crosshair->getChild(0);
-        //                 crosshair->removeImmediateChild(myobjc);
-
-        //                 --obj_ind;
-        //                 Sprite* newobj = new Sprite("newobject", all_sprites[obj_ind]);
-        //                 crosshair->addChild(newobj);
-        //                 hasChild = true;
-        //             } else {
-        //                 if (obj_ind == 1) {
-        //                     obj_ind = 0;
-        //                     DisplayObject* myobjc = crosshair->getChild(0);
-        //                     crosshair->removeImmediateChild(myobjc);
-        //                     hasChild = false;
-        //                 } else {
-        //                     obj_ind = all_sprites.size() - 1;
-        //                     Sprite* newobj = new Sprite("newobject", all_sprites[obj_ind]);
-        //                     crosshair->addChild(newobj);
-        //                     hasChild = true;
-        //                 }
-        //             }
-        //         } else {
-        //             if (obj_ind < all_sprites.size() - 1) {
-        //                 if (obj_ind > 0) {
-        //                     DisplayObject* myobjc = crosshair->getChild(0);
-        //                     crosshair->removeImmediateChild(myobjc);
-        //                 }
-        //                 obj_ind++;
-        //                 Sprite* newobj = new Sprite("newobject", all_sprites[obj_ind]);
-        //                 crosshair->addChild(newobj);
-        //                 hasChild = true;
-        //             } else {
-        //                 obj_ind = 0;
-        //                 DisplayObject* myobjc = crosshair->getChild(0);
-        //                 crosshair->removeImmediateChild(myobjc);
-        //                 hasChild = false;
-        //             }
-        //         }
-        //     }
-        // }
-
-        // if (pressedKeys.find(SDL_SCANCODE_RETURN) != pressedKeys.end()) {
-        //     if (hasChild || grabbedObj) {
-        //         DisplayObject* myobj = crosshair->getChild(0);
-        //         DisplayObject* newobj = new DisplayObject(*myobj);
-        //         newobj->position = crosshair->position;
-        //         curScene->addChild(newobj);
-        //         crosshair->removeImmediateChild(myobj);
-        //         hasChild = false;
-        //         obj_ind = 0;
-        //         grabbedObj = false;
-        //     }
-        // }
-
         // Deselect objects and assets
         if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end()){
             this->selected.clear();
@@ -338,9 +267,6 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
         // if (pressedKeys.find(SDL_SCANCODE_L) != pressedKeys.end()) {
         //     heldPivot.x += 5;
         // }
-        // if (hasChild) {
-        //     crosshair->getChild(0)->pivot = heldPivot;
-        // }
 
         // // Rotation
         // if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
@@ -348,9 +274,6 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
         // }
         // if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
         //     heldRotation += 0.05;
-        // }
-        // if (hasChild) {
-        //     crosshair->getChild(0)->rotation = heldRotation;
         // }
 
         // // Scaling
@@ -374,10 +297,6 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
         // if (pressedKeys.find(SDL_SCANCODE_RIGHTBRACKET) != pressedKeys.end()) {
         //     heldScaleY += 0.05;
         // }
-        // if (hasChild) {
-        //     crosshair->getChild(0)->scaleX = heldScaleX;
-        //     crosshair->getChild(0)->scaleY = heldScaleY;
-        // }
 
         // Jason's debugging tool
         if (pressedKeys.find(SDL_SCANCODE_Y) != pressedKeys.end()) {
@@ -394,24 +313,6 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
             cin >> tmp;
             curScene->saveScene(tmp);
         }
-
-        // Part of the old attribute editing system
-
-        // if (pressedKeys.find(SDL_SCANCODE_R) != pressedKeys.end()) {
-        //     heldPosition = {0, 0};
-        //     heldPivot = {0, 0};
-        //     heldScaleX = 1.0;
-        //     heldScaleY = 1.0;
-        //     heldRotation = 0.0;
-        //     if (hasChild) {
-        //         DisplayObject* tmp = crosshair->getChild(0);
-        //         tmp->position = heldPosition;
-        //         tmp->pivot = heldPivot;
-        //         tmp->scaleX = heldScaleX;
-        //         tmp->scaleY = heldScaleY;
-        //         tmp->rotation = heldRotation;
-        //     }
-        // }
     }
 
     if (layer == 0 && !edit->getChild("layerZeroIndicator")->visible){

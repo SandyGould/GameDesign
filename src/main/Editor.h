@@ -13,7 +13,6 @@
 #include "../engine/events/TextInputEvent.h"
 #include "../engine/events/TextEditEvent.h"
 #include "../engine/events/MouseWheelEvent.h"
-#include "../engine/things/Crosshair.h"
 
 #include <vector>
 #include <iterator>
@@ -53,11 +52,6 @@ public:
 
 private:
 	Camera* camera;
-	bool hasChild = false;
-	bool grabbedObj = false;
-	int obj_ind = 0;
-	vector<string> all_sprites;
-	Crosshair* crosshair;
 	Scene* curScene;
 
 	vector<Sprite*> sprites;
@@ -65,9 +59,6 @@ private:
 	vector<AnimatedSprite*> aSprites;
 
 	DisplayObject* assets;
-	DisplayObject* assets_sprites;
-	DisplayObject* assets_dos;
-	DisplayObject* assets_aSprites;
 	DisplayObject* edit;
 
 	bool mainWindowActive = true;
@@ -81,8 +72,6 @@ private:
 	bool setParentMode = false;
 	void updateAttribute();
 	int layer = 0;
-
-	AffineTransform atTest;
 
 	SDL_Point heldPosition = {0, 0};
 	SDL_Point heldPivot = {0, 0};
