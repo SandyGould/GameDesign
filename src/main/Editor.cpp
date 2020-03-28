@@ -314,19 +314,9 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
         }
     }
 
-    if (layer == 0 && !edit->getChild("layerZeroIndicator")->visible){
-        edit->getChild("layerZeroIndicator")->visible = true;
-        edit->getChild("layerOneIndicator")->visible = false;
-        edit->getChild("layerTwoIndicator")->visible = false;
-    } else if (layer == 1 && !edit->getChild("layerOneIndicator")->visible){
-        edit->getChild("layerOneIndicator")->visible = true;
-        edit->getChild("layerZeroIndicator")->visible = false;
-        edit->getChild("layerTwoIndicator")->visible = false;
-    } else if (layer == 2 && !edit->getChild("layerTwoIndicator")->visible){
-        edit->getChild("layerTwoIndicator")->visible = true;
-        edit->getChild("layerZeroIndicator")->visible = false;
-        edit->getChild("layerOneIndicator")->visible = false;
-    }
+    edit->getChild("layerZeroIndicator")->visible = layer == 0;
+    edit->getChild("layerOneIndicator")->visible = layer == 1;
+    edit->getChild("layerTwoIndicator")->visible = layer == 2;
     
     prevKeys = pressedKeys;
 
