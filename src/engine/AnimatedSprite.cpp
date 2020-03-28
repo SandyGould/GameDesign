@@ -4,6 +4,7 @@
 #include "pugixml.hpp"
 #include <fstream>
 
+using namespace std::string_literals;
 using json = nlohmann::json;
 
 AnimatedSprite::AnimatedSprite(std::string id, SDL_Renderer *r) : Sprite(id) {
@@ -69,15 +70,14 @@ void AnimatedSprite::parse(std::string xml){
     //texture = new SDL_Texture;
     texture = SDL_CreateTextureFromSurface(r ,image);
 
-    
-    for(auto anim: doc.child("TextureAtlas")){
+    for(auto& anim: doc.child("TextureAtlas")){
         printf("On XML for anim %s\n", anim.attribute("name").as_string());
         Animation* newanim = new Animation{ 
             new SDL_Rect * [anim.attribute("numFrames").as_int()], // new frame pointer array of size numFrames;
             anim.attribute("name").as_string(),
             anim.attribute("numFrames").as_int(),
             anim.attribute("frameRate").as_int(),
-            strcasecmp((anim.attribute("loop")).as_string(), "true") == 0,
+            anim.attribute("loop").as_string() == "true"s, // force "true" to be a std::string
             0,
         };
         int framenum = 0;

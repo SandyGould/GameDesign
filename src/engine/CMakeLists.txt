@@ -9,4 +9,6 @@ target_sources(rebound PRIVATE
         Game.cpp
         QuestManager.cpp
         Scene.cpp
-        Sprite.cpp)
+        Sprite.cpp
+        TextObject.cpp
+        pugixml.cpp)

@@ -7,6 +7,9 @@ target_sources(rebound PRIVATE
         MouseDownEvent.cpp
         MouseMotionEvent.cpp
         MouseUpEvent.cpp
+        MouseWheelEvent.cpp
         QuestComplete.cpp
+        TextEditEvent.cpp
+        TextInputEvent.cpp
         WindowEnterEvent.cpp
         WindowExitEvent.cpp)

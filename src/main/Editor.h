@@ -3,6 +3,7 @@
 #include "../engine/Game.h"
 #include "../engine/Camera.h"
 #include "../engine/Scene.h"
+#include "../engine/TextObject.h"
 #include "../engine/events/EventListener.h"
 #include "../engine/events/MouseDownEvent.h"
 #include "../engine/events/MouseUpEvent.h"
@@ -79,7 +80,7 @@ private:
 	unordered_set<DisplayObject*> editable;
 	bool setParentMode = false;
 	void updateAttribute();
-	uint layer = 0;
+	int layer = 0;
 
 	AffineTransform atTest;
 

@@ -3,7 +3,6 @@
 #include "DisplayObject.h"
 #include "AnimatedSprite.h"
 #include "Sprite.h"
-#include "TextObject.h"
 
 #include "json.hpp"
 
