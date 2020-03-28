@@ -219,7 +219,8 @@ void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
         }
 
         // Deselect objects and assets
-        if (SDL_GetModState() & KMOD_CTRL && pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end()){
+        if (((SDL_GetModState() & KMOD_CTRL) && pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end()) ||
+            pressedKeys.find(SDL_SCANCODE_ESCAPE) != pressedKeys.end()) {
             this->selected.clear();
             if (selectedAsset){
                 curScene->getChild(layer)->removeImmediateChild(selectedAsset);
