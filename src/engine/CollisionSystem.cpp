@@ -59,8 +59,8 @@ CollisionSystem::CollisionSystem(){
         }
         if(o1 == o2 == o3 == o4 == 0)
         {
-            if(p1.x <= q1.x <= p2.x || p1.x<= q2.x <= p2.x || 
-            q1.x <= p1.x <= q2.x || q1.x <= p2.x <= q2.x)
+            if(p1.x <= q1.x && q1.x <= p2.x || p1.x <= q2.x && q2.x <= p2.x ||
+               q1.x <= p1.x && p1.x <= q2.x || q1.x <= p2.x && p2.x <= q2.x)
             {
                 return true;
             }

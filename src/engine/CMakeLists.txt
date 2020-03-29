@@ -5,6 +5,7 @@ target_sources(rebound PRIVATE
         AffineTransform.cpp
         AnimatedSprite.cpp
         Camera.cpp
+        CollisionSystem.cpp
         DisplayObject.cpp
         Game.cpp
         QuestManager.cpp

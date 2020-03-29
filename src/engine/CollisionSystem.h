@@ -2,10 +2,9 @@
 #define COLLISIONSYSTEM_H
 
 #include "DisplayObject.h"
-#include "DisplayObjectContainer.h"
 #include "Sprite.h"
-#include "EventListener.h"
-#include "Event.h"
+#include "events/EventListener.h"
+#include "events/Event.h"
 
 using namespace std;
 
