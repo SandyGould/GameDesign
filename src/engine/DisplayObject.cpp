@@ -141,9 +141,11 @@ void DisplayObject::setTexture(SDL_Texture* t) {
 }
 
 void DisplayObject::addChild(DisplayObject* child) {
-    children.push_back(child);
-    child->parent = this; // make sure to include reverse reference also
-    child->parentId = id;
+    if (child->parent != this){
+        children.push_back(child);
+        child->parent = this; // make sure to include reverse reference also
+        child->parentId = id;
+    }
 }
 
 void DisplayObject::removeImmediateChild(DisplayObject* child) {
