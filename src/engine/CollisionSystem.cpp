@@ -20,13 +20,15 @@ void CollisionSystem::update() {
         }
 
         for (auto& object : objects) {
-            // TODO: Wait this makes no sense
-            if (it->second.find(object->type) == it->second.cend()) {
-                // This object type is not participating in collision detection
-                continue;
+            for (auto& type2 : it->second) {
+                auto temp = this->displayObjectsMap.find(type2);
+                if (temp != this->displayObjectsMap.cend()) {
+                    for (auto& target : temp->second) {
+                        // Aww yeah triple for loop
+                        // TODO: ACTUALLY DO COLLISION DETECTION
+                    }
+                }
             }
-
-            // TODO: ACTUALLY DO COLLISION DETECTION
         }
     }
 }
