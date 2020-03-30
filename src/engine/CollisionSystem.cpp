@@ -24,7 +24,7 @@ void CollisionSystem::update() {
                 auto temp = this->displayObjectsMap.find(type2);
                 if (temp != this->displayObjectsMap.cend()) {
                     for (auto& target : temp->second) {
-                        // Aww yeah triple for loop
+                        // Aww yeah QUADRUPLE for loop
                         // TODO: ACTUALLY DO COLLISION DETECTION
                     }
                 }
