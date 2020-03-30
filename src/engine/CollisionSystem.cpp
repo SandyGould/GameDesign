@@ -11,21 +11,48 @@ CollisionSystem::CollisionSystem(){
 
 //checks collisions between pairs of DOs where the corresponding types have been requested
 //to be checked (via a single call to watchForCollisions) below.
-void CollisionSystem::update(){
+void CollisionSystem::update() {
+    for (auto& [type, objects] : this->displayObjectsMap) {
+        auto it = collisionPairs.find(type);
+        if (it == collisionPairs.cend()) {
+            // This type is not participating in collision detection
+            continue;
+        }
 
+        for (auto& object : objects) {
+            if (it->second.find(object->type) == it->second.cend()) {
+                // This object type is not participating in collision detection
+                continue;
+            }
+
+            // TODO: ACTUALLY DO COLLISION DETECTION
+        }
+    }
 }
 
 //This system watches the game's display tree and is notified whenever a display object is placed onto
 //or taken off of the tree. Thus, the collision system always knows what DOs are in the game at any moment automatically.
-void CollisionSystem::handleEvent(Event* e){
+void CollisionSystem::handleEvent(Event* e) {
 
 }
 
 //This function asks the collision system to start checking for collisions between all pairs
 //of DOs of a given type (e.g., player vs platform). The system will begin to check all player objects
 //against all platform objects that are in the current scene.
-void CollisionSystem::watchForCollisions(string type1, string type2){
+void CollisionSystem::watchForCollisions(const string& type1, const string& type2) {
+    auto it = collisionPairs.find(type1);
+    if (it != collisionPairs.cend()) {
+        it->second.insert(type2);
+        return;
+    }
 
+    it = collisionPairs.find(type2);
+    if (it != collisionPairs.cend()) {
+        it->second.insert(type1);
+        return;
+    }
+
+    collisionPairs.insert({type1, unordered_set<string>({type2})});
 }
 
 int CollisionSystem::getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3)
@@ -70,7 +97,7 @@ bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1
 }
 
 double CollisionSystem::distance(SDL_Point& p1, SDL_Point& p2) {
-return std::sqrt(((p2.y - p1.y) * (p2.y - p1.y)) + ((p2.x - p1.x) * (p2.x - p1.x)));
+    return std::sqrt(((p2.y - p1.y) * (p2.y - p1.y)) + ((p2.x - p1.x) * (p2.x - p1.x)));
 }
 
 bool CollisionSystem::cornerIn(SDL_Point p1, SDL_Point q1, SDL_Point q2, SDL_Point q3, SDL_Point q4)
