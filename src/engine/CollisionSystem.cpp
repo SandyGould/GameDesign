@@ -20,6 +20,7 @@ void CollisionSystem::update() {
         }
 
         for (auto& object : objects) {
+            // TODO: Wait this makes no sense
             if (it->second.find(object->type) == it->second.cend()) {
                 // This object type is not participating in collision detection
                 continue;
