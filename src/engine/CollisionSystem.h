@@ -47,8 +47,11 @@ private:
     // platform -> [platform1, platform2, platform3, ...]
     unordered_map<string, unordered_set<DisplayObject*>> displayObjectsMap;
 
+    // {[player, platform1], [player, platform2], ...}
+    vector<pair<DisplayObject*, DisplayObject*>> collisionPairs;
+
     // player -> [player, platform, ...]
-    unordered_map<string, unordered_set<string>> collisionPairs;
+    unordered_map<string, unordered_set<string>> collisionTypes;
 };
 
 #endif

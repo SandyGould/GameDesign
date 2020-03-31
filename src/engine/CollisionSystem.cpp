@@ -12,50 +12,44 @@ CollisionSystem::CollisionSystem(){
 //checks collisions between pairs of DOs where the corresponding types have been requested
 //to be checked (via a single call to watchForCollisions) below.
 void CollisionSystem::update() {
-    for (auto& [type, objects] : this->displayObjectsMap) {
-        auto it = collisionPairs.find(type);
-        if (it == collisionPairs.cend()) {
-            // This type is not participating in collision detection
-            continue;
-        }
-
-        for (auto& object : objects) {
-            for (auto& type2 : it->second) {
-                auto temp = this->displayObjectsMap.find(type2);
-                if (temp != this->displayObjectsMap.cend()) {
-                    for (auto& target : temp->second) {
-                        // Aww yeah QUADRUPLE for loop
-                        // TODO: ACTUALLY DO COLLISION DETECTION
-                    }
-                }
-            }
-        }
+    for (auto& collisionPair : collisionPairs) {
+        // TODO: Collision detection
     }
 }
 
 //This system watches the game's display tree and is notified whenever a display object is placed onto
 //or taken off of the tree. Thus, the collision system always knows what DOs are in the game at any moment automatically.
 void CollisionSystem::handleEvent(Event* e) {
-
+    // TODO: Add as appropriate to collisionPairs
 }
 
 //This function asks the collision system to start checking for collisions between all pairs
 //of DOs of a given type (e.g., player vs platform). The system will begin to check all player objects
 //against all platform objects that are in the current scene.
 void CollisionSystem::watchForCollisions(const string& type1, const string& type2) {
-    auto it = collisionPairs.find(type1);
-    if (it != collisionPairs.cend()) {
+    if (displayObjectsMap.find(type1) != displayObjectsMap.cend()) {
+        if (displayObjectsMap.find(type2) != displayObjectsMap.cend()) {
+            for (auto& object : displayObjectsMap.at(type1)) {
+                for (auto& object2 : displayObjectsMap.at(type2)) {
+                    collisionPairs.emplace_back(object, object2);
+                }
+            }
+        }
+    }
+
+    auto it = collisionTypes.find(type1);
+    if (it != collisionTypes.cend()) {
         it->second.insert(type2);
         return;
     }
 
-    it = collisionPairs.find(type2);
-    if (it != collisionPairs.cend()) {
+    it = collisionTypes.find(type2);
+    if (it != collisionTypes.cend()) {
         it->second.insert(type1);
         return;
     }
 
-    collisionPairs.insert({type1, unordered_set<string>({type2})});
+    collisionTypes.insert({type1, unordered_set<string>({type2})});
 }
 
 int CollisionSystem::getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3)
