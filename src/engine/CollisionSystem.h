@@ -8,7 +8,7 @@
 
 using namespace std;
 
-class CollisionSystem : public EventListener{
+class CollisionSystem : public EventListener {
 
 public:
 

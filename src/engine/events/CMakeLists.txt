@@ -1,5 +1,6 @@
 target_sources(rebound PRIVATE
         Collision.cpp
+        DisplayTreeChangeEvent.cpp
         DragEvent.cpp
         DragStartEvent.cpp
         Event.cpp

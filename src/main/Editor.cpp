@@ -1,5 +1,6 @@
 #include "Editor.h"
 
+#include "../engine/events/DisplayTreeChangeEvent.h"
 #include "../engine/events/DragEvent.h"
 #include "../engine/events/DragStartEvent.h"
 
@@ -17,6 +18,19 @@ Editor::Editor(const string& sceneToLoad)
     : Game(1200, 800) {
     initSDL();
 
+    this->collisionSystem = new CollisionSystem();
+    EventDispatcher::getInstance().addEventListener(this->collisionSystem, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
+    EventDispatcher::getInstance().addEventListener(this, MouseDownEvent::MOUSE_DOWN_EVENT);
+    EventDispatcher::getInstance().addEventListener(this, DragEvent::DRAG_EVENT);
+    EventDispatcher::getInstance().addEventListener(this, DragStartEvent::DRAG_START_EVENT);
+    EventDispatcher::getInstance().addEventListener(this, MouseUpEvent::MOUSE_UP_EVENT);
+    EventDispatcher::getInstance().addEventListener(this, MouseMotionEvent::MOUSE_MOTION_EVENT);
+    EventDispatcher::getInstance().addEventListener(this, WindowEnterEvent::WINDOW_ENTER_EVENT);
+    EventDispatcher::getInstance().addEventListener(this, WindowExitEvent::WINDOW_EXIT_EVENT);
+    EventDispatcher::getInstance().addEventListener(this, TextInputEvent::TEXT_INPUT_EVENT);
+    EventDispatcher::getInstance().addEventListener(this, TextEditEvent::TEXT_EDIT_EVENT);
+    EventDispatcher::getInstance().addEventListener(this, MouseWheelEvent::MOUSE_WHEEL_EVENT);
+
     instance = this;
     curScene = new Scene();
 
@@ -28,17 +42,6 @@ Editor::Editor(const string& sceneToLoad)
     curScene->loadScene(sceneToLoad);
 
     camera->addChild(curScene);
-
-    this->dispatcher.addEventListener(this, MouseDownEvent::MOUSE_DOWN_EVENT);
-    this->dispatcher.addEventListener(this, DragEvent::DRAG_EVENT);
-    this->dispatcher.addEventListener(this, DragStartEvent::DRAG_START_EVENT);
-    this->dispatcher.addEventListener(this, MouseUpEvent::MOUSE_UP_EVENT);
-    this->dispatcher.addEventListener(this, MouseMotionEvent::MOUSE_MOTION_EVENT);
-    this->dispatcher.addEventListener(this, WindowEnterEvent::WINDOW_ENTER_EVENT);    
-    this->dispatcher.addEventListener(this, WindowExitEvent::WINDOW_EXIT_EVENT);
-    this->dispatcher.addEventListener(this, TextInputEvent::TEXT_INPUT_EVENT); 
-    this->dispatcher.addEventListener(this, TextEditEvent::TEXT_EDIT_EVENT);
-    this->dispatcher.addEventListener(this, MouseWheelEvent::MOUSE_WHEEL_EVENT);
 
     assets = new DisplayObject("assets");
     //assets_dos = new DisplayObject("assets_dos");

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../engine/Game.h"
+#include "../engine/CollisionSystem.h"
 
 class Rebound : public Game {
 
@@ -9,5 +10,5 @@ public:
 	virtual ~Rebound();
 
 private:
-
+    CollisionSystem* collisionSystem;
 };

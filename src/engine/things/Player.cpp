@@ -1,5 +1,4 @@
 #include "Player.h"
-#include "../events/EventDispatcher.h"
 
 Player::Player() : AnimatedSprite("player", "./resources/Spritesheets/test.png", "./resources/Spritesheets/test.xml"){//Sprite("player", "./resources/character/Idle_1.png") {
     hasCollision = true;

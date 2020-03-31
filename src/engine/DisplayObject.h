@@ -1,8 +1,6 @@
 #pragma once
 
 #include "AffineTransform.h"
-#include "events/EventDispatcher.h"
-#include "events/EventListener.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>

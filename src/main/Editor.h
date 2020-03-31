@@ -1,23 +1,24 @@
 #pragma once
 
-#include "../engine/Game.h"
 #include "../engine/Camera.h"
+#include "../engine/CollisionSystem.h"
+#include "../engine/Game.h"
 #include "../engine/Scene.h"
 #include "../engine/TextObject.h"
 #include "../engine/events/EventListener.h"
 #include "../engine/events/MouseDownEvent.h"
-#include "../engine/events/MouseUpEvent.h"
 #include "../engine/events/MouseMotionEvent.h"
+#include "../engine/events/MouseUpEvent.h"
+#include "../engine/events/MouseWheelEvent.h"
+#include "../engine/events/TextEditEvent.h"
+#include "../engine/events/TextInputEvent.h"
 #include "../engine/events/WindowEnterEvent.h"
 #include "../engine/events/WindowExitEvent.h"
-#include "../engine/events/TextInputEvent.h"
-#include "../engine/events/TextEditEvent.h"
-#include "../engine/events/MouseWheelEvent.h"
 
-#include <vector>
-#include <iterator>
 #include <algorithm>
 #include <filesystem>
+#include <iterator>
+#include <vector>
 
 using namespace std;
 
@@ -89,4 +90,5 @@ private:
     unordered_map<DisplayObject*, double> displacementY;
 
     static constexpr int GRID_SIZE = 80;
+    CollisionSystem* collisionSystem;
 };

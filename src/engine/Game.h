@@ -2,7 +2,6 @@
 
 #include "DisplayObject.h"
 #include <SDL2/SDL_ttf.h>
-#include "events/EventDispatcher.h"
 
 #include <vector>
 #include <unordered_set>
@@ -36,7 +35,7 @@ public:
 	static unsigned int frameCounter;
 
 	Game(int windowWidth, int windowHeight);
-	virtual ~Game();
+	~Game() override;
 	void start();
 
 	virtual void clearRenderers();
@@ -47,9 +46,6 @@ public:
 
 	// This happens after drawing but before rendering
 	virtual void draw_post() {};
-
-protected:
-	EventDispatcher dispatcher;
 
 private:
 	std::unordered_set<SDL_Scancode> pressedKeys;
@@ -62,8 +58,6 @@ private:
 
 	std::unordered_set<Uint8> pressedButtons;
 	std::map<std::string, int> joystickMovement;
-
-	// DisplayObject* selected;
 
 	MouseState mouseState;
 

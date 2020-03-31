@@ -3,9 +3,8 @@
 
 #include "../Sprite.h"
 #include "../AnimatedSprite.h"
-#include "../events/EventDispatcher.h"
 
-class Player : public AnimatedSprite, public EventDispatcher {
+class Player : public AnimatedSprite {
 
 public:
 

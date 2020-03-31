@@ -1,6 +1,7 @@
 #include "DisplayObject.h"
 
 #include "Game.h"
+#include "events/DisplayTreeChangeEvent.h"
 
 #include <algorithm>
 #include <cmath>
@@ -141,16 +142,24 @@ void DisplayObject::setTexture(SDL_Texture* t) {
 }
 
 void DisplayObject::addChild(DisplayObject* child) {
-    if (child->parent != this){
+    if (child->parent != this) {
         children.push_back(child);
         child->parent = this; // make sure to include reverse reference also
         child->parentId = id;
+
+        DisplayTreeChangeEvent* event = new DisplayTreeChangeEvent(child, true);
+        EventDispatcher::getInstance().dispatchEvent(event);
+        delete event;
     }
 }
 
 void DisplayObject::removeImmediateChild(DisplayObject* child) {
     auto it = std::find(this->children.cbegin(), this->children.cend(), child);
     if (it != this->children.cend()) {
+        DisplayTreeChangeEvent* event = new DisplayTreeChangeEvent(*it, false);
+        EventDispatcher::getInstance().dispatchEvent(event);
+        delete event;
+
         delete *it;
         this->children.erase(it);
     }
@@ -159,6 +168,10 @@ void DisplayObject::removeImmediateChild(DisplayObject* child) {
 void DisplayObject::removeImmediateChild(std::string id) {
     auto it = std::find_if(this->children.cbegin(), this->children.cend(), [&](const auto child) { return child->id == id; });
     if (it != this->children.cend()) {
+        DisplayTreeChangeEvent* event = new DisplayTreeChangeEvent(*it, true);
+        EventDispatcher::getInstance().dispatchEvent(event);
+        delete event;
+
         delete *it;
         this->children.erase(it);
     }
@@ -166,6 +179,10 @@ void DisplayObject::removeImmediateChild(std::string id) {
 
 void DisplayObject::removeChild(size_t index) {
     if (index < children.size()) {
+        DisplayTreeChangeEvent* event = new DisplayTreeChangeEvent(children[index], false);
+        EventDispatcher::getInstance().dispatchEvent(event);
+        delete event;
+
         delete children[index];
         children.erase(children.begin() + index);
     }
@@ -217,7 +234,7 @@ void DisplayObject::update(std::unordered_set<SDL_Scancode> pressedKeys, jState 
 }
 
 void DisplayObject::draw(AffineTransform& at) {
-    DisplayObject::draw(at, Game::renderer);
+    this->draw(at, Game::renderer);
 }
 
 void DisplayObject::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
