@@ -15,8 +15,11 @@ CollisionSystem::CollisionSystem(){
 //checks collisions between pairs of DOs where the corresponding types have been requested
 //to be checked (via a single call to watchForCollisions) below.
 void CollisionSystem::update() {
-    for (auto& collisionPair : collisionPairs) {
-        // TODO: Collision detection
+    for (auto& [object1, object2] : collisionPairs) {
+        if (this->collidesWith(object1, object2)) {
+            // TODO: Deltas
+            this->resolveCollision(object1, object2, 0, 0, 0, 0);
+        }
     }
 }
 
@@ -194,6 +197,6 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2){
 //Resolves the collision that occurred between d and other
 //xDelta1 and yDelta1 are the amount d moved before causing the collision.
 //xDelta2 and yDelta2 are the amount other moved before causing the collision.
-void resolveCollision(DisplayObject* d, DisplayObject* other, int xDelta1, int yDelta1, int xDelta2, int yDelta2){
+void resolveCollision(DisplayObject* d, DisplayObject* other, int xDelta1, int yDelta1, int xDelta2, int yDelta2) {
 
 }
