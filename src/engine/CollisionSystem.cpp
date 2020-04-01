@@ -85,41 +85,36 @@ void CollisionSystem::watchForCollisions(const string& type1, const string& type
     collisionTypes.try_emplace(type2, unordered_set<string>({type1}));
 }
 
+// USE ARCTAN2 INSTEAD OF SLOPES TO DETERMINE ORIENTATION
 int CollisionSystem::getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3)
 {
-    //0 = collinear, 1 = clockwise, 2 = counterclockwise
-    double s1 = (p2.y - p1.y)/(p2.x-p1.x);
-    double s2 = (p3.y-p2.y)/(p3.x-p2.x);
-    if(s1 < s2)
-    {
+    // 0 = collinear, 1 = clockwise, 2 = counterclockwise
+    double s1 = (p2.y - p1.y) / (p2.x - p1.x);
+    double s2 = (p3.y - p2.y) / (p3.x - p2.x);
+    if (s1 < s2) {
         return 2;
-    }
-    else if(s2<s1)
-    {
+    } else if (s1 > s2) {
         return 1;
-    }
-    else
-    {
+    } else {
         return 0;
     }
-
 }
 
 bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2)
 {
     int o1 = getOrientation(p1, p2, q1);
-    int o2 = getOrientation(p1,p2,q2);
-    int o3 = getOrientation(q1,q2,p1);
-    int o4 = getOrientation(q1,q2,p2);
-    if(o1 != o2 && o3 != o4)
-    {
+    int o2 = getOrientation(p1, p2, q2);
+    int o3 = getOrientation(q1, q2, p1);
+    int o4 = getOrientation(q1, q2, p2);
+    if(o1 != o2 && o3 != o4) {
+        // Intersection
         return true;
     }
-    if(o1 == o2 == o3 == o4 == 0)
-    {
-        if(p1.x <= q1.x && q1.x <= p2.x || p1.x <= q2.x && q2.x <= p2.x ||
-           q1.x <= p1.x && p1.x <= q2.x || q1.x <= p2.x && p2.x <= q2.x)
-        {
+
+    if (o1 == o2 == o3 == o4 == 0) {
+        // min/max x and see if the other point is in between those two x's?
+        if (p1.x <= q1.x && q1.x <= p2.x || p1.x <= q2.x && q2.x <= p2.x ||
+            q1.x <= p1.x && p1.x <= q2.x || q1.x <= p2.x && p2.x <= q2.x) {
             return true;
         }
     }
@@ -133,23 +128,14 @@ double CollisionSystem::distance(SDL_Point& p1, SDL_Point& p2) {
 bool CollisionSystem::cornerIn(SDL_Point p1, SDL_Point q1, SDL_Point q2, SDL_Point q3, SDL_Point q4)
 {
     //will be entered in order foreign point,ul, ur, ll, lr
-   double area_rect = distance(q1,q2) * distance(q1,q3);
-   double area_t1 = abs((p1.x*(q1.y-q2.y)+q1.x*(q2.y-p1.y)+q2.x*(p1.y-q1.y))/2);
-   double area_t2 = abs((p1.x*(q2.y-q3.y)+q2.x*(q3.y-p1.y)+q3.x*(p1.y-q2.y))/2);
-   double area_t3 = abs((p1.x*(q3.y-q4.y)+q3.x*(q4.y-p1.y)+q4.x*(p1.y-q3.y))/2);
-   double area_t4 = abs((p1.x*(q1.y-q4.y)+q1.x*(q4.y-p1.y)+q4.x*(p1.y-q1.y))/2);
-    if(area_t1 + area_t2 + area_t3 + area_t4 > area_rect)
-    {
-        return false;
-    }
-    else if(area_t1 + area_t2 + area_t3 + area_t4 == area_rect)
-    {
-        //if(area_t1 == 0.0 || area_t2 == 0.0 || area_t3 == 0.0 || area_t4 == 0.0)
-        //{
+    // TRIANGLES
+    double area_rect = distance(q1,q2) * distance(q1,q3);
+    double area_t1 = abs((p1.x*(q1.y-q2.y)+q1.x*(q2.y-p1.y)+q2.x*(p1.y-q1.y))/2);
+    double area_t2 = abs((p1.x*(q2.y-q3.y)+q2.x*(q3.y-p1.y)+q3.x*(p1.y-q2.y))/2);
+    double area_t3 = abs((p1.x*(q3.y-q4.y)+q3.x*(q4.y-p1.y)+q4.x*(p1.y-q3.y))/2);
+    double area_t4 = abs((p1.x*(q1.y-q4.y)+q1.x*(q4.y-p1.y)+q4.x*(p1.y-q1.y))/2);
 
-        //}
-        return true;
-    }
+    return area_t1 + area_t2 + area_t3 + area_t4 == area_rect;
 }
 
 //returns true iff obj1 hitbox and obj2 hitbox overlap. Uses the following method from DO:
@@ -184,6 +170,7 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2){
         return true;
     }
     //check corner of hb1
+    // ONLY NEED TO CHECK ONE
     bool c1 = cornerIn(obj1->hitbox_ul, obj2->hitbox_ul, obj2->hitbox_ur, obj2->hitbox_ll, obj2->hitbox_lr);
     bool c2 = cornerIn(obj1->hitbox_ur, obj2->hitbox_ul, obj2->hitbox_ur, obj2->hitbox_ll, obj2->hitbox_lr);
     bool c3 = cornerIn(obj1->hitbox_ll, obj2->hitbox_ul, obj2->hitbox_ur, obj2->hitbox_ll, obj2->hitbox_lr);
