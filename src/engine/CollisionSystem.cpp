@@ -88,12 +88,14 @@ void CollisionSystem::watchForCollisions(const string& type1, const string& type
     collisionTypes.try_emplace(type2, unordered_set<string>({type1}));
 }
 
-// USE ARCTAN2 INSTEAD OF SLOPES TO DETERMINE ORIENTATION
 int CollisionSystem::getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3)
 {
     // 0 = collinear, 1 = clockwise, 2 = counterclockwise
-    double s1 = (p2.y - p1.y) / (p2.x - p1.x);
-    double s2 = (p3.y - p2.y) / (p3.x - p2.x);
+    // double s1 = (p2.y - p1.y) / (p2.x - p1.x);
+    // double s2 = (p3.y - p2.y) / (p3.x - p2.x);
+    double s1 = atan2(p2.y - p1.y, p2.x - p1.x);
+    double s2 = atan2(p3.y - p1.y, p3.x - p1.x);
+
     if (s1 < s2) {
         return 2;
     } else if (s1 > s2) {
@@ -114,6 +116,7 @@ bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1
         return true;
     }
 
+    // This is when the other object is touching us
     if (o1 == o2 == o3 == o4 == 0) {
         // min/max x and see if the other point is in between those two x's?
         if (p1.x <= q1.x && q1.x <= p2.x || p1.x <= q2.x && q2.x <= p2.x ||
@@ -132,6 +135,7 @@ bool CollisionSystem::cornerIn(SDL_Point p1, SDL_Point q1, SDL_Point q2, SDL_Poi
 {
     //will be entered in order foreign point,ul, ur, ll, lr
     // TRIANGLES
+    // Comparing doubles is a bad idea!!!
     double area_rect = distance(q1,q2) * distance(q1,q3);
     double area_t1 = abs((p1.x*(q1.y-q2.y)+q1.x*(q2.y-p1.y)+q2.x*(p1.y-q1.y))/2);
     double area_t2 = abs((p1.x*(q2.y-q3.y)+q2.x*(q3.y-p1.y)+q3.x*(p1.y-q2.y))/2);
