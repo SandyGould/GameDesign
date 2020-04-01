@@ -1,5 +1,6 @@
 #include "CollisionSystem.h"
 
+#include "events/DisplayTreeChangeEvent.h"
 
 CollisionSystem::CollisionSystem(){
 
@@ -20,6 +21,19 @@ void CollisionSystem::update() {
 //This system watches the game's display tree and is notified whenever a display object is placed onto
 //or taken off of the tree. Thus, the collision system always knows what DOs are in the game at any moment automatically.
 void CollisionSystem::handleEvent(Event* e) {
+    if (e->getType() == DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT) {
+        DisplayTreeChangeEvent* event = static_cast<DisplayTreeChangeEvent*>(e);
+        if (event->added) {
+            auto it = displayObjectsMap.find(event->object->type);
+            if (it != displayObjectsMap.cend()) {
+                it->second.insert(event->object);
+            } else {
+                displayObjectsMap.try_emplace(event->object->type, unordered_set<DisplayObject*>({event->object}));
+            }
+        } else {
+            displayObjectsMap.at(event->object->type).erase(event->object);
+        }
+    }
     // TODO: Add as appropriate to collisionPairs
 }
 
@@ -49,7 +63,7 @@ void CollisionSystem::watchForCollisions(const string& type1, const string& type
         return;
     }
 
-    collisionTypes.insert({type1, unordered_set<string>({type2})});
+    collisionTypes.try_emplace(type1, unordered_set<string>({type2}));
 }
 
 int CollisionSystem::getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3)
