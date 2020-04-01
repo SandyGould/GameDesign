@@ -2,6 +2,8 @@
 
 #include "events/DisplayTreeChangeEvent.h"
 
+#include <algorithm>
+
 CollisionSystem::CollisionSystem(){
 
 }
@@ -23,18 +25,32 @@ void CollisionSystem::update() {
 void CollisionSystem::handleEvent(Event* e) {
     if (e->getType() == DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT) {
         DisplayTreeChangeEvent* event = static_cast<DisplayTreeChangeEvent*>(e);
+        DisplayObject* object = event->object;
+        const string type = object->type;
         if (event->added) {
-            auto it = displayObjectsMap.find(event->object->type);
+            auto it = displayObjectsMap.find(type);
             if (it != displayObjectsMap.cend()) {
-                it->second.insert(event->object);
+                it->second.insert(object);
             } else {
-                displayObjectsMap.try_emplace(event->object->type, unordered_set<DisplayObject*>({event->object}));
+                displayObjectsMap.try_emplace(type, unordered_set<DisplayObject*>({object}));
+            }
+
+            if (collisionTypes.find(type) != collisionTypes.cend()) {
+                for (auto& otherType : collisionTypes.at(type)) {
+                    for (auto& otherObject : displayObjectsMap.at(otherType)) {
+                        if (type < otherType) {
+                            collisionPairs.emplace_back(object, otherObject);
+                        } else {
+                            collisionPairs.emplace_back(otherObject, object);
+                        }
+                    }
+                }
             }
         } else {
             displayObjectsMap.at(event->object->type).erase(event->object);
+            collisionPairs.erase(remove_if(collisionPairs.begin(), collisionPairs.end(), [&](auto x) { return x.first == object || x.second == object; }), collisionPairs.cend());
         }
     }
-    // TODO: Add as appropriate to collisionPairs
 }
 
 //This function asks the collision system to start checking for collisions between all pairs
@@ -45,7 +61,11 @@ void CollisionSystem::watchForCollisions(const string& type1, const string& type
         if (displayObjectsMap.find(type2) != displayObjectsMap.cend()) {
             for (auto& object : displayObjectsMap.at(type1)) {
                 for (auto& object2 : displayObjectsMap.at(type2)) {
-                    collisionPairs.emplace_back(object, object2);
+                    if (type1 < type2) {
+                        collisionPairs.emplace_back(object, object2);
+                    } else {
+                        collisionPairs.emplace_back(object2, object);
+                    }
                 }
             }
         }
@@ -54,16 +74,15 @@ void CollisionSystem::watchForCollisions(const string& type1, const string& type
     auto it = collisionTypes.find(type1);
     if (it != collisionTypes.cend()) {
         it->second.insert(type2);
-        return;
     }
 
     it = collisionTypes.find(type2);
     if (it != collisionTypes.cend()) {
         it->second.insert(type1);
-        return;
     }
 
     collisionTypes.try_emplace(type1, unordered_set<string>({type2}));
+    collisionTypes.try_emplace(type2, unordered_set<string>({type1}));
 }
 
 int CollisionSystem::getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3)
