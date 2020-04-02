@@ -38,7 +38,6 @@ public:
 	void resolveCollision(DisplayObject* d, DisplayObject* other, int xDelta1, int yDelta1, int xDelta2, int yDelta2);
 
 	bool cornerIn(SDL_Point p1, SDL_Point q1, SDL_Point q2, SDL_Point q3, SDL_Point q4);
-	double distance(SDL_Point& p1, SDL_Point& p2);
 	bool checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2);
 	int getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3);
 	
