@@ -95,6 +95,8 @@ void CollisionSystem::pairObjectWithType(DisplayObject* object, const string& ty
 
 int CollisionSystem::getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3) {
     // 0 = collinear, 1 = clockwise, 2 = counterclockwise
+    // Taken from https://www.geeksforgeeks.org/orientation-3-ordered-points/
+    // I have NO CLUE how this formula was derived, only that it has to do with slopes.
     int val = (p3.y - p1.y) * (p2.x - p3.x) - (p3.x - p1.x) * (p2.y - p3.y);
     if (val < 0) {
         return 2;
@@ -105,11 +107,7 @@ int CollisionSystem::getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3) {
     }
 }
 
-// Don't ask me what this does.
-// All I know is that I've been staring at these lines of code for 5 hours now,
-// and now I don't have to stare at it anymore.
-// Sorry.
-// https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
+// Loosely based off of https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
 bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2) {
     int o1 = getOrientation(p1, p2, q1);
     int o2 = getOrientation(p1, p2, q2);
