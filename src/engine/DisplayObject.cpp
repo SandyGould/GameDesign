@@ -313,7 +313,9 @@ void DisplayObject::getGlobalTransform(AffineTransform& at)
 	if(parent != NULL)
 	{
 		parent->getGlobalTransform(at);
-		at.translate(parent->pivot.x, parent->pivot.y);
+        if (parent->type != "Camera"){
+            at.translate(parent->pivot.x, parent->pivot.y);
+        }
 	}
 	
 	//at = parent's global
@@ -323,26 +325,26 @@ void DisplayObject::getGlobalTransform(AffineTransform& at)
 }
 
 void DisplayObject::getHitbox() {
-    // AffineTransform at;
-	// this->getGlobalTransform(at);
-	// hitbox_ul = at.transformPoint(0, 0);
-	// hitbox_ur = at.transformPoint(width, 0);
-	// hitbox_lr = at.transformPoint(width, height);
-	// hitbox_ll = at.transformPoint(0, height);
-    hitbox_ul = {dstrect.x, dstrect.y};
-    hitbox_ur = {dstrect.x + dstrect.w, dstrect.y};
-    hitbox_ll = {dstrect.x, dstrect.y + dstrect.h};
-    hitbox_lr = {dstrect.x + dstrect.w, dstrect.y + dstrect.h};
+    AffineTransform at;
+	this->getGlobalTransform(at);
+	hitbox_ul = at.transformPoint(0, 0);
+	hitbox_ur = at.transformPoint(width, 0);
+	hitbox_lr = at.transformPoint(width, height);
+	hitbox_ll = at.transformPoint(0, height);
+    // hitbox_ul = {dstrect.x, dstrect.y};
+    // hitbox_ur = {dstrect.x + dstrect.w, dstrect.y};
+    // hitbox_ll = {dstrect.x, dstrect.y + dstrect.h};
+    // hitbox_lr = {dstrect.x + dstrect.w, dstrect.y + dstrect.h};
 }
 
 void DisplayObject::drawHitbox() {
     this->getHitbox();
-    // SDL_RenderDrawLine(Game::renderer, hitbox_ul.x, hitbox_ul.y, hitbox_ur.x, hitbox_ur.y);
-    // SDL_RenderDrawLine(Game::renderer, hitbox_ul.x, hitbox_ul.y, hitbox_ll.x, hitbox_ll.y);
-    // SDL_RenderDrawLine(Game::renderer, hitbox_ll.x, hitbox_ll.y, hitbox_lr.x, hitbox_lr.y);
-    // SDL_RenderDrawLine(Game::renderer, hitbox_ur.x, hitbox_ur.y, hitbox_lr.x, hitbox_lr.y);
+    SDL_RenderDrawLine(Game::renderer, hitbox_ul.x, hitbox_ul.y, hitbox_ur.x, hitbox_ur.y);
+    SDL_RenderDrawLine(Game::renderer, hitbox_ul.x, hitbox_ul.y, hitbox_ll.x, hitbox_ll.y);
+    SDL_RenderDrawLine(Game::renderer, hitbox_ll.x, hitbox_ll.y, hitbox_lr.x, hitbox_lr.y);
+    SDL_RenderDrawLine(Game::renderer, hitbox_ur.x, hitbox_ur.y, hitbox_lr.x, hitbox_lr.y);
 
-    SDL_RenderDrawRect(Game::renderer, &dstrect);
+    // SDL_RenderDrawRect(Game::renderer, &dstrect);
 }
 
 double DisplayObject::distance(SDL_Point& p1, SDL_Point& p2) {
