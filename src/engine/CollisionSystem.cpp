@@ -93,26 +93,25 @@ void CollisionSystem::pairObjectWithType(DisplayObject* object, const string& ty
     }
 }
 
-int CollisionSystem::getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3) {
-    // 0 = collinear, 1 = clockwise, 2 = counterclockwise
+Orientation CollisionSystem::getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3) {
     // Taken from https://www.geeksforgeeks.org/orientation-3-ordered-points/
     // I have NO CLUE how this formula was derived, only that it has to do with slopes.
-    int val = (p3.y - p1.y) * (p2.x - p3.x) - (p3.x - p1.x) * (p2.y - p3.y);
-    if (val < 0) {
-        return 2;
-    } else if (val > 0) {
-        return 1;
+    int orientation = (p3.y - p1.y) * (p2.x - p3.x) - (p3.x - p1.x) * (p2.y - p3.y);
+    if (orientation < 0) {
+        return Orientation::CounterClockwise;
+    } else if (orientation > 0) {
+        return Orientation::Clockwise;
     } else {
-        return 0;
+        return Orientation::Colinear;
     }
 }
 
 // Loosely based off of https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
 bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2) {
-    int o1 = getOrientation(p1, p2, q1);
-    int o2 = getOrientation(p1, p2, q2);
-    int o3 = getOrientation(q1, q2, p1);
-    int o4 = getOrientation(q1, q2, p2);
+    auto o1 = getOrientation(p1, p2, q1);
+    auto o2 = getOrientation(p1, p2, q2);
+    auto o3 = getOrientation(q1, q2, p1);
+    auto o4 = getOrientation(q1, q2, p2);
     if (o1 != o2 && o3 != o4) {
         // Intersection
         cout << "intersection" << endl;
@@ -120,7 +119,8 @@ bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1
     }
 
     // This is when the other object is touching us
-    if (o1 == 0 && o2 == 0 && o3 == 0 && o4 == 0) {
+    if (o1 == Orientation::Colinear && o2 == Orientation::Colinear &&
+        o3 == Orientation::Colinear && o4 == Orientation::Colinear) {
         // min/max x and see if the other point is in between those two x's?
         if (p1.x <= q1.x && q1.x <= p2.x || p1.x <= q2.x && q2.x <= p2.x ||
             q1.x <= p1.x && p1.x <= q2.x || q1.x <= p2.x && p2.x <= q2.x) {

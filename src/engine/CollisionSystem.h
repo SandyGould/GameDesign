@@ -7,6 +7,12 @@
 
 using namespace std;
 
+enum class Orientation {
+    Colinear,
+    Clockwise,
+    CounterClockwise,
+};
+
 class CollisionSystem : public EventListener {
 
 public:
@@ -38,7 +44,7 @@ public:
 
     static bool cornerIn(SDL_Point p1, SDL_Point q1, SDL_Point q2, SDL_Point q3, SDL_Point q4);
     static bool checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2);
-    static int getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3);
+    static Orientation getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3);
 
 private:
     // platform -> [platform1, platform2, platform3, ...]
