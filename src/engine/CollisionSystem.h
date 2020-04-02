@@ -12,8 +12,8 @@ class CollisionSystem : public EventListener {
 
 public:
 
-	CollisionSystem();
-	~CollisionSystem();
+	CollisionSystem() = default;
+	~CollisionSystem() = default;
 
 	//checks collisions between pairs of DOs where the corresponding types have been requested
 	//to be checked (via a single call to watchForCollisions) below.
@@ -30,16 +30,16 @@ public:
 
 	//returns true iff obj1 hitbox and obj2 hitbox overlap. Uses the following method from DO:
 	//	SDL_Point* DisplayObject::getGlobalHitbox();
-	bool collidesWith(DisplayObject* obj1, DisplayObject* obj2);
+	static bool collidesWith(DisplayObject* obj1, DisplayObject* obj2);
 
 	//Resolves the collision that occurred between d and other
 	//xDelta1 and yDelta1 are the amount d moved before causing the collision.
 	//xDelta2 and yDelta2 are the amount other moved before causing the collision.
 	void resolveCollision(DisplayObject* d, DisplayObject* other, int xDelta1, int yDelta1, int xDelta2, int yDelta2);
 
-	bool cornerIn(SDL_Point p1, SDL_Point q1, SDL_Point q2, SDL_Point q3, SDL_Point q4);
-	bool checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2);
-	int getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3);
+	static bool cornerIn(SDL_Point p1, SDL_Point q1, SDL_Point q2, SDL_Point q3, SDL_Point q4);
+	static bool checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2);
+	static int getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3);
 	
 private:
     // platform -> [platform1, platform2, platform3, ...]

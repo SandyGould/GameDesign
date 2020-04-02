@@ -5,19 +5,11 @@
 #include <algorithm>
 #include <iostream>
 
-CollisionSystem::CollisionSystem(){
-
-}
-
-//~CollisionSystem(){
-
-//}
-
 //checks collisions between pairs of DOs where the corresponding types have been requested
 //to be checked (via a single call to watchForCollisions) below.
 void CollisionSystem::update() {
     for (auto& [object1, object2] : collisionPairs) {
-        if (this->collidesWith(object1, object2)) {
+        if (collidesWith(object1, object2)) {
             cout << object1->id << " and " << object2->id << " are colliding!" << endl;
             // TODO: Deltas
             this->resolveCollision(object1, object2, 0, 0, 0, 0);
@@ -107,8 +99,7 @@ void CollisionSystem::watchForCollisions(const string& type1, const string& type
     collisionTypes.try_emplace(type2, unordered_set<string>({type1}));
 }
 
-int CollisionSystem::getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3)
-{
+int CollisionSystem::getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3) {
     // 0 = collinear, 1 = clockwise, 2 = counterclockwise
     // double s1 = (p2.y - p1.y) / (p2.x - p1.x);
     // double s2 = (p3.y - p2.y) / (p3.x - p2.x);
@@ -124,8 +115,7 @@ int CollisionSystem::getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3)
     }
 }
 
-bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2)
-{
+bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2) {
     int o1 = getOrientation(p1, p2, q1);
     int o2 = getOrientation(p1, p2, q2);
     int o3 = getOrientation(q1, q2, p1);
@@ -146,8 +136,7 @@ bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1
     return false;
 }
 
-bool CollisionSystem::cornerIn(SDL_Point foreign, SDL_Point ul, SDL_Point ur, SDL_Point ll, SDL_Point lr)
-{
+bool CollisionSystem::cornerIn(SDL_Point foreign, SDL_Point ul, SDL_Point ur, SDL_Point ll, SDL_Point lr) {
     int area_rect = abs(ul.x * (ur.y - ll.y) + ur.x * (ll.y - ul.y) + ll.x * (ul.y - ur.y));
 
     // Compute the area of each triangle that the foreign point forms with the hitbox
@@ -163,7 +152,7 @@ bool CollisionSystem::cornerIn(SDL_Point foreign, SDL_Point ul, SDL_Point ur, SD
 
 //returns true iff obj1 hitbox and obj2 hitbox overlap. Uses the following method from DO:
 //	SDL_Point* DisplayObject::getGlobalHitbox();
-bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2){
+bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
     obj1->getHitbox();
     obj2->getHitbox();
     //do line segments overlap?
