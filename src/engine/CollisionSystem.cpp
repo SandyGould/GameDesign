@@ -70,22 +70,21 @@ void CollisionSystem::handleEvent(Event* e) {
 //of DOs of a given type (e.g., player vs platform). The system will begin to check all player objects
 //against all platform objects that are in the current scene.
 void CollisionSystem::watchForCollisions(const string& type1, const string& type2) {
-    if (displayObjectsMap.find(type1) != displayObjectsMap.cend()) {
-        if (displayObjectsMap.find(type2) != displayObjectsMap.cend()) {
-            for (auto& object : displayObjectsMap.at(type1)) {
-                for (auto& object2 : displayObjectsMap.at(type2)) {
-                    if (object->id != object2->id) {
-                        if (type1 < type2) {
+    if (displayObjectsMap.find(type1) != displayObjectsMap.cend() &&
+        displayObjectsMap.find(type2) != displayObjectsMap.cend()) {
+        for (auto& object : displayObjectsMap.at(type1)) {
+            for (auto& object2 : displayObjectsMap.at(type2)) {
+                if (object->id != object2->id) {
+                    if (type1 < type2) {
+                        collisionPairs.emplace_back(object, object2);
+                    } else if (type1 == type2) {
+                        if (object->id < object2->id) {
                             collisionPairs.emplace_back(object, object2);
-                        } else if (type1 == type2) {
-                            if (object->id < object2->id) {
-                                collisionPairs.emplace_back(object, object2);
-                            } else {
-                                collisionPairs.emplace_back(object2, object);
-                            }
                         } else {
                             collisionPairs.emplace_back(object2, object);
                         }
+                    } else {
+                        collisionPairs.emplace_back(object2, object);
                     }
                 }
             }
