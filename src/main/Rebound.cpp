@@ -15,3 +15,7 @@ Rebound::Rebound() : Game(1200, 800) {
 
 Rebound::~Rebound() {
 }
+
+void Rebound::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+    this->collisionSystem->update();
+}
