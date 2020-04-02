@@ -176,26 +176,13 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2){
     {
         return true;
     }
-    //check corner of hb1
-    // ONLY NEED TO CHECK ONE
-    bool c1 = cornerIn(obj1->hitbox_ul, obj2->hitbox_ul, obj2->hitbox_ur, obj2->hitbox_ll, obj2->hitbox_lr);
-    bool c2 = cornerIn(obj1->hitbox_ur, obj2->hitbox_ul, obj2->hitbox_ur, obj2->hitbox_ll, obj2->hitbox_lr);
-    bool c3 = cornerIn(obj1->hitbox_ll, obj2->hitbox_ul, obj2->hitbox_ur, obj2->hitbox_ll, obj2->hitbox_lr);
-    bool c4 = cornerIn(obj1->hitbox_lr, obj2->hitbox_ul, obj2->hitbox_ur, obj2->hitbox_ll, obj2->hitbox_lr);
-    if(c1 || c2 || c3 || c4)
-    {
-        return true;
-    }
-    //check corner of hb2
-    bool c5 = cornerIn(obj2->hitbox_ul, obj1->hitbox_ul, obj1->hitbox_ur, obj1->hitbox_ll, obj1->hitbox_lr);
-    bool c6 = cornerIn(obj2->hitbox_ur, obj1->hitbox_ul, obj1->hitbox_ur, obj1->hitbox_ll, obj1->hitbox_lr);
-    bool c7 = cornerIn(obj2->hitbox_ll, obj1->hitbox_ul, obj1->hitbox_ur, obj1->hitbox_ll, obj1->hitbox_lr);
-    bool c8 = cornerIn(obj2->hitbox_lr, obj1->hitbox_ul, obj1->hitbox_ur, obj1->hitbox_ll, obj1->hitbox_lr);
-    if(c5 || c6 || c7 || c8)
-    {
-        return true;
-    }
-    return false;
+
+    // Is either object completely inside of each other?
+    // We only need to check one point because we already checked intersections above
+    const bool obj1InObj2 = cornerIn(obj1->hitbox_ul, obj2->hitbox_ul, obj2->hitbox_ur, obj2->hitbox_ll, obj2->hitbox_lr);
+    const bool obj2InObj1 = cornerIn(obj2->hitbox_ul, obj1->hitbox_ul, obj1->hitbox_ur, obj1->hitbox_ll, obj1->hitbox_lr);
+
+    return obj1InObj2 || obj2InObj1;
 }
 
 //Resolves the collision that occurred between d and other
