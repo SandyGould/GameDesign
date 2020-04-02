@@ -25,6 +25,7 @@ public:
     //of DOs of a given type (e.g., player vs platform). The system will begin to check all player objects
     //against all platform objects that are in the current scene.
     void watchForCollisions(const string& type1, const string& type2);
+    void pairObjectWithType(DisplayObject* object, const string& type);
 
     //returns true iff obj1 hitbox and obj2 hitbox overlap. Uses the following method from DO:
     //	SDL_Point* DisplayObject::getGlobalHitbox();

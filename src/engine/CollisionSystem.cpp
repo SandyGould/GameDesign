@@ -34,22 +34,7 @@ void CollisionSystem::handleEvent(Event* e) {
 
             if (collisionTypes.find(type) != collisionTypes.cend()) {
                 for (auto& otherType : collisionTypes.at(type)) {
-                    for (auto& otherObject : displayObjectsMap.at(otherType)) {
-                        // Here, we sort by type then ID to make sure the unordered_set
-                        // doesn't contain duplicates.
-                        if (type < otherType) {
-                            collisionPairs.emplace_back(object, otherObject);
-                        } else if (type == otherType) {
-                            // Don't register for collision if the two objects are the same
-                            if (object->id < otherObject->id) {
-                                collisionPairs.emplace_back(object, otherObject);
-                            } else if (object->id > otherObject->id) {
-                                collisionPairs.emplace_back(otherObject, object);
-                            }
-                        } else {
-                            collisionPairs.emplace_back(otherObject, object);
-                        }
-                    }
+                    this->pairObjectWithType(object, otherType);
                 }
             }
         } else {
@@ -71,22 +56,7 @@ void CollisionSystem::watchForCollisions(const string& type1, const string& type
     if (displayObjectsMap.find(type1) != displayObjectsMap.cend() &&
         displayObjectsMap.find(type2) != displayObjectsMap.cend()) {
         for (auto& object : displayObjectsMap.at(type1)) {
-            for (auto& object2 : displayObjectsMap.at(type2)) {
-                // Here, we sort by type then ID to make sure the unordered_set
-                // doesn't contain duplicates.
-                if (type1 < type2) {
-                    collisionPairs.emplace_back(object, object2);
-                } else if (type1 == type2) {
-                    // Don't register for collision if the two objects are the same
-                    if (object->id < object2->id) {
-                        collisionPairs.emplace_back(object, object2);
-                    } else if (object->id > object2->id) {
-                        collisionPairs.emplace_back(object2, object);
-                    }
-                } else {
-                    collisionPairs.emplace_back(object2, object);
-                }
-            }
+            this->pairObjectWithType(object, type2);
         }
     }
 
@@ -102,6 +72,25 @@ void CollisionSystem::watchForCollisions(const string& type1, const string& type
 
     collisionTypes.try_emplace(type1, unordered_set<string>({type2}));
     collisionTypes.try_emplace(type2, unordered_set<string>({type1}));
+}
+
+void CollisionSystem::pairObjectWithType(DisplayObject* object, const string& type) {
+    for (auto& object2 : displayObjectsMap.at(type)) {
+        // Here, we sort by type then ID to make sure the unordered_set
+        // doesn't contain duplicates.
+        if (object->type < type) {
+            collisionPairs.emplace_back(object, object2);
+        } else if (object->type == type) {
+            // Don't register for collision if the two objects are the same
+            if (object->id < object2->id) {
+                collisionPairs.emplace_back(object, object2);
+            } else if (object->id > object2->id) {
+                collisionPairs.emplace_back(object2, object);
+            }
+        } else {
+            collisionPairs.emplace_back(object2, object);
+        }
+    }
 }
 
 int CollisionSystem::getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3) {
