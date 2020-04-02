@@ -3,6 +3,7 @@
 #include "events/DisplayTreeChangeEvent.h"
 
 #include <algorithm>
+#include <iostream>
 
 CollisionSystem::CollisionSystem(){
 
@@ -17,6 +18,7 @@ CollisionSystem::CollisionSystem(){
 void CollisionSystem::update() {
     for (auto& [object1, object2] : collisionPairs) {
         if (this->collidesWith(object1, object2)) {
+            cout << object1->id << " and " << object2->id << " are colliding!" << endl;
             // TODO: Deltas
             this->resolveCollision(object1, object2, 0, 0, 0, 0);
         }
