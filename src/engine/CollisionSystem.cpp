@@ -133,7 +133,7 @@ bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1
     }
 
     // This is when the other object is touching us
-    if (o1 == o2 == o3 == o4 == 0) {
+    if (o1 == 0 && o2 == 0 && o3 == 0 && o4 == 0) {
         // min/max x and see if the other point is in between those two x's?
         if (p1.x <= q1.x && q1.x <= p2.x || p1.x <= q2.x && q2.x <= p2.x ||
             q1.x <= p1.x && p1.x <= q2.x || q1.x <= p2.x && p2.x <= q2.x) {
