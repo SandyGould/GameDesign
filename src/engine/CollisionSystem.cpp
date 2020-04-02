@@ -41,10 +41,12 @@ void CollisionSystem::handleEvent(Event* e) {
             if (collisionTypes.find(type) != collisionTypes.cend()) {
                 for (auto& otherType : collisionTypes.at(type)) {
                     for (auto& otherObject : displayObjectsMap.at(otherType)) {
-                        if (type < otherType) {
-                            collisionPairs.emplace_back(object, otherObject);
-                        } else {
-                            collisionPairs.emplace_back(otherObject, object);
+                        if (object->id != otherObject->id) {
+                            if (type < otherType) {
+                                collisionPairs.emplace_back(object, otherObject);
+                            } else {
+                                collisionPairs.emplace_back(otherObject, object);
+                            }
                         }
                     }
                 }
@@ -64,10 +66,12 @@ void CollisionSystem::watchForCollisions(const string& type1, const string& type
         if (displayObjectsMap.find(type2) != displayObjectsMap.cend()) {
             for (auto& object : displayObjectsMap.at(type1)) {
                 for (auto& object2 : displayObjectsMap.at(type2)) {
-                    if (type1 < type2) {
-                        collisionPairs.emplace_back(object, object2);
-                    } else {
-                        collisionPairs.emplace_back(object2, object);
+                    if (object->id != object2->id) {
+                        if (type1 < type2) {
+                            collisionPairs.emplace_back(object, object2);
+                        } else {
+                            collisionPairs.emplace_back(object2, object);
+                        }
                     }
                 }
             }
