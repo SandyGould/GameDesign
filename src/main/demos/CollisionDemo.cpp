@@ -29,7 +29,7 @@ CollisionDemo::CollisionDemo() : Game(1200, 800) {
     this->scene->getChild(0)->addChild(this->moon);
 
     this->coin = new Coin();
-    this->coin->position = {this->windowWidth / 2 + 50, this->windowHeight / 2 + 50};
+    this->coin->position = {this->windowWidth / 2 + 100, this->windowHeight / 2 + 100};
     this->coin->width = this->coin->height = 30;
     this->coin->pivot = {15, 15};
     this->scene->getChild(0)->addChild(this->coin);

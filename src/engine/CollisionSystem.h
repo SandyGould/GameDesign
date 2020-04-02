@@ -45,6 +45,7 @@ public:
     static bool cornerIn(SDL_Point p1, SDL_Point q1, SDL_Point q2, SDL_Point q3, SDL_Point q4);
     static bool checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2);
     static Orientation getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3);
+    static bool onSegment(SDL_Point p1, SDL_Point p2, SDL_Point p3);
 
 private:
     // platform -> [platform1, platform2, platform3, ...]
@@ -55,4 +56,6 @@ private:
 
     // player -> [player, platform, ...]
     unordered_map<string, unordered_set<string>> collisionTypes;
+
+    unordered_map<DisplayObject*, SDL_Point> prevPositions;
 };
