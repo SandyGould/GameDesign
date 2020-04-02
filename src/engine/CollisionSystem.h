@@ -56,4 +56,6 @@ private:
 
     // player -> [player, platform, ...]
     unordered_map<string, unordered_set<string>> collisionTypes;
+
+    unordered_map<DisplayObject*, SDL_Point> prevPositions;
 };

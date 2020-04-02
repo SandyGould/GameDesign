@@ -11,8 +11,27 @@ void CollisionSystem::update() {
     for (auto& [object1, object2] : collisionPairs) {
         if (collidesWith(object1, object2)) {
             cout << object1->id << " and " << object2->id << " are colliding!" << endl;
-            // TODO: Deltas
-            this->resolveCollision(object1, object2, 0, 0, 0, 0);
+            int xD1 = 0;
+            int yD1 = 0;
+            int xD2 = 0;
+            int yD2 = 0;
+            if (prevPositions.find(object1) != prevPositions.end() && prevPositions.find(object2) != prevPositions.end()){
+                SDL_Point obj1Prev = prevPositions.at(object1);
+                SDL_Point obj2Prev = prevPositions.at(object2);
+                xD1 = object1->position.x - obj1Prev.x;
+                yD1 = object1->position.y - obj1Prev.y;
+                xD2 = object2->position.x - obj2Prev.x;
+                yD2 = object2->position.y - obj2Prev.y;
+            }
+            this->resolveCollision(object1, object2, xD1, yD1, xD2, yD2);
+        }
+    }
+    for (auto& objType : displayObjectsMap){
+        for (auto& obj : displayObjectsMap.at(objType.first)){
+            if (prevPositions.find(obj) == prevPositions.end()){
+                prevPositions.emplace(obj, obj->position);
+            }
+            prevPositions.at(obj) = obj->position;
         }
     }
 }
@@ -122,13 +141,16 @@ bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1
         return true;
     }
 
-    // Are the two objects touching?
-    if (o1 == Orientation::Colinear && onSegment(p1, p2, q1)) {
-        return true;
-    }
-
-    if (o2 == Orientation::Colinear && onSegment(p1, q2, q1)) {
-        return true;
+    // This is when the other object is touching us
+    if (o1 == Orientation::Colinear && o2 == Orientation::Colinear &&
+        o3 == Orientation::Colinear && o4 == Orientation::Colinear) {
+        // min/max x and see if the other point is in between those two x's?
+        if ((p1.x >= q1.x && p1.x <= q2.x || p1.x <= q1.x && p1.x >= q2.x ||
+             p2.x >= q1.x && p2.x <= q2.x || p2.x <= q1.x && p2.x >= q2.x) &&
+            (p1.y >= q1.y && p1.y <= q2.y || p1.y <= q1.y && p1.y >= q2.y ||
+             p2.y >= q1.y && p2.y <= q2.y || p2.y <= q1.y && p2.y >= q2.y)) {
+            return true;
+        }
     }
 
     if (o3 == Orientation::Colinear && onSegment(p2, p1, q2)) {
@@ -199,4 +221,56 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
 //xDelta1 and yDelta1 are the amount d moved before causing the collision.
 //xDelta2 and yDelta2 are the amount other moved before causing the collision.
 void CollisionSystem::resolveCollision(DisplayObject* d, DisplayObject* other, int xDelta1, int yDelta1, int xDelta2, int yDelta2) {
+    int maxD = max({abs(xDelta1), abs(yDelta1), abs(xDelta2), abs(yDelta2)});
+    int m = 1;
+    cout << maxD << endl;
+    while (maxD >>= 1){
+        ++m;
+    }
+    cout << m << endl;
+    bool collideLast = false;
+    for (int i = 0; i < m; ++i){
+        if (xDelta1 >= 0){
+            ++xDelta1;
+        } else{
+            --xDelta1;
+        }
+        if (yDelta1 >= 0){
+            ++yDelta1;
+        } else{
+            --yDelta1;
+        }
+        if (xDelta2 >= 0){
+            ++xDelta2;
+        } else{
+            --xDelta2;
+        }
+        if (yDelta2 >= 0){
+            ++yDelta2;
+        } else{
+            --yDelta2;
+        }
+        
+        xDelta1 /= 2;
+        yDelta1 /= 2;
+        xDelta2 /= 2;
+        yDelta2 /= 2;
+        if (collidesWith(d, other) && !collideLast){
+            xDelta1 = -xDelta1;
+            yDelta1 = -yDelta1;
+            xDelta2 = -xDelta2;
+            yDelta2 = -yDelta2;
+            collideLast = true;
+        } else if (!collidesWith(d, other) && collideLast){
+            xDelta1 = -xDelta1;
+            yDelta1 = -yDelta1;
+            xDelta2 = -xDelta2;
+            yDelta2 = -yDelta2;
+            collideLast = false;
+        }
+        d->position.x += xDelta1;
+        d->position.y += yDelta1;
+        other->position.x += xDelta2;
+        other->position.y += yDelta2;
+    }
 }
