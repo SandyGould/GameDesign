@@ -44,6 +44,12 @@ void CollisionSystem::handleEvent(Event* e) {
                         if (object->id != otherObject->id) {
                             if (type < otherType) {
                                 collisionPairs.emplace_back(object, otherObject);
+                            } else if (type == otherType) {
+                                if (object->id < otherObject->id) {
+                                    collisionPairs.emplace_back(object, otherObject);
+                                } else {
+                                    collisionPairs.emplace_back(otherObject, object);
+                                }
                             } else {
                                 collisionPairs.emplace_back(otherObject, object);
                             }
@@ -69,6 +75,12 @@ void CollisionSystem::watchForCollisions(const string& type1, const string& type
                     if (object->id != object2->id) {
                         if (type1 < type2) {
                             collisionPairs.emplace_back(object, object2);
+                        } else if (type1 == type2) {
+                            if (object->id < object2->id) {
+                                collisionPairs.emplace_back(object, object2);
+                            } else {
+                                collisionPairs.emplace_back(object2, object);
+                            }
                         } else {
                             collisionPairs.emplace_back(object2, object);
                         }
