@@ -54,7 +54,12 @@ void CollisionSystem::handleEvent(Event* e) {
             }
         } else {
             displayObjectsMap.at(event->object->type).erase(event->object);
-            collisionPairs.erase(remove_if(collisionPairs.begin(), collisionPairs.end(), [&](auto x) { return x.first == object || x.second == object; }), collisionPairs.cend());
+            collisionPairs.erase(remove_if(collisionPairs.begin(),
+                                           collisionPairs.end(),
+                                           [&](auto x) {
+                                               return x.first == object || x.second == object;
+                                           }),
+                                 collisionPairs.cend());
         }
     }
 }
@@ -120,7 +125,7 @@ bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1
     int o2 = getOrientation(p1, p2, q2);
     int o3 = getOrientation(q1, q2, p1);
     int o4 = getOrientation(q1, q2, p2);
-    if(o1 != o2 && o3 != o4) {
+    if (o1 != o2 && o3 != o4) {
         // Intersection
         return true;
     }
@@ -193,5 +198,4 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
 //xDelta1 and yDelta1 are the amount d moved before causing the collision.
 //xDelta2 and yDelta2 are the amount other moved before causing the collision.
 void CollisionSystem::resolveCollision(DisplayObject* d, DisplayObject* other, int xDelta1, int yDelta1, int xDelta2, int yDelta2) {
-
 }
