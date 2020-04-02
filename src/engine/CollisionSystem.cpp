@@ -127,22 +127,26 @@ bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1
     return false;
 }
 
+// Standard distance formula
 double CollisionSystem::distance(SDL_Point& p1, SDL_Point& p2) {
-    return std::sqrt(((p2.y - p1.y) * (p2.y - p1.y)) + ((p2.x - p1.x) * (p2.x - p1.x)));
+    return std::sqrt(std::pow(p2.y - p1.y, 2) + std::pow(p2.x - p1.x, 2));
 }
 
 bool CollisionSystem::cornerIn(SDL_Point p1, SDL_Point q1, SDL_Point q2, SDL_Point q3, SDL_Point q4)
 {
-    //will be entered in order foreign point,ul, ur, ll, lr
-    // TRIANGLES
-    // Comparing doubles is a bad idea!!!
-    double area_rect = distance(q1,q2) * distance(q1,q3);
-    double area_t1 = abs((p1.x*(q1.y-q2.y)+q1.x*(q2.y-p1.y)+q2.x*(p1.y-q1.y))/2);
-    double area_t2 = abs((p1.x*(q2.y-q3.y)+q2.x*(q3.y-p1.y)+q3.x*(p1.y-q2.y))/2);
-    double area_t3 = abs((p1.x*(q3.y-q4.y)+q3.x*(q4.y-p1.y)+q4.x*(p1.y-q3.y))/2);
-    double area_t4 = abs((p1.x*(q1.y-q4.y)+q1.x*(q4.y-p1.y)+q4.x*(p1.y-q1.y))/2);
+    // will be entered in order foreign point,ul, ur, ll, lr
+    // double area_rect = distance(q1,q2) * distance(q1,q3);
+    int area_rect = abs(q1.x * (q2.y - q3.y) + q2.x * (q3.y - q1.y) + q3.x * (q1.y - q2.y));
 
-    return area_t1 + area_t2 + area_t3 + area_t4 == area_rect;
+    // Compute the area of each triangle that the foreign point forms with the hitbox
+    // https://www.mathopenref.com/coordtrianglearea.html
+    // We ignore the divide by 2 so that we can keep these as ints, which makes comparison a lot simpler.
+    int area_t1_2x = abs(p1.x * (q1.y - q2.y) + q1.x * (q2.y - p1.y) + q2.x * (p1.y - q1.y));
+    int area_t2_2x = abs(p1.x * (q2.y - q3.y) + q2.x * (q3.y - p1.y) + q3.x * (p1.y - q2.y));
+    int area_t3_2x = abs(p1.x * (q3.y - q4.y) + q3.x * (q4.y - p1.y) + q4.x * (p1.y - q3.y));
+    int area_t4_2x = abs(p1.x * (q1.y - q4.y) + q1.x * (q4.y - p1.y) + q4.x * (p1.y - q1.y));
+
+    return area_t1_2x + area_t2_2x + area_t3_2x + area_t4_2x == 2 * area_rect;
 }
 
 //returns true iff obj1 hitbox and obj2 hitbox overlap. Uses the following method from DO:
