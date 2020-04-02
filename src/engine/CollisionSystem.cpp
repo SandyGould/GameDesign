@@ -43,18 +43,19 @@ void CollisionSystem::handleEvent(Event* e) {
             if (collisionTypes.find(type) != collisionTypes.cend()) {
                 for (auto& otherType : collisionTypes.at(type)) {
                     for (auto& otherObject : displayObjectsMap.at(otherType)) {
-                        if (object->id != otherObject->id) {
-                            if (type < otherType) {
+                        // Here, we sort by type then ID to make sure the unordered_set
+                        // doesn't contain duplicates.
+                        if (type < otherType) {
+                            collisionPairs.emplace_back(object, otherObject);
+                        } else if (type == otherType) {
+                            // Don't register for collision if the two objects are the same
+                            if (object->id < otherObject->id) {
                                 collisionPairs.emplace_back(object, otherObject);
-                            } else if (type == otherType) {
-                                if (object->id < otherObject->id) {
-                                    collisionPairs.emplace_back(object, otherObject);
-                                } else {
-                                    collisionPairs.emplace_back(otherObject, object);
-                                }
-                            } else {
+                            } else if (object->id > otherObject->id) {
                                 collisionPairs.emplace_back(otherObject, object);
                             }
+                        } else {
+                            collisionPairs.emplace_back(otherObject, object);
                         }
                     }
                 }
@@ -74,18 +75,19 @@ void CollisionSystem::watchForCollisions(const string& type1, const string& type
         displayObjectsMap.find(type2) != displayObjectsMap.cend()) {
         for (auto& object : displayObjectsMap.at(type1)) {
             for (auto& object2 : displayObjectsMap.at(type2)) {
-                if (object->id != object2->id) {
-                    if (type1 < type2) {
+                // Here, we sort by type then ID to make sure the unordered_set
+                // doesn't contain duplicates.
+                if (type1 < type2) {
+                    collisionPairs.emplace_back(object, object2);
+                } else if (type1 == type2) {
+                    // Don't register for collision if the two objects are the same
+                    if (object->id < object2->id) {
                         collisionPairs.emplace_back(object, object2);
-                    } else if (type1 == type2) {
-                        if (object->id < object2->id) {
-                            collisionPairs.emplace_back(object, object2);
-                        } else {
-                            collisionPairs.emplace_back(object2, object);
-                        }
-                    } else {
+                    } else if (object->id > object2->id) {
                         collisionPairs.emplace_back(object2, object);
                     }
+                } else {
+                    collisionPairs.emplace_back(object2, object);
                 }
             }
         }
