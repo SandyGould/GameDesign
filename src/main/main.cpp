@@ -1,6 +1,7 @@
 #include "Editor.h"
 #include "Rebound.h"
 #include "demos/CollisionDemo.h"
+#include "Rooms.h"
 
 #include <iostream>
 #include <string>
@@ -36,6 +37,9 @@ int main(int argc, char** argv) {
 				editor = new Editor();
 			}
 			editor->start();
+		} else if (arg == "sfx_demo") {
+			Rooms rooms{};
+            rooms.start();
 		} else {
             cout << "Unrecognized arguments, launching game." << endl;
             Rebound* rebound = new Rebound();
