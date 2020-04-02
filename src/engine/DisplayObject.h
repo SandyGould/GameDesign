@@ -69,8 +69,7 @@ public:
 	int getWidth();
 	int getHeight();
 
-	AffineTransform globalTransform;
-	AffineTransform getGlobalTransform();
+	void getGlobalTransform(AffineTransform& at);
 
 	bool visible = true;
 	SDL_Point position = {0, 0};
@@ -82,7 +81,7 @@ public:
 	SDL_Point hitbox_ll = {0, hitbox_height};
 	
 	void getHitbox();
-
+    void drawHitbox();
 
 	int width = 100;
 	int height = 100;

@@ -307,13 +307,12 @@ int DisplayObject::getHeight() {
     return this->image->h;
 }
 
-AffineTransform DisplayObject::getGlobalTransform()
+void DisplayObject::getGlobalTransform(AffineTransform& at)
 {
-	AffineTransform at;
 	//if DO has parent
 	if(parent != NULL)
 	{
-		at = parent->getGlobalTransform();
+		parent->getGlobalTransform(at);
 		at.translate(parent->pivot.x, parent->pivot.y);
 	}
 	
@@ -321,17 +320,29 @@ AffineTransform DisplayObject::getGlobalTransform()
 	//undo parent's pivot
 	//apply this object's transform to at
 	this->applyTransformations(at);
-	return at;
-	//return at
 }
 
-void DisplayObject::getHitbox()
-{
-	globalTransform = this->getGlobalTransform();
-	hitbox_ul = globalTransform.transformPoint(hitbox_ul.x, hitbox_ul.y);
-	hitbox_ur = globalTransform.transformPoint(hitbox_ur.x, hitbox_ur.y);
-	hitbox_lr = globalTransform.transformPoint(hitbox_lr.x, hitbox_lr.y);
-	hitbox_ll = globalTransform.transformPoint(hitbox_ll.x, hitbox_ll.y);
+void DisplayObject::getHitbox() {
+    // AffineTransform at;
+	// this->getGlobalTransform(at);
+	// hitbox_ul = at.transformPoint(0, 0);
+	// hitbox_ur = at.transformPoint(width, 0);
+	// hitbox_lr = at.transformPoint(width, height);
+	// hitbox_ll = at.transformPoint(0, height);
+    hitbox_ul = {dstrect.x, dstrect.y};
+    hitbox_ur = {dstrect.x + dstrect.w, dstrect.y};
+    hitbox_ll = {dstrect.x, dstrect.y + dstrect.h};
+    hitbox_lr = {dstrect.x + dstrect.w, dstrect.y + dstrect.h};
+}
+
+void DisplayObject::drawHitbox() {
+    this->getHitbox();
+    // SDL_RenderDrawLine(Game::renderer, hitbox_ul.x, hitbox_ul.y, hitbox_ur.x, hitbox_ur.y);
+    // SDL_RenderDrawLine(Game::renderer, hitbox_ul.x, hitbox_ul.y, hitbox_ll.x, hitbox_ll.y);
+    // SDL_RenderDrawLine(Game::renderer, hitbox_ll.x, hitbox_ll.y, hitbox_lr.x, hitbox_lr.y);
+    // SDL_RenderDrawLine(Game::renderer, hitbox_ur.x, hitbox_ur.y, hitbox_lr.x, hitbox_lr.y);
+
+    SDL_RenderDrawRect(Game::renderer, &dstrect);
 }
 
 double DisplayObject::distance(SDL_Point& p1, SDL_Point& p2) {
