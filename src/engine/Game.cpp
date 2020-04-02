@@ -72,7 +72,7 @@ void Game::initSDL() {
 	window = SDL_CreateWindow("Rebound",
 	                          SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 	                          this->windowWidth, this->windowHeight,
-	                          SDL_WINDOW_ALLOW_HIGHDPI);
+	                          0);
 
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
