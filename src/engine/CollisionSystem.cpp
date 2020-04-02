@@ -132,9 +132,9 @@ double CollisionSystem::distance(SDL_Point& p1, SDL_Point& p2) {
     return std::sqrt(std::pow(p2.y - p1.y, 2) + std::pow(p2.x - p1.x, 2));
 }
 
+// will be entered in order foreign point, ul, ur, ll, lr
 bool CollisionSystem::cornerIn(SDL_Point p1, SDL_Point q1, SDL_Point q2, SDL_Point q3, SDL_Point q4)
 {
-    // will be entered in order foreign point,ul, ur, ll, lr
     // double area_rect = distance(q1,q2) * distance(q1,q3);
     int area_rect = abs(q1.x * (q2.y - q3.y) + q2.x * (q3.y - q1.y) + q3.x * (q1.y - q2.y));
 
