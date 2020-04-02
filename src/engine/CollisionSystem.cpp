@@ -95,20 +95,21 @@ void CollisionSystem::pairObjectWithType(DisplayObject* object, const string& ty
 
 int CollisionSystem::getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3) {
     // 0 = collinear, 1 = clockwise, 2 = counterclockwise
-    // double s1 = (p2.y - p1.y) / (p2.x - p1.x);
-    // double s2 = (p3.y - p2.y) / (p3.x - p2.x);
-    double s1 = atan2(p2.y - p1.y, p2.x - p1.x);
-    double s2 = atan2(p3.y - p1.y, p3.x - p1.x);
-
-    if (s1 < s2) {
+    int val = (p3.y - p1.y) * (p2.x - p3.x) - (p3.x - p1.x) * (p2.y - p3.y);
+    if (val < 0) {
         return 2;
-    } else if (s1 > s2) {
+    } else if (val > 0) {
         return 1;
     } else {
         return 0;
     }
 }
 
+// Don't ask me what this does.
+// All I know is that I've been staring at these lines of code for 5 hours now,
+// and now I don't have to stare at it anymore.
+// Sorry.
+// https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
 bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2) {
     int o1 = getOrientation(p1, p2, q1);
     int o2 = getOrientation(p1, p2, q2);
@@ -116,6 +117,7 @@ bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1
     int o4 = getOrientation(q1, q2, p2);
     if (o1 != o2 && o3 != o4) {
         // Intersection
+        cout << "intersection" << endl;
         return true;
     }
 
