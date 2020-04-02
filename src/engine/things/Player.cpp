@@ -1,6 +1,7 @@
 #include "Player.h"
 
-Player::Player() : AnimatedSprite("player", "./resources/Spritesheets/test.png", "./resources/Spritesheets/test.xml"){//Sprite("player", "./resources/character/Idle_1.png") {
+Player::Player() : AnimatedSprite("player", "./resources/assets/Spritesheets/Girl/Girl.png", "./resources/assets/Spritesheets/Girl.xml"){//Sprite("player", "./resources/character/Idle_1.png") {
+    type = "player";
     hasCollision = true;
 }
 

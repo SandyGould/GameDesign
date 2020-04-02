@@ -4,8 +4,9 @@
 
 int coin_id_counter = 1;
 
-Coin::Coin() : Sprite("coin_"+std::to_string(coin_id_counter) , "./resources/solarSystem/Planet.png"){
+Coin::Coin() : Sprite("coin_"+std::to_string(coin_id_counter) , "./resources/assets/Display_Objects/Planet.png"){
     ++coin_id_counter;
+    type = "coin";
     hasCollision = true;
 }
 
