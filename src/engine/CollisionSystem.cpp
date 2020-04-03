@@ -10,29 +10,19 @@
 void CollisionSystem::update() {
     for (auto& [object1, object2] : collisionPairs) {
         if (collidesWith(object1, object2)) {
-            cout << object1->id << " and " << object2->id << " are colliding!" << endl;
-            int xD1 = 0;
-            int yD1 = 0;
-            int xD2 = 0;
-            int yD2 = 0;
-            if (prevPositions.find(object1) != prevPositions.end() && prevPositions.find(object2) != prevPositions.end()){
-                SDL_Point obj1Prev = prevPositions.at(object1);
-                SDL_Point obj2Prev = prevPositions.at(object2);
-                xD1 = object1->position.x - obj1Prev.x;
-                yD1 = object1->position.y - obj1Prev.y;
-                xD2 = object2->position.x - obj2Prev.x;
-                yD2 = object2->position.y - obj2Prev.y;
-            }
+
+            SDL_Point obj1Prev = prevPositions.at(object1);
+            SDL_Point obj2Prev = prevPositions.at(object2);
+            int xD1 = object1->position.x - obj1Prev.x;
+            int yD1 = object1->position.y - obj1Prev.y;
+            int xD2 = object2->position.x - obj2Prev.x;
+            int yD2 = object2->position.y - obj2Prev.y;
+            cout << xD1 << ", " << yD1 << " | " << xD2 << ", " << yD2 << endl;
             this->resolveCollision(object1, object2, xD1, yD1, xD2, yD2);
         }
-    }
-    for (auto& objType : displayObjectsMap){
-        for (auto& obj : displayObjectsMap.at(objType.first)){
-            if (prevPositions.find(obj) == prevPositions.end()){
-                prevPositions.emplace(obj, obj->position);
-            }
-            prevPositions.at(obj) = obj->position;
-        }
+
+        prevPositions.at(object1) = object1->position;
+        prevPositions.at(object2) = object2->position;
     }
 }
 
@@ -109,6 +99,10 @@ void CollisionSystem::pairObjectWithType(DisplayObject* object, const string& ty
         } else {
             collisionPairs.emplace_back(object2, object);
         }
+
+        // Keep track of positions for collision deltas
+        prevPositions.try_emplace(object, object->position);
+        prevPositions.try_emplace(object2, object2->position);
     }
 }
 
@@ -238,7 +232,7 @@ void CollisionSystem::resolveCollision(DisplayObject* d, DisplayObject* other, i
         } else{
             --yDelta2;
         }
-        
+
         xDelta1 /= 2;
         yDelta1 /= 2;
         xDelta2 /= 2;
