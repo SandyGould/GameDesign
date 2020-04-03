@@ -52,6 +52,10 @@ void TextBox::setText(string text){
     this->setTexture(SDL_CreateTextureFromSurface(this->r, temp));
 }
 
+void TextBox::setColor(SDL_Color color){
+	this->textColor = color;
+}
+
 void TextBox::setNextPanel(){
 	this->panelPos++;
 

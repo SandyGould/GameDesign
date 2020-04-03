@@ -22,6 +22,7 @@ public:
 	virtual ~TextBox();
 
 	void setText(string text);
+	void setColor(SDL_Color color);
 	void setNextPanel();
 	void addTextPanel(string text);
 

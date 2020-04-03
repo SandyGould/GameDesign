@@ -6,10 +6,12 @@
 #include "../engine/AnimatedSprite.h"
 #include "../engine/Scene.h"
 #include "../engine/Camera.h"
-#include "../engine/TextObject.h"
+// #include "../engine/TextObject.h"
 #include "../engine/things/Coin.h"
 #include "../engine/things/Player.h"
 #include "../engine/things/TextBox.h"
+#include "../engine/things/SelectionMenuBase.h"
+#include "../engine/things/SelectionMenuOption.h"
 #include "../engine/QuestManager.h"
 #include "../engine/events/PickedUpEvent.h"
 // #include "../engine/Sound.h"
@@ -27,9 +29,15 @@ public:
 	void draw(AffineTransform& at) override;
 
 private:
+    bool esc_prepressed = false;
+
 	Camera* camera;
 
 	AnimatedSprite* player;
+
+    SelectionMenuBase* selection_menu_base;
+    SelectionMenuOption * selection_quit_option;
+    SelectionMenuOption * selection_resume_option;
     
     Scene* scene;
 
