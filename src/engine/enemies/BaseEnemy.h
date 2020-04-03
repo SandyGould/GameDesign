@@ -15,11 +15,11 @@ public:
     virtual void draw(AffineTransform& at);
     
     //Info about the Enemies' state
-    int health; 
-    int state;
+    int health = 100; 
+    int state = 0;
 
     //Should we clean this?
-    bool clean;
+    bool clean = false;
 
 };
 
