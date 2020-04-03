@@ -6,8 +6,10 @@
 #include "../engine/AnimatedSprite.h"
 #include "../engine/Scene.h"
 #include "../engine/Camera.h"
+#include "../engine/TextObject.h"
 #include "../engine/things/Coin.h"
 #include "../engine/things/Player.h"
+#include "../engine/things/TextBox.h"
 #include "../engine/QuestManager.h"
 #include "../engine/events/PickedUpEvent.h"
 // #include "../engine/Sound.h"
@@ -31,8 +33,10 @@ private:
     
     Scene* scene;
 
+    TextBox* start_text_box;
+
     Tween* player_tween;
-    TweenJuggler* juggler;
+    Tween* start_text_tween;
 };
 
 #endif

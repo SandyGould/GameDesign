@@ -41,7 +41,7 @@ void TextObject::setText(string text){
         this->text = " ";
     }
 
-    SDL_Surface* temp = TTF_RenderText_Solid(this->font, this->text.c_str(), textColor);
+    SDL_Surface* temp = TTF_RenderText_Blended_Wrapped(this->font, this->text.c_str(), textColor, 150);
     this->width = temp->w;
     this->height = temp->h;
     this->setSurface(temp);

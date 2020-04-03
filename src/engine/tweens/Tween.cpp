@@ -1,4 +1,7 @@
 #include "Tween.h"
+
+#include "../events/TweenEvent.h"
+
 #include <algorithm>
 #include <iostream>
 #include <cstdlib>
@@ -15,8 +18,28 @@ Tween::Tween(DisplayObject* object, TweenTransitions transition) {
     this->timeElapsed = 0;
 }
 
+Tween::Tween(std::string id, DisplayObject* object){
+    this->id = id;
+    this->currObject = object;
+    this->amountChange = 0;
+    this->timeElapsed = 0;
+}
+
+Tween::Tween(std::string id, DisplayObject* object, TweenTransitions transition) {
+    this->id = id;
+    this->currObject = object;
+    this->amountChange = 0;
+    this->timeElapsed = 0;
+    this->id = id;
+}
+
 Tween::~Tween() { 
    currTweening.clear();
+}
+
+
+std::string Tween::getID(){
+    return this->id;
 }
 
 void Tween::animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time) {
@@ -61,6 +84,8 @@ void Tween::update() {
             else if ((*it)->getParam().getKey() == "Y") {
                 this->currObject->position.y = (*it)->getCurrVal();
             }
+
+            EventDispatcher::getInstance().dispatchEvent(new TweenEvent(TweenEvent::TWEEN_UPDATE_EVENT, this));
         }
         it++;
     }
@@ -78,6 +103,7 @@ void Tween::setValue(TweenableParams param, double value) {
 bool Tween::isComplete() {
     // tween is complete if no more parameters left to tween
     if (this->currTweening.size() == 0) {
+        EventDispatcher::getInstance().dispatchEvent(new TweenEvent(TweenEvent::TWEEN_COMPLETE_EVENT, this));
         return true;
     }
     return false;
