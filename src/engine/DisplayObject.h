@@ -97,7 +97,7 @@ public:
 
 	// FIXME: Probably a very dirty hack please find a better way to grab global coords
 	SDL_Rect dstrect;
-	double parallaxSpeed = 0.0;
+	double parallaxSpeed = 1.0;
 
     std::vector<DisplayObject*> children;
 

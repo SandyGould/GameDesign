@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "AnimatedSprite.h"
+#include "Layer.h"
 #include <string>
 #include <vector>
 #include <fstream>
@@ -25,7 +26,7 @@ void Scene::loadScene(std::string sceneFilePath){
     i >> j;
     for(int z = 0; z < j["Scene"].size(); z++){
         std::string layer_value = "L" + std::to_string(z);
-        DisplayObject* temp_layer = new DisplayObject(layer_value);
+        Layer* temp_layer = new Layer(layer_value);
         json json_layer = j["Scene"][z][layer_value];
         temp_layer->parallaxSpeed = json_layer["speed"];
         
@@ -82,7 +83,7 @@ Sprite* Scene::generateSprite(json j){
     return temp_sprite;
 }
 
-void Scene::saveScene(string sceneName){
+void Scene::saveScene(std::string sceneName){
     std::ofstream o("./resources/scene/" + sceneName);
     json L0A = json::array();
     json L1A = json::array();
@@ -107,7 +108,7 @@ void Scene::saveScene(string sceneName){
 void Scene::addToJSON(json &Layer, DisplayObject* dObject){
     if (dObject){
         for (auto* child : dObject->children){
-            vector<string> tempVec;
+            std::vector<std::string> tempVec;
             DisplayObject* tempDO = child->parent;
             while (tempDO != NULL){
                 tempVec.push_back(tempDO->id);
@@ -124,6 +125,14 @@ void Scene::addToJSON(json &Layer, DisplayObject* dObject){
     }
 }
 
-void Scene::update(unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
+void Scene::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
     DisplayObject::update(pressedKeys, joystickState, pressedButtons);
+}
+
+void Scene::draw(AffineTransform& at) {
+    Scene::draw(at, Game::renderer);
+}
+
+void Scene::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
+    DisplayObject::draw(at, r, src);
 }
