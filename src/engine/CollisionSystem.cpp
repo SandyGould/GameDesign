@@ -125,10 +125,6 @@ Orientation CollisionSystem::getOrientation(SDL_Point p1, SDL_Point p2, SDL_Poin
     }
 }
 
-bool CollisionSystem::onSegment(SDL_Point p1, SDL_Point p2, SDL_Point p3) {
-    return min(p1.x, p3.x) <= p2.x && p2.x <= max(p1.x, p3.x) &&
-           min(p1.y, p3.y) <= p2.y && p2.y <= max(p1.y, p3.y);
-}
 
 // Loosely based off of https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
 bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2) {
