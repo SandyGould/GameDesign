@@ -69,6 +69,10 @@ Rooms::Rooms() : Game(600, 500) {
 	EventDispatcher::getInstance().addEventListener(this->selection_resume_option, MouseDownEvent::MOUSE_DOWN_EVENT);
 	EventDispatcher::getInstance().addEventListener(this->selection_quit_option, MouseDownEvent::MOUSE_DOWN_EVENT);
 
+	health = new HealthBar("health", 255, 0, 0);
+	health->position = {25,25};
+	instance->addChild(health);
+
 	player_tween = new Tween("player_tween", player);
 
     player_tween->animate(TweenableParams::SCALE_X, 5.0, 1.0, 100);
@@ -107,16 +111,11 @@ void Rooms::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystick
 	} else {
 		esc_prepressed = false;
 	}
-	// if (pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) {
-	// 	camera->zoomOut(1.1);
-	// }
+	// take damage if in this region of the map
+	if (player->position.x > 300 && player->position.x < 600) {
+		health->scaleHealth(-0.001);
+	}
 
-	// if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
-	// 	camera->zoomIn(1.1);
-	// }
-	// if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
-	// 	camera->zoomOut(1.1);
-	// }
     TweenJuggler::getInstance().nextFrame();
 	Game::update(pressedKeys, joystickState, pressedButtons);
 }
