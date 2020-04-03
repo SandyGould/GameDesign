@@ -8,6 +8,8 @@
 #include "../engine/things/Coin.h"
 #include "../engine/things/Player.h"
 #include "../engine/things/Shield.h"
+#include "../engine/things/Mage.h"
+#include "../engine/things/MageAttack.h"
 #include "../engine/QuestManager.h"
 #include "../engine/events/PickedUpEvent.h"
 
@@ -21,6 +23,8 @@ private:
     CollisionSystem* collisionSystem;
 	Player* player;
 	Shield* shield;
+	Mage* mage;
+	MageAttack* mageAttack;
 
 	DisplayObject* allSprites;
 
