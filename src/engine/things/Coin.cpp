@@ -4,13 +4,14 @@
 
 int coin_id_counter = 1;
 
-Coin::Coin() : Sprite("coin_"+std::to_string(coin_id_counter) , "./resources/solarSystem/Planet.png"){
+Coin::Coin() : Sprite("coin_"+std::to_string(coin_id_counter) , "./resources/assets/Display_Objects/Planet.png"){
     ++coin_id_counter;
+    type = "coin";
     hasCollision = true;
 }
 
-void Coin::update(std::set<SDL_Scancode> pressedKeys){
-    Sprite::update(pressedKeys);
+void Coin::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
+    Sprite::update(pressedKeys, joystickState, pressedButtons);
 }
 
 void Coin::draw(AffineTransform& at){

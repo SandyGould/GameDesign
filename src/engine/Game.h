@@ -1,12 +1,24 @@
-#ifndef GAME_H
-#define GAME_H
+#pragma once
 
-#include "DisplayObjectContainer.h"
+#include "DisplayObject.h"
+#include <SDL2/SDL_ttf.h>
 
 #include <vector>
+#include <unordered_set>
 #include <set>
+#include <map>
 
-class Game : public DisplayObjectContainer {
+enum class MouseState {
+	NONE,
+	CLICKING,
+	//START,
+	//DRAGGING,
+	DRAGGING,
+	//END,
+};
+
+
+class Game : public DisplayObject {
 public:
 	/* Singleton pattern */
 	static Game* instance;
@@ -16,23 +28,38 @@ public:
 
 	SDL_Window* window;
 	static SDL_Renderer* renderer;
+	static TTF_Font* font;
+	SDL_GameController* gameController = NULL;
 
 	//Global frame counter
 	static unsigned int frameCounter;
 
 	Game(int windowWidth, int windowHeight);
-	virtual ~Game();
+	~Game() override;
 	void start();
 
-	void update(std::set<SDL_Scancode> pressedKeys) override;
+	virtual void clearRenderers();
+	virtual void presentRenderers();
+
+	void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) override;
 	void draw(AffineTransform& at) override;
 
+	// This happens after drawing but before rendering
+	virtual void draw_post() {};
+
 private:
+	std::unordered_set<SDL_Scancode> pressedKeys;
 
 	void initSDL();
 	void quitSDL();
-	std::set<SDL_Scancode> pressedKeys;
-	
-};
 
-#endif
+	const int JOYSTICK_DEAD_ZONE = 8000; //We can change this to have a better feel later!
+	jState joystickState = {0, 0};
+
+	std::unordered_set<Uint8> pressedButtons;
+	std::map<std::string, int> joystickMovement;
+
+	MouseState mouseState;
+
+	SDL_Keymod modifiers;
+};

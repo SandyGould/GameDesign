@@ -12,9 +12,18 @@ class EventListener;
 class Event;
 
 
+// Singleton design pattern
+// Hopefully I won't regret this later...
+// https://stackoverflow.com/a/1008289/5661593
 class EventDispatcher {
 public:
-	EventDispatcher();
+    static EventDispatcher& getInstance() {
+        static EventDispatcher instance;
+        return instance;
+    }
+
+    EventDispatcher(EventDispatcher const& other) = delete;
+    void operator=(EventDispatcher const& other) = delete;
 
 	void addEventListener(EventListener* l, std::string eventType);
 	void removeEventListener(EventListener* l, std::string eventType);
@@ -22,7 +31,9 @@ public:
 	void dispatchEvent(Event *e);
 
 private:
-	/* List of listeners */
+    EventDispatcher();
+
+    /* List of listeners */
 	std::unordered_map<std::string, std::vector<EventListener*>> listeners;
 };
 

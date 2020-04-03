@@ -67,17 +67,17 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -135,20 +135,26 @@
   <ItemGroup>
     <ClCompile Include="src\engine\AffineTransform.cpp" />
     <ClCompile Include="src\engine\AnimatedSprite.cpp" />
+    <ClCompile Include="src\engine\Camera.cpp" />
     <ClCompile Include="src\engine\DisplayObject.cpp" />
     <ClCompile Include="src\engine\DisplayObjectContainer.cpp" />
     <ClCompile Include="src\engine\events\Collision.cpp" />
+    <ClCompile Include="src\engine\events\DragEvent.cpp" />
     <ClCompile Include="src\engine\events\Event.cpp" />
     <ClCompile Include="src\engine\events\EventDispatcher.cpp" />
+    <ClCompile Include="src\engine\events\MouseDownEvent.cpp" />
+    <ClCompile Include="src\engine\events\MouseUpEvent.cpp" />
     <ClCompile Include="src\engine\events\QuestComplete.cpp" />
     <ClCompile Include="src\engine\Game.cpp" />
     <ClCompile Include="src\engine\QuestManager.cpp" />
     <ClCompile Include="src\engine\Scene.cpp" />
     <ClCompile Include="src\engine\Sprite.cpp" />
     <ClCompile Include="src\engine\things\Coin.cpp" />
+    <ClCompile Include="src\engine\things\Crosshair.cpp" />
     <ClCompile Include="src\engine\things\Player.cpp" />
+    <ClCompile Include="src\main\Editor.cpp" />
     <ClCompile Include="src\main\main.cpp" />
-    <ClCompile Include="src\main\MyGame.cpp" />
+    <ClCompile Include="src\main\Rebound.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\AffineTransform.h" />
@@ -157,20 +163,24 @@
     <ClInclude Include="src\engine\DisplayObject.h" />
     <ClInclude Include="src\engine\DisplayObjectContainer.h" />
     <ClInclude Include="src\engine\events\Collision.h" />
+    <ClInclude Include="src\engine\events\DragEvent.h" />
     <ClInclude Include="src\engine\events\Event.h" />
     <ClInclude Include="src\engine\events\EventDispatcher.h" />
     <ClInclude Include="src\engine\events\EventListener.h" />
+    <ClInclude Include="src\engine\events\MouseDownEvent.h" />
+    <ClInclude Include="src\engine\events\MouseUpEvent.h" />
     <ClInclude Include="src\engine\events\PickedUpEvent.h" />
     <ClInclude Include="src\engine\events\QuestComplete.h" />
     <ClInclude Include="src\engine\Game.h" />
     <ClInclude Include="src\engine\json.hpp" />
     <ClInclude Include="src\engine\QuestManager.h" />
     <ClInclude Include="src\engine\Scene.h" />
-    <ClInclude Include="src\engine\Sound.h" />
     <ClInclude Include="src\engine\Sprite.h" />
     <ClInclude Include="src\engine\things\Coin.h" />
+    <ClInclude Include="src\engine\things\Crosshair.h" />
     <ClInclude Include="src\engine\things\Player.h" />
-    <ClInclude Include="src\main\MyGame.h" />
+    <ClInclude Include="src\main\Editor.h" />
+    <ClInclude Include="src\main\Rebound.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

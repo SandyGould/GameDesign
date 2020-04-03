@@ -4,7 +4,8 @@
 
 using namespace std;
 
-Player::Player() : Sprite("player", "./resources/character/Idle_1.png") {
+Player::Player() : AnimatedSprite("player", "./resources/assets/Spritesheets/Girl/Girl.png", "./resources/assets/Spritesheets/Girl.xml"){//Sprite("player", "./resources/character/Idle_1.png") {
+    type = "player";
     hasCollision = true;
     health = 100;
     stamina = 1000;
@@ -26,10 +27,12 @@ void Player::changeStamina(int amount) {
     }
 }
 
-void Player::update(std::set<SDL_Scancode> pressedKeys) {
-    Sprite::update(pressedKeys);
+
+
+void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+    AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
 }
 
 void Player::draw(AffineTransform& at) {
-    Sprite::draw(at);
+    AnimatedSprite::draw(at);
 }

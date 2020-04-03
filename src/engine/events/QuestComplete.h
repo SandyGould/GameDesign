@@ -8,7 +8,7 @@
 
 class QuestComplete : public Event{
 public:
-    QuestComplete(std::string type, EventDispatcher* source, std::string quest_id);
+    QuestComplete(std::string type, std::string quest_id);
 
     std::string getQuestID();
 

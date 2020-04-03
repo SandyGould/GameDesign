@@ -8,7 +8,7 @@
 
 class Collision : public Event{
 public:
-    Collision(std::string type, EventDispatcher* source, std::string DO_id);
+    Collision(std::string type, std::string DO_id);
 
     std::string getDOID();
 
