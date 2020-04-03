@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+constexpr static const auto PI = 3.141592653589793238462643383279502884;
+
 // Linear function
 double TweenTransitions::applyTransition(double percentDone, Transition transition){
 	return percentDone;
@@ -13,7 +15,7 @@ double TweenTransitions::easeIn(double percentDone, Transition transition){
 			return percentDone;
 			break;
 		case SINE:
-			return sin(M_PI/2 * percentDone);
+			return sin(PI/2 * percentDone);
 			break;
 		case EXPO:
 			break;
@@ -30,7 +32,7 @@ double TweenTransitions::easeOut(double percentDone, Transition transition){
 			return percentDone;
 			break;
 		case SINE:
-			return sin((M_PI/2 * percentDone) + 3*M_PI/2) + 1;
+			return sin((PI/2 * percentDone) + 3*PI/2) + 1;
 			break;
 		case EXPO:
 			break;
