@@ -17,6 +17,7 @@ class Tween {
         Tween(std::string id, DisplayObject* object, TweenTransitions transition);
         ~Tween();
         void animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time);
+        void animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time, std::string easeType);
         void update(); //invoked once per frame by the TweenJuggler. Updates this tween / DisplayObject
         void setValue(TweenableParams param, double value);
         bool isComplete();

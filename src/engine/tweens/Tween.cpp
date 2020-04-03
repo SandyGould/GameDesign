@@ -47,6 +47,11 @@ void Tween::animate(TweenableParams fieldToAnimate, double startVal, double endV
     this->currTweening.push_back(temp);
 }
 
+void Tween::animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time, std::string easeType) {
+    TweenParam* temp = new TweenParam(fieldToAnimate, startVal, endVal, time, easeType);
+    this->currTweening.push_back(temp);
+}
+
 void Tween::update() {
     std::list<TweenParam*>::iterator it;
     for (it = this->currTweening.begin(); it != this->currTweening.end(); ) {
@@ -60,7 +65,15 @@ void Tween::update() {
         if (it != this->currTweening.end()) {
             // percent done!
             double percTime = this->timeElapsed / (*it)->getTweenTime();
-            this->amountChange = transition->easeInOut(percTime, transition->SINE);
+
+            if ((*it)->getEaseType() == TweenParam::EASE_IN)
+                this->amountChange = transition->easeIn(percTime, transition->SINE);
+            else if ((*it)->getEaseType() == TweenParam::EASE_OUT)
+                this->amountChange = transition->easeOut(percTime, transition->SINE);
+            else if ((*it)->getEaseType() == TweenParam::EASE_IN_OUT)
+                this->amountChange = transition->easeInOut(percTime, transition->SINE);
+            else if ((*it)->getEaseType() == TweenParam::EASE_OUT_IN)
+                this->amountChange = transition->easeOutIn(percTime, transition->SINE);
 
             // update current value of the TweenParam
             // We don't need setValue() in here bc we are already where we want to be

@@ -6,6 +6,16 @@ TweenParam::TweenParam(TweenableParams paramToTween, double startVal, double end
     this->endVal = endVal;
     this->time = time;
     this->currVal = startVal;
+    this->easeType = TweenParam::EASE_IN_OUT;
+}
+
+TweenParam::TweenParam(TweenableParams paramToTween, double startVal, double endVal, double time, std::string easeType) {
+    this->paramToTween = paramToTween;
+    this->startVal = startVal;
+    this->endVal = endVal;
+    this->time = time;
+    this->currVal = startVal;
+    this->easeType = easeType;
 }
 
 TweenParam::~TweenParam() { }
@@ -28,6 +38,10 @@ double TweenParam::getTweenTime() {
 
 double TweenParam::getCurrVal() {
     return this->currVal;
+}
+
+std::string TweenParam::getEaseType(){
+    return this->easeType;
 }
 
 void TweenParam::setCurrVal(double value) {

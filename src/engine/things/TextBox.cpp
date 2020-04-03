@@ -3,6 +3,7 @@
 #include "../events/TweenEvent.h"
 #include "../events/KeyDownEvent.h"
 #include "../tweens/Tween.h"
+#include "../tweens/TweenParam.h"
 #include "../tweens/TweenJuggler.h"
 
 #include <iostream>
@@ -65,7 +66,6 @@ bool TextBox::finishedPanels(){
 }
 
 void TextBox::addTextPanel(string text){
-	cout << "I'm adding " << text << "to the panel" << endl;
 	textpanels.push_back(text);
 }
 
@@ -86,9 +86,9 @@ void TextBox::handleEvent(Event* e){
 		if(((TweenEvent*) e)->getTween()->getID() == "player_tween"){
 			EventDispatcher::getInstance().removeEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
 			Tween * start_text_tween = new Tween("start_text_tween", this);
-			start_text_tween->animate(TweenableParams::ALPHA, 0, 255, 25);
-			start_text_tween->animate(TweenableParams::SCALE_Y, 0, 1.0, 25);
-			start_text_tween->animate(TweenableParams::SCALE_X, 0, 1.0, 25);
+			start_text_tween->animate(TweenableParams::ALPHA, 0, 255, 10, TweenParam::EASE_IN);
+			start_text_tween->animate(TweenableParams::SCALE_Y, 0, 1.0, 10, TweenParam::EASE_IN);
+			start_text_tween->animate(TweenableParams::SCALE_X, 0, 1.0, 10, TweenParam::EASE_IN);
 			TweenJuggler::getInstance().add(start_text_tween);
 			EventDispatcher::getInstance().addEventListener(this, KeyDownEvent::KEY_DOWN_EVENT);
 		}

@@ -2,6 +2,7 @@
 
 #include "../../engine/events/KeyDownEvent.h"
 #include "../../engine/events/TweenEvent.h"
+#include "../../engine/tweens/TweenParam.h"
 #include "../../engine/tweens/TweenJuggler.h"
 
 #include <algorithm>
