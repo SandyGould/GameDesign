@@ -15,6 +15,7 @@
 // #include "../engine/Sound.h"
 #include "../tweens/Tween.h"
 #include "../tweens/TweenJuggler.h"
+#include "../engine/HealthBar.h"
 
 
 class Rooms : public Game {
@@ -35,6 +36,8 @@ private:
 
     TextBox* start_text_box;
 
+    HealthBar* health;
+    
     Tween* player_tween;
     Tween* start_text_tween;
 };

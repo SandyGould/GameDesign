@@ -40,6 +40,10 @@ Rooms::Rooms() : Game(600, 500) {
 	start_text_box->alpha = 0;
 	instance->addChild(start_text_box);
 
+	health = new HealthBar("health", 255, 0, 0);
+	health->position = {25,25};
+	instance->addChild(health);
+
 	player = new AnimatedSprite("girl", "./resources/assets/Spritesheets/Girl/Girl.png", "./resources/assets/Spritesheets/Girl/Girl.xml");
 	player->position = {200, 250};
 	player->width = player->height = 50;
@@ -77,19 +81,11 @@ void Rooms::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystick
 	}
 	camera->follow(player->position.x, player->position.y);
 
-	// if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
-	// 	camera->zoomIn(1.1);
-	// }
-	// if (pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) {
-	// 	camera->zoomOut(1.1);
-	// }
+	// take damage if in this region of the map
+	if (player->position.x > 300 && player->position.x < 600) {
+		health->scaleHealth(-0.001);
+	}
 
-	// if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
-	// 	camera->zoomIn(1.1);
-	// }
-	// if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
-	// 	camera->zoomOut(1.1);
-	// }
     TweenJuggler::getInstance().nextFrame();
 	Game::update(pressedKeys, joystickState, pressedButtons);
 }
