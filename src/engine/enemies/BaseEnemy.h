@@ -6,17 +6,19 @@
 #include "../events/EventDispatcher.h"
 #include "../things/Player.h"
 
-class BaseEnemy : public AnimatedSprite, public EventListener, public EventDispatcher{
+class BaseEnemy : public AnimatedSprite{
 
 public:
 
-    BaseEnemy();
+    BaseEnemy(std::string id);
 
-    virtual void update(std::set<SDL_Scancode> pressedKeys);
-    virtual void draw(AffineTransform& at);
-    virtual void onCollision(DisplayObject* other);
+    virtual void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
+    void draw(AffineTransform& at) override;
+//    void onCollision(DisplayObject* other) override;
 
+    //Knowing about the player is nice :)
     Player* player;
+
     //Info about the Enemies' state
     int health = 100; 
     int state = 0;

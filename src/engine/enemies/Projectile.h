@@ -10,7 +10,7 @@
 class Projectile : public Sprite{
 
     public:
-
+    Projectile(std::string id, std::string filepath);
     double velocity;
     double direction; //absolute with respect to the 
     void fire(); //Every projectile will need to fire at some point

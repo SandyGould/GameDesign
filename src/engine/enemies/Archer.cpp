@@ -1,6 +1,7 @@
 #include "Archer.h"
 #include <cstdlib>
 #include <stdlib.h> 
+#include <cmath>
 
 /*
 States:
@@ -21,7 +22,7 @@ Ded 7
 //set all the shit for size and stuff.
 
 
-void Archer::update(std::set<SDL_Scancode> pressedKeys){
+void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
     if(this->health ==0){
         this->clean = true;
     }
@@ -64,14 +65,14 @@ void Archer::update(std::set<SDL_Scancode> pressedKeys){
                 target = {x,y};
                 a = this->hitbox_ul;
                 b = this->hitbox_ul;
-                SDL_Point center = {(int)(a.x + b.x)/2, (int)(a.y+b.y)/2}
+                SDL_Point center = {(int)(a.x + b.x)/2, (int)(a.y+b.y)/2};
                 goalAngle = atan2(center.y - target.y, center.x-target.x);
             }
-                if((this->goalAngle> this->rotation + PI) || (this->goalAngle < this-> - PI)){
+                if((this->goalAngle> this->rotation + M_PI) || (this->goalAngle < this->rotation - M_PI)){
                     this->rotation = this->rotation + (0.75 * abs(this->goalAngle - this->rotation)); //if we're within rot+ pi, rotate +
                 }
                 else{
-                    this->rotation = this->rotation - (0.75 * abs(this->goalAngle - this->rotation)); //if we're not within rot + pi, rotate by -
+                    this->rotation = this->rotation - (0.075 * abs(this->goalAngle - this->rotation)); //if we're not within rot + pi, rotate by -
                 }
             this->actionFrames--;
         }
@@ -101,6 +102,8 @@ void Archer::update(std::set<SDL_Scancode> pressedKeys){
         else{
             this->coolDownFrames--; //Wait longer
         }
+
+        BaseEnemy::update(pressedKeys, joystickState, pressedButtons);
     }
 }
 
@@ -108,10 +111,10 @@ int Archer::generateCoolDown(){
     return (rand() % 120) + 60;
 }
 
-void Archer::onCollision(DisplayObject* other){
-
-}
+// void Archer::onCollision(DisplayObject* other){
+//     BaseEnemy::
+// }
 
 void Archer::draw(AffineTransform& at){
-    AnimatedSprite::draw(at);
+    BaseEnemy::draw(at);
 }
