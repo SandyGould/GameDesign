@@ -41,8 +41,6 @@ CollisionDemo::~CollisionDemo() {
 }
 
 void CollisionDemo::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
-    this->collisionSystem->update();
-
     if (pressedKeys.find(SDL_SCANCODE_I) != pressedKeys.end()) {
         this->moon->position.y -= 5;
     }
@@ -111,6 +109,8 @@ void CollisionDemo::update(std::unordered_set<SDL_Scancode> pressedKeys, jState 
         this->coin->scaleY += 0.1;
     }
 
+    // Check for collisions after we finalize ideal positions
+    this->collisionSystem->update();
     Game::update(pressedKeys, joystickState, pressedButtons);
 }
 
