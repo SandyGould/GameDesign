@@ -55,17 +55,29 @@ void Archer::update(std::set<SDL_Scancode> pressedKeys){
             this->actionFrames=6; //SET THIS TO THE NUMBER OF FRAMES FOR DRAWING BACK ANIMATION(if we get one)
         }
         else{
-            //if actionFrames%10 ==0;
-                //Point player = where the player is.
-                //Diff = archer actual loc - player loc (for x and y)
-                //goalAngle = tan(y/x)
-            
-            //rotate 7.5% of the way to the correct angle.
+            if(actionFrames%10 == 0){
+                this->player->getHitbox();
+                SDL_Point a = player->hitbox_ul;
+                SDL_Point b = player->hitbox_lr;
+                int x = (int)(a.x + b.x)/2; //finding the median of the x values.
+                int y = (int)(a.y + b.y)/2; //Finding the median of the y values.
+                target = {x,y};
+                a = this->hitbox_ul;
+                b = this->hitbox_ul;
+                SDL_Point center = {(int)(a.x + b.x)/2, (int)(a.y+b.y)/2}
+                goalAngle = atan2(center.y - target.y, center.x-target.x);
+            }
+                if((this->goalAngle> this->rotation + PI) || (this->goalAngle < this-> - PI)){
+                    this->rotation = this->rotation + (0.75 * abs(this->goalAngle - this->rotation)); //if we're within rot+ pi, rotate +
+                }
+                else{
+                    this->rotation = this->rotation - (0.75 * abs(this->goalAngle - this->rotation)); //if we're not within rot + pi, rotate by -
+                }
             this->actionFrames--;
         }
     }
     else if(this->state == 4){//draw back arrow
-        arrow.drawBack();
+        arrow->drawBack();
         if(this->actionFrames ==0){
             this->state =5;
         }
@@ -76,7 +88,7 @@ void Archer::update(std::set<SDL_Scancode> pressedKeys){
     else if(this->state == 5){ //Fire the arrow
        //Find the actual location of the arrow. Set that for the arrow.
        //Drop the arrow from our DOT.
-       arrow.fire();
+       arrow->fire();
     }
     else if(this->state == 6){ //cooldown
         if(coolDownFrames == -1){ //If the cooldown has expired we'll set it to -1
@@ -96,12 +108,10 @@ int Archer::generateCoolDown(){
     return (rand() % 120) + 60;
 }
 
-//attack
+void Archer::onCollision(DisplayObject* other){
 
-//onHit
+}
 
-//draw
-
-//seters
-
-//do things*/
+void Archer::draw(AffineTransform& at){
+    AnimatedSprite::draw(at);
+}

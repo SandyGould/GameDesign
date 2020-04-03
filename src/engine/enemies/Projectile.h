@@ -15,4 +15,6 @@ class Projectile : public Sprite{
     double direction; //absolute with respect to the 
     void fire(); //Every projectile will need to fire at some point
 
-}
+};
+
+#endif
