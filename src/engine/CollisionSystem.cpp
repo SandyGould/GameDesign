@@ -153,14 +153,6 @@ bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1
         }
     }
 
-    if (o3 == Orientation::Colinear && onSegment(p2, p1, q2)) {
-        return true;
-    }
-
-    if (o4 == Orientation::Colinear && onSegment(p2, q1, q2)) {
-        return true;
-    }
-
     return false;
 }
 
