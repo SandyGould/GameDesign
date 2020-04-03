@@ -1,9 +1,11 @@
 #ifndef BASEENEMEY_H
 #define BASEENEMY_H
 
-#include "../Sprite.h"
+#include "../AnimatedSprite.h"
+#include "../events/EventListener.h"
+#include "../events/EventDispatcher.h"
 
-class BaseEnemy : public Sprite, public EventListener, public EventDispatcher{
+class BaseEnemy : public AnimatedSprite, public EventListener, public EventDispatcher{
 
 public:
 
@@ -11,11 +13,13 @@ public:
 
     virtual void update(std::set<SDL_Scancode> pressedKeys);
     virtual void draw(AffineTransform& at);
-
-private:
-
+    
+    //Info about the Enemies' state
     int health; 
     int state;
+
+    //Should we clean this?
+    bool clean;
 
 };
 

@@ -1,4 +1,4 @@
-#ifndef SHIELD_H
+/*#ifndef SHIELD_H
 #define SHIELD_H
 
 #include "../Sprite.h"
@@ -18,3 +18,4 @@ private:
 };
 
 #endif
+*/

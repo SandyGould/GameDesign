@@ -1,4 +1,4 @@
-#include "Enemy.h"
+/*#include "Enemy.h"
 #include "DisplayObjectContainer.h"
 #include <cstdlib>
 
@@ -195,3 +195,4 @@ bool Enemy::isTargetReached(){
 
 
 
+*/

@@ -1,4 +1,4 @@
-#include "Shield.h"
+/*#include "Shield.h"
 #include "../events/EventDispatcher.h"
 
 Shield::Shield() : Sprite("shield", "./resources/character/Idle_1.png") {
@@ -12,3 +12,4 @@ void Shield::update(std::set<SDL_Scancode> pressedKeys) {
 void Shield::draw(AffineTransform& at) {
     Sprite::draw(at);
 }
+*/

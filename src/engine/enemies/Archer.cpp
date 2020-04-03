@@ -1,9 +1,8 @@
 #include "Archer.h"
-#include "DisplayObjectContainer.h"
 #include <cstdlib>
 
 /*
-* 
+/*
 States:
 Init 0 
 Wait for player 1
@@ -14,12 +13,15 @@ Shoot arrow 5
 Cool down 6
 Ded 7
 */
-
+/*
 // Init
+Archer::Archer(){
+    //More on this later.
+}
 //set all the shit for size and stuff.
 
-//update
-{
+
+void Archer::update(std::set<SDL_Scancode> pressedKeys){
     if(this->health ==0){
         this->clean = true
     }
@@ -71,4 +73,4 @@ Ded 7
 
 //seters
 
-//do things
+//do things*/

@@ -3,7 +3,7 @@
 
 #include "BaseEnemy.h"
 
-class Archer : BaseEnemy {
+class Archer : public BaseEnemy {
 
 public:
 
