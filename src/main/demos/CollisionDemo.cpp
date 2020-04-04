@@ -2,8 +2,6 @@
 
 #include "../../engine/events/DisplayTreeChangeEvent.h"
 
-#include <iostream>
-
 using namespace std;
 
 CollisionDemo::CollisionDemo() : Game(1200, 800) {
