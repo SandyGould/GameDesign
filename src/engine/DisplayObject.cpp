@@ -324,27 +324,23 @@ void DisplayObject::getGlobalTransform(AffineTransform& at)
 	this->applyTransformations(at);
 }
 
-void DisplayObject::getHitbox() {
+Hitbox DisplayObject::getHitbox() {
     AffineTransform at;
 	this->getGlobalTransform(at);
-	hitbox_ul = at.transformPoint(0, 0);
-	hitbox_ur = at.transformPoint(width, 0);
-	hitbox_lr = at.transformPoint(width, height);
-	hitbox_ll = at.transformPoint(0, height);
-    // hitbox_ul = {dstrect.x, dstrect.y};
-    // hitbox_ur = {dstrect.x + dstrect.w, dstrect.y};
-    // hitbox_ll = {dstrect.x, dstrect.y + dstrect.h};
-    // hitbox_lr = {dstrect.x + dstrect.w, dstrect.y + dstrect.h};
+	return {
+        at.transformPoint(0, 0),
+        at.transformPoint(width, 0),
+        at.transformPoint(0, height),
+        at.transformPoint(width, height),
+    };
 }
 
 void DisplayObject::drawHitbox() {
-    this->getHitbox();
-    SDL_RenderDrawLine(Game::renderer, hitbox_ul.x, hitbox_ul.y, hitbox_ur.x, hitbox_ur.y);
-    SDL_RenderDrawLine(Game::renderer, hitbox_ul.x, hitbox_ul.y, hitbox_ll.x, hitbox_ll.y);
-    SDL_RenderDrawLine(Game::renderer, hitbox_ll.x, hitbox_ll.y, hitbox_lr.x, hitbox_lr.y);
-    SDL_RenderDrawLine(Game::renderer, hitbox_ur.x, hitbox_ur.y, hitbox_lr.x, hitbox_lr.y);
-
-    // SDL_RenderDrawRect(Game::renderer, &dstrect);
+    Hitbox hitbox = this->getHitbox();
+    SDL_RenderDrawLine(Game::renderer, hitbox.ul.x, hitbox.ul.y, hitbox.ur.x, hitbox.ur.y);
+    SDL_RenderDrawLine(Game::renderer, hitbox.ul.x, hitbox.ul.y, hitbox.ll.x, hitbox.ll.y);
+    SDL_RenderDrawLine(Game::renderer, hitbox.ll.x, hitbox.ll.y, hitbox.lr.x, hitbox.lr.y);
+    SDL_RenderDrawLine(Game::renderer, hitbox.ur.x, hitbox.ur.y, hitbox.lr.x, hitbox.lr.y);
 }
 
 double DisplayObject::distance(SDL_Point& p1, SDL_Point& p2) {
