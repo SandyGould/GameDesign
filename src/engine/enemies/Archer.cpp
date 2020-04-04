@@ -16,10 +16,9 @@ Ded 7
 */
 
 // Init
-/*Archer::Archer(){
+Archer::Archer(): BaseEnemy("Archer", "../../../resources/assets/Display_Objects/archer.png"){
     //More on this later.
-}*/
-//set all the shit for size and stuff.
+}
 
 
 void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
@@ -87,9 +86,10 @@ void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
         }
     }
     else if(this->state == 5){ //Fire the arrow
-       //Find the actual location of the arrow. Set that for the arrow.
-       //Drop the arrow from our DOT.
-       arrow->fire();
+        SDL_Point position = arrow->hitbox_ul;
+        arrow->position = position;
+        //this->removeChild(arrow); //arrow is it's own man now.
+        arrow->fire();
     }
     else if(this->state == 6){ //cooldown
         if(coolDownFrames == -1){ //If the cooldown has expired we'll set it to -1
@@ -110,10 +110,6 @@ void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
 int Archer::generateCoolDown(){
     return (rand() % 120) + 60;
 }
-
-// void Archer::onCollision(DisplayObject* other){
-//     BaseEnemy::
-// }
 
 void Archer::draw(AffineTransform& at){
     BaseEnemy::draw(at);

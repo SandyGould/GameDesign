@@ -13,6 +13,27 @@ Rebound::Rebound() : Game(1200, 800) {
 
     this->collisionSystem = new CollisionSystem();
     EventDispatcher::getInstance().addEventListener(this->collisionSystem, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
+
+	allSprites = new DisplayObject("allSprites");
+
+	// move that point to the middle
+	allSprites->position = {200, 100};
+	instance->addChild(allSprites);
+
+	player = new Player();
+	player->position = {0, 0};
+	player->width = player->height = 100;
+	player->pivot = {50, 50};
+	player->play("Idle");
+	allSprites->addChild(player);
+
+
+	mage = new Archer();
+	mage->position = {400, 400};
+	mage->height = 80;
+	mage->width = 70;
+
+	allSprites->addChild(mage);
 }
 
 Rebound::~Rebound() {
