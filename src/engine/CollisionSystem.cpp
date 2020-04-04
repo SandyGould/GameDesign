@@ -17,8 +17,7 @@ void CollisionSystem::update() {
             int yD1 = object1->position.y - obj1Prev.y;
             int xD2 = object2->position.x - obj2Prev.x;
             int yD2 = object2->position.y - obj2Prev.y;
-            cout << xD1 << ", " << yD1 << " | " << xD2 << ", " << yD2 << endl;
-            this->resolveCollision(object1, object2, xD1, yD1, xD2, yD2);
+            resolveCollision(object1, object2, xD1, yD1, xD2, yD2);
         }
 
         prevPositions.at(object1) = object1->position;
@@ -216,9 +215,9 @@ void CollisionSystem::resolveCollision(DisplayObject* d, DisplayObject* other,
     for (int i = 0; i < m; ++i) {
         // Halve deltas to find the midpoint, rounding away from 0
         xDelta1 = lround(xDelta1 / 2.0);
-        yDelta1 = lround(xDelta1 / 2.0);
-        xDelta2 = lround(xDelta1 / 2.0);
-        yDelta2 = lround(xDelta1 / 2.0);
+        yDelta1 = lround(yDelta1 / 2.0);
+        xDelta2 = lround(xDelta2 / 2.0);
+        yDelta2 = lround(yDelta2 / 2.0);
 
         // If we are colliding and we weren't colliding the last search,
         // move halfway back (using the deltas above).
