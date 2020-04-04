@@ -119,7 +119,6 @@ Orientation CollisionSystem::getOrientation(SDL_Point p1, SDL_Point p2, SDL_Poin
     }
 }
 
-
 // Loosely based off of https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
 bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2) {
     auto o1 = getOrientation(p1, p2, q1);
@@ -202,61 +201,52 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
 //Resolves the collision that occurred between d and other
 //xDelta1 and yDelta1 are the amount d moved before causing the collision.
 //xDelta2 and yDelta2 are the amount other moved before causing the collision.
-void CollisionSystem::resolveCollision(DisplayObject* d, DisplayObject* other, int xDelta1, int yDelta1, int xDelta2, int yDelta2) {
-    int maxD = max({abs(xDelta1), abs(yDelta1), abs(xDelta2), abs(yDelta2)});
+void CollisionSystem::resolveCollision(DisplayObject* d, DisplayObject* other,
+                                       int xDelta1, int yDelta1, int xDelta2, int yDelta2) {
+    unsigned int maxD = max({abs(xDelta1), abs(yDelta1), abs(xDelta2), abs(yDelta2)});
     int m = 1;
-    cout << maxD << endl;
-    while (maxD >>= 1){
+
+    // Binary search collision resolution
+    // Figure out the number of times we need to adjust the deltas by
+    while (maxD >>= 1u) {
         ++m;
     }
-    cout << m << endl;
-    bool collideLast = false;
-    for (int i = 0; i < m; ++i){
-        if (xDelta1 >= 0){
-            ++xDelta1;
-        } else{
-            --xDelta1;
-        }
-        if (yDelta1 >= 0){
-            ++yDelta1;
-        } else{
-            --yDelta1;
-        }
-        if (xDelta2 >= 0){
-            ++xDelta2;
-        } else{
-            --xDelta2;
-        }
-        if (yDelta2 >= 0){
-            ++yDelta2;
-        } else{
-            --yDelta2;
-        }
 
-        xDelta1 /= 2;
-        yDelta1 /= 2;
-        xDelta2 /= 2;
-        yDelta2 /= 2;
-        if (collidesWith(d, other) && !collideLast){
+    bool collideLast = false;
+    for (int i = 0; i < m; ++i) {
+        // Halve deltas to find the midpoint, rounding away from 0
+        xDelta1 = lround(xDelta1 / 2.0);
+        yDelta1 = lround(xDelta1 / 2.0);
+        xDelta2 = lround(xDelta1 / 2.0);
+        yDelta2 = lround(xDelta1 / 2.0);
+
+        // If we are colliding and we weren't colliding the last search,
+        // move halfway back (using the deltas above).
+        // Ditto if we aren't colliding, but were before.
+        if (collidesWith(d, other) && !collideLast) {
             xDelta1 = -xDelta1;
             yDelta1 = -yDelta1;
             xDelta2 = -xDelta2;
             yDelta2 = -yDelta2;
             collideLast = true;
-        } else if (!collidesWith(d, other) && collideLast){
+        } else if (!collidesWith(d, other) && collideLast) {
             xDelta1 = -xDelta1;
             yDelta1 = -yDelta1;
             xDelta2 = -xDelta2;
             yDelta2 = -yDelta2;
             collideLast = false;
         }
+
+        // Set new positions
         d->position.x += xDelta1;
         d->position.y += yDelta1;
         other->position.x += xDelta2;
         other->position.y += yDelta2;
     }
-    if (collidesWith(d, other)){
-        if (!collideLast){
+
+    // If we're still colliding after the binary search, fix that.
+    if (collidesWith(d, other)) {
+        if (!collideLast) {
             xDelta1 = -xDelta1;
             yDelta1 = -yDelta1;
             xDelta2 = -xDelta2;

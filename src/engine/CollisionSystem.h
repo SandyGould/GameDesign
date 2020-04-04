@@ -40,7 +40,7 @@ public:
     //Resolves the collision that occurred between d and other
     //xDelta1 and yDelta1 are the amount d moved before causing the collision.
     //xDelta2 and yDelta2 are the amount other moved before causing the collision.
-    void resolveCollision(DisplayObject* d, DisplayObject* other, int xDelta1, int yDelta1, int xDelta2, int yDelta2);
+    static void resolveCollision(DisplayObject* d, DisplayObject* other, int xDelta1, int yDelta1, int xDelta2, int yDelta2);
 
     static bool cornerIn(SDL_Point p1, SDL_Point q1, SDL_Point q2, SDL_Point q3, SDL_Point q4);
     static bool checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2);
