@@ -163,34 +163,28 @@ bool CollisionSystem::isInside(SDL_Point foreign, SDL_Point ul, SDL_Point ur, SD
     return area_t1_2x + area_t2_2x + area_t3_2x + area_t4_2x == 2 * area_rect;
 }
 
-//returns true iff obj1 hitbox and obj2 hitbox overlap. Uses the following method from DO:
-//	SDL_Point* DisplayObject::getGlobalHitbox();
+// Returns true iff obj1 hitbox and obj2 hitbox overlap
 bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
     obj1->getHitbox();
     obj2->getHitbox();
-    //do line segments overlap?
-    bool l_1 = isIntersecting(obj1->hitbox_ul, obj1->hitbox_ur, obj2->hitbox_ul, obj2->hitbox_ur);
-    bool l_2 = isIntersecting(obj1->hitbox_ul, obj1->hitbox_ur, obj2->hitbox_ul, obj2->hitbox_ll);
-    bool l_3 = isIntersecting(obj1->hitbox_ul, obj1->hitbox_ur, obj2->hitbox_ur, obj2->hitbox_lr);
-    bool l_4 = isIntersecting(obj1->hitbox_ul, obj1->hitbox_ur, obj2->hitbox_ll, obj2->hitbox_lr);
 
-    bool l_5 = isIntersecting(obj1->hitbox_ul, obj1->hitbox_ll, obj2->hitbox_ul, obj2->hitbox_ur);
-    bool l_6 = isIntersecting(obj1->hitbox_ul, obj1->hitbox_ll, obj2->hitbox_ul, obj2->hitbox_ll);
-    bool l_7 = isIntersecting(obj1->hitbox_ul, obj1->hitbox_ll, obj2->hitbox_ur, obj2->hitbox_lr);
-    bool l_8 = isIntersecting(obj1->hitbox_ul, obj1->hitbox_ll, obj2->hitbox_ll, obj2->hitbox_lr);
-
-    bool l_9 = isIntersecting(obj1->hitbox_ur, obj1->hitbox_lr, obj2->hitbox_ul, obj2->hitbox_ur);
-    bool l_10 = isIntersecting(obj1->hitbox_ur, obj1->hitbox_lr, obj2->hitbox_ul, obj2->hitbox_ll);
-    bool l_11 = isIntersecting(obj1->hitbox_ur, obj1->hitbox_lr, obj2->hitbox_ur, obj2->hitbox_lr);
-    bool l_12 = isIntersecting(obj1->hitbox_ur, obj1->hitbox_lr, obj2->hitbox_ll, obj2->hitbox_lr);
-
-    bool l_13 = isIntersecting(obj1->hitbox_ll, obj1->hitbox_lr, obj2->hitbox_ul, obj2->hitbox_ur);
-    bool l_14 = isIntersecting(obj1->hitbox_ll, obj1->hitbox_lr, obj2->hitbox_ul, obj2->hitbox_ll);
-    bool l_15 = isIntersecting(obj1->hitbox_ll, obj1->hitbox_lr, obj2->hitbox_ur, obj2->hitbox_lr);
-    bool l_16 = isIntersecting(obj1->hitbox_ll, obj1->hitbox_lr, obj2->hitbox_ll, obj2->hitbox_lr);
-
-    if (l_1 || l_2 || l_3 || l_4 || l_5 || l_6 || l_7 || l_8 || l_9 || l_10 || l_11 | l_12 || l_13 ||
-        l_14 || l_15 || l_16) {
+    // Do line segments intersect?
+    if (isIntersecting(obj1->hitbox_ul, obj1->hitbox_ur, obj2->hitbox_ul, obj2->hitbox_ur) ||
+        isIntersecting(obj1->hitbox_ul, obj1->hitbox_ur, obj2->hitbox_ul, obj2->hitbox_ll) ||
+        isIntersecting(obj1->hitbox_ul, obj1->hitbox_ur, obj2->hitbox_ur, obj2->hitbox_lr) ||
+        isIntersecting(obj1->hitbox_ul, obj1->hitbox_ur, obj2->hitbox_ll, obj2->hitbox_lr) ||
+        isIntersecting(obj1->hitbox_ul, obj1->hitbox_ll, obj2->hitbox_ul, obj2->hitbox_ur) ||
+        isIntersecting(obj1->hitbox_ul, obj1->hitbox_ll, obj2->hitbox_ul, obj2->hitbox_ll) ||
+        isIntersecting(obj1->hitbox_ul, obj1->hitbox_ll, obj2->hitbox_ur, obj2->hitbox_lr) ||
+        isIntersecting(obj1->hitbox_ul, obj1->hitbox_ll, obj2->hitbox_ll, obj2->hitbox_lr) ||
+        isIntersecting(obj1->hitbox_ur, obj1->hitbox_lr, obj2->hitbox_ul, obj2->hitbox_ur) ||
+        isIntersecting(obj1->hitbox_ur, obj1->hitbox_lr, obj2->hitbox_ul, obj2->hitbox_ll) ||
+        isIntersecting(obj1->hitbox_ur, obj1->hitbox_lr, obj2->hitbox_ur, obj2->hitbox_lr) ||
+        isIntersecting(obj1->hitbox_ur, obj1->hitbox_lr, obj2->hitbox_ll, obj2->hitbox_lr) ||
+        isIntersecting(obj1->hitbox_ll, obj1->hitbox_lr, obj2->hitbox_ul, obj2->hitbox_ur) ||
+        isIntersecting(obj1->hitbox_ll, obj1->hitbox_lr, obj2->hitbox_ul, obj2->hitbox_ll) ||
+        isIntersecting(obj1->hitbox_ll, obj1->hitbox_lr, obj2->hitbox_ur, obj2->hitbox_lr) ||
+        isIntersecting(obj1->hitbox_ll, obj1->hitbox_lr, obj2->hitbox_ll, obj2->hitbox_lr)) {
         return true;
     }
 
@@ -198,7 +192,6 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
     // We only need to check one point because we already checked intersections above
     const bool obj1InObj2 = isInside(obj1->hitbox_ul, obj2->hitbox_ul, obj2->hitbox_ur, obj2->hitbox_ll, obj2->hitbox_lr);
     const bool obj2InObj1 = isInside(obj2->hitbox_ul, obj1->hitbox_ul, obj1->hitbox_ur, obj1->hitbox_ll, obj1->hitbox_lr);
-
     return obj1InObj2 || obj2InObj1;
 }
 
