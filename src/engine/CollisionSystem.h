@@ -42,8 +42,8 @@ public:
     //xDelta2 and yDelta2 are the amount other moved before causing the collision.
     static void resolveCollision(DisplayObject* d, DisplayObject* other, int xDelta1, int yDelta1, int xDelta2, int yDelta2);
 
-    static bool cornerIn(SDL_Point p1, SDL_Point q1, SDL_Point q2, SDL_Point q3, SDL_Point q4);
-    static bool checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2);
+    static bool isInside(SDL_Point foreign, SDL_Point ul, SDL_Point ur, SDL_Point ll, SDL_Point lr);
+    static bool isIntersecting(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2);
     static Orientation getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3);
 
 private:
