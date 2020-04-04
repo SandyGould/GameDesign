@@ -9,10 +9,15 @@
 //to be checked (via a single call to watchForCollisions) below.
 void CollisionSystem::update() {
     for (auto& [object1, object2] : collisionPairs) {
-        if (collidesWith(object1, object2)) {
+        SDL_Point obj1Prev = prevPositions.at(object1);
+        SDL_Point obj2Prev = prevPositions.at(object2);
+        if (obj1Prev.x == object1->position.x && obj1Prev.y == object1->position.y &&
+            obj2Prev.x == object2->position.x && obj2Prev.y == object2->position.y) {
+            // Wait, they didn't move! They couldn't have collided, then.
+            continue;
+        }
 
-            SDL_Point obj1Prev = prevPositions.at(object1);
-            SDL_Point obj2Prev = prevPositions.at(object2);
+        if (collidesWith(object1, object2)) {
             int xD1 = object1->position.x - obj1Prev.x;
             int yD1 = object1->position.y - obj1Prev.y;
             int xD2 = object2->position.x - obj2Prev.x;
