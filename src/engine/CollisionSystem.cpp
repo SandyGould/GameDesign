@@ -255,4 +255,16 @@ void CollisionSystem::resolveCollision(DisplayObject* d, DisplayObject* other, i
         other->position.x += xDelta2;
         other->position.y += yDelta2;
     }
+    if (collidesWith(d, other)){
+        if (!collideLast){
+            xDelta1 = -xDelta1;
+            yDelta1 = -yDelta1;
+            xDelta2 = -xDelta2;
+            yDelta2 = -yDelta2;
+        }
+        d->position.x += xDelta1;
+        d->position.y += yDelta1;
+        other->position.x += xDelta2;
+        other->position.y += yDelta2;
+    }
 }
