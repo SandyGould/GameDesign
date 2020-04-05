@@ -324,6 +324,13 @@ void DisplayObject::getGlobalTransform(AffineTransform& at)
 	this->applyTransformations(at);
 }
 
+// Override this method to handle collisions by yourself
+// instead of relying on CollisionSystem's default collision resolution
+// (which is just to move the objects so they're not colliding)
+bool DisplayObject::onCollision(DisplayObject* other) {
+    return false;
+}
+
 Hitbox DisplayObject::getHitbox() {
     AffineTransform at;
 	this->getGlobalTransform(at);

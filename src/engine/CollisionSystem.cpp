@@ -195,11 +195,16 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
     return obj1InObj2 || obj2InObj1;
 }
 
-//Resolves the collision that occurred between d and other
-//xDelta1 and yDelta1 are the amount d moved before causing the collision.
-//xDelta2 and yDelta2 are the amount other moved before causing the collision.
+// Resolves the collision that occurred between d and other
+// xDelta1 and yDelta1 are the amount d moved before causing the collision.
+// xDelta2 and yDelta2 are the amount other moved before causing the collision.
 void CollisionSystem::resolveCollision(DisplayObject* d, DisplayObject* other,
                                        int xDelta1, int yDelta1, int xDelta2, int yDelta2) {
+    // Give the objects the chance to handle the collision by themselves
+    if (d->onCollision(other) || other->onCollision(d)) {
+        return;
+    }
+
     unsigned int maxD = max({abs(xDelta1), abs(yDelta1), abs(xDelta2), abs(yDelta2)});
     int m = 1;
 

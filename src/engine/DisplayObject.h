@@ -77,6 +77,8 @@ public:
 	int getHeight();
 
 	void getGlobalTransform(AffineTransform& at);
+
+    virtual bool onCollision(DisplayObject* other);
 	
 	Hitbox getHitbox();
     void drawHitbox();
