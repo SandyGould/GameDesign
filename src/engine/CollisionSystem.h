@@ -1,8 +1,6 @@
 #pragma once
 
 #include "DisplayObject.h"
-#include "Sprite.h"
-#include "events/Event.h"
 #include "events/EventListener.h"
 
 using namespace std;
@@ -31,22 +29,22 @@ public:
     //of DOs of a given type (e.g., player vs platform). The system will begin to check all player objects
     //against all platform objects that are in the current scene.
     void watchForCollisions(const string& type1, const string& type2);
+
+private:
     void pairObjectWithType(DisplayObject* object, const string& type);
 
-    //returns true iff obj1 hitbox and obj2 hitbox overlap. Uses the following method from DO:
-    //	SDL_Point* DisplayObject::getGlobalHitbox();
+    // Returns true iff obj1 hitbox and obj2 hitbox overlap
     static bool collidesWith(DisplayObject* obj1, DisplayObject* obj2);
 
-    //Resolves the collision that occurred between d and other
-    //xDelta1 and yDelta1 are the amount d moved before causing the collision.
-    //xDelta2 and yDelta2 are the amount other moved before causing the collision.
+    // Resolves the collision that occurred between d and other
+    // xDelta1 and yDelta1 are the amount d moved before causing the collision.
+    // xDelta2 and yDelta2 are the amount other moved before causing the collision.
     static void resolveCollision(DisplayObject* d, DisplayObject* other, int xDelta1, int yDelta1, int xDelta2, int yDelta2);
 
     static bool isInside(SDL_Point foreign, SDL_Point ul, SDL_Point ur, SDL_Point ll, SDL_Point lr);
     static bool isIntersecting(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2);
     static Orientation getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3);
 
-private:
     // platform -> [platform1, platform2, platform3, ...]
     unordered_map<string, unordered_set<DisplayObject*>> displayObjectsMap;
 
