@@ -17,7 +17,7 @@ void draw(AffineTransform& at) override;
 
 private:
 
-int coolDownFrames;
+int coolDownFrames = -1;
 int generateCoolDown();
 
 int actionFrames;

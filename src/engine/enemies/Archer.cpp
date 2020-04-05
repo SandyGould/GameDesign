@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <stdlib.h> 
 #include <cmath>
+#include <iostream>
 
 /*
 States:
@@ -16,8 +17,8 @@ Ded 7
 */
 
 // Init
-Archer::Archer(): BaseEnemy("Archer", "../../../resources/assets/Display_Objects/archer.png"){
-    //More on this later.
+Archer::Archer(): BaseEnemy("Archer", "./resources/assets/Display_Objects/archer.png"){
+    this->state = 0;
 }
 
 
@@ -30,17 +31,17 @@ void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
     }
 
     if(this->state == 0){
-        // Do init stuff
         this->state = 1; //We have to now move into the next state. :)
     }
     else if(this->state == 1){ //waiting
         //For now we're assuming the player is always in the same room.
+        //This works(more later)
         this->state = 2;
         this->actionFrames = 15; 
     }
     else if(this->state == 2){ //knock arrow
-        arrow = new Arrow();
-        this->addChild(arrow);
+        this->arrow = new Arrow();
+        this->addChild(this->arrow);
         if(this->actionFrames == 0){ //have we reached the end of the action frames?
             this->actionFrames = 30; //spend half a second adjusting aim.
             this->state = 3;
@@ -50,13 +51,15 @@ void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
         }
     }
     else if(this->state == 3){ //aim.
+        std::cout<<"State 3\n";
         if(this->actionFrames == 0){
             this->state = 4;
             this->actionFrames=6; //SET THIS TO THE NUMBER OF FRAMES FOR DRAWING BACK ANIMATION(if we get one)
         }
         else{
-            if(actionFrames%10 == 0){
-                this->player->getHitbox();
+            this->actionFrames--;
+            //if(actionFrames%10 == 0){
+/*                this->player->getHitbox();
                 SDL_Point a = player->hitbox_ul;
                 SDL_Point b = player->hitbox_lr;
                 int x = (int)(a.x + b.x)/2; //finding the median of the x values.
@@ -73,25 +76,29 @@ void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
                 else{
                     this->rotation = this->rotation - (0.075 * abs(this->goalAngle - this->rotation)); //if we're not within rot + pi, rotate by -
                 }
-            this->actionFrames--;
+            this->actionFrames--;*/
         }
     }
     else if(this->state == 4){//draw back arrow
-        arrow->drawBack();
+        std::cout<<"State 4\n";
+        /*arrow->drawBack();
         if(this->actionFrames ==0){
             this->state =5;
         }
         else{
             this->actionFrames--;
-        }
+        }*/
+        this->state = 5;
     }
     else if(this->state == 5){ //Fire the arrow
-        SDL_Point position = arrow->hitbox_ul;
+        std::cout<<"State 5\n";
+        /*SDL_Point position = arrow->hitbox_ul;
         arrow->position = position;
         //this->removeChild(arrow); //arrow is it's own man now.
-        arrow->fire();
+        arrow->fire();*/
+        this->state = 6;
     }
-    else if(this->state == 6){ //cooldown
+    else if(this->state == 6){ //cooldown //Works.
         if(coolDownFrames == -1){ //If the cooldown has expired we'll set it to -1
             this->coolDownFrames = generateCoolDown(); 
         }
@@ -102,13 +109,13 @@ void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
         else{
             this->coolDownFrames--; //Wait longer
         }
-
-        BaseEnemy::update(pressedKeys, joystickState, pressedButtons);
     }
+
+    BaseEnemy::update(pressedKeys, joystickState, pressedButtons);
 }
 
-int Archer::generateCoolDown(){
-    return (rand() % 120) + 60;
+int Archer::generateCoolDown(){ //returns a number of frames that will be at least 2 seconds, but at most 5
+    return (rand() % 180) + 120;
 }
 
 void Archer::draw(AffineTransform& at){
