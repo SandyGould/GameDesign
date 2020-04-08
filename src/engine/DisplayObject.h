@@ -14,6 +14,13 @@ struct jState {
 	Sint16 yVal;
 };
 
+struct Hitbox {
+    SDL_Point ul;
+    SDL_Point ur;
+    SDL_Point ll;
+    SDL_Point lr;
+};
+
 class DisplayObject {
 
 public:
@@ -71,17 +78,13 @@ public:
 
 	void getGlobalTransform(AffineTransform& at);
 
-	bool visible = true;
-	SDL_Point position = {0, 0};
-	int hitbox_width = 100;
-	int hitbox_height = 100;
-	SDL_Point hitbox_ul = {0,0};
-	SDL_Point hitbox_ur = {hitbox_width, 0};
-	SDL_Point hitbox_lr = {hitbox_width, hitbox_height};
-	SDL_Point hitbox_ll = {0, hitbox_height};
+    virtual bool onCollision(DisplayObject* other);
 	
-	void getHitbox();
+	Hitbox getHitbox();
     void drawHitbox();
+
+    bool visible = true;
+    SDL_Point position = {0, 0};
 
 	int width = 100;
 	int height = 100;

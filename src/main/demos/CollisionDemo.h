@@ -21,6 +21,7 @@ private:
 
     Camera* camera;
     Scene* scene;
-    Coin* moon;
-    Coin* coin;
+    DisplayObject* parentObj;
+    Coin* child1;
+    Coin* child2;
 };

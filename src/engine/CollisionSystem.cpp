@@ -9,30 +9,24 @@
 //to be checked (via a single call to watchForCollisions) below.
 void CollisionSystem::update() {
     for (auto& [object1, object2] : collisionPairs) {
+        SDL_Point obj1Prev = prevPositions.at(object1);
+        SDL_Point obj2Prev = prevPositions.at(object2);
+        if (obj1Prev.x == object1->position.x && obj1Prev.y == object1->position.y &&
+            obj2Prev.x == object2->position.x && obj2Prev.y == object2->position.y) {
+            // Wait, they didn't move! They couldn't have collided, then.
+            continue;
+        }
+
         if (collidesWith(object1, object2)) {
-            cout << object1->id << " and " << object2->id << " are colliding!" << endl;
-            int xD1 = 0;
-            int yD1 = 0;
-            int xD2 = 0;
-            int yD2 = 0;
-            if (prevPositions.find(object1) != prevPositions.end() && prevPositions.find(object2) != prevPositions.end()){
-                SDL_Point obj1Prev = prevPositions.at(object1);
-                SDL_Point obj2Prev = prevPositions.at(object2);
-                xD1 = object1->position.x - obj1Prev.x;
-                yD1 = object1->position.y - obj1Prev.y;
-                xD2 = object2->position.x - obj2Prev.x;
-                yD2 = object2->position.y - obj2Prev.y;
-            }
-            this->resolveCollision(object1, object2, xD1, yD1, xD2, yD2);
+            int xD1 = object1->position.x - obj1Prev.x;
+            int yD1 = object1->position.y - obj1Prev.y;
+            int xD2 = object2->position.x - obj2Prev.x;
+            int yD2 = object2->position.y - obj2Prev.y;
+            resolveCollision(object1, object2, xD1, yD1, xD2, yD2);
         }
-    }
-    for (auto& objType : displayObjectsMap){
-        for (auto& obj : displayObjectsMap.at(objType.first)){
-            if (prevPositions.find(obj) == prevPositions.end()){
-                prevPositions.emplace(obj, obj->position);
-            }
-            prevPositions.at(obj) = obj->position;
-        }
+
+        prevPositions.at(object1) = object1->position;
+        prevPositions.at(object2) = object2->position;
     }
 }
 
@@ -109,6 +103,10 @@ void CollisionSystem::pairObjectWithType(DisplayObject* object, const string& ty
         } else {
             collisionPairs.emplace_back(object2, object);
         }
+
+        // Keep track of positions for collision deltas
+        prevPositions.try_emplace(object, object->position);
+        prevPositions.try_emplace(object2, object2->position);
     }
 }
 
@@ -125,9 +123,8 @@ Orientation CollisionSystem::getOrientation(SDL_Point p1, SDL_Point p2, SDL_Poin
     }
 }
 
-
 // Loosely based off of https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
-bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2) {
+bool CollisionSystem::isIntersecting(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2) {
     auto o1 = getOrientation(p1, p2, q1);
     auto o2 = getOrientation(p1, p2, q2);
     auto o3 = getOrientation(q1, q2, p1);
@@ -152,7 +149,7 @@ bool CollisionSystem::checklinesegments(SDL_Point p1, SDL_Point p2, SDL_Point q1
     return false;
 }
 
-bool CollisionSystem::cornerIn(SDL_Point foreign, SDL_Point ul, SDL_Point ur, SDL_Point ll, SDL_Point lr) {
+bool CollisionSystem::isInside(SDL_Point foreign, SDL_Point ul, SDL_Point ur, SDL_Point ll, SDL_Point lr) {
     int area_rect = abs(ul.x * (ur.y - ll.y) + ur.x * (ll.y - ul.y) + ll.x * (ul.y - ur.y));
 
     // Compute the area of each triangle that the foreign point forms with the hitbox
@@ -166,95 +163,96 @@ bool CollisionSystem::cornerIn(SDL_Point foreign, SDL_Point ul, SDL_Point ur, SD
     return area_t1_2x + area_t2_2x + area_t3_2x + area_t4_2x == 2 * area_rect;
 }
 
-//returns true iff obj1 hitbox and obj2 hitbox overlap. Uses the following method from DO:
-//	SDL_Point* DisplayObject::getGlobalHitbox();
+// Returns true iff obj1 hitbox and obj2 hitbox overlap
 bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
-    obj1->getHitbox();
-    obj2->getHitbox();
-    //do line segments overlap?
-    bool l_1 = checklinesegments(obj1->hitbox_ul, obj1->hitbox_ur, obj2->hitbox_ul, obj2->hitbox_ur);
-    bool l_2 = checklinesegments(obj1->hitbox_ul, obj1->hitbox_ur, obj2->hitbox_ul, obj2->hitbox_ll);
-    bool l_3 = checklinesegments(obj1->hitbox_ul, obj1->hitbox_ur, obj2->hitbox_ur, obj2->hitbox_lr);
-    bool l_4 = checklinesegments(obj1->hitbox_ul, obj1->hitbox_ur, obj2->hitbox_ll, obj2->hitbox_lr);
+    Hitbox obj1Hitbox = obj1->getHitbox();
+    Hitbox obj2Hitbox = obj2->getHitbox();
 
-    bool l_5 = checklinesegments(obj1->hitbox_ul, obj1->hitbox_ll, obj2->hitbox_ul, obj2->hitbox_ur);
-    bool l_6 = checklinesegments(obj1->hitbox_ul, obj1->hitbox_ll, obj2->hitbox_ul, obj2->hitbox_ll);
-    bool l_7 = checklinesegments(obj1->hitbox_ul, obj1->hitbox_ll, obj2->hitbox_ur, obj2->hitbox_lr);
-    bool l_8 = checklinesegments(obj1->hitbox_ul, obj1->hitbox_ll, obj2->hitbox_ll, obj2->hitbox_lr);
-
-    bool l_9 = checklinesegments(obj1->hitbox_ur, obj1->hitbox_lr, obj2->hitbox_ul, obj2->hitbox_ur);
-    bool l_10 = checklinesegments(obj1->hitbox_ur, obj1->hitbox_lr, obj2->hitbox_ul, obj2->hitbox_ll);
-    bool l_11 = checklinesegments(obj1->hitbox_ur, obj1->hitbox_lr, obj2->hitbox_ur, obj2->hitbox_lr);
-    bool l_12 = checklinesegments(obj1->hitbox_ur, obj1->hitbox_lr, obj2->hitbox_ll, obj2->hitbox_lr);
-
-    bool l_13 = checklinesegments(obj1->hitbox_ll, obj1->hitbox_lr, obj2->hitbox_ul, obj2->hitbox_ur);
-    bool l_14 = checklinesegments(obj1->hitbox_ll, obj1->hitbox_lr, obj2->hitbox_ul, obj2->hitbox_ll);
-    bool l_15 = checklinesegments(obj1->hitbox_ll, obj1->hitbox_lr, obj2->hitbox_ur, obj2->hitbox_lr);
-    bool l_16 = checklinesegments(obj1->hitbox_ll, obj1->hitbox_lr, obj2->hitbox_ll, obj2->hitbox_lr);
-
-    if (l_1 || l_2 || l_3 || l_4 || l_5 || l_6 || l_7 || l_8 || l_9 || l_10 || l_11 | l_12 || l_13 ||
-        l_14 || l_15 || l_16) {
+    // Do line segments intersect?
+    if (isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ul, obj2Hitbox.ur) ||
+        isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ul, obj2Hitbox.ll) ||
+        isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ur, obj2Hitbox.lr) ||
+        isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ll, obj2Hitbox.lr) ||
+        isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ul, obj2Hitbox.ur) ||
+        isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ul, obj2Hitbox.ll) ||
+        isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ur, obj2Hitbox.lr) ||
+        isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ll, obj2Hitbox.lr) ||
+        isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ur) ||
+        isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ll) ||
+        isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ur, obj2Hitbox.lr) ||
+        isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ll, obj2Hitbox.lr) ||
+        isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ur) ||
+        isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ll) ||
+        isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ur, obj2Hitbox.lr) ||
+        isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ll, obj2Hitbox.lr)) {
         return true;
     }
 
     // Is either object completely inside of each other?
     // We only need to check one point because we already checked intersections above
-    const bool obj1InObj2 = cornerIn(obj1->hitbox_ul, obj2->hitbox_ul, obj2->hitbox_ur, obj2->hitbox_ll, obj2->hitbox_lr);
-    const bool obj2InObj1 = cornerIn(obj2->hitbox_ul, obj1->hitbox_ul, obj1->hitbox_ur, obj1->hitbox_ll, obj1->hitbox_lr);
-
+    const bool obj1InObj2 = isInside(obj1Hitbox.ul, obj2Hitbox.ul, obj2Hitbox.ur, obj2Hitbox.ll, obj2Hitbox.lr);
+    const bool obj2InObj1 = isInside(obj2Hitbox.ul, obj1Hitbox.ul, obj1Hitbox.ur, obj1Hitbox.ll, obj1Hitbox.lr);
     return obj1InObj2 || obj2InObj1;
 }
 
-//Resolves the collision that occurred between d and other
-//xDelta1 and yDelta1 are the amount d moved before causing the collision.
-//xDelta2 and yDelta2 are the amount other moved before causing the collision.
-void CollisionSystem::resolveCollision(DisplayObject* d, DisplayObject* other, int xDelta1, int yDelta1, int xDelta2, int yDelta2) {
-    int maxD = max({abs(xDelta1), abs(yDelta1), abs(xDelta2), abs(yDelta2)});
+// Resolves the collision that occurred between d and other
+// xDelta1 and yDelta1 are the amount d moved before causing the collision.
+// xDelta2 and yDelta2 are the amount other moved before causing the collision.
+void CollisionSystem::resolveCollision(DisplayObject* d, DisplayObject* other,
+                                       int xDelta1, int yDelta1, int xDelta2, int yDelta2) {
+    // Give the objects the chance to handle the collision by themselves
+    if (d->onCollision(other) || other->onCollision(d)) {
+        return;
+    }
+
+    unsigned int maxD = max({abs(xDelta1), abs(yDelta1), abs(xDelta2), abs(yDelta2)});
     int m = 1;
-    cout << maxD << endl;
-    while (maxD >>= 1){
+
+    // Binary search collision resolution
+    // Figure out the number of times we need to adjust the deltas by
+    while (maxD >>= 1u) {
         ++m;
     }
-    cout << m << endl;
+
     bool collideLast = false;
-    for (int i = 0; i < m; ++i){
-        if (xDelta1 >= 0){
-            ++xDelta1;
-        } else{
-            --xDelta1;
-        }
-        if (yDelta1 >= 0){
-            ++yDelta1;
-        } else{
-            --yDelta1;
-        }
-        if (xDelta2 >= 0){
-            ++xDelta2;
-        } else{
-            --xDelta2;
-        }
-        if (yDelta2 >= 0){
-            ++yDelta2;
-        } else{
-            --yDelta2;
-        }
-        
-        xDelta1 /= 2;
-        yDelta1 /= 2;
-        xDelta2 /= 2;
-        yDelta2 /= 2;
-        if (collidesWith(d, other) && !collideLast){
+    for (int i = 0; i < m; ++i) {
+        // Halve deltas to find the midpoint, rounding away from 0
+        xDelta1 = lround(xDelta1 / 2.0);
+        yDelta1 = lround(yDelta1 / 2.0);
+        xDelta2 = lround(xDelta2 / 2.0);
+        yDelta2 = lround(yDelta2 / 2.0);
+
+        // If we are colliding and we weren't colliding the last search,
+        // move halfway back (using the deltas above).
+        // Ditto if we aren't colliding, but were before.
+        if (collidesWith(d, other) && !collideLast) {
             xDelta1 = -xDelta1;
             yDelta1 = -yDelta1;
             xDelta2 = -xDelta2;
             yDelta2 = -yDelta2;
             collideLast = true;
-        } else if (!collidesWith(d, other) && collideLast){
+        } else if (!collidesWith(d, other) && collideLast) {
             xDelta1 = -xDelta1;
             yDelta1 = -yDelta1;
             xDelta2 = -xDelta2;
             yDelta2 = -yDelta2;
             collideLast = false;
+        }
+
+        // Set new positions
+        d->position.x += xDelta1;
+        d->position.y += yDelta1;
+        other->position.x += xDelta2;
+        other->position.y += yDelta2;
+    }
+
+    // If we're still colliding after the binary search, fix that.
+    if (collidesWith(d, other)) {
+        if (!collideLast) {
+            xDelta1 = -xDelta1;
+            yDelta1 = -yDelta1;
+            xDelta2 = -xDelta2;
+            yDelta2 = -yDelta2;
         }
         d->position.x += xDelta1;
         d->position.y += yDelta1;
