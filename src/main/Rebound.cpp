@@ -38,7 +38,7 @@ Rebound::Rebound() : Game(1200, 800) {
 
 	allSprites->addChild(mage);
 
-    archer = new Archer();
+    archer = new Archer(player);
     archer-> position = {200,200};
     archer->height = 80;
     archer->width = 70;

@@ -6,15 +6,17 @@
 #include "../events/EventDispatcher.h"
 #include "../things/Player.h"
 #include "../Sprite.h"
+#include "Projectile.h"
 
 class BaseEnemy : public Sprite{
 
 public:
 
-    BaseEnemy(std::string id, std::string filepath);
+    BaseEnemy(std::string id, std::string filepath, Player* player);
 
     virtual void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
     void draw(AffineTransform& at) override;
+    double aim(DisplayObject* projectile);
     //void onCollision(DisplayObject* other);
     //Add onCollision handling when Engine Team gets it together :')
 

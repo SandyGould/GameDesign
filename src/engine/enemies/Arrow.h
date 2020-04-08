@@ -7,10 +7,9 @@ class Arrow: public Projectile{
 
     public:
 
-    Arrow();
+    Arrow(int velocity);
     
     void drawBack();
-    void fire();
 
 };
 

@@ -10,11 +10,14 @@
 class Projectile : public Sprite{
 
     public:
-    Projectile(std::string id, std::string filepath);
+    Projectile(std::string id, std::string filepath, int velocity);
     double velocity;
-    double direction; //absolute with respect to the 
-    void fire(); //Every projectile will need to fire at some point
+    void fire(double angle); //Every projectile will need to fire at some point
+    bool firing;
+    int deltaX;
+    int deltaY;
 
+    virtual void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
 };
 
 #endif
