@@ -22,7 +22,6 @@ int generateCoolDown();
 
 int actionFrames;
 double goalAngle;
-SDL_Point target;
 Arrow* arrow;
 };
 

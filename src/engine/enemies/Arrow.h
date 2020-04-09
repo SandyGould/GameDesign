@@ -10,7 +10,8 @@ class Arrow: public Projectile{
     Arrow(int velocity);
     
     void drawBack();
-
+    int drawBackX;
+    int drawBackY;
 };
 
 #endif

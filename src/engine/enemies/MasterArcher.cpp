@@ -1,10 +1,10 @@
-#include "Archer.h"
+#include "MasterArcher.h"
 #include <cstdlib>
 #include <stdlib.h> 
 #include <cmath>
 #include <iostream>
 
-static int archer_count =1;
+static int master_archer_count = 1;
 /*
 States:
 Init 0 
@@ -18,12 +18,13 @@ Ded 7
 */
 
 // Init
-Archer::Archer(Player* player): BaseEnemy("Archer", "./resources/assets/Display_Objects/archer.png", player){
+MasterArcher::MasterArcher(Player* player): BaseEnemy("MasterArcher" + master_archer_count, "./resources/assets/Display_Objects/master_archer.png", player){
     this->state = 0;
     this->facingRight=true;
+    master_archer_count++;
 }
 
-void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
+void MasterArcher::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
     if(this->health ==0){
         this->clean = true;
     }
@@ -82,15 +83,14 @@ void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
             this->coolDownFrames--; //Wait longer
         }
     }
-
     BaseEnemy::update(pressedKeys, joystickState, pressedButtons);
 }
 
-int Archer::generateCoolDown(){ //returns a number of frames that will be at least 2 seconds, but at most 5
+int MasterArcher::generateCoolDown(){ //returns a number of frames that will be at least 2 seconds, but at most 5
     //return (rand() % 180) + 120;
     return 60;
 }
 
-void Archer::draw(AffineTransform& at){
+void MasterArcher::draw(AffineTransform& at){
     BaseEnemy::draw(at);
 }

@@ -16,7 +16,6 @@ public:
 
     virtual void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
     void draw(AffineTransform& at) override;
-    double aim(DisplayObject* projectile);
     //void onCollision(DisplayObject* other);
     //Add onCollision handling when Engine Team gets it together :')
 
