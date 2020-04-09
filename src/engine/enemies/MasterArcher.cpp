@@ -22,8 +22,6 @@ MasterArcher::MasterArcher(Player* player): BaseEnemy("MasterArcher" + master_ar
     this->state = 0;
     this->facingRight=true;
     master_archer_count++;
-    this->arrowParent = new Projectile("empty_proj", "", 0);
-    this->addChild(arrowParent);
 }
 
 void MasterArcher::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
@@ -46,23 +44,22 @@ void MasterArcher::update(std::unordered_set<SDL_Scancode> pressedKeys, jState j
         this->arrow1 = new Arrow(35);
         this->arrow2 = new Arrow(35);
         this->arrow3 = new Arrow(35);
-        this->arrowParent->addChild(this->arrow1);
-        this->arrowParent->addChild(this->arrow2);
-        this->arrowParent->addChild(this->arrow3);
+        this->addChild(arrow1);
+        this->addChild(arrow2);
+        this->addChild(arrow3);
         //TODO: configure this to look cool AF
         arrow1->rotation = 15;
-        arrow1->position = {0,5}; 
+        arrow1->position = {5,1}; 
         arrow2->position = {5,0};
         arrow3->rotation = -15;
-        arrow3->position = {0,-5};
+        arrow3->position = {5,-1};
         this->state = 3;
     }
     else if(this->state == 3){ //aim.
             //TODO: use a tween to make this look pretty :) 
             this->state = 4;
             this->actionFrames=12; //SET THIS TO THE NUMBER OF FRAMES FOR DRAWING BACK ANIMATION(if we get one)
-            goalAngle = arrowParent->aim(player);
-            arrowParent->rotation = goalAngle;
+            arrow2->rotation = arrow2->aim(player);
     }
     else if(this->state == 4){//draw back arrow
         if(this->actionFrames ==0){
@@ -74,18 +71,10 @@ void MasterArcher::update(std::unordered_set<SDL_Scancode> pressedKeys, jState j
         }
     }
     else if(this->state == 5){ //Fire arrow.
-        double rot1 = arrowParent->rotation + 15;
-        double rot2 = arrowParent->rotation;
-        double rot3 = arrowParent->rotation - 15;
-        this->arrowParent->removeImmediateChild(arrow1);
-        this->arrowParent->removeImmediateChild(arrow2);
-        this->arrowParent->removeImmediateChild(arrow3);
-        this->addChild(arrow1);
-        this->addChild(arrow2);
-        this->addChild(arrow3);
-        arrow1->fire(rot1);
-        arrow2->fire(rot2);
-        arrow3->fire(rot3);
+        double rot = arrow2->rotation;
+        arrow1->fire(rot+15);
+        arrow2->fire(rot);
+        arrow3->fire(rot-15);
         this->state = 6;
     }
     else if(this->state == 6){ //cooldown //Works.
