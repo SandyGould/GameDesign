@@ -43,9 +43,9 @@ void MasterArcher::update(std::unordered_set<SDL_Scancode> pressedKeys, jState j
         this->state = 2;
     }
     else if(this->state == 2){ //"knock" arrow
-        this->arrow1 = new Arrow(30);
-        this->arrow2 = new Arrow(30);
-        this->arrow3 = new Arrow(30);
+        this->arrow1 = new Arrow(35);
+        this->arrow2 = new Arrow(35);
+        this->arrow3 = new Arrow(35);
         this->arrowParent->addChild(this->arrow1);
         this->arrowParent->addChild(this->arrow2);
         this->arrowParent->addChild(this->arrow3);
@@ -74,8 +74,18 @@ void MasterArcher::update(std::unordered_set<SDL_Scancode> pressedKeys, jState j
         }
     }
     else if(this->state == 5){ //Fire arrow.
-        //For this we're going to break the projectile holder out
-        //this->arrowParent->fire(arrow->rotation);
+        double rot1 = arrowParent->rotation + 15;
+        double rot2 = arrowParent->rotation;
+        double rot3 = arrowParent->rotation - 15;
+        this->arrowParent->removeImmediateChild(arrow1);
+        this->arrowParent->removeImmediateChild(arrow2);
+        this->arrowParent->removeImmediateChild(arrow3);
+        this->addChild(arrow1);
+        this->addChild(arrow2);
+        this->addChild(arrow3);
+        arrow1->fire(rot1);
+        arrow2->fire(rot2);
+        arrow3->fire(rot3);
         this->state = 6;
     }
     else if(this->state == 6){ //cooldown //Works.
