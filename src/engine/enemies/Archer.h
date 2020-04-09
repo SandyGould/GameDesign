@@ -21,7 +21,6 @@ int coolDownFrames = -1;
 int generateCoolDown();
 
 int actionFrames;
-double goalAngle;
 Arrow* arrow;
 };
 

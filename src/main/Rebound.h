@@ -13,6 +13,7 @@
 #include "../engine/enemies/Archer.h"
 #include "../engine/QuestManager.h"
 #include "../engine/events/PickedUpEvent.h"
+#include "../engine/enemies/MasterArcher.h"
 
 class Rebound : public Game {
 
@@ -27,6 +28,7 @@ private:
 	Mage* mage;
     Archer* archer;
 	MageAttack* mageAttack;
+	MasterArcher* masterArcher;
 
 	DisplayObject* allSprites;
 

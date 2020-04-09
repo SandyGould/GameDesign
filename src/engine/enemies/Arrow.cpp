@@ -12,7 +12,6 @@ Arrow::Arrow(int velocity):Projectile("Arrow"+arrow_id_counter, "./resources/ass
 
 
 void Arrow::drawBack(){
-    //TODO: make some decisons on this; may switch order of attacking lol.
-        this->position.x-=4;
-        this->position.y-=4;
+    //TODO: make this work for whatevr direction the sprite is facing :)
+    this->position.x-=4;
 }

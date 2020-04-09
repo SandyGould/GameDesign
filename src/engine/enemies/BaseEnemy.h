@@ -1,4 +1,4 @@
-#ifndef BASEENEMEY_H
+#ifndef BASEENEMY_H
 #define BASEENEMY_H
 
 #include "../AnimatedSprite.h"

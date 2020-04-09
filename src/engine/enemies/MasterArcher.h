@@ -19,7 +19,8 @@ class MasterArcher: public BaseEnemy{
         int actionFrames;
         double goalAngle;
         SDL_Point target;
-        Arrow* arrow;
+        Projectile* arrowParent;
+        Arrow* arrow1;
         Arrow* arrow2;
         Arrow* arrow3;
 };

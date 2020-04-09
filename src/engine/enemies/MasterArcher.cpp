@@ -22,6 +22,8 @@ MasterArcher::MasterArcher(Player* player): BaseEnemy("MasterArcher" + master_ar
     this->state = 0;
     this->facingRight=true;
     master_archer_count++;
+    this->arrowParent = new Projectile("empty_proj", "", 0);
+    this->addChild(arrowParent);
 }
 
 void MasterArcher::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
@@ -41,34 +43,39 @@ void MasterArcher::update(std::unordered_set<SDL_Scancode> pressedKeys, jState j
         this->state = 2;
     }
     else if(this->state == 2){ //"knock" arrow
-        this->arrow = new Arrow(30);
-        goalAngle = 180;
-        if(this->facingRight){
-            goalAngle=0;
-            arrow->facingRight = true;
-        }
-        this->addChild(this->arrow);
-        ///this->actionFrames = 90; //spend half a second adjusting aim.
+        this->arrow1 = new Arrow(30);
+        this->arrow2 = new Arrow(30);
+        this->arrow3 = new Arrow(30);
+        this->arrowParent->addChild(this->arrow1);
+        this->arrowParent->addChild(this->arrow2);
+        this->arrowParent->addChild(this->arrow3);
+        //TODO: configure this to look cool AF
+        arrow1->rotation = 15;
+        arrow1->position = {0,5}; 
+        arrow2->position = {5,0};
+        arrow3->rotation = -15;
+        arrow3->position = {0,-5};
         this->state = 3;
     }
     else if(this->state == 3){ //aim.
             //TODO: use a tween to make this look pretty :) 
             this->state = 4;
             this->actionFrames=12; //SET THIS TO THE NUMBER OF FRAMES FOR DRAWING BACK ANIMATION(if we get one)
-            goalAngle = arrow->aim(player);
-            arrow->rotation = goalAngle;
+            goalAngle = arrowParent->aim(player);
+            arrowParent->rotation = goalAngle;
     }
     else if(this->state == 4){//draw back arrow
         if(this->actionFrames ==0){
             this->state =5;
         }
         else{
-            arrow->drawBack(); //Slowly draw back for a few frames :)
+            //arrowParent->drawBack(); //Slowly draw back for a few frames :)
             this->actionFrames--;
         }
     }
     else if(this->state == 5){ //Fire arrow.
-        this->arrow->fire(arrow->rotation);
+        //For this we're going to break the projectile holder out
+        //this->arrowParent->fire(arrow->rotation);
         this->state = 6;
     }
     else if(this->state == 6){ //cooldown //Works.

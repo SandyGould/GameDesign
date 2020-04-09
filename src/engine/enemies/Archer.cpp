@@ -41,30 +41,26 @@ void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
     }
     else if(this->state == 2){ //"knock" arrow
         this->arrow = new Arrow(30);
-        goalAngle = 180;
         if(this->facingRight){
-            goalAngle=0;
             arrow->facingRight = true;
         }
         this->addChild(this->arrow);
-        ///this->actionFrames = 90; //spend half a second adjusting aim.
+        this->actionFrames = 12;
         this->state = 3;
     }
-    else if(this->state == 3){ //aim.
-            //TODO: use a tween to make this look pretty :) 
-            this->state = 4;
-            this->actionFrames=12; //SET THIS TO THE NUMBER OF FRAMES FOR DRAWING BACK ANIMATION(if we get one)
-            goalAngle = arrow->aim(player);
-            arrow->rotation = goalAngle;
-    }
-    else if(this->state == 4){//draw back arrow
+    else if(this->state == 3){//draw back arrow
         if(this->actionFrames ==0){
-            this->state =5;
+            this->state =4;
         }
         else{
             arrow->drawBack(); //Slowly draw back for a few frames :)
             this->actionFrames--;
         }
+    }
+    else if(this->state == 4){ //aim.
+            //TODO: use a tween to make this look pretty :) 
+            this->state = 5;
+            arrow->rotation = arrow->aim(player);
     }
     else if(this->state == 5){ //Fire arrow.
         this->arrow->fire(arrow->rotation);
@@ -87,8 +83,7 @@ void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
 }
 
 int Archer::generateCoolDown(){ //returns a number of frames that will be at least 2 seconds, but at most 5
-    //return (rand() % 180) + 120;
-    return 60;
+    return (rand() % 180) + 120;
 }
 
 void Archer::draw(AffineTransform& at){
