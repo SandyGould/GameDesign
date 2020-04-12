@@ -2,7 +2,10 @@
 #define PLAYER_H
 
 #include "../Sprite.h"
+#include "Shield.h"
 #include "../AnimatedSprite.h"
+#include "../tweens/TweenJuggler.h"
+#include "../tweens/Tween.h"
 
 class Player : public AnimatedSprite {
 
@@ -19,6 +22,18 @@ public:
 private:
 	int health = 100;
 	int stamina = 1000;
+	int shieldSwitchCooldown;
+	int shieldBashCooldown;
+
+	std::unordered_set<SDL_Scancode>* history;
+
+	void updateHistory(std::unordered_set<SDL_Scancode> pressedKeys);
+	bool checkDoubleTaps(SDL_Scancode key);
+
+	Shield* shield;
+	Tween* shieldBash;
+
+	TweenJuggler* juggler;
 
 };
 
