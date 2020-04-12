@@ -20,6 +20,7 @@ void Projectile::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joy
     }
     Sprite::update(pressedKeys,joystickState,pressedButtons);
 }
+
 double Projectile::distance(SDL_Point& p1, SDL_Point& p2) {
     return std::sqrt(((p2.y - p1.y) * (p2.y - p1.y)) + ((p2.x - p1.x) * (p2.x - p1.x)));
 }
@@ -28,7 +29,9 @@ double Projectile::distance(SDL_Point& p1, SDL_Point& p2) {
 double Projectile::aim(DisplayObject* targetSprite){ //Cause a lot of enemies need to aim :)
     //Just finds the angle between the center of the DO given(may be self, may be a Projectile, etc) and the Player
     SDL_Point target = targetSprite->getGlobalPosition();
+    std::cout<<"Target"<<target.x<<","<<target.y<<"\n";
     SDL_Point center = this->getGlobalPosition();
+    std::cout<<"Center"<<center.x<<","<<target.y<<"\n";
     double y = (target.y - center.y);
     double x = (target.x - center.x);
     double goalAngle = atan2(-y, x);

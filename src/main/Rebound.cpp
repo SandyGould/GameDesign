@@ -31,13 +31,13 @@ Rebound::Rebound() : Game(1200, 800) {
 	allSprites->addChild(player);
 
 
-	mage = new Mage();
+	/*mage = new Mage(player);
 	mage->position = {400, 400};
 	mage->height = 80;
 	mage->width = 70;
 
 	allSprites->addChild(mage);
-
+*/
     archer = new Archer(player);
     archer-> position = {200,200};
     archer->height = 80;
@@ -51,6 +51,48 @@ Rebound::Rebound() : Game(1200, 800) {
     masterArcher->width = 70;
 
     allSprites->addChild(masterArcher);
+
+	roarMonster = new RoarMonster(player);
+	roarMonster-> position = {100, 100};
+	roarMonster->height = 80;
+	roarMonster->width = 70;
+
+	allSprites->addChild(roarMonster);
+
+	knight = new Knight(player);
+	knight->position = {200,400};
+	knight->height = 80;
+	knight->width = 70;
+
+	allSprites->addChild(knight);
+
+	cannoneer = new Cannoneer(player);
+	cannoneer->position = {500,100};
+	cannoneer->height = 80;
+	cannoneer->width = 70;
+
+	allSprites->addChild(cannoneer);
+
+	rubberCannoneer = new RubberCannoneer(player);
+	rubberCannoneer->position = {600, 200};
+	rubberCannoneer->height=80;
+	rubberCannoneer->width=70;
+
+	allSprites->addChild(rubberCannoneer);
+
+	kingdomArcher = new KingdomArcher(player);
+	kingdomArcher->position = {400,200};
+	kingdomArcher->height= 80;
+	kingdomArcher->width=80;
+
+	allSprites->addChild(kingdomArcher);
+	
+	poisoner = new Poisoner(player);
+	poisoner->position = {800,800};
+	poisoner->height = 80;
+	poisoner->width = 70;
+
+	allSprites->addChild(poisoner);
 }
 
 Rebound::~Rebound() {
@@ -124,19 +166,6 @@ void Rebound::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joysti
 
 	// STAMINA REFRESH
 	player->changeStamina(2);
-
-	//Mage Attacking
-	if (mage->ready == 300) {
-		mageAttack = mage->attack(player);
-		allSprites->addChild(mageAttack);
-	} else if (mage->ready < 240 && mage->ready > 0) {
-		mageAttack->position.x += mageAttack->distX;
-		mageAttack->position.y += mageAttack->distY;
-	} else if (mage->ready == 0) {
-		// allSprites->removeImmediateChild(mageAttack);
-		mage->ready = 301;
-	}
-	mage->ready -= 1;
 
 	updateHistory(pressedKeys);
 

@@ -1,25 +1,24 @@
 #ifndef MAGE_H
 #define MAGE_H
 
-#include "../Sprite.h"
+#include "BaseEnemy.h"
 #include "MageAttack.h"
 
-class Mage : public Sprite {
+class Mage : public BaseEnemy {
 
 public:
 
-	Mage();
+	Mage(Player* player);
+	Mage(Player* player, std::string filepath);
+
 	int ready = 300;
 
 	void changeHealth(int amount);
+	MageAttack* mageAttack;
 	MageAttack* attack(Sprite* target);
 
 	void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) override;
-	void draw(AffineTransform& at) override;
 
-private:
-	double distance(SDL_Point& p1, SDL_Point& p2);
-	int health = 100;
 };
 
 #endif

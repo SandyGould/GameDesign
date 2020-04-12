@@ -22,6 +22,10 @@ Archer::Archer(Player* player): BaseEnemy("Archer", "./resources/assets/Display_
     this->state = 0;
     this->facingRight=true;
 }
+Archer::Archer(Player* player, std::string filepath): BaseEnemy("Archer", filepath, player){
+    this->state = 0;
+    this->facingRight=true;
+}
 
 void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
     if(this->health ==0){

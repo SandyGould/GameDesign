@@ -14,6 +14,14 @@
 #include "../engine/QuestManager.h"
 #include "../engine/events/PickedUpEvent.h"
 #include "../engine/enemies/MasterArcher.h"
+#include "../engine/enemies/Cannoneer.h"
+#include "../engine/enemies/RubberCannoneer.h"
+#include "../engine/enemies/RoarMonster.h"
+#include "../engine/enemies/Knight.h"
+#include "../engine/enemies/KingdomArcher.h"
+#include "../engine/enemies/KingdomMage.h"
+#include "../engine/enemies/Orc.h"
+#include "../engine/enemies/Poisoner.h"
 
 class Rebound : public Game {
 
@@ -29,7 +37,12 @@ private:
     Archer* archer;
 	MageAttack* mageAttack;
 	MasterArcher* masterArcher;
-
+	RoarMonster* roarMonster;
+	Cannoneer* cannoneer;
+	Knight* knight;
+	RubberCannoneer* rubberCannoneer;
+	KingdomArcher* kingdomArcher;
+	Poisoner* poisoner;
 	DisplayObject* allSprites;
 
 	QuestManager* questManager;

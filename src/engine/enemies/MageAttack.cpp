@@ -1,15 +1,13 @@
 #include "MageAttack.h"
 #include "../events/EventDispatcher.h"
+#include <iostream>
 
-MageAttack::MageAttack() : Sprite("mageAttack", "./resources/assets/Animated_Sprites/Enemies/Mage/mageAttack.png") {
-    hasCollision = true;
-    this->width = this->height = 30;
-}
+MageAttack::MageAttack() : Projectile("mage_attack", "./resources/assets/Animated_Sprites/Enemies/Mage/mageAttack.png", 25){
+    this->width = 30;
+    this->height= 30;
+    this->position = {20,50};
+};
 
-void MageAttack::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
-    Sprite::update(pressedKeys, joystickState, pressedButtons);
-}
-
-void MageAttack::draw(AffineTransform& at) {
-    Sprite::draw(at);
+void MageAttack::fire(){
+    Projectile::fire(target);
 }

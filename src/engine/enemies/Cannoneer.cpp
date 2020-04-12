@@ -1,5 +1,11 @@
 #include "Cannoneer.h"
 
+
+Cannoneer::Cannoneer(Player* player) : BaseEnemy("Cannoneer", "./resources/assets/Display_Objects/cannoneer.png", player){
+    
+}
+
+
 /*Init
 Wait for player
 Load Cannon

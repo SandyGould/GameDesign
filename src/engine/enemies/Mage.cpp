@@ -4,40 +4,55 @@
 #include <iostream>
 #include "../events/EventDispatcher.h"
 
-Mage::Mage() : Sprite("mage", "./resources/assets/Animated_Sprites/Enemies/Mage/Mage.png") {
+Mage::Mage(Player* player) : BaseEnemy("mage", "./resources/assets/Animated_Sprites/Enemies/Mage/Mage.png", player) {
     hasCollision = true;
 }
 
-void Mage::changeHealth(int amount) {
-    if (health + amount < 100) {
-        health += amount;
-    } else {
-        health = 100;
-    }
+Mage::Mage(Player* player, std::string filepath) :BaseEnemy("mage", filepath, player){
+
 }
 
-MageAttack* Mage::attack(Sprite* target) {
-    MageAttack* attack = new MageAttack();
-    attack->position = this->position;
-    attack->targetPos = target->position;
-    double angle = asin((target->position.x - attack->position.x)/distance(attack->position, target->position));
-    attack->distX = 6*sin(angle);
-    attack->distY = 6*cos(angle);
-    if (target->position.y - attack->position.y < 0) {
-        attack->distY *= -1;
-    }
-
-    return attack;
-}
-
+/*
+Init
+Wait for player
+Aim
+Fire Attack
+Reload
+Ded
+*/
 void Mage::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
-    Sprite::update(pressedKeys, joystickState, pressedButtons);
-}
+   if(this->health ==0){
+        this->clean = true;
+    }
+    if(this->clean){
+        //cleanup
+    }
 
-void Mage::draw(AffineTransform& at) {
-    Sprite::draw(at);
-}
-
-double Mage::distance(SDL_Point& p1, SDL_Point& p2) {
-    return std::sqrt(((p2.y - p1.y) * (p2.y - p1.y)) + ((p2.x - p1.x) * (p2.x - p1.x)));
+    if(this->state == 0){
+        this->ready =301;
+        this->state = 1;
+    }
+    else if(this->state ==1){
+        //wait for player
+        this->state = 2;
+    }
+    else if(this->state == 2){
+        this->ready--;
+        this->mageAttack = new MageAttack();
+       // std::cout<<"target"<<mageAttack->target<<"\n";
+        if(this->ready==240){
+            this->mageAttack->target = this->mageAttack->aim(player);
+            this->state = 3;
+        }
+    }
+    else if(this->state == 3){
+ 		this->addChild(mageAttack);
+        this->ready--;
+        if(this->ready == 0){
+            this->mageAttack->fire();
+            this->ready = 301;
+            this->state = 2;
+        }
+    }
+    BaseEnemy::update(pressedKeys, joystickState, pressedButtons);
 }
