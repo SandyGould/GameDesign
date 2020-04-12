@@ -39,14 +39,15 @@ void Mage::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickS
     else if(this->state == 2){
         this->ready--;
         this->mageAttack = new MageAttack();
-       // std::cout<<"target"<<mageAttack->target<<"\n";
+ 		this->addChild(mageAttack);
+        mageAttack->visible =false;
         if(this->ready==240){
             this->mageAttack->target = this->mageAttack->aim(player);
+            mageAttack->visible=true;
             this->state = 3;
         }
     }
     else if(this->state == 3){
- 		this->addChild(mageAttack);
         this->ready--;
         if(this->ready == 0){
             this->mageAttack->fire();

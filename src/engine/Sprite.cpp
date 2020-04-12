@@ -51,3 +51,6 @@ void Sprite::draw(AffineTransform& at) {
 void Sprite::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
     DisplayObject::draw(at, r, src);
 }
+
+Sprite::~Sprite(){
+}

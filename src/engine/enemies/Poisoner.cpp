@@ -65,16 +65,16 @@ void Poisoner::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joyst
             this->actionFrames = 60;
         }
         if(this->position.x > 600){
-            this->xVelocity = -6;
+            this->xVelocity = -4;
         }
         else{
-            this->xVelocity = 6;
+            this->xVelocity = 4;
         }
         if(this->position.y > 400){
-            this->yVelocity = -6;
+            this->yVelocity = -4;
         }
         else{
-            this->yVelocity = 6;
+            this->yVelocity = 4;
         }
     }
     else if(this->state == 4){

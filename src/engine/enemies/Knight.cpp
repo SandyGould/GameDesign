@@ -4,6 +4,10 @@ Knight::Knight(Player* player): BaseEnemy("knight", "./resources/assets/Display_
 
 }
 
+Knight::Knight(Player* player, std::string filepath): BaseEnemy("knight", filepath, player){
+
+}
+
 void Knight::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
      /*
      Init

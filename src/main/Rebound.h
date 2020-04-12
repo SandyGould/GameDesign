@@ -43,6 +43,8 @@ private:
 	RubberCannoneer* rubberCannoneer;
 	KingdomArcher* kingdomArcher;
 	Poisoner* poisoner;
+	Orc* orc;
+	KingdomMage* kingdomMage;
 	DisplayObject* allSprites;
 
 	QuestManager* questManager;

@@ -31,13 +31,13 @@ Rebound::Rebound() : Game(1200, 800) {
 	allSprites->addChild(player);
 
 
-	/*mage = new Mage(player);
+	mage = new Mage(player);
 	mage->position = {400, 400};
 	mage->height = 80;
 	mage->width = 70;
 
 	allSprites->addChild(mage);
-*/
+
     archer = new Archer(player);
     archer-> position = {200,200};
     archer->height = 80;
@@ -88,11 +88,25 @@ Rebound::Rebound() : Game(1200, 800) {
 	allSprites->addChild(kingdomArcher);
 	
 	poisoner = new Poisoner(player);
-	poisoner->position = {800,800};
+	poisoner->position = {750,750};
 	poisoner->height = 80;
 	poisoner->width = 70;
 
 	allSprites->addChild(poisoner);
+
+	orc = new Orc(player);
+	orc->position = {150, 150};
+	orc->height = 80;
+	orc->width = 70;
+
+	allSprites->addChild(orc);
+
+	kingdomMage = new KingdomMage(player);
+	kingdomMage->position = {350,350};
+	kingdomMage->height = 80;
+	kingdomMage->width = 70;
+
+	allSprites->addChild(kingdomMage);
 }
 
 Rebound::~Rebound() {
