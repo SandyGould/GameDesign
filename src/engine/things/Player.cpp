@@ -1,5 +1,7 @@
 #include "Player.h"
 #include <string.h>
+#include <iostream>
+#include "../enemies/MageAttack.h"
 
 #define HISTORY_SIZE 8
 #define BASH_COOLDOWN 40
@@ -223,4 +225,39 @@ bool Player::checkDoubleTaps(SDL_Scancode key) {
 		}
 	}
 	return false;
+}
+
+bool Player::onCollision(DisplayObject* other){
+    if(other->type == "mage_attack"){
+        this->changeHealth(-10);
+        other->removeThis();
+        return true;
+    }
+    if(other->type == "arrow"){
+        other->removeThis();
+        this->changeHealth(-10);
+        return false;
+    }
+    if(other->type == "rubber_cannonball" || other->type == "cannonball"){
+        //std::cout<<"Cannoneer\n";
+        this->cannonBallHit(other);
+        this->changeHealth(-20);
+        return true;
+    }
+    if(other->type == "knight"){
+       // std::cout<<"Knight or Orc\n";
+        this->changeHealth(-10);
+        return true;
+    }
+    if(other->type == "poison_bomb"){
+        //std::cout<<"poison bitch\n";
+        this->changeHealth(-1);
+        return true;
+    }
+    return false;
+}
+
+void Player::cannonBallHit(DisplayObject* other){
+    //move the player back.
+    other->removeThis();
 }

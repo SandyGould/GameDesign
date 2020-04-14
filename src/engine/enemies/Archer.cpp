@@ -21,10 +21,12 @@ Ded 7
 Archer::Archer(Player* player): BaseEnemy("Archer", "./resources/assets/Display_Objects/archer.png", player){
     this->state = 0;
     this->facingRight=true;
+    this->type = "archer";
 }
 Archer::Archer(Player* player, std::string filepath): BaseEnemy("Archer", filepath, player){
     this->state = 0;
     this->facingRight=true;
+    this->type = "archer";
 }
 
 void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
@@ -92,4 +94,29 @@ int Archer::generateCoolDown(){ //returns a number of frames that will be at lea
 
 void Archer::draw(AffineTransform& at){
     BaseEnemy::draw(at);
+}
+
+
+bool Archer::onCollision(DisplayObject* other){
+/*     if(other->type == "mage_attack"){
+        this->changeHealth(-20);
+        other->removeThis();
+        return true;
+    }
+    if(other->type == "arrow"){
+        other->removeThis();
+        this->changeHealth(-20);
+        return false;
+    }
+    if(other->type == "rubber_cannonball" || other->type == "cannonball"){
+        std::cout<<"Cannoneer\n";
+        this->changeHealth(-100);
+        return true;
+    }
+    if(other->type == "poison_bomb"){
+        std::cout<<"poison bitch\n";
+        this->changeHealth(-1);
+        return true;
+    }*/
+    return false;
 }

@@ -18,6 +18,7 @@ class Projectile : public Sprite{
     int deltaX;
     int deltaY;
     double distance(SDL_Point& p1, SDL_Point& p2);
+    void reflect();
 
     double aim(DisplayObject* targetSprite);
     virtual void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);

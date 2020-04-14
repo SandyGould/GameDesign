@@ -18,7 +18,6 @@ Rebound::Rebound() : Game(1200, 800) {
 	// move that point to the middle
 	allSprites->position = {200, 100};
 	instance->addChild(allSprites);
-
 	player = new Player();
 	player->position = {0, 0};
 	player->width = 110;
@@ -41,6 +40,19 @@ Rebound::Rebound() : Game(1200, 800) {
     archer->width = 70;
 
     allSprites->addChild(archer);
+
+	collisionSystem->watchForCollisions("player", "arrow");
+	collisionSystem->watchForCollisions("player", "poison");
+	collisionSystem->watchForCollisions("player", "knight");
+	collisionSystem->watchForCollisions("player", "mage_attack");
+	collisionSystem->watchForCollisions("player", "cannonball");
+	collisionSystem->watchForCollisions("player", "rubber_cannonball");
+	
+	collisionSystem->watchForCollisions("shield", "arrow");
+	collisionSystem->watchForCollisions("shield", "mage_attack");
+	collisionSystem->watchForCollisions("shield", "cannonball");
+	collisionSystem->watchForCollisions("shield", "rubber_cannonball");
+	
 
 	masterArcher = new MasterArcher(player);
     masterArcher-> position = {500,500};
@@ -111,8 +123,6 @@ Rebound::~Rebound() {
 
 void Rebound::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
     this->collisionSystem->update();
-
-	updateHistory(pressedKeys);
 
 	Game::update(pressedKeys, joystickState, pressedButtons);
 }

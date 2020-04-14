@@ -22,6 +22,7 @@ MasterArcher::MasterArcher(Player* player): BaseEnemy("MasterArcher" + master_ar
     this->state = 0;
     this->facingRight=true;
     master_archer_count++;
+    this->type = "master_archer";
 }
 
 void MasterArcher::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){

@@ -13,5 +13,9 @@ void  BaseEnemy::draw(AffineTransform& at){
     Sprite::draw(at);
 }
 
+void BaseEnemy::changeHealth(int amount){
+    this->health+=amount;
+}
+
 //void BaseEnemy::onCollision(DisplayObject* other)
 

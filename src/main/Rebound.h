@@ -47,14 +47,9 @@ private:
 
 	QuestManager* questManager;
 
-	// std::unordered_set<SDL_Scancode>* history;
-
-	// DisplayObject* character;
+	DisplayObject* character;
 	Scene* scene;
 	Scene* scene2;
-
-	// void updateHistory(std::unordered_set<SDL_Scancode> pressedKeys);
-	// bool checkDoubleTaps(SDL_Scancode key);
 
     void update(unordered_set<SDL_Scancode> pressedKeys, jState joystickState, unordered_set<Uint8> pressedButtons) override;
 	void draw(AffineTransform& at) override;

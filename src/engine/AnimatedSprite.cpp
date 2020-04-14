@@ -71,7 +71,7 @@ void AnimatedSprite::parse(std::string xml){
     texture = SDL_CreateTextureFromSurface(r ,image);
 
     for(auto& anim: doc.child("TextureAtlas")){
-        printf("On XML for anim %s\n", anim.attribute("name").as_string());
+        //printf("On XML for anim %s\n", anim.attribute("name").as_string());
         Animation* newanim = new Animation{ 
             new SDL_Rect * [anim.attribute("numFrames").as_int()], // new frame pointer array of size numFrames;
             anim.attribute("name").as_string(),
@@ -84,7 +84,7 @@ void AnimatedSprite::parse(std::string xml){
         for(auto sprite:anim)
         {
             //std::pair<int,int> newPair(sprite.attribute("x").as_int(),sprite.attribute("y").as_int());
-            printf("On sprite %s\n", sprite.attribute("n").as_string());
+            //printf("On sprite %s\n", sprite.attribute("n").as_string());
             SDL_Rect* f = new SDL_Rect();
             f->x = sprite.attribute("x").as_int();
             f->y = sprite.attribute("y").as_int();
@@ -92,7 +92,7 @@ void AnimatedSprite::parse(std::string xml){
             f->h = sprite.attribute("h").as_int();
             //f->texture = SDL_CreateTextureFromSurface(Game::renderer, f->image);
             newanim->frames[framenum] = f;
-            printf("%d %d\n", f->x, f->y);
+            //printf("%d %d\n", f->x, f->y);
             framenum++;
              
         //std::pair<int,int> newPair(x,y);
@@ -178,19 +178,19 @@ void AnimatedSprite::play(int index) {
         this->current->curFrame = 0;
         frameCount = 0;
         playing = true;
-       printf("Playing anim\n");
+       //printf("Playing anim\n");
     }
 }
 
 void AnimatedSprite::play(std::string animName) {
-    printf("Searching for animation %s\n",animName.c_str());
+    //printf("Searching for animation %s\n",animName.c_str());
     Animation* anim = getAnimation(animName);
     if (anim != NULL) {
         this->current = anim;
         this->current->curFrame = 0;
         frameCount = 0;
         playing = true;
-       printf("Playing anim\n");
+       //printf("Playing anim\n");
     }
 }
 

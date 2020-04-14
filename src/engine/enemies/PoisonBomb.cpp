@@ -3,6 +3,7 @@
 
 PoisonBomb::PoisonBomb():Sprite("bomb", "./resources/assets/Display_Objects/Planet.png"){
     radius = 10;
+    this->type = "poison_bomb";
 }
 
 PoisonBomb::~PoisonBomb(){

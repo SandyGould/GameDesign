@@ -1,9 +1,11 @@
 #include "Shield.h"
 #include "Game.h"
 #include "../events/EventDispatcher.h"
+#include "../enemies/Projectile.h"
 
 Shield::Shield() : Sprite("shield", "./resources/assets/Display_Objects/Shield.png") {
     hasCollision = true;
+    this->type = "shield";
 }
 
 void Shield::switchType() {
@@ -24,4 +26,11 @@ void Shield::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
 
 void Shield::draw(AffineTransform& at) {
     Sprite::draw(at);
+}
+
+bool Shield::onCollision(DisplayObject* other){
+    if(other->type == "arrow" || other->type== "mage_attack" || other->type == "cannonball" || other->type=="rubber_cannonball"){
+        dynamic_cast<Projectile*>(other)->reflect();
+    }
+    return false;
 }

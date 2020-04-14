@@ -20,7 +20,7 @@ public:
     //Add onCollision handling when Engine Team gets it together :')
 
 
-    void changeHealth();
+    void changeHealth(int amount);
 
     //Knowing about the player is nice :)
     Player* player;

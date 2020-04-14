@@ -8,7 +8,6 @@ class Arrow: public Projectile{
     public:
 
     Arrow(int velocity);
-    
     void drawBack();
     int drawBackX;
     int drawBackY;

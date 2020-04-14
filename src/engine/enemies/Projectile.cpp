@@ -29,12 +29,17 @@ double Projectile::distance(SDL_Point& p1, SDL_Point& p2) {
 double Projectile::aim(DisplayObject* targetSprite){ //Cause a lot of enemies need to aim :)
     //Just finds the angle between the center of the DO given(may be self, may be a Projectile, etc) and the Player
     SDL_Point target = targetSprite->getGlobalPosition();
-    std::cout<<"Target"<<target.x<<","<<target.y<<"\n";
+    //std::cout<<"Target"<<target.x<<","<<target.y<<"\n";
     SDL_Point center = this->getGlobalPosition();
-    std::cout<<"Center"<<center.x<<","<<target.y<<"\n";
+    //std::cout<<"Center"<<center.x<<","<<target.y<<"\n";
     double y = (target.y - center.y);
     double x = (target.x - center.x);
     double goalAngle = atan2(-y, x);
     goalAngle =  goalAngle * 180/ M_PI;
     return goalAngle;
+}
+
+void Projectile::reflect(){
+    this->deltaX = -deltaX;
+    this->deltaY = -deltaY;
 }

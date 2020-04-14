@@ -7,10 +7,9 @@ Arrow::Arrow(int velocity):Projectile("Arrow"+arrow_id_counter, "./resources/ass
     arrow_id_counter++;
     this->scaleX = 0.25;
     this->scaleY = 0.25;
-    std::cout<<"Arrow"<<arrow_id_counter<<"\n";
-    //pivot = {width/2, height/2};
+    this->hasCollision = true;
+    this->type = "arrow";
 }
-
 
 void Arrow::drawBack(){
     //TODO: make this work for whatevr direction the sprite is facing :)

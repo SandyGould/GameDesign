@@ -19,12 +19,15 @@ public:
 	void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) override;
 	void draw(AffineTransform& at) override;
 
+	bool onCollision(DisplayObject* other);
+
 private:
 	int health = 100;
 	int stamina = 1000;
 	int shieldSwitchCooldown;
 	int shieldBashCooldown;
-
+	bool hit;
+	void cannonBallHit(DisplayObject* other);
 	std::unordered_set<SDL_Scancode>* history;
 
 	void updateHistory(std::unordered_set<SDL_Scancode> pressedKeys);
