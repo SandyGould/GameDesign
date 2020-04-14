@@ -3,11 +3,11 @@
 #include <iostream>
 
 Layer::Layer() : DisplayObject("layer") {
-    this->type = "Layer";
+    this->type = "layer";
 }
 
 Layer::Layer(std::string id) : DisplayObject(id) {
-    this->type = "Layer";
+    this->type = "layer";
 }
 
 // void Layer::applyTransformations(AffineTransform& at) {
@@ -63,7 +63,17 @@ Layer::Layer(std::string id) : DisplayObject(id) {
 //     DisplayObject::update(pressedKeys, joystickState, pressedButtons);
 // }
 
+void Layer::setParallax(){
+    // Either set "at" position so that children also gets affected (at.translate...)
+    // Or just set the position of this layer object (position.x *= parallaxSpeed)
+    position.x = -cam->pivot.x * parallaxSpeed;
+    // position.y = orig_position.y -cam->pivot.y * parallaxSpeed;
+    std::cout << "Camera pivot x: " << cam->pivot.x << std::endl;
+    std::cout << "Camera pivot y: " << cam->pivot.y << std::endl;
+}
+
 void Layer::draw(AffineTransform& at) {
+    Layer::setParallax();
     Layer::draw(at, Game::renderer);
 }
 
@@ -71,12 +81,17 @@ void Layer::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
     // at.translate(position.x * parallaxSpeed, position.y * parallaxSpeed);
     // DisplayObject::draw(at, r, src);
     // at.translate(-position.x * parallaxSpeed, -position.y * parallaxSpeed);
-    
+    Layer::setParallax();
+
     applyTransformations(at);
     // undo the parent's pivot
     at.translate(pivot.x, pivot.y);
     for (auto child : children) {
+        // at.translate(- cam->pivot.x * parallaxSpeed, - cam->pivot.y * parallaxSpeed);
+        // child->position.x = child->orig_position.x - cam->pivot.x * parallaxSpeed;
+        // child->position.y = child->orig_position.y - cam->pivot.y * parallaxSpeed;
         child->draw(at);
+        // at.translate(-(- cam->pivot.x * parallaxSpeed), -(- cam->pivot.y * parallaxSpeed));
     }
     // redo the parent's pivot
     at.translate(-pivot.x, -pivot.y);

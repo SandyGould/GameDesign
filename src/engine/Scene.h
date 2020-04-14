@@ -3,6 +3,7 @@
 #include "DisplayObject.h"
 #include "AnimatedSprite.h"
 #include "Sprite.h"
+#include "Camera.h"
 
 #include "json.hpp"
 
@@ -28,6 +29,7 @@ public:
 	// virtual void draw(AffineTransform &at);
 	void draw(AffineTransform& at) override;
 	void draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src = NULL) override;
+	void setCameraRef(Camera* camera);
 
 	DisplayObject* generateDO(json j);
 	AnimatedSprite* generateAS(json j);

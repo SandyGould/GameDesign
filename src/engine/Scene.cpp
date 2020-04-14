@@ -57,6 +57,8 @@ DisplayObject* Scene::generateDO(json j){
     DisplayObject* temp_do = new DisplayObject(j["name"], j["filepath"]);
     temp_do->position.x = j["x_pos"];
     temp_do->position.y = j["y_pos"];
+    temp_do->orig_position.x = j["x_pos"];
+    temp_do->orig_position.y = j["y_pos"];
     temp_do->rotation = j["rotation"];
     temp_do->scaleX = j["scaleX"];
     temp_do->scaleY = j["scaleY"];
@@ -67,6 +69,8 @@ AnimatedSprite* Scene::generateAS(json j){
     AnimatedSprite* temp_asprite = new AnimatedSprite(j["name"], j["sheetpath"], j["xmlpath"]);
     temp_asprite->position.x = j["x_pos"];
     temp_asprite->position.y = j["y_pos"];
+    temp_asprite->orig_position.x = j["x_pos"];
+    temp_asprite->orig_position.y = j["y_pos"];
     temp_asprite->rotation = j["rotation"];
     temp_asprite->scaleX = j["scaleX"];
     temp_asprite->scaleY = j["scaleY"];
@@ -77,6 +81,8 @@ Sprite* Scene::generateSprite(json j){
     Sprite* temp_sprite = new Sprite(j["name"], j["filepath"]);
     temp_sprite->position.x = j["x_pos"];
     temp_sprite->position.y = j["y_pos"];
+    temp_sprite->orig_position.x = j["x_pos"];
+    temp_sprite->orig_position.y = j["y_pos"];
     temp_sprite->rotation = j["rotation"];
     temp_sprite->scaleX = j["scaleX"];
     temp_sprite->scaleY = j["scaleY"];
@@ -135,4 +141,13 @@ void Scene::draw(AffineTransform& at) {
 
 void Scene::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
     DisplayObject::draw(at, r, src);
+}
+
+void Scene::setCameraRef(Camera* camera){
+    for (auto child : children) {
+        if (child->type == "layer"){
+            Layer* temp_layer = (Layer*)child;
+            temp_layer->cam = camera;
+        }
+    }
 }

@@ -75,7 +75,7 @@
         },
         {
             "L1":{
-                "speed":2,
+                "speed":1,
                 "objects":[
                     {
                         "type":"Sprite",

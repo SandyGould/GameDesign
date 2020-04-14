@@ -73,6 +73,7 @@ public:
 
 	bool visible = true;
 	SDL_Point position = {0, 0};
+	SDL_Point orig_position = {0, 0}; // Used for parallaxing (in Layer.cpp)
 	int hitbox_width = 100;
 	int hitbox_height = 100;
 	SDL_Point hitbox_ul = {0,0};

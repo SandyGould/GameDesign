@@ -32,6 +32,7 @@ Rooms::Rooms() : Game(600, 500) {
 
 	scene = new Scene();
 	scene->loadScene("./resources/Rebound/area1/area1map.json");
+	scene->setCameraRef(camera);
 	camera->addChild(scene);
 
 	player = new AnimatedSprite("girl", "./resources/assets/Spritesheets/Girl/Girl.png", "./resources/assets/Spritesheets/Girl/Girl.xml");
