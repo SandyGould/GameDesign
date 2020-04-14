@@ -10,8 +10,10 @@
 #include <vector>
 
 struct jState {
-	Sint16 xVal;
-	Sint16 yVal;
+	Sint16 xVal1;
+	Sint16 yVal1;
+	Sint16 xVal2;
+	Sint16 yVal2;
 };
 
 struct Hitbox {

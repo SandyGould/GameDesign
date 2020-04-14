@@ -51,107 +51,131 @@ CollisionDemo::~CollisionDemo() {
 }
 
 void CollisionDemo::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
-    if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
-        this->parentObj->position.y -= 5;
-    }
+    //If there isn't controller input, take keyboard input. Otherwise ignore keyboard input.
 
-    if (pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) {
-        this->parentObj->position.x -= 5;
-    }
+    int DEAD_ZONE = 8000;
+    if (pressedButtons.empty() && abs(joystickState.xVal1) - DEAD_ZONE < 0 && abs(joystickState.yVal1) - DEAD_ZONE < 0 
+                               && abs(joystickState.xVal2) - DEAD_ZONE < 0 && abs(joystickState.yVal2) - DEAD_ZONE < 0){
+        if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
+            this->parentObj->position.y -= 5;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
-        this->parentObj->position.y += 5;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) {
+            this->parentObj->position.x -= 5;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end()) {
-        this->parentObj->position.x += 5;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
+            this->parentObj->position.y += 5;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_E) != pressedKeys.end()) {
-        this->parentObj->rotation -= 0.0314159265;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end()) {
+            this->parentObj->position.x += 5;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_R) != pressedKeys.end()) {
-        this->parentObj->rotation += 0.0314159265;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_E) != pressedKeys.end()) {
+            this->parentObj->rotation -= 0.0314159265;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_F) != pressedKeys.end()) {
-        this->parentObj->scaleX -= 0.1;
-        this->parentObj->scaleY -= 0.1;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_R) != pressedKeys.end()) {
+            this->parentObj->rotation += 0.0314159265;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_G) != pressedKeys.end()) {
-        this->parentObj->scaleX += 0.1;
-        this->parentObj->scaleY += 0.1;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_F) != pressedKeys.end()) {
+            this->parentObj->scaleX -= 0.1;
+            this->parentObj->scaleY -= 0.1;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_I) != pressedKeys.end()) {
-        this->child1->position.y -= 5;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_G) != pressedKeys.end()) {
+            this->parentObj->scaleX += 0.1;
+            this->parentObj->scaleY += 0.1;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_J) != pressedKeys.end()) {
-        this->child1->position.x -= 5;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_I) != pressedKeys.end()) {
+            this->child1->position.y -= 5;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_K) != pressedKeys.end()) {
-        this->child1->position.y += 5;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_J) != pressedKeys.end()) {
+            this->child1->position.x -= 5;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_L) != pressedKeys.end()) {
-        this->child1->position.x += 5;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_K) != pressedKeys.end()) {
+            this->child1->position.y += 5;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_O) != pressedKeys.end()) {
-        this->child1->rotation -= 0.0314159265;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_L) != pressedKeys.end()) {
+            this->child1->position.x += 5;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_P) != pressedKeys.end()) {
-        this->child1->rotation += 0.0314159265;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_O) != pressedKeys.end()) {
+            this->child1->rotation -= 0.0314159265;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_N) != pressedKeys.end()) {
-        this->child1->scaleX -= 0.1;
-        this->child1->scaleY -= 0.1;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_P) != pressedKeys.end()) {
+            this->child1->rotation += 0.0314159265;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_M) != pressedKeys.end()) {
-        this->child1->scaleX += 0.1;
-        this->child1->scaleY += 0.1;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_N) != pressedKeys.end()) {
+            if (this->child1->scaleX > 0.1 && this->child1->scaleY > 0.1){
+                this->child1->scaleX -= 0.1;
+                this->child1->scaleY -= 0.1;
+            }
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
-        this->child2->position.y -= 5;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_M) != pressedKeys.end()) {
+            this->child1->scaleX += 0.1;
+            this->child1->scaleY += 0.1;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
-        this->child2->position.x -= 5;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
+            this->child2->position.y -= 5;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-        this->child2->position.y += 5;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
+            this->child2->position.x -= 5;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
-        this->child2->position.x += 5;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
+            this->child2->position.y += 5;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_X) != pressedKeys.end()) {
-        this->child2->rotation -= 0.0314159265;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
+            this->child2->position.x += 5;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_C) != pressedKeys.end()) {
-        this->child2->rotation += 0.0314159265;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_X) != pressedKeys.end()) {
+            this->child2->rotation -= 0.0314159265;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_V) != pressedKeys.end()) {
-        this->child2->scaleX -= 0.1;
-        this->child2->scaleY -= 0.1;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_C) != pressedKeys.end()) {
+            this->child2->rotation += 0.0314159265;
+        }
 
-    if (pressedKeys.find(SDL_SCANCODE_B) != pressedKeys.end()) {
-        this->child2->scaleX += 0.1;
-        this->child2->scaleY += 0.1;
-    }
+        if (pressedKeys.find(SDL_SCANCODE_V) != pressedKeys.end()) {
+            if (this->child2->scaleX > 0.1 && this->child2->scaleY > 0.1){
+                this->child2->scaleX -= 0.1;
+                this->child2->scaleY -= 0.1;
+            }
+        }
+
+        if (pressedKeys.find(SDL_SCANCODE_B) != pressedKeys.end()) {
+            this->child2->scaleX += 0.1;
+            this->child2->scaleY += 0.1;
+        }
+
+	} else{
+		this->child1->position.x += joystickState.xVal1/8000;
+		this->child1->position.y += joystickState.yVal1/8000;
+        this->child2->position.x += joystickState.xVal2/8000;
+		this->child2->position.y += joystickState.yVal2/8000;
+		// if (pressedButtons.find(SDL_CONTROLLER_BUTTON_A) != pressedButtons.end()){
+		// 	player->scaleX += 0.1;
+		// 	player->scaleY += 0.1;
+		// }
+		// if (pressedButtons.find(SDL_CONTROLLER_BUTTON_B) != pressedButtons.end()){
+		// 	player->scaleX -= 0.1;
+		// 	player->scaleY -= 0.1;
+		// }
+	}
 
     // Check for collisions after we finalize ideal positions
     this->collisionSystem->update();

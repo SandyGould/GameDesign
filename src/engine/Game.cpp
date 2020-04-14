@@ -162,9 +162,13 @@ void Game::start() {
 				break;
 			case SDL_JOYAXISMOTION:
 				if(event.jaxis.axis == 0){ //On the x axis.
-					this->joystickState.xVal = event.jaxis.value;
+					this->joystickState.xVal1 = event.jaxis.value;
 				} else if (event.jaxis.axis == 1) {
-					this->joystickState.yVal = event.jaxis.value;
+					this->joystickState.yVal1 = event.jaxis.value;
+				} else if(event.jaxis.axis == 3){ //On the x axis.
+					this->joystickState.xVal2 = event.jaxis.value;
+				} else if (event.jaxis.axis == 4) {
+					this->joystickState.yVal2 = event.jaxis.value;
 				}
 				break;
 			case SDL_CONTROLLERBUTTONDOWN:
