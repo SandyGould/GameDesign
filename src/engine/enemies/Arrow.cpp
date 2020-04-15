@@ -3,7 +3,7 @@
 
 int arrow_id_counter = 1;
 
-Arrow::Arrow(int velocity):Projectile("Arrow"+arrow_id_counter, "./resources/assets/Animated_Sprites/Enemies/Mage/mageAttack.png", velocity){
+Arrow::Arrow(int velocity):Projectile("Arrow" + std::to_string(arrow_id_counter), "./resources/assets/Animated_Sprites/Enemies/Mage/mageAttack.png", velocity){
     arrow_id_counter++;
     this->scaleX = 0.25;
     this->scaleY = 0.25;
