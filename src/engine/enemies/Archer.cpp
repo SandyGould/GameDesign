@@ -98,7 +98,7 @@ void Archer::draw(AffineTransform& at){
 
 
 bool Archer::onCollision(DisplayObject* other){
-/*     if(other->type == "mage_attack"){
+     if(other->type == "mage_attack"){
         this->changeHealth(-20);
         other->removeThis();
         return true;
@@ -117,6 +117,10 @@ bool Archer::onCollision(DisplayObject* other){
         std::cout<<"poison bitch\n";
         this->changeHealth(-1);
         return true;
-    }*/
+    }
+    if(other->type == "shield"){
+        std::cout<<"ow\n";
+        this->changeHealth(-35);
+    }
     return false;
 }

@@ -16,6 +16,7 @@ public:
 	void draw(AffineTransform& at) override;
 
 	bool onCollision(DisplayObject* other);
+	bool bashing = false;
 private:
 
 	bool magic = false;

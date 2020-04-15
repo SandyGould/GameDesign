@@ -27,12 +27,12 @@ Rebound::Rebound() : Game(1200, 800) {
 	allSprites->addChild(player);
 
 
-	mage = new Mage(player);
+/*	mage = new Mage(player);
 	mage->position = {400, 400};
 	mage->height = 80;
 	mage->width = 70;
 
-	allSprites->addChild(mage);
+	allSprites->addChild(mage);*/
 
     archer = new Archer(player);
     archer-> position = {200,200};
@@ -47,14 +47,16 @@ Rebound::Rebound() : Game(1200, 800) {
 	collisionSystem->watchForCollisions("player", "mage_attack");
 	collisionSystem->watchForCollisions("player", "cannonball");
 	collisionSystem->watchForCollisions("player", "rubber_cannonball");
-	
+	collisionSystem->watchForCollisions("player", "archer");
 	collisionSystem->watchForCollisions("shield", "arrow");
 	collisionSystem->watchForCollisions("shield", "mage_attack");
 	collisionSystem->watchForCollisions("shield", "cannonball");
 	collisionSystem->watchForCollisions("shield", "rubber_cannonball");
+	collisionSystem->watchForCollisions("shield", "archer");
+	collisionSystem->watchForCollisions("shield", "mage");
 	
 
-	masterArcher = new MasterArcher(player);
+/*	masterArcher = new MasterArcher(player);
     masterArcher-> position = {500,500};
     masterArcher->height = 80;
     masterArcher->width = 70;
@@ -115,7 +117,7 @@ Rebound::Rebound() : Game(1200, 800) {
 	kingdomMage->height = 80;
 	kingdomMage->width = 70;
 
-	allSprites->addChild(kingdomMage);
+	allSprites->addChild(kingdomMage);*/
 }
 
 Rebound::~Rebound() {
