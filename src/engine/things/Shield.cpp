@@ -1,6 +1,5 @@
 #include "Shield.h"
-#include "Game.h"
-#include "../events/EventDispatcher.h"
+
 #include "../enemies/Projectile.h"
 
 Shield::Shield() : Sprite("shield", "./resources/assets/Display_Objects/Shield.png") {

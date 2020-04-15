@@ -1,3 +1,4 @@
 target_sources(rebound PRIVATE
         Coin.cpp
-        Player.cpp)
+        Player.cpp
+        Shield.cpp)

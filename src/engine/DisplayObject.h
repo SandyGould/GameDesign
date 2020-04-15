@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 
+static constexpr auto PI = 3.14159265;
+
 struct jState {
 	Sint16 xVal1;
 	Sint16 yVal1;

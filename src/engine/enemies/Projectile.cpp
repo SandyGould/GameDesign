@@ -8,8 +8,8 @@ Projectile::Projectile(std::string id, std::string filepath, int velocity) : Spr
 }
 
 void Projectile::fire(double angle){
-    deltaX = velocity * cos(angle*M_PI/180);
-    deltaY = velocity * -sin(angle*M_PI/180);
+    deltaX = velocity * cos(angle * PI / 180);
+    deltaY = velocity * -sin(angle * PI / 180);
     firing = true;
 }
 
@@ -35,7 +35,7 @@ double Projectile::aim(DisplayObject* targetSprite){ //Cause a lot of enemies ne
     double y = (target.y - center.y);
     double x = (target.x - center.x);
     double goalAngle = atan2(-y, x);
-    goalAngle =  goalAngle * 180/ M_PI;
+    goalAngle = goalAngle * 180 / PI;
     return goalAngle;
 }
 

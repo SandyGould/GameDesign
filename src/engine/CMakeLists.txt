@@ -1,3 +1,4 @@
+add_subdirectory(enemies)
 add_subdirectory(events)
 add_subdirectory(things)
 add_subdirectory(tweens)

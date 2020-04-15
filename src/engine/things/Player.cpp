@@ -1,6 +1,5 @@
 #include "Player.h"
-#include <string.h>
-#include <iostream>
+
 #include "../enemies/MageAttack.h"
 
 #define HISTORY_SIZE 8
@@ -155,7 +154,7 @@ void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
     	if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
             shield->position.x = -5;
             shield->position.y = 105;
-            shield->rotation = M_PI/2;
+            shield->rotation = PI / 2;
             this->changeStamina(-2);
             if (checkDoubleTaps(SDL_SCANCODE_S)) {
                 shieldBashCooldown = BASH_COOLDOWN;
@@ -171,7 +170,7 @@ void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
     	if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
             shield->position.x = 15;
             shield->position.y = -105;
-            shield->rotation = -M_PI/2;
+            shield->rotation = -PI / 2;
             this->changeStamina(-2);
             if (checkDoubleTaps(SDL_SCANCODE_W)) {
                 shieldBashCooldown = BASH_COOLDOWN;

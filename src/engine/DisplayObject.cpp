@@ -7,8 +7,6 @@
 #include <cmath>
 #include <iostream>
 
-constexpr auto PI = 3.14159265;
-
 DisplayObject::DisplayObject(std::string id) {
     this->id = id;
 
