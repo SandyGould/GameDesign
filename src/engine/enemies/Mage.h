@@ -9,7 +9,6 @@ class Mage : public BaseEnemy {
 public:
 
 	Mage(Player* player);
-	Mage(Player* player, std::string filepath);
 
 	int ready = 300;
 

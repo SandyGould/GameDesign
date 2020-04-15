@@ -1,5 +1,5 @@
 #ifndef ROARMONSTER_H
-#define ROATMONSTER_H
+#define ROARMONSTER_H
 
 #include "BaseEnemy.h"
 #include <cmath>
