@@ -1,12 +1,11 @@
 #include "Mage.h"
-#include "MageAttack.h"
-#include <math.h>
+
 #include <iostream>
-#include "../events/EventDispatcher.h"
 
 Mage::Mage(Player* player) : BaseEnemy("mage", "./resources/assets/Animated_Sprites/Enemies/Mage/Mage.png", "", player) {
     hasCollision = true;
     this->type = "mage";
+    this->mageAttack = nullptr;
 }
 
 /*
@@ -52,5 +51,6 @@ void Mage::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickS
             this->state = 2;
         }
     }
+
     BaseEnemy::update(pressedKeys, joystickState, pressedButtons);
 }
