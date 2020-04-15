@@ -95,7 +95,6 @@ DisplayObject::~DisplayObject() {
 void DisplayObject::loadTexture(std::string filepath, SDL_Renderer* r) {
     image = IMG_Load(filepath.c_str());
     texture = SDL_CreateTextureFromSurface(r, image);
-    std::cout << id << " " << image << " " << texture << std::endl;
     setTexture(texture);
 }
 
