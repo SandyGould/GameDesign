@@ -11,22 +11,24 @@ void CollisionSystem::update() {
     for (auto& [object1, object2] : collisionPairs) {
         SDL_Point obj1Prev = prevPositions.at(object1);
         SDL_Point obj2Prev = prevPositions.at(object2);
-        if (obj1Prev.x == object1->position.x && obj1Prev.y == object1->position.y &&
-            obj2Prev.x == object2->position.x && obj2Prev.y == object2->position.y) {
-            // Wait, they didn't move! They couldn't have collided, then.
-            continue;
-        }
+        // if (obj1Prev.x == object1->position.x && obj1Prev.y == object1->position.y &&
+        //     obj2Prev.x == object2->position.x && obj2Prev.y == object2->position.y) {
+        //     // Wait, they didn't move! They couldn't have collided, then.
+        //     continue;
+        // }
 
+        Hitbox obj1Hitbox = object1->getHitbox();
+        Hitbox obj2Hitbox = object2->getHitbox();
         if (collidesWith(object1, object2)) {
-            int xD1 = object1->position.x - obj1Prev.x;
-            int yD1 = object1->position.y - obj1Prev.y;
-            int xD2 = object2->position.x - obj2Prev.x;
-            int yD2 = object2->position.y - obj2Prev.y;
+            int xD1 = obj1Hitbox.ul.x - obj1Prev.x;
+            int yD1 = obj1Hitbox.ul.y - obj1Prev.y;
+            int xD2 = obj2Hitbox.ul.x - obj2Prev.x;
+            int yD2 = obj2Hitbox.ul.y - obj2Prev.y;
             resolveCollision(object1, object2, xD1, yD1, xD2, yD2);
         }
 
-        prevPositions.at(object1) = object1->position;
-        prevPositions.at(object2) = object2->position;
+        prevPositions.at(object1) = obj1Hitbox.ul;
+        prevPositions.at(object2) = obj2Hitbox.ul;
     }
 }
 
