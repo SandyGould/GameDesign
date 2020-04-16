@@ -337,6 +337,15 @@ void DisplayObject::getHitbox() {
     // hitbox_lr = {dstrect.x + dstrect.w, dstrect.y + dstrect.h};
 }
 
+void DisplayObject::getHitcircle()
+{
+    AffineTransform at;
+	this->getGlobalTransform(at);
+    hitcircle_center = at.transformPoint(0,0);
+    hitcircle_edge = at.transformPoint(0,hitcircle_radius);
+}
+
+
 void DisplayObject::drawHitbox() {
     this->getHitbox();
     SDL_RenderDrawLine(Game::renderer, hitbox_ul.x, hitbox_ul.y, hitbox_ur.x, hitbox_ur.y);

@@ -81,6 +81,7 @@
         "thread": "cpp",
         "unordered_set": "cpp",
         "valarray": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "list": "cpp"
     }
 }

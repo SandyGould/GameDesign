@@ -80,7 +80,13 @@ public:
 	SDL_Point hitbox_ur = {hitbox_width, 0};
 	SDL_Point hitbox_lr = {hitbox_width, hitbox_height};
 	SDL_Point hitbox_ll = {0, hitbox_height};
+
+	SDL_Point hitcircle_center = {0,0};
 	
+	int hitcircle_radius = 100;
+	SDL_Point hitcircle_edge = {0,hitcircle_radius}; //this is so we can re-derive the radius once the points are sent through transform
+	
+	void getHitcircle();
 	void getHitbox();
     void drawHitbox();
 
@@ -91,7 +97,7 @@ public:
 	double scaleY = 1.0;
 	double rotation = 0.0; // in radians
 	bool facingRight = true;
-
+	std::string col_type = "square"; //this string changes based on whether a square or circular collision surface is involved
 	SDL_Renderer* r;
 
 	bool hasCollision = false;
