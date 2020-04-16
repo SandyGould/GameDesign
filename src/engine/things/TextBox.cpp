@@ -31,7 +31,7 @@ TextBox::TextBox(string id, string text, TTF_Font* font, SDL_Renderer* r) : Disp
 
     this->font = font;
 
-    this->r = r;
+    this->renderer = r;
 
     this->setText(this->textpanels.front());
 }
@@ -49,7 +49,7 @@ void TextBox::setText(string text){
     this->width = temp->w;
     this->height = temp->h;
     this->setSurface(temp);
-    this->setTexture(SDL_CreateTextureFromSurface(this->r, temp));
+    this->setTexture(SDL_CreateTextureFromSurface(this->renderer, temp));
 }
 
 void TextBox::setColor(SDL_Color color){

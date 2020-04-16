@@ -68,6 +68,7 @@ public:
     DisplayObject* getChild(std::string id);
 
 	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
+	virtual void draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src = NULL);
 	virtual void draw(AffineTransform& at);
 
 	void applyTransformations(AffineTransform& at);
@@ -81,19 +82,7 @@ public:
 
 	void getGlobalTransform(AffineTransform& at);
 
-<<<<<<< HEAD
     virtual bool onCollision(DisplayObject* other);
-=======
-	bool visible = true;
-	SDL_Point position = {0, 0};
-	SDL_Point orig_position = {0, 0}; // Used for parallaxing (in Layer.cpp)
-	int hitbox_width = 100;
-	int hitbox_height = 100;
-	SDL_Point hitbox_ul = {0,0};
-	SDL_Point hitbox_ur = {hitbox_width, 0};
-	SDL_Point hitbox_lr = {hitbox_width, hitbox_height};
-	SDL_Point hitbox_ll = {0, hitbox_height};
->>>>>>> new_sfx_master
 	
 	Hitbox getHitbox();
     void drawHitbox();
@@ -104,6 +93,7 @@ public:
 	int width = 100;
 	int height = 100;
 	SDL_Point pivot = {0, 0};
+	SDL_Point orig_position = {0, 0}; // Used for parallaxing (in Layer.cpp)
 	double scaleX = 1.0;
 	double scaleY = 1.0;
 	double rotation = 0.0; // in radians

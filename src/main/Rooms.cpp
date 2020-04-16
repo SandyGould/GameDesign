@@ -36,18 +36,11 @@ Rooms::Rooms() : Game(600, 500) {
 	scene->loadScene("./resources/Rebound/area1/area1map.json");
 	scene->setCameraRef(camera);
 	camera->addChild(scene);
-<<<<<<< HEAD
-
-	player = new Player();
-	player->position = {200, 250};
-=======
 	// set types of children (for collisions)
 	scene->getChild("L0")->getChild("stone")->type = "env_object";
 	scene->getChild("L0")->getChild("sign")->type = "env_object";
 	scene->getChild("L0")->getChild("top_trees")->type = "env_object";
 	scene->getChild("L0")->getChild("bottom_trees")->type = "env_object";
-
-
 
 	// load and prep scene 2
 	scene2 = new Scene();
@@ -63,7 +56,6 @@ Rooms::Rooms() : Game(600, 500) {
 	// player = new Player();
 	player = new AnimatedSprite("girl", "./resources/assets/Spritesheets/Girl/Girl.png", "./resources/assets/Spritesheets/Girl/Girl.xml");
 	player->position = {50, 250};
->>>>>>> new_sfx_master
 	player->width = player->height = 50;
 	player->pivot = {50, 50};
 	player->type = "player";

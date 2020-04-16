@@ -96,11 +96,8 @@ void Tween::update() {
             else if ((*it)->getParam().getKey() == "Y") {
                 this->currObject->position.y = (*it)->getCurrVal();
             }
-<<<<<<< HEAD
-=======
             
             EventDispatcher::getInstance().dispatchEvent(new TweenEvent(TweenEvent::TWEEN_UPDATE_EVENT, this));
->>>>>>> new_sfx_master
             it++;
         }
     }

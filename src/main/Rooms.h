@@ -15,15 +15,10 @@
 // #include "../engine/QuestManager.h"
 // #include "../engine/events/PickedUpEvent.h"
 // #include "../engine/Sound.h"
-<<<<<<< HEAD
-#include "../engine/tweens/Tween.h"
-#include "../engine/tweens/TweenJuggler.h"
-=======
 #include "../tweens/Tween.h"
 #include "../tweens/TweenJuggler.h"
 #include "../engine/StatBar.h"
 #include "../engine/CollisionSystem.h"
->>>>>>> new_sfx_master
 
 
 class Rooms : public Game {
