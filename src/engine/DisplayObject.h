@@ -68,7 +68,6 @@ public:
     DisplayObject* getChild(std::string id);
 
 	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
-	virtual void draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src = NULL);
 	virtual void draw(AffineTransform& at);
 
 	void applyTransformations(AffineTransform& at);
@@ -85,7 +84,7 @@ public:
     virtual bool onCollision(DisplayObject* other);
 	
 	Hitbox getHitbox();
-    void drawHitbox();
+    void drawHitbox(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE});
 
     bool visible = true;
     SDL_Point position = {0, 0};
@@ -103,8 +102,6 @@ public:
 
 	bool hasCollision = false;
 
-	// FIXME: Probably a very dirty hack please find a better way to grab global coords
-	SDL_Rect dstrect;
 	double parallaxSpeed = 1.0;
 
     std::vector<DisplayObject*> children;

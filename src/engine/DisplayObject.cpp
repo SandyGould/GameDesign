@@ -248,7 +248,7 @@ void DisplayObject::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
         int w = (int)distance(origin, upperRight);
         int h = (int)distance(upperRight, lowerRight);
 
-        this->dstrect = {origin.x, origin.y, w, h};
+        SDL_Rect dstrect = {origin.x, origin.y, w, h};
 
         SDL_RendererFlip flip;
         if (facingRight) {
@@ -340,18 +340,19 @@ Hitbox DisplayObject::getHitbox() {
     };
 }
 
-void DisplayObject::drawHitbox() {
+void DisplayObject::drawHitbox(SDL_Color color) {
     Hitbox hitbox = this->getHitbox();
 
-    Uint8 r, g, b, a;
-    SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
+    Uint8 oldR, oldG, oldB, oldA;
+    SDL_GetRenderDrawColor(renderer, &oldR, &oldG, &oldB, &oldA);
 
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
+    auto [r, g, b, a] = color;
+    SDL_SetRenderDrawColor(renderer, r, g, b, a);
     SDL_RenderDrawLine(renderer, hitbox.ul.x, hitbox.ul.y, hitbox.ur.x, hitbox.ur.y);
     SDL_RenderDrawLine(renderer, hitbox.ul.x, hitbox.ul.y, hitbox.ll.x, hitbox.ll.y);
     SDL_RenderDrawLine(renderer, hitbox.ll.x, hitbox.ll.y, hitbox.lr.x, hitbox.lr.y);
     SDL_RenderDrawLine(renderer, hitbox.ur.x, hitbox.ur.y, hitbox.lr.x, hitbox.lr.y);
-    SDL_SetRenderDrawColor(renderer, r, g, b, a);
+    SDL_SetRenderDrawColor(renderer, oldR, oldG, oldB, oldA);
 }
 
 double DisplayObject::distance(SDL_Point& p1, SDL_Point& p2) {

@@ -375,21 +375,12 @@ void Editor::draw_post() {
         }
     }
 
-    // SDL_Renderer* tempR = Game::renderer;
-    // if (selectedAsset){
-    //     tempR = assets_renderer;
-    // }
-    
-    SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-    SDL_SetRenderDrawColor(assets_renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-    SDL_SetRenderDrawColor(edit_renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-    if (SDL_IsTextInputActive()){
-        if (attributeSelected){
-            SDL_RenderDrawRect(attributeSelected->renderer, &attributeSelected->dstrect);
-        }
+    if (SDL_IsTextInputActive() && attributeSelected) {
+        attributeSelected->drawHitbox({255, 255, 255, SDL_ALPHA_OPAQUE});
     }
+
     for (DisplayObject* object : this->selected) {
-        SDL_RenderDrawRect(object->renderer, &object->dstrect);
+        object->drawHitbox({255, 255, 255, SDL_ALPHA_OPAQUE});
     }
     
 }
@@ -711,7 +702,9 @@ void Editor::handleEvent(Event* e) {
             if (this->onMouseUp(edit, event)){
                 if (attributeSelected){
                     SDL_StartTextInput();
-                    SDL_SetTextInputRect(&attributeSelected->dstrect);
+                    Hitbox hitbox = attributeSelected->getHitbox();
+                    SDL_Rect rect{hitbox.ul.x, hitbox.ul.y, hitbox.ur.x - hitbox.ul.x, hitbox.ur.y - hitbox.ul.y};
+                    SDL_SetTextInputRect(&rect);
                     cout << "Started input" << endl;
                 }
             } else{
@@ -831,8 +824,7 @@ bool Editor::onMouseDown(DisplayObject* object, MouseDownEvent* event) {
         }
     }
 
-    if (object->dstrect.x <= event->x && event->x <= object->dstrect.x + object->dstrect.w &&
-        object->dstrect.y <= event->y && event->y <= object->dstrect.y + object->dstrect.h) {
+    if (CollisionSystem::isInside({event->x, event->y}, object->getHitbox())) {
         if (setParentMode){
             if (object != editSelected && event->wID == SDL_GetWindowID(window)){
                 auto it = std::find(editSelected->parent->children.cbegin(), editSelected->parent->children.cend(), editSelected);
@@ -868,8 +860,7 @@ bool Editor::onMouseUp(DisplayObject* object, MouseUpEvent* event) {
         }
     }
 
-    if (object->dstrect.x <= event->x && event->x <= object->dstrect.x + object->dstrect.w &&
-        object->dstrect.y <= event->y && event->y <= object->dstrect.y + object->dstrect.h) {
+    if (CollisionSystem::isInside({event->x, event->y}, object->getHitbox())) {
         if (event->wID == SDL_GetWindowID(edit_window)){
             if (editable.find(object) != editable.end() && object->type == "TextObject"){
                 attributeSelected = (TextObject*) object;
