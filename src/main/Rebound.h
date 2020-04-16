@@ -23,6 +23,7 @@
 #include "../engine/enemies/Ogre.h"
 #include "../engine/enemies/Poisoner.h"
 #include "../engine/enemies/Arrow.h"
+#include "../engine/enemies/SecondBoss.h"
 
 class Rebound : public Game {
 
@@ -48,6 +49,7 @@ private:
 	KingdomMage* kingdomMage;
 	DisplayObject* allSprites;
 	Arrow* arrow;
+	SecondBoss* secondBoss;
 	QuestManager* questManager;
 
 	DisplayObject* character;

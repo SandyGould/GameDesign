@@ -25,7 +25,7 @@ Rebound::Rebound() : Game(1200, 800) {
 	player->pivot = {50, 50};
 	player->play("Idle");
 	allSprites->addChild(player);
-
+/*
 	mage = new Mage(player);
 	mage->position = {400, 400};
 	mage->height = 80;
@@ -109,10 +109,16 @@ Rebound::Rebound() : Game(1200, 800) {
 	kingdomMage->height = 80;
 	kingdomMage->width = 70;
 
-	allSprites->addChild(kingdomMage);
+	allSprites->addChild(kingdomMage);*/
 
+	secondBoss = new SecondBoss(player);
+	secondBoss->position = {600,600};
+	secondBoss->height = 100;
+	secondBoss->width = 100;
 
-	collisionSystem->watchForCollisions("player", "arrow");
+	allSprites->addChild(secondBoss);
+
+	/*collisionSystem->watchForCollisions("player", "arrow");
 	collisionSystem->watchForCollisions("player", "poison_bomb");
 	collisionSystem->watchForCollisions("player", "knight");
 	collisionSystem->watchForCollisions("player", "mage_attack");
@@ -167,7 +173,7 @@ Rebound::Rebound() : Game(1200, 800) {
 	collisionSystem->watchForCollisions("poisoner", "mage_attack");
 	collisionSystem->watchForCollisions("poisoner", "cannonball");
 	collisionSystem->watchForCollisions("poisoner", "rubber_cannonball");
-	collisionSystem->watchForCollisions("poisoner", "poison_bomb");
+	collisionSystem->watchForCollisions("poisoner", "poison_bomb");*/
 
 }
 
