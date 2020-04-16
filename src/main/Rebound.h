@@ -20,6 +20,7 @@
 #include "../engine/enemies/KingdomArcher.h"
 #include "../engine/enemies/KingdomMage.h"
 #include "../engine/enemies/Orc.h"
+#include "../engine/enemies/Ogre.h"
 #include "../engine/enemies/Poisoner.h"
 
 class Rebound : public Game {
@@ -42,6 +43,7 @@ private:
 	KingdomArcher* kingdomArcher;
 	Poisoner* poisoner;
 	Orc* orc;
+	Ogre* ogre;
 	KingdomMage* kingdomMage;
 	DisplayObject* allSprites;
 

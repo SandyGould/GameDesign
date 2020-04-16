@@ -1,13 +1,12 @@
 #include "Archer.h"
 #include <cstdlib>
-#include <stdlib.h> 
 #include <cmath>
 #include <iostream>
 
 static int archer_count =1;
 /*
 States:
-Init 0 
+Init 0
 Wait for player 1
 Knock arrow 2
 Aim 3
@@ -18,15 +17,12 @@ Ded 7
 */
 
 // Init
-Archer::Archer(Player* player): BaseEnemy("Archer", "./resources/assets/Display_Objects/archer.png", player){
+Archer::Archer(Player* player): BaseEnemy("Archer", "./resources/assets/Display_Objects/archer.png", "", player){
     this->state = 0;
     this->facingRight=true;
     this->type = "archer";
-}
-Archer::Archer(Player* player, std::string filepath): BaseEnemy("Archer", filepath, player){
-    this->state = 0;
-    this->facingRight=true;
-    this->type = "archer";
+    this->actionFrames = 12;
+    this->arrow = nullptr;
 }
 
 void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
@@ -64,7 +60,7 @@ void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
         }
     }
     else if(this->state == 4){ //aim.
-            //TODO: use a tween to make this look pretty :) 
+            //TODO: use a tween to make this look pretty :)
             this->state = 5;
             arrow->rotation = arrow->aim(player);
     }
@@ -74,7 +70,7 @@ void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
     }
     else if(this->state == 6){ //cooldown //Works.
         if(coolDownFrames == -1){ //If the cooldown has expired we'll set it to -1
-            this->coolDownFrames = generateCoolDown(); 
+            this->coolDownFrames = generateCoolDown();
         }
         else if (coolDownFrames == 0){
             this->coolDownFrames--; //Set to -1.
@@ -95,7 +91,6 @@ int Archer::generateCoolDown(){ //returns a number of frames that will be at lea
 void Archer::draw(AffineTransform& at){
     BaseEnemy::draw(at);
 }
-
 
 bool Archer::onCollision(DisplayObject* other){
      if(other->type == "mage_attack"){

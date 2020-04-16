@@ -187,7 +187,6 @@ void CollisionDemo::draw(AffineTransform& at) {
 }
 
 void CollisionDemo::draw_post() {
-    SDL_SetRenderDrawColor(Game::renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
     this->parentObj->drawHitbox();
     this->child1->drawHitbox();
     this->child2->drawHitbox();

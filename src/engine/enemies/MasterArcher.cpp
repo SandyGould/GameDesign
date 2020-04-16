@@ -1,13 +1,13 @@
 #include "MasterArcher.h"
 #include <cstdlib>
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <cmath>
 #include <iostream>
 
 static int master_archer_count = 1;
 /*
 States:
-Init 0 
+Init 0
 Wait for player 1
 Knock arrow 2
 Aim 3
@@ -18,7 +18,7 @@ Ded 7
 */
 
 // Init
-MasterArcher::MasterArcher(Player* player): BaseEnemy("MasterArcher" + master_archer_count, "./resources/assets/Display_Objects/master_archer.png", player){
+MasterArcher::MasterArcher(Player* player): BaseEnemy("MasterArcher" + master_archer_count, "./resources/assets/Display_Objects/master_archer.png", "", player){
     this->state = 0;
     this->facingRight=true;
     master_archer_count++;
@@ -50,14 +50,14 @@ void MasterArcher::update(std::unordered_set<SDL_Scancode> pressedKeys, jState j
         this->addChild(arrow3);
         //TODO: configure this to look cool AF
         arrow1->rotation = 15;
-        arrow1->position = {5,1}; 
+        arrow1->position = {5,1};
         arrow2->position = {5,0};
         arrow3->rotation = -15;
         arrow3->position = {5,-1};
         this->state = 3;
     }
     else if(this->state == 3){ //aim.
-            //TODO: use a tween to make this look pretty :) 
+            //TODO: use a tween to make this look pretty :)
             this->state = 4;
             this->actionFrames=12; //SET THIS TO THE NUMBER OF FRAMES FOR DRAWING BACK ANIMATION(if we get one)
             arrow2->rotation = arrow2->aim(player);
@@ -80,7 +80,7 @@ void MasterArcher::update(std::unordered_set<SDL_Scancode> pressedKeys, jState j
     }
     else if(this->state == 6){ //cooldown //Works.
         if(coolDownFrames == -1){ //If the cooldown has expired we'll set it to -1
-            this->coolDownFrames = generateCoolDown(); 
+            this->coolDownFrames = generateCoolDown();
         }
         else if (coolDownFrames == 0){
             this->coolDownFrames--; //Set to -1.

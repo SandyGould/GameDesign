@@ -11,6 +11,8 @@ class Arrow: public Projectile{
     void drawBack();
     int drawBackX;
     int drawBackY;
+
+    void draw(AffineTransform& at) override;
 };
 
 #endif

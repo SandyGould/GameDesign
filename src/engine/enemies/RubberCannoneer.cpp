@@ -1,6 +1,6 @@
 #include "RubberCannoneer.h"
 
-    RubberCannoneer::RubberCannoneer(Player* player) : BaseEnemy("RubberCannoneer", "./resources/assets/Display_Objects/rubber_cannoneer.png", player){
+    RubberCannoneer::RubberCannoneer(Player* player) : BaseEnemy("RubberCannoneer", "./resources/assets/Display_Objects/rubber_cannoneer.png", "", player){
         this->type = "rubber_cannoneer";
     }
 

@@ -1,5 +1,5 @@
 #ifndef RUBBERCANNONEER_H
-#define RUBBBERCANNONEER_H
+#define RUBBERCANNONEER_H
 
 #include "BaseEnemy.h"
 #include "RubberCannonBall.h"

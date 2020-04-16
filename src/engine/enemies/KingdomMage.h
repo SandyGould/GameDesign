@@ -1,5 +1,5 @@
 #ifndef KINGDOMMAGE_H
-#define KINGSOMMAGE_H
+#define KINGDOMMAGE_H
 
 #include "Mage.h"
 

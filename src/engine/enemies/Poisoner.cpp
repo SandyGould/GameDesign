@@ -1,6 +1,6 @@
 #include "Poisoner.h"
 
-Poisoner::Poisoner(Player* player) : BaseEnemy("poisoner", "./resources/assets/Display_Objects/poisoner.png", player){
+Poisoner::Poisoner(Player* player) : BaseEnemy("poisoner", "./resources/assets/Display_Objects/poisoner.png", "", player){
     this->type="poisoner";
 }
 
@@ -47,7 +47,7 @@ void Poisoner::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joyst
             newY = 0;
         }
         this->position= {newX, newY};
-        
+
         this->actionFrames--;
         if(this->actionFrames == 0){
             this->state=3;

@@ -1,10 +1,6 @@
 #include "Knight.h"
 
-Knight::Knight(Player* player): BaseEnemy("knight", "./resources/assets/Display_Objects/knight.png", player){
-    this->type = "knight";
-}
-
-Knight::Knight(Player* player, std::string filepath): BaseEnemy("knight", filepath, player){
+Knight::Knight(Player* player): BaseEnemy("knight", "./resources/assets/Display_Objects/knight.png", "", player){
     this->type = "knight";
 }
 
@@ -17,7 +13,7 @@ void Knight::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
     Attack
     Reset
     Ded
-    */   
+    */
     if(this->health ==0){
         this->clean = true;
     }

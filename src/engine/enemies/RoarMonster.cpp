@@ -1,6 +1,6 @@
 #include "RoarMonster.h"
 #include <iostream>
-RoarMonster::RoarMonster(Player* player): BaseEnemy("RoaringMonster","./resources/assets/Display_Objects/roaring_monster.png", player){
+RoarMonster::RoarMonster(Player* player): BaseEnemy("RoaringMonster","./resources/assets/Display_Objects/roaring_monster.png", "", player){
     this->type="roar_monster";
 }
 
