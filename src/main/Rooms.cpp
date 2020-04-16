@@ -111,10 +111,10 @@ Rooms::Rooms() : Game(600, 500) {
 
 
 	// create collision system
-	// this->collisionSystem = new CollisionSystem();
+	this->collisionSystem = new CollisionSystem();
     //EventDispatcher::getInstance().addEventListener(this->collisionSystem, Collision);
-	// set collisions between player and all environmental objects
-	// this->collisionSystem->watchForCollisions("player", "env_object");
+	//set collisions between player and all environmental objects
+	this->collisionSystem->watchForCollisions("player", "env_object");
 }
 
 Rooms::~Rooms() {
@@ -127,7 +127,7 @@ Rooms::~Rooms() {
 
 
 void Rooms::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
-	// this->collisionSystem->update();
+	this->collisionSystem->update();
 
 	std::cout << "x" << std::endl;
 	std::cout << player->position.x << std::endl;
@@ -157,8 +157,8 @@ void Rooms::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystick
 		}
 		if (player->position.x > 1231) {
 			//EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::OUT_SCENE_EVENT));
-			player->addChild(scene2);
-			camera->removeImmediateChild(scene);
+			scene2->addChild(player);
+			//camera->removeImmediateChild(scene);
 			scene2->setCameraRef(camera);
 			// set new parameters for next scene
 			camera->addChild(scene2);
