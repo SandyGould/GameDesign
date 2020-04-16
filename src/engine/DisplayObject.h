@@ -82,12 +82,18 @@ public:
 	void getGlobalTransform(AffineTransform& at);
 
     virtual bool onCollision(DisplayObject* other);
-	
+
 	Hitbox getHitbox();
     void drawHitbox(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE});
 
     bool visible = true;
     SDL_Point position = {0, 0};
+    SDL_Point orig_position = {0, 0}; // Used for parallaxing (in Layer.cpp)
+
+    SDL_Point hitcircle_center = {0,0};
+
+    int hitcircle_radius = 100;
+    SDL_Point hitcircle_edge = {0,hitcircle_radius}; //this is so we can re-derive the radius once the points are sent through transform
 
 	int width = 100;
 	int height = 100;
@@ -96,12 +102,12 @@ public:
 	double scaleY = 1.0;
 	double rotation = 0.0; // in radians
 	bool facingRight = true;
-
+    std::string col_type = "square"; //this string changes based on whether a square or circular collision surface is involved
 	SDL_Renderer* renderer;
 
 	bool hasCollision = false;
 
-	double parallaxSpeed = 0.0;
+	double parallaxSpeed = 1.0;
 
     std::vector<DisplayObject*> children;
 

@@ -217,18 +217,18 @@ void DisplayObject::update(std::unordered_set<SDL_Scancode> pressedKeys, jState 
     for (auto* child : children) {
         child->update(pressedKeys, joystickState, pressedButtons);
     }
-	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
-		position.x -= parallaxSpeed;
-	}
-	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
-		position.x += parallaxSpeed;
-	}
-	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-		position.y -= parallaxSpeed;
-	}
-	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
-		position.y += parallaxSpeed;
-	}
+	// if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
+	// 	position.x -= parallaxSpeed;
+	// }
+	// if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
+	// 	position.x += parallaxSpeed;
+	// }
+	// if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
+	// 	position.y -= parallaxSpeed;
+	// }
+	// if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
+	// 	position.y += parallaxSpeed;
+	// }
 }
 
 void DisplayObject::draw(AffineTransform& at) {
@@ -334,6 +334,14 @@ Hitbox DisplayObject::getHitbox() {
         at.transformPoint(0, height),
         at.transformPoint(width, height),
     };
+}
+
+void DisplayObject::getHitcircle()
+{
+    AffineTransform at;
+    this->getGlobalTransform(at);
+    hitcircle_center = at.transformPoint(0,0);
+    hitcircle_edge = at.transformPoint(0,hitcircle_radius);
 }
 
 void DisplayObject::drawHitbox(SDL_Color color) {

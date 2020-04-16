@@ -180,34 +180,71 @@ bool CollisionSystem::isInside(SDL_Point point, Hitbox hitbox) {
 
 // Returns true iff obj1 hitbox and obj2 hitbox overlap
 bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
-    Hitbox obj1Hitbox = obj1->getHitbox();
-    Hitbox obj2Hitbox = obj2->getHitbox();
+    if(obj1->col_type.compare("square") == 0 && obj2->col_type.compare("square") == 0) {
+        Hitbox obj1Hitbox = obj1->getHitbox();
+        Hitbox obj2Hitbox = obj2->getHitbox();
 
-    // Do line segments intersect?
-    if (isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ul, obj2Hitbox.ur) ||
-        isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ul, obj2Hitbox.ll) ||
-        isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ur, obj2Hitbox.lr) ||
-        isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ll, obj2Hitbox.lr) ||
-        isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ul, obj2Hitbox.ur) ||
-        isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ul, obj2Hitbox.ll) ||
-        isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ur, obj2Hitbox.lr) ||
-        isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ll, obj2Hitbox.lr) ||
-        isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ur) ||
-        isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ll) ||
-        isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ur, obj2Hitbox.lr) ||
-        isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ll, obj2Hitbox.lr) ||
-        isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ur) ||
-        isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ll) ||
-        isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ur, obj2Hitbox.lr) ||
-        isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ll, obj2Hitbox.lr)) {
-        return true;
+        // Do line segments intersect?
+        if (isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ul, obj2Hitbox.ur) ||
+            isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ul, obj2Hitbox.ll) ||
+            isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ur, obj2Hitbox.lr) ||
+            isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ll, obj2Hitbox.lr) ||
+            isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ul, obj2Hitbox.ur) ||
+            isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ul, obj2Hitbox.ll) ||
+            isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ur, obj2Hitbox.lr) ||
+            isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ll, obj2Hitbox.lr) ||
+            isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ur) ||
+            isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ll) ||
+            isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ur, obj2Hitbox.lr) ||
+            isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ll, obj2Hitbox.lr) ||
+            isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ur) ||
+            isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ll) ||
+            isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ur, obj2Hitbox.lr) ||
+            isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ll, obj2Hitbox.lr)) {
+            return true;
+        }
+
+        // Is either object completely inside of each other?
+        // We only need to check one point because we already checked intersections above
+        const bool obj1InObj2 = isInside(obj1Hitbox.ul, obj2Hitbox);
+        const bool obj2InObj1 = isInside(obj2Hitbox.ul, obj1Hitbox);
+        return obj1InObj2 || obj2InObj1;
     }
+    DisplayObject* circle;
+    DisplayObject* rect;
+    if(obj1->col_type.compare("circle") == 0)
+    {
+        circle = obj1;
+        rect = obj2;
+    }
+    else
+    {
+        circle = obj2;
+        rect = obj1;
+    }
+    //https://stackoverflow.com/questions/21089959/detecting-collision-of-rectangle-with-circle
+    //Step1- find distances betweencircle's center and rectangle's center.
 
-    // Is either object completely inside of each other?
-    // We only need to check one point because we already checked intersections above
-    const bool obj1InObj2 = isInside(obj1Hitbox.ul, obj2Hitbox);
-    const bool obj2InObj1 = isInside(obj2Hitbox.ul, obj1Hitbox);
-    return obj1InObj2 || obj2InObj1;
+    double calc_width = std::sqrt(((rect->hitbox_ur.y - rect->hitbox_ul.y) * (rect->hitbox_ur.y - rect->hitbox_ul.y)) + ((rect->hitbox_ur.x - rect->hitbox_ul.x) * (rect->hitbox_ur.x - rect->hitbox_ul.x)));
+
+    double calc_height = std::sqrt(((rect->hitbox_ll.y - rect->hitbox_ul.y) * (rect->hitbox_ll.y - rect->hitbox_ul.y)) + ((rect->hitbox_ll.x - rect->hitbox_ll.x) * (rect->hitbox_ll.x - rect->hitbox_ul.x)));
+    double calc_rad = std::sqrt(((circle->hitcircle_edge.y - circle->hitcircle_center.y) * (circle->hitcircle_edge.y - circle->hitcircle_center.y)) + ((circle->hitcircle_edge.x - circle->hitcircle_center.x) * (circle->hitcircle_edge.x - circle->hitcircle_center.x)));
+    double distX = abs(circle->hitcircle_center.x - rect->hitbox_ul.x-calc_width/2);
+    double distY = abs(circle->hitcircle_center.y-rect->hitbox_ul.y-calc_height/2);
+
+    //Step2- if distance gtreater than halfcircle+helf rect, they're not colliding
+    if (distX > (calc_width/2 + calc_rad)) { return false; }
+    if (distY > (calc_height/2 + calc_rad)) { return false; }
+
+    //step3- if distance is less than halfrect, they are colliding
+    if (distX <= (calc_width/2)) { return true; }
+        if (distY <= (calc_height/2)) { return true; }
+
+    //Step4- compares distance between circle and rectangle corners.
+        double dx=distX-calc_width/2;
+            double dy=distY-calc_height/2;
+        return (dx*dx+dy*dy<=(calc_rad*calc_rad));
+
 }
 
 // Resolves the collision that occurred between d and other

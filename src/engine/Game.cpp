@@ -12,6 +12,7 @@
 #include "events/TextInputEvent.h"
 #include "events/TextEditEvent.h"
 #include "events/MouseWheelEvent.h"
+#include "events/KeyDownEvent.h"
 
 #include <SDL2/SDL_ttf.h>
 #include <iostream>
@@ -117,6 +118,7 @@ void Game::start() {
 				break;
 			case SDL_KEYDOWN:
 				pressedKeys.insert(event.key.keysym.scancode);
+				EventDispatcher::getInstance().dispatchEvent(new KeyDownEvent());
 				break;
 			case SDL_KEYUP:
 				this->pressedKeys.erase(event.key.keysym.scancode);
