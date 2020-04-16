@@ -44,7 +44,11 @@ double Projectile::aim(DisplayObject* targetSprite){ //Cause a lot of enemies ne
     return goalAngle;
 }
 
-void Projectile::reflect(){
+void Projectile::reflect() {
     this->deltaX = -deltaX;
     this->deltaY = -deltaY;
+}
+
+void Projectile::draw(AffineTransform& at) {
+    Sprite::draw(at);
 }

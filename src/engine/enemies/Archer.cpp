@@ -92,7 +92,6 @@ void Archer::draw(AffineTransform& at){
     BaseEnemy::draw(at);
 }
 
-
 bool Archer::onCollision(DisplayObject* other){
      if(other->type == "mage_attack"){
         this->changeHealth(-20);

@@ -1,5 +1,4 @@
 #include "AnimatedSprite.h"
-#include "Game.h"
 #include "json.hpp"
 #include "pugixml.hpp"
 #include <fstream>
@@ -9,7 +8,7 @@ using json = nlohmann::json;
 
 AnimatedSprite::AnimatedSprite(std::string id, SDL_Renderer *r) : Sprite(id) {
     this->type = "AnimatedSprite";
-    this->r = r;
+    this->renderer = r;
 }
 
 //Spritesheet constructors
@@ -20,7 +19,7 @@ AnimatedSprite::AnimatedSprite(std::string id, std::string spritesheet, std::str
 AnimatedSprite::AnimatedSprite(std::string id, std::string spritesheet, std::string xml, SDL_Renderer* r) : Sprite(id, spritesheet, r){
     this->type = "AnimatedSprite";
     this->sheetpath = spritesheet;
-    this->r = r;
+    this->renderer = r;
     this->xmlpath = xml;
     this->visible = true;
     parse(this->xmlpath);
@@ -35,7 +34,7 @@ AnimatedSprite::AnimatedSprite(const DisplayObject& other) : Sprite(other.id){
         this->id = AS->id + "_copy";
         this->type = AS->type;
         this->sheetpath = AS->sheetpath;
-        this->r = AS->r;
+        this->renderer = AS->renderer;
         this->xmlpath = AS->xmlpath;
         this->width = AS->width;
         this->height = AS->height;
@@ -52,7 +51,7 @@ AnimatedSprite::AnimatedSprite(const DisplayObject& other) : Sprite(other.id){
     } else{
         this->type = "AnimatedSprite";
         this->id = "FAILED_COPY";
-        this->r = Game::renderer;
+        this->renderer = Game::renderer;
     }
     if (!animations.empty()){
         this->play(0);
@@ -68,7 +67,7 @@ void AnimatedSprite::parse(std::string xml){
     image = new SDL_Surface;
     image = IMG_Load(sheetpath.c_str());
     //texture = new SDL_Texture;
-    texture = SDL_CreateTextureFromSurface(r ,image);
+    texture = SDL_CreateTextureFromSurface(renderer,image);
 
     for(auto& anim: doc.child("TextureAtlas")){
         //printf("On XML for anim %s\n", anim.attribute("name").as_string());
@@ -238,9 +237,5 @@ void AnimatedSprite::update(std::unordered_set<SDL_Scancode> pressedKeys, jState
 }
 
 void AnimatedSprite::draw(AffineTransform& at) {
-    AnimatedSprite::draw(at, Game::renderer, NULL);
-}
-
-void AnimatedSprite::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
-    Sprite::draw(at, r, src);
+    Sprite::draw(at);
 }

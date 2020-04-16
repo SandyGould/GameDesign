@@ -43,7 +43,7 @@ public:
 
 	bool isRGB = false;
 
-    DisplayObject(std::string id);
+    explicit DisplayObject(std::string id);
     DisplayObject(std::string id, std::string path);
 	DisplayObject(std::string id, std::string path, SDL_Renderer* r);
 	DisplayObject(std::string id, int red, int green, int blue);
@@ -69,7 +69,6 @@ public:
 
 	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
 	virtual void draw(AffineTransform& at);
-	virtual void draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src = NULL);
 
 	void applyTransformations(AffineTransform& at);
 	void reverseTransformations(AffineTransform& at);
@@ -98,7 +97,7 @@ public:
 	double rotation = 0.0; // in radians
 	bool facingRight = true;
 
-	SDL_Renderer* r;
+	SDL_Renderer* renderer;
 
 	bool hasCollision = false;
 

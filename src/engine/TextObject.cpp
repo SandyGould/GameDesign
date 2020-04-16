@@ -20,7 +20,7 @@ TextObject::TextObject(string id, string text, TTF_Font* font, SDL_Renderer* r) 
     this->text = text;
     this->font = font;
 
-    this->r = r;
+    this->renderer = r;
 
     this->setText(this->text);
 }
@@ -45,7 +45,7 @@ void TextObject::setText(string text){
     this->width = temp->w;
     this->height = temp->h;
     this->setSurface(temp);
-    this->setTexture(SDL_CreateTextureFromSurface(this->r, temp));
+    this->setTexture(SDL_CreateTextureFromSurface(this->renderer, temp));
 }
 
 void TextObject::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
@@ -53,10 +53,6 @@ void TextObject::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joy
 }
 
 void TextObject::draw(AffineTransform& at) {
-    DisplayObject::draw(at, Game::renderer);
-}
-
-void TextObject::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
-    DisplayObject::draw(at, r, src);
+    DisplayObject::draw(at);
 }
 

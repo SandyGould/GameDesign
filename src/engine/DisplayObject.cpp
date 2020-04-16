@@ -10,7 +10,7 @@
 DisplayObject::DisplayObject(std::string id) {
     this->id = id;
 
-    this->r = Game::renderer;
+    this->renderer = Game::renderer;
 
     this->image = NULL;
     this->texture = NULL;
@@ -27,7 +27,7 @@ DisplayObject::DisplayObject(std::string id, std::string filepath)
 DisplayObject::DisplayObject(std::string id, std::string filepath, SDL_Renderer* r)
     : DisplayObject(id) {
     this->imgPath = filepath;
-    this->r = r;
+    this->renderer = r;
 
     loadTexture(filepath, r);
 }
@@ -51,7 +51,7 @@ DisplayObject::DisplayObject(std::string id, int red, int green, int blue, int w
     this->width = width;
     this->height = height;
 
-    this->r = r;
+    this->renderer = r;
 
     this->loadRGBTexture(red, green, blue, width, height, r);
 }
@@ -232,10 +232,6 @@ void DisplayObject::update(std::unordered_set<SDL_Scancode> pressedKeys, jState 
 }
 
 void DisplayObject::draw(AffineTransform& at) {
-    this->draw(at, Game::renderer);
-}
-
-void DisplayObject::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
     applyTransformations(at);
 
     if (curTexture != NULL && visible) {
@@ -258,13 +254,13 @@ void DisplayObject::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
         }
 
         SDL_SetTextureAlphaMod(curTexture, alpha);
-        SDL_RenderCopyEx(r, curTexture, sourceRect, &dstrect, calculateRotation(origin, upperRight), &corner, flip);
+        SDL_RenderCopyEx(renderer, curTexture, sourceRect, &dstrect, calculateRotation(origin, upperRight), &corner, flip);
     }
 
     // undo the parent's pivot
     at.translate(pivot.x, pivot.y);
-    for (auto* child : children) {
-        child->draw(at, r);
+    for (auto child : children) {
+        child->draw(at);
     }
     // redo the parent's pivot
     at.translate(-pivot.x, -pivot.y);
@@ -342,10 +338,16 @@ Hitbox DisplayObject::getHitbox() {
 
 void DisplayObject::drawHitbox() {
     Hitbox hitbox = this->getHitbox();
-    SDL_RenderDrawLine(Game::renderer, hitbox.ul.x, hitbox.ul.y, hitbox.ur.x, hitbox.ur.y);
-    SDL_RenderDrawLine(Game::renderer, hitbox.ul.x, hitbox.ul.y, hitbox.ll.x, hitbox.ll.y);
-    SDL_RenderDrawLine(Game::renderer, hitbox.ll.x, hitbox.ll.y, hitbox.lr.x, hitbox.lr.y);
-    SDL_RenderDrawLine(Game::renderer, hitbox.ur.x, hitbox.ur.y, hitbox.lr.x, hitbox.lr.y);
+
+    Uint8 r, g, b, a;
+    SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
+
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_RenderDrawLine(renderer, hitbox.ul.x, hitbox.ul.y, hitbox.ur.x, hitbox.ur.y);
+    SDL_RenderDrawLine(renderer, hitbox.ul.x, hitbox.ul.y, hitbox.ll.x, hitbox.ll.y);
+    SDL_RenderDrawLine(renderer, hitbox.ll.x, hitbox.ll.y, hitbox.lr.x, hitbox.lr.y);
+    SDL_RenderDrawLine(renderer, hitbox.ur.x, hitbox.ur.y, hitbox.lr.x, hitbox.lr.y);
+    SDL_SetRenderDrawColor(renderer, r, g, b, a);
 }
 
 double DisplayObject::distance(SDL_Point& p1, SDL_Point& p2) {
