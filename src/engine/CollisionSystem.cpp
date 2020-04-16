@@ -9,22 +9,22 @@
 //to be checked (via a single call to watchForCollisions) below.
 void CollisionSystem::update() {
     for (auto& [object1, object2] : collisionPairs) {
+        SDL_Point obj1Position = object1->getHitbox().ul;
+        SDL_Point obj2Position = object2->getHitbox().ul;
         SDL_Point obj1Prev = prevPositions.at(object1);
         SDL_Point obj2Prev = prevPositions.at(object2);
-        // TODO: These need to be in global coords (see getHitbox below)
-        // if (obj1Prev.x == object1->position.x && obj1Prev.y == object1->position.y &&
-        //     obj2Prev.x == object2->position.x && obj2Prev.y == object2->position.y) {
-        //     // Wait, they didn't move! They couldn't have collided, then.
-        //     continue;
-        // }
 
-        Hitbox obj1Hitbox = object1->getHitbox();
-        Hitbox obj2Hitbox = object2->getHitbox();
+        if (obj1Prev.x == obj1Position.x && obj1Prev.y == obj1Position.y &&
+            obj2Prev.x == obj2Position.x && obj2Prev.y == obj2Position.y) {
+            // Wait, they didn't move! They couldn't have collided, then.
+            continue;
+        }
+
         if (collidesWith(object1, object2)) {
-            int xD1 = obj1Hitbox.ul.x - obj1Prev.x;
-            int yD1 = obj1Hitbox.ul.y - obj1Prev.y;
-            int xD2 = obj2Hitbox.ul.x - obj2Prev.x;
-            int yD2 = obj2Hitbox.ul.y - obj2Prev.y;
+            int xD1 = obj1Position.x - obj1Prev.x;
+            int yD1 = obj1Position.y - obj1Prev.y;
+            int xD2 = obj2Position.x - obj2Prev.x;
+            int yD2 = obj2Position.y - obj2Prev.y;
             resolveCollision(object1, object2, xD1, yD1, xD2, yD2);
         }
     }
