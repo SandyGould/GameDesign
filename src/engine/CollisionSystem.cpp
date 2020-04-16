@@ -11,6 +11,7 @@ void CollisionSystem::update() {
     for (auto& [object1, object2] : collisionPairs) {
         SDL_Point obj1Prev = prevPositions.at(object1);
         SDL_Point obj2Prev = prevPositions.at(object2);
+        // TODO: These need to be in global coords (see getHitbox below)
         // if (obj1Prev.x == object1->position.x && obj1Prev.y == object1->position.y &&
         //     obj2Prev.x == object2->position.x && obj2Prev.y == object2->position.y) {
         //     // Wait, they didn't move! They couldn't have collided, then.
@@ -26,9 +27,11 @@ void CollisionSystem::update() {
             int yD2 = obj2Hitbox.ul.y - obj2Prev.y;
             resolveCollision(object1, object2, xD1, yD1, xD2, yD2);
         }
+    }
 
-        prevPositions.at(object1) = obj1Hitbox.ul;
-        prevPositions.at(object2) = obj2Hitbox.ul;
+    // Update previous positions
+    for (auto& [object, _] : prevPositions) {
+        prevPositions.at(object) = object->getHitbox().ul;
     }
 }
 
@@ -107,8 +110,8 @@ void CollisionSystem::pairObjectWithType(DisplayObject* object, const string& ty
         }
 
         // Keep track of positions for collision deltas
-        prevPositions.try_emplace(object, object->position);
-        prevPositions.try_emplace(object2, object2->position);
+        prevPositions.try_emplace(object, object->getHitbox().ul);
+        prevPositions.try_emplace(object2, object2->getHitbox().ul);
     }
 }
 
