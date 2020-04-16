@@ -20,6 +20,10 @@ void CollisionSystem::update() {
             continue;
         }
 
+        // More optimizations possible:
+        // - Only check for collisions for visible objects
+        // - Only check for collisions for objects in the camera view
+
         if (collidesWith(object1, object2)) {
             int xD1 = obj1Position.x - obj1Prev.x;
             int yD1 = obj1Position.y - obj1Prev.y;
