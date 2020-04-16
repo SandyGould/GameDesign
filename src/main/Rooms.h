@@ -12,12 +12,13 @@
 #include "../engine/things/TextBox.h"
 #include "../engine/things/SelectionMenuBase.h"
 #include "../engine/things/SelectionMenuOption.h"
-#include "../engine/QuestManager.h"
-#include "../engine/events/PickedUpEvent.h"
+// #include "../engine/QuestManager.h"
+// #include "../engine/events/PickedUpEvent.h"
 // #include "../engine/Sound.h"
 #include "../tweens/Tween.h"
 #include "../tweens/TweenJuggler.h"
-#include "../engine/HealthBar.h"
+#include "../engine/StatBar.h"
+#include "../engine/CollisionSystem.h"
 
 
 class Rooms : public Game {
@@ -41,13 +42,19 @@ private:
     SelectionMenuOption * selection_resume_option;
     
     Scene* scene;
+    Scene* scene2;
 
     TextBox* start_text_box;
 
-    HealthBar* health;
+    StatBar* health;
+
+    int room;
+
+    CollisionSystem* collisionSystem;
     
     Tween* player_tween;
     Tween* start_text_tween;
+    Tween* scene_transition;
 };
 
 #endif

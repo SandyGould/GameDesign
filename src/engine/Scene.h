@@ -4,6 +4,9 @@
 #include "AnimatedSprite.h"
 #include "Sprite.h"
 #include "Camera.h"
+#include "../events/Event.h"
+#include "../events/EventListener.h"
+
 
 #include "json.hpp"
 
@@ -13,7 +16,7 @@
 
 using json = nlohmann::json;
 
-class Scene : public DisplayObject {
+class Scene : public DisplayObject, public EventListener {
 
 public:
 	Scene();
@@ -34,6 +37,10 @@ public:
 	DisplayObject* generateDO(json j);
 	AnimatedSprite* generateAS(json j);
 	Sprite* generateSprite(json j);
+
+	// for scene transitions
+	void handleEvent(Event* e);
+	bool keepScene = false;
 	
 private:
 	DisplayObject* root;
