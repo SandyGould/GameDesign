@@ -9,26 +9,29 @@
 //to be checked (via a single call to watchForCollisions) below.
 void CollisionSystem::update() {
     for (auto& [object1, object2] : collisionPairs) {
+        SDL_Point obj1Position = object1->getHitbox().ul;
+        SDL_Point obj2Position = object2->getHitbox().ul;
         SDL_Point obj1Prev = prevPositions.at(object1);
         SDL_Point obj2Prev = prevPositions.at(object2);
-        // if (obj1Prev.x == object1->position.x && obj1Prev.y == object1->position.y &&
-        //     obj2Prev.x == object2->position.x && obj2Prev.y == object2->position.y) {
-        //     // Wait, they didn't move! They couldn't have collided, then.
-        //     continue;
-        // }
 
-        Hitbox obj1Hitbox = object1->getHitbox();
-        Hitbox obj2Hitbox = object2->getHitbox();
-        if (collidesWith(object1, object2)) {
-            int xD1 = obj1Hitbox.ul.x - obj1Prev.x;
-            int yD1 = obj1Hitbox.ul.y - obj1Prev.y;
-            int xD2 = obj2Hitbox.ul.x - obj2Prev.x;
-            int yD2 = obj2Hitbox.ul.y - obj2Prev.y;
-            resolveCollision(object1, object2, xD1, yD1, xD2, yD2);
+        if (obj1Prev.x == obj1Position.x && obj1Prev.y == obj1Position.y &&
+            obj2Prev.x == obj2Position.x && obj2Prev.y == obj2Position.y) {
+            // Wait, they didn't move! They couldn't have collided, then.
+            continue;
         }
 
-        prevPositions.at(object1) = obj1Hitbox.ul;
-        prevPositions.at(object2) = obj2Hitbox.ul;
+        if (collidesWith(object1, object2)) {
+            int xD1 = obj1Position.x - obj1Prev.x;
+            int yD1 = obj1Position.y - obj1Prev.y;
+            int xD2 = obj2Position.x - obj2Prev.x;
+            int yD2 = obj2Position.y - obj2Prev.y;
+            resolveCollision(object1, object2, xD1, yD1, xD2, yD2);
+        }
+    }
+
+    // Update previous positions
+    for (auto& [object, _] : prevPositions) {
+        prevPositions.at(object) = object->getHitbox().ul;
     }
 }
 
@@ -53,13 +56,14 @@ void CollisionSystem::handleEvent(Event* e) {
                 }
             }
         } else {
-            displayObjectsMap.at(event->object->type).erase(event->object);
+            displayObjectsMap.at(type).erase(object);
             collisionPairs.erase(remove_if(collisionPairs.begin(),
                                            collisionPairs.end(),
                                            [&](auto x) {
                                                return x.first == object || x.second == object;
                                            }),
                                  collisionPairs.cend());
+            prevPositions.erase(object);
         }
     }
 }
@@ -107,8 +111,8 @@ void CollisionSystem::pairObjectWithType(DisplayObject* object, const string& ty
         }
 
         // Keep track of positions for collision deltas
-        prevPositions.try_emplace(object, object->position);
-        prevPositions.try_emplace(object2, object2->position);
+        prevPositions.try_emplace(object, object->getHitbox().ul);
+        prevPositions.try_emplace(object2, object2->getHitbox().ul);
     }
 }
 
