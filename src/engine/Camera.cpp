@@ -97,10 +97,13 @@ void Camera::follow(int newX, int newY) {
 // }
 
 void Camera::draw(AffineTransform& at) {
+    Camera::draw(at, Game::renderer);
+}
+
+void Camera::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
     applyTransformations(at);
     for (auto child : children) {
-        child->draw(at);
+        child->draw(at, r);
     }
     reverseTransformations(at);  
 }
-

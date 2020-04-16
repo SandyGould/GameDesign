@@ -6,6 +6,8 @@
 #include "../../engine/tweens/TweenParam.h"
 #include "../../engine/tweens/TweenJuggler.h"
 #include "../../engine/events/NewSceneEvent.h"
+#include "../../engine/events/DisplayTreeChangeEvent.h"
+
 
 #include <algorithm>
 #include <iostream>
@@ -53,12 +55,12 @@ Rooms::Rooms() : Game(600, 500) {
 	scene2->getChild("L0")->getChild("barrel")->type = "env_object";
 
 	// load and prep player
-	// player = new Player();
-	player = new AnimatedSprite("girl", "./resources/assets/Spritesheets/Girl/Girl.png", "./resources/assets/Spritesheets/Girl/Girl.xml");
+	player = new Player();
+	// player = new AnimatedSprite("girl", "./resources/assets/Spritesheets/Girl/Girl.png", "./resources/assets/Spritesheets/Girl/Girl.xml");
 	player->position = {50, 250};
 	player->width = player->height = 50;
 	player->pivot = {50, 50};
-	player->type = "player";
+	//player->type = "player";
 	scene->addChild(player);
 
 	// start text box
@@ -111,10 +113,10 @@ Rooms::Rooms() : Game(600, 500) {
 
 	
 	// create collision system
-	// this->collisionSystem = new CollisionSystem();
-    //EventDispatcher::getInstance().addEventListener(this->collisionSystem, Collision);
+	this->collisionSystem = new CollisionSystem();
+	EventDispatcher::getInstance().addEventListener(this->collisionSystem, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
 	// set collisions between player and all environmental objects
-	// this->collisionSystem->watchForCollisions("player", "env_object");
+	this->collisionSystem->watchForCollisions("player", "env_object");
 }
 
 Rooms::~Rooms() {
@@ -127,7 +129,7 @@ Rooms::~Rooms() {
 
 
 void Rooms::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
-	// this->collisionSystem->update();
+	this->collisionSystem->update();
 
 	std::cout << "x" << std::endl;
 	std::cout << player->position.x << std::endl;
@@ -202,8 +204,6 @@ void Rooms::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystick
     TweenJuggler::getInstance().nextFrame();
 	Game::update(pressedKeys, joystickState, pressedButtons);
 	camera->follow(player->position.x, player->position.y);
-	std::cout << scene->alpha << std::endl;
-
 }
 
 void Rooms::draw(AffineTransform& at) {
