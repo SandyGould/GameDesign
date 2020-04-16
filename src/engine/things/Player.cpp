@@ -1,5 +1,5 @@
 #include "Player.h"
-
+#include <iostream>
 #include "../enemies/MageAttack.h"
 
 #define HISTORY_SIZE 8
@@ -232,11 +232,12 @@ bool Player::onCollision(DisplayObject* other){
         other->removeThis();
         return true;
     }
-    /*if(other->type == "arrow"){
+    if(other->type == "arrow"){
         other->removeThis();
         this->changeHealth(-10);
-        return false;
-    }*/
+        std::cout<<"ouch\n";
+        return true;
+    }
     if(other->type == "rubber_cannonball" || other->type == "cannonball"){
         //std::cout<<"Cannoneer\n";
         this->cannonBallHit(other);

@@ -22,6 +22,7 @@
 #include "../engine/enemies/Orc.h"
 #include "../engine/enemies/Ogre.h"
 #include "../engine/enemies/Poisoner.h"
+#include "../engine/enemies/Arrow.h"
 
 class Rebound : public Game {
 
@@ -46,7 +47,7 @@ private:
 	Ogre* ogre;
 	KingdomMage* kingdomMage;
 	DisplayObject* allSprites;
-
+	Arrow* arrow;
 	QuestManager* questManager;
 
 	DisplayObject* character;

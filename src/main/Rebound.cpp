@@ -26,20 +26,19 @@ Rebound::Rebound() : Game(1200, 800) {
 	player->play("Idle");
 	allSprites->addChild(player);
 
-
-/*	mage = new Mage(player);
+	mage = new Mage(player);
 	mage->position = {400, 400};
 	mage->height = 80;
 	mage->width = 70;
 
-	allSprites->addChild(mage);*/
+	allSprites->addChild(mage);
 
-    // archer = new Archer(player);
-    // archer-> position = {200,200};
-    // archer->height = 80;
-    // archer->width = 70;
-	//
-    // allSprites->addChild(archer);
+    archer = new Archer(player);
+    archer-> position = {200,200};
+    archer->height = 80;
+    archer->width = 70;
+	
+    allSprites->addChild(archer);
 
 	ogre = new Ogre(player);
     ogre-> position = {200,200};
@@ -49,22 +48,7 @@ Rebound::Rebound() : Game(1200, 800) {
 
     allSprites->addChild(ogre);
 
-	collisionSystem->watchForCollisions("player", "arrow");
-	collisionSystem->watchForCollisions("player", "poison");
-	collisionSystem->watchForCollisions("player", "knight");
-	collisionSystem->watchForCollisions("player", "mage_attack");
-	collisionSystem->watchForCollisions("player", "cannonball");
-	collisionSystem->watchForCollisions("player", "rubber_cannonball");
-	collisionSystem->watchForCollisions("player", "archer");
-	collisionSystem->watchForCollisions("shield", "arrow");
-	collisionSystem->watchForCollisions("shield", "mage_attack");
-	collisionSystem->watchForCollisions("shield", "cannonball");
-	collisionSystem->watchForCollisions("shield", "rubber_cannonball");
-	collisionSystem->watchForCollisions("shield", "archer");
-	collisionSystem->watchForCollisions("shield", "mage");
-
-
-/*	masterArcher = new MasterArcher(player);
+	masterArcher = new MasterArcher(player);
     masterArcher-> position = {500,500};
     masterArcher->height = 80;
     masterArcher->width = 70;
@@ -125,7 +109,27 @@ Rebound::Rebound() : Game(1200, 800) {
 	kingdomMage->height = 80;
 	kingdomMage->width = 70;
 
-	allSprites->addChild(kingdomMage);*/
+	allSprites->addChild(kingdomMage);
+
+
+	collisionSystem->watchForCollisions("player", "arrow");
+	collisionSystem->watchForCollisions("player", "poison");
+	collisionSystem->watchForCollisions("player", "knight");
+	collisionSystem->watchForCollisions("player", "mage_attack");
+	collisionSystem->watchForCollisions("player", "cannonball");
+	collisionSystem->watchForCollisions("player", "rubber_cannonball");
+	collisionSystem->watchForCollisions("player", "archer");
+	collisionSystem->watchForCollisions("shield", "arrow");
+	collisionSystem->watchForCollisions("shield", "mage_attack");
+	collisionSystem->watchForCollisions("shield", "cannonball");
+	collisionSystem->watchForCollisions("shield", "rubber_cannonball");
+	collisionSystem->watchForCollisions("shield", "archer");
+	collisionSystem->watchForCollisions("shield", "mage");
+	collisionSystem->watchForCollisions("archer", "arrow");
+	collisionSystem->watchForCollisions("archer", "mage_attack");
+	collisionSystem->watchForCollisions("archer", "cannonball");
+	collisionSystem->watchForCollisions("archer", "rubber_cannonball");
+
 }
 
 Rebound::~Rebound() {

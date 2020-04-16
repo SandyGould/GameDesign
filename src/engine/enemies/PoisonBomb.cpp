@@ -19,7 +19,6 @@ void PoisonBomb::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joy
 }
 
 void PoisonBomb::explode(){
-    std::cout<<"Explosion\n";
     this->visible = false;
     if(this->explosionTime == 0){
         this->parent->removeImmediateChild(this);

@@ -29,7 +29,7 @@ void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
         this->clean = true;
     }
     if(this->clean){
-        //cleanup
+        this->removeThis();
     }
 
     if(this->state == 0){
@@ -93,15 +93,11 @@ void Archer::draw(AffineTransform& at){
 
 
 bool Archer::onCollision(DisplayObject* other){
-     if(other->type == "mage_attack"){
+     if(other->type == "mage_attack" || other->type == "arrow"){
+        std::cout<<"ouch\n";
         this->changeHealth(-20);
         other->removeThis();
         return true;
-    }
-    if(other->type == "arrow"){
-        other->removeThis();
-        this->changeHealth(-20);
-        return false;
     }
     if(other->type == "rubber_cannonball" || other->type == "cannonball"){
         std::cout<<"Cannoneer\n";
