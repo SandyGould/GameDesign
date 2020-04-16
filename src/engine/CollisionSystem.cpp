@@ -159,18 +159,23 @@ bool CollisionSystem::isIntersecting(SDL_Point p1, SDL_Point p2, SDL_Point q1, S
     return false;
 }
 
-bool CollisionSystem::isInside(SDL_Point foreign, SDL_Point ul, SDL_Point ur, SDL_Point ll, SDL_Point lr) {
-    int area_rect = abs(ul.x * (ur.y - ll.y) + ur.x * (ll.y - ul.y) + ll.x * (ul.y - ur.y));
+bool CollisionSystem::isInside(SDL_Point point, Hitbox hitbox) {
+    auto [ul, ur, ll, lr] = hitbox; // Wizardry! 🧙‍♂️
 
-    // Compute the area of each triangle that the foreign point forms with the hitbox
+    // Important: due to floating-point rounding errors when scaling and rotating,
+    // we are NOT guaranteed to be a rectangle, only a quadrilateral. Perform calculations accordingly.
+    int area_quad_2x = abs(ul.x * (ur.y - ll.y) + ur.x * (ll.y - ul.y) + ll.x * (ul.y - ur.y)) +
+                       abs(ll.x * (ur.y - lr.y) + ur.x * (lr.y - ll.y) + lr.x * (ll.y - ur.y));
+
+    // Compute the area of each triangle that the point forms with the hitbox
     // https://www.mathopenref.com/coordtrianglearea.html
     // We ignore the divide by 2 so that we can keep these as ints, which makes comparison a lot simpler.
-    int area_t1_2x = abs(foreign.x * (ul.y - ur.y) + ul.x * (ur.y - foreign.y) + ur.x * (foreign.y - ul.y));
-    int area_t2_2x = abs(foreign.x * (ur.y - lr.y) + ur.x * (lr.y - foreign.y) + lr.x * (foreign.y - ur.y));
-    int area_t3_2x = abs(foreign.x * (ll.y - lr.y) + ll.x * (lr.y - foreign.y) + lr.x * (foreign.y - ll.y));
-    int area_t4_2x = abs(foreign.x * (ll.y - ul.y) + ll.x * (ul.y - foreign.y) + ul.x * (foreign.y - ll.y));
+    int area_t1_2x = abs(point.x * (ul.y - ur.y) + ul.x * (ur.y - point.y) + ur.x * (point.y - ul.y));
+    int area_t2_2x = abs(point.x * (ur.y - lr.y) + ur.x * (lr.y - point.y) + lr.x * (point.y - ur.y));
+    int area_t3_2x = abs(point.x * (ll.y - lr.y) + ll.x * (lr.y - point.y) + lr.x * (point.y - ll.y));
+    int area_t4_2x = abs(point.x * (ll.y - ul.y) + ll.x * (ul.y - point.y) + ul.x * (point.y - ll.y));
 
-    return area_t1_2x + area_t2_2x + area_t3_2x + area_t4_2x == 2 * area_rect;
+    return area_t1_2x + area_t2_2x + area_t3_2x + area_t4_2x == area_quad_2x;
 }
 
 // Returns true iff obj1 hitbox and obj2 hitbox overlap
@@ -200,8 +205,8 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
 
     // Is either object completely inside of each other?
     // We only need to check one point because we already checked intersections above
-    const bool obj1InObj2 = isInside(obj1Hitbox.ul, obj2Hitbox.ul, obj2Hitbox.ur, obj2Hitbox.ll, obj2Hitbox.lr);
-    const bool obj2InObj1 = isInside(obj2Hitbox.ul, obj1Hitbox.ul, obj1Hitbox.ur, obj1Hitbox.ll, obj1Hitbox.lr);
+    const bool obj1InObj2 = isInside(obj1Hitbox.ul, obj2Hitbox);
+    const bool obj2InObj1 = isInside(obj2Hitbox.ul, obj1Hitbox);
     return obj1InObj2 || obj2InObj1;
 }
 

@@ -84,7 +84,7 @@ public:
     virtual bool onCollision(DisplayObject* other);
 	
 	Hitbox getHitbox();
-    void drawHitbox();
+    void drawHitbox(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE});
 
     bool visible = true;
     SDL_Point position = {0, 0};
@@ -101,8 +101,6 @@ public:
 
 	bool hasCollision = false;
 
-	// FIXME: Probably a very dirty hack please find a better way to grab global coords
-	SDL_Rect dstrect;
 	double parallaxSpeed = 0.0;
 
     std::vector<DisplayObject*> children;
