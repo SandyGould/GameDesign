@@ -5,7 +5,7 @@
                 "speed":0,
                 "objects":[
                     {
-                        "type":"DOC",
+                        "type":"Sprite",
                         "name":"background",
                         "filepath":"./resources/Rebound/area1/assets/Display_Objects/background.png",
                         "x_pos":0,
