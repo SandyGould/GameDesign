@@ -56,13 +56,14 @@ void CollisionSystem::handleEvent(Event* e) {
                 }
             }
         } else {
-            displayObjectsMap.at(event->object->type).erase(event->object);
+            displayObjectsMap.at(type).erase(object);
             collisionPairs.erase(remove_if(collisionPairs.begin(),
                                            collisionPairs.end(),
                                            [&](auto x) {
                                                return x.first == object || x.second == object;
                                            }),
                                  collisionPairs.cend());
+            prevPositions.erase(object);
         }
     }
 }
