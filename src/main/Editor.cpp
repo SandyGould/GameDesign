@@ -16,7 +16,7 @@ Editor::Editor()
 
 Editor::Editor(const string& sceneToLoad)
     : Game(1200, 800) {
-    initSDL();
+    this->initSDL();
 
     this->collisionSystem = new CollisionSystem();
     EventDispatcher::getInstance().addEventListener(this->collisionSystem, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
@@ -44,9 +44,10 @@ Editor::Editor(const string& sceneToLoad)
     camera->addChild(curScene);
 
     assets = new DisplayObject("assets");
-    //assets_dos = new DisplayObject("assets_dos");
+    assets->renderer = this->assets_renderer;
 
     edit = new DisplayObject("edit");
+    edit->renderer = this->edit_renderer;
 
     TextObject* idLabel = new TextObject(string("idLabel"), string("ID:"), Game::font, edit_renderer);
 
@@ -332,8 +333,8 @@ void Editor::draw(AffineTransform& at) {
     this->clearRenderers();
 	DisplayObject::draw(at);
 
-    assets->draw(at, Editor::assets_renderer);
-    edit->draw(at, Editor::edit_renderer);
+    assets->draw(at);
+    edit->draw(at);
 
 	this->draw_post();
 	this->presentRenderers();
@@ -384,11 +385,11 @@ void Editor::draw_post() {
     SDL_SetRenderDrawColor(edit_renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
     if (SDL_IsTextInputActive()){
         if (attributeSelected){
-            SDL_RenderDrawRect(attributeSelected->r, &attributeSelected->dstrect);
+            SDL_RenderDrawRect(attributeSelected->renderer, &attributeSelected->dstrect);
         }
     }
     for (DisplayObject* object : this->selected) {
-        SDL_RenderDrawRect(object->r, &object->dstrect);
+        SDL_RenderDrawRect(object->renderer, &object->dstrect);
     }
     
 }
@@ -443,7 +444,7 @@ void Editor::cut(const unordered_set<DisplayObject*>& objects) {
         } else if (object->type == "AnimatedSprite"){
             copy = new AnimatedSprite(*object);
         }
-        copy->r = Game::renderer;
+        copy->renderer = Game::renderer;
 
         // Offset a bit
         copy->position.x += 16;
@@ -476,7 +477,7 @@ void Editor::copy(const unordered_set<DisplayObject*>& objects, bool keepHierarc
         } else if (object->type == "AnimatedSprite"){
             copy = new AnimatedSprite(*object);
         }
-        copy->r = Game::renderer;
+        copy->renderer = Game::renderer;
 
         // Offset a bit
         copy->position.x += 16;

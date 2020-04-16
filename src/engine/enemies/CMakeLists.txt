@@ -10,6 +10,7 @@ target_sources(rebound PRIVATE
         Mage.cpp
         MageAttack.cpp
         MasterArcher.cpp
+        Ogre.cpp
         Orc.cpp
         PoisonBomb.cpp
         Poisoner.cpp

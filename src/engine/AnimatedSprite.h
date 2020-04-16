@@ -46,8 +46,8 @@ public:
 	AnimatedSprite(std::string id, SDL_Renderer* r);
 	AnimatedSprite(std::string id, std::string spritesheet, std::string xml);
 	AnimatedSprite(std::string id, std::string spritesheet, std::string xml, SDL_Renderer* r);
-	AnimatedSprite(const DisplayObject& other);
-	~AnimatedSprite();
+	explicit AnimatedSprite(const DisplayObject& other);
+	~AnimatedSprite() override;
 
 	void addAnimation(std::string basepath, std::string animName, int numFrames, int frameRate, bool loop);
 	void spritesheetAnimation(std::string animName, int numFrames, int frameRate, bool loop);
@@ -59,9 +59,8 @@ public:
 	void stop();
 
 	void draw(AffineTransform& at) override;
-	void draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src = NULL) override;
 
-	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
+	void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) override;
 
 	bool playing = false;
 	bool useSheet = false;

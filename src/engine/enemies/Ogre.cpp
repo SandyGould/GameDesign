@@ -1,6 +1,5 @@
 #include "Ogre.h"
 #include <cstdlib>
-#include <stdlib.h>
 #include <cmath>
 #include <iostream>
 
@@ -24,6 +23,8 @@ Ogre::Ogre(Player* player): BaseEnemy("ogre", "./resources/assets/Animated_Sprit
     this->state = 0;
     this->facingRight=true;
     this->type = "ogre";
+    this->actionFrames = 12;
+    this->arrow = nullptr;
 }
 
 void Ogre::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){

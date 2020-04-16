@@ -14,7 +14,7 @@ public:
 
     BaseEnemy(std::string id, std::string spritesheet, std::string xml, Player* player);
 
-    virtual void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
+    void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) override;
     void draw(AffineTransform& at) override;
     //void onCollision(DisplayObject* other);
     //Add onCollision handling when Engine Team gets it together :')

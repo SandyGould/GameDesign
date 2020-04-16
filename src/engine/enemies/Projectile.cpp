@@ -1,10 +1,15 @@
 #include "Projectile.h"
-#include <math.h>
+
+#include <cmath>
 #include <iostream>
 
 Projectile::Projectile(std::string id, std::string filepath, int velocity) : Sprite(id, filepath){
     hasCollision = true;
     this->velocity = velocity;
+    this->firing = false;
+    this->direction = 0.0;
+    this->deltaX = 0;
+    this->deltaY = 0;
 }
 
 void Projectile::fire(double angle){
@@ -39,7 +44,11 @@ double Projectile::aim(DisplayObject* targetSprite){ //Cause a lot of enemies ne
     return goalAngle;
 }
 
-void Projectile::reflect(){
+void Projectile::reflect() {
     this->deltaX = -deltaX;
     this->deltaY = -deltaY;
+}
+
+void Projectile::draw(AffineTransform& at) {
+    Sprite::draw(at);
 }

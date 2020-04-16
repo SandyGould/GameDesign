@@ -1,19 +1,18 @@
 #include "Sprite.h"
-#include "Game.h"
 
 Sprite::Sprite(std::string id, SDL_Renderer *r) : DisplayObject(id) {
     this->type = "Sprite";
-    this->r = r;
+    this->renderer = r;
 }
 
 Sprite::Sprite(std::string id, std::string filepath, SDL_Renderer *r) : DisplayObject(id, filepath, r) {
     this->type = "Sprite";
-    this->r = r;
+    this->renderer = r;
 }
 
 Sprite::Sprite(std::string id, int red, int green, int blue, SDL_Renderer *r) : DisplayObject(id, red, green, blue) {
     this->type = "Sprite";
-    this->r = r;
+    this->renderer = r;
 }
 
 Sprite::Sprite(const DisplayObject& other) : DisplayObject(other.id){
@@ -21,7 +20,7 @@ Sprite::Sprite(const DisplayObject& other) : DisplayObject(other.id){
         Sprite* S = (Sprite*) &other;
         this->id = S->id + "_copy";
         this->type = S->type;
-        this->r = S->r;
+        this->renderer = S->renderer;
         this->position = S->position;
         this->width = S->width;
         this->height = S->height;
@@ -36,7 +35,7 @@ Sprite::Sprite(const DisplayObject& other) : DisplayObject(other.id){
     } else{
         this->type = "Sprite";
         this->id = "FAILED_COPY";
-        this->r = Game::renderer;
+        this->renderer = Game::renderer;
     }
 }
 
@@ -45,11 +44,7 @@ void Sprite::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
 }
 
 void Sprite::draw(AffineTransform& at) {
-    Sprite::draw(at, Game::renderer);
-}
-
-void Sprite::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
-    DisplayObject::draw(at, r, src);
+    DisplayObject::draw(at);
 }
 
 Sprite::~Sprite(){

@@ -8,9 +8,7 @@ class Archer : public BaseEnemy {
 
 public:
 
-Archer(Player* player);
-Archer(Player* player, std::string filepath);
-
+explicit Archer(Player* player);
 
 void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) override;
 void draw(AffineTransform& at) override;

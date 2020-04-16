@@ -1,6 +1,5 @@
 #include "Archer.h"
 #include <cstdlib>
-#include <stdlib.h>
 #include <cmath>
 #include <iostream>
 
@@ -22,6 +21,8 @@ Archer::Archer(Player* player): BaseEnemy("Archer", "./resources/assets/Display_
     this->state = 0;
     this->facingRight=true;
     this->type = "archer";
+    this->actionFrames = 12;
+    this->arrow = nullptr;
 }
 
 void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
@@ -90,7 +91,6 @@ int Archer::generateCoolDown(){ //returns a number of frames that will be at lea
 void Archer::draw(AffineTransform& at){
     BaseEnemy::draw(at);
 }
-
 
 bool Archer::onCollision(DisplayObject* other){
      if(other->type == "mage_attack" || other->type == "arrow"){

@@ -14,19 +14,18 @@ public:
 	std::string text;
 	SDL_Color textColor = {255, 255, 255, 0};
 
-    TextObject(std::string id);
+    explicit TextObject(std::string id);
     TextObject(std::string id, std::string text);
 	TextObject(std::string id, std::string text, TTF_Font* font);
 	TextObject(std::string id, std::string text, TTF_Font* font, SDL_Renderer* r);
 	// Copy constructors are a pain for now.
 	// TextObject(const TextObject& other);
-	virtual ~TextObject();
+	~TextObject() override;
 
 	void setText(std::string text);
 
-	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
-	virtual void draw(AffineTransform& at);
-	virtual void draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src = NULL);
+	void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) override;
+	void draw(AffineTransform& at) override;
 
 private:
 
