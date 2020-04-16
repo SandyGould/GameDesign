@@ -81,7 +81,19 @@ public:
 
 	void getGlobalTransform(AffineTransform& at);
 
+<<<<<<< HEAD
     virtual bool onCollision(DisplayObject* other);
+=======
+	bool visible = true;
+	SDL_Point position = {0, 0};
+	SDL_Point orig_position = {0, 0}; // Used for parallaxing (in Layer.cpp)
+	int hitbox_width = 100;
+	int hitbox_height = 100;
+	SDL_Point hitbox_ul = {0,0};
+	SDL_Point hitbox_ur = {hitbox_width, 0};
+	SDL_Point hitbox_lr = {hitbox_width, hitbox_height};
+	SDL_Point hitbox_ll = {0, hitbox_height};
+>>>>>>> new_sfx_master
 	
 	Hitbox getHitbox();
     void drawHitbox();
@@ -103,7 +115,7 @@ public:
 
 	// FIXME: Probably a very dirty hack please find a better way to grab global coords
 	SDL_Rect dstrect;
-	double parallaxSpeed = 0.0;
+	double parallaxSpeed = 1.0;
 
     std::vector<DisplayObject*> children;
 

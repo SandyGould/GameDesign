@@ -6,13 +6,24 @@
 #include "../engine/AnimatedSprite.h"
 #include "../engine/Scene.h"
 #include "../engine/Camera.h"
+// #include "../engine/TextObject.h"
 #include "../engine/things/Coin.h"
 #include "../engine/things/Player.h"
-#include "../engine/QuestManager.h"
-#include "../engine/events/PickedUpEvent.h"
+#include "../engine/things/TextBox.h"
+#include "../engine/things/SelectionMenuBase.h"
+#include "../engine/things/SelectionMenuOption.h"
+// #include "../engine/QuestManager.h"
+// #include "../engine/events/PickedUpEvent.h"
 // #include "../engine/Sound.h"
+<<<<<<< HEAD
 #include "../engine/tweens/Tween.h"
 #include "../engine/tweens/TweenJuggler.h"
+=======
+#include "../tweens/Tween.h"
+#include "../tweens/TweenJuggler.h"
+#include "../engine/StatBar.h"
+#include "../engine/CollisionSystem.h"
+>>>>>>> new_sfx_master
 
 
 class Rooms : public Game {
@@ -25,14 +36,30 @@ public:
 	void draw(AffineTransform& at) override;
 
 private:
+    bool esc_prepressed = false;
+
 	Camera* camera;
 
 	AnimatedSprite* player;
+
+    SelectionMenuBase* selection_menu_base;
+    SelectionMenuOption * selection_quit_option;
+    SelectionMenuOption * selection_resume_option;
     
     Scene* scene;
+    Scene* scene2;
 
+    TextBox* start_text_box;
+
+    StatBar* health;
+
+    int room;
+
+    CollisionSystem* collisionSystem;
+    
     Tween* player_tween;
-    TweenJuggler* juggler;
+    Tween* start_text_tween;
+    Tween* scene_transition;
 };
 
 #endif

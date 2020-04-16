@@ -1,0 +1,67 @@
+{
+    "Scene":[
+        {
+            "L0":{
+                "speed":1,
+                "objects":[
+                    {
+                        "type":"Sprite",
+                        "name":"background",
+                        "filepath":"./resources/Rebound/area2/assets/background.png",
+                        "x_pos":0,
+                        "y_pos":0,
+                        "rotation":0,
+                        "scaleX":10,
+                        "scaleY":5,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"Sprite",
+                        "name":"structure1",
+                        "filepath":"./resources/Rebound/area2/assets/structure_1.png",
+                        "x_pos": 800,
+                        "y_pos": 0,
+                        "rotation": 0,
+                        "scaleX": 1.5,
+                        "scaleY":0.25,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"Sprite",
+                        "name":"structure2",
+                        "filepath":"./resources/Rebound/area2/assets/structure_2.png",
+                        "x_pos":900,
+                        "y_pos":0,
+                        "rotation":0,
+                        "scaleX":0.5,
+                        "scaleY":0.25,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"Sprite",
+                        "name":"barrel",
+                        "filepath":"./resources/Rebound/area2/assets/barrel_tile.png",
+                        "x_pos": 850,
+                        "y_pos": 70,
+                        "rotation":0,
+                        "scaleX":0.1,
+                        "scaleY":0.1,
+                        "parentHierarchy":[]
+                    }
+                ]
+            }
+        },
+        {
+            "L1":{
+                "speed":1,
+                "objects":[ ]
+            }
+        },
+        {
+            "L2":{
+                "speed":1,
+                "objects":[]
+            }
+        }
+    ]
+}

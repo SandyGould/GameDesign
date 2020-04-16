@@ -1,4 +1,7 @@
 #include "Tween.h"
+
+#include "../events/TweenEvent.h"
+
 #include <algorithm>
 #include <iostream>
 #include <cstdlib>
@@ -15,12 +18,37 @@ Tween::Tween(DisplayObject* object, TweenTransitions transition) {
     this->timeElapsed = 0;
 }
 
+Tween::Tween(std::string id, DisplayObject* object){
+    this->id = id;
+    this->currObject = object;
+    this->amountChange = 0;
+    this->timeElapsed = 0;
+}
+
+Tween::Tween(std::string id, DisplayObject* object, TweenTransitions transition) {
+    this->id = id;
+    this->currObject = object;
+    this->amountChange = 0;
+    this->timeElapsed = 0;
+    this->id = id;
+}
+
 Tween::~Tween() { 
    currTweening.clear();
 }
 
+
+std::string Tween::getID(){
+    return this->id;
+}
+
 void Tween::animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time) {
     TweenParam* temp = new TweenParam(fieldToAnimate, startVal, endVal, time);
+    this->currTweening.push_back(temp);
+}
+
+void Tween::animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time, std::string easeType) {
+    TweenParam* temp = new TweenParam(fieldToAnimate, startVal, endVal, time, easeType);
     this->currTweening.push_back(temp);
 }
 
@@ -36,7 +64,15 @@ void Tween::update() {
         if (it != this->currTweening.end()) {
             // percent done!
             double percTime = this->timeElapsed / (*it)->getTweenTime();
-            this->amountChange = transition->easeInOut(percTime, transition->SINE);
+
+            if ((*it)->getEaseType() == TweenParam::EASE_IN)
+                this->amountChange = transition->easeIn(percTime, transition->SINE);
+            else if ((*it)->getEaseType() == TweenParam::EASE_OUT)
+                this->amountChange = transition->easeOut(percTime, transition->SINE);
+            else if ((*it)->getEaseType() == TweenParam::EASE_IN_OUT)
+                this->amountChange = transition->easeInOut(percTime, transition->SINE);
+            else if ((*it)->getEaseType() == TweenParam::EASE_OUT_IN)
+                this->amountChange = transition->easeOutIn(percTime, transition->SINE);
 
             // update current value of the TweenParam
             // We don't need setValue() in here bc we are already where we want to be
@@ -60,6 +96,11 @@ void Tween::update() {
             else if ((*it)->getParam().getKey() == "Y") {
                 this->currObject->position.y = (*it)->getCurrVal();
             }
+<<<<<<< HEAD
+=======
+            
+            EventDispatcher::getInstance().dispatchEvent(new TweenEvent(TweenEvent::TWEEN_UPDATE_EVENT, this));
+>>>>>>> new_sfx_master
             it++;
         }
     }
@@ -77,6 +118,7 @@ void Tween::setValue(TweenableParams param, double value) {
 bool Tween::isComplete() {
     // tween is complete if no more parameters left to tween
     if (this->currTweening.size() == 0) {
+        EventDispatcher::getInstance().dispatchEvent(new TweenEvent(TweenEvent::TWEEN_COMPLETE_EVENT, this));
         return true;
     }
     return false;
