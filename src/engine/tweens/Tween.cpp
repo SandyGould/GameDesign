@@ -61,8 +61,8 @@ void Tween::update() {
             else if ((*it)->getParam().getKey() == "Y") {
                 this->currObject->position.y = (*it)->getCurrVal();
             }
+            it++;
         }
-        it++;
     }
 }
 

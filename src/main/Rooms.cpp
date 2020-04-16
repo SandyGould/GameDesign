@@ -28,7 +28,7 @@ Rooms::Rooms() : Game(600, 500) {
 
 	camera->addChild(scene);
 
-	player = new AnimatedSprite("girl", "./resources/Spritesheets/Girl/Girl.png", "./resources/Spritesheets/Girl/Girl.xml");
+	player = new Player();
 	player->position = {200, 250};
 	player->width = player->height = 50;
 	player->pivot = {50, 50};
