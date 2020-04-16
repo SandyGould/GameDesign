@@ -1,11 +1,11 @@
 #include "Rooms.h"
 
-#include "../../engine/events/KeyDownEvent.h"
-#include "../../engine/events/MouseDownEvent.h"
-#include "../../engine/events/TweenEvent.h"
-#include "../../engine/tweens/TweenParam.h"
-#include "../../engine/tweens/TweenJuggler.h"
-#include "../../engine/events/NewSceneEvent.h"
+#include "../engine/events/KeyDownEvent.h"
+#include "../engine/events/MouseDownEvent.h"
+#include "../engine/events/TweenEvent.h"
+#include "../engine/tweens/TweenParam.h"
+#include "../engine/tweens/TweenJuggler.h"
+#include "../engine/events/NewSceneEvent.h"
 
 #include <algorithm>
 #include <iostream>
@@ -43,8 +43,6 @@ Rooms::Rooms() : Game(600, 500) {
 	scene->getChild("L0")->getChild("bottom_trees")->type = "env_object";
 
 
-	player = new Player();
-	player->position = {200, 250};
 
 	// load and prep scene 2
 	scene2 = new Scene();
@@ -57,8 +55,7 @@ Rooms::Rooms() : Game(600, 500) {
 	scene2->getChild("L0")->getChild("barrel")->type = "env_object";
 
 	// load and prep player
-	// player = new Player();
-	player = new AnimatedSprite("girl", "./resources/assets/Spritesheets/Girl/Girl.png", "./resources/assets/Spritesheets/Girl/Girl.xml");
+    player = new Player();
 	player->position = {50, 250};
 	player->width = player->height = 50;
 	player->pivot = {50, 50};

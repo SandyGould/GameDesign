@@ -36,8 +36,6 @@ private:
 	Shield* shield;
 	Tween* shieldBash;
 
-	TweenJuggler* juggler;
-
 };
 
 #endif

@@ -4,8 +4,8 @@
 #include "AnimatedSprite.h"
 #include "Sprite.h"
 #include "Camera.h"
-#include "../events/Event.h"
-#include "../events/EventListener.h"
+#include "events/Event.h"
+#include "events/EventListener.h"
 
 
 #include "json.hpp"
@@ -20,18 +20,16 @@ class Scene : public DisplayObject, public EventListener {
 
 public:
 	Scene();
-	Scene(std::string id);
-	// virtual ~Scene();
+	explicit Scene(std::string id);
+	// ~Scene() override;
 
 	/* Load scene from a file */
 	void loadScene(std::string sceneFilePath);
 	void saveScene(std::string sceneName);
 	void addToJSON(nlohmann::json &Layer, DisplayObject* dObject);
 
-	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
-	// virtual void draw(AffineTransform &at);
+	void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) override;
 	void draw(AffineTransform& at) override;
-	void draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src = NULL) override;
 	void setCameraRef(Camera* camera);
 
 	DisplayObject* generateDO(json j);
@@ -39,7 +37,7 @@ public:
 	Sprite* generateSprite(json j);
 
 	// for scene transitions
-	void handleEvent(Event* e);
+	void handleEvent(Event* e) override;
 	bool keepScene = false;
 	
 private:

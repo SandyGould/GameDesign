@@ -210,6 +210,7 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
         const bool obj2InObj1 = isInside(obj2Hitbox.ul, obj1Hitbox);
         return obj1InObj2 || obj2InObj1;
     }
+    /*
     DisplayObject* circle;
     DisplayObject* rect;
     if(obj1->col_type.compare("circle") == 0)
@@ -244,6 +245,7 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
         double dx=distX-calc_width/2;
             double dy=distY-calc_height/2;
         return (dx*dx+dy*dy<=(calc_rad*calc_rad));
+    */
 
 }
 

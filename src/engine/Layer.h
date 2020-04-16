@@ -10,7 +10,7 @@ class Layer : public DisplayObject {
 
 public:
 	Layer();
-    Layer(std::string id);
+    explicit Layer(std::string id);
 	~Layer() override = default;
 
 	// void applyTransformations(AffineTransform& at);
@@ -20,7 +20,6 @@ public:
 
 	void setParallax();
 	void draw(AffineTransform &at) override;
-	void draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src = NULL) override;
 	Camera* cam;
 
 private:

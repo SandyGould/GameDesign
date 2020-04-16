@@ -21,7 +21,7 @@ TextBox::TextBox(string id, string text, TTF_Font* font) : TextBox(id, text, fon
 
 }
 
-TextBox::TextBox(string id, string text, TTF_Font* font, SDL_Renderer* r) : DisplayObject(id) {
+TextBox::TextBox(string id, string text, TTF_Font* font, SDL_Renderer* renderer) : DisplayObject(id) {
     this->type = "TextObject";
 
     this->text = text;
@@ -31,7 +31,7 @@ TextBox::TextBox(string id, string text, TTF_Font* font, SDL_Renderer* r) : Disp
 
     this->font = font;
 
-    this->r = r;
+    this->renderer = renderer;
 
     this->setText(this->textpanels.front());
 }
@@ -49,7 +49,7 @@ void TextBox::setText(string text){
     this->width = temp->w;
     this->height = temp->h;
     this->setSurface(temp);
-    this->setTexture(SDL_CreateTextureFromSurface(this->r, temp));
+    this->setTexture(SDL_CreateTextureFromSurface(this->renderer, temp));
 }
 
 void TextBox::setColor(SDL_Color color){
@@ -78,11 +78,7 @@ void TextBox::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joysti
 }
 
 void TextBox::draw(AffineTransform& at) {
-    DisplayObject::draw(at, Game::renderer);
-}
-
-void TextBox::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
-    DisplayObject::draw(at, r, src);
+    DisplayObject::draw(at);
 }
 
 void TextBox::handleEvent(Event* e){

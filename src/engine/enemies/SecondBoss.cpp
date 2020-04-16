@@ -94,7 +94,7 @@ void SecondBoss::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joy
     }
     else if(this->state == 6){
         if(actionFrames == 0){
-            this->state == 2;
+            this->state = 2;
         }
         this->actionFrames--;
     }

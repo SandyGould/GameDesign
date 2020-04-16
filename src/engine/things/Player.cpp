@@ -10,8 +10,6 @@ Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites
     type = "player";
     hasCollision = true;
 
-    juggler = juggler->getInstance();
-
     history = new std::unordered_set<SDL_Scancode> [HISTORY_SIZE];
     shieldSwitchCooldown = 0;
     shieldBashCooldown = 0;
@@ -129,7 +127,7 @@ void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
     			shieldBash = new Tween(shield);
                 shieldBash->animate(TweenableParams::X, 105.0, 140.0, 10);
                 shieldBash->animate(TweenableParams::X, 140.0, 105.0, 18);
-                juggler->getInstance()->add(shieldBash);
+                TweenJuggler::getInstance().add(shieldBash);
     			this->changeStamina(-70);
                 AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
                 return;
@@ -145,7 +143,7 @@ void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
     			shieldBash = new Tween(shield);
                 shieldBash->animate(TweenableParams::X, -20.0, -55.0, 10);
                 shieldBash->animate(TweenableParams::X, -55.0, -20, 18);
-                juggler->getInstance()->add(shieldBash);
+                TweenJuggler::getInstance().add(shieldBash);
     			this->changeStamina(-70);
                 AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
                 return;
@@ -161,7 +159,7 @@ void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
     			shieldBash = new Tween(shield);
                 shieldBash->animate(TweenableParams::Y, 105.0, 140.0, 10);
                 shieldBash->animate(TweenableParams::Y, 140.0, 105.0, 18);
-                juggler->getInstance()->add(shieldBash);
+                TweenJuggler::getInstance().add(shieldBash);
     			this->changeStamina(-70);
                 AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
                 return;
@@ -177,7 +175,7 @@ void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
     			shieldBash = new Tween(shield);
                 shieldBash->animate(TweenableParams::Y, -105.0, -140.0, 10);
                 shieldBash->animate(TweenableParams::Y, -140.0, -105.0, 18);
-                juggler->getInstance()->add(shieldBash);
+                TweenJuggler::getInstance().add(shieldBash);
     			this->changeStamina(-70);
                 AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
                 return;
@@ -198,7 +196,7 @@ void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
 
     updateHistory(pressedKeys);
 
-    juggler->nextFrame();
+    TweenJuggler::getInstance().nextFrame();
     AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
 }
 

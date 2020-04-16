@@ -2,7 +2,7 @@
 #define TWEENJUGGLER_H
 
 #include "Tween.h"
-#include "TweenEvent.h"
+#include "../events/TweenEvent.h"
 #include <list>
 
 // Singleton class that handles all of the tweens in the game and updates them
@@ -12,8 +12,8 @@ class TweenJuggler {
 
     public:
     	static TweenJuggler& getInstance() {
-        static TweenJuggler instance;
-        return instance;
+            static TweenJuggler instance;
+            return instance;
     	}
 
     	TweenJuggler(TweenJuggler const& other) = delete;

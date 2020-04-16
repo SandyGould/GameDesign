@@ -83,6 +83,7 @@ public:
 
     virtual bool onCollision(DisplayObject* other);
 
+    void getHitcircle();
 	Hitbox getHitbox();
     void drawHitbox(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE});
 

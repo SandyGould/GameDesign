@@ -7,7 +7,7 @@
 SelectionMenuBase::SelectionMenuBase(): DisplayObject("selection_menu"){
 	this->alpha = 0;
 
-	loadRGBTexture(red, green, blue, width, height, r);
+	loadRGBTexture(red, green, blue, width, height, renderer);
 }
 
 
