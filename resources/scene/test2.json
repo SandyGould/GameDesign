@@ -1,0 +1,31 @@
+{
+    "DOC":[
+        {
+            "name":"moon",
+            "filepath":"./resources/solarSystem/Moon.png",
+            "x_pos":0,
+            "y_pos":0,
+            "rotation":0,
+            "scaleX":1,
+            "scaleY":1
+        },
+        {
+            "name":"planet",
+            "filepath":"./resources/solarSystem/Planet.png",
+            "x_pos":-200,
+            "y_pos":-200,
+            "rotation":0,
+            "scaleX":3,
+            "scaleY":3
+        }
+    ],
+    "DO":[
+
+    ],
+    "ASprite":[
+
+    ],
+    "Sprite":[
+
+    ]
+}
