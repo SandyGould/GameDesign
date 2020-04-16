@@ -1,7 +1,7 @@
 #pragma once
 
-#include "DisplayObject.h"
-#include "Game.h"
+#include "../DisplayObject.h"
+#include "../Game.h"
 #include "TextBox.h"
 #include "../events/Event.h"
 #include "../events/EventListener.h"

@@ -78,11 +78,7 @@ void TextBox::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joysti
 }
 
 void TextBox::draw(AffineTransform& at) {
-    DisplayObject::draw(at, Game::renderer);
-}
-
-void TextBox::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
-    DisplayObject::draw(at, r, src);
+    DisplayObject::draw(at);
 }
 
 void TextBox::handleEvent(Event* e){

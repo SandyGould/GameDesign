@@ -10,8 +10,10 @@ target_sources(rebound PRIVATE
         CollisionSystem.cpp
         DisplayObject.cpp
         Game.cpp
+        Layer.cpp
         QuestManager.cpp
         Scene.cpp
         Sprite.cpp
+        StatBar.cpp
         TextObject.cpp
         pugixml.cpp)

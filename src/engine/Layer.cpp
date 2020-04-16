@@ -16,11 +16,6 @@ void Layer::setParallax(){
 
 void Layer::draw(AffineTransform& at) {
     Layer::setParallax();
-    Layer::draw(at, Game::renderer);
-}
-
-void Layer::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
-    Layer::setParallax();
 
     applyTransformations(at);
     // undo the parent's pivot

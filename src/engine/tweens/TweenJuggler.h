@@ -2,7 +2,7 @@
 #define TWEENJUGGLER_H
 
 #include "Tween.h"
-#include "TweenEvent.h"
+#include "../events/TweenEvent.h"
 #include <list>
 
 // Singleton class that handles all of the tweens in the game and updates them

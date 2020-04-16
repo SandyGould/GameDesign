@@ -232,10 +232,6 @@ void DisplayObject::update(std::unordered_set<SDL_Scancode> pressedKeys, jState 
 }
 
 void DisplayObject::draw(AffineTransform& at) {
-    this->draw(at, Game::renderer);
-}
-
-void DisplayObject::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
     applyTransformations(at);
 
     if (curTexture != NULL && visible) {
@@ -258,13 +254,13 @@ void DisplayObject::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
         }
 
         SDL_SetTextureAlphaMod(curTexture, alpha);
-        SDL_RenderCopyEx(r, curTexture, sourceRect, &dstrect, calculateRotation(origin, upperRight), &corner, flip);
+        SDL_RenderCopyEx(renderer, curTexture, sourceRect, &dstrect, calculateRotation(origin, upperRight), &corner, flip);
     }
 
     // undo the parent's pivot
     at.translate(pivot.x, pivot.y);
     for (auto* child : children) {
-        child->draw(at, r);
+        child->draw(at);
     }
     // redo the parent's pivot
     at.translate(-pivot.x, -pivot.y);

@@ -5,6 +5,7 @@ target_sources(rebound PRIVATE
         DragStartEvent.cpp
         Event.cpp
         EventDispatcher.cpp
+        KeyDownEvent.cpp
         MouseDownEvent.cpp
         MouseMotionEvent.cpp
         MouseUpEvent.cpp
@@ -12,5 +13,6 @@ target_sources(rebound PRIVATE
         QuestComplete.cpp
         TextEditEvent.cpp
         TextInputEvent.cpp
+        TweenEvent.cpp
         WindowEnterEvent.cpp
         WindowExitEvent.cpp)

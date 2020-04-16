@@ -1,12 +1,12 @@
 #include "Rooms.h"
 
-#include "../../engine/events/KeyDownEvent.h"
-#include "../../engine/events/MouseDownEvent.h"
-#include "../../engine/events/TweenEvent.h"
-#include "../../engine/tweens/TweenParam.h"
-#include "../../engine/tweens/TweenJuggler.h"
-#include "../../engine/events/NewSceneEvent.h"
-#include "../../engine/events/DisplayTreeChangeEvent.h"
+#include "../engine/events/KeyDownEvent.h"
+#include "../engine/events/MouseDownEvent.h"
+#include "../engine/events/TweenEvent.h"
+#include "../engine/tweens/TweenParam.h"
+#include "../engine/tweens/TweenJuggler.h"
+#include "../engine/events/NewSceneEvent.h"
+#include "../engine/events/DisplayTreeChangeEvent.h"
 
 
 #include <algorithm>

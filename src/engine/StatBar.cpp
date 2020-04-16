@@ -41,9 +41,5 @@ void StatBar::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joysti
 }
 
 void StatBar::draw(AffineTransform& at) {
-    DisplayObject::draw(at, Game::renderer);
-}
-
-void StatBar::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
-    DisplayObject::draw(at, r, src);
+    DisplayObject::draw(at);
 }

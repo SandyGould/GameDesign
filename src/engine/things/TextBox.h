@@ -1,7 +1,7 @@
 #pragma once
 
-#include "DisplayObject.h"
-#include "Game.h"
+#include "../DisplayObject.h"
+#include "../Game.h"
 #include "../events/Event.h"
 #include "../events/EventListener.h"
 
@@ -14,12 +14,12 @@ using namespace std;
 class TextBox : public DisplayObject, public EventListener {
 
 public:
-	TextBox(std::string id);
+	explicit TextBox(std::string id);
     TextBox(std::string id, std::string text);
 	TextBox(std::string id, std::string text, TTF_Font* font);
 	TextBox(std::string id, std::string text, TTF_Font* font, SDL_Renderer* r);
 
-	virtual ~TextBox();
+	~TextBox() override;
 
 	void setText(string text);
 	void setColor(SDL_Color color);
@@ -28,11 +28,10 @@ public:
 
 	bool finishedPanels();
 
-	void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
-	void draw(AffineTransform& at);
-	void draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src = NULL);
+	void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) override;
+	void draw(AffineTransform& at) override;
 
-	void handleEvent(Event* e);
+	void handleEvent(Event* e) override;
 
 private: 
 	TTF_Font* font;

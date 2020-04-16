@@ -6,8 +6,8 @@
 #include <fstream>
 #include <iostream>
 #include "json.hpp"
-#include "../events/NewSceneEvent.h"
-#include "../tweens/TweenJuggler.h"
+#include "events/NewSceneEvent.h"
+#include "tweens/TweenJuggler.h"
 using json = nlohmann::json;
 
 using namespace std;
@@ -138,11 +138,7 @@ void Scene::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystick
 }
 
 void Scene::draw(AffineTransform& at) {
-    Scene::draw(at, Game::renderer);
-}
-
-void Scene::draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src) {
-    DisplayObject::draw(at, r, src);
+    DisplayObject::draw(at);
 }
 
 void Scene::setCameraRef(Camera* camera){

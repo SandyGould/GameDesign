@@ -20,7 +20,6 @@ public:
 
 	void setParallax();
 	void draw(AffineTransform &at) override;
-	void draw(AffineTransform& at, SDL_Renderer* r, SDL_Rect* src = NULL) override;
 	Camera* cam;
 
 private:

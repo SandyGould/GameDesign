@@ -15,8 +15,8 @@
 // #include "../engine/QuestManager.h"
 // #include "../engine/events/PickedUpEvent.h"
 // #include "../engine/Sound.h"
-#include "../tweens/Tween.h"
-#include "../tweens/TweenJuggler.h"
+#include "../engine/tweens/Tween.h"
+#include "../engine/tweens/TweenJuggler.h"
 #include "../engine/StatBar.h"
 #include "../engine/CollisionSystem.h"
 
