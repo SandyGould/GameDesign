@@ -232,11 +232,11 @@ bool Player::onCollision(DisplayObject* other){
         other->removeThis();
         return true;
     }
-    // if(other->type == "arrow"){
-    //     other->removeThis();
-    //     this->changeHealth(-10);
-    //     return true;
-    // }
+    if(other->type == "arrow"){
+        other->removeThis();
+        this->changeHealth(-10);
+        return true;
+    }
     if(other->type == "rubber_cannonball" || other->type == "cannonball"){
         //std::cout<<"Cannoneer\n";
         this->cannonBallHit(other);
