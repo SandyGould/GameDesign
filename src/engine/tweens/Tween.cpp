@@ -25,8 +25,7 @@ void Tween::animate(TweenableParams fieldToAnimate, double startVal, double endV
 }
 
 void Tween::update() {
-    std::list<TweenParam*>::iterator it;
-    for (it = this->currTweening.begin(); it != this->currTweening.end(); ) {
+    for (auto it = this->currTweening.begin(); it != this->currTweening.end(); ) {
         // calculate (linear) change manually for now,
         // replace w/ transition function in the future
         
@@ -61,8 +60,8 @@ void Tween::update() {
             else if ((*it)->getParam().getKey() == "Y") {
                 this->currObject->position.y = (*it)->getCurrVal();
             }
+            it++;
         }
-        it++;
     }
 }
 
