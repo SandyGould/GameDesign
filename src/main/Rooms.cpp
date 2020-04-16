@@ -19,6 +19,12 @@ Rooms::Rooms() : Game(600, 500) {
 	
 	instance = this;
 
+    // create collision system
+    this->collisionSystem = new CollisionSystem();
+    EventDispatcher::getInstance().addEventListener(this->collisionSystem, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
+    // set collisions between player and all environmental objects
+    this->collisionSystem->watchForCollisions("player", "env_object");
+
 	camera = new Camera();
 
 	// load and prep camera
@@ -110,13 +116,6 @@ Rooms::Rooms() : Game(600, 500) {
     EventDispatcher::getInstance().addEventListener(this->start_text_box, TweenEvent::TWEEN_COMPLETE_EVENT);
 	EventDispatcher::getInstance().addEventListener(this->scene, NewSceneEvent::OUT_SCENE_EVENT);
 	EventDispatcher::getInstance().addEventListener(this->scene2, NewSceneEvent::IN_SCENE_EVENT);
-
-
-	// create collision system
-	this->collisionSystem = new CollisionSystem();
-	EventDispatcher::getInstance().addEventListener(this->collisionSystem, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
-	// set collisions between player and all environmental objects
-	this->collisionSystem->watchForCollisions("player", "env_object");
 }
 
 Rooms::~Rooms() {

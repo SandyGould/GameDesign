@@ -56,7 +56,9 @@ void CollisionSystem::handleEvent(Event* e) {
 
             if (collisionTypes.find(type) != collisionTypes.cend()) {
                 for (auto& otherType : collisionTypes.at(type)) {
-                    this->pairObjectWithType(object, otherType);
+                    if (displayObjectsMap.find(otherType) != displayObjectsMap.cend()) {
+                        this->pairObjectWithType(object, otherType);
+                    }
                 }
             }
         } else {
