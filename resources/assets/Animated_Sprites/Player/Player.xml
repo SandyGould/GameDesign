@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:fd8d11553df40ff21db706e4abbc7938:4096d9b4f275518f3420d3ebcbb162c3:a1d2a596bb0ca6b781833562e67d7219$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="Player.png" width="50" height="1998">
+
+    <Anim name="Idle" numFrames="4" frameRate="12" loop="true">
+        <sprite n="adventurer-idle-00.png" x="0" y="555" w="50" h="37"/>
+        <sprite n="adventurer-idle-01.png" x="0" y="592" w="50" h="37"/>
+        <sprite n="adventurer-idle-02.png" x="0" y="629" w="50" h="37"/>
+        <sprite n="adventurer-idle-03.png" x="0" y="666" w="50" h="37"/>
+    </Anim>
+
+    <Anim name="IdleLeft" numFrames="4" frameRate="12" loop="true">
+        <sprite n="adventurer-idle_l-00.png" x="0" y="703" w="50" h="37"/>
+        <sprite n="adventurer-idle_l-01.png" x="0" y="740" w="50" h="37"/>
+        <sprite n="adventurer-idle_l-02.png" x="0" y="777" w="50" h="37"/>
+        <sprite n="adventurer-idle_l-03.png" x="0" y="814" w="50" h="37"/>
+    </Anim>
+
+    <Anim name="Run" numFrames="6" frameRate="12" loop="true">
+        <sprite n="adventurer-run-00.png" x="0" y="962" w="50" h="37"/>
+        <sprite n="adventurer-run-01.png" x="0" y="999" w="50" h="37"/>
+        <sprite n="adventurer-run-02.png" x="0" y="1036" w="50" h="37"/>
+        <sprite n="adventurer-run-03.png" x="0" y="1073" w="50" h="37"/>
+        <sprite n="adventurer-run-04.png" x="0" y="1110" w="50" h="37"/>
+        <sprite n="adventurer-run-05.png" x="0" y="1147" w="50" h="37"/>
+    </Anim>
+
+    <Anim name="RunLeft" numFrames="6" frameRate="12" loop="true">
+        <sprite n="adventurer-run_l-00.png" x="0" y="1184" w="50" h="37"/>
+        <sprite n="adventurer-run_l-01.png" x="0" y="1221" w="50" h="37"/>
+        <sprite n="adventurer-run_l-02.png" x="0" y="1258" w="50" h="37"/>
+        <sprite n="adventurer-run_l-03.png" x="0" y="1295" w="50" h="37"/>
+        <sprite n="adventurer-run_l-04.png" x="0" y="1332" w="50" h="37"/>
+        <sprite n="adventurer-run_l-05.png" x="0" y="1369" w="50" h="37"/>
+    </Anim>
+
+    <Anim name="Slide" numFrames="5" frameRate="12" loop="false">
+        <sprite n="adventurer-slide-00.png" x="0" y="1406" w="50" h="37"/>
+        <sprite n="adventurer-slide-01.png" x="0" y="1443" w="50" h="37"/>
+        <sprite n="adventurer-slide-02.png" x="0" y="1480" w="50" h="37"/>
+        <sprite n="adventurer-slide-03.png" x="0" y="1517" w="50" h="37"/>
+        <sprite n="adventurer-slide-04.png" x="0" y="1554" w="50" h="37"/>
+    </Anim>
+
+    <Anim name="SlideLeft" numFrames="5" frameRate="12" loop="false">
+        <sprite n="adventurer-slide_l-00.png" x="0" y="1591" w="50" h="37"/>
+        <sprite n="adventurer-slide_l-01.png" x="0" y="1628" w="50" h="37"/>
+        <sprite n="adventurer-slide_l-02.png" x="0" y="1665" w="50" h="37"/>
+        <sprite n="adventurer-slide_l-03.png" x="0" y="1702" w="50" h="37"/>
+        <sprite n="adventurer-slide_l-04.png" x="0" y="1739" w="50" h="37"/>
+    </Anim>
+
+    <sprite n="adventurer-cast-00.png" x="0" y="0" w="50" h="37"/>
+    <sprite n="adventurer-cast-01.png" x="0" y="37" w="50" h="37"/>
+    <sprite n="adventurer-cast-02.png" x="0" y="74" w="50" h="37"/>
+    <sprite n="adventurer-cast-03.png" x="0" y="111" w="50" h="37"/>
+    <sprite n="adventurer-cast-loop-00.png" x="0" y="148" w="50" h="37"/>
+    <sprite n="adventurer-cast-loop-01.png" x="0" y="185" w="50" h="37"/>
+    <sprite n="adventurer-cast-loop-02.png" x="0" y="222" w="50" h="37"/>
+    <sprite n="adventurer-cast-loop-03.png" x="0" y="259" w="50" h="37"/>
+    <sprite n="adventurer-crnr-clmb-00.png" x="0" y="296" w="50" h="37"/>
+    <sprite n="adventurer-crnr-clmb-01.png" x="0" y="333" w="50" h="37"/>
+    <sprite n="adventurer-crnr-clmb-02.png" x="0" y="370" w="50" h="37"/>
+    <sprite n="adventurer-crnr-clmb-03.png" x="0" y="407" w="50" h="37"/>
+    <sprite n="adventurer-crnr-clmb-04.png" x="0" y="444" w="50" h="37"/>
+    <sprite n="adventurer-fall-00.png" x="0" y="481" w="50" h="37"/>
+    <sprite n="adventurer-fall-01.png" x="0" y="518" w="50" h="37"/>
+    <sprite n="adventurer-items-00.png" x="0" y="851" w="50" h="37"/>
+    <sprite n="adventurer-items-01.png" x="0" y="888" w="50" h="37"/>
+    <sprite n="adventurer-items-02.png" x="0" y="925" w="50" h="37"/>
+    <sprite n="adventurer-smrslt-00.png" x="0" y="1776" w="50" h="37"/>
+    <sprite n="adventurer-smrslt-01.png" x="0" y="1813" w="50" h="37"/>
+    <sprite n="adventurer-smrslt-02.png" x="0" y="1850" w="50" h="37"/>
+    <sprite n="adventurer-smrslt-03.png" x="0" y="1887" w="50" h="37"/>
+    <sprite n="adventurer-wall-slide-00.png" x="0" y="1924" w="50" h="37"/>
+    <sprite n="adventurer-wall-slide-01.png" x="0" y="1961" w="50" h="37"/>
+</TextureAtlas>

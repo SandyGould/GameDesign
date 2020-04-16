@@ -9,15 +9,14 @@ class EventDispatcher;
 
 class Event {
 public:
-	Event(std::string type, EventDispatcher* source);
+	Event(const std::string& type);
 
 	std::string getType();
-	EventDispatcher* getSource();
+	//EventDispatcher getSource();
 
 private:
-	std::string eventType = "";
-	EventDispatcher* source;
-	
+	std::string eventType;
+	//EventDispatcher source;
 };
 
 #endif

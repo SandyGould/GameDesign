@@ -1,19 +1,20 @@
-#ifndef SPRITE_H
-#define SPRITE_H
+#pragma once
 
-#include "DisplayObjectContainer.h"
+#include "DisplayObject.h"
+#include "Game.h"
 
-class Sprite : public DisplayObjectContainer {
+class Sprite : public DisplayObject {
 
 public:
-	Sprite();
-	Sprite(std::string id, std::string filepath);
-	Sprite(std::string id, int red, int green, int blue);
+	Sprite(std::string id, SDL_Renderer *r = Game::renderer);
+	Sprite(std::string id, std::string filepath, SDL_Renderer *r = Game::renderer);
+	Sprite(std::string id, int red, int green, int blue, SDL_Renderer *r = Game::renderer);
+	Sprite(const DisplayObject& other);
+	virtual ~Sprite();
 
-	virtual void update(std::set<SDL_Scancode> pressedKeys);
-	virtual void draw(AffineTransform& at);
+	void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) override;
+	void draw(AffineTransform& at) override;
+
 private:
-	
-};
 
-#endif
+};

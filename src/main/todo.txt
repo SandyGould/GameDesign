@@ -1,0 +1,20 @@
+TODO:
+
+URGENT:
+
+Lower Priority:
+- Fix control clicking in assets window crash
+- Make displayobject IDs unique?
+- Set parent feature -- make children not move upon using
+- Edit scene tab
+- Align with grid button
+- Clean up displayobject, sprite, and animatedsprite implementation
+  (make constructors and methods cleaner)
+  - Thoughts on DisplayObjects
+    - I don't think the surface needs to be stored. From every code example
+      I see, they make the surface, then the texture, then free the surface
+      I feel like we should make this change if we want to keep the game crisp
+    - The overall creation and methods of DisplayObjects could be revamped a bit
+      It might just be because we were not expected to use multiple windows, but
+      it feels like trying to do anything special requires a bunch of weird
+      workarounds

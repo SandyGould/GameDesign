@@ -45,6 +45,10 @@ bool EventDispatcher::hasEventListener(EventListener* l, std::string eventType) 
 }
 
 void EventDispatcher::dispatchEvent(Event* e) {
+    if (!listeners.count(e->getType())) {
+        return;
+    }
+
     for (auto listener : listeners.at(e->getType())) {
         listener->handleEvent(e);
     }
