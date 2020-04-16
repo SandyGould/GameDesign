@@ -26,11 +26,12 @@ Archer::Archer(Player* player): BaseEnemy("Archer", "./resources/assets/Display_
 }
 
 void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
-    if(this->health ==0){
+    if(this->health <=0){
         this->clean = true;
     }
     if(this->clean){
         this->removeThis();
+        this->state = -1;
     }
 
     if(this->state == 0){
@@ -94,6 +95,9 @@ void Archer::draw(AffineTransform& at){
 
 bool Archer::onCollision(DisplayObject* other){
      if(other->type == "mage_attack" || other->type == "arrow"){
+        if(other== arrow){
+            return true;
+        }
         std::cout<<"ouch\n";
         this->changeHealth(-20);
         other->removeThis();

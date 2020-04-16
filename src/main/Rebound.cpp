@@ -113,22 +113,61 @@ Rebound::Rebound() : Game(1200, 800) {
 
 
 	collisionSystem->watchForCollisions("player", "arrow");
-	collisionSystem->watchForCollisions("player", "poison");
+	collisionSystem->watchForCollisions("player", "poison_bomb");
 	collisionSystem->watchForCollisions("player", "knight");
 	collisionSystem->watchForCollisions("player", "mage_attack");
 	collisionSystem->watchForCollisions("player", "cannonball");
 	collisionSystem->watchForCollisions("player", "rubber_cannonball");
 	collisionSystem->watchForCollisions("player", "archer");
+
 	collisionSystem->watchForCollisions("shield", "arrow");
 	collisionSystem->watchForCollisions("shield", "mage_attack");
 	collisionSystem->watchForCollisions("shield", "cannonball");
 	collisionSystem->watchForCollisions("shield", "rubber_cannonball");
 	collisionSystem->watchForCollisions("shield", "archer");
 	collisionSystem->watchForCollisions("shield", "mage");
+
 	collisionSystem->watchForCollisions("archer", "arrow");
 	collisionSystem->watchForCollisions("archer", "mage_attack");
 	collisionSystem->watchForCollisions("archer", "cannonball");
 	collisionSystem->watchForCollisions("archer", "rubber_cannonball");
+	collisionSystem->watchForCollisions("archer", "poison_bomb");
+
+	collisionSystem->watchForCollisions("cannoneer", "arrow");
+	collisionSystem->watchForCollisions("cannoneer", "mage_attack");
+	collisionSystem->watchForCollisions("cannoneer", "cannonball");
+	collisionSystem->watchForCollisions("cannoneer", "rubber_cannonball");
+	collisionSystem->watchForCollisions("cannoneer", "poison_bomb");
+	
+	collisionSystem->watchForCollisions("rubber_cannoneer", "arrow");
+	collisionSystem->watchForCollisions("rubber_cannoneer", "mage_attack");
+	collisionSystem->watchForCollisions("rubber_cannoneer", "cannonball");
+	collisionSystem->watchForCollisions("rubber_cannoneer", "rubber_cannonball");
+	collisionSystem->watchForCollisions("rubber_cannoneer", "poison_bomb");
+
+	collisionSystem->watchForCollisions("mage", "arrow");
+	collisionSystem->watchForCollisions("mage", "mage_attack");
+	collisionSystem->watchForCollisions("mage", "cannonball");
+	collisionSystem->watchForCollisions("mage", "rubber_cannonball");
+	collisionSystem->watchForCollisions("mage", "poison_bomb");
+	
+	collisionSystem->watchForCollisions("knight", "arrow");
+	collisionSystem->watchForCollisions("knight", "mage_attack");
+	collisionSystem->watchForCollisions("knight", "cannonball");
+	collisionSystem->watchForCollisions("knight", "rubber_cannonball");
+	collisionSystem->watchForCollisions("knight", "poison_bomb");
+
+	collisionSystem->watchForCollisions("roar_monster", "arrow");
+	collisionSystem->watchForCollisions("roar_monster", "mage_attack");
+	collisionSystem->watchForCollisions("roar_monster", "cannonball");
+	collisionSystem->watchForCollisions("roar_monster", "rubber_cannonball");
+	collisionSystem->watchForCollisions("roar_monster", "poison_bomb");
+	
+	collisionSystem->watchForCollisions("poisoner", "arrow");
+	collisionSystem->watchForCollisions("poisoner", "mage_attack");
+	collisionSystem->watchForCollisions("poisoner", "cannonball");
+	collisionSystem->watchForCollisions("poisoner", "rubber_cannonball");
+	collisionSystem->watchForCollisions("poisoner", "poison_bomb");
 
 }
 
