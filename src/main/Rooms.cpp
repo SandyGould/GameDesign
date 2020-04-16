@@ -159,8 +159,8 @@ void Rooms::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystick
 		}
 		if (player->position.x > 1231) {
 			//EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::OUT_SCENE_EVENT));
-			player->addChild(scene2);
-			camera->removeImmediateChild(scene);
+			scene2->addChild(player);
+			//camera->removeImmediateChild(scene);
 			scene2->setCameraRef(camera);
 			// set new parameters for next scene
 			camera->addChild(scene2);
