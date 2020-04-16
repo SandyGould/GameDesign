@@ -2,7 +2,7 @@
     "Scene":[
         {
             "L0":{
-                "speed":0,
+                "speed":1,
                 "objects":[
                     {
                         "type":"Sprite",
@@ -76,7 +76,19 @@
         {
             "L1":{
                 "speed":1,
-                "objects":[]
+                "objects":[
+                    {
+                        "type":"Sprite",
+                        "name":"cloud",
+                        "filepath":"./resources/Rebound/top_layer/cloud.png",
+                        "x_pos":600,
+                        "y_pos":100,
+                        "rotation":0,
+                        "scaleX":1,
+                        "scaleY":1,
+                        "parentHierarchy":[]
+                    }
+                ]
             }
         },
         {
