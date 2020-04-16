@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-SelectionMenuBase::SelectionMenuBase(): DisplayObject("selection_menu"){
+SelectionMenuBase::SelectionMenuBase() : DisplayObject("selection_menu"){
 	this->alpha = 0;
 
 	loadRGBTexture(red, green, blue, width, height, renderer);

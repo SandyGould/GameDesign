@@ -18,9 +18,10 @@ Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites
 	this->addChild(shield);
 	shield->position.x = 105;
 	shield->position.y = 10;
-	shield->width = 20;
-	shield->height = 80;
+	shield->width = this->width * 20 / 110;
+	shield->height = this->height;
 	shield->pivot = {50, 50};
+    shield->visible = false;
 }
 
 void Player::changeHealth(int amount) {
@@ -36,6 +37,10 @@ void Player::changeStamina(int amount) {
     } else {
         stamina = 1000;
     }
+}
+
+void Player::toggleShieldHidden() {
+    shield->visible = !shield->visible;
 }
 
 void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
@@ -160,7 +165,7 @@ void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
                 shieldBash->animate(TweenableParams::Y, 105.0, 140.0, 10);
                 shieldBash->animate(TweenableParams::Y, 140.0, 105.0, 18);
                 TweenJuggler::getInstance().add(shieldBash);
-    			this->changeStamina(-70);
+                this->changeStamina(-70);
                 AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
                 return;
     		}

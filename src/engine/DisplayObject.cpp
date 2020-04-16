@@ -259,7 +259,7 @@ void DisplayObject::draw(AffineTransform& at) {
 
     // undo the parent's pivot
     at.translate(pivot.x, pivot.y);
-    for (auto child : children) {
+    for (auto* child : children) {
         child->draw(at);
     }
     // redo the parent's pivot

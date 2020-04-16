@@ -35,7 +35,7 @@ private:
 
 	Camera* camera;
 
-	AnimatedSprite* player;
+	Player* player;
 
     SelectionMenuBase* selection_menu_base;
     SelectionMenuOption * selection_quit_option;

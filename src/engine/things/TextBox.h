@@ -14,12 +14,12 @@ using namespace std;
 class TextBox : public DisplayObject, public EventListener {
 
 public:
-	TextBox(std::string id);
+	explicit TextBox(std::string id);
     TextBox(std::string id, std::string text);
 	TextBox(std::string id, std::string text, TTF_Font* font);
 	TextBox(std::string id, std::string text, TTF_Font* font, SDL_Renderer* renderer);
 
-	virtual ~TextBox();
+	~TextBox() override;
 
 	void setText(string text);
 	void setColor(SDL_Color color);
