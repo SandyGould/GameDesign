@@ -20,14 +20,15 @@ void TweenJuggler::add(Tween* tween) {
 
 void TweenJuggler::nextFrame() {
     std::list<Tween*>::iterator it;
-    for (it = this->tweenList.begin(); it != this->tweenList.end(); it++) {
+    for (it = this->tweenList.begin(); it != this->tweenList.end(); ) {
         if ((*it)->isComplete()) {
             // throw event - tween ending
-            this->tweenList.erase(it--);
+            it = this->tweenList.erase(it);
         }
-        else {
+        if (it != this->tweenList.end()) {
             (*it)->update();
             (*it)->incrementTime();
+            it++;
         }
     }
 }
