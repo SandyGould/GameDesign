@@ -47,8 +47,8 @@ private:
     static void resolveCollision(DisplayObject* d, DisplayObject* other, int xDelta1, int yDelta1, int xDelta2, int yDelta2);
 
     static bool isIntersecting(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2);
+    static bool isIntersecting(Hitcircle hitcircle, pair<SDL_Point, SDL_Point> line);
     static Orientation getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3);
-    static SDL_Point getCenter(std::pair<SDL_Point, SDL_Point> line1, std::pair<SDL_Point, SDL_Point> line2);
 
     // platform -> [platform1, platform2, platform3, ...]
     unordered_map<string, unordered_set<DisplayObject*>> displayObjectsMap;
