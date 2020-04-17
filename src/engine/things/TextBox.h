@@ -11,7 +11,7 @@
 
 using namespace std;
 
-class TextBox : public DisplayObject, public EventListener {
+class TextBox : public DisplayObject {
 
 public:
 	explicit TextBox(std::string id);

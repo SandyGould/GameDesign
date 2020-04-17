@@ -8,7 +8,7 @@
 
 using namespace std;
 
-class SelectionMenuOption : public DisplayObject, public EventListener {
+class SelectionMenuOption : public DisplayObject {
 
 public:
 

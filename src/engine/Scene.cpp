@@ -6,13 +6,16 @@
 #include <fstream>
 #include <iostream>
 #include "json.hpp"
-#include "events/NewSceneEvent.h"
-#include "tweens/TweenJuggler.h"
 using json = nlohmann::json;
 
 using namespace std;
 
-Scene::Scene() : Scene("scene") {}
+Scene::Scene() : DisplayObject("scene") {}
+
+Scene::Scene(Camera* camera, Player* player) : DisplayObject("scene") {
+    this->camera = camera;
+    this->player = player;
+}
 
 Scene::Scene(std::string id) : DisplayObject(id) {
     this->type = "Scene";
@@ -32,7 +35,7 @@ void Scene::loadScene_Editor(std::string sceneFilePath){
         Layer* temp_layer = new Layer(layer_value);
         json json_layer = j["Scene"][z][layer_value];
         temp_layer->parallaxSpeed = json_layer["speed"];
-        
+        temp_layer->cam = this->camera;
         for(int y = 0; y < json_layer["objects"].size(); ++y){
             // std::cout << "type: " + json_layer["objects"][y]["type"].get<std::string>() << std::endl;
             
@@ -42,20 +45,46 @@ void Scene::loadScene_Editor(std::string sceneFilePath){
             // } 
 
             std::string obj_type = json_layer["objects"][y]["type"].get<std::string>();
-            if(obj_type.compare("DisplayObject") == 0){
-                temp_layer->addChild(generateDO(json_layer["objects"][y]));
-            }
-            else if(obj_type.compare("AnimatedSprite") == 0){
-                temp_layer->addChild(generateAS(json_layer["objects"][y]));
-            }
-            else if(obj_type.compare("Sprite") == 0){
-                temp_layer->addChild(generateSprite(json_layer["objects"][y]));
-            }
-        }
+            json mj = json_layer["objects"][y];
+            if(obj_type.compare("DisplayObject") == 0){temp_layer->addChild(setBasicInfo(new DisplayObject(mj["name"], mj["filepath"]), mj));}
+            else if(obj_type.compare("AnimatedSprite") == 0){temp_layer->addChild((AnimatedSprite*)setBasicInfo(new AnimatedSprite(mj["name"], mj["sheetpath"], mj["xmlpath"]), mj));}
+            else if(obj_type.compare("Sprite") == 0){temp_layer->addChild((Sprite*)setBasicInfo(new Sprite(mj["name"], mj["filepath"]), mj));}
+            /* enemies */
+            else if(obj_type.compare("BaseEnemy") == 0){temp_layer->addChild((BaseEnemy*)setBasicInfo(new BaseEnemy(mj["name"], mj["sheetpath"], mj["xmlpath"], this->player), mj));}
+            else if(obj_type.compare("Archer") == 0){temp_layer->addChild((Archer*)setBasicInfo(new Archer(this->player), mj));}
+            else if(obj_type.compare("KingdomArcher") == 0){temp_layer->addChild((KingdomArcher*)setBasicInfo(new KingdomArcher(this->player), mj));}
+            else if(obj_type.compare("MasterArcher") == 0){temp_layer->addChild((MasterArcher*)setBasicInfo(new MasterArcher(this->player), mj));}
+            else if(obj_type.compare("Cannoneer") == 0){temp_layer->addChild((Cannoneer*)setBasicInfo(new Cannoneer(this->player), mj));}
+            else if(obj_type.compare("RubberCannoneer") == 0){temp_layer->addChild((RubberCannoneer*)setBasicInfo(new RubberCannoneer(this->player), mj));}
+            else if(obj_type.compare("Mage") == 0){temp_layer->addChild((Mage*)setBasicInfo(new Mage(this->player), mj));}
+            else if(obj_type.compare("KingdomMage") == 0){temp_layer->addChild((KingdomMage*)setBasicInfo(new KingdomMage(this->player), mj));}
+            else if(obj_type.compare("Knight") == 0){temp_layer->addChild((Knight*)setBasicInfo(new Knight(this->player), mj));}
+            else if(obj_type.compare("Ogre") == 0){temp_layer->addChild((Ogre*)setBasicInfo(new Ogre(this->player), mj));}
+            else if(obj_type.compare("Orc") == 0){temp_layer->addChild((Orc*)setBasicInfo(new Orc(this->player), mj));}
+            else if(obj_type.compare("Poisoner") == 0){temp_layer->addChild((Poisoner*)setBasicInfo(new Poisoner(this->player), mj));}
+            else if(obj_type.compare("RoarMonster") == 0){temp_layer->addChild((RoarMonster*)setBasicInfo(new RoarMonster(this->player), mj));}
+            else if(obj_type.compare("SecondBoss") == 0){temp_layer->addChild((SecondBoss*)setBasicInfo(new SecondBoss(this->player), mj));}
+            /* environmental objects */
+            else if(obj_type.compare("EnvironmentObject") == 0){temp_layer->addChild((EnvironmentObject*)setBasicInfo(new EnvironmentObject(mj["name"], mj["filepath"]), mj));}
+            else if(obj_type.compare("HitObject") == 0){temp_layer->addChild((HitObject*)setBasicInfo(new HitObject(mj["name"], mj["filepath"]), mj));}
+            else if(obj_type.compare("WalkOnObject") == 0){temp_layer->addChild((WalkOnObject*)setBasicInfo(new WalkOnObject(mj["name"], mj["filepath"]), mj));}
+        
+        }            
         this->addChild(temp_layer);
     }
 }
 
+DisplayObject* Scene::setBasicInfo(DisplayObject* d_obj, json j){
+    d_obj->position.x = j["x_pos"];
+    d_obj->position.y = j["y_pos"];
+    // d_obj->orig_position.x = j["x_pos"];
+    // d_obj->orig_position.y = j["y_pos"];
+    d_obj->rotation = j["rotation"];
+    d_obj->scaleX = j["scaleX"];
+    d_obj->scaleY = j["scaleY"];
+    return d_obj;
+
+/*
 // Load all objects as DisplayObjects, Sprites, and AnimatedSprites
 void Scene::loadScene(std::string sceneFilePath){
     if (!p){
@@ -338,7 +367,7 @@ SecondBoss* Scene::generateSecondBoss(json j){
     temp_second_boss->scaleX = j["scaleX"];
     temp_second_boss->scaleY = j["scaleY"];
     return temp_second_boss;
-}
+}*/
 
 void Scene::saveScene(std::string sceneName){
     std::ofstream o("./resources/scene/" + sceneName);
@@ -388,31 +417,4 @@ void Scene::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 
 void Scene::draw(AffineTransform& at) {
     DisplayObject::draw(at);
-}
-
-void Scene::setCameraRef(Camera* camera){
-    for (auto child : children) {
-        if (child->type == "layer"){
-            Layer* temp_layer = (Layer*)child;
-            temp_layer->cam = camera;
-        }
-    }
-}
-
-void Scene::handleEvent(Event* e){
-	if (e->getType() == NewSceneEvent::OUT_SCENE_EVENT){
-		EventDispatcher::getInstance().removeEventListener(this, NewSceneEvent::OUT_SCENE_EVENT);
-        Tween * start_transition = new Tween("start_transition", this);
-		start_transition->animate(TweenableParams::SCALE_X, 1, 0, 100, TweenParam::EASE_IN);
-		start_transition->animate(TweenableParams::SCALE_Y, 1, 0, 100, TweenParam::EASE_IN);
-		TweenJuggler::getInstance().add(start_transition);
-	}
-    if (e->getType() == NewSceneEvent::IN_SCENE_EVENT){
-        EventDispatcher::getInstance().removeEventListener(this, NewSceneEvent::IN_SCENE_EVENT);
-        Tween * start_transition = new Tween("start_transition", this);
-		start_transition->animate(TweenableParams::SCALE_X, 1, 0, 100, TweenParam::EASE_IN);
-		start_transition->animate(TweenableParams::SCALE_Y, 1, 0, 100, TweenParam::EASE_IN);
-		TweenJuggler::getInstance().add(start_transition);
-	}
-    // define other scene transitions here if we want them!
 }

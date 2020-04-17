@@ -8,7 +8,7 @@
                         "type":"Sprite",
                         "name":"background",
                         "filepath":"./resources/Rebound/area2/assets/background.png",
-                        "x_pos":0,
+                        "x_pos":100,
                         "y_pos":0,
                         "rotation":0,
                         "scaleX":10,
@@ -46,6 +46,17 @@
                         "rotation":0,
                         "scaleX":0.1,
                         "scaleY":0.1,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"WalkOnObject",
+                        "name":"shield_power_up",
+                        "filepath": "./resources/Rebound/area2/assets/shield.png",
+                        "x_pos": 250,
+                        "y_pos": 250,
+                        "rotation":0,
+                        "scaleX":0.3,
+                        "scaleY":0.3,
                         "parentHierarchy":[]
                     }
                 ]

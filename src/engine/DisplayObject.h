@@ -1,6 +1,8 @@
 #pragma once
 
 #include "AffineTransform.h"
+#include "events/Event.h"
+#include "events/EventListener.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -35,7 +37,7 @@ struct Hitbox {
     SDL_Point lr;
 };
 
-class DisplayObject {
+class DisplayObject : public EventListener {
 
 public:
 	std::string id = "DEFAULT_ID";
@@ -71,6 +73,7 @@ public:
     void removeChild(size_t index);
     void removeThis();
 
+	  DisplayObject* getAndRemoveChild(std::string id);
     [[nodiscard]] int numChildren() const;
     [[nodiscard]] DisplayObject* getChild(int index) const;
     [[nodiscard]] DisplayObject* getChild(const std::string& id) const;
@@ -97,9 +100,12 @@ public:
     [[nodiscard]] Hitbox getHitbox() const;
     void drawHitbox(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE}) const;
 
+	void propogateEvent(Event* e, DisplayObject* root);
+	void handleEvent(Event* e) override;
+
     bool visible = true;
     SDL_Point position = {0, 0};
-    SDL_Point orig_position = {0, 0}; // Used for parallaxing (in Layer.cpp)
+    // SDL_Point orig_position = {0, 0}; // Used for parallaxing (in Layer.cpp)
 
 	int width = 100;
 	int height = 100;
@@ -126,4 +132,5 @@ private:
 
 	/* Texture currently being drawn. Equal to texture for normal DO */
 	SDL_Texture* curTexture;
+
 };

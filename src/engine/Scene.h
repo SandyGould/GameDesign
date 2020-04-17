@@ -1,8 +1,17 @@
 #pragma once
 
+#include "things/Player.h"
 #include "DisplayObject.h"
 #include "AnimatedSprite.h"
+#include "Camera.h"
 #include "Sprite.h"
+#include "events/Event.h"
+#include "events/EventListener.h"
+
+#include "EnvironmentObject.h"
+#include "WalkOnObject.h"
+#include "HitObject.h"
+/*
 #include "enemies/Arrow.h"
 #include "enemies/MageAttack.h"
 #include "enemies/PoisonBomb.h"
@@ -17,10 +26,21 @@
 #include "enemies/RoarMonster.h"
 #include "enemies/RubberCannoneer.h"
 #include "enemies/SecondBoss.h"
-#include "Camera.h"
-#include "events/Event.h"
-#include "events/EventListener.h"
-
+*/
+#include "enemies/Archer.h"
+#include "enemies/BaseEnemy.h"
+#include "enemies/Cannoneer.h"
+#include "enemies/KingdomArcher.h"
+#include "enemies/KingdomMage.h"
+#include "enemies/Knight.h"
+#include "enemies/Mage.h"
+#include "enemies/MasterArcher.h"
+#include "enemies/Ogre.h"
+#include "enemies/Orc.h"
+#include "enemies/Poisoner.h"
+#include "enemies/RoarMonster.h"
+#include "enemies/RubberCannoneer.h"
+#include "enemies/SecondBoss.h"
 
 #include "json.hpp"
 
@@ -30,10 +50,11 @@
 
 using json = nlohmann::json;
 
-class Scene : public DisplayObject, public EventListener {
+class Scene : public DisplayObject {
 
 public:
 	Scene();
+	Scene(Camera* camera, Player* player);
 	explicit Scene(std::string id);
 	// ~Scene() override;
 
@@ -45,8 +66,9 @@ public:
 
 	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
 	void draw(AffineTransform& at) override;
-	void setCameraRef(Camera* camera);
 
+	DisplayObject* setBasicInfo(DisplayObject* d_obj, json j);
+  /*
 	DisplayObject* generateDO(json j);
 	AnimatedSprite* generateAS(json j);
 	Sprite* generateSprite(json j);
@@ -66,11 +88,13 @@ public:
 	SecondBoss* generateSecondBoss(json j);
 
 	Player* p = NULL;
+  */
 
 	// for scene transitions
-	void handleEvent(Event* e) override;
 	bool keepScene = false;
-	
+	Player* player;
+	Camera* camera;
+
 private:
 	DisplayObject* root;
 

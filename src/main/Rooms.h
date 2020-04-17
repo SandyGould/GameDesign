@@ -32,6 +32,7 @@ public:
 
 private:
     bool esc_prepressed = false;
+    bool sceneChange = false;
 
 	Camera* camera;
 

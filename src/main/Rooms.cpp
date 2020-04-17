@@ -15,7 +15,6 @@
 using namespace std;
 
 Rooms::Rooms() : Game(600, 500) {
-	
 	instance = this;
 
     // create collision system
@@ -36,27 +35,6 @@ Rooms::Rooms() : Game(600, 500) {
 
 	instance->addChild(camera);
 
-	// load and prep scene 1
-	room = 1;
-	scene = new Scene();
-	scene->loadScene("./resources/Rebound/area1/area1map.json");
-	scene->setCameraRef(camera);
-	camera->addChild(scene);
-	// set types of children (for collisions)
-	scene->getChild("L0")->getChild("stone")->type = "env_object";
-	scene->getChild("L0")->getChild("sign")->type = "env_object";
-	scene->getChild("L0")->getChild("top_trees")->type = "env_object";
-	scene->getChild("L0")->getChild("bottom_trees")->type = "env_object";
-
-	// load and prep scene 2
-	scene2 = new Scene();
-	scene2->loadScene("./resources/Rebound/area2/area2map.json");
-	//scene2->setCameraRef(camera);
-	//camera->addChild(scene2);
-	// set types of children (for collisions)
-	scene2->getChild("L0")->getChild("structure1")->type = "env_object";
-	scene2->getChild("L0")->getChild("structure2")->type = "env_object";
-	scene2->getChild("L0")->getChild("barrel")->type = "env_object";
 
 	// load and prep player
 	player = new Player();
@@ -65,6 +43,18 @@ Rooms::Rooms() : Game(600, 500) {
 	player->width = player->height = 50;
 	player->pivot = {50, 50};
 	//player->type = "player";
+
+	// load and prep scene 1
+	room = 1;
+	scene = new Scene(camera, player);
+	scene->loadScene("./resources/Rebound/area1/area1map.json");
+
+	camera->addChild(scene);
+
+	// load and prep scene 2
+	scene2 = new Scene(camera, player);
+	scene2->loadScene("./resources/Rebound/area2/area2map.json");
+
 	scene->addChild(player);
 
 	// start text box
@@ -112,8 +102,10 @@ Rooms::Rooms() : Game(600, 500) {
 
     TweenJuggler::getInstance().add(player_tween);
     EventDispatcher::getInstance().addEventListener(this->start_text_box, TweenEvent::TWEEN_COMPLETE_EVENT);
-	EventDispatcher::getInstance().addEventListener(this->scene, NewSceneEvent::OUT_SCENE_EVENT);
-	EventDispatcher::getInstance().addEventListener(this->scene2, NewSceneEvent::IN_SCENE_EVENT);
+	EventDispatcher::getInstance().addEventListener(this->scene, NewSceneEvent::FADE_OUT_EVENT);
+	//EventDispatcher::getInstance().addEventListener(this->scene, TweenEvent::TWEEN_COMPLETE_EVENT);
+	EventDispatcher::getInstance().addEventListener(this->camera, TweenEvent::TWEEN_COMPLETE_EVENT);
+	EventDispatcher::getInstance().addEventListener(this->scene2, NewSceneEvent::FADE_IN_EVENT);
 }
 
 Rooms::~Rooms() {
@@ -126,7 +118,30 @@ Rooms::~Rooms() {
 
 
 void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {
-	this->collisionSystem->update();
+	this->collisionSystem->update();	
+  if (sceneChange) {
+		sceneChange = false;
+		EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_OUT_EVENT));
+		if (camera->changeScene) {
+			// setup camera
+			camera->addChild(scene2);
+			camera->setRightLimit(300);
+			camera->setTopLimit(100);
+			camera->position = {200, 100};
+			camera->pivot = {200, 100};
+			camera->changeScene = false;
+			// add new player
+			player = new Player();
+			scene2->addChild(player);
+			player->position = {0, 200};
+			player->width = player->height = 50;
+			// set new room number
+			this->room += 1;
+			EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_IN_EVENT));
+		}
+		
+		
+	}
 
 	std::cout << "x" << std::endl;
 	std::cout << player->position.x << std::endl;
@@ -135,7 +150,7 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 
 
 	// scene 1 controls
-	if (room == 1) {
+	if (room == 1 && !sceneChange) {
 		if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
 			if (player->position.x < 1230 || (player->position.y < 350 && player->position.y > 175)) {
 				player->position.x += 2;
@@ -154,22 +169,14 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 				player->position.y -= 2;
 			}
 		}
-		if (player->position.x > 1231) {
-			//EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::OUT_SCENE_EVENT));
-			scene2->addChild(player);
-			//camera->removeImmediateChild(scene);
-			scene2->setCameraRef(camera);
-			// set new parameters for next scene
-			camera->addChild(scene2);
-			camera->setRightLimit(810);
-			//EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::IN_SCENE_EVENT));
-			player->position = {50, 250};
-			this->room = 2;
+		if (player->position.x > 1200) {
+			sceneChange = true;
 		}
 	}
-	if (room == 2) {
+
+	if (room == 2 && !sceneChange) {
 		if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
-			if (player->position.x < 1230 || (player->position.y < 350 && player->position.y > 175)) {
+			if (player->position.x < 600) {
 				player->position.x += 2;
 			}
 		}
@@ -201,6 +208,7 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
     TweenJuggler::getInstance().nextFrame();
 	Game::update(pressedKeys, joystickState, pressedButtons);
 	camera->follow(player->position.x, player->position.y);
+	this->collisionSystem->update();
 }
 
 void Rooms::draw(AffineTransform& at) {
