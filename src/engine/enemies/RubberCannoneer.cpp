@@ -1,17 +1,20 @@
 #include "RubberCannoneer.h"
 
     RubberCannoneer::RubberCannoneer(Player* player) : BaseEnemy("RubberCannoneer", "./resources/assets/Display_Objects/rubber_cannoneer.png", "", player){
-        this->type = "rubber_cannoneer";
-        this->saveType = this->type;
+        this->saveType = "rubber_cannoneer";
     }
 
     void RubberCannoneer::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
-    if(this->health==0){
+    if(this->health<=0){
         this->clean = true;
     }
 
     if(this->clean){
-        //Do some cleanup
+        for(DisplayObject* object: children){
+            this->removeImmediateChild(object);
+        }
+        this->removeThis();
+        return;
     }
 
     if(this->state == 0){

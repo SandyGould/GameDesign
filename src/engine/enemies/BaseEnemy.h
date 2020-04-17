@@ -16,10 +16,9 @@ public:
 
     void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
     void draw(AffineTransform& at) override;
-    //void onCollision(DisplayObject* other);
-    //Add onCollision handling when Engine Team gets it together :')
+    bool onCollision(DisplayObject* other) override;
 
-
+    void cleanUp();
     void changeHealth(int amount);
 
     //Knowing about the player is nice :)

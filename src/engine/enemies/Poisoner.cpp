@@ -1,8 +1,7 @@
 #include "Poisoner.h"
 
 Poisoner::Poisoner(Player* player) : BaseEnemy("poisoner", "./resources/assets/Display_Objects/poisoner.png", "", player){
-    this->type="poisoner";
-    this->saveType = this->type;
+    this->saveType="poisoner";
 }
 
 /*
@@ -14,11 +13,11 @@ Recharge
 Ded
 */
 void Poisoner::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
-    if(this->health ==0){
+    if(this->health <=0){
         this->clean = true;
     }
     if(this->clean){
-        //cleanup
+        cleanUp();
     }
     if(this->state == 0){
         //init

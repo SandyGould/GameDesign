@@ -16,11 +16,11 @@ void Knight::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
     Reset
     Ded
     */
-    if(this->health ==0){
+    if(this->health <=0){
         this->clean = true;
     }
     if(this->clean){
-        this->removeThis();
+        cleanUp();
     }
     if(this->state == 0){
         //init

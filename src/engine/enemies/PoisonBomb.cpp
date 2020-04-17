@@ -4,26 +4,30 @@
 PoisonBomb::PoisonBomb():Sprite("bomb", "./resources/assets/Display_Objects/Planet.png"){
     radius = 10;
     this->type = "poison_bomb";
+    this->hitboxType = HitboxType::Circle;
     this->saveType = this->type;
 }
 
-PoisonBomb::~PoisonBomb(){
-    //Sprite::~Sprite();
-}
 
 void PoisonBomb::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
     if(timer == 0){
         this->explode();
     }
-    timer--;
+    else{
+        timer--;
+    }
     Sprite::update(pressedKeys, joystickState, pressedButtons);
 }
 
 void PoisonBomb::explode(){
-    this->visible = false;
+    if(this->explosionTime==6 ){
+//        this->setTexture("./resources/assets/Display_Objects/Moon.png");
+//      //  this->loadTexture("./resources/assets/Display_Objects/Moon.png", Game::renderer);
+        this->visible = false;
+    }
     if(this->explosionTime == 0){
-        this->parent->removeImmediateChild(this);
-        delete this;
+        std::cout<<"Boom\n";
+        //this->parent->removeImmediateChild(this);
     }
     this->scaleX++;
     this->scaleY++;
