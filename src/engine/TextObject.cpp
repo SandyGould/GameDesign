@@ -16,6 +16,7 @@ TextObject::TextObject(string id, string text, TTF_Font* font) : TextObject(id, 
 
 TextObject::TextObject(string id, string text, TTF_Font* font, SDL_Renderer* r) : DisplayObject(id) {
     this->type = "TextObject";
+    this->saveType = this->type;
 
     this->text = text;
     this->font = font;

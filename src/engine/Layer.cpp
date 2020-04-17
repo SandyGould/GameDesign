@@ -4,10 +4,12 @@
 
 Layer::Layer() : DisplayObject("layer") {
     this->type = "layer";
+    this->saveType = this->type;
 }
 
 Layer::Layer(std::string id) : DisplayObject(id) {
     this->type = "layer";
+    this->saveType = this->type;
 }
 
 void Layer::setParallax(){

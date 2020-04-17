@@ -30,6 +30,7 @@ Game::Game(int windowWidth, int windowHeight) : DisplayObject("game") {
 	Game::instance = this;
 	
 	this->type = "Game";
+	this->saveType = this->type;
 
 	this->windowWidth = windowWidth;
 	this->windowHeight = windowHeight;

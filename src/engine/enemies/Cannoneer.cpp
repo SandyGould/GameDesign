@@ -3,6 +3,7 @@
 
 Cannoneer::Cannoneer(Player* player) : BaseEnemy("Cannoneer", "./resources/assets/Display_Objects/cannoneer.png", "", player){
     this->type = "cannoneer";
+    this->saveType = this->type;
 }
 
 

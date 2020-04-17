@@ -5,6 +5,7 @@
 Shield::Shield() : Sprite("shield", "./resources/assets/Display_Objects/Shield.png") {
     hasCollision = true;
     this->type = "shield";
+    this->saveType = this->type;
 }
 
 void Shield::switchType() {

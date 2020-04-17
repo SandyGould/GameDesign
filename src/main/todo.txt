@@ -1,4 +1,11 @@
+DisplayObjects:
+Sprites: "arrow", "mage_attack", "poison_bomb", "rubber_cannonball"
+AnimatedSprites: "archer", "cannoneer", "knight", "mage", "master_archer", "ogre", "poisoner", "roar_monster", "rubber_cannoneer", "second_boss"
+
 TODO:
+- Make hitboxes adjustable
+- Make scenes load as either displayobjects or as actual entities
+- Make scene saving and loading work
 
 URGENT:
 

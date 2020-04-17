@@ -2,16 +2,19 @@
 
 Sprite::Sprite(std::string id, SDL_Renderer *r) : DisplayObject(id) {
     this->type = "Sprite";
+    this->saveType = this->type;
     this->renderer = r;
 }
 
 Sprite::Sprite(std::string id, std::string filepath, SDL_Renderer *r) : DisplayObject(id, filepath, r) {
     this->type = "Sprite";
+    this->saveType = this->type;
     this->renderer = r;
 }
 
 Sprite::Sprite(std::string id, int red, int green, int blue, SDL_Renderer *r) : DisplayObject(id, red, green, blue) {
     this->type = "Sprite";
+    this->saveType = this->type;
     this->renderer = r;
 }
 
@@ -20,6 +23,7 @@ Sprite::Sprite(const DisplayObject& other) : DisplayObject(other.id){
         Sprite* S = (Sprite*) &other;
         this->id = S->id + "_copy";
         this->type = S->type;
+        this->saveType = S->saveType;
         this->renderer = S->renderer;
         this->position = S->position;
         this->width = S->width;

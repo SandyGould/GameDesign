@@ -41,6 +41,7 @@ public:
 	std::string id = "DEFAULT_ID";
 	std::string imgPath = "";
 	std::string type = "DisplayObject";
+	std::string saveType;
 
 	DisplayObject* parent = nullptr;
 
@@ -82,6 +83,9 @@ public:
 
 	[[nodiscard]] SDL_Point getGlobalPosition() const;
 	void updateSourceRect(SDL_Rect* s);
+
+	void scaleHeight(int h);
+	void scaleWidth(int w);
 
 	void getGlobalTransform(AffineTransform& at) const;
 

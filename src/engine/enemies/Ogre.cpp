@@ -23,6 +23,7 @@ Ogre::Ogre(Player* player): BaseEnemy("ogre", "./resources/assets/Animated_Sprit
     this->state = 0;
     this->facingRight=true;
     this->type = "ogre";
+    this->saveType = this->type;
     this->actionFrames = 12;
     this->arrow = nullptr;
 }

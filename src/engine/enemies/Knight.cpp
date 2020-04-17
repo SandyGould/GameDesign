@@ -3,6 +3,7 @@
 
 Knight::Knight(Player* player): BaseEnemy("knight", "./resources/assets/Display_Objects/knight.png", "", player){
     this->type = "knight";
+    this->saveType = this->type;
 }
 
 void Knight::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
