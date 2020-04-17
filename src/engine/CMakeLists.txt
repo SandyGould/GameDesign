@@ -9,11 +9,14 @@ target_sources(rebound PRIVATE
         Camera.cpp
         CollisionSystem.cpp
         DisplayObject.cpp
+        EnvironmentObject.cpp
         Game.cpp
+        HitObject.cpp
         Layer.cpp
         QuestManager.cpp
         Scene.cpp
         Sprite.cpp
         StatBar.cpp
         TextObject.cpp
+        WalkOnObject.cpp
         pugixml.cpp)

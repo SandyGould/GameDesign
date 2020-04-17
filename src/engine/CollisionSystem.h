@@ -59,5 +59,7 @@ private:
     // player -> [player, platform, ...]
     unordered_map<string, unordered_set<string>> collisionTypes;
 
+    // *Must* be local coordinates!
+    // i.e. obj->position, NOT obj->getHitbox().ul
     unordered_map<DisplayObject*, SDL_Point> prevPositions;
 };
