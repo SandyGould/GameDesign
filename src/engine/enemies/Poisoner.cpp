@@ -1,7 +1,7 @@
 #include "Poisoner.h"
 
 Poisoner::Poisoner(Player* player) : BaseEnemy("poisoner", "./resources/assets/Display_Objects/poisoner.png", "", player){
-    this->type="poisoner";
+    //this->type="poisoner";
 }
 
 /*

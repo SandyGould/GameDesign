@@ -4,6 +4,7 @@
 PoisonBomb::PoisonBomb():Sprite("bomb", "./resources/assets/Display_Objects/Planet.png"){
     radius = 10;
     this->type = "poison_bomb";
+    this->hitboxType = HitboxType::Circle;
 }
 
 PoisonBomb::~PoisonBomb(){
@@ -19,7 +20,9 @@ void PoisonBomb::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joy
 }
 
 void PoisonBomb::explode(){
-    this->visible = false;
+    if(this->explosionTime==6 ){
+        this->loadTexture("./resources/assets/Display_Objects/Moon.png", Game::renderer);
+    }
     if(this->explosionTime == 0){
         this->parent->removeImmediateChild(this);
         delete this;

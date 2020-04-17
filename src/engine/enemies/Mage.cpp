@@ -4,7 +4,7 @@
 
 Mage::Mage(Player* player) : BaseEnemy("mage", "./resources/assets/Animated_Sprites/Enemies/Mage/Mage.png", "", player) {
     hasCollision = true;
-    this->type = "mage";
+    //this->type = "mage";
     this->mageAttack = nullptr;
 }
 
@@ -55,4 +55,11 @@ void Mage::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickS
     }
 
     BaseEnemy::update(pressedKeys, joystickState, pressedButtons);
+}
+
+bool Mage::onCollision(DisplayObject* other){
+    if(other == this->mageAttack){
+        return true;
+    }
+    return BaseEnemy::onCollision(other);
 }

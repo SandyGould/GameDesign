@@ -4,6 +4,7 @@
 BaseEnemy::BaseEnemy(std::string id, std::string spritesheet, std::string xml, Player* player) : AnimatedSprite(id, spritesheet, xml){
     hasCollision=true;
     this->player = player;
+    this->type = "enemy";
 }
 
 void BaseEnemy::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){

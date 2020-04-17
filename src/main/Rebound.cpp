@@ -49,7 +49,7 @@ Rebound::Rebound() : Game(1200, 800) {
 
     allSprites->addChild(ogre);
 
-	masterArcher = new MasterArcher(player);
+	/*masterArcher = new MasterArcher(player);
     masterArcher-> position = {500,500};
     masterArcher->height = 80;
     masterArcher->width = 70;
@@ -63,7 +63,7 @@ Rebound::Rebound() : Game(1200, 800) {
 
 	allSprites->addChild(roarMonster);
 
-	knight = new Knight(player);
+	/*knight = new Knight(player);
 	knight->position = {200,400};
 	knight->height = 80;
 	knight->width = 70;
@@ -115,9 +115,9 @@ Rebound::Rebound() : Game(1200, 800) {
 	secondBoss = new SecondBoss(player);
 	secondBoss->position = {600,600};
 	secondBoss->height = 100;
-	secondBoss->width = 100;
+	secondBoss->width = 100;*/
 
-	allSprites->addChild(secondBoss);
+	//allSprites->addChild(secondBoss);
 
 	collisionSystem->watchForCollisions("player", "arrow");
 	collisionSystem->watchForCollisions("player", "poison_bomb");
@@ -133,48 +133,23 @@ Rebound::Rebound() : Game(1200, 800) {
 	collisionSystem->watchForCollisions("shield", "archer");
 	collisionSystem->watchForCollisions("shield", "mage");
 
-	collisionSystem->watchForCollisions("archer", "arrow");
-	collisionSystem->watchForCollisions("archer", "mage_attack");
-	collisionSystem->watchForCollisions("archer", "cannonball");
-	collisionSystem->watchForCollisions("archer", "rubber_cannonball");
-	collisionSystem->watchForCollisions("archer", "poison_bomb");
+	collisionSystem->watchForCollisions("enemy", "arrow");
+	collisionSystem->watchForCollisions("enemy", "mage_attack");
+	collisionSystem->watchForCollisions("enemy", "cannonball");
+	collisionSystem->watchForCollisions("enemy", "rubber_cannonball");
+	collisionSystem->watchForCollisions("enemy", "poison_bomb");
 
-	collisionSystem->watchForCollisions("cannoneer", "arrow");
-	collisionSystem->watchForCollisions("cannoneer", "mage_attack");
-	collisionSystem->watchForCollisions("cannoneer", "cannonball");
-	collisionSystem->watchForCollisions("cannoneer", "rubber_cannonball");
-	collisionSystem->watchForCollisions("cannoneer", "poison_bomb");
-	
-	collisionSystem->watchForCollisions("rubber_cannoneer", "arrow");
-	collisionSystem->watchForCollisions("rubber_cannoneer", "mage_attack");
-	collisionSystem->watchForCollisions("rubber_cannoneer", "cannonball");
-	collisionSystem->watchForCollisions("rubber_cannoneer", "rubber_cannonball");
-	collisionSystem->watchForCollisions("rubber_cannoneer", "poison_bomb");
-
-	collisionSystem->watchForCollisions("mage", "arrow");
-	collisionSystem->watchForCollisions("mage", "mage_attack");
-	collisionSystem->watchForCollisions("mage", "cannonball");
-	collisionSystem->watchForCollisions("mage", "rubber_cannonball");
-	collisionSystem->watchForCollisions("mage", "poison_bomb");
-	
 	collisionSystem->watchForCollisions("knight", "arrow");
 	collisionSystem->watchForCollisions("knight", "mage_attack");
 	collisionSystem->watchForCollisions("knight", "cannonball");
 	collisionSystem->watchForCollisions("knight", "rubber_cannonball");
 	collisionSystem->watchForCollisions("knight", "poison_bomb");
 
-	collisionSystem->watchForCollisions("roar_monster", "arrow");
-	collisionSystem->watchForCollisions("roar_monster", "mage_attack");
-	collisionSystem->watchForCollisions("roar_monster", "cannonball");
-	collisionSystem->watchForCollisions("roar_monster", "rubber_cannonball");
-	collisionSystem->watchForCollisions("roar_monster", "poison_bomb");
-	
-	collisionSystem->watchForCollisions("poisoner", "arrow");
-	collisionSystem->watchForCollisions("poisoner", "mage_attack");
-	collisionSystem->watchForCollisions("poisoner", "cannonball");
-	collisionSystem->watchForCollisions("poisoner", "rubber_cannonball");
-	collisionSystem->watchForCollisions("poisoner", "poison_bomb");
-
+	collisionSystem->watchForCollisions("ogre", "arrow");
+	collisionSystem->watchForCollisions("ogre", "mage_attack");
+	collisionSystem->watchForCollisions("ogre", "cannonball");
+	collisionSystem->watchForCollisions("ogre", "rubber_cannonball");
+	collisionSystem->watchForCollisions("ogre", "poison_bomb");	
 }
 
 Rebound::~Rebound() {

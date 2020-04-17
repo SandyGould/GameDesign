@@ -22,7 +22,7 @@ Dead 9
 Ogre::Ogre(Player* player): BaseEnemy("ogre", "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml",player){
     this->state = 0;
     this->facingRight=true;
-    this->type = "ogre";
+    //this->type = "ogre";
     this->actionFrames = 12;
     this->arrow = nullptr;
 }

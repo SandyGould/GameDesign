@@ -20,7 +20,7 @@ Ded 7
 Archer::Archer(Player* player): BaseEnemy("Archer", "./resources/assets/Display_Objects/archer.png", "", player){
     this->state = 0;
     this->facingRight=true;
-    this->type = "archer";
+    //this->type = "archer";
     this->actionFrames = 12;
     this->arrow = nullptr;
 }
