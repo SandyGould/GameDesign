@@ -14,9 +14,8 @@ Wait for player
 Aim
 Fire Attack
 Reload
-Ded
-*/
-void Mage::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+Ded*/
+void Mage::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
    if(this->health <=0){
         this->clean = true;
     }

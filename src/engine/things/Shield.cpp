@@ -20,7 +20,7 @@ void Shield::switchType() {
     }
 }
 
-void Shield::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+void Shield::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
     if(this->bashFrames > 0){
         bashFrames--;
     }

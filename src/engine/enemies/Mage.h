@@ -14,10 +14,9 @@ public:
 
 	void changeHealth(int amount);
 	MageAttack* mageAttack;
-	MageAttack* attackHeld;
 	MageAttack* attack(Sprite* target);
 
-	void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) override;
+	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
 	bool onCollision(DisplayObject* other) override;
 };
 
