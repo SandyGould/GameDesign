@@ -14,7 +14,7 @@ enum class Orientation {
 class CollisionSystem : public EventListener {
 
 public:
-    CollisionSystem() = default;
+    CollisionSystem();
     ~CollisionSystem() = default;
 
     //checks collisions between pairs of DOs where the corresponding types have been requested
@@ -34,6 +34,8 @@ public:
     static bool isInside(SDL_Point point, Hitbox hitbox);
 
 private:
+    void buildDisplayMap(DisplayObject* object);
+
     void pairObjectWithType(DisplayObject* object, const string& type);
 
     // Returns true iff obj1 hitbox and obj2 hitbox overlap

@@ -24,4 +24,5 @@ private:
     DisplayObject* parentObj;
     Coin* child1;
     Coin* child2;
+    Player* player;
 };

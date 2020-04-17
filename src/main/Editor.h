@@ -93,5 +93,4 @@ private:
     unordered_map<DisplayObject*, double> displacementY;
 
     static constexpr int GRID_SIZE = 80;
-    CollisionSystem* collisionSystem;
 };

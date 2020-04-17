@@ -1,9 +1,31 @@
 #include "CollisionSystem.h"
 
+#include "Game.h"
 #include "events/DisplayTreeChangeEvent.h"
 
 #include <algorithm>
 #include <iostream>
+
+CollisionSystem::CollisionSystem() {
+    // Set up the listener to build out the display map
+    EventDispatcher::getInstance().addEventListener(this, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
+
+    // Keep track of any objects that were added before we were created
+    this->buildDisplayMap(Game::instance);
+}
+
+void CollisionSystem::buildDisplayMap(DisplayObject* object) {
+    auto it = displayObjectsMap.find(object->type);
+    if (it != displayObjectsMap.cend()) {
+        it->second.insert(object);
+    } else {
+        displayObjectsMap.try_emplace(object->type, unordered_set<DisplayObject*>({object}));
+    }
+
+    for (auto child : object->children) {
+        this->buildDisplayMap(child);
+    }
+}
 
 //checks collisions between pairs of DOs where the corresponding types have been requested
 //to be checked (via a single call to watchForCollisions) below.

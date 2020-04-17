@@ -6,7 +6,6 @@
 #include "../engine/tweens/TweenParam.h"
 #include "../engine/tweens/TweenJuggler.h"
 #include "../engine/events/NewSceneEvent.h"
-#include "../engine/events/DisplayTreeChangeEvent.h"
 
 
 #include <algorithm>
@@ -21,7 +20,6 @@ Rooms::Rooms() : Game(600, 500) {
 
     // create collision system
     this->collisionSystem = new CollisionSystem();
-    EventDispatcher::getInstance().addEventListener(this->collisionSystem, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
     // set collisions between player and all environmental objects
     this->collisionSystem->watchForCollisions("player", "env_object");
 

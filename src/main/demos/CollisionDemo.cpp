@@ -1,21 +1,23 @@
 #include "CollisionDemo.h"
 
-#include "../../engine/events/DisplayTreeChangeEvent.h"
-
 using namespace std;
 
 CollisionDemo::CollisionDemo() : Game(1200, 800) {
     instance = this;
 
     this->collisionSystem = new CollisionSystem();
-    EventDispatcher::getInstance().addEventListener(this->collisionSystem, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
 
     this->camera = new Camera();
     this->camera->position = {this->windowWidth / 2, this->windowHeight / 2};
     this->camera->pivot = {this->windowWidth / 2, this->windowHeight / 2};
     instance->addChild(this->camera);
 
+    // Yup we're creating an invisible player for Scene
+    this->player = new Player();
+    this->player->visible = false;
+
     this->scene = new Scene();
+    this->scene->p = this->player;
     this->scene->loadScene("./resources/cameraDemo/loadScene.json");
     this->scene->setCameraRef(camera);
 

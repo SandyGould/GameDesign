@@ -1,6 +1,5 @@
 #include "Editor.h"
 
-#include "../engine/events/DisplayTreeChangeEvent.h"
 #include "../engine/events/DragEvent.h"
 #include "../engine/events/DragStartEvent.h"
 
@@ -18,8 +17,6 @@ Editor::Editor(const string& sceneToLoad)
     : Game(1200, 800) {
     this->initSDL();
 
-    this->collisionSystem = new CollisionSystem();
-    EventDispatcher::getInstance().addEventListener(this->collisionSystem, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
     EventDispatcher::getInstance().addEventListener(this, MouseDownEvent::MOUSE_DOWN_EVENT);
     EventDispatcher::getInstance().addEventListener(this, DragEvent::DRAG_EVENT);
     EventDispatcher::getInstance().addEventListener(this, DragStartEvent::DRAG_START_EVENT);
