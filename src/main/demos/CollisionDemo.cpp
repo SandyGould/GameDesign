@@ -17,8 +17,9 @@ CollisionDemo::CollisionDemo() : Game(1200, 800) {
 
     this->scene = new Scene();
     this->scene->loadScene("./resources/cameraDemo/loadScene.json");
+    this->scene->setCameraRef(camera);
 
-    camera->addChild(this->scene);
+    this->camera->addChild(this->scene);
 
     this->parentObj = new DisplayObject("parent", "./resources/assets/Display_Objects/Moon.png");
     this->parentObj->type = "parent";
