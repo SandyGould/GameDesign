@@ -20,7 +20,7 @@ struct jState {
 
 struct Hitcircle {
     SDL_Point center;
-    SDL_Point edge;
+    double radius;
 };
 
 struct Hitbox {
@@ -89,14 +89,14 @@ public:
     virtual bool onCollision(DisplayObject* other);
 
     Hitcircle getHitcircle();
-	Hitbox getHitbox();
+    void drawHitcircle(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE});
+
+    Hitbox getHitbox();
     void drawHitbox(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE});
 
     bool visible = true;
     SDL_Point position = {0, 0};
     SDL_Point orig_position = {0, 0}; // Used for parallaxing (in Layer.cpp)
-
-    int hitcircle_radius = 100;
 
 	int width = 100;
 	int height = 100;
