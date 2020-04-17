@@ -73,7 +73,7 @@ void TextBox::addTextPanel(string text){
 	textpanels.push_back(text);
 }
 
-void TextBox::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+void TextBox::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {
     DisplayObject::update(pressedKeys, joystickState, pressedButtons);
 }
 

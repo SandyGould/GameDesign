@@ -11,7 +11,7 @@ SelectionMenuBase::SelectionMenuBase() : DisplayObject("selection_menu"){
 }
 
 
-void SelectionMenuBase::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
+void SelectionMenuBase::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons){
 	DisplayObject::update(pressedKeys, joystickState, pressedButtons);
 }
 

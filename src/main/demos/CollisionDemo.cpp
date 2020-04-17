@@ -52,7 +52,7 @@ CollisionDemo::~CollisionDemo() {
     delete child2;
 }
 
-void CollisionDemo::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+void CollisionDemo::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {
     //If there isn't controller input, take keyboard input. Otherwise ignore keyboard input.
 
     int DEAD_ZONE = 8000;

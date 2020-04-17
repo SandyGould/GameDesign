@@ -4,7 +4,7 @@
         this->type = "rubber_cannoneer";
     }
 
-    void RubberCannoneer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
+    void RubberCannoneer::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
     if(this->health==0){
         this->clean = true;
     }

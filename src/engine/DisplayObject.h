@@ -42,27 +42,24 @@ public:
 	std::string imgPath = "";
 	std::string type = "DisplayObject";
 
-	DisplayObject* parent = NULL;
-	std::string parentId = "";
+	DisplayObject* parent = nullptr;
 
 	int red = 0;
 	int green = 0;
 	int blue = 0;
 	int alpha = 255;
-	SDL_Rect* sourceRect = NULL;
+	SDL_Rect* sourceRect = nullptr;
 
-	bool isRGB = false;
-
-    explicit DisplayObject(std::string id);
-    DisplayObject(std::string id, std::string path);
-	DisplayObject(std::string id, std::string path, SDL_Renderer* r);
-	DisplayObject(std::string id, int red, int green, int blue);
-	DisplayObject(std::string id, int red, int green, int blue, int width, int height);
-	DisplayObject(std::string id, int red, int green, int blue, int width, int height, SDL_Renderer* r);
+    explicit DisplayObject(const std::string& id);
+    DisplayObject(const std::string& id, const std::string& path);
+	DisplayObject(const std::string& id, const std::string& path, SDL_Renderer* r);
+	DisplayObject(const std::string& id, int red, int green, int blue);
+	DisplayObject(const std::string& id, int red, int green, int blue, int width, int height);
+	DisplayObject(const std::string& id, int red, int green, int blue, int width, int height, SDL_Renderer* r);
 	DisplayObject(const DisplayObject& other);
 	virtual ~DisplayObject();
 
-    void loadTexture(std::string filepath, SDL_Renderer* r);
+    void loadTexture(const std::string& filepath, SDL_Renderer* r);
     void loadRGBTexture(int red, int green, int blue, int width, int height, SDL_Renderer* r);
     void setTexture(SDL_Texture* t);
 	void setSurface(SDL_Surface* s);
@@ -73,31 +70,28 @@ public:
     void removeChild(size_t index);
     void removeThis();
 
-    int numChildren();
-    DisplayObject* getChild(int index);
-    DisplayObject* getChild(std::string id);
+    [[nodiscard]] int numChildren() const;
+    [[nodiscard]] DisplayObject* getChild(int index) const;
+    [[nodiscard]] DisplayObject* getChild(const std::string& id) const;
 
-	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
+	virtual void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons);
 	virtual void draw(AffineTransform& at);
 
-	void applyTransformations(AffineTransform& at);
-	void reverseTransformations(AffineTransform& at);
+	void applyTransformations(AffineTransform& at) const;
+	void reverseTransformations(AffineTransform& at) const;
 
-	SDL_Point getGlobalPosition();
+	[[nodiscard]] SDL_Point getGlobalPosition() const;
 	void updateSourceRect(SDL_Rect* s);
 
-	int getWidth();
-	int getHeight();
-
-	void getGlobalTransform(AffineTransform& at);
+	void getGlobalTransform(AffineTransform& at) const;
 
     virtual bool onCollision(DisplayObject* other);
 
-    Hitcircle getHitcircle();
-    void drawHitcircle(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE});
+    [[nodiscard]] Hitcircle getHitcircle() const;
+    void drawHitcircle(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE}) const;
 
-    Hitbox getHitbox();
-    void drawHitbox(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE});
+    [[nodiscard]] Hitbox getHitbox() const;
+    void drawHitbox(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE}) const;
 
     bool visible = true;
     SDL_Point position = {0, 0};
@@ -120,11 +114,11 @@ public:
     std::vector<DisplayObject*> children;
 
 private:
-	double distance(SDL_Point& p1, SDL_Point& p2);
-	double calculateRotation(SDL_Point& origin, SDL_Point& p);
+	static double distance(SDL_Point& p1, SDL_Point& p2);
+	static double calculateRotation(SDL_Point& origin, SDL_Point& p);
 
-	SDL_Texture* texture = NULL;
-	SDL_Surface* image = NULL;
+	SDL_Texture* texture = nullptr;
+	SDL_Surface* image = nullptr;
 
 	/* Texture currently being drawn. Equal to texture for normal DO */
 	SDL_Texture* curTexture;

@@ -127,7 +127,7 @@ Rooms::~Rooms() {
 }
 
 
-void Rooms::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {
 	this->collisionSystem->update();
 
 	std::cout << "x" << std::endl;

@@ -169,7 +169,7 @@ void Editor::setupfiles(const string& path) {
     }
 }
 
-void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+void Editor::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {
     // Check if we are in text input mode
     if (SDL_IsTextInputActive() == SDL_TRUE){
         // If we are in text input mode, these commands are active

@@ -10,7 +10,7 @@ Coin::Coin() : Sprite("coin_"+std::to_string(coin_id_counter) , "./resources/ass
     hasCollision = true;
 }
 
-void Coin::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
+void Coin::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
     Sprite::update(pressedKeys, joystickState, pressedButtons);
 }
 
