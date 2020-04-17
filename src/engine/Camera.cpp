@@ -7,6 +7,7 @@
 
 Camera::Camera() : DisplayObject("camera") {
     this->type = "Camera";
+    this->saveType = this->type;
 
     // set default limits (camera can go anywhere)
     this->topLimit = INT_MIN;

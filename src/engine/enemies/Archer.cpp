@@ -21,11 +21,12 @@ Archer::Archer(Player* player): BaseEnemy("Archer", "./resources/assets/Display_
     this->state = 0;
     this->facingRight=true;
     this->type = "archer";
+    this->saveType = this->type;
     this->actionFrames = 12;
     this->arrow = nullptr;
 }
 
-void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
+void Archer::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
     if(this->health <=0){
         this->clean = true;
     }

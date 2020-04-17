@@ -2,6 +2,7 @@
 #include <iostream>
 RoarMonster::RoarMonster(Player* player): BaseEnemy("RoaringMonster","./resources/assets/Display_Objects/roaring_monster.png", "", player){
     this->type="roar_monster";
+    this->saveType = this->type;
 }
 
 /*
@@ -13,7 +14,7 @@ ROAR
 Recharge
 Ded
 */
-void RoarMonster::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
+void RoarMonster::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
     if(this->health ==0){
         this->clean = true;
     }

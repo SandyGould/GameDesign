@@ -4,13 +4,13 @@
 #include "../../engine/CollisionSystem.h"
 #include "../../engine/Game.h"
 #include "../../engine/Scene.h"
-#include "../../engine/things/Coin.h"
+#include "../../engine/things/Player.h"
 
-class CollisionDemo : public Game {
+class LoadSceneDemo : public Game {
 
 public:
-    CollisionDemo();
-    ~CollisionDemo() override;
+    LoadSceneDemo();
+    ~LoadSceneDemo() override;
 
 private:
     CollisionSystem* collisionSystem;
@@ -21,8 +21,5 @@ private:
 
     Camera* camera;
     Scene* scene;
-    DisplayObject* parentObj;
-    Coin* child1;
-    Coin* child2;
     Player* player;
 };

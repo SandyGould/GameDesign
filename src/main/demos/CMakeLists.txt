@@ -1,2 +1,3 @@
 target_sources(rebound PRIVATE
-        CollisionDemo.cpp)
+        CollisionDemo.cpp
+        LoadSceneDemo.cpp)

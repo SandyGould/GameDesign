@@ -23,11 +23,12 @@ Ogre::Ogre(Player* player): BaseEnemy("ogre", "./resources/assets/Animated_Sprit
     this->state = 0;
     this->facingRight=true;
     this->type = "ogre";
+    this->saveType = this->type;
     this->actionFrames = 12;
     this->arrow = nullptr;
 }
 
-void Ogre::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
+void Ogre::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
     if(this->health ==0){
         this->clean = true;
     }

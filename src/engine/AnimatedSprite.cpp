@@ -8,6 +8,7 @@ using json = nlohmann::json;
 
 AnimatedSprite::AnimatedSprite(std::string id, SDL_Renderer *r) : Sprite(id) {
     this->type = "AnimatedSprite";
+    this->saveType = this->type;
     this->renderer = r;
 }
 
@@ -18,6 +19,7 @@ AnimatedSprite::AnimatedSprite(std::string id, std::string spritesheet, std::str
 
 AnimatedSprite::AnimatedSprite(std::string id, std::string spritesheet, std::string xml, SDL_Renderer* r) : Sprite(id, spritesheet, r){
     this->type = "AnimatedSprite";
+    this->saveType = this->type;
     this->sheetpath = spritesheet;
     this->renderer = r;
     this->xmlpath = xml;
@@ -33,6 +35,7 @@ AnimatedSprite::AnimatedSprite(const DisplayObject& other) : Sprite(other.id){
         AnimatedSprite* AS = (AnimatedSprite*) &other;
         this->id = AS->id + "_copy";
         this->type = AS->type;
+        this->saveType = AS->saveType;
         this->sheetpath = AS->sheetpath;
         this->renderer = AS->renderer;
         this->xmlpath = AS->xmlpath;
@@ -205,7 +208,7 @@ void AnimatedSprite::stop() {
     this->playing = false;
 }
 
-void AnimatedSprite::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+void AnimatedSprite::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
     Sprite::update(pressedKeys, joystickState, pressedButtons);
     if (playing) {
         frameCount++;

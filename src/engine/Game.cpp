@@ -30,6 +30,7 @@ Game::Game(int windowWidth, int windowHeight) : DisplayObject("game") {
 	Game::instance = this;
 	
 	this->type = "Game";
+	this->saveType = this->type;
 
 	this->windowWidth = windowWidth;
 	this->windowHeight = windowHeight;
@@ -193,7 +194,7 @@ void Game::presentRenderers(){
 	SDL_RenderPresent(Game::renderer);
 }
 
-void Game::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+void Game::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
 	frameCounter++;
 	DisplayObject::update(pressedKeys, joystickState, pressedButtons);
 }

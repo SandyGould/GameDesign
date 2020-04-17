@@ -4,6 +4,7 @@
 #include "../engine/CollisionSystem.h"
 #include "../engine/Game.h"
 #include "../engine/Scene.h"
+#include "../engine/Layer.h"
 #include "../engine/TextObject.h"
 #include "../engine/events/EventListener.h"
 #include "../engine/events/MouseDownEvent.h"
@@ -29,7 +30,7 @@ public:
 
 	void setupfiles(const string& path);
 
-	void update(unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) override;
+	void update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) override;
 	void draw(AffineTransform& at) override;
 	void initSDL();
 	void draw_post() override;
@@ -85,10 +86,11 @@ private:
 
 	unordered_set<SDL_Scancode> prevKeys;
 
+	unordered_set<string> entityTypes;
+
     // Oh boy
     unordered_map<DisplayObject*, double> displacementX;
     unordered_map<DisplayObject*, double> displacementY;
 
     static constexpr int GRID_SIZE = 80;
-    CollisionSystem* collisionSystem;
 };
