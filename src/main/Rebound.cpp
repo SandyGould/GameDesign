@@ -24,8 +24,9 @@ Rebound::Rebound() : Game(1200, 800) {
 	player->height = 80;
 	player->pivot = {50, 50};
 	player->play("Idle");
+	player->shield->visible = true;
 	allSprites->addChild(player);
-/*
+
 	mage = new Mage(player);
 	mage->position = {400, 400};
 	mage->height = 80;
@@ -109,7 +110,7 @@ Rebound::Rebound() : Game(1200, 800) {
 	kingdomMage->height = 80;
 	kingdomMage->width = 70;
 
-	allSprites->addChild(kingdomMage);*/
+	allSprites->addChild(kingdomMage);
 
 	secondBoss = new SecondBoss(player);
 	secondBoss->position = {600,600};
@@ -118,26 +119,25 @@ Rebound::Rebound() : Game(1200, 800) {
 
 	allSprites->addChild(secondBoss);
 
-	/*collisionSystem->watchForCollisions("player", "arrow");
+	collisionSystem->watchForCollisions("player", "arrow");
 	collisionSystem->watchForCollisions("player", "poison_bomb");
 	collisionSystem->watchForCollisions("player", "knight");
 	collisionSystem->watchForCollisions("player", "mage_attack");
 	collisionSystem->watchForCollisions("player", "cannonball");
 	collisionSystem->watchForCollisions("player", "rubber_cannonball");
-	collisionSystem->watchForCollisions("player", "archer");
 
-	collisionSystem->watchForCollisions("shield", "arrow");
+	/*collisionSystem->watchForCollisions("shield", "arrow");
 	collisionSystem->watchForCollisions("shield", "mage_attack");
 	collisionSystem->watchForCollisions("shield", "cannonball");
 	collisionSystem->watchForCollisions("shield", "rubber_cannonball");
 	collisionSystem->watchForCollisions("shield", "archer");
 	collisionSystem->watchForCollisions("shield", "mage");
 
-	collisionSystem->watchForCollisions("archer", "arrow");
+	/*collisionSystem->watchForCollisions("archer", "arrow");
 	collisionSystem->watchForCollisions("archer", "mage_attack");
 	collisionSystem->watchForCollisions("archer", "cannonball");
 	collisionSystem->watchForCollisions("archer", "rubber_cannonball");
-	collisionSystem->watchForCollisions("archer", "poison_bomb");
+	collisionSystem->watchForCollisions("archer", "poison_bomb");*/
 
 	collisionSystem->watchForCollisions("cannoneer", "arrow");
 	collisionSystem->watchForCollisions("cannoneer", "mage_attack");
@@ -173,7 +173,7 @@ Rebound::Rebound() : Game(1200, 800) {
 	collisionSystem->watchForCollisions("poisoner", "mage_attack");
 	collisionSystem->watchForCollisions("poisoner", "cannonball");
 	collisionSystem->watchForCollisions("poisoner", "rubber_cannonball");
-	collisionSystem->watchForCollisions("poisoner", "poison_bomb");*/
+	collisionSystem->watchForCollisions("poisoner", "poison_bomb");
 
 }
 

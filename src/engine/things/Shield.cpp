@@ -20,6 +20,12 @@ void Shield::switchType() {
 }
 
 void Shield::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+    if(this->bashFrames > 0){
+        bashFrames--;
+    }
+    else{
+        this->bashing = false;
+    }
     Sprite::update(pressedKeys, joystickState, pressedButtons);
 }
 

@@ -11,6 +11,11 @@ void CollisionSystem::update() {
     for (auto& [object1, object2] : collisionPairs) {
         SDL_Point obj1Position = object1->getHitbox().ul;
         SDL_Point obj2Position = object2->getHitbox().ul;
+        SDL_Point obj1Prev;
+        SDL_Point obj2Prev;
+        if((obj1Prev = prevPositions.find(object1)) != prevPositions.end()){
+
+        }
         SDL_Point obj1Prev = prevPositions.at(object1);
         SDL_Point obj2Prev = prevPositions.at(object2);
 

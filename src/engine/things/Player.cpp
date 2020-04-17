@@ -120,11 +120,14 @@ void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
     		shield->switchType();
     	}
     	if (pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end()) {
+            shield->bashing =
             shield->position.x = 105;
             shield->position.y = 10;
             shield->rotation = 0;
             this->changeStamina(-2);
             if (checkDoubleTaps(SDL_SCANCODE_D)) {
+                shield->bashing = true;
+                shield->bashFrames =10;
                 shieldBashCooldown = BASH_COOLDOWN;
     			shieldBash = new Tween(shield);
                 shieldBash->animate(TweenableParams::X, 105.0, 140.0, 10);
@@ -141,7 +144,9 @@ void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
             shield->rotation = 0;
             this->changeStamina(-2);
             if (checkDoubleTaps(SDL_SCANCODE_A)) {
-                shieldBashCooldown = BASH_COOLDOWN;
+                shieldBashCooldown = BASH_COOLDOWN;            
+                shield->bashing = true;
+                shield->bashFrames = 10;
     			shieldBash = new Tween(shield);
                 shieldBash->animate(TweenableParams::X, -20.0, -55.0, 10);
                 shieldBash->animate(TweenableParams::X, -55.0, -20, 18);
@@ -158,6 +163,8 @@ void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
             this->changeStamina(-2);
             if (checkDoubleTaps(SDL_SCANCODE_S)) {
                 shieldBashCooldown = BASH_COOLDOWN;
+                shield->bashing = true;
+                shield->bashFrames =10;
     			shieldBash = new Tween(shield);
                 shieldBash->animate(TweenableParams::Y, 105.0, 140.0, 10);
                 shieldBash->animate(TweenableParams::Y, 140.0, 105.0, 18);
@@ -174,6 +181,8 @@ void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
             this->changeStamina(-2);
             if (checkDoubleTaps(SDL_SCANCODE_W)) {
                 shieldBashCooldown = BASH_COOLDOWN;
+                shield->bashFrames =10;
+                shield->bashing = true;
     			shieldBash = new Tween(shield);
                 shieldBash->animate(TweenableParams::Y, -105.0, -140.0, 10);
                 shieldBash->animate(TweenableParams::Y, -140.0, -105.0, 18);
@@ -235,22 +244,18 @@ bool Player::onCollision(DisplayObject* other){
     if(other->type == "arrow"){
         other->removeThis();
         this->changeHealth(-10);
-        std::cout<<"ouch player\n";
         return true;
     }
     if(other->type == "rubber_cannonball" || other->type == "cannonball"){
-        //std::cout<<"Cannoneer\n";
         this->cannonBallHit(other);
         this->changeHealth(-20);
         return true;
     }
     if(other->type == "knight"){
-       // std::cout<<"Knight or Orc\n";
         this->changeHealth(-10);
         return true;
     }
     if(other->type == "poison_bomb"){
-        //std::cout<<"poison bitch\n";
         this->changeHealth(-1);
         return true;
     }

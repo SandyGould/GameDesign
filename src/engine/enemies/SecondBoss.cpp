@@ -129,8 +129,9 @@ double SecondBoss::aim(DisplayObject* targetSprite){ //Cause a lot of enemies ne
 
 //bounes off of literally anything.
 bool SecondBoss::onCollision(DisplayObject* other){
-    bounces--;
+    /*bounces--;
     this->deltaX = -this->deltaX * (bounces/8);
     this->deltaY = -this->deltaY * (bounces/8);
-    return false;
+    return false;*/
+    return true;
 }

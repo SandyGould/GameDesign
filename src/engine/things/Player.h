@@ -20,6 +20,7 @@ public:
 	void draw(AffineTransform& at) override;
 
 	bool onCollision(DisplayObject* other) override;
+	Shield* shield;
 
 private:
 	int health = 100;
@@ -33,7 +34,6 @@ private:
 	void updateHistory(std::unordered_set<SDL_Scancode> pressedKeys);
 	bool checkDoubleTaps(SDL_Scancode key);
 
-	Shield* shield;
 	Tween* shieldBash;
 
 	TweenJuggler* juggler;
