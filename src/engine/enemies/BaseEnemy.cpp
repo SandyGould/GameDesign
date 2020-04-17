@@ -34,12 +34,13 @@ bool BaseEnemy::onCollision(DisplayObject* other){
         return true;
     }
     if(other->type == "shield"){
-        if(dynamic_cast<Shield*>(other)->bashing == false){
-            return false;
+        if(dynamic_cast<Shield*>(other)->bashing == true){
+            this->changeHealth(-35);
+            std::cout<<"AHHHH\n";
+            return true;
         }
         else{
-            this->changeHealth(-35);
-            return false;
+            return true;
         }
     }
     return false;
@@ -49,7 +50,5 @@ void BaseEnemy::cleanUp(){
         for(DisplayObject* object: children){
             this->removeImmediateChild(object);
         }
-        //this->visible= false;
-        //this->state = -1;
         this->removeThis();
 }
