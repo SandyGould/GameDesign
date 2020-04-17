@@ -1,6 +1,5 @@
 #include "Editor.h"
 
-#include "../engine/events/DisplayTreeChangeEvent.h"
 #include "../engine/events/DragEvent.h"
 #include "../engine/events/DragStartEvent.h"
 
@@ -18,8 +17,6 @@ Editor::Editor(const string& sceneToLoad)
     : Game(1200, 800) {
     this->initSDL();
 
-    this->collisionSystem = new CollisionSystem();
-    EventDispatcher::getInstance().addEventListener(this->collisionSystem, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
     EventDispatcher::getInstance().addEventListener(this, MouseDownEvent::MOUSE_DOWN_EVENT);
     EventDispatcher::getInstance().addEventListener(this, DragEvent::DRAG_EVENT);
     EventDispatcher::getInstance().addEventListener(this, DragStartEvent::DRAG_START_EVENT);
@@ -40,6 +37,10 @@ Editor::Editor(const string& sceneToLoad)
     instance->addChild(camera);
 
     curScene->loadScene(sceneToLoad);
+    
+    for (auto* layer : curScene->children) {
+        ((Layer*) layer)->cam = camera;
+    }
 
     camera->addChild(curScene);
 
@@ -125,6 +126,8 @@ Editor::Editor(const string& sceneToLoad)
     edit->addChild(layerOneIndicator);
     edit->addChild(layerTwoIndicator);
 
+    entityTypes = {"arrow", "mage_attack", "poison_bomb", "rubber_cannonball", "archer", "cannoneer", "knight", "mage", "master_archer", "ogre", "poisoner", "roar_monster", "rubber_cannoneer", "second_boss"};
+
     setupfiles("./resources/assets");
 }
 
@@ -132,8 +135,6 @@ void Editor::setupfiles(const string& path) {
     for (const auto& entry : fs::directory_iterator(path)) {
         if (entry.path() == "./resources/assets/Spritesheets") {
             for (const auto& AS : fs::directory_iterator(entry.path())) {
-                //AnimatedSprite* temp = new AnimatedSprite(AS.path().stem().string(), AS.path().string() + "/" + AS.path().stem().string() + ".png", AS.path().string() + "/" + AS.path().stem().string() + ".xml", assets_renderer);
-                //temp->play("Idle");
                 aSprites.push_back(new AnimatedSprite(AS.path().stem().string(), AS.path().string() + "/" + AS.path().stem().string() + ".png", AS.path().string() + "/" + AS.path().stem().string() + ".xml", assets_renderer));
             }
         } else if (entry.path() == "./resources/assets/Display_Objects") {
@@ -149,27 +150,33 @@ void Editor::setupfiles(const string& path) {
     for (int i = 0; i < aSprites.size(); ++i) {
         aSprites[i]->position.x = i % 2 == 0 ? 0 : 150;
         aSprites[i]->position.y = (i / 2) * 150;
-        aSprites[i]->height = 150;
-        aSprites[i]->width = 150;
+        aSprites[i]->scaleHeight(150);
+        if (entityTypes.find(aSprites[i]->id) != entityTypes.end()){
+            aSprites[i]->saveType = aSprites[i]->id;
+        }
         assets->addChild(aSprites[i]);
     }
     for (int i = 0; i < dos.size(); ++i) {
         dos[i]->position.x = (i + aSprites.size()) % 2 == 0 ? 0 : 150;
         dos[i]->position.y = ((i + aSprites.size()) / 2) * 150;
-        dos[i]->height = 150;
-        dos[i]->width = 150;
+        dos[i]->scaleHeight(150);
+        if (entityTypes.find(dos[i]->id) != entityTypes.end()){
+            dos[i]->saveType = dos[i]->id;
+        }
         assets->addChild(dos[i]);
     }
     for (int i = 0; i < sprites.size(); ++i) {
         sprites[i]->position.x = (i + aSprites.size() + dos.size()) % 2 == 0 ? 0 : 150;
         sprites[i]->position.y = ((i + aSprites.size() + dos.size()) / 2) * 150;
-        sprites[i]->height = 150;
-        sprites[i]->width = 150;
+        sprites[i]->scaleHeight(150);
+        if (entityTypes.find(aSprites[i]->id) != entityTypes.end()){
+            sprites[i]->saveType = sprites[i]->id;
+        }
         assets->addChild(sprites[i]);
     }
 }
 
-void Editor::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+void Editor::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {
     // Check if we are in text input mode
     if (SDL_IsTextInputActive() == SDL_TRUE){
         // If we are in text input mode, these commands are active
@@ -430,11 +437,26 @@ void Editor::cut(const unordered_set<DisplayObject*>& objects) {
         DisplayObject* copy;
         if (object->type == "DisplayObject"){
             copy = new DisplayObject(*object);
-        } else if (object->type == "Sprite"){
+        } else if (object->type == "Sprite" ||
+                   object->type == "arrow" ||
+                   object->type == "mage_attack" ||
+                   object->type == "poison_bomb" ||
+                   object->type == "rubber_cannonball"){
             copy = new Sprite(*object);
-        } else if (object->type == "AnimatedSprite"){
+        } else if (object->type == "AnimatedSprite" ||
+                   object->type == "archer" ||
+                   object->type == "cannoneer" ||
+                   object->type == "knight" ||
+                   object->type == "mage" ||
+                   object->type == "master_archer" ||
+                   object->type == "ogre" ||
+                   object->type == "poisoner" ||
+                   object->type == "roar_monster" ||
+                   object->type == "rubber_cannoneer" ||
+                   object->type == "second_boss"){
             copy = new AnimatedSprite(*object);
         }
+        copy->type = object->type;
         copy->renderer = Game::renderer;
 
         // Offset a bit
@@ -562,6 +584,7 @@ void Editor::handleEvent(Event* e) {
                 if (selectedAsset){
                     selectedAsset->position.x = -lround((1/camera->getZoom())*this->windowWidth  / 2);
                     selectedAsset->position.y = -lround((1/camera->getZoom())*this->windowHeight / 2);
+                    selectedAsset->position.x += camera->pivot.x*curScene->getChild(layer)->parallaxSpeed;
                     selectedAsset->position.x += camera->pivot.x;
                     selectedAsset->position.x += lround(event->x*(1/camera->getZoom()));
                     selectedAsset->position.y += camera->pivot.y;
@@ -732,11 +755,12 @@ void Editor::handleEvent(Event* e) {
     } else if (e->getType() == MouseMotionEvent::MOUSE_MOTION_EVENT) {
         MouseMotionEvent* event = static_cast<MouseMotionEvent*>(e);
         if (selectedAsset && event->wID == SDL_GetWindowID(this->window)){
-            if (selectedAsset && !selectedAsset->visible){
+            if (!selectedAsset->visible){
                 selectedAsset->visible = true;
             }
             selectedAsset->position.x = -lround((1/camera->getZoom())*this->windowWidth  / 2);
             selectedAsset->position.y = -lround((1/camera->getZoom())*this->windowHeight / 2);
+            selectedAsset->position.x += camera->pivot.x*curScene->getChild(layer)->parallaxSpeed;
             selectedAsset->position.x += camera->pivot.x;
             selectedAsset->position.x += lround(event->x*(1/camera->getZoom()));
             selectedAsset->position.y += camera->pivot.y;

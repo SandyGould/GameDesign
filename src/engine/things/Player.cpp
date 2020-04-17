@@ -8,6 +8,7 @@
 
 Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites/Player/Player.png", "./resources/assets/Animated_Sprites/Player/Player.xml") {
     type = "player";
+    this->saveType = this->type;
     hasCollision = true;
 
     history = new std::unordered_set<SDL_Scancode> [HISTORY_SIZE];
@@ -43,7 +44,7 @@ void Player::toggleShieldHidden() {
     shield->visible = !shield->visible;
 }
 
-void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
     // CHARACTER MOVEMENT
     bool idle = true;
 	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {

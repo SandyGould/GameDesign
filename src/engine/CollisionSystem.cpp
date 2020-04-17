@@ -1,9 +1,31 @@
 #include "CollisionSystem.h"
 
+#include "Game.h"
 #include "events/DisplayTreeChangeEvent.h"
 
 #include <algorithm>
 #include <iostream>
+
+CollisionSystem::CollisionSystem() {
+    // Set up the listener to build out the display map
+    EventDispatcher::getInstance().addEventListener(this, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
+
+    // Keep track of any objects that were added before we were created
+    this->buildDisplayMap(Game::instance);
+}
+
+void CollisionSystem::buildDisplayMap(DisplayObject* object) {
+    auto it = displayObjectsMap.find(object->type);
+    if (it != displayObjectsMap.cend()) {
+        it->second.insert(object);
+    } else {
+        displayObjectsMap.try_emplace(object->type, unordered_set<DisplayObject*>({object}));
+    }
+
+    for (auto child : object->children) {
+        this->buildDisplayMap(child);
+    }
+}
 
 //checks collisions between pairs of DOs where the corresponding types have been requested
 //to be checked (via a single call to watchForCollisions) below.
@@ -190,6 +212,26 @@ bool CollisionSystem::isInside(SDL_Point point, Hitbox hitbox) {
     return area_t1_2x + area_t2_2x + area_t3_2x + area_t4_2x == area_quad_2x;
 }
 
+SDL_Point CollisionSystem::getCenter(std::pair<SDL_Point, SDL_Point> line1,
+                                     std::pair<SDL_Point, SDL_Point> line2) {
+    // https://www.geeksforgeeks.org/program-for-point-of-intersection-of-two-lines/
+    double a1 = line1.second.y - line1.first.y;
+    double b1 = line1.first.x - line1.second.x;
+    double c1 = a1 * line1.first.x + b1 * line1.first.y;
+
+    double a2 = line2.second.y - line2.first.y;
+    double b2 = line2.first.x - line2.second.x;
+    double c2 = a2 * line2.first.x + b2 * line2.first.y;
+
+    double determinant = a1 * b2 - a2 * b1;
+
+    // This crashes if determinant == 0, but that should never happen
+    // as our lines are guaranteed to intersect. I hope.
+    int x = (b2 * c1 - b1 * c2) / determinant;
+    int y = (a1 * c2 - a2 * c1) / determinant;
+    return {x, y};
+}
+
 // Returns true iff obj1 hitbox and obj2 hitbox overlap
 bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
     if(obj1->hitboxType == HitboxType::Rectangle && obj2->hitboxType == HitboxType::Rectangle) {
@@ -236,13 +278,39 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
         Hitbox hitbox = rect->getHitbox();
         Hitcircle hitcircle = circle->getHitcircle();
 
+        // Find the center of the rectangle
+        // https://math.stackexchange.com/a/2878092
+
+        // top-left
+        SDL_Point centroid1 = {
+            (hitbox.ul.x + hitbox.ur.x + hitbox.ll.x) / 3,
+            (hitbox.ul.y + hitbox.ur.y + hitbox.ll.y) / 3,
+        };
+        // top-right
+        SDL_Point centroid2 = {
+            (hitbox.ul.x + hitbox.ur.x + hitbox.lr.x) / 3,
+            (hitbox.ul.y + hitbox.ur.y + hitbox.lr.y) / 3,
+        };
+        // bottom-left
+        SDL_Point centroid3 = {
+            (hitbox.ul.x + hitbox.ll.x + hitbox.lr.x) / 3,
+            (hitbox.ul.y + hitbox.ll.y + hitbox.lr.y) / 3,
+        };
+        // bottom-right
+        SDL_Point centroid4 = {
+            (hitbox.ll.x + hitbox.ur.x + hitbox.lr.x) / 3,
+            (hitbox.ll.y + hitbox.ur.y + hitbox.lr.y) / 3,
+        };
+
+        // Lines: centroid1 <-> centroid4; centroid2 <-> centroid3
+        SDL_Point center = getCenter({centroid1, centroid4}, {centroid2, centroid3});
+
         // https://stackoverflow.com/questions/21089959/detecting-collision-of-rectangle-with-circle
         // Step1- find distances between circle's center and rectangle's center.
         double calc_width = std::sqrt(((hitbox.ur.y - hitbox.ul.y) * (hitbox.ur.y - hitbox.ul.y)) + ((hitbox.ur.x - hitbox.ul.x) * (hitbox.ur.x - hitbox.ul.x)));
         double calc_height = std::sqrt(((hitbox.ll.y - hitbox.ul.y) * (hitbox.ll.y - hitbox.ul.y)) + ((hitbox.ll.x - hitbox.ul.x) * (hitbox.ll.x - hitbox.ul.x)));
-        // double calc_radius = std::sqrt(((hitcircle.edge.y - hitcircle.center.y) * (hitcircle.edge.y - hitcircle.center.y)) + ((hitcircle.edge.x - hitcircle.center.x) * (hitcircle.edge.x - hitcircle.center.x)));
-        double distX = abs(hitcircle.center.x - hitbox.ul.x - calc_width / 2);
-        double distY = abs(hitcircle.center.y - hitbox.ul.y - calc_height / 2);
+        double distX = abs(hitcircle.center.x - center.x);
+        double distY = abs(hitcircle.center.y - center.y);
 
         // Step2- if distance greater than halfcircle + half rect, they're not colliding
         if (distX > calc_width / 2 + hitcircle.radius || distY > calc_height / 2 + hitcircle.radius) {

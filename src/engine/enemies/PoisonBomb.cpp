@@ -5,9 +5,11 @@ PoisonBomb::PoisonBomb():Sprite("bomb", "./resources/assets/Display_Objects/Plan
     radius = 10;
     this->type = "poison_bomb";
     this->hitboxType = HitboxType::Circle;
+    this->saveType = this->type;
 }
 
-void PoisonBomb::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
+
+void PoisonBomb::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
     if(timer == 0){
         this->explode();
     }

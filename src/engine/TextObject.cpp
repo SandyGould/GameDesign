@@ -16,6 +16,7 @@ TextObject::TextObject(string id, string text, TTF_Font* font) : TextObject(id, 
 
 TextObject::TextObject(string id, string text, TTF_Font* font, SDL_Renderer* r) : DisplayObject(id) {
     this->type = "TextObject";
+    this->saveType = this->type;
 
     this->text = text;
     this->font = font;
@@ -48,7 +49,7 @@ void TextObject::setText(string text){
     this->setTexture(SDL_CreateTextureFromSurface(this->renderer, temp));
 }
 
-void TextObject::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+void TextObject::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {
     DisplayObject::update(pressedKeys, joystickState, pressedButtons);
 }
 

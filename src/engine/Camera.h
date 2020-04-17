@@ -34,6 +34,9 @@ public:
 
 	void draw(AffineTransform &at) override;
 
+	void handleEvent(Event* e) override;
+	bool changeScene = false;
+
 private:
 	int rightLimit;
 	int leftLimit;

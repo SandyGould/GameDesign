@@ -7,7 +7,7 @@ BaseEnemy::BaseEnemy(std::string id, std::string spritesheet, std::string xml, P
     this->type = "enemy";
 }
 
-void BaseEnemy::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
+void BaseEnemy::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
     AnimatedSprite::update(pressedKeys,joystickState,pressedButtons);
 }
 

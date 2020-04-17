@@ -4,7 +4,7 @@
 
 Mage::Mage(Player* player) : BaseEnemy("mage", "./resources/assets/Animated_Sprites/Enemies/Mage/Mage.png", "", player) {
     hasCollision = true;
-    //this->type = "mage";
+    this->saveType = "mage";
     this->mageAttack = nullptr;
 }
 

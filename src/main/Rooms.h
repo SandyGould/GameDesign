@@ -27,11 +27,12 @@ public:
 	Rooms();
 	virtual ~Rooms();
 
-    void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) override;
+    void update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) override;
 	void draw(AffineTransform& at) override;
 
 private:
     bool esc_prepressed = false;
+    bool sceneChange = false;
 
 	Camera* camera;
 

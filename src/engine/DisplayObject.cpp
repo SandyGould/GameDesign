@@ -2,45 +2,50 @@
 
 #include "Game.h"
 #include "events/DisplayTreeChangeEvent.h"
+#include "events/NewSceneEvent.h"
+#include "events/TweenEvent.h"
+#include "tweens/TweenJuggler.h"
+#include "things/Player.h"
 
 #include <algorithm>
 #include <cmath>
 #include <iostream>
 
-DisplayObject::DisplayObject(std::string id) {
+DisplayObject::DisplayObject(const std::string& id) {
     this->id = id;
+    this->saveType = this->type;
 
     this->renderer = Game::renderer;
 
-    this->image = NULL;
-    this->texture = NULL;
-    this->curTexture = NULL;
+    this->image = nullptr;
+    this->texture = nullptr;
+    this->curTexture = nullptr;
 }
 
-DisplayObject::DisplayObject(std::string id, std::string filepath)
+DisplayObject::DisplayObject(const std::string& id, const std::string& path)
     : DisplayObject(id) {
-    this->imgPath = filepath;
+    this->imgPath = path;
 
-    loadTexture(filepath, Game::renderer);
+    loadTexture(path, Game::renderer);
 }
 
-DisplayObject::DisplayObject(std::string id, std::string filepath, SDL_Renderer* r)
+DisplayObject::DisplayObject(const std::string& id, const std::string& path, SDL_Renderer* r)
     : DisplayObject(id) {
-    this->imgPath = filepath;
+    this->imgPath = path;
     this->renderer = r;
 
-    loadTexture(filepath, r);
+    loadTexture(path, r);
 }
 
-DisplayObject::DisplayObject(std::string id, int red, int green, int blue)
+DisplayObject::DisplayObject(const std::string& id, int red, int green, int blue)
     : DisplayObject(id, red, green, blue, 100, 100) {
 }
 
-DisplayObject::DisplayObject(std::string id, int red, int green, int blue, int width, int height)
+DisplayObject::DisplayObject(const std::string& id, int red, int green, int blue, int width, int height)
     : DisplayObject(id, red, green, blue, width, height, Game::renderer) {
 }
 
-DisplayObject::DisplayObject(std::string id, int red, int green, int blue, int width, int height, SDL_Renderer* r)
+DisplayObject::DisplayObject(const std::string& id, int red, int green, int blue, int width, int height, SDL_Renderer* r)
     : DisplayObject(id) {
     this->id = id;
 
@@ -56,7 +61,9 @@ DisplayObject::DisplayObject(std::string id, int red, int green, int blue, int w
     this->loadRGBTexture(red, green, blue, width, height, r);
 }
 
+// TODO: Needs to copy children
 DisplayObject::DisplayObject(const DisplayObject& other) {
+    this->renderer = other.renderer;
     this->position = other.position;
     this->width = other.width;
     this->height = other.height;
@@ -74,16 +81,17 @@ DisplayObject::DisplayObject(const DisplayObject& other) {
     // back_inserter(static_cast<DisplayObjectContainer*>(this)->collisionList));
     this->id = other.id + "_copy";
     this->imgPath = other.imgPath;
+    this->saveType = other.saveType;
     this->loadTexture(this->imgPath, Game::renderer);
 }
 
 DisplayObject::~DisplayObject() {
     //TODO: Get this freeing working
-    if (image != NULL) {
+    if (image != nullptr) {
         SDL_FreeSurface(image);
     }
 
-    if (texture != NULL) {
+    if (texture != nullptr) {
         SDL_DestroyTexture(texture);
     }
 
@@ -92,7 +100,7 @@ DisplayObject::~DisplayObject() {
     }
 }
 
-void DisplayObject::loadTexture(std::string filepath, SDL_Renderer* r) {
+void DisplayObject::loadTexture(const std::string& filepath, SDL_Renderer* r) {
     image = IMG_Load(filepath.c_str());
     texture = SDL_CreateTextureFromSurface(r, image);
     setTexture(texture);
@@ -100,16 +108,17 @@ void DisplayObject::loadTexture(std::string filepath, SDL_Renderer* r) {
 
 void DisplayObject::loadRGBTexture(int red, int green, int blue, int width, int height, SDL_Renderer* r) {
     image = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0x000000ff);
-    SDL_FillRect(image, NULL, SDL_MapRGB(image->format, red, green, blue));
+    SDL_FillRect(image, nullptr, SDL_MapRGB(image->format, red, green, blue));
     texture = SDL_CreateTextureFromSurface(r, image);
     SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
     setTexture(texture);
 }
 
-SDL_Point DisplayObject::getGlobalPosition() {
+// TODO: Can this just pull from getGlobalTransform
+SDL_Point DisplayObject::getGlobalPosition() const {
     DisplayObject* parent = this->parent;
     std::vector<DisplayObject*> parentList;
-    while (parent != NULL) {
+    while (parent != nullptr) {
         parentList.push_back(parent);
         parent = parent->parent;
     }
@@ -143,9 +152,8 @@ void DisplayObject::addChild(DisplayObject* child) {
     if (child->parent != this) {
         children.push_back(child);
         child->parent = this; // make sure to include reverse reference also
-        child->parentId = id;
 
-        DisplayTreeChangeEvent* event = new DisplayTreeChangeEvent(child, true);
+        auto* event = new DisplayTreeChangeEvent(child, true);
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
     }
@@ -154,7 +162,7 @@ void DisplayObject::addChild(DisplayObject* child) {
 void DisplayObject::removeImmediateChild(DisplayObject* child) {
     auto it = std::find(this->children.cbegin(), this->children.cend(), child);
     if (it != this->children.cend()) {
-        DisplayTreeChangeEvent* event = new DisplayTreeChangeEvent(*it, false);
+        auto* event = new DisplayTreeChangeEvent(*it, false);
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
 
@@ -178,7 +186,7 @@ void DisplayObject::removeImmediateChildWithoutDelete(DisplayObject* child) {
 void DisplayObject::removeImmediateChild(std::string id) {
     auto it = std::find_if(this->children.cbegin(), this->children.cend(), [&](const auto child) { return child->id == id; });
     if (it != this->children.cend()) {
-        DisplayTreeChangeEvent* event = new DisplayTreeChangeEvent(*it, true);
+        auto* event = new DisplayTreeChangeEvent(*it, true);
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
 
@@ -189,7 +197,7 @@ void DisplayObject::removeImmediateChild(std::string id) {
 
 void DisplayObject::removeChild(size_t index) {
     if (index < children.size()) {
-        DisplayTreeChangeEvent* event = new DisplayTreeChangeEvent(children[index], false);
+        auto* event = new DisplayTreeChangeEvent(children[index], false);
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
 
@@ -199,24 +207,35 @@ void DisplayObject::removeChild(size_t index) {
 }
 
 void DisplayObject::removeThis() {
-    if (this->parent != NULL) {
+    if (this->parent != nullptr) {
         this->parent->removeImmediateChild(this);
     }
 }
 
-int DisplayObject::numChildren() {
+int DisplayObject::numChildren() const {
     return this->children.size();
 }
 
-DisplayObject* DisplayObject::getChild(int index) {
+DisplayObject* DisplayObject::getChild(int index) const {
     if (index < 0 || index > numChildren()) {
-        return NULL;
+        return nullptr;
     } else {
         return children[index];
     }
 }
 
-DisplayObject* DisplayObject::getChild(std::string id) {
+DisplayObject* DisplayObject::getAndRemoveChild(std::string id) {
+    for (auto* child : children) {
+        if (child->id == id) {
+            DisplayObject* temp = child;
+            delete child;
+            return temp;
+        }
+    }
+    return nullptr;
+}
+
+DisplayObject* DisplayObject::getChild(const std::string& id) const {
     for (auto* child : children) {
         if (child->id == id) {
             return child;
@@ -225,7 +244,7 @@ DisplayObject* DisplayObject::getChild(std::string id) {
     return nullptr;
 }
 
-void DisplayObject::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+void DisplayObject::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
     for (auto* child : children) {
         child->update(pressedKeys, joystickState, pressedButtons);
     }
@@ -246,7 +265,7 @@ void DisplayObject::update(std::unordered_set<SDL_Scancode> pressedKeys, jState 
 void DisplayObject::draw(AffineTransform& at) {
     applyTransformations(at);
 
-    if (curTexture != NULL && visible) {
+    if (curTexture != nullptr && visible) {
         SDL_Point origin = at.transformPoint(0, 0);
         SDL_Point upperRight = at.transformPoint(width, 0);
         SDL_Point lowerRight = at.transformPoint(width, height);
@@ -280,14 +299,14 @@ void DisplayObject::draw(AffineTransform& at) {
     reverseTransformations(at);
 }
 
-void DisplayObject::applyTransformations(AffineTransform& at) {
+void DisplayObject::applyTransformations(AffineTransform& at) const {
     at.translate(position.x, position.y);
     at.rotate(rotation);
     at.scale(scaleX, scaleY);
     at.translate(-pivot.x, -pivot.y);
 }
 
-void DisplayObject::reverseTransformations(AffineTransform& at) {
+void DisplayObject::reverseTransformations(AffineTransform& at) const {
     at.translate(pivot.x, pivot.y);
     at.scale(1.0 / scaleX, 1.0 / scaleY);
     at.rotate(-rotation);
@@ -296,7 +315,7 @@ void DisplayObject::reverseTransformations(AffineTransform& at) {
 
 void DisplayObject::updateSourceRect(SDL_Rect* s)
 {
-    if (!sourceRect){
+    if (sourceRect == nullptr) {
         sourceRect = new SDL_Rect();
     }
     sourceRect->x = s->x;
@@ -305,18 +324,19 @@ void DisplayObject::updateSourceRect(SDL_Rect* s)
     sourceRect->w = s->w;
 }
 
-int DisplayObject::getWidth() {
-    return this->image->w;
+void DisplayObject::scaleHeight(int h){
+    double ratio = (double) h / (double) height;
+    this->scaleX = ratio;
+    this->scaleY = ratio;
 }
 
-int DisplayObject::getHeight() {
-    return this->image->h;
+void DisplayObject::scaleWidth(int w){
+
 }
 
-void DisplayObject::getGlobalTransform(AffineTransform& at)
-{
+void DisplayObject::getGlobalTransform(AffineTransform& at) const {
 	//if DO has parent
-	if(parent != NULL)
+	if(parent != nullptr)
 	{
 		parent->getGlobalTransform(at);
         if (parent->type != "Camera"){
@@ -333,11 +353,11 @@ void DisplayObject::getGlobalTransform(AffineTransform& at)
 // Override this method to handle collisions by yourself
 // instead of relying on CollisionSystem's default collision resolution
 // (which is just to move the objects so they're not colliding)
-bool DisplayObject::onCollision(DisplayObject* other) {
+bool DisplayObject::onCollision(DisplayObject*  /*other*/) {
     return false;
 }
 
-Hitcircle DisplayObject::getHitcircle() {
+Hitcircle DisplayObject::getHitcircle() const {
     AffineTransform at;
     this->getGlobalTransform(at);
     SDL_Point center = at.transformPoint(this->width / 2, this->height / 2);
@@ -349,7 +369,7 @@ Hitcircle DisplayObject::getHitcircle() {
     };
 }
 
-void DisplayObject::drawHitcircle(SDL_Color color) {
+void DisplayObject::drawHitcircle(SDL_Color color) const {
     Hitcircle hitcircle = this->getHitcircle();
 
     Uint8 oldR, oldG, oldB, oldA;
@@ -393,7 +413,7 @@ void DisplayObject::drawHitcircle(SDL_Color color) {
     SDL_SetRenderDrawColor(renderer, oldR, oldG, oldB, oldA);
 }
 
-Hitbox DisplayObject::getHitbox() {
+Hitbox DisplayObject::getHitbox() const {
     AffineTransform at;
 	this->getGlobalTransform(at);
 	return {
@@ -404,7 +424,7 @@ Hitbox DisplayObject::getHitbox() {
     };
 }
 
-void DisplayObject::drawHitbox(SDL_Color color) {
+void DisplayObject::drawHitbox(SDL_Color color) const {
     Hitbox hitbox = this->getHitbox();
 
     Uint8 oldR, oldG, oldB, oldA;
@@ -430,8 +450,54 @@ double DisplayObject::calculateRotation(SDL_Point& origin, SDL_Point& p) {
 }
 
 void DisplayObject::setSurface(SDL_Surface* s) {
-    if (this->image){
+    if (this->image != nullptr) {
         SDL_FreeSurface(this->image);
     }
     this->image = s;
 }
+
+void DisplayObject::propogateEvent(Event* e, DisplayObject* root) {
+    if (e->getType() == NewSceneEvent::FADE_OUT_EVENT){
+        EventDispatcher::getInstance().removeEventListener(root, NewSceneEvent::FADE_OUT_EVENT);
+        for (auto* child : root->children) {    
+            propogateEvent(e, child);
+        }
+        std::cout << "hi" << std::endl;
+        Tween* out_transition = new Tween("out_transition", root);
+		out_transition->animate(TweenableParams::ALPHA, 255, 0, 200, TweenParam::EASE_IN);
+		TweenJuggler::getInstance().add(out_transition);
+    }
+    if (e->getType() == NewSceneEvent::FADE_IN_EVENT){
+        EventDispatcher::getInstance().removeEventListener(root, NewSceneEvent::FADE_IN_EVENT);
+        for (auto* child : root->children) {    
+            propogateEvent(e, child);
+        }
+        Tween* in_transition = new Tween("in_transition", root);
+		in_transition->animate(TweenableParams::ALPHA, 0, 255, 200, TweenParam::EASE_IN);
+		TweenJuggler::getInstance().add(in_transition);
+	}
+}
+
+void DisplayObject::handleEvent(Event* e){
+    if (e->getType() == NewSceneEvent::SCALE_OUT_EVENT) {
+        EventDispatcher::getInstance().removeEventListener(this, NewSceneEvent::SCALE_OUT_EVENT);
+        double curScaleX = this->scaleX;
+        double curScaleY = this->scaleY;
+        Tween* out_transition = new Tween("out_transition", this);
+		out_transition->animate(TweenableParams::SCALE_X, curScaleX, 0, 200, TweenParam::EASE_IN);
+		out_transition->animate(TweenableParams::SCALE_Y, curScaleY, 0, 200, TweenParam::EASE_IN);
+		TweenJuggler::getInstance().add(out_transition);
+    }
+    if (e->getType() == NewSceneEvent::SCALE_IN_EVENT) {
+        EventDispatcher::getInstance().removeEventListener(this, NewSceneEvent::SCALE_IN_EVENT);
+        Tween* in_transition = new Tween("in_transition", this);
+		in_transition->animate(TweenableParams::SCALE_X, 0, 1, 200, TweenParam::EASE_IN);
+		in_transition->animate(TweenableParams::SCALE_Y, 0, 1, 200, TweenParam::EASE_IN);
+		TweenJuggler::getInstance().add(in_transition);
+    }
+    else {
+        propogateEvent(e, this);
+    }
+
+}
+

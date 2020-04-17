@@ -1,5 +1,4 @@
 #include "Rebound.h"
-#include "../engine/events/DisplayTreeChangeEvent.h"
 #include <iostream>
 
 using namespace std;
@@ -9,7 +8,6 @@ Rebound::Rebound() : Game(1200, 800) {
     instance = this;
 
     this->collisionSystem = new CollisionSystem();
-    EventDispatcher::getInstance().addEventListener(this->collisionSystem, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
 
 	allSprites = new DisplayObject("allSprites");
 
@@ -140,7 +138,7 @@ Rebound::Rebound() : Game(1200, 800) {
 Rebound::~Rebound() {
 }
 
-void Rebound::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
+void Rebound::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {
     this->collisionSystem->update();
 
 	Game::update(pressedKeys, joystickState, pressedButtons);
