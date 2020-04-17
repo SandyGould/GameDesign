@@ -15,7 +15,6 @@ LoadSceneDemo::LoadSceneDemo() : Game(1200, 800) {
     this->camera->pivot = {this->windowWidth / 2, this->windowHeight / 2};
     instance->addChild(this->camera);
 
-
     this->player = new Player();
 	player->position = {0, 0};
 	player->width = 110;
@@ -24,11 +23,10 @@ LoadSceneDemo::LoadSceneDemo() : Game(1200, 800) {
 	player->play("Idle");
     this->scene = new Scene(camera, player);
 
-    // this->scene->p = player;
-
+    this->scene = new Scene(this->camera, this->player);
     this->scene->loadScene("./resources/loadSceneDemo/three_archer_very_scary.json");
     this->scene->getChild(0)->addChild(player);
-    // this->scene->setCameraRef(camera);
+    this->scene->camera = this->camera;
 
     this->camera->addChild(this->scene);
 }

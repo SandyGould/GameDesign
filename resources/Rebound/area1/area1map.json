@@ -16,7 +16,7 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"Sprite",
+                        "type":"EnvironmentObject",
                         "name":"stone",
                         "filepath":"./resources/Rebound/area1/assets/Display_Objects/stone.png",
                         "x_pos": 30,
@@ -27,7 +27,7 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"Sprite",
+                        "type":"EnvironmentObject",
                         "name":"sign",
                         "filepath":"./resources/Rebound/area1/assets/Display_Objects/sign.png",
                         "x_pos":1110,
@@ -38,7 +38,7 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"Sprite",
+                        "type":"EnvironmentObject",
                         "name":"top_trees",
                         "filepath":"./resources/Rebound/area1/assets/Display_Objects/top_trees.png",
                         "x_pos":0,
@@ -49,7 +49,7 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"Sprite",
+                        "type":"EnvironmentObject",
                         "name":"bottom_trees",
                         "filepath":"./resources/Rebound/area1/assets/Display_Objects/bottom_trees.png",
                         "x_pos":0,
@@ -60,7 +60,7 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"Sprite",
+                        "type":"EnvironmentObject",
                         "name":"obstacle",
                         "filepath":"./resources/Rebound/area1/assets/Display_Objects/obstacle.png",
                         "x_pos": 600,

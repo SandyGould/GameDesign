@@ -12,7 +12,7 @@ public:
 	HitObject(const DisplayObject& other);
 	virtual ~HitObject();
 
-	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
+	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons);
 	void draw(AffineTransform& at) override;
 
 private:

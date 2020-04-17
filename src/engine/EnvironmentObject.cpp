@@ -1,19 +1,19 @@
 #include "EnvironmentObject.h"
 
 EnvironmentObject::EnvironmentObject(std::string id, SDL_Renderer *r) : Sprite(id) {
-	this->type = "env_object";
+	this->type = "EnvironmentObject";
 	this->renderer = r;
 }
 EnvironmentObject::EnvironmentObject(std::string id, std::string filepath, SDL_Renderer *r) : Sprite(id, filepath) {
-	this->type = "env_object";
+	this->type = "EnvironmentObject";
 	this->renderer = r;
 }
 EnvironmentObject::EnvironmentObject(std::string id, int red, int green, int blue, SDL_Renderer *r) : Sprite(id, red, green, blue) {
-	this->type = "env_object";
+	this->type = "EnvironmentObject";
 	this->renderer = r;
 }
 EnvironmentObject::EnvironmentObject(const DisplayObject& other) : Sprite(other) {
-	this->type = "env_object";
+	this->type = "EnvironmentObject";
 }
 
 EnvironmentObject::~EnvironmentObject(){

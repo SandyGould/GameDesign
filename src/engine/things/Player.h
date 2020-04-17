@@ -15,7 +15,7 @@ public:
 
 	void changeHealth(int amount);
 	void changeStamina(int amount);
-	void toggleShieldHidden();
+	void toggleShieldVisible(bool vis);
 
 	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
 	void draw(AffineTransform& at) override;

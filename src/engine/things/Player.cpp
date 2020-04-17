@@ -40,8 +40,8 @@ void Player::changeStamina(int amount) {
     }
 }
 
-void Player::toggleShieldHidden() {
-    shield->visible = !shield->visible;
+void Player::toggleShieldVisible(bool vis) {
+    shield->visible = vis;
 }
 
 void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
@@ -261,6 +261,10 @@ bool Player::onCollision(DisplayObject* other){
     }
     if(other->type == "poison_bomb"){
         this->changeHealth(-1);
+        return true;
+    }
+    if(other->id == "shield_power_up"){
+        this->toggleShieldVisible(true);
         return true;
     }
     return false;

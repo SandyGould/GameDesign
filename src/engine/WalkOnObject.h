@@ -1,5 +1,7 @@
 #pragma once
 
+#include "events/Event.h"
+
 #include "EnvironmentObject.h"
 #include "Game.h"
 
@@ -12,8 +14,10 @@ public:
 	WalkOnObject(const DisplayObject& other);
 	virtual ~WalkOnObject();
 
-	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
+	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons);
 	void draw(AffineTransform& at) override;
+
+	bool onCollision(DisplayObject* other) override;
 
 private:
 

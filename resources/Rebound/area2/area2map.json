@@ -52,7 +52,7 @@
                         "type":"WalkOnObject",
                         "name":"shield_power_up",
                         "filepath": "./resources/Rebound/area2/assets/shield.png",
-                        "x_pos": 250,
+                        "x_pos": 300,
                         "y_pos": 250,
                         "rotation":0,
                         "scaleX":0.3,
