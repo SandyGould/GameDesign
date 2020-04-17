@@ -325,6 +325,15 @@ bool DisplayObject::onCollision(DisplayObject* other) {
     return false;
 }
 
+Hitcircle DisplayObject::getHitcircle() {
+    AffineTransform at;
+    this->getGlobalTransform(at);
+    return {
+        at.transformPoint(0, 0),
+        at.transformPoint(0, hitcircle_radius),
+    };
+}
+
 Hitbox DisplayObject::getHitbox() {
     AffineTransform at;
 	this->getGlobalTransform(at);
@@ -334,14 +343,6 @@ Hitbox DisplayObject::getHitbox() {
         at.transformPoint(0, height),
         at.transformPoint(width, height),
     };
-}
-
-void DisplayObject::getHitcircle()
-{
-    AffineTransform at;
-    this->getGlobalTransform(at);
-    hitcircle_center = at.transformPoint(0,0);
-    hitcircle_edge = at.transformPoint(0,hitcircle_radius);
 }
 
 void DisplayObject::drawHitbox(SDL_Color color) {
