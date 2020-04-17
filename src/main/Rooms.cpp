@@ -119,7 +119,7 @@ Rooms::~Rooms() {
 
 
 void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {
-	this->collisionSystem->update();	
+	// this->collisionSystem->update();	
   if (sceneChange) {
 		sceneChange = false;
 		EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_OUT_EVENT));
