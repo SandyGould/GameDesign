@@ -17,8 +17,9 @@ CollisionDemo::CollisionDemo() : Game(1200, 800) {
 
     this->scene = new Scene();
     this->scene->loadScene("./resources/cameraDemo/loadScene.json");
+    this->scene->setCameraRef(camera);
 
-    camera->addChild(this->scene);
+    this->camera->addChild(this->scene);
 
     this->parentObj = new DisplayObject("parent", "./resources/assets/Display_Objects/Moon.png");
     this->parentObj->type = "parent";
@@ -37,6 +38,7 @@ CollisionDemo::CollisionDemo() : Game(1200, 800) {
     this->child2->position = {200, 200};
     this->child2->width = this->child2->height = 30;
     this->child2->pivot = {15, 15};
+    this->child2->hitboxType = HitboxType::Circle;
     this->parentObj->addChild(this->child2);
 
     this->collisionSystem->watchForCollisions("coin", "coin");
@@ -189,5 +191,5 @@ void CollisionDemo::draw(AffineTransform& at) {
 void CollisionDemo::draw_post() {
     this->parentObj->drawHitbox();
     this->child1->drawHitbox();
-    this->child2->drawHitbox();
+    this->child2->drawHitcircle();
 }

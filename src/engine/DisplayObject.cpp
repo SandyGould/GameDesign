@@ -217,18 +217,18 @@ void DisplayObject::update(std::unordered_set<SDL_Scancode> pressedKeys, jState 
     for (auto* child : children) {
         child->update(pressedKeys, joystickState, pressedButtons);
     }
-	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
-		position.x -= parallaxSpeed;
-	}
-	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
-		position.x += parallaxSpeed;
-	}
-	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-		position.y -= parallaxSpeed;
-	}
-	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
-		position.y += parallaxSpeed;
-	}
+	// if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
+	// 	position.x -= parallaxSpeed;
+	// }
+	// if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
+	// 	position.x += parallaxSpeed;
+	// }
+	// if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
+	// 	position.y -= parallaxSpeed;
+	// }
+	// if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
+	// 	position.y += parallaxSpeed;
+	// }
 }
 
 void DisplayObject::draw(AffineTransform& at) {
@@ -259,7 +259,7 @@ void DisplayObject::draw(AffineTransform& at) {
 
     // undo the parent's pivot
     at.translate(pivot.x, pivot.y);
-    for (auto child : children) {
+    for (auto* child : children) {
         child->draw(at);
     }
     // redo the parent's pivot
@@ -323,6 +323,62 @@ void DisplayObject::getGlobalTransform(AffineTransform& at)
 // (which is just to move the objects so they're not colliding)
 bool DisplayObject::onCollision(DisplayObject* other) {
     return false;
+}
+
+Hitcircle DisplayObject::getHitcircle() {
+    AffineTransform at;
+    this->getGlobalTransform(at);
+    SDL_Point center = at.transformPoint(this->width / 2, this->height / 2);
+    SDL_Point edge = at.transformPoint(0, this->height / 2);
+    double radius = distance(center, edge);
+    return {
+        center,
+        radius,
+    };
+}
+
+void DisplayObject::drawHitcircle(SDL_Color color) {
+    Hitcircle hitcircle = this->getHitcircle();
+
+    Uint8 oldR, oldG, oldB, oldA;
+    SDL_GetRenderDrawColor(renderer, &oldR, &oldG, &oldB, &oldA);
+
+    auto [r, g, b, a] = color;
+    SDL_SetRenderDrawColor(renderer, r, g, b, a);
+
+    // https://stackoverflow.com/a/48291620/5661593
+    const int32_t diameter = hitcircle.radius * 2;
+
+    int32_t x = hitcircle.radius - 1;
+    int32_t y = 0;
+    int32_t tx = 1;
+    int32_t ty = 1;
+    int32_t error = tx - diameter;
+
+    while (x >= y) {
+        // Each of the following renders an octant of the circle
+        SDL_RenderDrawPoint(renderer, hitcircle.center.x + x, hitcircle.center.y - y);
+        SDL_RenderDrawPoint(renderer, hitcircle.center.x + x, hitcircle.center.y + y);
+        SDL_RenderDrawPoint(renderer, hitcircle.center.x - x, hitcircle.center.y - y);
+        SDL_RenderDrawPoint(renderer, hitcircle.center.x - x, hitcircle.center.y + y);
+        SDL_RenderDrawPoint(renderer, hitcircle.center.x + y, hitcircle.center.y - x);
+        SDL_RenderDrawPoint(renderer, hitcircle.center.x + y, hitcircle.center.y + x);
+        SDL_RenderDrawPoint(renderer, hitcircle.center.x - y, hitcircle.center.y - x);
+        SDL_RenderDrawPoint(renderer, hitcircle.center.x - y, hitcircle.center.y + x);
+
+        if (error <= 0) {
+            ++y;
+            error += ty;
+            ty += 2;
+        }
+
+        if (error > 0) {
+            --x;
+            tx += 2;
+            error += tx - diameter;
+        }
+    }
+    SDL_SetRenderDrawColor(renderer, oldR, oldG, oldB, oldA);
 }
 
 Hitbox DisplayObject::getHitbox() {

@@ -6,12 +6,12 @@ TweenJuggler::~TweenJuggler() {
     tweenList.clear();
 }
 
-TweenJuggler* TweenJuggler::getInstance() {
-    if (!instance) {
-        instance = new TweenJuggler();
-    }
-    return instance;
-}
+// TweenJuggler* TweenJuggler::getInstance() {
+//     if (!instance) {
+//         instance = new TweenJuggler();
+//     }
+//     return instance;
+// }
 
 void TweenJuggler::add(Tween* tween) {
     // throw event - tween starting

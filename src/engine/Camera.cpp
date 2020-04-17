@@ -1,6 +1,7 @@
 #include <climits>
 #include "Camera.h"
 #include "Game.h"
+#include <iostream>
 
 Camera::Camera() : DisplayObject("camera") {
     this->type = "Camera";
@@ -97,11 +98,8 @@ void Camera::follow(int newX, int newY) {
 
 void Camera::draw(AffineTransform& at) {
     applyTransformations(at);
-
     for (auto child : children) {
         child->draw(at);
     }
-
-    reverseTransformations(at);
+    reverseTransformations(at);  
 }
-

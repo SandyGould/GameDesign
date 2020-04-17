@@ -10,8 +10,6 @@ Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites
     type = "player";
     hasCollision = true;
 
-    juggler = juggler->getInstance();
-
     history = new std::unordered_set<SDL_Scancode> [HISTORY_SIZE];
     shieldSwitchCooldown = 0;
     shieldBashCooldown = 0;
@@ -20,9 +18,10 @@ Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites
 	this->addChild(shield);
 	shield->position.x = 105;
 	shield->position.y = 10;
-	shield->width = 20;
-	shield->height = 80;
+	shield->width = this->width * 20 / 110;
+	shield->height = this->height;
 	shield->pivot = {50, 50};
+    shield->visible = false;
 }
 
 void Player::changeHealth(int amount) {
@@ -38,6 +37,10 @@ void Player::changeStamina(int amount) {
     } else {
         stamina = 1000;
     }
+}
+
+void Player::toggleShieldHidden() {
+    shield->visible = !shield->visible;
 }
 
 void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
@@ -132,7 +135,7 @@ void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
     			shieldBash = new Tween(shield);
                 shieldBash->animate(TweenableParams::X, 105.0, 140.0, 10);
                 shieldBash->animate(TweenableParams::X, 140.0, 105.0, 18);
-                juggler->getInstance()->add(shieldBash);
+                TweenJuggler::getInstance().add(shieldBash);
     			this->changeStamina(-70);
                 AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
                 return;
@@ -150,7 +153,7 @@ void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
     			shieldBash = new Tween(shield);
                 shieldBash->animate(TweenableParams::X, -20.0, -55.0, 10);
                 shieldBash->animate(TweenableParams::X, -55.0, -20, 18);
-                juggler->getInstance()->add(shieldBash);
+                TweenJuggler::getInstance().add(shieldBash);
     			this->changeStamina(-70);
                 AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
                 return;
@@ -168,8 +171,8 @@ void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
     			shieldBash = new Tween(shield);
                 shieldBash->animate(TweenableParams::Y, 105.0, 140.0, 10);
                 shieldBash->animate(TweenableParams::Y, 140.0, 105.0, 18);
-                juggler->getInstance()->add(shieldBash);
-    			this->changeStamina(-70);
+                TweenJuggler::getInstance().add(shieldBash);
+                this->changeStamina(-70);
                 AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
                 return;
     		}
@@ -186,7 +189,7 @@ void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
     			shieldBash = new Tween(shield);
                 shieldBash->animate(TweenableParams::Y, -105.0, -140.0, 10);
                 shieldBash->animate(TweenableParams::Y, -140.0, -105.0, 18);
-                juggler->getInstance()->add(shieldBash);
+                TweenJuggler::getInstance().add(shieldBash);
     			this->changeStamina(-70);
                 AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
                 return;
@@ -207,7 +210,7 @@ void Player::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
 
     updateHistory(pressedKeys);
 
-    juggler->nextFrame();
+    TweenJuggler::getInstance().nextFrame();
     AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
 }
 

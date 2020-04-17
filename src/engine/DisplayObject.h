@@ -18,6 +18,16 @@ struct jState {
 	Sint16 yVal2;
 };
 
+enum class HitboxType {
+    Rectangle,
+    Circle,
+};
+
+struct Hitcircle {
+    SDL_Point center;
+    double radius;
+};
+
 struct Hitbox {
     SDL_Point ul;
     SDL_Point ur;
@@ -82,12 +92,16 @@ public:
 	void getGlobalTransform(AffineTransform& at);
 
     virtual bool onCollision(DisplayObject* other);
-	
-	Hitbox getHitbox();
+
+    Hitcircle getHitcircle();
+    void drawHitcircle(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE});
+
+    Hitbox getHitbox();
     void drawHitbox(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE});
 
     bool visible = true;
     SDL_Point position = {0, 0};
+    SDL_Point orig_position = {0, 0}; // Used for parallaxing (in Layer.cpp)
 
 	int width = 100;
 	int height = 100;
@@ -96,12 +110,12 @@ public:
 	double scaleY = 1.0;
 	double rotation = 0.0; // in radians
 	bool facingRight = true;
-
+    HitboxType hitboxType = HitboxType::Rectangle;
 	SDL_Renderer* renderer;
 
 	bool hasCollision = false;
 
-	double parallaxSpeed = 0.0;
+	double parallaxSpeed = 1.0;
 
     std::vector<DisplayObject*> children;
 

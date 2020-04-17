@@ -17,4 +17,5 @@ target_sources(rebound PRIVATE
         Projectile.cpp
         RoarMonster.cpp
         RubberCannonBall.cpp
-        RubberCannoneer.cpp)
+        RubberCannoneer.cpp
+        SecondBoss.cpp)
