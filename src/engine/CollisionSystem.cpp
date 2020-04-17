@@ -182,7 +182,7 @@ bool CollisionSystem::isInside(SDL_Point point, Hitbox hitbox) {
 
 // Returns true iff obj1 hitbox and obj2 hitbox overlap
 bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
-    if(obj1->col_type == "square" && obj2->col_type == "square") {
+    if(obj1->hitboxType == HitboxType::Rectangle && obj2->hitboxType == HitboxType::Rectangle) {
         Hitbox obj1Hitbox = obj1->getHitbox();
         Hitbox obj2Hitbox = obj2->getHitbox();
 
@@ -215,7 +215,7 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
 
     DisplayObject* circle;
     DisplayObject* rect;
-    if (obj1->col_type == "circle") {
+    if (obj1->hitboxType == HitboxType::Circle) {
         circle = obj1;
         rect = obj2;
     } else {

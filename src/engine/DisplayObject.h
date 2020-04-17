@@ -18,6 +18,11 @@ struct jState {
 	Sint16 yVal2;
 };
 
+enum class HitboxType {
+    Rectangle,
+    Circle,
+};
+
 struct Hitcircle {
     SDL_Point center;
     double radius;
@@ -105,7 +110,7 @@ public:
 	double scaleY = 1.0;
 	double rotation = 0.0; // in radians
 	bool facingRight = true;
-    std::string col_type = "square"; //this string changes based on whether a square or circular collision surface is involved
+    HitboxType hitboxType = HitboxType::Rectangle;
 	SDL_Renderer* renderer;
 
 	bool hasCollision = false;
