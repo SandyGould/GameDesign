@@ -22,8 +22,7 @@ MasterArcher::MasterArcher(Player* player): BaseEnemy("MasterArcher" + master_ar
     this->state = 0;
     this->facingRight=true;
     master_archer_count++;
-    this->type = "master_archer";
-    this->saveType = this->type;
+    this->saveType = "master_archer";
 }
 
 void MasterArcher::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
@@ -31,7 +30,8 @@ void MasterArcher::update(const std::unordered_set<SDL_Scancode>& pressedKeys, c
         this->clean = true;
     }
     if(this->clean){
-        //cleanup
+        this->visible = false;
+        this->state = -1;
     }
 
     if(this->state == 0){
@@ -43,12 +43,22 @@ void MasterArcher::update(const std::unordered_set<SDL_Scancode>& pressedKeys, c
         this->state = 2;
     }
     else if(this->state == 2){ //"knock" arrow
+        /*this->arrows.emplace_back(new Arrow(35));
+        this->arrow1 = arrows.back();
+        this->arrows.emplace_back(new Arrow(35));
+        this->arrow2 = arrows.back();
+        this->arrows.emplace_back(new Arrow(35));
+        this->arrow3 = arrows.back();*/
         this->arrow1 = new Arrow(35);
         this->arrow2 = new Arrow(35);
         this->arrow3 = new Arrow(35);
+        arrows.emplace_back(arrow1);
+        arrows.emplace_back(arrow2);
+        arrows.emplace_back(arrow3);
         this->addChild(arrow1);
         this->addChild(arrow2);
         this->addChild(arrow3);
+        std::cout<<this->children.size();
         //TODO: configure this to look cool AF
         arrow1->rotation = 15;
         arrow1->position = {5,1};
@@ -74,6 +84,9 @@ void MasterArcher::update(const std::unordered_set<SDL_Scancode>& pressedKeys, c
     }
     else if(this->state == 5){ //Fire arrow.
         double rot = arrow2->rotation;
+        arrows.pop_back();
+        arrows.pop_back();
+        arrows.pop_back();
         arrow1->fire(rot+15);
         arrow2->fire(rot);
         arrow3->fire(rot-15);
@@ -101,4 +114,13 @@ int MasterArcher::generateCoolDown(){ //returns a number of frames that will be 
 
 void MasterArcher::draw(AffineTransform& at){
     BaseEnemy::draw(at);
+}
+
+bool MasterArcher::onCollision(DisplayObject* other){
+    if(arrows.size() == 3){
+        if(other == arrows.at(0)|| other==arrows.at(1) || other==arrows.at(2)){
+            return true;
+        }
+    }
+    return BaseEnemy::onCollision(other);
 }

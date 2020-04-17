@@ -4,8 +4,7 @@
 
 Mage::Mage(Player* player) : BaseEnemy("mage", "./resources/assets/Animated_Sprites/Enemies/Mage/Mage.png", "", player) {
     hasCollision = true;
-    this->type = "mage";
-    this->saveType = this->type;
+    this->saveType = "mage";
     this->mageAttack = nullptr;
 }
 
@@ -15,14 +14,13 @@ Wait for player
 Aim
 Fire Attack
 Reload
-Ded
-*/
-void Mage::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
-   if(this->health ==0){
+Ded*/
+void Mage::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
+   if(this->health <=0){
         this->clean = true;
     }
     if(this->clean){
-        //cleanup
+        this->cleanUp();
     }
 
     if(this->state == 0){
@@ -34,8 +32,10 @@ void Mage::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
         this->state = 2;
     }
     else if(this->state == 2){
+        if(this->ready == 301){
+            this->mageAttack = new MageAttack();
+        }
         this->ready--;
-        this->mageAttack = new MageAttack();
  		this->addChild(mageAttack);
         mageAttack->visible =false;
         if(this->ready==240){
@@ -54,4 +54,11 @@ void Mage::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
     }
 
     BaseEnemy::update(pressedKeys, joystickState, pressedButtons);
+}
+
+bool Mage::onCollision(DisplayObject* other){
+    if(other == this->mageAttack && mageAttack->firing == false){
+        return true;
+    }
+    return BaseEnemy::onCollision(other);
 }

@@ -20,8 +20,7 @@ Ded 7
 Archer::Archer(Player* player): BaseEnemy("Archer", "./resources/assets/Display_Objects/archer.png", "", player){
     this->state = 0;
     this->facingRight=true;
-    this->type = "archer";
-    this->saveType = this->type;
+    this->saveType = "archer";
     this->actionFrames = 12;
     this->arrow = nullptr;
 }
@@ -31,8 +30,7 @@ void Archer::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
         this->clean = true;
     }
     if(this->clean){
-        this->removeThis();
-        this->state = -1;
+        cleanUp();
     }
 
     if(this->state == 0){
@@ -95,28 +93,8 @@ void Archer::draw(AffineTransform& at){
 }
 
 bool Archer::onCollision(DisplayObject* other){
-     if(other->type == "mage_attack" || other->type == "arrow"){
-        if(other== arrow){
-            return true;
-        }
-        std::cout<<"ouch\n";
-        this->changeHealth(-20);
-        other->removeThis();
-        return true;
-    }
-    if(other->type == "rubber_cannonball" || other->type == "cannonball"){
-        std::cout<<"Cannoneer\n";
-        this->changeHealth(-100);
-        return true;
-    }
-    if(other->type == "poison_bomb"){
-        std::cout<<"poison bitch\n";
-        this->changeHealth(-1);
-        return true;
-    }
-    if(other->type == "shield"){
-        std::cout<<"ow\n";
-        this->changeHealth(-35);
-    }
-    return false;
+     if(other == arrow && arrow->firing == false){
+         return true;
+     }
+    return BaseEnemy::onCollision(other);
 }

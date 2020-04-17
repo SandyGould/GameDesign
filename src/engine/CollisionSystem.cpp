@@ -31,11 +31,18 @@ void CollisionSystem::buildDisplayMap(DisplayObject* object) {
 //to be checked (via a single call to watchForCollisions) below.
 void CollisionSystem::update() {
     for (auto& [object1, object2] : collisionPairs) {
+        if(object1 == NULL || object2 == NULL){
+            continue;
+        }
         SDL_Point obj1Position = object1->getHitbox().ul;
         SDL_Point obj2Position = object2->getHitbox().ul;
+
+        if(prevPositions.find(object1) == prevPositions.end() || prevPositions.find(object2) == prevPositions.end()){
+            continue;
+        }
         SDL_Point obj1Prev = prevPositions.at(object1);
         SDL_Point obj2Prev = prevPositions.at(object2);
-
+        
         if (obj1Prev.x == obj1Position.x && obj1Prev.y == obj1Position.y &&
             obj2Prev.x == obj2Position.x && obj2Prev.y == obj2Position.y) {
             // Wait, they didn't move! They couldn't have collided, then.
@@ -57,6 +64,9 @@ void CollisionSystem::update() {
 
     // Update previous positions
     for (auto& [object, _] : prevPositions) {
+        if(object == NULL){
+            continue;
+        }
         prevPositions.at(object) = object->getHitbox().ul;
     }
 }

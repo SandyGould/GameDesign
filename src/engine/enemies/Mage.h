@@ -17,7 +17,7 @@ public:
 	MageAttack* attack(Sprite* target);
 
 	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
-
+	bool onCollision(DisplayObject* other) override;
 };
 
 #endif

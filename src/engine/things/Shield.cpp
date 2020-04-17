@@ -21,6 +21,12 @@ void Shield::switchType() {
 }
 
 void Shield::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
+    if(this->bashFrames > 0){
+        bashFrames--;
+    }
+    else{
+        this->bashing = false;
+    }
     Sprite::update(pressedKeys, joystickState, pressedButtons);
 }
 
@@ -32,5 +38,5 @@ bool Shield::onCollision(DisplayObject* other){
     if(other->type == "arrow" || other->type== "mage_attack" || other->type == "cannonball" || other->type=="rubber_cannonball"){
         dynamic_cast<Projectile*>(other)->reflect();
     }
-    return false;
+    return true;
 }

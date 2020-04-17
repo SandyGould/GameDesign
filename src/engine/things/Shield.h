@@ -17,6 +17,7 @@ public:
 
 	bool onCollision(DisplayObject* other) override;
 	bool bashing = false;
+	int bashFrames = 0;
 private:
 
 	bool magic = false;

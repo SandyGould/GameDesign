@@ -15,7 +15,7 @@ class SecondBoss : public BaseEnemy{
         bool onCollision(DisplayObject* other) override;
 
     private:
-        int velocity = 40;
+        int velocity = 50;
         int deltaX = 0;
         int deltaY = 0;
         bool firing =false;
