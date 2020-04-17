@@ -20,7 +20,8 @@ Rooms::Rooms() : Game(600, 500) {
     // create collision system
     this->collisionSystem = new CollisionSystem();
     // set collisions between player and all environmental objects
-    this->collisionSystem->watchForCollisions("player", "env_object");
+    this->collisionSystem->watchForCollisions("player", "WalkOnObject");
+    this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
 
 	camera = new Camera();
 
@@ -143,10 +144,10 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 		
 	}
 
-	std::cout << "x" << std::endl;
-	std::cout << player->position.x << std::endl;
-	std::cout << "y" << std::endl;
-	std::cout << player->position.y << std::endl;
+	// std::cout << "x" << std::endl;
+	// std::cout << player->position.x << std::endl;
+	// std::cout << "y" << std::endl;
+	// std::cout << player->position.y << std::endl;
 
 
 	// scene 1 controls
