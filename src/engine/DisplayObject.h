@@ -69,6 +69,7 @@ public:
 
     void addChild(DisplayObject* child);
     void removeImmediateChild(DisplayObject* child);
+    void removeImmediateChildWithoutDelete(DisplayObject* child);
     void removeImmediateChild(std::string id);
     void removeChild(size_t index);
     void removeThis();

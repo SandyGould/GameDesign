@@ -158,8 +158,19 @@ void DisplayObject::removeImmediateChild(DisplayObject* child) {
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
 
-        std::cout<<*it<<"This is the thing \n";
         delete *it;
+        this->children.erase(it);
+    }
+}
+
+void DisplayObject::removeImmediateChildWithoutDelete(DisplayObject* child) {
+    auto it = std::find(this->children.cbegin(), this->children.cend(), child);
+    if (it != this->children.cend()) {
+        DisplayTreeChangeEvent* event = new DisplayTreeChangeEvent(*it, false);
+        EventDispatcher::getInstance().dispatchEvent(event);
+        delete event;
+
+        //delete *it;
         this->children.erase(it);
     }
 }

@@ -58,7 +58,7 @@ void Mage::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickS
 }
 
 bool Mage::onCollision(DisplayObject* other){
-    if(other == this->mageAttack){
+    if(other == this->mageAttack && mageAttack->firing == false){
         return true;
     }
     return BaseEnemy::onCollision(other);

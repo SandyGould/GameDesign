@@ -22,8 +22,7 @@ void BaseEnemy::changeHealth(int amount){
 bool BaseEnemy::onCollision(DisplayObject* other){
      if(other->type == "mage_attack" || other->type == "arrow"){
         this->changeHealth(-20);
-        //other->removeThis();
-        std::cout<<"God help me\n";
+        other->removeThis();
         return true;
     }
     if(other->type == "rubber_cannonball" || other->type == "cannonball"){
@@ -47,9 +46,13 @@ bool BaseEnemy::onCollision(DisplayObject* other){
 }
 
 void BaseEnemy::cleanUp(){
-        for(DisplayObject* object: children){
+        /*for(DisplayObject* object: children){
             this->removeImmediateChild(object);
         }
-        this->removeThis();
+        this->removeThis();*/
+        //this->parent->removeImmediateChildWithoutDelete(this);
+        //this->state = -1;
+        this->visible = false;
+        this->state = -1;
         return;
 }

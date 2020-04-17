@@ -132,22 +132,9 @@ void Ogre::draw(AffineTransform& at){
 
 
 bool Ogre::onCollision(DisplayObject* other){
-     if(other->type == "mage_attack"){
-        this->changeHealth(-20);
-        other->removeThis();
-        return true;
-    }
-    if(other->type == "arrow"){
-        other->removeThis();
-        this->changeHealth(-20);
-        return false;
-    }
-    if(other->type == "rubber_cannonball" || other->type == "cannonball"){
-        this->changeHealth(-100);
-        return true;
-    }
-    if(other->type == "shield"){
-        this->changeHealth(-35);
-    }
-    return false;
+     if(other == arrow && arrow->firing == false){
+         return true;
+     }
+    return BaseEnemy::onCollision(other);
 }
+

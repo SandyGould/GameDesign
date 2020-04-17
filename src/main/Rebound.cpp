@@ -27,7 +27,7 @@ Rebound::Rebound() : Game(1200, 800) {
 	player->shield->visible = true;
 	allSprites->addChild(player);
 
-	mage = new Mage(player);
+	/*mage = new Mage(player);
 	mage->position = {400, 400};
 	mage->height = 80;
 	mage->width = 70;
@@ -47,9 +47,9 @@ Rebound::Rebound() : Game(1200, 800) {
     ogre->width = 150;
 	ogre->play("OgreIdle");
 
-    allSprites->addChild(ogre);
+    allSprites->addChild(ogre);*/
 
-	/*masterArcher = new MasterArcher(player);
+	masterArcher = new MasterArcher(player);
     masterArcher-> position = {500,500};
     masterArcher->height = 80;
     masterArcher->width = 70;
@@ -63,7 +63,7 @@ Rebound::Rebound() : Game(1200, 800) {
 
 	allSprites->addChild(roarMonster);
 
-	/*knight = new Knight(player);
+	knight = new Knight(player);
 	knight->position = {200,400};
 	knight->height = 80;
 	knight->width = 70;
@@ -115,9 +115,9 @@ Rebound::Rebound() : Game(1200, 800) {
 	secondBoss = new SecondBoss(player);
 	secondBoss->position = {600,600};
 	secondBoss->height = 100;
-	secondBoss->width = 100;*/
+	secondBoss->width = 100;
 
-	//allSprites->addChild(secondBoss);
+	allSprites->addChild(secondBoss);
 
 	collisionSystem->watchForCollisions("player", "arrow");
 	collisionSystem->watchForCollisions("player", "poison_bomb");
@@ -130,8 +130,6 @@ Rebound::Rebound() : Game(1200, 800) {
 	collisionSystem->watchForCollisions("shield", "mage_attack");
 	collisionSystem->watchForCollisions("shield", "cannonball");
 	collisionSystem->watchForCollisions("shield", "rubber_cannonball");
-	collisionSystem->watchForCollisions("shield", "archer");
-	collisionSystem->watchForCollisions("shield", "mage");
 
 	collisionSystem->watchForCollisions("enemy", "arrow");
 	collisionSystem->watchForCollisions("enemy", "mage_attack");

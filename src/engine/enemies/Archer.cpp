@@ -93,7 +93,7 @@ void Archer::draw(AffineTransform& at){
 }
 
 bool Archer::onCollision(DisplayObject* other){
-     if(other == arrow){
+     if(other == arrow && arrow->firing == false){
          return true;
      }
     return BaseEnemy::onCollision(other);

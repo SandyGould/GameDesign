@@ -30,7 +30,10 @@ void MasterArcher::update(std::unordered_set<SDL_Scancode> pressedKeys, jState j
         this->clean = true;
     }
     if(this->clean){
-        cleanUp();
+        //std::cout<<"no more MA\n";
+        //cleanUp();
+        this->visible = false;
+        this->state = -1;
     }
 
     if(this->state == 0){
@@ -100,4 +103,8 @@ int MasterArcher::generateCoolDown(){ //returns a number of frames that will be 
 
 void MasterArcher::draw(AffineTransform& at){
     BaseEnemy::draw(at);
+}
+
+bool MasterArcher::onCollision(DisplayObject* other){
+    return BaseEnemy::onCollision(other);
 }
