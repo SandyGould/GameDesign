@@ -6,22 +6,23 @@
 
 class Ogre : public BaseEnemy {
 
-public:
+    public:
 
-Ogre(Player* player);
+        Ogre(Player* player);
 
-void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
-void draw(AffineTransform& at) override;
-bool onCollision(DisplayObject* other) override;
+        void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
+        void draw(AffineTransform& at) override;
+        bool onCollision(DisplayObject* other) override;
 
-private:
+    private:
 
-int coolDownFrames = -1;
-int generateCoolDown();
-
-int actionFrames;
-Arrow* arrow;
-};
+        int coolDownFrames = -1;
+        int generateCoolDown();
+        int directionX = 0;
+        int directionY = 0;
+        int actionFrames = 0;
+        Arrow* arrow;
+    };
 
 
 #endif

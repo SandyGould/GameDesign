@@ -25,7 +25,7 @@ Rebound::Rebound() : Game(1200, 800) {
 	player->shield->visible = true;
 	allSprites->addChild(player);
 
-	mage = new Mage(player);
+	/*mage = new Mage(player);
 	mage->position = {400, 400};
 	mage->height = 80;
 	mage->width = 70;
@@ -37,7 +37,7 @@ Rebound::Rebound() : Game(1200, 800) {
     archer->height = 80;
     archer->width = 70;
 	
-    allSprites->addChild(archer);
+    allSprites->addChild(archer);*/
 
 	ogre = new Ogre(player);
     ogre-> position = {200,200};
@@ -47,7 +47,7 @@ Rebound::Rebound() : Game(1200, 800) {
 
     allSprites->addChild(ogre);
 
-	masterArcher = new MasterArcher(player);
+	/*masterArcher = new MasterArcher(player);
     masterArcher-> position = {500,500};
     masterArcher->height = 80;
     masterArcher->width = 70;
