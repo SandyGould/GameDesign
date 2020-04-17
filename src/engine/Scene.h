@@ -10,8 +10,7 @@
 
 #include "Sprite.h"
 #include "Camera.h"
-#include "events/Event.h"
-#include "events/EventListener.h"
+
 
 #include "enemies/Archer.h"
 #include "enemies/BaseEnemy.h"
@@ -36,7 +35,7 @@
 
 using json = nlohmann::json;
 
-class Scene : public DisplayObject, public EventListener {
+class Scene : public DisplayObject {
 
 public:
 	Scene();
@@ -55,7 +54,6 @@ public:
 	DisplayObject* setBasicInfo(DisplayObject* d_obj, json j);
 
 	// for scene transitions
-	void handleEvent(Event* e) override;
 	bool keepScene = false;
 	Player* player;
 	Camera* camera;

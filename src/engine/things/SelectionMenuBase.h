@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class SelectionMenuBase : public DisplayObject, public EventListener {
+class SelectionMenuBase : public DisplayObject {
 
 public:
 

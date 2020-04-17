@@ -2,6 +2,8 @@
 
 #include "Game.h"
 #include "events/DisplayTreeChangeEvent.h"
+#include "events/NewSceneEvent.h"
+#include "tweens/TweenJuggler.h"
 
 #include <algorithm>
 #include <cmath>
@@ -374,4 +376,20 @@ void DisplayObject::setSurface(SDL_Surface* s) {
         SDL_FreeSurface(this->image);
     }
     this->image = s;
+}
+
+void DisplayObject::handleEvent(Event* e){
+	if (e->getType() == NewSceneEvent::FADE_OUT_EVENT){
+		EventDispatcher::getInstance().removeEventListener(this, NewSceneEvent::FADE_OUT_EVENT);
+        Tween * out_transition = new Tween("out_transition", this);
+		out_transition->animate(TweenableParams::ALPHA, 255, 0, 100, TweenParam::EASE_IN);
+		TweenJuggler::getInstance().add(out_transition);
+	}
+    if (e->getType() == NewSceneEvent::FADE_IN_EVENT){
+        EventDispatcher::getInstance().removeEventListener(this, NewSceneEvent::FADE_IN_EVENT);
+        Tween * in_transition = new Tween("in_transition", this);
+		in_transition->animate(TweenableParams::ALPHA, 0, 255, 100, TweenParam::EASE_IN);
+		TweenJuggler::getInstance().add(in_transition);
+	}
+    // define other scene transitions here if we want them!
 }

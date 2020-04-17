@@ -1,4 +1,4 @@
 #include "NewSceneEvent.h"
 
-NewSceneEvent::NewSceneEvent() : Event(NewSceneEvent::IN_SCENE_EVENT) {
+NewSceneEvent::NewSceneEvent() : Event(NewSceneEvent::FADE_IN_EVENT) {
 }

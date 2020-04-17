@@ -4,7 +4,7 @@
 #include "../Sprite.h"
 #include "../events/EventListener.h"
 
-class Coin : public Sprite, EventListener {
+class Coin : public Sprite {
 
 public:
 

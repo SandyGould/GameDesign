@@ -1,6 +1,8 @@
 #pragma once
 
 #include "AffineTransform.h"
+#include "events/Event.h"
+#include "events/EventListener.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -25,7 +27,7 @@ struct Hitbox {
     SDL_Point lr;
 };
 
-class DisplayObject {
+class DisplayObject : public EventListener {
 
 public:
 	std::string id = "DEFAULT_ID";
@@ -86,6 +88,8 @@ public:
     void getHitcircle();
 	Hitbox getHitbox();
     void drawHitbox(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE});
+
+	void handleEvent(Event* e) override;
 
     bool visible = true;
     SDL_Point position = {0, 0};
