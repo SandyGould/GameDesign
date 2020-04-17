@@ -183,6 +183,18 @@ bool CollisionSystem::isIntersecting(SDL_Point p1, SDL_Point p2, SDL_Point q1, S
     return false;
 }
 
+bool CollisionSystem::isIntersecting(std::pair<SDL_Point, SDL_Point> line, SDL_Point center, double radius) {
+    // https://socratic.org/questions/how-do-you-find-a-general-form-equation-for-the-line-through-the-pair-of-points-
+    double m = (line.second.y - line.first.y) / (line.second.x - line.first.x);
+    double a = -1;
+    double b = 1 / m;
+    double c = line.first.x - line.first.y * m;
+
+    // https://www.geeksforgeeks.org/check-line-touches-intersects-circle/
+    int distance = abs(a * center.x + b * center.y + c) / sqrt(a * a + b * b);
+    return radius >= distance;
+}
+
 bool CollisionSystem::isInside(SDL_Point point, Hitbox hitbox) {
     auto [ul, ur, ll, lr] = hitbox; // Wizardry! 🧙‍♂️
 
@@ -267,6 +279,13 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
 
         Hitbox hitbox = rect->getHitbox();
         Hitcircle hitcircle = circle->getHitcircle();
+
+        // https://stackoverflow.com/a/402019/5661593
+        return isInside(hitcircle.center, hitbox) ||
+            isIntersecting({hitbox.ul, hitbox.ur}, hitcircle.center, hitcircle.radius) ||
+            isIntersecting({hitbox.ur, hitbox.lr}, hitcircle.center, hitcircle.radius) ||
+            isIntersecting({hitbox.lr, hitbox.ll}, hitcircle.center, hitcircle.radius) ||
+            isIntersecting({hitbox.ll, hitbox.ul}, hitcircle.center, hitcircle.radius);
 
         // Find the center of the rectangle
         // https://math.stackexchange.com/a/2878092
