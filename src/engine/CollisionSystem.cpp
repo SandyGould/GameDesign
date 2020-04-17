@@ -208,46 +208,47 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
 
         // Is either object completely inside of each other?
         // We only need to check one point because we already checked intersections above
-        const bool obj1InObj2 = isInside(obj1Hitbox.ul, obj2Hitbox);
-        const bool obj2InObj1 = isInside(obj2Hitbox.ul, obj1Hitbox);
-        return obj1InObj2 || obj2InObj1;
-    }
-
-    DisplayObject* circle;
-    DisplayObject* rect;
-    if (obj1->hitboxType == HitboxType::Circle) {
-        circle = obj1;
-        rect = obj2;
-    } else {
-        circle = obj2;
-        rect = obj1;
-    }
-
-    Hitbox hitbox = rect->getHitbox();
-    Hitcircle hitcircle = circle->getHitcircle();
-
-    // https://stackoverflow.com/questions/21089959/detecting-collision-of-rectangle-with-circle
-    // Step1- find distances between circle's center and rectangle's center.
-    double calc_width = std::sqrt(((hitbox.ur.y - hitbox.ul.y) * (hitbox.ur.y - hitbox.ul.y)) + ((hitbox.ur.x - hitbox.ul.x) * (hitbox.ur.x - hitbox.ul.x)));
-    double calc_height = std::sqrt(((hitbox.ll.y - hitbox.ul.y) * (hitbox.ll.y - hitbox.ul.y)) + ((hitbox.ll.x - hitbox.ul.x) * (hitbox.ll.x - hitbox.ul.x)));
-    // double calc_radius = std::sqrt(((hitcircle.edge.y - hitcircle.center.y) * (hitcircle.edge.y - hitcircle.center.y)) + ((hitcircle.edge.x - hitcircle.center.x) * (hitcircle.edge.x - hitcircle.center.x)));
-    double distX = abs(hitcircle.center.x - hitbox.ul.x - calc_width / 2);
-    double distY = abs(hitcircle.center.y - hitbox.ul.y - calc_height / 2);
-
-    // Step2- if distance greater than halfcircle + half rect, they're not colliding
-    if (distX > calc_width / 2 + hitcircle.radius || distY > calc_height / 2 + hitcircle.radius) {
+        return isInside(obj1Hitbox.ul, obj2Hitbox) || isInside(obj2Hitbox.ul, obj1Hitbox);
+    } else if (obj1->hitboxType == HitboxType::Circle && obj2->hitboxType == HitboxType::Circle) {
+        cout << "circle <-> circle collision detection not yet implemented" << endl;
         return false;
-    }
+    } else {
+        DisplayObject* circle;
+        DisplayObject* rect;
+        if (obj1->hitboxType == HitboxType::Circle) {
+            circle = obj1;
+            rect = obj2;
+        } else {
+            circle = obj2;
+            rect = obj1;
+        }
 
-    // step3- if distance is less than halfrect, they are colliding
-    if (distX <= calc_width / 2 || distY <= calc_height / 2) {
-        return true;
-    }
+        Hitbox hitbox = rect->getHitbox();
+        Hitcircle hitcircle = circle->getHitcircle();
 
-    // Step4- compares distance between circle and rectangle corners.
-    double dx = distX - calc_width / 2;
-    double dy = distY - calc_height / 2;
-    return dx * dx + dy * dy <= hitcircle.radius * hitcircle.radius;
+        // https://stackoverflow.com/questions/21089959/detecting-collision-of-rectangle-with-circle
+        // Step1- find distances between circle's center and rectangle's center.
+        double calc_width = std::sqrt(((hitbox.ur.y - hitbox.ul.y) * (hitbox.ur.y - hitbox.ul.y)) + ((hitbox.ur.x - hitbox.ul.x) * (hitbox.ur.x - hitbox.ul.x)));
+        double calc_height = std::sqrt(((hitbox.ll.y - hitbox.ul.y) * (hitbox.ll.y - hitbox.ul.y)) + ((hitbox.ll.x - hitbox.ul.x) * (hitbox.ll.x - hitbox.ul.x)));
+        // double calc_radius = std::sqrt(((hitcircle.edge.y - hitcircle.center.y) * (hitcircle.edge.y - hitcircle.center.y)) + ((hitcircle.edge.x - hitcircle.center.x) * (hitcircle.edge.x - hitcircle.center.x)));
+        double distX = abs(hitcircle.center.x - hitbox.ul.x - calc_width / 2);
+        double distY = abs(hitcircle.center.y - hitbox.ul.y - calc_height / 2);
+
+        // Step2- if distance greater than halfcircle + half rect, they're not colliding
+        if (distX > calc_width / 2 + hitcircle.radius || distY > calc_height / 2 + hitcircle.radius) {
+            return false;
+        }
+
+        // step3- if distance is less than halfrect, they are colliding
+        if (distX <= calc_width / 2 || distY <= calc_height / 2) {
+            return true;
+        }
+
+        // Step4- compares distance between circle and rectangle corners.
+        double dx = distX - calc_width / 2;
+        double dy = distY - calc_height / 2;
+        return dx * dx + dy * dy <= hitcircle.radius * hitcircle.radius;
+    }
 }
 
 // Resolves the collision that occurred between d and other
