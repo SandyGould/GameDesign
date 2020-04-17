@@ -2,6 +2,8 @@
 #include "Camera.h"
 #include "Game.h"
 #include <iostream>
+#include "events/TweenEvent.h"
+#include "tweens/TweenJuggler.h"
 
 Camera::Camera() : DisplayObject("camera") {
     this->type = "Camera";
@@ -102,4 +104,13 @@ void Camera::draw(AffineTransform& at) {
         child->draw(at);
     }
     reverseTransformations(at);  
+}
+
+void Camera::handleEvent(Event* e){
+    if (e->getType() == TweenEvent::TWEEN_COMPLETE_EVENT) {
+        EventDispatcher::getInstance().removeEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
+        if (((TweenEvent*) e)->getTween()->getID() == "out_transition") {
+            this->changeScene = true;
+        }
+    }
 }

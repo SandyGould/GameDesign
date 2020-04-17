@@ -68,6 +68,7 @@ public:
     int numChildren();
     DisplayObject* getChild(int index);
     DisplayObject* getChild(std::string id);
+	DisplayObject* getAndRemoveChild(std::string id);
 
 	virtual void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
 	virtual void draw(AffineTransform& at);
@@ -89,6 +90,7 @@ public:
 	Hitbox getHitbox();
     void drawHitbox(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE});
 
+	void propogateEvent(Event* e, DisplayObject* root);
 	void handleEvent(Event* e) override;
 
     bool visible = true;
@@ -125,4 +127,5 @@ private:
 
 	/* Texture currently being drawn. Equal to texture for normal DO */
 	SDL_Texture* curTexture;
+
 };

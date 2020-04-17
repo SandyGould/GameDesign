@@ -133,5 +133,3 @@ void Scene::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystick
 void Scene::draw(AffineTransform& at) {
     DisplayObject::draw(at);
 }
-
-}

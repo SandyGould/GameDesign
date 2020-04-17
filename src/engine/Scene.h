@@ -10,7 +10,8 @@
 
 #include "Sprite.h"
 #include "Camera.h"
-
+#include "events/Event.h"
+#include "events/EventListener.h"
 
 #include "enemies/Archer.h"
 #include "enemies/BaseEnemy.h"
