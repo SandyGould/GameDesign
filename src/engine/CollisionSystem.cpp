@@ -183,16 +183,26 @@ bool CollisionSystem::isIntersecting(SDL_Point p1, SDL_Point p2, SDL_Point q1, S
     return false;
 }
 
-bool CollisionSystem::isIntersecting(std::pair<SDL_Point, SDL_Point> line, SDL_Point center, double radius) {
-    // https://socratic.org/questions/how-do-you-find-a-general-form-equation-for-the-line-through-the-pair-of-points-
-    double m = (line.second.y - line.first.y) / (line.second.x - line.first.x);
-    double a = -1;
-    double b = 1 / m;
-    double c = line.first.x - line.first.y * m;
 
-    // https://www.geeksforgeeks.org/check-line-touches-intersects-circle/
-    int distance = abs(a * center.x + b * center.y + c) / sqrt(a * a + b * b);
-    return radius >= distance;
+
+bool CollisionSystem::isIntersecting(Hitcircle hitcircle, pair<SDL_Point, SDL_Point> line) {
+    // https://math.stackexchange.com/questions/275529/check-if-line-intersects-with-circles-perimeter
+    double ax = line.first.x - hitcircle.center.x;
+    double ay = line.first.y - hitcircle.center.y;
+    double bx = line.second.x - hitcircle.center.x;
+    double by = line.second.y - hitcircle.center.y;
+    double a = (bx - ax) * (bx - ax) + (by - ay) * (by - ay);
+    double b = 2 * (ax * (bx - ax) + ay * (by - ay));
+    double c = ax * ax + ay * ay - hitcircle.radius * hitcircle.radius;
+    double disc = b * b - 4 * a * c;
+    if (disc <= 0) {
+        return false;
+    }
+
+    double sqrtdisc = sqrt(disc);
+    double t1 = (-b + sqrtdisc) / (2 * a);
+    double t2 = (-b - sqrtdisc) / (2 * a);
+    return (0 < t1 && t1 < 1) || (0 < t2 && t2 < 1);
 }
 
 bool CollisionSystem::isInside(SDL_Point point, Hitbox hitbox) {
@@ -212,26 +222,6 @@ bool CollisionSystem::isInside(SDL_Point point, Hitbox hitbox) {
     int area_t4_2x = abs(point.x * (ll.y - ul.y) + ll.x * (ul.y - point.y) + ul.x * (point.y - ll.y));
 
     return area_t1_2x + area_t2_2x + area_t3_2x + area_t4_2x == area_quad_2x;
-}
-
-SDL_Point CollisionSystem::getCenter(std::pair<SDL_Point, SDL_Point> line1,
-                                     std::pair<SDL_Point, SDL_Point> line2) {
-    // https://www.geeksforgeeks.org/program-for-point-of-intersection-of-two-lines/
-    double a1 = line1.second.y - line1.first.y;
-    double b1 = line1.first.x - line1.second.x;
-    double c1 = a1 * line1.first.x + b1 * line1.first.y;
-
-    double a2 = line2.second.y - line2.first.y;
-    double b2 = line2.first.x - line2.second.x;
-    double c2 = a2 * line2.first.x + b2 * line2.first.y;
-
-    double determinant = a1 * b2 - a2 * b1;
-
-    // This crashes if determinant == 0, but that should never happen
-    // as our lines are guaranteed to intersect. I hope.
-    int x = (b2 * c1 - b1 * c2) / determinant;
-    int y = (a1 * c2 - a2 * c1) / determinant;
-    return {x, y};
 }
 
 // Returns true iff obj1 hitbox and obj2 hitbox overlap
@@ -281,31 +271,11 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
         Hitcircle hitcircle = circle->getHitcircle();
 
         return isInside(hitcircle.center, hitbox) ||
-               IntersectCircle(hitcircle.radius, hitcircle.center, hitbox.ul, hitbox.ll) ||
-               IntersectCircle(hitcircle.radius, hitcircle.center, hitbox.ul, hitbox.ur) ||
-               IntersectCircle(hitcircle.radius, hitcircle.center, hitbox.ur, hitbox.lr) ||
-               IntersectCircle(hitcircle.radius, hitcircle.center, hitbox.ll, hitbox.lr);
+               isIntersecting(hitcircle, {hitbox.ul, hitbox.ll}) ||
+               isIntersecting(hitcircle, {hitbox.ul, hitbox.ur}) ||
+               isIntersecting(hitcircle, {hitbox.ur, hitbox.lr}) ||
+               isIntersecting(hitcircle, {hitbox.ll, hitbox.lr});
     }
-}
-
-bool CollisionSystem::IntersectCircle(double rad, SDL_Point p_c, SDL_Point p1, SDL_Point p2) {
-    // https://math.stackexchange.com/questions/275529/check-if-line-intersects-with-circles-perimeter
-    double ax = p1.x - p_c.x;
-    double ay = p1.y - p_c.y;
-    double bx = p2.x - p_c.x;
-    double by = p2.y - p_c.y;
-    double a = (bx - ax) * (bx - ax) + (by - ay) * (by - ay);
-    double b = 2 * (ax * (bx - ax) + ay * (by - ay));
-    double c = ax * ax + ay * ay - rad * rad;
-    double disc = b * b - 4 * a * c;
-    if (disc <= 0) {
-        return false;
-    }
-
-    double sqrtdisc = sqrt(disc);
-    double t1 = (-b + sqrtdisc) / (2 * a);
-    double t2 = (-b - sqrtdisc) / (2 * a);
-    return (0 < t1 && t1 < 1) || (0 < t2 && t2 < 1);
 }
 
 // Resolves the collision that occurred between d and other
