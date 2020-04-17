@@ -20,7 +20,7 @@ EnvironmentObject::~EnvironmentObject(){
 	
 }
 
-void EnvironmentObject::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){
+void EnvironmentObject::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
 	DisplayObject::update(pressedKeys, joystickState, pressedButtons);
 }
 

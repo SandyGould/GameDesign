@@ -26,7 +26,7 @@ Scene::Scene(std::string id) : DisplayObject(id) {
 // }
 
 	/* Load scene from a file */
-void Scene::loadScene_Editor(std::string sceneFilePath){
+void Scene::loadScene(std::string sceneFilePath){
     std::ifstream i(sceneFilePath);
     json j;
     i >> j;
@@ -83,7 +83,7 @@ DisplayObject* Scene::setBasicInfo(DisplayObject* d_obj, json j){
     d_obj->scaleX = j["scaleX"];
     d_obj->scaleY = j["scaleY"];
     return d_obj;
-
+}
 /*
 // Load all objects as DisplayObjects, Sprites, and AnimatedSprites
 void Scene::loadScene(std::string sceneFilePath){

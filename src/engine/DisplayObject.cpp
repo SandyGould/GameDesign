@@ -9,6 +9,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <iostream>
 
 DisplayObject::DisplayObject(const std::string& id) {
     this->id = id;

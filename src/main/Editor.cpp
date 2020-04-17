@@ -36,7 +36,7 @@ Editor::Editor(const string& sceneToLoad)
     camera->pivot = {this->windowWidth / 2, this->windowHeight / 2};
     instance->addChild(camera);
 
-    curScene->loadScene_Editor(sceneToLoad);
+    curScene->loadScene(sceneToLoad);
     
     for (auto* layer : curScene->children) {
         ((Layer*) layer)->cam = camera;
