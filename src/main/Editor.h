@@ -86,6 +86,8 @@ private:
 
 	unordered_set<SDL_Scancode> prevKeys;
 
+	unordered_set<string> entityTypes;
+
     // Oh boy
     unordered_map<DisplayObject*, double> displacementX;
     unordered_map<DisplayObject*, double> displacementY;

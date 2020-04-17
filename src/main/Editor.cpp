@@ -129,6 +129,8 @@ Editor::Editor(const string& sceneToLoad)
     edit->addChild(layerOneIndicator);
     edit->addChild(layerTwoIndicator);
 
+    entityTypes = {"arrow", "mage_attack", "poison_bomb", "rubber_cannonball", "archer", "cannoneer", "knight", "mage", "master_archer", "ogre", "poisoner", "roar_monster", "rubber_cannoneer", "second_boss"};
+
     setupfiles("./resources/assets");
 }
 
@@ -152,21 +154,27 @@ void Editor::setupfiles(const string& path) {
         aSprites[i]->position.x = i % 2 == 0 ? 0 : 150;
         aSprites[i]->position.y = (i / 2) * 150;
         aSprites[i]->scaleHeight(150);
-        aSprites[i]->saveType = aSprites[i]->id;
+        if (entityTypes.find(aSprites[i]->id) != entityTypes.end()){
+            aSprites[i]->saveType = aSprites[i]->id;
+        }
         assets->addChild(aSprites[i]);
     }
     for (int i = 0; i < dos.size(); ++i) {
         dos[i]->position.x = (i + aSprites.size()) % 2 == 0 ? 0 : 150;
         dos[i]->position.y = ((i + aSprites.size()) / 2) * 150;
         dos[i]->scaleHeight(150);
-        dos[i]->saveType = dos[i]->id;
+        if (entityTypes.find(dos[i]->id) != entityTypes.end()){
+            dos[i]->saveType = dos[i]->id;
+        }
         assets->addChild(dos[i]);
     }
     for (int i = 0; i < sprites.size(); ++i) {
         sprites[i]->position.x = (i + aSprites.size() + dos.size()) % 2 == 0 ? 0 : 150;
         sprites[i]->position.y = ((i + aSprites.size() + dos.size()) / 2) * 150;
         sprites[i]->scaleHeight(150);
-        sprites[i]->saveType = sprites[i]->id;
+        if (entityTypes.find(aSprites[i]->id) != entityTypes.end()){
+            sprites[i]->saveType = sprites[i]->id;
+        }
         assets->addChild(sprites[i]);
     }
 }
