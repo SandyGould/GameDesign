@@ -6,8 +6,6 @@
 #include <fstream>
 #include <iostream>
 #include "json.hpp"
-#include "events/NewSceneEvent.h"
-#include "tweens/TweenJuggler.h"
 using json = nlohmann::json;
 
 using namespace std;
@@ -148,22 +146,4 @@ void Scene::setCameraRef(Camera* camera){
             temp_layer->cam = camera;
         }
     }
-}
-
-void Scene::handleEvent(Event* e){
-	if (e->getType() == NewSceneEvent::OUT_SCENE_EVENT){
-		EventDispatcher::getInstance().removeEventListener(this, NewSceneEvent::OUT_SCENE_EVENT);
-        Tween * start_transition = new Tween("start_transition", this);
-		start_transition->animate(TweenableParams::SCALE_X, 1, 0, 100, TweenParam::EASE_IN);
-		start_transition->animate(TweenableParams::SCALE_Y, 1, 0, 100, TweenParam::EASE_IN);
-		TweenJuggler::getInstance().add(start_transition);
-	}
-    if (e->getType() == NewSceneEvent::IN_SCENE_EVENT){
-        EventDispatcher::getInstance().removeEventListener(this, NewSceneEvent::IN_SCENE_EVENT);
-        Tween * start_transition = new Tween("start_transition", this);
-		start_transition->animate(TweenableParams::SCALE_X, 1, 0, 100, TweenParam::EASE_IN);
-		start_transition->animate(TweenableParams::SCALE_Y, 1, 0, 100, TweenParam::EASE_IN);
-		TweenJuggler::getInstance().add(start_transition);
-	}
-    // define other scene transitions here if we want them!
 }

@@ -114,8 +114,15 @@ Rooms::Rooms() : Game(600, 500) {
 
     TweenJuggler::getInstance().add(player_tween);
     EventDispatcher::getInstance().addEventListener(this->start_text_box, TweenEvent::TWEEN_COMPLETE_EVENT);
-	EventDispatcher::getInstance().addEventListener(this->scene, NewSceneEvent::OUT_SCENE_EVENT);
-	EventDispatcher::getInstance().addEventListener(this->scene2, NewSceneEvent::IN_SCENE_EVENT);
+	EventDispatcher::getInstance().addEventListener(this->scene, NewSceneEvent::FADE_OUT_EVENT);
+	EventDispatcher::getInstance().addEventListener(this->scene2, NewSceneEvent::FADE_IN_EVENT);
+
+
+	// create collision system
+	this->collisionSystem = new CollisionSystem();
+	//EventDispatcher::getInstance().addEventListener(this->collisionSystem, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
+	// set collisions between player and all environmental objects
+	this->collisionSystem->watchForCollisions("player", "env_object");
 }
 
 Rooms::~Rooms() {
@@ -157,14 +164,14 @@ void Rooms::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystick
 			}
 		}
 		if (player->position.x > 1231) {
-			//EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::OUT_SCENE_EVENT));
+			//EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_OUT_EVENT));
 			scene2->addChild(player);
 			//camera->removeImmediateChild(scene);
 			scene2->setCameraRef(camera);
 			// set new parameters for next scene
 			camera->addChild(scene2);
 			camera->setRightLimit(810);
-			//EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::IN_SCENE_EVENT));
+			//EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_IN_EVENT));
 			player->position = {50, 250};
 			this->room = 2;
 		}

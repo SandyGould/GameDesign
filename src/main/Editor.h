@@ -22,7 +22,7 @@
 
 using namespace std;
 
-class Editor : public Game, public EventListener {
+class Editor : public Game {
 public:
 	Editor();
 	Editor(const string& sceneToLoad);
