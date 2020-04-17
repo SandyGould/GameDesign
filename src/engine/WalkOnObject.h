@@ -14,7 +14,7 @@ public:
 	WalkOnObject(const DisplayObject& other);
 	virtual ~WalkOnObject();
 
-	void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons);
+	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons);
 	void draw(AffineTransform& at) override;
 
 	bool onCollision(DisplayObject* other) override;
