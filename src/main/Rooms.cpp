@@ -38,27 +38,6 @@ Rooms::Rooms() : Game(600, 500) {
 
 	instance->addChild(camera);
 
-	// load and prep scene 1
-	room = 1;
-	scene = new Scene();
-	scene->loadScene("./resources/Rebound/area1/area1map.json");
-	scene->setCameraRef(camera);
-	camera->addChild(scene);
-	// set types of children (for collisions)
-	// scene->getChild("L0")->getChild("stone")->type = "env_object";
-	// scene->getChild("L0")->getChild("sign")->type = "env_object";
-	// scene->getChild("L0")->getChild("top_trees")->type = "env_object";
-	// scene->getChild("L0")->getChild("bottom_trees")->type = "env_object";
-
-	// load and prep scene 2
-	scene2 = new Scene();
-	scene2->loadScene("./resources/Rebound/area2/area2map.json");
-	//scene2->setCameraRef(camera);
-	//camera->addChild(scene2);
-	// set types of children (for collisions)
-	// scene2->getChild("L0")->getChild("structure1")->type = "env_object";
-	// scene2->getChild("L0")->getChild("structure2")->type = "env_object";
-	// scene2->getChild("L0")->getChild("barrel")->type = "env_object";
 
 	// load and prep player
 	player = new Player();
@@ -67,6 +46,29 @@ Rooms::Rooms() : Game(600, 500) {
 	player->width = player->height = 50;
 	player->pivot = {50, 50};
 	//player->type = "player";
+
+	// load and prep scene 1
+	room = 1;
+	scene = new Scene(camera, player);
+	scene->loadScene("./resources/Rebound/area1/area1map.json");
+
+	camera->addChild(scene);
+	// set types of children (for collisions)
+	// scene->getChild("L0")->getChild("stone")->type = "env_object";
+	// scene->getChild("L0")->getChild("sign")->type = "env_object";
+	// scene->getChild("L0")->getChild("top_trees")->type = "env_object";
+	// scene->getChild("L0")->getChild("bottom_trees")->type = "env_object";
+
+	// load and prep scene 2
+	scene2 = new Scene(camera, player);
+	scene2->loadScene("./resources/Rebound/area2/area2map.json");
+	//scene2->setCameraRef(camera);
+	//camera->addChild(scene2);
+	// set types of children (for collisions)
+	// scene2->getChild("L0")->getChild("structure1")->type = "env_object";
+	// scene2->getChild("L0")->getChild("structure2")->type = "env_object";
+	// scene2->getChild("L0")->getChild("barrel")->type = "env_object";
+
 	scene->addChild(player);
 
 	// start text box
@@ -160,7 +162,7 @@ void Rooms::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystick
 			//EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::OUT_SCENE_EVENT));
 			scene2->addChild(player);
 			//camera->removeImmediateChild(scene);
-			scene2->setCameraRef(camera);
+			// scene2->setCameraRef(camera);
 			// set new parameters for next scene
 			camera->addChild(scene2);
 			camera->setRightLimit(810);

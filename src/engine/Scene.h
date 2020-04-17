@@ -1,12 +1,32 @@
 #pragma once
 
+#include "things/Player.h"
 #include "DisplayObject.h"
 #include "AnimatedSprite.h"
+
+#include "EnvironmentObject.h"
+#include "WalkOnObject.h"
+#include "HitObject.h"
+
 #include "Sprite.h"
 #include "Camera.h"
 #include "events/Event.h"
 #include "events/EventListener.h"
 
+#include "enemies/Archer.h"
+#include "enemies/BaseEnemy.h"
+#include "enemies/Cannoneer.h"
+#include "enemies/KingdomArcher.h"
+#include "enemies/KingdomMage.h"
+#include "enemies/Knight.h"
+#include "enemies/Mage.h"
+#include "enemies/MasterArcher.h"
+#include "enemies/Ogre.h"
+#include "enemies/Orc.h"
+#include "enemies/Poisoner.h"
+#include "enemies/RoarMonster.h"
+#include "enemies/RubberCannoneer.h"
+#include "enemies/SecondBoss.h"
 
 #include "json.hpp"
 
@@ -20,6 +40,7 @@ class Scene : public DisplayObject, public EventListener {
 
 public:
 	Scene();
+	Scene(Camera* camera, Player* player);
 	explicit Scene(std::string id);
 	// ~Scene() override;
 
@@ -30,16 +51,15 @@ public:
 
 	void update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) override;
 	void draw(AffineTransform& at) override;
-	void setCameraRef(Camera* camera);
 
-	DisplayObject* generateDO(json j);
-	AnimatedSprite* generateAS(json j);
-	Sprite* generateSprite(json j);
+	DisplayObject* setBasicInfo(DisplayObject* d_obj, json j);
 
 	// for scene transitions
 	void handleEvent(Event* e) override;
 	bool keepScene = false;
-	
+	Player* player;
+	Camera* camera;
+
 private:
 	DisplayObject* root;
 

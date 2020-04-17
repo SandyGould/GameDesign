@@ -89,7 +89,7 @@ public:
 
     bool visible = true;
     SDL_Point position = {0, 0};
-    SDL_Point orig_position = {0, 0}; // Used for parallaxing (in Layer.cpp)
+    // SDL_Point orig_position = {0, 0}; // Used for parallaxing (in Layer.cpp)
 
     SDL_Point hitcircle_center = {0,0};
 
