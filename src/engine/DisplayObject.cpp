@@ -457,16 +457,17 @@ void DisplayObject::setSurface(SDL_Surface* s) {
 }
 
 void DisplayObject::propogateEvent(Event* e, DisplayObject* root) {
+
     if (e->getType() == NewSceneEvent::FADE_OUT_EVENT){
         EventDispatcher::getInstance().removeEventListener(root, NewSceneEvent::FADE_OUT_EVENT);
         for (auto* child : root->children) {    
             propogateEvent(e, child);
         }
-        std::cout << "hi" << std::endl;
         Tween* out_transition = new Tween("out_transition", root);
 		out_transition->animate(TweenableParams::ALPHA, 255, 0, 200, TweenParam::EASE_IN);
 		TweenJuggler::getInstance().add(out_transition);
     }
+
     if (e->getType() == NewSceneEvent::FADE_IN_EVENT){
         EventDispatcher::getInstance().removeEventListener(root, NewSceneEvent::FADE_IN_EVENT);
         for (auto* child : root->children) {    
@@ -476,9 +477,23 @@ void DisplayObject::propogateEvent(Event* e, DisplayObject* root) {
 		in_transition->animate(TweenableParams::ALPHA, 0, 255, 200, TweenParam::EASE_IN);
 		TweenJuggler::getInstance().add(in_transition);
 	}
+
 }
 
 void DisplayObject::handleEvent(Event* e){
+    // once tween is done, delete scene
+    if (e->getType() == TweenEvent::TWEEN_COMPLETE_EVENT) {
+        if (((TweenEvent*) e)->getTween()->getID() == "out_transition") {
+            if (this->type == "Scene") {
+                EventDispatcher::getInstance().removeEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
+                for (auto* child : children) {
+                    this->removeImmediateChild(child);
+                }
+                this->parent->removeImmediateChild(this);
+            }
+        }
+    }
+    // scale out event
     if (e->getType() == NewSceneEvent::SCALE_OUT_EVENT) {
         EventDispatcher::getInstance().removeEventListener(this, NewSceneEvent::SCALE_OUT_EVENT);
         double curScaleX = this->scaleX;
@@ -488,6 +503,7 @@ void DisplayObject::handleEvent(Event* e){
 		out_transition->animate(TweenableParams::SCALE_Y, curScaleY, 0, 200, TweenParam::EASE_IN);
 		TweenJuggler::getInstance().add(out_transition);
     }
+    // scale in event
     if (e->getType() == NewSceneEvent::SCALE_IN_EVENT) {
         EventDispatcher::getInstance().removeEventListener(this, NewSceneEvent::SCALE_IN_EVENT);
         Tween* in_transition = new Tween("in_transition", this);
@@ -495,7 +511,8 @@ void DisplayObject::handleEvent(Event* e){
 		in_transition->animate(TweenableParams::SCALE_Y, 0, 1, 200, TweenParam::EASE_IN);
 		TweenJuggler::getInstance().add(in_transition);
     }
-    else {
+    // scale in event
+    if (e->getType() == NewSceneEvent::FADE_IN_EVENT || e->getType() == NewSceneEvent::FADE_OUT_EVENT) {
         propogateEvent(e, this);
     }
 
