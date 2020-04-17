@@ -9,6 +9,7 @@
 
 DisplayObject::DisplayObject(std::string id) {
     this->id = id;
+    this->saveType = this->type;
 
     this->renderer = Game::renderer;
 
@@ -74,6 +75,7 @@ DisplayObject::DisplayObject(const DisplayObject& other) {
     // back_inserter(static_cast<DisplayObjectContainer*>(this)->collisionList));
     this->id = other.id + "_copy";
     this->imgPath = other.imgPath;
+    this->saveType = other.saveType;
     this->loadTexture(this->imgPath, Game::renderer);
 }
 
@@ -291,6 +293,16 @@ void DisplayObject::updateSourceRect(SDL_Rect* s)
     sourceRect->y = s->y;
     sourceRect->h = s->h;
     sourceRect->w = s->w;
+}
+
+void DisplayObject::scaleHeight(int h){
+    double ratio = (double) h / (double) height;
+    this->scaleX = ratio;
+    this->scaleY = ratio;
+}
+
+void DisplayObject::scaleWidth(int w){
+
 }
 
 int DisplayObject::getWidth() {

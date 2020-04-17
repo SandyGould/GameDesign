@@ -8,6 +8,7 @@
 
 Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites/Player/Player.png", "./resources/assets/Animated_Sprites/Player/Player.xml") {
     type = "player";
+    this->saveType = this->type;
     hasCollision = true;
 
     history = new std::unordered_set<SDL_Scancode> [HISTORY_SIZE];

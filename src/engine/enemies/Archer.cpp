@@ -21,6 +21,7 @@ Archer::Archer(Player* player): BaseEnemy("Archer", "./resources/assets/Display_
     this->state = 0;
     this->facingRight=true;
     this->type = "archer";
+    this->saveType = this->type;
     this->actionFrames = 12;
     this->arrow = nullptr;
 }

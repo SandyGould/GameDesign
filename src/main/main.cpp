@@ -1,6 +1,7 @@
 #include "Editor.h"
 #include "Rebound.h"
 #include "demos/CollisionDemo.h"
+#include "demos/LoadSceneDemo.h"
 #include "Rooms.h"
 
 #include <iostream>
@@ -24,7 +25,10 @@ int main(int argc, char** argv) {
                 if (demo == "collision") {
                     CollisionDemo* demo = new CollisionDemo();
                     demo->start();
-                } else {
+                } else if (demo == "load_scene"){
+					LoadSceneDemo* demo = new LoadSceneDemo();
+					demo->start();
+				} else {
                     cout << "Unknown demo!" << endl;
                 }
             }

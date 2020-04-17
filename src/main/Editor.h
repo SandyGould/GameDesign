@@ -4,6 +4,7 @@
 #include "../engine/CollisionSystem.h"
 #include "../engine/Game.h"
 #include "../engine/Scene.h"
+#include "../engine/Layer.h"
 #include "../engine/TextObject.h"
 #include "../engine/events/EventListener.h"
 #include "../engine/events/MouseDownEvent.h"

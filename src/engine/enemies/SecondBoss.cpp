@@ -1,6 +1,8 @@
 #include "SecondBoss.h"
 #include <iostream>
-SecondBoss::SecondBoss(Player* player): BaseEnemy("SecondBoss", "./resources/assets/Display_Objects/second_boss.png", "", player){
+SecondBoss::SecondBoss(Player* player): BaseEnemy("SecondBoss", "./resources/assets/Display_Objects/second_boss/second_boss.png", "", player){
+    this->type = "second_boss";
+    this->saveType = this->type;
 }
 
 void SecondBoss::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons){

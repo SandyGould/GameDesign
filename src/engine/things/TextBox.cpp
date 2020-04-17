@@ -23,6 +23,7 @@ TextBox::TextBox(string id, string text, TTF_Font* font) : TextBox(id, text, fon
 
 TextBox::TextBox(string id, string text, TTF_Font* font, SDL_Renderer* renderer) : DisplayObject(id) {
     this->type = "TextObject";
+	this->saveType = this->type;
 
     this->text = text;
 
