@@ -208,8 +208,8 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 
     TweenJuggler::getInstance().nextFrame();
 	Game::update(pressedKeys, joystickState, pressedButtons);
-	camera->follow(player->position.x, player->position.y);
-	this->collisionSystem->update();
+    this->collisionSystem->update();
+    camera->follow(player->position.x, player->position.y);
 }
 
 void Rooms::draw(AffineTransform& at) {
