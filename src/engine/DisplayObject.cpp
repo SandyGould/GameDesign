@@ -287,7 +287,7 @@ void DisplayObject::reverseTransformations(AffineTransform& at) const {
 
 void DisplayObject::updateSourceRect(SDL_Rect* s)
 {
-    if (!sourceRect){
+    if (sourceRect == nullptr) {
         sourceRect = new SDL_Rect();
     }
     sourceRect->x = s->x;
@@ -325,7 +325,7 @@ void DisplayObject::getGlobalTransform(AffineTransform& at) const {
 // Override this method to handle collisions by yourself
 // instead of relying on CollisionSystem's default collision resolution
 // (which is just to move the objects so they're not colliding)
-bool DisplayObject::onCollision(DisplayObject* other) {
+bool DisplayObject::onCollision(DisplayObject*  /*other*/) {
     return false;
 }
 
@@ -422,7 +422,7 @@ double DisplayObject::calculateRotation(SDL_Point& origin, SDL_Point& p) {
 }
 
 void DisplayObject::setSurface(SDL_Surface* s) {
-    if (this->image){
+    if (this->image != nullptr) {
         SDL_FreeSurface(this->image);
     }
     this->image = s;
