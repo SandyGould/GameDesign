@@ -34,8 +34,8 @@ void CollisionSystem::update() {
         if(object1 == NULL || object2 == NULL){
             continue;
         }
-        SDL_Point obj1Position = object1->getHitbox().ul;
-        SDL_Point obj2Position = object2->getHitbox().ul;
+        SDL_Point obj1Position = object1->position;
+        SDL_Point obj2Position = object2->position;
 
         if(prevPositions.find(object1) == prevPositions.end() || prevPositions.find(object2) == prevPositions.end()){
             continue;
@@ -67,7 +67,7 @@ void CollisionSystem::update() {
         if(object == NULL){
             continue;
         }
-        prevPositions.at(object) = object->getHitbox().ul;
+        prevPositions.at(object) = object->position;
     }
 }
 
@@ -149,8 +149,8 @@ void CollisionSystem::pairObjectWithType(DisplayObject* object, const string& ty
         }
 
         // Keep track of positions for collision deltas
-        prevPositions.try_emplace(object, object->getHitbox().ul);
-        prevPositions.try_emplace(object2, object2->getHitbox().ul);
+        prevPositions.try_emplace(object, object->position);
+        prevPositions.try_emplace(object2, object2->position);
     }
 }
 
