@@ -337,7 +337,7 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
 
 bool CollisionSystem::IntersectCircle(double rad, SDL_Point p_c, SDL_Point p1, SDL_Point p2)
 {
-    https://math.stackexchange.com/questions/275529/check-if-line-intersects-with-circles-perimeter
+    // https://math.stackexchange.com/questions/275529/check-if-line-intersects-with-circles-perimeter
 	double ax = p1.x - p_c.x;
     double ay = p1.y - p_c.y;
     double bx = p2.x-p_c.x;
