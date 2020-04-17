@@ -46,13 +46,10 @@ bool BaseEnemy::onCollision(DisplayObject* other){
 }
 
 void BaseEnemy::cleanUp(){
-        /*for(DisplayObject* object: children){
+        for(DisplayObject* object: children){
             this->removeImmediateChild(object);
         }
-        this->removeThis();*/
-        //this->parent->removeImmediateChildWithoutDelete(this);
+        //this->visible= false;
         //this->state = -1;
-        this->visible = false;
-        this->state = -1;
-        return;
+        this->removeThis();
 }

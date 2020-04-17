@@ -27,7 +27,7 @@ Rebound::Rebound() : Game(1200, 800) {
 	player->shield->visible = true;
 	allSprites->addChild(player);
 
-	/*mage = new Mage(player);
+	mage = new Mage(player);
 	mage->position = {400, 400};
 	mage->height = 80;
 	mage->width = 70;
@@ -47,7 +47,7 @@ Rebound::Rebound() : Game(1200, 800) {
     ogre->width = 150;
 	ogre->play("OgreIdle");
 
-    allSprites->addChild(ogre);*/
+    allSprites->addChild(ogre);
 
 	masterArcher = new MasterArcher(player);
     masterArcher-> position = {500,500};
@@ -56,7 +56,7 @@ Rebound::Rebound() : Game(1200, 800) {
 
     allSprites->addChild(masterArcher);
 
-	roarMonster = new RoarMonster(player);
+	/*roarMonster = new RoarMonster(player);
 	roarMonster-> position = {100, 100};
 	roarMonster->height = 80;
 	roarMonster->width = 70;
@@ -70,7 +70,7 @@ Rebound::Rebound() : Game(1200, 800) {
 
 	allSprites->addChild(knight);
 
-	cannoneer = new Cannoneer(player);
+	/*cannoneer = new Cannoneer(player);
 	cannoneer->position = {500,100};
 	cannoneer->height = 80;
 	cannoneer->width = 70;
@@ -89,35 +89,22 @@ Rebound::Rebound() : Game(1200, 800) {
 	kingdomArcher->height= 80;
 	kingdomArcher->width=80;
 
-	allSprites->addChild(kingdomArcher);
+	allSprites->addChild(kingdomArcher);*/
 
-	poisoner = new Poisoner(player);
-	poisoner->position = {750,750};
-	poisoner->height = 80;
-	poisoner->width = 70;
-
-	allSprites->addChild(poisoner);
-
-	orc = new Orc(player);
-	orc->position = {150, 150};
-	orc->height = 80;
-	orc->width = 70;
-
-	allSprites->addChild(orc);
-
-	kingdomMage = new KingdomMage(player);
+// 
+	/*kingdomMage = new KingdomMage(player);
 	kingdomMage->position = {350,350};
 	kingdomMage->height = 80;
 	kingdomMage->width = 70;
 
-	allSprites->addChild(kingdomMage);
+	allSprites->addChild(kingdomMage);*/
 
-	secondBoss = new SecondBoss(player);
-	secondBoss->position = {600,600};
-	secondBoss->height = 100;
-	secondBoss->width = 100;
+	// secondBoss = new SecondBoss(player);
+	// secondBoss->position = {600,600};
+	// secondBoss->height = 100;
+	// secondBoss->width = 100;
 
-	allSprites->addChild(secondBoss);
+	// allSprites->addChild(secondBoss);
 
 	collisionSystem->watchForCollisions("player", "arrow");
 	collisionSystem->watchForCollisions("player", "poison_bomb");
@@ -137,17 +124,17 @@ Rebound::Rebound() : Game(1200, 800) {
 	collisionSystem->watchForCollisions("enemy", "rubber_cannonball");
 	collisionSystem->watchForCollisions("enemy", "poison_bomb");
 
-	collisionSystem->watchForCollisions("knight", "arrow");
-	collisionSystem->watchForCollisions("knight", "mage_attack");
-	collisionSystem->watchForCollisions("knight", "cannonball");
-	collisionSystem->watchForCollisions("knight", "rubber_cannonball");
-	collisionSystem->watchForCollisions("knight", "poison_bomb");
+	// collisionSystem->watchForCollisions("knight", "arrow");
+	// collisionSystem->watchForCollisions("knight", "mage_attack");
+	// collisionSystem->watchForCollisions("knight", "cannonball");
+	// collisionSystem->watchForCollisions("knight", "rubber_cannonball");
+	// collisionSystem->watchForCollisions("knight", "poison_bomb");
 
-	collisionSystem->watchForCollisions("ogre", "arrow");
-	collisionSystem->watchForCollisions("ogre", "mage_attack");
-	collisionSystem->watchForCollisions("ogre", "cannonball");
-	collisionSystem->watchForCollisions("ogre", "rubber_cannonball");
-	collisionSystem->watchForCollisions("ogre", "poison_bomb");	
+	// collisionSystem->watchForCollisions("ogre", "arrow");
+	// collisionSystem->watchForCollisions("ogre", "mage_attack");
+	// collisionSystem->watchForCollisions("ogre", "cannonball");
+	// collisionSystem->watchForCollisions("ogre", "rubber_cannonball");
+	// collisionSystem->watchForCollisions("ogre", "poison_bomb");	
 }
 
 Rebound::~Rebound() {

@@ -20,6 +20,7 @@ class MasterArcher: public BaseEnemy{
         double goalAngle;
         SDL_Point target;
         Projectile* arrowParent;
+        std::vector<Arrow *> arrows;
         Arrow* arrow1;
         Arrow* arrow2;
         Arrow* arrow3;
