@@ -16,10 +16,10 @@ CollisionDemo::CollisionDemo() : Game(1200, 800) {
     this->player = new Player();
     this->player->visible = false;
 
-    this->scene = new Scene();
-    this->scene->p = this->player;
+    this->scene = new Scene(camera, player);
+    // this->scene->p = this->player;
     this->scene->loadScene("./resources/cameraDemo/loadScene.json");
-    this->scene->setCameraRef(camera);
+    // this->scene->setCameraRef(camera);
 
     this->camera->addChild(this->scene);
 
