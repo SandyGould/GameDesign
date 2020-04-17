@@ -55,6 +55,10 @@ Rooms::Rooms() : Game(600, 500) {
 
 	camera->addChild(scene);
 
+	// load and prep scene 2
+	scene2 = new Scene(camera, player);
+	scene2->loadScene("./resources/Rebound/area2/area2map.json");
+
 	scene->addChild(player);
 
 	// start text box
@@ -105,6 +109,7 @@ Rooms::Rooms() : Game(600, 500) {
 	EventDispatcher::getInstance().addEventListener(this->scene, NewSceneEvent::FADE_OUT_EVENT);
 	EventDispatcher::getInstance().addEventListener(this->scene, TweenEvent::TWEEN_COMPLETE_EVENT);
 	EventDispatcher::getInstance().addEventListener(this->camera, TweenEvent::TWEEN_COMPLETE_EVENT);
+	EventDispatcher::getInstance().addEventListener(this->scene2, NewSceneEvent::FADE_IN_EVENT);
 }
 
 Rooms::~Rooms() {
@@ -123,14 +128,6 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 			EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_OUT_EVENT));
 			if (camera->changeScene) {
 				// setup camera
-				// load and prep scene 2
-				player = new Player();
-				scene2 = new Scene(camera, player);
-				scene2->loadScene("./resources/Rebound/area2/area2map.json");
-				if (!EventDispatcher::getInstance().hasEventListener(this->scene2, NewSceneEvent::FADE_IN_EVENT)) {
-					EventDispatcher::getInstance().addEventListener(this->scene2, NewSceneEvent::FADE_IN_EVENT);
-				}
-
 				camera->addChild(scene2);
 				camera->setRightLimit(300);
 				camera->setTopLimit(0);
@@ -277,11 +274,7 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
     TweenJuggler::getInstance().nextFrame();
 	Game::update(pressedKeys, joystickState, pressedButtons);
 	camera->follow(player->position.x, player->position.y);
-	player->slowed = false; // Reset slowness
 	this->collisionSystem->update();
-	if(!player->slowed){
-		player->speed = 4;
-	}
 }
 
 void Rooms::draw(AffineTransform& at) {
