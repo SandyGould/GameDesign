@@ -45,10 +45,10 @@ Rooms::Rooms() : Game(600, 500) {
 	scene->setCameraRef(camera);
 	camera->addChild(scene);
 	// set types of children (for collisions)
-	scene->getChild("L0")->getChild("stone")->type = "env_object";
-	scene->getChild("L0")->getChild("sign")->type = "env_object";
-	scene->getChild("L0")->getChild("top_trees")->type = "env_object";
-	scene->getChild("L0")->getChild("bottom_trees")->type = "env_object";
+	// scene->getChild("L0")->getChild("stone")->type = "env_object";
+	// scene->getChild("L0")->getChild("sign")->type = "env_object";
+	// scene->getChild("L0")->getChild("top_trees")->type = "env_object";
+	// scene->getChild("L0")->getChild("bottom_trees")->type = "env_object";
 
 	// load and prep scene 2
 	scene2 = new Scene();
@@ -56,9 +56,9 @@ Rooms::Rooms() : Game(600, 500) {
 	//scene2->setCameraRef(camera);
 	//camera->addChild(scene2);
 	// set types of children (for collisions)
-	scene2->getChild("L0")->getChild("structure1")->type = "env_object";
-	scene2->getChild("L0")->getChild("structure2")->type = "env_object";
-	scene2->getChild("L0")->getChild("barrel")->type = "env_object";
+	// scene2->getChild("L0")->getChild("structure1")->type = "env_object";
+	// scene2->getChild("L0")->getChild("structure2")->type = "env_object";
+	// scene2->getChild("L0")->getChild("barrel")->type = "env_object";
 
 	// load and prep player
 	player = new Player();
@@ -130,10 +130,10 @@ Rooms::~Rooms() {
 void Rooms::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
 	this->collisionSystem->update();
 
-	std::cout << "x" << std::endl;
-	std::cout << player->position.x << std::endl;
-	std::cout << "y" << std::endl;
-	std::cout << player->position.y << std::endl;
+	// std::cout << "x" << std::endl;
+	// std::cout << player->position.x << std::endl;
+	// std::cout << "y" << std::endl;
+	// std::cout << player->position.y << std::endl;
 
 
 	// scene 1 controls
