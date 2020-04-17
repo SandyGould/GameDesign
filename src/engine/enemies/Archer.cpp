@@ -30,8 +30,7 @@ void Archer::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystic
         this->clean = true;
     }
     if(this->clean){
-        this->visible = false;
-        //work this out later.
+        cleanUp();
     }
 
     if(this->state == 0){
@@ -97,6 +96,5 @@ bool Archer::onCollision(DisplayObject* other){
      if(other == arrow){
          return true;
      }
-    std::cout<<"collide?";
     return BaseEnemy::onCollision(other);
 }

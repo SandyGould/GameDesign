@@ -6,6 +6,7 @@ MageAttack::MageAttack() : Projectile("mage_attack", "./resources/assets/Animate
     this->width = 30;
     this->height= 30;
     this->type = "mage_attack";
+    std::cout<<"Create\n";
 };
 
 void MageAttack::fire(){

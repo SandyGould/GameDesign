@@ -9,6 +9,9 @@
 //to be checked (via a single call to watchForCollisions) below.
 void CollisionSystem::update() {
     for (auto& [object1, object2] : collisionPairs) {
+        if(object1 == NULL || object2 == NULL){
+            continue;
+        }
         SDL_Point obj1Position = object1->getHitbox().ul;
         SDL_Point obj2Position = object2->getHitbox().ul;
 
@@ -39,6 +42,9 @@ void CollisionSystem::update() {
 
     // Update previous positions
     for (auto& [object, _] : prevPositions) {
+        if(object == NULL){
+            continue;
+        }
         prevPositions.at(object) = object->getHitbox().ul;
     }
 }

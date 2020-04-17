@@ -1,4 +1,5 @@
 #include "BaseEnemy.h"
+#include <iostream>
 
 BaseEnemy::BaseEnemy(std::string id, std::string spritesheet, std::string xml, Player* player) : AnimatedSprite(id, spritesheet, xml){
     hasCollision=true;
@@ -21,6 +22,7 @@ bool BaseEnemy::onCollision(DisplayObject* other){
      if(other->type == "mage_attack" || other->type == "arrow"){
         this->changeHealth(-20);
         //other->removeThis();
+        std::cout<<"God help me\n";
         return true;
     }
     if(other->type == "rubber_cannonball" || other->type == "cannonball"){
@@ -41,4 +43,12 @@ bool BaseEnemy::onCollision(DisplayObject* other){
         }
     }
     return false;
+}
+
+void BaseEnemy::cleanUp(){
+        for(DisplayObject* object: children){
+            this->removeImmediateChild(object);
+        }
+        this->removeThis();
+        return;
 }

@@ -17,11 +17,11 @@ Reload
 Ded
 */
 void Mage::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) {
-   if(this->health ==0){
+   if(this->health <=0){
         this->clean = true;
     }
     if(this->clean){
-        //cleanup
+        this->cleanUp();
     }
 
     if(this->state == 0){
@@ -33,8 +33,10 @@ void Mage::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickS
         this->state = 2;
     }
     else if(this->state == 2){
+        if(this->ready == 301){
+            this->mageAttack = new MageAttack();
+        }
         this->ready--;
-        this->mageAttack = new MageAttack();
  		this->addChild(mageAttack);
         mageAttack->visible =false;
         if(this->ready==240){

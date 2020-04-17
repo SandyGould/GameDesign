@@ -158,6 +158,7 @@ void DisplayObject::removeImmediateChild(DisplayObject* child) {
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
 
+        std::cout<<*it<<"This is the thing \n";
         delete *it;
         this->children.erase(it);
     }

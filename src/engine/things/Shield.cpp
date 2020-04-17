@@ -37,5 +37,5 @@ bool Shield::onCollision(DisplayObject* other){
     if(other->type == "arrow" || other->type== "mage_attack" || other->type == "cannonball" || other->type=="rubber_cannonball"){
         dynamic_cast<Projectile*>(other)->reflect();
     }
-    return false;
+    return true;
 }

@@ -18,7 +18,7 @@ public:
     void draw(AffineTransform& at) override;
     bool onCollision(DisplayObject* other) override;
 
-
+    void cleanUp();
     void changeHealth(int amount);
 
     //Knowing about the player is nice :)

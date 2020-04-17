@@ -126,18 +126,18 @@ Rebound::Rebound() : Game(1200, 800) {
 	collisionSystem->watchForCollisions("player", "cannonball");
 	collisionSystem->watchForCollisions("player", "rubber_cannonball");
 
-	/*collisionSystem->watchForCollisions("shield", "arrow");
+	collisionSystem->watchForCollisions("shield", "arrow");
 	collisionSystem->watchForCollisions("shield", "mage_attack");
 	collisionSystem->watchForCollisions("shield", "cannonball");
 	collisionSystem->watchForCollisions("shield", "rubber_cannonball");
 	collisionSystem->watchForCollisions("shield", "archer");
 	collisionSystem->watchForCollisions("shield", "mage");
 
-	/*collisionSystem->watchForCollisions("archer", "arrow");
+	collisionSystem->watchForCollisions("archer", "arrow");
 	collisionSystem->watchForCollisions("archer", "mage_attack");
 	collisionSystem->watchForCollisions("archer", "cannonball");
 	collisionSystem->watchForCollisions("archer", "rubber_cannonball");
-	collisionSystem->watchForCollisions("archer", "poison_bomb");*/
+	collisionSystem->watchForCollisions("archer", "poison_bomb");
 
 	collisionSystem->watchForCollisions("cannoneer", "arrow");
 	collisionSystem->watchForCollisions("cannoneer", "mage_attack");

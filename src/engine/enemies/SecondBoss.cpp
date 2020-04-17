@@ -8,8 +8,7 @@ void SecondBoss::update(std::unordered_set<SDL_Scancode> pressedKeys, jState joy
         this->clean = true;
     }
     if(this->clean){
-        this->removeThis();
-        this->state = -1;
+        cleanUp();
     }
     if(this->state == 0){
         //init
