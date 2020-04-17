@@ -50,6 +50,8 @@ private:
     static Orientation getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3);
     static SDL_Point getCenter(std::pair<SDL_Point, SDL_Point> line1, std::pair<SDL_Point, SDL_Point> line2);
 
+    static bool IntersectCircle(double rad, SDL_Point p_c, SDL_Point p1, SDL_Point p2);
+
     // platform -> [platform1, platform2, platform3, ...]
     unordered_map<string, unordered_set<DisplayObject*>> displayObjectsMap;
 
