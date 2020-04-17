@@ -22,6 +22,8 @@ public:
 
 	bool onCollision(DisplayObject* other) override;
 	Shield* shield;
+	double speed = 4;
+	bool slowed = false;
 
 private:
 	int health = 100;

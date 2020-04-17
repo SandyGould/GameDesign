@@ -36,6 +36,12 @@ bool WalkOnObject::onCollision(DisplayObject* other){
 		Player * player = dynamic_cast<Player*>(other);
 		player->toggleShieldVisible(true);
 		return true;
-	} /*else if (this->id == "")*/
+	}
+	else if ((this->id == "mud" || this->id == "ice") && other->type == "player"){
+		Player* player = (Player*)other;
+		player->speed = 0.5;
+		player->slowed = true;
+		return true;
+	}
 	return false;
 }

@@ -33,6 +33,8 @@ public:
 private:
     bool esc_prepressed = false;
     bool sceneChange = false;
+    bool sceneChange2 = false;
+    //bool prevScene = false;
 
 	Camera* camera;
 
@@ -44,6 +46,7 @@ private:
 
     Scene* scene;
     Scene* scene2;
+    Scene* scene3;
 
     TextBox* start_text_box;
 

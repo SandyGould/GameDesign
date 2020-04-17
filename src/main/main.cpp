@@ -50,8 +50,10 @@ int main(int argc, char** argv) {
             rebound->start();
         }
 	} else {
-		Rebound* rebound = new Rebound();
-		rebound->start();
+			Rooms rooms{};
+            rooms.start();
+		// Rebound* rebound = new Rebound();
+		// rebound->start();
 	}
 
 	return 0;
