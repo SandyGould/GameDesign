@@ -29,20 +29,6 @@ bool BaseEnemy::onCollision(DisplayObject* other){
         this->changeHealth(-100);
         return true;
     }
-    if(other->type == "poison_bomb"){
-        this->changeHealth(-1);
-        return true;
-    }
-    if(other->type == "shield"){
-        if(dynamic_cast<Shield*>(other)->bashing == true){
-            this->changeHealth(-35);
-            std::cout<<"AHHHH\n";
-            return true;
-        }
-        else{
-            return true;
-        }
-    }
     return false;
 }
 

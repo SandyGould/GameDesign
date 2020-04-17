@@ -54,6 +54,20 @@ Rebound::Rebound() : Game(1200, 800) {
 
     allSprites->addChild(masterArcher);
 
+
+	orc = new Orc(player);
+	orc->position = {450,450};
+	orc->height = 80;
+	orc->width = 70;
+
+	allSprites->addChild(orc);
+
+	poisoner = new Poisoner(player);
+	poisoner->position = {40,160};
+	poisoner->height = 80;
+	poisoner->width = 70;
+
+	allSprites->addChild(poisoner);
 	/*roarMonster = new RoarMonster(player);
 	roarMonster-> position = {100, 100};
 	roarMonster->height = 80;
@@ -115,6 +129,9 @@ Rebound::Rebound() : Game(1200, 800) {
 	collisionSystem->watchForCollisions("shield", "mage_attack");
 	collisionSystem->watchForCollisions("shield", "cannonball");
 	collisionSystem->watchForCollisions("shield", "rubber_cannonball");
+	collisionSystem->watchForCollisions("shield", "enemy");
+	collisionSystem->watchForCollisions("shield", "knight");
+	collisionSystem->watchForCollisions("shield", "ogre");
 
 	collisionSystem->watchForCollisions("enemy", "arrow");
 	collisionSystem->watchForCollisions("enemy", "mage_attack");
@@ -122,17 +139,17 @@ Rebound::Rebound() : Game(1200, 800) {
 	collisionSystem->watchForCollisions("enemy", "rubber_cannonball");
 	collisionSystem->watchForCollisions("enemy", "poison_bomb");
 
-	// collisionSystem->watchForCollisions("knight", "arrow");
-	// collisionSystem->watchForCollisions("knight", "mage_attack");
-	// collisionSystem->watchForCollisions("knight", "cannonball");
-	// collisionSystem->watchForCollisions("knight", "rubber_cannonball");
-	// collisionSystem->watchForCollisions("knight", "poison_bomb");
+	collisionSystem->watchForCollisions("knight", "arrow");
+	collisionSystem->watchForCollisions("knight", "mage_attack");
+	collisionSystem->watchForCollisions("knight", "cannonball");
+	collisionSystem->watchForCollisions("knight", "rubber_cannonball");
+	collisionSystem->watchForCollisions("knight", "poison_bomb");
 
-	// collisionSystem->watchForCollisions("ogre", "arrow");
-	// collisionSystem->watchForCollisions("ogre", "mage_attack");
-	// collisionSystem->watchForCollisions("ogre", "cannonball");
-	// collisionSystem->watchForCollisions("ogre", "rubber_cannonball");
-	// collisionSystem->watchForCollisions("ogre", "poison_bomb");	
+	collisionSystem->watchForCollisions("ogre", "arrow");
+	collisionSystem->watchForCollisions("ogre", "mage_attack");
+	collisionSystem->watchForCollisions("ogre", "cannonball");
+	collisionSystem->watchForCollisions("ogre", "rubber_cannonball");
+	collisionSystem->watchForCollisions("ogre", "poison_bomb");	
 }
 
 Rebound::~Rebound() {

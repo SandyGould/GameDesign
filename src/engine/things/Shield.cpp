@@ -1,6 +1,7 @@
 #include "Shield.h"
-
+#include <iostream>
 #include "../enemies/Projectile.h"
+#include "../enemies/BaseEnemy.h"
 
 Shield::Shield() : Sprite("shield", "./resources/assets/Display_Objects/Shield.png") {
     hasCollision = true;
@@ -37,6 +38,12 @@ void Shield::draw(AffineTransform& at) {
 bool Shield::onCollision(DisplayObject* other){
     if(other->type == "arrow" || other->type== "mage_attack" || other->type == "cannonball" || other->type=="rubber_cannonball"){
         dynamic_cast<Projectile*>(other)->reflect();
+    }
+    if(bashing){
+        if(other->type == "enemy" || other->type == "ogre" || other->type == "knight"){
+            this->bashing = false;
+            dynamic_cast<BaseEnemy*>(other)->changeHealth(-35);
+        }
     }
     return true;
 }

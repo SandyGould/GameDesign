@@ -26,7 +26,7 @@ MasterArcher::MasterArcher(Player* player): BaseEnemy("MasterArcher" + master_ar
 }
 
 void MasterArcher::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
-    if(this->health ==0){
+    if(this->health <=0){
         this->clean = true;
     }
     if(this->clean){
