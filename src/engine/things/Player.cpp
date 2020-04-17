@@ -51,14 +51,14 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 		if (checkDoubleTaps(SDL_SCANCODE_RIGHT)) {
             if (this->current->animName.compare("Slide") != 0)
                 this->play("Slide");
-			this->position.x += 8;
+			this->position.x += this->speed*2;
 			this->changeStamina(-30);
             AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
             return;
 		} else {
             if (this->current->animName.compare("Run") != 0)
                 this->play("Run");
-			this->position.x += 4;
+			this->position.x += this->speed;
 			this->changeStamina(-3);
 		}
         idle = false;
@@ -67,14 +67,14 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 		if (checkDoubleTaps(SDL_SCANCODE_LEFT)) {
             if (this->current->animName.compare("SlideLeft") != 0)
                 this->play("SlideLeft");
-			this->position.x -= 8;
+			this->position.x -= this->speed*2;
 			this->changeStamina(-30);
             AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
             return;
 		} else {
             if (this->current->animName.compare("RunLeft") != 0)
                 this->play("RunLeft");
-			this->position.x -= 4;
+			this->position.x -= this->speed;
 			this->changeStamina(-3);
 		}
         idle = false;
@@ -83,14 +83,14 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 		if (checkDoubleTaps(SDL_SCANCODE_DOWN)) {
             if (this->current->animName.compare("Slide") != 0)
                 this->play("Slide");
-			this->position.y += 8;
+			this->position.y += this->speed*2;
 			this->changeStamina(-30);
             AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
             return;
 		} else {
             if (this->current->animName.compare("Run") != 0)
                 this->play("Run");
-			this->position.y += 4;
+			this->position.y += this->speed;
 			this->changeStamina(-3);
 		}
         idle = false;
@@ -99,14 +99,14 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 		if (checkDoubleTaps(SDL_SCANCODE_UP)) {
             if (this->current->animName.compare("Slide") != 0)
                 this->play("Slide");
-			this->position.y -= 8;
+			this->position.y -= this->speed*2;
 			this->changeStamina(-30);
             AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
             return;
 		} else {
             if (this->current->animName.compare("Run") != 0)
                 this->play("Run");
-			this->position.y -= 4;
+			this->position.y -= this->speed;
 			this->changeStamina(-3);
 		}
         idle = false;

@@ -277,7 +277,11 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
     TweenJuggler::getInstance().nextFrame();
 	Game::update(pressedKeys, joystickState, pressedButtons);
 	camera->follow(player->position.x, player->position.y);
+	player->slowed = false; // Reset slowness
 	this->collisionSystem->update();
+	if(!player->slowed){
+		player->speed = 4;
+	}
 }
 
 void Rooms::draw(AffineTransform& at) {
