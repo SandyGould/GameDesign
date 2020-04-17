@@ -182,7 +182,7 @@ bool CollisionSystem::isInside(SDL_Point point, Hitbox hitbox) {
 
 // Returns true iff obj1 hitbox and obj2 hitbox overlap
 bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
-    if(obj1->col_type.compare("square") == 0 && obj2->col_type.compare("square") == 0) {
+    if(obj1->col_type == "square" && obj2->col_type == "square") {
         Hitbox obj1Hitbox = obj1->getHitbox();
         Hitbox obj2Hitbox = obj2->getHitbox();
 
@@ -212,43 +212,42 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
         const bool obj2InObj1 = isInside(obj2Hitbox.ul, obj1Hitbox);
         return obj1InObj2 || obj2InObj1;
     }
-    /*
+
     DisplayObject* circle;
     DisplayObject* rect;
-    if(obj1->col_type.compare("circle") == 0)
-    {
+    if (obj1->col_type == "circle") {
         circle = obj1;
         rect = obj2;
-    }
-    else
-    {
+    } else {
         circle = obj2;
         rect = obj1;
     }
-    //https://stackoverflow.com/questions/21089959/detecting-collision-of-rectangle-with-circle
-    //Step1- find distances betweencircle's center and rectangle's center.
 
-    double calc_width = std::sqrt(((rect->hitbox_ur.y - rect->hitbox_ul.y) * (rect->hitbox_ur.y - rect->hitbox_ul.y)) + ((rect->hitbox_ur.x - rect->hitbox_ul.x) * (rect->hitbox_ur.x - rect->hitbox_ul.x)));
+    Hitbox hitbox = rect->getHitbox();
+    Hitcircle hitcircle = circle->getHitcircle();
 
-    double calc_height = std::sqrt(((rect->hitbox_ll.y - rect->hitbox_ul.y) * (rect->hitbox_ll.y - rect->hitbox_ul.y)) + ((rect->hitbox_ll.x - rect->hitbox_ll.x) * (rect->hitbox_ll.x - rect->hitbox_ul.x)));
-    double calc_rad = std::sqrt(((circle->hitcircle_edge.y - circle->hitcircle_center.y) * (circle->hitcircle_edge.y - circle->hitcircle_center.y)) + ((circle->hitcircle_edge.x - circle->hitcircle_center.x) * (circle->hitcircle_edge.x - circle->hitcircle_center.x)));
-    double distX = abs(circle->hitcircle_center.x - rect->hitbox_ul.x-calc_width/2);
-    double distY = abs(circle->hitcircle_center.y-rect->hitbox_ul.y-calc_height/2);
+    // https://stackoverflow.com/questions/21089959/detecting-collision-of-rectangle-with-circle
+    // Step1- find distances betweencircle's center and rectangle's center.
+    double calc_width = std::sqrt(((hitbox.ur.y - hitbox.ul.y) * (hitbox.ur.y - hitbox.ul.y)) + ((hitbox.ur.x - hitbox.ul.x) * (hitbox.ur.x - hitbox.ul.x)));
+    double calc_height = std::sqrt(((hitbox.ll.y - hitbox.ul.y) * (hitbox.ll.y - hitbox.ul.y)) + ((hitbox.ll.x - hitbox.ul.x) * (hitbox.ll.x - hitbox.ul.x)));
+    double calc_rad = std::sqrt(((hitcircle.edge.y - hitcircle.center.y) * (hitcircle.edge.y - hitcircle.center.y)) + ((hitcircle.edge.x - hitcircle.center.x) * (hitcircle.edge.x - hitcircle.center.x)));
+    double distX = abs(hitcircle.center.x - hitbox.ul.x - calc_width / 2);
+    double distY = abs(hitcircle.center.y - hitbox.ul.y - calc_height / 2);
 
-    //Step2- if distance gtreater than halfcircle+helf rect, they're not colliding
-    if (distX > (calc_width/2 + calc_rad)) { return false; }
-    if (distY > (calc_height/2 + calc_rad)) { return false; }
+    // Step2- if distance greater than halfcircle + half rect, they're not colliding
+    if (distX > calc_width / 2 + calc_rad || distY > calc_height / 2 + calc_rad) {
+        return false;
+    }
 
-    //step3- if distance is less than halfrect, they are colliding
-    if (distX <= (calc_width/2)) { return true; }
-        if (distY <= (calc_height/2)) { return true; }
+    // step3- if distance is less than halfrect, they are colliding
+    if (distX <= calc_width / 2 || distY <= calc_height / 2) {
+        return true;
+    }
 
-    //Step4- compares distance between circle and rectangle corners.
-        double dx=distX-calc_width/2;
-            double dy=distY-calc_height/2;
-        return (dx*dx+dy*dy<=(calc_rad*calc_rad));
-    */
-
+    // Step4- compares distance between circle and rectangle corners.
+    double dx = distX - calc_width / 2;
+    double dy = distY - calc_height / 2;
+    return dx * dx + dy * dy <= calc_rad * calc_rad;
 }
 
 // Resolves the collision that occurred between d and other
