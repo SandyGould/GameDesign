@@ -12,6 +12,6 @@ class PoisonBomb : public Sprite{
         void explode();
         int explosionTime = 6;
         bool exploding = false;
-        bool onCollision(DisplayObject* other);
+        bool onCollision(DisplayObject* other) override;
 };
 #endif

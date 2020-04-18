@@ -68,7 +68,7 @@ Rebound::Rebound() : Game(1200, 800) {
 	poisoner->width = 70;
 
 	allSprites->addChild(poisoner);
-	/*roarMonster = new RoarMonster(player);
+	roarMonster = new RoarMonster(player);
 	roarMonster-> position = {100, 100};
 	roarMonster->height = 80;
 	roarMonster->width = 70;
@@ -82,7 +82,7 @@ Rebound::Rebound() : Game(1200, 800) {
 
 	allSprites->addChild(knight);
 
-	/*cannoneer = new Cannoneer(player);
+	cannoneer = new Cannoneer(player);
 	cannoneer->position = {500,100};
 	cannoneer->height = 80;
 	cannoneer->width = 70;
@@ -101,10 +101,10 @@ Rebound::Rebound() : Game(1200, 800) {
 	kingdomArcher->height= 80;
 	kingdomArcher->width=80;
 
-	allSprites->addChild(kingdomArcher);*/
+	allSprites->addChild(kingdomArcher);
 
-// 
-	/*kingdomMage = new KingdomMage(player);
+
+	kingdomMage = new KingdomMage(player);
 	kingdomMage->position = {350,350};
 	kingdomMage->height = 80;
 	kingdomMage->width = 70;
