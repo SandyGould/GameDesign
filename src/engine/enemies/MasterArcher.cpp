@@ -1,6 +1,5 @@
 #include "MasterArcher.h"
 #include <cstdlib>
-#include <stdlib.h>
 #include <cmath>
 #include <iostream>
 
@@ -18,7 +17,7 @@ Ded 7
 */
 
 // Init
-MasterArcher::MasterArcher(Player* player): BaseEnemy("MasterArcher" + master_archer_count, "./resources/assets/Display_Objects/master_archer.png", "", player){
+MasterArcher::MasterArcher(Player* player): BaseEnemy("MasterArcher" + std::to_string(master_archer_count), "./resources/assets/Display_Objects/master_archer.png", "", player){
     this->state = 0;
     this->facingRight=true;
     master_archer_count++;
