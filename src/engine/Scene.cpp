@@ -21,9 +21,6 @@ Scene::Scene(std::string id) : DisplayObject(id) {
     this->type = "Scene";
     this->saveType = this->type;
 }
-// Scene::~Scene(){
-//     delete this;
-// }
 
 	/* Load scene from a file */
 void Scene::loadScene(std::string sceneFilePath){
