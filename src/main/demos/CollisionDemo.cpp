@@ -14,7 +14,8 @@ CollisionDemo::CollisionDemo() : Game(1200, 800) {
 
     // Yup we're creating an invisible player for Scene
     this->player = new Player();
-    this->player->visible = false;
+    //this->player->visible = false;
+    this->player->hitbox = {{25, 10}, {75, 10}, {25, 100}, {75, 100}};
 
     this->scene = new Scene(this->camera, this->player);
     this->scene->loadScene("./resources/cameraDemo/loadScene.json");
@@ -24,8 +25,9 @@ CollisionDemo::CollisionDemo() : Game(1200, 800) {
     this->parentObj = new DisplayObject("parent", "./resources/assets/Display_Objects/Moon.png");
     this->parentObj->type = "parent";
     this->parentObj->position = {this->windowWidth / 2 - 100, this->windowHeight / 2 - 100};
-    this->parentObj->width = this->parentObj->height = 200;
-    this->parentObj->pivot = {100, 100};
+    //this->parentObj->width = this->parentObj->height = 200;
+    this->parentObj->pivot = {50, 50};
+    this->parentObj->scaleX = this->parentObj->scaleY = 2.0;
     this->scene->getChild(0)->addChild(this->parentObj);
 
     this->child1 = new Coin();
@@ -40,6 +42,8 @@ CollisionDemo::CollisionDemo() : Game(1200, 800) {
     this->child2->pivot = {15, 15};
     this->child2->hitboxType = HitboxType::Circle;
     this->parentObj->addChild(this->child2);
+
+    this->parentObj->addChild(this->player);
 
     this->collisionSystem->watchForCollisions("coin", "coin");
 }
@@ -192,4 +196,5 @@ void CollisionDemo::draw_post() {
     this->parentObj->drawHitbox();
     this->child1->drawHitbox();
     this->child2->drawHitcircle();
+    this->player->drawHitbox();
 }

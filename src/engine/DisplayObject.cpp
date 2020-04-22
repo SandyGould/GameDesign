@@ -20,6 +20,8 @@ DisplayObject::DisplayObject(const std::string& id) {
     this->image = nullptr;
     this->texture = nullptr;
     this->curTexture = nullptr;
+
+    this->hitbox = {{0, 0}, {width, 0}, {0, height}, {width, height}};
 }
 
 DisplayObject::DisplayObject(const std::string& id, const std::string& path)
@@ -27,6 +29,7 @@ DisplayObject::DisplayObject(const std::string& id, const std::string& path)
     this->imgPath = path;
 
     loadTexture(path, Game::renderer);
+    this->hitbox = {{0, 0}, {width, 0}, {0, height}, {width, height}};
 }
 
 DisplayObject::DisplayObject(const std::string& id, const std::string& path, SDL_Renderer* r)
@@ -35,6 +38,7 @@ DisplayObject::DisplayObject(const std::string& id, const std::string& path, SDL
     this->renderer = r;
 
     loadTexture(path, r);
+    this->hitbox = {{0, 0}, {width, 0}, {0, height}, {width, height}};
 }
 
 DisplayObject::DisplayObject(const std::string& id, int red, int green, int blue)
@@ -59,6 +63,7 @@ DisplayObject::DisplayObject(const std::string& id, int red, int green, int blue
     this->renderer = r;
 
     this->loadRGBTexture(red, green, blue, width, height, r);
+    this->hitbox = {{0, 0}, {width, 0}, {0, height}, {width, height}};
 }
 
 // TODO: Needs to copy children
@@ -417,10 +422,10 @@ Hitbox DisplayObject::getHitbox() const {
     AffineTransform at;
 	this->getGlobalTransform(at);
 	return {
-        at.transformPoint(0, 0),
-        at.transformPoint(width, 0),
-        at.transformPoint(0, height),
-        at.transformPoint(width, height),
+        at.transformPoint(hitbox.ul.x, hitbox.ul.y),
+        at.transformPoint(hitbox.ur.x, hitbox.ur.y),
+        at.transformPoint(hitbox.ll.x, hitbox.ll.y),
+        at.transformPoint(hitbox.lr.x, hitbox.lr.y),
     };
 }
 
