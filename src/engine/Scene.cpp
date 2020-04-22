@@ -74,6 +74,36 @@ void Scene::loadScene(std::string sceneFilePath){
     }
 }
 
+void Scene::loadScene_Editor(std::string sceneFilePath){
+    std::ifstream i(sceneFilePath);
+    json j;
+    i >> j;
+    unordered_set<string> aspr = {"AnimatedSprite", "Archer", "Cannoneer", "Knight", "Mage", "MasterArcher", "Ogre", "Poisoner", "RoarMonster", "RubberCannoneer", "SecondBoss"};
+    unordered_set<string> spr = {"Sprite", "EnvironmentObject", "HitObject", "WalkOnObject"};
+
+    for(int z = 0; z < j["Scene"].size(); z++){
+        std::string layer_value = "L" + std::to_string(z);
+        Layer* temp_layer = new Layer(layer_value);
+        json json_layer = j["Scene"][z][layer_value];
+        temp_layer->parallaxSpeed = json_layer["speed"];
+        temp_layer->cam = this->camera;
+        for(int y = 0; y < json_layer["objects"].size(); ++y){
+            // std::cout << "type: " + json_layer["objects"][y]["type"].get<std::string>() << std::endl;
+            
+            // DisplayObjectContainer* parent = temp_layer;
+            // if(json_layer["objects"][y]["parentHierarchy"].size() > 0){
+            //     parent = find_parent(json_layer["objects"][y]["parentHierarchy"], temp_layer);
+            // } 
+            std::string obj_type = json_layer["objects"][y]["type"].get<std::string>();
+            json mj = json_layer["objects"][y];
+            if(obj_type.compare("DisplayObject") == 0){temp_layer->addChild(setBasicInfo(new DisplayObject(mj["name"], mj["filepath"]), mj));}
+            else if(aspr.find(obj_type) != aspr.end()){temp_layer->addChild((AnimatedSprite*)setBasicInfo(new AnimatedSprite(mj["name"], mj["sheetpath"], mj["xmlpath"]), mj));}
+            else if(spr.find(obj_type) != aspr.end()){temp_layer->addChild((Sprite*)setBasicInfo(new Sprite(mj["name"], mj["filepath"]), mj));}
+        }            
+        this->addChild(temp_layer);
+    }
+}
+
 DisplayObject* Scene::setBasicInfo(DisplayObject* d_obj, json j){
     d_obj->position.x = j["x_pos"];
     d_obj->position.y = j["y_pos"];
@@ -82,6 +112,7 @@ DisplayObject* Scene::setBasicInfo(DisplayObject* d_obj, json j){
     d_obj->rotation = j["rotation"];
     d_obj->scaleX = j["scaleX"];
     d_obj->scaleY = j["scaleY"];
+    d_obj->saveType = j["type"];
     return d_obj;
 }
 /*
