@@ -31,18 +31,21 @@ void CollisionSystem::buildDisplayMap(DisplayObject* object) {
 //to be checked (via a single call to watchForCollisions) below.
 void CollisionSystem::update() {
     for (auto& [object1, object2] : collisionPairs) {
-        if(object1 == NULL || object2 == NULL){
-            continue;
+        // Before we do anything! We must make sure we're not trying to
+        // operate on objects that have already been deleted
+        // (We cannot delete them from collisionPairs immediately b/c
+        // that would invalidate the iterator we're looping on)
+        if (find(objectsToErase.cbegin(), objectsToErase.cend(), object1) != objectsToErase.cend() ||
+            find(objectsToErase.cbegin(), objectsToErase.cend(), object2) != objectsToErase.cend()) {
+            break;
         }
+
         SDL_Point obj1Position = object1->position;
         SDL_Point obj2Position = object2->position;
 
-        if(prevPositions.find(object1) == prevPositions.end() || prevPositions.find(object2) == prevPositions.end()){
-            continue;
-        }
         SDL_Point obj1Prev = prevPositions.at(object1);
         SDL_Point obj2Prev = prevPositions.at(object2);
-        
+
         if (obj1Prev.x == obj1Position.x && obj1Prev.y == obj1Position.y &&
             obj2Prev.x == obj2Position.x && obj2Prev.y == obj2Position.y) {
             // Wait, they didn't move! They couldn't have collided, then.
@@ -64,11 +67,19 @@ void CollisionSystem::update() {
 
     // Update previous positions
     for (auto& [object, _] : prevPositions) {
-        if(object == NULL){
-            continue;
-        }
         prevPositions.at(object) = object->position;
     }
+
+    // Clear ourselves of any deleted elements
+    for (auto* object : objectsToErase) {
+        collisionPairs.erase(remove_if(collisionPairs.begin(),
+                                       collisionPairs.end(),
+                                       [&](auto x) {
+                                           return x.first == object || x.second == object;
+                                       }),
+                             collisionPairs.cend());
+    }
+    objectsToErase.clear();
 }
 
 //This system watches the game's display tree and is notified whenever a display object is placed onto
@@ -94,13 +105,11 @@ void CollisionSystem::handleEvent(Event* e) {
                 }
             }
         } else {
+            // Defer erasing from collisionPairs as it's possible that
+            // we're in the middle of an update() loop, and deleting now
+            // would invalidate the iterators
+            objectsToErase.push_back(object);
             displayObjectsMap.at(type).erase(object);
-            collisionPairs.erase(remove_if(collisionPairs.begin(),
-                                           collisionPairs.end(),
-                                           [&](auto x) {
-                                               return x.first == object || x.second == object;
-                                           }),
-                                 collisionPairs.cend());
             prevPositions.erase(object);
         }
     }

@@ -62,4 +62,8 @@ private:
     // *Must* be local coordinates!
     // i.e. obj->position, NOT obj->getHitbox().ul
     unordered_map<DisplayObject*, SDL_Point> prevPositions;
+
+    // Keep track of any objects that were erased during our update loop,
+    // so that we can properly erase them from collisionPairs afterwards
+    vector<DisplayObject*> objectsToErase;
 };
