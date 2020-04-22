@@ -37,8 +37,7 @@ Rooms::Rooms() : Game(600, 500) {
 	camera->position = {200, 100};
 	camera->pivot = {200, 100};
 
-	instance->addChild(camera);
-
+	container->addChild(camera);
 
 	// load and prep player
 	player = new Player();
@@ -66,13 +65,13 @@ Rooms::Rooms() : Game(600, 500) {
 	start_text_box->addTextPanel("To move, press up, down, left, or right\n\nPress any key to continue");
 	start_text_box->position = {300, 300};
 	start_text_box->alpha = 0;
-	instance->addChild(start_text_box);
+	container->addChild(start_text_box);
 
 	// menu
 	selection_menu_base = new SelectionMenuBase();
 	selection_menu_base->width = 600;
 	selection_menu_base->height = 500;
-	instance->addChild(selection_menu_base);
+	container->addChild(selection_menu_base);
 
 	selection_resume_option = new SelectionMenuOption(SelectionMenuOption::RESUME, "Resume");
 	selection_resume_option->width = 200;
@@ -95,7 +94,7 @@ Rooms::Rooms() : Game(600, 500) {
 	// health bar
 	health = new StatBar("Health", 255, 0, 0);
 	health->position = {50,460};
-	instance->addChild(health);
+	container->addChild(health);
 
 	// tween stuff
 	player_tween = new Tween("player_tween", player);

@@ -10,7 +10,7 @@ CollisionDemo::CollisionDemo() : Game(1200, 800) {
     this->camera = new Camera();
     this->camera->position = {this->windowWidth / 2, this->windowHeight / 2};
     this->camera->pivot = {this->windowWidth / 2, this->windowHeight / 2};
-    instance->addChild(this->camera);
+    this->container->addChild(this->camera);
 
     // Yup we're creating an invisible player for Scene
     this->player = new Player();

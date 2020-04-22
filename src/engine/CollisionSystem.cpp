@@ -11,7 +11,7 @@ CollisionSystem::CollisionSystem() {
     EventDispatcher::getInstance().addEventListener(this, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
 
     // Keep track of any objects that were added before we were created
-    this->buildDisplayMap(Game::instance);
+    this->buildDisplayMap(Game::instance->container);
 }
 
 void CollisionSystem::buildDisplayMap(DisplayObject* object) {
@@ -201,8 +201,6 @@ bool CollisionSystem::isIntersecting(SDL_Point p1, SDL_Point p2, SDL_Point q1, S
 
     return false;
 }
-
-
 
 bool CollisionSystem::isIntersecting(Hitcircle hitcircle, pair<SDL_Point, SDL_Point> line) {
     // https://math.stackexchange.com/questions/275529/check-if-line-intersects-with-circles-perimeter

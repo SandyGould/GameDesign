@@ -8,12 +8,11 @@ LoadSceneDemo::LoadSceneDemo() : Game(1200, 800) {
     instance = this;
 
     this->collisionSystem = new CollisionSystem();
-    EventDispatcher::getInstance().addEventListener(this->collisionSystem, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
 
     this->camera = new Camera();
     this->camera->position = {this->windowWidth / 2, this->windowHeight / 2};
     this->camera->pivot = {this->windowWidth / 2, this->windowHeight / 2};
-    instance->addChild(this->camera);
+    this->container->addChild(this->camera);
 
     this->player = new Player();
 	player->position = {0, 0};

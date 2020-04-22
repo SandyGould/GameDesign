@@ -18,10 +18,13 @@ enum class MouseState {
 };
 
 
-class Game : public DisplayObject {
+class Game {
 public:
 	/* Singleton pattern */
 	static Game* instance;
+
+    /* The global DisplayObject container */
+    DisplayObject* container;
 
 	int frames_per_sec = 60;
 	int windowWidth, windowHeight;
@@ -35,14 +38,15 @@ public:
 	static unsigned int frameCounter;
 
 	Game(int windowWidth, int windowHeight);
-	~Game() override;
+	virtual ~Game();
+
 	void start();
 
 	virtual void clearRenderers();
 	virtual void presentRenderers();
 
-	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
-	void draw(AffineTransform& at) override;
+	virtual void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons);
+	virtual void draw(AffineTransform& at);
 
 	// This happens after drawing but before rendering
 	virtual void draw_post() {};

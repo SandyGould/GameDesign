@@ -26,11 +26,12 @@ TTF_Font* Game::font;
 Game* Game::instance;
 unsigned int Game::frameCounter = 0;
 
-Game::Game(int windowWidth, int windowHeight) : DisplayObject("game") {
+Game::Game(int windowWidth, int windowHeight) {
 	Game::instance = this;
-	
-	this->type = "Game";
-	this->saveType = this->type;
+
+    this->container = new DisplayObject("game");
+    this->container->type = "game";
+    this->container->saveType = this->container->type;
 
 	this->windowWidth = windowWidth;
 	this->windowHeight = windowHeight;
@@ -45,7 +46,7 @@ Game::Game(int windowWidth, int windowHeight) : DisplayObject("game") {
 
 Game::~Game() {
     // We must destroy our own textures BEFORE destroying the renderer
-    DisplayObject::~DisplayObject();
+    delete container;
 
 	quitSDL();
 }
@@ -199,12 +200,12 @@ void Game::presentRenderers(){
 
 void Game::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
 	frameCounter++;
-	DisplayObject::update(pressedKeys, joystickState, pressedButtons);
+	this->container->update(pressedKeys, joystickState, pressedButtons);
 }
 
 void Game::draw(AffineTransform& at) {
 	this->clearRenderers();
-	DisplayObject::draw(at);
+	this->container->draw(at);
 	this->draw_post();
 	this->presentRenderers();
 }

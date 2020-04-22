@@ -15,7 +15,7 @@ Rebound::Rebound() : Game(1200, 800) {
 
 	// move that point to the middle
 	allSprites->position = {200, 100};
-	instance->addChild(allSprites);
+	container->addChild(allSprites);
 	player = new Player();
 	player->position = {0, 0};
 	player->width = 110;

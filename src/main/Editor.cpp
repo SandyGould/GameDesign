@@ -34,7 +34,7 @@ Editor::Editor(const string& sceneToLoad)
     camera = new Camera();
     camera->position = {this->windowWidth / 2, this->windowHeight / 2};
     camera->pivot = {this->windowWidth / 2, this->windowHeight / 2};
-    instance->addChild(camera);
+    this->container->addChild(camera);
 
     curScene->loadScene(sceneToLoad);
     
@@ -338,7 +338,7 @@ void Editor::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState
 
 void Editor::draw(AffineTransform& at) {
     this->clearRenderers();
-	DisplayObject::draw(at);
+	Game::draw(at);
 
     assets->draw(at);
     edit->draw(at);
@@ -590,7 +590,7 @@ void Editor::handleEvent(Event* e) {
                     selectedAsset->position.y += camera->pivot.y;
                     selectedAsset->position.y += lround(event->y*(1/camera->getZoom()));
                 }
-            } else if (!this->onMouseDown(this, event)) {
+            } else if (!this->onMouseDown(this->container, event)) {
                 this->selected.clear();
             }
         }
@@ -738,7 +738,7 @@ void Editor::handleEvent(Event* e) {
                 }
             }
         } else if (event->wID == SDL_GetWindowID(this->window)){
-            this->onMouseUp(this, event);
+            this->onMouseUp(this->container, event);
             if (SDL_IsTextInputActive() == SDL_TRUE){
                 SDL_StopTextInput();
                 cout << "Stopped input" << endl;
