@@ -56,7 +56,7 @@ public:
 	Scene();
 	Scene(Camera* camera, Player* player);
 	explicit Scene(std::string id);
-	// ~Scene() override;
+	~Scene() override = default;
 
 	/* Load scene from a file */
 	void loadScene(std::string sceneFilePath);

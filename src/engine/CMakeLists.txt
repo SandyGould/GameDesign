@@ -18,5 +18,4 @@ target_sources(rebound PRIVATE
         Sprite.cpp
         StatBar.cpp
         TextObject.cpp
-        WalkOnObject.cpp
-        pugixml.cpp)
+        WalkOnObject.cpp)

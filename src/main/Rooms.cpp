@@ -22,6 +22,9 @@ Rooms::Rooms() : Game(600, 500) {
     // set collisions between player and all environmental objects
     this->collisionSystem->watchForCollisions("player", "WalkOnObject");
     this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
+    this->collisionSystem->watchForCollisions("player", "arrow");
+    this->collisionSystem->watchForCollisions("shield", "arrow");
+    this->collisionSystem->watchForCollisions("shield", "enemy");
 
 	camera = new Camera();
 
@@ -104,7 +107,7 @@ Rooms::Rooms() : Game(600, 500) {
     TweenJuggler::getInstance().add(player_tween);
     EventDispatcher::getInstance().addEventListener(this->start_text_box, TweenEvent::TWEEN_COMPLETE_EVENT);
 	EventDispatcher::getInstance().addEventListener(this->scene, NewSceneEvent::FADE_OUT_EVENT);
-	//EventDispatcher::getInstance().addEventListener(this->scene, TweenEvent::TWEEN_COMPLETE_EVENT);
+	EventDispatcher::getInstance().addEventListener(this->scene, TweenEvent::TWEEN_COMPLETE_EVENT);
 	EventDispatcher::getInstance().addEventListener(this->camera, TweenEvent::TWEEN_COMPLETE_EVENT);
 	EventDispatcher::getInstance().addEventListener(this->scene2, NewSceneEvent::FADE_IN_EVENT);
 }
@@ -119,28 +122,64 @@ Rooms::~Rooms() {
 
 
 void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {
-	// this->collisionSystem->update();	
-  if (sceneChange) {
-		sceneChange = false;
-		EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_OUT_EVENT));
-		if (camera->changeScene) {
-			// setup camera
-			camera->addChild(scene2);
-			camera->setRightLimit(300);
-			camera->setTopLimit(100);
-			camera->position = {200, 100};
-			camera->pivot = {200, 100};
-			camera->changeScene = false;
-			// add new player
-			player = new Player();
-			scene2->addChild(player);
-			player->position = {0, 200};
-			player->width = player->height = 50;
-			// set new room number
-			this->room += 1;
-			EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_IN_EVENT));
+  	if (sceneChange) {
+		if (room == 1) {
+			EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_OUT_EVENT));
+			if (camera->changeScene) {
+				// setup camera
+				camera->addChild(scene2);
+				camera->setRightLimit(300);
+				camera->setTopLimit(0);
+				camera->position = {200, 200};
+				camera->pivot = {200, 200};
+				camera->changeScene = false;
+				// add new player
+				player = new Player();
+				scene2->addChild(player);
+				player->position = {0, 200};
+				player->width = player->height = 50;
+				EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_IN_EVENT));
+				sceneChange = false;
+				room = 2;
+			}
 		}
-		
+	}
+	if (sceneChange2) {
+		if (room == 2) {
+			if (!EventDispatcher::getInstance().hasEventListener(this->scene2, NewSceneEvent::FADE_OUT_EVENT)) {
+				EventDispatcher::getInstance().addEventListener(this->scene2, NewSceneEvent::FADE_OUT_EVENT);
+			}
+			if (!EventDispatcher::getInstance().hasEventListener(this->scene2, TweenEvent::TWEEN_COMPLETE_EVENT)) {
+				EventDispatcher::getInstance().addEventListener(this->scene2, TweenEvent::TWEEN_COMPLETE_EVENT);
+			}
+			EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_OUT_EVENT));
+			if (camera->changeScene) {
+				//setup camera
+				player = new Player();
+				scene3 = new Scene(camera, player);
+				scene3->loadScene("./resources/Rebound/area3/area3map.json");
+				if (!EventDispatcher::getInstance().hasEventListener(this->scene3, NewSceneEvent::FADE_IN_EVENT)) {
+					EventDispatcher::getInstance().addEventListener(this->scene3, NewSceneEvent::FADE_IN_EVENT);
+				}
+
+				camera->addChild(scene3);
+				camera->setRightLimit(300);
+				camera->setTopLimit(0);
+				//camera->setBottomLimit(200);
+				camera->position = {200, 200};
+				camera->pivot = {200, 200};
+				camera->changeScene = false;
+				
+				// add new player
+				scene3->addChild(player);
+				player->position = {20, 20};
+				player->width = player->height = 50;
+				
+				EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_IN_EVENT));
+				sceneChange = false;
+				room = 3;
+			}
+		}
 		
 	}
 
@@ -175,7 +214,7 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 		}
 	}
 
-	if (room == 2 && !sceneChange) {
+	if (room == 2 && !sceneChange2) {
 		if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
 			if (player->position.x < 600) {
 				player->position.x += 2;
@@ -186,16 +225,41 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
             	player->position.x -= 2;
         	}
 		}
-		if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-			player->position.y += 2;
-		}
 		if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
 			if (player->position.y > 30) {
 				player->position.y -= 2;
 			}
 		}
+		if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
+			player->position.y += 2;
+		}
+		if (player->position.y > 510) {
+			sceneChange2 = true;
+		}
 	}
 
+	if (room == 3) {
+		std::cout << "x: " << camera->pivot.x << std::endl;
+		std::cout << "y: " << camera->pivot.y << std::endl;
+		if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
+			//if (player->position.x < 600) {
+			player->position.x += 2;
+			//}
+		}
+		if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
+        	//if (player->position.x > 30) {
+            player->position.x -= 2;
+        	//}
+		}
+		if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
+			//if (player->position.y > 30) {
+			player->position.y -= 2;
+			//}
+		}
+		if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
+			player->position.y += 2;
+		}
+	}
 
 	// menu controls
 	if (pressedKeys.find(SDL_SCANCODE_ESCAPE) != pressedKeys.end()) {
@@ -208,8 +272,12 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 
     TweenJuggler::getInstance().nextFrame();
 	Game::update(pressedKeys, joystickState, pressedButtons);
-	camera->follow(player->position.x, player->position.y);
-	this->collisionSystem->update();
+	player->slowed = false;
+    this->collisionSystem->update();
+	if(!player->slowed){
+		player->speed = 4;
+	}
+    camera->follow(player->position.x, player->position.y);
 }
 
 void Rooms::draw(AffineTransform& at) {

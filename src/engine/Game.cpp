@@ -44,6 +44,9 @@ Game::Game(int windowWidth, int windowHeight) : DisplayObject("game") {
 }
 
 Game::~Game() {
+    // We must destroy our own textures BEFORE destroying the renderer
+    DisplayObject::~DisplayObject();
+
 	quitSDL();
 }
 

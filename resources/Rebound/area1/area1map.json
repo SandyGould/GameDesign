@@ -16,6 +16,17 @@
                         "parentHierarchy":[]
                     },
                     {
+                        "type":"WalkOnObject",
+                        "name":"mud",
+                        "filepath":"./resources/Rebound/area1/assets/Display_Objects/mud.png",
+                        "x_pos":400,
+                        "y_pos":200,
+                        "rotation":0,
+                        "scaleX":1,
+                        "scaleY":1,
+                        "parentHierarchy":[]
+                    },
+                    {
                         "type":"EnvironmentObject",
                         "name":"stone",
                         "filepath":"./resources/Rebound/area1/assets/Display_Objects/stone.png",
@@ -67,7 +78,7 @@
                         "y_pos": 140,
                         "rotation":0,
                         "scaleX":0.3,
-                        "scaleY":2,
+                        "scaleY":1,
                         "parentHierarchy":[]
                     }
                 ]

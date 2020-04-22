@@ -25,7 +25,7 @@ Rebound::Rebound() : Game(1200, 800) {
 	player->shield->visible = true;
 	allSprites->addChild(player);
 
-	mage = new Mage(player);
+	/*mage = new Mage(player);
 	mage->position = {400, 400};
 	mage->height = 80;
 	mage->width = 70;
@@ -37,7 +37,7 @@ Rebound::Rebound() : Game(1200, 800) {
     archer->height = 80;
     archer->width = 70;
 	
-    allSprites->addChild(archer);
+    allSprites->addChild(archer);*/
 
 	ogre = new Ogre(player);
     ogre-> position = {200,200};
@@ -47,7 +47,7 @@ Rebound::Rebound() : Game(1200, 800) {
 
     allSprites->addChild(ogre);
 
-	masterArcher = new MasterArcher(player);
+	/*masterArcher = new MasterArcher(player);
     masterArcher-> position = {500,500};
     masterArcher->height = 80;
     masterArcher->width = 70;
@@ -68,7 +68,7 @@ Rebound::Rebound() : Game(1200, 800) {
 	poisoner->width = 70;
 
 	allSprites->addChild(poisoner);
-	/*roarMonster = new RoarMonster(player);
+	roarMonster = new RoarMonster(player);
 	roarMonster-> position = {100, 100};
 	roarMonster->height = 80;
 	roarMonster->width = 70;
@@ -82,7 +82,7 @@ Rebound::Rebound() : Game(1200, 800) {
 
 	allSprites->addChild(knight);
 
-	/*cannoneer = new Cannoneer(player);
+	cannoneer = new Cannoneer(player);
 	cannoneer->position = {500,100};
 	cannoneer->height = 80;
 	cannoneer->width = 70;
@@ -101,10 +101,10 @@ Rebound::Rebound() : Game(1200, 800) {
 	kingdomArcher->height= 80;
 	kingdomArcher->width=80;
 
-	allSprites->addChild(kingdomArcher);*/
+	allSprites->addChild(kingdomArcher);
 
-// 
-	/*kingdomMage = new KingdomMage(player);
+
+	kingdomMage = new KingdomMage(player);
 	kingdomMage->position = {350,350};
 	kingdomMage->height = 80;
 	kingdomMage->width = 70;

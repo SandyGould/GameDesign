@@ -78,8 +78,8 @@ void Ogre::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
 
     else if (this->state == 6) {
         SDL_Point playerLoc = player->getGlobalPosition();
-        int directionX = this->getGlobalPosition().x - playerLoc.x;
-        int directionY = this->getGlobalPosition().y - playerLoc.y;
+        directionX = this->getGlobalPosition().x - playerLoc.x;
+        directionY = this->getGlobalPosition().y - playerLoc.y;
         if (this->current->animName.compare("OgreRun") != 0)
             this->play("OgreRun");
         if(directionX > 0){
@@ -96,13 +96,45 @@ void Ogre::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
         }
         directionX = this->getGlobalPosition().x - playerLoc.x;
         directionY = this->getGlobalPosition().y - playerLoc.y;
-        if(abs(directionY) < 60 && abs(directionY) < 60){
+        if(abs(directionX) < 60 && abs(directionY) < 60){
             this->state = 7;
+            this->actionFrames = 6;
         }
     }
 
     else if (this->state == 7) {
-        this->state = 8;
+        if(this->actionFrames == 0){
+            this->actionFrames = 120;
+            this->state =8;
+        }
+        if(this->actionFrames >3){
+            if(directionX > 0){
+                this->position = {this->position.x - 5, this->position.y};
+            }
+            if(directionX < 0){
+                this->position = {this->position.x + 5, this->position.y};
+            }
+            if(directionY > 0){
+                this->position = {this->position.x, this->position.y-5};
+            }
+            if(directionY < 0){
+                this->position = {this->position.x, this->position.y+5};
+            }
+        } else{
+            if(directionX > 0){
+                this->position = {this->position.x + 5, this->position.y};
+            }
+            if(directionX < 0){
+                this->position = {this->position.x - 5, this->position.y};
+            }
+            if(directionY > 0){
+                this->position = {this->position.x, this->position.y+5};
+            }
+            if(directionY < 0){
+                this->position = {this->position.x, this->position.y-5};
+            }
+        }
+        this->actionFrames--;
     }
 
     else if(this->state == 8) { //cooldown //Works.
