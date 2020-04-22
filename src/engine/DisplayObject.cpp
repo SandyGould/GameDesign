@@ -88,6 +88,7 @@ DisplayObject::DisplayObject(const DisplayObject& other) {
     this->imgPath = other.imgPath;
     this->saveType = other.saveType;
     this->loadTexture(this->imgPath, Game::renderer);
+    this->hitbox = {{0, 0}, {width, 0}, {0, height}, {width, height}};
 }
 
 DisplayObject::~DisplayObject() {
@@ -422,10 +423,14 @@ Hitbox DisplayObject::getHitbox() const {
     AffineTransform at;
 	this->getGlobalTransform(at);
 	return {
-        at.transformPoint(hitbox.ul.x, hitbox.ul.y),
-        at.transformPoint(hitbox.ur.x, hitbox.ur.y),
-        at.transformPoint(hitbox.ll.x, hitbox.ll.y),
-        at.transformPoint(hitbox.lr.x, hitbox.lr.y),
+        // at.transformPoint(hitbox.ul.x, hitbox.ul.y),
+        // at.transformPoint(hitbox.ur.x, hitbox.ur.y),
+        // at.transformPoint(hitbox.ll.x, hitbox.ll.y),
+        // at.transformPoint(hitbox.lr.x, hitbox.lr.y),
+        at.transformPoint(0, 0),
+        at.transformPoint(width, 0),
+        at.transformPoint(0, height),
+        at.transformPoint(width, height),
     };
 }
 

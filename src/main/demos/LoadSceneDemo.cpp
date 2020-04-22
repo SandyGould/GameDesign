@@ -31,9 +31,9 @@ LoadSceneDemo::LoadSceneDemo() : Game(1200, 800) {
 }
 
 LoadSceneDemo::~LoadSceneDemo() {
-    delete camera;
-    delete scene;
-    delete player;
+    // delete camera;
+    // delete scene;
+    // delete player;
 }
 
 void LoadSceneDemo::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
