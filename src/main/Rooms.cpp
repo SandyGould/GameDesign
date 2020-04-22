@@ -41,9 +41,9 @@ Rooms::Rooms() : Game(600, 500) {
 
 	// load and prep player
 	player = new Player();
-	// player = new AnimatedSprite("girl", "./resources/assets/Spritesheets/Girl/Girl.png", "./resources/assets/Spritesheets/Girl/Girl.xml");
 	player->position = {50, 250};
-	player->width = player->height = 50;
+	player->width = 110;
+	player->height = 80;
 	player->pivot = {50, 50};
 	//player->type = "player";
 
@@ -132,11 +132,12 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 				camera->position = {200, 200};
 				camera->pivot = {200, 200};
 				camera->changeScene = false;
-				// add new player
-				player = new Player();
+
+				// pass player to new scene
 				scene2->addChild(player);
+				scene->removeImmediateChildWithoutDelete(player);
 				player->position = {0, 200};
-				player->width = player->height = 50;
+
 				EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_IN_EVENT));
 				sceneChange = false;
 				room = 2;
@@ -154,7 +155,6 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 			EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_OUT_EVENT));
 			if (camera->changeScene) {
 				//setup camera
-				player = new Player();
 				scene3 = new Scene(camera, player);
 				scene3->loadScene("./resources/Rebound/area3/area3map.json");
 				if (!EventDispatcher::getInstance().hasEventListener(this->scene3, NewSceneEvent::FADE_IN_EVENT)) {
@@ -168,18 +168,18 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 				camera->position = {200, 200};
 				camera->pivot = {200, 200};
 				camera->changeScene = false;
-				
-				// add new player
+
+				// pass player
 				scene3->addChild(player);
+				scene2->removeImmediateChildWithoutDelete(player);
 				player->position = {20, 20};
-				player->width = player->height = 50;
-				
+
 				EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_IN_EVENT));
 				sceneChange = false;
 				room = 3;
 			}
 		}
-		
+
 	}
 
 	// std::cout << "x" << std::endl;
@@ -188,50 +188,14 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 	// std::cout << player->position.y << std::endl;
 
 
-	// scene 1 controls
+	// scene 1 change
 	if (room == 1 && !sceneChange) {
-		if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
-			if (player->position.x < 1230 || (player->position.y < 350 && player->position.y > 175)) {
-				player->position.x += 2;
-			}
-		}
-		if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
-        	if (player->position.x > 30) {
-            	player->position.x -= 2;
-        	}
-		}
-		if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-			player->position.y += 2;
-		}
-		if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
-			if (player->position.y > 30) {
-				player->position.y -= 2;
-			}
-		}
 		if (player->position.x > 1200) {
 			sceneChange = true;
 		}
 	}
 
 	if (room == 2 && !sceneChange2) {
-		if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
-			if (player->position.x < 600) {
-				player->position.x += 2;
-			}
-		}
-		if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
-        	if (player->position.x > 30) {
-            	player->position.x -= 2;
-        	}
-		}
-		if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
-			if (player->position.y > 30) {
-				player->position.y -= 2;
-			}
-		}
-		if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-			player->position.y += 2;
-		}
 		if (player->position.y > 510) {
 			sceneChange2 = true;
 		}
@@ -240,24 +204,6 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 	if (room == 3) {
 		std::cout << "x: " << camera->pivot.x << std::endl;
 		std::cout << "y: " << camera->pivot.y << std::endl;
-		if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
-			//if (player->position.x < 600) {
-			player->position.x += 2;
-			//}
-		}
-		if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
-        	//if (player->position.x > 30) {
-            player->position.x -= 2;
-        	//}
-		}
-		if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
-			//if (player->position.y > 30) {
-			player->position.y -= 2;
-			//}
-		}
-		if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-			player->position.y += 2;
-		}
 	}
 
 	// menu controls

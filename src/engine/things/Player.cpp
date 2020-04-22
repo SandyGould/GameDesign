@@ -19,8 +19,8 @@ Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites
 	this->addChild(shield);
 	shield->position.x = 105;
 	shield->position.y = 10;
-	shield->width = this->width * 20 / 110;
-	shield->height = this->height;
+	shield->width = 10;
+	shield->height = 70;
 	shield->pivot = {50, 50};
     shield->visible = false;
 }
@@ -143,12 +143,12 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
     		}
     	}
     	if (pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) {
-            shield->position.x = -20;
+            shield->position.x = -5;
             shield->position.y = 10;
             shield->rotation = 0;
             this->changeStamina(-2);
             if (checkDoubleTaps(SDL_SCANCODE_A)) {
-                shieldBashCooldown = BASH_COOLDOWN;            
+                shieldBashCooldown = BASH_COOLDOWN;
                 shield->bashing = true;
                 shield->bashFrames = 10;
     			shieldBash = new Tween(shield);
@@ -161,8 +161,8 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
     		}
     	}
     	if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
-            shield->position.x = -5;
-            shield->position.y = 105;
+            shield->position.x = -8;
+            shield->position.y = 100;
             shield->rotation = PI / 2;
             this->changeStamina(-2);
             if (checkDoubleTaps(SDL_SCANCODE_S)) {
@@ -179,7 +179,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
     		}
     	}
     	if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
-            shield->position.x = 15;
+            shield->position.x = 20;
             shield->position.y = -105;
             shield->rotation = -PI / 2;
             this->changeStamina(-2);
