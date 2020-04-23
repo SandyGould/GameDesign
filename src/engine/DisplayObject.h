@@ -136,4 +136,7 @@ private:
 	/* Texture currently being drawn. Equal to texture for normal DO */
 	SDL_Texture* curTexture;
 
+    // Keep track of any objects that were erased during our update loop,
+    // so that we can properly erase them from children afterwards
+    std::vector<DisplayObject*> objectsToErase;
 };

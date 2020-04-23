@@ -173,7 +173,7 @@ void DisplayObject::removeImmediateChild(DisplayObject* child) {
         delete event;
 
         delete *it;
-        this->children.erase(it);
+        objectsToErase.push_back(*it);
     }
 }
 
@@ -184,8 +184,7 @@ void DisplayObject::removeImmediateChildWithoutDelete(DisplayObject* child) {
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
 
-        //delete *it;
-        this->children.erase(it);
+        objectsToErase.push_back(*it);
     }
 }
 
@@ -197,7 +196,7 @@ void DisplayObject::removeImmediateChild(std::string id) {
         delete event;
 
         delete *it;
-        this->children.erase(it);
+        objectsToErase.push_back(*it);
     }
 }
 
@@ -254,6 +253,12 @@ void DisplayObject::update(const std::unordered_set<SDL_Scancode>& pressedKeys, 
     for (auto* child : children) {
         child->update(pressedKeys, joystickState, pressedButtons);
     }
+
+    // Clear ourselves of any deleted children
+    for (auto* object : objectsToErase) {
+        children.erase(std::remove(children.begin(), children.end(), object), children.cend());
+    }
+    objectsToErase.clear();
 }
 
 void DisplayObject::draw(AffineTransform& at) {
