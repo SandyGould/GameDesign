@@ -49,7 +49,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
     bool idle = true;
     int DEAD_ZONE = 10000;
 	if ((pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) || joystickState.xVal1 - DEAD_ZONE > 0) {
-		if (checkDoubleTaps(SDL_SCANCODE_RIGHT)) {
+		if (checkDoubleTaps(SDL_SCANCODE_RIGHT) || (joystickState.xVal1 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
             if (this->current->animName.compare("Slide") != 0)
                 this->play("Slide");
 			this->position.x += this->speed*2;
@@ -65,7 +65,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
         idle = false;
 	}
     if ((pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) || joystickState.xVal1 + DEAD_ZONE < 0) {
-		if (checkDoubleTaps(SDL_SCANCODE_LEFT)) {
+		if (checkDoubleTaps(SDL_SCANCODE_LEFT) || (joystickState.xVal1 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
             if (this->current->animName.compare("SlideLeft") != 0)
                 this->play("SlideLeft");
 			this->position.x -= this->speed*2;
@@ -81,7 +81,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
         idle = false;
 	}
 	if ((pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) || joystickState.yVal1 - DEAD_ZONE > 0) {
-		if (checkDoubleTaps(SDL_SCANCODE_DOWN)) {
+		if (checkDoubleTaps(SDL_SCANCODE_DOWN) || (joystickState.yVal1 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
             if (this->current->animName.compare("Slide") != 0)
                 this->play("Slide");
 			this->position.y += this->speed*2;
@@ -97,7 +97,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
         idle = false;
 	}
 	if ((pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) || joystickState.yVal1 + DEAD_ZONE < 0) {
-		if (checkDoubleTaps(SDL_SCANCODE_UP)) {
+		if (checkDoubleTaps(SDL_SCANCODE_UP) || (joystickState.yVal1 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
             if (this->current->animName.compare("Slide") != 0)
                 this->play("Slide");
 			this->position.y -= this->speed*2;
@@ -129,7 +129,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
             shield->position.y = 10;
             shield->rotation = 0;
             this->changeStamina(-2);
-            if (checkDoubleTaps(SDL_SCANCODE_D)) {
+            if (checkDoubleTaps(SDL_SCANCODE_D) || (joystickState.xVal2 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
                 shield->bashing = true;
                 shield->bashFrames =10;
                 shieldBashCooldown = BASH_COOLDOWN;
@@ -147,13 +147,13 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
             shield->position.y = 10;
             shield->rotation = 0;
             this->changeStamina(-2);
-            if (checkDoubleTaps(SDL_SCANCODE_A)) {
+            if (checkDoubleTaps(SDL_SCANCODE_A) || (joystickState.xVal2 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
                 shieldBashCooldown = BASH_COOLDOWN;
                 shield->bashing = true;
                 shield->bashFrames = 10;
     			shieldBash = new Tween(shield);
-                shieldBash->animate(TweenableParams::X, -20.0, -55.0, 10);
-                shieldBash->animate(TweenableParams::X, -55.0, -20, 18);
+                shieldBash->animate(TweenableParams::X, -5.0, -40.0, 10);
+                shieldBash->animate(TweenableParams::X, -40.0, -5.0, 18);
                 TweenJuggler::getInstance().add(shieldBash);
     			this->changeStamina(-70);
                 AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
@@ -165,13 +165,13 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
             shield->position.y = 100;
             shield->rotation = PI / 2;
             this->changeStamina(-2);
-            if (checkDoubleTaps(SDL_SCANCODE_S)) {
+            if (checkDoubleTaps(SDL_SCANCODE_S) || (joystickState.yVal2 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
                 shieldBashCooldown = BASH_COOLDOWN;
                 shield->bashing = true;
                 shield->bashFrames =10;
     			shieldBash = new Tween(shield);
-                shieldBash->animate(TweenableParams::Y, 105.0, 140.0, 10);
-                shieldBash->animate(TweenableParams::Y, 140.0, 105.0, 18);
+                shieldBash->animate(TweenableParams::Y, 100.0, 135.0, 10);
+                shieldBash->animate(TweenableParams::Y, 135.0, 100.0, 18);
                 TweenJuggler::getInstance().add(shieldBash);
                 this->changeStamina(-70);
                 AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
@@ -183,7 +183,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
             shield->position.y = -105;
             shield->rotation = -PI / 2;
             this->changeStamina(-2);
-            if (checkDoubleTaps(SDL_SCANCODE_W)) {
+            if (checkDoubleTaps(SDL_SCANCODE_W) || (joystickState.yVal2 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
                 shieldBashCooldown = BASH_COOLDOWN;
                 shield->bashFrames =10;
                 shield->bashing = true;
