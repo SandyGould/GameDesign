@@ -22,11 +22,11 @@ class TweenJuggler {
 	    ~TweenJuggler();
         void add(Tween* tween);
         void nextFrame();  //invoked every frame by Game, calls update() on every Tween and cleans up old / complete Tweens
+        std::list<Tween*> tweenList;
         
     private:
         TweenJuggler();
         static TweenJuggler* instance;
-        std::list<Tween*> tweenList;
 };
 
 #endif
