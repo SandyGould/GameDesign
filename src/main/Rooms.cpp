@@ -30,9 +30,9 @@ Rooms::Rooms() : Game(600, 500) {
 
 	// load and prep camera
 	camera->setTopLimit(0);
-	camera->setLeftLimit(200);
-	camera->setRightLimit(810);
-    camera->setBottomLimit(0);
+	camera->setLeftLimit(0); //200
+	camera->setRightLimit(810); //810
+    camera->setBottomLimit(800); //0
 	// move that point to the middle
 	camera->position = {200, 100};
 	camera->pivot = {200, 100};
@@ -51,7 +51,7 @@ Rooms::Rooms() : Game(600, 500) {
 	// load and prep scene 1
 	room = 1;
 	scene = new Scene(camera, player);
-	scene->loadScene("./resources/Rebound/area1/room1/area1room1map.json");
+	scene->loadScene("./resources/Rebound/area3_res/area3_3.json");
 
 	camera->addChild(scene);
 
