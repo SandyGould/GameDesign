@@ -9,7 +9,7 @@ class Mage : public BaseEnemy {
 public:
 
 	Mage(Player* player);
-
+	Mage(Player* player, std::string filepath, std::string xml);
 	int ready = 300;
 
 	void changeHealth(int amount);

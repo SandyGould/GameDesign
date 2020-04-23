@@ -8,6 +8,10 @@ Mage::Mage(Player* player) : BaseEnemy("mage", "./resources/assets/Animated_Spri
     this->mageAttack = nullptr;
 }
 
+Mage::Mage(Player* player, std::string filepath, std::string xml): BaseEnemy("kMage", filepath, xml, player){
+    
+}
+
 /*
 Init
 Wait for player

@@ -25,6 +25,10 @@ Archer::Archer(Player* player): BaseEnemy("Archer", "./resources/assets/Display_
     this->arrow = nullptr;
 }
 
+Archer::Archer(Player* player, std::string filepath, std::string xml): BaseEnemy("kArcher", filepath, xml, player){
+
+}
+
 void Archer::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
     if(this->health <= 0) {
         this->removeThis();
