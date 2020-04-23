@@ -2,12 +2,12 @@
     "Scene":[
         {
             "L0":{
-                "speed":0,
+                "speed":1,
                 "objects":[
                     {
                         "type":"Sprite",
                         "name":"background",
-                        "filepath":"./resources/Rebound/area1/assets/Display_Objects/background.png",
+                        "filepath":"./resources/Rebound/area1/room1/assets/Display_Objects/background.png",
                         "x_pos":0,
                         "y_pos":0,
                         "rotation":0,
@@ -16,20 +16,9 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"WalkOnObject",
-                        "name":"mud",
-                        "filepath":"./resources/Rebound/area1/assets/Display_Objects/mud.png",
-                        "x_pos":400,
-                        "y_pos":200,
-                        "rotation":0,
-                        "scaleX":1,
-                        "scaleY":1,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
+                        "type":"Sprite",
                         "name":"stone",
-                        "filepath":"./resources/Rebound/area1/assets/Display_Objects/stone.png",
+                        "filepath":"./resources/Rebound/area1/room1/assets/Display_Objects/stone.png",
                         "x_pos": 30,
                         "y_pos": 280,
                         "rotation": 0,
@@ -38,9 +27,9 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"EnvironmentObject",
+                        "type":"Sprite",
                         "name":"sign",
-                        "filepath":"./resources/Rebound/area1/assets/Display_Objects/sign.png",
+                        "filepath":"./resources/Rebound/area1/room1/assets/Display_Objects/sign.png",
                         "x_pos":1110,
                         "y_pos":230,
                         "rotation":0,
@@ -49,9 +38,9 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"EnvironmentObject",
+                        "type":"Sprite",
                         "name":"top_trees",
-                        "filepath":"./resources/Rebound/area1/assets/Display_Objects/top_trees.png",
+                        "filepath":"./resources/Rebound/area1/room1/assets/Display_Objects/top_trees.png",
                         "x_pos":0,
                         "y_pos":0,
                         "rotation":0,
@@ -60,9 +49,9 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"EnvironmentObject",
+                        "type":"Sprite",
                         "name":"bottom_trees",
-                        "filepath":"./resources/Rebound/area1/assets/Display_Objects/bottom_trees.png",
+                        "filepath":"./resources/Rebound/area1/room1/assets/Display_Objects/bottom_trees.png",
                         "x_pos":0,
                         "y_pos":350,
                         "rotation":0,
@@ -71,14 +60,14 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"EnvironmentObject",
+                        "type":"Sprite",
                         "name":"obstacle",
-                        "filepath":"./resources/Rebound/area1/assets/Display_Objects/obstacle.png",
+                        "filepath":"./resources/Rebound/area1/room1/assets/Display_Objects/obstacle.png",
                         "x_pos": 600,
                         "y_pos": 140,
                         "rotation":0,
                         "scaleX":0.3,
-                        "scaleY":1,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     }
                 ]
@@ -87,7 +76,19 @@
         {
             "L1":{
                 "speed":1,
-                "objects":[]
+                "objects":[
+                    {
+                        "type":"Sprite",
+                        "name":"cloud",
+                        "filepath":"./resources/Rebound/top_layer/cloud.png",
+                        "x_pos":600,
+                        "y_pos":100,
+                        "rotation":0,
+                        "scaleX":1,
+                        "scaleY":1,
+                        "parentHierarchy":[]
+                    }
+                ]
             }
         },
         {

@@ -51,13 +51,13 @@ Rooms::Rooms() : Game(600, 500) {
 	// load and prep scene 1
 	room = 1;
 	scene = new Scene(camera, player);
-	scene->loadScene("./resources/Rebound/area1/area1map.json");
+	scene->loadScene("./resources/Rebound/area1/room1/area1room1map.json");
 
 	camera->addChild(scene);
 
 	// load and prep scene 2
 	scene2 = new Scene(camera, player);
-	scene2->loadScene("./resources/Rebound/area2/area2map.json");
+	scene2->loadScene("./resources/Rebound/area1/room2/area1room2map.json");
 
 	scene->addChild(player);
 

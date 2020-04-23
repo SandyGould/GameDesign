@@ -7,7 +7,7 @@
                     {
                         "type":"Sprite",
                         "name":"background",
-                        "filepath":"./resources/Rebound/area2/assets/background.png",
+                        "filepath":"./resources/Rebound/area1/room2/assets/background.png",
                         "x_pos":100,
                         "y_pos":0,
                         "rotation":0,
@@ -18,7 +18,7 @@
                     {
                         "type":"Sprite",
                         "name":"structure1",
-                        "filepath":"./resources/Rebound/area2/assets/structure_1.png",
+                        "filepath":"./resources/Rebound/area1/room2/assets/structure_1.png",
                         "x_pos": 800,
                         "y_pos": 0,
                         "rotation": 0,
@@ -29,7 +29,7 @@
                     {
                         "type":"Sprite",
                         "name":"structure2",
-                        "filepath":"./resources/Rebound/area2/assets/structure_2.png",
+                        "filepath":"./resources/Rebound/area1/room2/assets/structure_2.png",
                         "x_pos":900,
                         "y_pos":0,
                         "rotation":0,
@@ -40,7 +40,7 @@
                     {
                         "type":"Sprite",
                         "name":"barrel",
-                        "filepath":"./resources/Rebound/area2/assets/barrel_tile.png",
+                        "filepath":"./resources/Rebound/area1/room2/assets/barrel_tile.png",
                         "x_pos": 850,
                         "y_pos": 70,
                         "rotation":0,
@@ -51,7 +51,7 @@
                     {
                         "type":"WalkOnObject",
                         "name":"shield_power_up",
-                        "filepath": "./resources/Rebound/area2/assets/shield.png",
+                        "filepath": "./resources/Rebound/area1/room2/assets/shield.png",
                         "x_pos": 300,
                         "y_pos": 250,
                         "rotation":0,
