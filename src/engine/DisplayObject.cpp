@@ -254,18 +254,6 @@ void DisplayObject::update(const std::unordered_set<SDL_Scancode>& pressedKeys, 
     for (auto* child : children) {
         child->update(pressedKeys, joystickState, pressedButtons);
     }
-	// if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
-	// 	position.x -= parallaxSpeed;
-	// }
-	// if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
-	// 	position.x += parallaxSpeed;
-	// }
-	// if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-	// 	position.y -= parallaxSpeed;
-	// }
-	// if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
-	// 	position.y += parallaxSpeed;
-	// }
 }
 
 void DisplayObject::draw(AffineTransform& at) {

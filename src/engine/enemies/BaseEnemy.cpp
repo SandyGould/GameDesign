@@ -31,10 +31,3 @@ bool BaseEnemy::onCollision(DisplayObject* other){
     }
     return false;
 }
-
-void BaseEnemy::cleanUp(){
-        for(DisplayObject* object: children){
-            this->removeImmediateChild(object);
-        }
-        this->removeThis();
-}
