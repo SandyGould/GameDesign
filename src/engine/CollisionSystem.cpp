@@ -14,12 +14,12 @@ CollisionSystem::CollisionSystem() {
     this->buildDisplayMap(Game::instance->container);
 }
 
-void CollisionSystem::buildDisplayMap(DisplayObject* object) {
+void CollisionSystem::buildDisplayMap(shared_ptr<DisplayObject> object) {
     auto it = displayObjectsMap.find(object->type);
     if (it != displayObjectsMap.cend()) {
         it->second.insert(object);
     } else {
-        displayObjectsMap.try_emplace(object->type, unordered_set<DisplayObject*>({object}));
+        displayObjectsMap.try_emplace(object->type, unordered_set<shared_ptr<DisplayObject>>({object}));
     }
 
     for (auto child : object->children) {
@@ -30,6 +30,17 @@ void CollisionSystem::buildDisplayMap(DisplayObject* object) {
 //checks collisions between pairs of DOs where the corresponding types have been requested
 //to be checked (via a single call to watchForCollisions) below.
 void CollisionSystem::update() {
+    // Clear ourselves of any deleted elements
+    for (auto object : objectsToErase) {
+        collisionPairs.erase(remove_if(collisionPairs.begin(),
+                                       collisionPairs.end(),
+                                       [&](auto x) {
+                                         return x.first == object || x.second == object;
+                                       }),
+                             collisionPairs.cend());
+    }
+    objectsToErase.clear();
+
     for (auto& [object1, object2] : collisionPairs) {
         // Before we do anything! We must make sure we're not trying to
         // operate on objects that have already been deleted
@@ -69,17 +80,6 @@ void CollisionSystem::update() {
     for (auto& [object, _] : prevPositions) {
         prevPositions.at(object) = object->position;
     }
-
-    // Clear ourselves of any deleted elements
-    for (auto* object : objectsToErase) {
-        collisionPairs.erase(remove_if(collisionPairs.begin(),
-                                       collisionPairs.end(),
-                                       [&](auto x) {
-                                           return x.first == object || x.second == object;
-                                       }),
-                             collisionPairs.cend());
-    }
-    objectsToErase.clear();
 }
 
 //This system watches the game's display tree and is notified whenever a display object is placed onto
@@ -87,14 +87,16 @@ void CollisionSystem::update() {
 void CollisionSystem::handleEvent(Event* e) {
     if (e->getType() == DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT) {
         DisplayTreeChangeEvent* event = static_cast<DisplayTreeChangeEvent*>(e);
-        DisplayObject* object = event->object;
+        shared_ptr<DisplayObject> object(event->object);
         const string type = object->type;
         if (event->added) {
             auto it = displayObjectsMap.find(type);
             if (it != displayObjectsMap.cend()) {
-                it->second.insert(object);
+                it->second.emplace(object);
             } else {
-                displayObjectsMap.try_emplace(type, unordered_set<DisplayObject*>({object}));
+                unordered_set<shared_ptr<DisplayObject>> new_set;
+                new_set.emplace(object);
+                displayObjectsMap.try_emplace(type, new_set);
             }
 
             if (collisionTypes.find(type) != collisionTypes.cend()) {
@@ -108,7 +110,7 @@ void CollisionSystem::handleEvent(Event* e) {
             // Defer erasing from collisionPairs as it's possible that
             // we're in the middle of an update() loop, and deleting now
             // would invalidate the iterators
-            objectsToErase.push_back(object);
+            objectsToErase.emplace_back(object);
             displayObjectsMap.at(type).erase(object);
             prevPositions.erase(object);
         }
@@ -140,7 +142,7 @@ void CollisionSystem::watchForCollisions(const string& type1, const string& type
     collisionTypes.try_emplace(type2, unordered_set<string>({type1}));
 }
 
-void CollisionSystem::pairObjectWithType(DisplayObject* object, const string& type) {
+void CollisionSystem::pairObjectWithType(shared_ptr<DisplayObject> object, const string& type) {
     for (auto& object2 : displayObjectsMap.at(type)) {
         // Here, we sort by type then ID to make sure the unordered_set
         // doesn't contain duplicates.
@@ -242,7 +244,7 @@ bool CollisionSystem::isInside(SDL_Point point, Hitbox hitbox) {
 }
 
 // Returns true iff obj1 hitbox and obj2 hitbox overlap
-bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
+bool CollisionSystem::collidesWith(shared_ptr<DisplayObject> obj1, shared_ptr<DisplayObject> obj2) {
     if (obj1->hitboxType == HitboxType::Rectangle && obj2->hitboxType == HitboxType::Rectangle) {
         Hitbox obj1Hitbox = obj1->getHitbox();
         Hitbox obj2Hitbox = obj2->getHitbox();
@@ -274,8 +276,8 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
         cout << "circle <-> circle collision detection not yet implemented" << endl;
         return false;
     } else {
-        DisplayObject* circle;
-        DisplayObject* rect;
+        shared_ptr<DisplayObject> circle;
+        shared_ptr<DisplayObject> rect;
         if (obj1->hitboxType == HitboxType::Circle) {
             circle = obj1;
             rect = obj2;
@@ -298,7 +300,7 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
 // Resolves the collision that occurred between d and other
 // xDelta1 and yDelta1 are the amount d moved before causing the collision.
 // xDelta2 and yDelta2 are the amount other moved before causing the collision.
-void CollisionSystem::resolveCollision(DisplayObject* d, DisplayObject* other,
+void CollisionSystem::resolveCollision(shared_ptr<DisplayObject> d, shared_ptr<DisplayObject> other,
                                        int xDelta1, int yDelta1, int xDelta2, int yDelta2) {
     // Give the objects the chance to handle the collision by themselves
     if (d->onCollision(other) || other->onCollision(d)) {

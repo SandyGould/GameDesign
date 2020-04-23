@@ -9,20 +9,19 @@ LoadSceneDemo::LoadSceneDemo() : Game(1200, 800) {
 
     this->collisionSystem = new CollisionSystem();
 
-    this->camera = new Camera();
+    this->camera = std::make_shared<Camera>();
     this->camera->position = {this->windowWidth / 2, this->windowHeight / 2};
     this->camera->pivot = {this->windowWidth / 2, this->windowHeight / 2};
     this->container->addChild(this->camera);
 
-    this->player = new Player();
+    this->player = std::make_shared<Player>();
 	player->position = {0, 0};
 	player->width = 110;
 	player->height = 80;
 	player->pivot = {50, 50};
 	player->play("Idle");
-    this->scene = new Scene(camera, player);
 
-    this->scene = new Scene(this->camera, this->player);
+    this->scene = std::make_shared<Scene>(this->camera, this->player);
     this->scene->loadScene("./resources/loadSceneDemo/three_archer_very_scary.json");
     this->scene->getChild(0)->addChild(player);
     this->scene->camera = this->camera;

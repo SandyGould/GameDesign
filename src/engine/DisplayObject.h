@@ -6,9 +6,9 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-
-#include <unordered_set>
+#include <memory>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 static constexpr auto PI = 3.14159265;
@@ -45,7 +45,7 @@ public:
 	std::string type = "DisplayObject";
 	std::string saveType;
 
-	DisplayObject* parent = nullptr;
+	std::shared_ptr<DisplayObject> parent = nullptr;
 
 	int red = 0;
 	int green = 0;
@@ -67,17 +67,17 @@ public:
     void setTexture(SDL_Texture* t);
 	void setSurface(SDL_Surface* s);
 
-    void addChild(DisplayObject* child);
-    void removeImmediateChild(DisplayObject* child);
-    void removeImmediateChildWithoutDelete(DisplayObject* child);
+    void addChild(std::shared_ptr<DisplayObject> child);
+    void removeImmediateChild(std::shared_ptr<DisplayObject> child);
+    void removeImmediateChildWithoutDelete(std::shared_ptr<DisplayObject> child);
     void removeImmediateChild(std::string id);
     void removeChild(size_t index);
     void removeThis();
 
-	  DisplayObject* getAndRemoveChild(std::string id);
+    std::shared_ptr<DisplayObject> getAndRemoveChild(std::string id);
     [[nodiscard]] int numChildren() const;
-    [[nodiscard]] DisplayObject* getChild(int index) const;
-    [[nodiscard]] DisplayObject* getChild(const std::string& id) const;
+    [[nodiscard]] std::shared_ptr<DisplayObject> getChild(int index) const;
+    [[nodiscard]] std::shared_ptr<DisplayObject> getChild(const std::string& id) const;
 
 	virtual void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons);
 	virtual void draw(AffineTransform& at);
@@ -93,7 +93,7 @@ public:
 
 	void getGlobalTransform(AffineTransform& at) const;
 
-    virtual bool onCollision(DisplayObject* other);
+    virtual bool onCollision(std::shared_ptr<DisplayObject> other);
 
     [[nodiscard]] Hitcircle getHitcircle() const;
     void drawHitcircle(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE}) const;
@@ -101,7 +101,7 @@ public:
     [[nodiscard]] Hitbox getHitbox() const;
     void drawHitbox(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE}) const;
 
-	void propogateEvent(Event* e, DisplayObject* root);
+	void propogateEvent(Event* e, std::shared_ptr<DisplayObject> root);
 	void handleEvent(Event* e) override;
 
     bool visible = true;
@@ -124,7 +124,7 @@ public:
 
 	double parallaxSpeed = 1.0;
 
-    std::vector<DisplayObject*> children;
+    std::vector<std::shared_ptr<DisplayObject>> children;
 
 private:
 	static double distance(SDL_Point& p1, SDL_Point& p2);
@@ -138,5 +138,5 @@ private:
 
     // Keep track of any objects that were erased during our update loop,
     // so that we can properly erase them from children afterwards
-    std::vector<DisplayObject*> objectsToErase;
+    std::vector<std::shared_ptr<DisplayObject>> objectsToErase;
 };

@@ -9,7 +9,7 @@ using namespace std;
 
 SelectionMenuOption::SelectionMenuOption(string id, string text): DisplayObject(id, 255, 255, 255){
 	this->text = text;
-	this->textbox = new TextBox(text, text);
+	this->textbox = std::make_shared<TextBox>(text, text);
 	this->textbox->setColor({0,0,0, 255});
 	this->textbox->alpha = 0;
 	this->alpha = 0;

@@ -54,7 +54,7 @@ class Scene : public DisplayObject {
 
 public:
 	Scene();
-	Scene(Camera* camera, Player* player);
+	Scene(std::shared_ptr<Camera> camera, std::shared_ptr<Player> player);
 	explicit Scene(std::string id);
 	~Scene() override = default;
 
@@ -62,12 +62,12 @@ public:
 	void loadScene(std::string sceneFilePath);
 	void loadScene_Editor(std::string sceneFilePath);
 	void saveScene(std::string sceneName);
-	void addToJSON(nlohmann::json &Layer, DisplayObject* dObject);
+	void addToJSON(nlohmann::json &Layer, std::shared_ptr<DisplayObject> dObject);
 
 	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
 	void draw(AffineTransform& at) override;
 
-	DisplayObject* setBasicInfo(DisplayObject* d_obj, json j);
+	std::shared_ptr<DisplayObject> setBasicInfo(std::shared_ptr<DisplayObject> d_obj, json j);
   /*
 	DisplayObject* generateDO(json j);
 	AnimatedSprite* generateAS(json j);
@@ -92,10 +92,10 @@ public:
 
 	// for scene transitions
 	bool keepScene = false;
-	Player* player;
-	Camera* camera;
+	std::shared_ptr<Player> player;
+	std::shared_ptr<Camera> camera;
 
 private:
-	DisplayObject* root;
+	std::shared_ptr<DisplayObject> root;
 
 };

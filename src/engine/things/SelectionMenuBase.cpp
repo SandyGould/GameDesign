@@ -22,8 +22,8 @@ void SelectionMenuBase::draw(AffineTransform& at) {
 void SelectionMenuBase::handleEvent(Event* e){
 	if (e->getType() == KeyDownEvent::ESC_DOWN_EVENT){
 		alpha = alpha ^ 50;
-		for(auto* child: children){
-			if(SelectionMenuOption* c = dynamic_cast<SelectionMenuOption*>(child)){
+		for(auto child: children){
+			if(auto c = dynamic_pointer_cast<SelectionMenuOption>(child)){
 				c->updateAlpha();
 			} else{
 				child->alpha = child->alpha ^ 100; // assuming the chidren's alpha starts at 0

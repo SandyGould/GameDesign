@@ -29,79 +29,79 @@ Editor::Editor(const string& sceneToLoad)
     EventDispatcher::getInstance().addEventListener(this, MouseWheelEvent::MOUSE_WHEEL_EVENT);
 
     instance = this;
-    curScene = new Scene();
+    curScene = std::make_shared<Scene>();
 
-    camera = new Camera();
+    camera = std::make_shared<Camera>();
     camera->position = {this->windowWidth / 2, this->windowHeight / 2};
     camera->pivot = {this->windowWidth / 2, this->windowHeight / 2};
     this->container->addChild(camera);
 
     curScene->loadScene_Editor(sceneToLoad);
     
-    for (auto* layer : curScene->children) {
-        ((Layer*) layer)->cam = camera;
+    for (const auto& layer : curScene->children) {
+        static_pointer_cast<Layer>(layer)->cam = camera;
     }
 
     camera->addChild(curScene);
 
-    assets = new DisplayObject("assets");
+    assets = std::make_shared<DisplayObject>("assets");
     assets->renderer = this->assets_renderer;
 
-    edit = new DisplayObject("edit");
+    edit = std::make_shared<DisplayObject>("edit");
     edit->renderer = this->edit_renderer;
 
-    TextObject* idLabel = new TextObject(string("idLabel"), string("ID:"), Game::font, edit_renderer);
+    std::shared_ptr<TextObject> idLabel = std::make_shared<TextObject>(string("idLabel"), string("ID:"), Game::font, edit_renderer);
 
-    TextObject* posLabel  = new TextObject(string("posLabel"),  string("Position"), Game::font, edit_renderer);
-    TextObject* posXLabel = new TextObject(string("posXLabel"), string("X:"),       Game::font, edit_renderer);
-    TextObject* posYLabel = new TextObject(string("posYLabel"), string("Y:"),       Game::font, edit_renderer);
+    std::shared_ptr<TextObject> posLabel  = std::make_shared<TextObject>(string("posLabel"),  string("Position"), Game::font, edit_renderer);
+    std::shared_ptr<TextObject> posXLabel = std::make_shared<TextObject>(string("posXLabel"), string("X:"),       Game::font, edit_renderer);
+    std::shared_ptr<TextObject> posYLabel = std::make_shared<TextObject>(string("posYLabel"), string("Y:"),       Game::font, edit_renderer);
     posLabel->position = {0, 40};
     posXLabel->position = {0, 70};
     posYLabel->position = {150, 70};
 
-    TextObject* pivLabel  = new TextObject(string("pivLabel"),  string("Pivot"), Game::font, edit_renderer);
-    TextObject* pivXLabel = new TextObject(string("pivXLabel"), string("X:"),    Game::font, edit_renderer);
-    TextObject* pivYLabel = new TextObject(string("pivYLabel"), string("Y:"),    Game::font, edit_renderer);
+    std::shared_ptr<TextObject> pivLabel  = std::make_shared<TextObject>(string("pivLabel"),  string("Pivot"), Game::font, edit_renderer);
+    std::shared_ptr<TextObject> pivXLabel = std::make_shared<TextObject>(string("pivXLabel"), string("X:"),    Game::font, edit_renderer);
+    std::shared_ptr<TextObject> pivYLabel = std::make_shared<TextObject>(string("pivYLabel"), string("Y:"),    Game::font, edit_renderer);
     pivLabel->position = {0, 110};
     pivXLabel->position = {0, 140};
     pivYLabel->position = {150, 140};
 
-    TextObject* scaleLabel  = new TextObject(string("scaleLabel"),  string("Scale"), Game::font, edit_renderer);
-    TextObject* scaleXLabel = new TextObject(string("scaleXLabel"), string("X:"),    Game::font, edit_renderer);
-    TextObject* scaleYLabel = new TextObject(string("scaleYLabel"), string("Y:"),    Game::font, edit_renderer);
+    std::shared_ptr<TextObject> scaleLabel  = std::make_shared<TextObject>(string("scaleLabel"),  string("Scale"), Game::font, edit_renderer);
+    std::shared_ptr<TextObject> scaleXLabel = std::make_shared<TextObject>(string("scaleXLabel"), string("X:"),    Game::font, edit_renderer);
+    std::shared_ptr<TextObject> scaleYLabel = std::make_shared<TextObject>(string("scaleYLabel"), string("Y:"),    Game::font, edit_renderer);
     scaleLabel->position = {0, 180};
     scaleXLabel->position = {0, 210};
     scaleYLabel->position = {150, 210};
 
-    TextObject* rotLabel = new TextObject(string("rotLabel"), string("Rotation:"), Game::font, edit_renderer);
+    std::shared_ptr<TextObject> rotLabel = std::make_shared<TextObject>(string("rotLabel"), string("Rotation:"), Game::font, edit_renderer);
     rotLabel->position = {0, 250};
 
-    DisplayObject* layerZeroBackground = new DisplayObject("layerZeroBackground", 36, 113, 96, 37, 25, edit_renderer);
+    std::shared_ptr<DisplayObject> layerZeroBackground = std::make_shared<DisplayObject>("layerZeroBackground", 36, 113, 96, 37, 25, edit_renderer);
     layerZeroBackground->position = {0, 425};
 
-    TextObject* layerZeroButton = new TextObject(string("layerZeroButton"), string("L0"), Game::font, edit_renderer);
+    std::shared_ptr<TextObject> layerZeroButton = std::make_shared<TextObject>(string("layerZeroButton"), string("L0"), Game::font, edit_renderer);
     layerZeroButton->position = {5, 420};
 
-    DisplayObject* layerOneBackground = new DisplayObject("layerOneBackground", 36, 113, 96, 37, 25, edit_renderer);
+    std::shared_ptr<DisplayObject> layerOneBackground = std::make_shared<DisplayObject>("layerOneBackground", 36, 113, 96, 37, 25, edit_renderer);
     layerOneBackground->position = {40, 425};
 
-    TextObject* layerOneButton = new TextObject(string("layerOneButton"), string("L1"), Game::font, edit_renderer);
+    std::shared_ptr<TextObject> layerOneButton = std::make_shared<TextObject>(string("layerOneButton"), string("L1"), Game::font, edit_renderer);
     layerOneButton->position = {45, 420};
 
-    DisplayObject* layerTwoBackground = new DisplayObject("layerTwoBackground", 36, 113, 96, 37, 25, edit_renderer);
+    std::shared_ptr<DisplayObject> layerTwoBackground = std::make_shared<DisplayObject>("layerTwoBackground", 36, 113, 96, 37, 25, edit_renderer);
     layerTwoBackground->position = {80, 425};
 
-    TextObject* layerTwoButton = new TextObject(string("layerTwoButton"), string("L2"), Game::font, edit_renderer);
+    std::shared_ptr<TextObject> layerTwoButton = std::make_shared<TextObject>(string("layerTwoButton"), string("L2"), Game::font, edit_renderer);
     layerTwoButton->position = {85, 420};
 
-    DisplayObject* layerZeroIndicator = new DisplayObject("layerZeroIndicator", 0, 255, 0, 10, 10, edit_renderer);
+    std::shared_ptr<DisplayObject> layerZeroIndicator = std::make_shared<DisplayObject>("layerZeroIndicator", 0, 255, 0, 10, 10, edit_renderer);
     layerZeroIndicator->position = {15, 410};
 
-    DisplayObject* layerOneIndicator = new DisplayObject("layerOneIndicator", 0, 255, 0, 10, 10, edit_renderer);
+    std::shared_ptr<DisplayObject> layerOneIndicator = std::make_shared<DisplayObject>("layerOneIndicator", 0, 255, 0, 10, 10, edit_renderer);
     layerOneIndicator->position = {55, 410};
     layerOneIndicator->visible = false;
 
-    DisplayObject* layerTwoIndicator = new DisplayObject("layerTwoIndicator", 0, 255, 0, 10, 10, edit_renderer);
+    std::shared_ptr<DisplayObject> layerTwoIndicator = std::make_shared<DisplayObject>("layerTwoIndicator", 0, 255, 0, 10, 10, edit_renderer);
     layerTwoIndicator->position = {95, 410};
     layerTwoIndicator->visible = false;
     
@@ -135,15 +135,15 @@ void Editor::setupfiles(const string& path) {
     for (const auto& entry : fs::directory_iterator(path)) {
         if (entry.path() == "./resources/assets/Spritesheets") {
             for (const auto& AS : fs::directory_iterator(entry.path())) {
-                aSprites.push_back(new AnimatedSprite(AS.path().stem().string(), AS.path().string() + "/" + AS.path().stem().string() + ".png", AS.path().string() + "/" + AS.path().stem().string() + ".xml", assets_renderer));
+                aSprites.push_back(std::make_shared<AnimatedSprite>(AS.path().stem().string(), AS.path().string() + "/" + AS.path().stem().string() + ".png", AS.path().string() + "/" + AS.path().stem().string() + ".xml", assets_renderer));
             }
         } else if (entry.path() == "./resources/assets/Display_Objects") {
             for (const auto& DO : fs::directory_iterator(entry.path())) {
-                dos.push_back(new DisplayObject(DO.path().stem().string(), DO.path().string(), assets_renderer));
+                dos.push_back(std::make_shared<DisplayObject>(DO.path().stem().string(), DO.path().string(), assets_renderer));
             }
         } else if (entry.path() == "./resources/assets/Sprites") {
             for (const auto& S : fs::directory_iterator(entry.path())) {
-                sprites.push_back(new Sprite(S.path().stem().string(), S.path().string(), assets_renderer));
+                sprites.push_back(std::make_shared<Sprite>(S.path().stem().string(), S.path().string(), assets_renderer));
             }
         }
     }
@@ -258,7 +258,7 @@ void Editor::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState
 
         if (pressedKeys.find(SDL_SCANCODE_DELETE) != pressedKeys.end() &&
             prevKeys.find(SDL_SCANCODE_DELETE) == prevKeys.end()) {
-            for (DisplayObject* object : this->selected){
+            for (auto object : this->selected){
                 object->removeThis();
             }
             this->selected.clear();
@@ -386,10 +386,9 @@ void Editor::draw_post() {
         attributeSelected->drawHitbox({255, 255, 255, SDL_ALPHA_OPAQUE});
     }
 
-    for (DisplayObject* object : this->selected) {
+    for (auto object : this->selected) {
         object->drawHitbox({255, 255, 255, SDL_ALPHA_OPAQUE});
     }
-    
 }
 
 void Editor::clearRenderers(){
@@ -408,7 +407,7 @@ void Editor::presentRenderers(){
     SDL_RenderPresent(Editor::edit_renderer);
 }
 
-void Editor::cut(const unordered_set<DisplayObject*>& objects) {
+void Editor::cut(const unordered_set<shared_ptr<DisplayObject>>& objects) {
     // this->copied.clear();
     // if (!objects.empty()){
     //     for (DisplayObject* object : objects) {
@@ -432,17 +431,17 @@ void Editor::cut(const unordered_set<DisplayObject*>& objects) {
     // }
 
     this->copied.clear();
-    for (DisplayObject* object : objects) {
+    for (auto object : objects) {
         // Make the copy now so that future changes won't affect the copy
-        DisplayObject* copy;
+        shared_ptr<DisplayObject> copy;
         if (object->type == "DisplayObject"){
-            copy = new DisplayObject(*object);
+            copy = make_shared<DisplayObject>(*object);
         } else if (object->type == "Sprite" ||
                    object->type == "arrow" ||
                    object->type == "mage_attack" ||
                    object->type == "poison_bomb" ||
                    object->type == "rubber_cannonball"){
-            copy = new Sprite(*object);
+            copy = make_shared<Sprite>(*object);
         } else if (object->type == "AnimatedSprite" ||
                    object->type == "archer" ||
                    object->type == "cannoneer" ||
@@ -454,7 +453,7 @@ void Editor::cut(const unordered_set<DisplayObject*>& objects) {
                    object->type == "roar_monster" ||
                    object->type == "rubber_cannoneer" ||
                    object->type == "second_boss"){
-            copy = new AnimatedSprite(*object);
+            copy = make_shared<AnimatedSprite>(*object);
         }
         copy->type = object->type;
         copy->renderer = Game::renderer;
@@ -478,17 +477,17 @@ void Editor::cut(const unordered_set<DisplayObject*>& objects) {
     this->selected.clear();
 }
 
-void Editor::copy(const unordered_set<DisplayObject*>& objects, bool keepHierarchy) {
+void Editor::copy(const unordered_set<shared_ptr<DisplayObject>>& objects, bool keepHierarchy) {
     this->copied.clear();
-    for (DisplayObject* object : objects) {
+    for (auto object : objects) {
         // Make the copy now so that future changes won't affect the copy
-        DisplayObject* copy;
+        shared_ptr<DisplayObject> copy;
         if (object->type == "DisplayObject"){
-            copy = new DisplayObject(*object);
+            copy = make_shared<DisplayObject>(*object);
         } else if (object->type == "Sprite"){
-            copy = new Sprite(*object);
+            copy = make_shared<Sprite>(*object);
         } else if (object->type == "AnimatedSprite"){
-            copy = new AnimatedSprite(*object);
+            copy = make_shared<AnimatedSprite>(*object);
         }
         copy->renderer = Game::renderer;
 
@@ -518,7 +517,7 @@ void Editor::paste(MouseDownEvent* event) {
     if (!event){
         this->selected.clear();
     }
-    for (DisplayObject* object : this->copied) {
+    for (auto object : this->copied) {
         // TODO: This always inserts at the root.
         // Should that always be the case?
         this->curScene->getChild(layer)->addChild(object);
@@ -535,7 +534,7 @@ void Editor::paste(MouseDownEvent* event) {
     }
 
     // Pre-emptively get ready to copy the same objects again
-    unordered_set<DisplayObject*> temp = this->copied;
+    unordered_set<shared_ptr<DisplayObject>> temp = this->copied;
     this->copy(temp);
 }
 
@@ -546,14 +545,14 @@ void Editor::handleEvent(Event* e) {
             assetsWindowActive = true;
             editWindowActive = mainWindowActive = false;
 
-            DisplayObject* temp = NULL;
+            shared_ptr<DisplayObject> temp = nullptr;
             if (!this->selected.empty()){
                 temp = *(this->selected.begin());
             }
             this->selected.clear();
             if (selectedAsset){
                 curScene->getChild(layer)->removeImmediateChild(selectedAsset);
-                selectedAsset = NULL;
+                selectedAsset = nullptr;
             }
             if (this->onMouseDown(assets, event)){
                 if (*this->selected.begin() == temp){
@@ -570,7 +569,7 @@ void Editor::handleEvent(Event* e) {
             editWindowActive = true;
             assetsWindowActive = mainWindowActive = false;
 
-            this->attributeSelected = NULL;
+            this->attributeSelected = nullptr;
 
             if (this->onMouseDown(edit, event)){
 
@@ -611,33 +610,33 @@ void Editor::handleEvent(Event* e) {
         
         // Update edit window if there is one non-asset object selected that differs from currently displayed object
         if (!selectedAsset && selected.size() == 1 && editSelected != *selected.begin()){ 
-            editSelected = *selected.begin();
+            editSelected = std::static_pointer_cast<TextObject>(*selected.begin());
 
-            TextObject* idText = new TextObject(string("idText"), string(editSelected->id) , Game::font, edit_renderer);
+            shared_ptr<TextObject> idText = make_shared<TextObject>(string("idText"), string(editSelected->id) , Game::font, edit_renderer);
             idText->position = {37, 0};
 
-            TextObject* posXText = new TextObject(string("posXText"),  to_string(editSelected->position.x), Game::font, edit_renderer);
-            TextObject* posYText = new TextObject(string("posYText"),  to_string(editSelected->position.y), Game::font, edit_renderer);
+            shared_ptr<TextObject> posXText = make_shared<TextObject>(string("posXText"),  to_string(editSelected->position.x), Game::font, edit_renderer);
+            shared_ptr<TextObject> posYText = make_shared<TextObject>(string("posYText"),  to_string(editSelected->position.y), Game::font, edit_renderer);
             posXText->position = {25, 70};
             posYText->position = {175, 70};
 
-            TextObject* pivXText = new TextObject(string("pivXText"),  to_string(editSelected->pivot.x), Game::font, edit_renderer);
-            TextObject* pivYText = new TextObject(string("pivYText"),  to_string(editSelected->pivot.y), Game::font, edit_renderer);
+            shared_ptr<TextObject> pivXText = make_shared<TextObject>(string("pivXText"),  to_string(editSelected->pivot.x), Game::font, edit_renderer);
+            shared_ptr<TextObject> pivYText = make_shared<TextObject>(string("pivYText"),  to_string(editSelected->pivot.y), Game::font, edit_renderer);
             pivXText->position = {25, 140};
             pivYText->position = {175, 140};
 
-            TextObject* scaleXText = new TextObject(string("scaleXText"),  to_string(editSelected->scaleX), Game::font, edit_renderer);
-            TextObject* scaleYText = new TextObject(string("scaleYText"),  to_string(editSelected->scaleY), Game::font, edit_renderer);
+            shared_ptr<TextObject> scaleXText = make_shared<TextObject>(string("scaleXText"),  to_string(editSelected->scaleX), Game::font, edit_renderer);
+            shared_ptr<TextObject> scaleYText = make_shared<TextObject>(string("scaleYText"),  to_string(editSelected->scaleY), Game::font, edit_renderer);
             scaleXText->position = {25, 210};
             scaleYText->position = {175, 210};
 
-            TextObject* rotText = new TextObject(string("rotText"),  to_string(editSelected->rotation), Game::font, edit_renderer);
+            shared_ptr<TextObject> rotText = make_shared<TextObject>(string("rotText"),  to_string(editSelected->rotation), Game::font, edit_renderer);
             rotText->position = {110, 250};
 
-            DisplayObject* parentButtonBackground = new DisplayObject("parentButtonBackground", 36, 113, 96, 125, 25, edit_renderer);
+            shared_ptr<DisplayObject> parentButtonBackground = make_shared<DisplayObject>("parentButtonBackground", 36, 113, 96, 125, 25, edit_renderer);
             parentButtonBackground->position = {0, 295};
 
-            TextObject* setParentButton = new TextObject(string("setParentButton"), string("Set Parent"), Game::font, edit_renderer);
+            shared_ptr<TextObject> setParentButton = make_shared<TextObject>(string("setParentButton"), string("Set Parent"), Game::font, edit_renderer);
             setParentButton->position = {5, 290};
 
             
@@ -668,7 +667,7 @@ void Editor::handleEvent(Event* e) {
         this->displacementX.clear();
         this->displacementY.clear();
 
-        for (DisplayObject* object : this->selected) {
+        for (auto object : this->selected) {
             this->displacementX.insert({object, 0.0});
             this->displacementY.insert({object, 0.0});
         }
@@ -686,7 +685,7 @@ void Editor::handleEvent(Event* e) {
             mainWindowActive = true;
             assetsWindowActive = editWindowActive = false;
 
-            for (DisplayObject* object : this->selected) {
+            for (auto object : this->selected) {
                 // Okay, this is convoluted. Here's a walkthrough...
 
                 // Calculate movement threshold
@@ -840,7 +839,7 @@ void Editor::handleEvent(Event* e) {
     }
 }
 
-bool Editor::onMouseDown(DisplayObject* object, MouseDownEvent* event) {
+bool Editor::onMouseDown(shared_ptr<DisplayObject> object, MouseDownEvent* event) {
     // Reverse iterator to check the topmost objects first
     for (auto it = object->children.crbegin(); it != object->children.crend(); it++) {
         if (this->onMouseDown(*it, event)) {
@@ -876,7 +875,7 @@ bool Editor::onMouseDown(DisplayObject* object, MouseDownEvent* event) {
     return false;
 }
 
-bool Editor::onMouseUp(DisplayObject* object, MouseUpEvent* event) {
+bool Editor::onMouseUp(shared_ptr<DisplayObject> object, MouseUpEvent* event) {
     // Reverse iterator to check the topmost objects first
     for (auto it = object->children.crbegin(); it != object->children.crend(); it++) {
         if (this->onMouseUp(*it, event)) {
@@ -887,12 +886,12 @@ bool Editor::onMouseUp(DisplayObject* object, MouseUpEvent* event) {
     if (CollisionSystem::isInside({event->x, event->y}, object->getHitbox())) {
         if (event->wID == SDL_GetWindowID(edit_window)){
             if (editable.find(object) != editable.end() && object->type == "TextObject"){
-                attributeSelected = (TextObject*) object;
+                attributeSelected = static_pointer_cast<TextObject>(object);
                 return true;
             } else if (object->id == "parentButtonBackground" || object->id == "setParentButton"){
                 setParentMode = !setParentMode;
                 if (setParentMode){
-                    DisplayObject* indicator = new DisplayObject("setParentModeIndicator", 255, 0, 0, 10, 10, edit_renderer);
+                    std::shared_ptr<DisplayObject> indicator = std::make_shared<DisplayObject>("setParentModeIndicator", 255, 0, 0, 10, 10, edit_renderer);
                     indicator->position = {140, 300};
                     edit->addChild(indicator);
                 } else{

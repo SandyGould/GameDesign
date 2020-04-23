@@ -15,7 +15,7 @@ Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites
     shieldSwitchCooldown = 0;
     shieldBashCooldown = 0;
 
-    shield = new Shield();
+    shield = std::make_shared<Shield>();
 	this->addChild(shield);
 	shield->position.x = 105;
 	shield->position.y = 10;
@@ -133,7 +133,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                 shield->bashing = true;
                 shield->bashFrames =10;
                 shieldBashCooldown = BASH_COOLDOWN;
-    			shieldBash = new Tween(shield);
+    			shieldBash = std::make_shared<Tween>(shield);
                 shieldBash->animate(TweenableParams::X, 105.0, 140.0, 10);
                 shieldBash->animate(TweenableParams::X, 140.0, 105.0, 18);
                 TweenJuggler::getInstance().add(shieldBash);
@@ -151,7 +151,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                 shieldBashCooldown = BASH_COOLDOWN;
                 shield->bashing = true;
                 shield->bashFrames = 10;
-    			shieldBash = new Tween(shield);
+    			shieldBash = std::make_shared<Tween>(shield);
                 shieldBash->animate(TweenableParams::X, -5.0, -40.0, 10);
                 shieldBash->animate(TweenableParams::X, -40.0, -5.0, 18);
                 TweenJuggler::getInstance().add(shieldBash);
@@ -169,7 +169,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                 shieldBashCooldown = BASH_COOLDOWN;
                 shield->bashing = true;
                 shield->bashFrames =10;
-    			shieldBash = new Tween(shield);
+    			shieldBash = std::make_shared<Tween>(shield);
                 shieldBash->animate(TweenableParams::Y, 100.0, 135.0, 10);
                 shieldBash->animate(TweenableParams::Y, 135.0, 100.0, 18);
                 TweenJuggler::getInstance().add(shieldBash);
@@ -187,7 +187,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                 shieldBashCooldown = BASH_COOLDOWN;
                 shield->bashFrames =10;
                 shield->bashing = true;
-    			shieldBash = new Tween(shield);
+    			shieldBash = std::make_shared<Tween>(shield);
                 shieldBash->animate(TweenableParams::Y, -105.0, -140.0, 10);
                 shieldBash->animate(TweenableParams::Y, -140.0, -105.0, 18);
                 TweenJuggler::getInstance().add(shieldBash);
@@ -239,7 +239,7 @@ bool Player::checkDoubleTaps(SDL_Scancode key) {
 	return false;
 }
 
-bool Player::onCollision(DisplayObject* other){
+bool Player::onCollision(std::shared_ptr<DisplayObject> other){
     if(other->type == "mage_attack"){
         this->changeHealth(-10);
         other->removeThis();
@@ -270,7 +270,7 @@ bool Player::onCollision(DisplayObject* other){
     return false;
 }
 
-void Player::cannonBallHit(DisplayObject* other){
+void Player::cannonBallHit(std::shared_ptr<DisplayObject> other){
     //move the player back.
     other->removeThis();
 }

@@ -2,13 +2,13 @@
 
 #include <iostream>
 
-Mage::Mage(Player* player) : BaseEnemy("mage", "./resources/assets/Animated_Sprites/Enemies/Mage/Mage.png", "", player) {
+Mage::Mage(std::shared_ptr<Player> player) : BaseEnemy("mage", "./resources/assets/Animated_Sprites/Enemies/Mage/Mage.png", "", player) {
     hasCollision = true;
     this->saveType = "mage";
     this->mageAttack = nullptr;
 }
 
-Mage::Mage(Player* player, std::string filepath, std::string xml): BaseEnemy("kMage", filepath, xml, player){
+Mage::Mage(std::shared_ptr<Player> player, std::string filepath, std::string xml): BaseEnemy("kMage", filepath, xml, player){
     
 }
 
@@ -35,7 +35,7 @@ void Mage::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
     }
     else if(this->state == 2){
         if(this->ready == 301){
-            this->mageAttack = new MageAttack();
+            this->mageAttack = std::make_shared<MageAttack>();
         }
         this->ready--;
  		this->addChild(mageAttack);
@@ -58,7 +58,7 @@ void Mage::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
     BaseEnemy::update(pressedKeys, joystickState, pressedButtons);
 }
 
-bool Mage::onCollision(DisplayObject* other){
+bool Mage::onCollision(std::shared_ptr<DisplayObject> other){
     if(other == this->mageAttack && mageAttack->firing == false){
         return true;
     }

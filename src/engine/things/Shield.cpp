@@ -35,14 +35,14 @@ void Shield::draw(AffineTransform& at) {
     Sprite::draw(at);
 }
 
-bool Shield::onCollision(DisplayObject* other){
+bool Shield::onCollision(std::shared_ptr<DisplayObject> other){
     if(other->type == "arrow" || other->type== "mage_attack" || other->type == "cannonball" || other->type=="rubber_cannonball"){
-        dynamic_cast<Projectile*>(other)->reflect();
+        std::static_pointer_cast<Projectile>(other)->reflect();
     }
     if(bashing){
         if(other->type == "enemy" || other->type == "ogre" || other->type == "knight"){
             this->bashing = false;
-            dynamic_cast<BaseEnemy*>(other)->changeHealth(-35);
+            std::static_pointer_cast<BaseEnemy>(other)->changeHealth(-35);
         }
     }
     return true;

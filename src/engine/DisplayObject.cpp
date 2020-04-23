@@ -101,9 +101,9 @@ DisplayObject::~DisplayObject() {
         SDL_DestroyTexture(texture);
     }
 
-    for (auto* child : children) {
-        delete child;
-    }
+    // for (auto* child : children) {
+    //     delete child;
+    // }
 }
 
 void DisplayObject::loadTexture(const std::string& filepath, SDL_Renderer* r) {
@@ -122,8 +122,8 @@ void DisplayObject::loadRGBTexture(int red, int green, int blue, int width, int 
 
 // TODO: Can this just pull from getGlobalTransform
 SDL_Point DisplayObject::getGlobalPosition() const {
-    DisplayObject* parent = this->parent;
-    std::vector<DisplayObject*> parentList;
+    std::shared_ptr<DisplayObject> parent = this->parent;
+    std::vector<std::shared_ptr<DisplayObject>> parentList;
     while (parent != nullptr) {
         parentList.push_back(parent);
         parent = parent->parent;
@@ -154,10 +154,10 @@ void DisplayObject::setTexture(SDL_Texture* t) {
     this->curTexture = t;
 }
 
-void DisplayObject::addChild(DisplayObject* child) {
-    if (child->parent != this) {
+void DisplayObject::addChild(std::shared_ptr<DisplayObject> child) {
+    if (child->parent != std::shared_ptr<DisplayObject>(this)) {
         children.push_back(child);
-        child->parent = this; // make sure to include reverse reference also
+        child->parent = std::shared_ptr<DisplayObject>(this); // make sure to include reverse reference also
 
         auto* event = new DisplayTreeChangeEvent(child, true);
         EventDispatcher::getInstance().dispatchEvent(event);
@@ -165,19 +165,19 @@ void DisplayObject::addChild(DisplayObject* child) {
     }
 }
 
-void DisplayObject::removeImmediateChild(DisplayObject* child) {
+void DisplayObject::removeImmediateChild(std::shared_ptr<DisplayObject> child) {
     auto it = std::find(this->children.cbegin(), this->children.cend(), child);
     if (it != this->children.cend()) {
         auto* event = new DisplayTreeChangeEvent(*it, false);
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
 
-        delete *it;
+        // delete *it;
         objectsToErase.push_back(*it);
     }
 }
 
-void DisplayObject::removeImmediateChildWithoutDelete(DisplayObject* child) {
+void DisplayObject::removeImmediateChildWithoutDelete(std::shared_ptr<DisplayObject> child) {
     auto it = std::find(this->children.cbegin(), this->children.cend(), child);
     if (it != this->children.cend()) {
         DisplayTreeChangeEvent* event = new DisplayTreeChangeEvent(*it, false);
@@ -195,7 +195,7 @@ void DisplayObject::removeImmediateChild(std::string id) {
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
 
-        delete *it;
+        // delete *it;
         objectsToErase.push_back(*it);
     }
 }
@@ -206,14 +206,14 @@ void DisplayObject::removeChild(size_t index) {
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
 
-        delete children[index];
+        // delete children[index];
         children.erase(children.begin() + index);
     }
 }
 
 void DisplayObject::removeThis() {
     if (this->parent != nullptr) {
-        this->parent->removeImmediateChild(this);
+        this->parent->removeImmediateChild(this->id);
     }
 }
 
@@ -221,7 +221,7 @@ int DisplayObject::numChildren() const {
     return this->children.size();
 }
 
-DisplayObject* DisplayObject::getChild(int index) const {
+std::shared_ptr<DisplayObject> DisplayObject::getChild(int index) const {
     if (index < 0 || index > numChildren()) {
         return nullptr;
     } else {
@@ -229,19 +229,20 @@ DisplayObject* DisplayObject::getChild(int index) const {
     }
 }
 
-DisplayObject* DisplayObject::getAndRemoveChild(std::string id) {
-    for (auto* child : children) {
-        if (child->id == id) {
-            DisplayObject* temp = child;
-            delete child;
-            return temp;
-        }
-    }
-    return nullptr;
+std::shared_ptr<DisplayObject> DisplayObject::getAndRemoveChild(std::string id) {
+    // for (auto child : children) {
+    //     if (child->id == id) {
+    //         DisplayObject* temp = child;
+    //         // delete child;
+    //         return temp;
+    //     }
+    // }
+    // return nullptr;
+    return getChild(id);
 }
 
-DisplayObject* DisplayObject::getChild(const std::string& id) const {
-    for (auto* child : children) {
+std::shared_ptr<DisplayObject> DisplayObject::getChild(const std::string& id) const {
+    for (auto child : children) {
         if (child->id == id) {
             return child;
         }
@@ -250,12 +251,12 @@ DisplayObject* DisplayObject::getChild(const std::string& id) const {
 }
 
 void DisplayObject::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
-    for (auto* child : children) {
+    for (auto child : children) {
         child->update(pressedKeys, joystickState, pressedButtons);
     }
 
     // Clear ourselves of any deleted children
-    for (auto* object : objectsToErase) {
+    for (auto object : objectsToErase) {
         children.erase(std::remove(children.begin(), children.end(), object), children.cend());
     }
     objectsToErase.clear();
@@ -289,7 +290,7 @@ void DisplayObject::draw(AffineTransform& at) {
 
     // undo the parent's pivot
     at.translate(pivot.x, pivot.y);
-    for (auto* child : children) {
+    for (auto child : children) {
         child->draw(at);
     }
     // redo the parent's pivot
@@ -352,7 +353,7 @@ void DisplayObject::getGlobalTransform(AffineTransform& at) const {
 // Override this method to handle collisions by yourself
 // instead of relying on CollisionSystem's default collision resolution
 // (which is just to move the objects so they're not colliding)
-bool DisplayObject::onCollision(DisplayObject*  /*other*/) {
+bool DisplayObject::onCollision(std::shared_ptr<DisplayObject> other /*other*/) {
     return false;
 }
 
@@ -459,24 +460,24 @@ void DisplayObject::setSurface(SDL_Surface* s) {
     this->image = s;
 }
 
-void DisplayObject::propogateEvent(Event* e, DisplayObject* root) {
+void DisplayObject::propogateEvent(Event* e, std::shared_ptr<DisplayObject> root) {
 
     if (e->getType() == NewSceneEvent::FADE_OUT_EVENT){
-        EventDispatcher::getInstance().removeEventListener(root, NewSceneEvent::FADE_OUT_EVENT);
-        for (auto* child : root->children) {    
+        EventDispatcher::getInstance().removeEventListener(root.get(), NewSceneEvent::FADE_OUT_EVENT);
+        for (auto child : root->children) {
             propogateEvent(e, child);
         }
-        Tween* out_transition = new Tween("out_transition", root);
+        std::shared_ptr<Tween> out_transition = std::make_shared<Tween>("out_transition", root);
 		out_transition->animate(TweenableParams::ALPHA, 255, 0, 200, TweenParam::EASE_IN);
 		TweenJuggler::getInstance().add(out_transition);
     }
 
     if (e->getType() == NewSceneEvent::FADE_IN_EVENT){
-        EventDispatcher::getInstance().removeEventListener(root, NewSceneEvent::FADE_IN_EVENT);
-        for (auto* child : root->children) {    
+        EventDispatcher::getInstance().removeEventListener(root.get(), NewSceneEvent::FADE_IN_EVENT);
+        for (auto child : root->children) {
             propogateEvent(e, child);
         }
-        Tween* in_transition = new Tween("in_transition", root);
+        std::shared_ptr<Tween> in_transition = std::make_shared<Tween>("in_transition", root);
 		in_transition->animate(TweenableParams::ALPHA, 0, 255, 200, TweenParam::EASE_IN);
 		TweenJuggler::getInstance().add(in_transition);
 	}
@@ -489,10 +490,10 @@ void DisplayObject::handleEvent(Event* e){
         if (((TweenEvent*) e)->getTween()->getID() == "out_transition") {
             if (this->type == "Scene") {
                 EventDispatcher::getInstance().removeEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
-                for (auto* child : children) {
+                for (auto child : children) {
                     this->removeImmediateChild(child);
                 }
-                this->parent->removeImmediateChild(this);
+                this->parent->removeImmediateChild(this->id);
             }
         }
     }
@@ -501,7 +502,7 @@ void DisplayObject::handleEvent(Event* e){
         EventDispatcher::getInstance().removeEventListener(this, NewSceneEvent::SCALE_OUT_EVENT);
         double curScaleX = this->scaleX;
         double curScaleY = this->scaleY;
-        Tween* out_transition = new Tween("out_transition", this);
+        std::shared_ptr<Tween> out_transition = std::make_shared<Tween>("out_transition", std::shared_ptr<DisplayObject>(this));
 		out_transition->animate(TweenableParams::SCALE_X, curScaleX, 0, 200, TweenParam::EASE_IN);
 		out_transition->animate(TweenableParams::SCALE_Y, curScaleY, 0, 200, TweenParam::EASE_IN);
 		TweenJuggler::getInstance().add(out_transition);
@@ -509,14 +510,14 @@ void DisplayObject::handleEvent(Event* e){
     // scale in event
     if (e->getType() == NewSceneEvent::SCALE_IN_EVENT) {
         EventDispatcher::getInstance().removeEventListener(this, NewSceneEvent::SCALE_IN_EVENT);
-        Tween* in_transition = new Tween("in_transition", this);
+        std::shared_ptr<Tween> in_transition = std::make_shared<Tween>("in_transition", std::shared_ptr<DisplayObject>(this));
 		in_transition->animate(TweenableParams::SCALE_X, 0, 1, 200, TweenParam::EASE_IN);
 		in_transition->animate(TweenableParams::SCALE_Y, 0, 1, 200, TweenParam::EASE_IN);
 		TweenJuggler::getInstance().add(in_transition);
     }
     // scale in event
     if (e->getType() == NewSceneEvent::FADE_IN_EVENT || e->getType() == NewSceneEvent::FADE_OUT_EVENT) {
-        propogateEvent(e, this);
+        propogateEvent(e, std::shared_ptr<DisplayObject>(this));
     }
 
 }

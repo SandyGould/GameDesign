@@ -1,6 +1,6 @@
 #include "RoarMonster.h"
 #include <iostream>
-RoarMonster::RoarMonster(Player* player): BaseEnemy("RoaringMonster","./resources/assets/Display_Objects/roaring_monster.png", "", player){
+RoarMonster::RoarMonster(std::shared_ptr<Player> player): BaseEnemy("RoaringMonster","./resources/assets/Display_Objects/roaring_monster.png", "", player){
     this->saveType="roar_monster";
 }
 
@@ -75,7 +75,7 @@ void RoarMonster::update(const std::unordered_set<SDL_Scancode>& pressedKeys, co
         }
     }
     else if(this->state ==4){
-        this->myAttack = new Roar();
+        this->myAttack = std::make_shared<Roar>();
         this->addChild(myAttack);
         this->state = 5;
         this->actionFrames = 135;

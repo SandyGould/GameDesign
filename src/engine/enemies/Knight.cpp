@@ -1,12 +1,12 @@
 #include "Knight.h"
 #include <iostream>
 
-Knight::Knight(Player* player): BaseEnemy("knight", "./resources/assets/Display_Objects/knight.png", "", player){
+Knight::Knight(std::shared_ptr<Player> player): BaseEnemy("knight", "./resources/assets/Display_Objects/knight.png", "", player){
     this->type = "knight";
     this->saveType = this->type;
 }
 
-Knight::Knight(Player* player, std::string filepath, std::string xml): BaseEnemy("orc", filepath, xml, player){
+Knight::Knight(std::shared_ptr<Player> player, std::string filepath, std::string xml): BaseEnemy("orc", filepath, xml, player){
     
 }
 

@@ -13,14 +13,13 @@ TweenJuggler::~TweenJuggler() {
 //     return instance;
 // }
 
-void TweenJuggler::add(Tween* tween) {
+void TweenJuggler::add(std::shared_ptr<Tween> tween) {
     // throw event - tween starting
     tweenList.push_back(tween);   
 }
 
 void TweenJuggler::nextFrame() {
-    std::list<Tween*>::iterator it;
-    for (it = this->tweenList.begin(); it != this->tweenList.end(); ) {
+    for (auto it = this->tweenList.begin(); it != this->tweenList.end(); ) {
         if ((*it)->isComplete()) {
             // throw event - tween ending
             it = this->tweenList.erase(it);
@@ -33,4 +32,4 @@ void TweenJuggler::nextFrame() {
     }
 }
 
-TweenJuggler* TweenJuggler::instance = 0;
+TweenJuggler* TweenJuggler::instance = nullptr;

@@ -9,14 +9,14 @@ Rebound::Rebound() : Game(1200, 800) {
 
     this->collisionSystem = new CollisionSystem();
 
-	allSprites = new DisplayObject("allSprites");
+	allSprites = std::make_shared<DisplayObject>("allSprites");
 
-	questManager = new QuestManager();
+	questManager = std::make_shared<QuestManager>();
 
 	// move that point to the middle
 	allSprites->position = {200, 100};
 	container->addChild(allSprites);
-	player = new Player();
+	player = std::make_shared<Player>();
 	player->position = {0, 0};
 	player->width = 110;
 	player->height = 80;
@@ -39,7 +39,7 @@ Rebound::Rebound() : Game(1200, 800) {
 	
     allSprites->addChild(archer);*/
 
-	ogre = new Ogre(player);
+	ogre = std::make_shared<Ogre>(player);
     ogre-> position = {200,200};
     ogre->height = 160;
     ogre->width = 150;
