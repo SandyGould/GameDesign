@@ -36,12 +36,11 @@ void Mage::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
     else if(this->state == 2){
         if(this->ready == 301){
             this->mageAttack = new MageAttack();
+     		this->addChild(mageAttack);
+            mageAttack->visible =false;
         }
         this->ready--;
- 		this->addChild(mageAttack);
-        mageAttack->visible =false;
         if(this->ready==240){
-            this->mageAttack->target = this->mageAttack->aim(player);
             mageAttack->visible=true;
             this->state = 3;
         }
@@ -49,6 +48,7 @@ void Mage::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
     else if(this->state == 3){
         this->ready--;
         if(this->ready == 0){
+            this->mageAttack->target = this->mageAttack->aim(player);
             this->mageAttack->fire();
             this->ready = 301;
             this->state = 2;
