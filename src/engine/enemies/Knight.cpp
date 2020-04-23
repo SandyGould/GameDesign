@@ -6,6 +6,10 @@ Knight::Knight(Player* player): BaseEnemy("knight", "./resources/assets/Display_
     this->saveType = this->type;
 }
 
+Knight::Knight(Player* player, std::string filepath, std::string xml): BaseEnemy("orc", filepath, xml, player){
+    
+}
+
 void Knight::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
      /*
      Init
