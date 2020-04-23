@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:f339ab9cd53b4a7b94112d84d4134b30:77ca895b66a6347d832d5181b3c62ad1:b7492bfe76845eda9e68dd374d443e00$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="king.png" width="128" height="32">
+    <sprite n="HighElf_M_Idle + Walk_1.png" x="0" y="0" w="32" h="32"/>
+    <sprite n="HighElf_M_Idle + Walk_2.png" x="32" y="0" w="32" h="32"/>
+    <sprite n="HighElf_M_Idle + Walk_3.png" x="64" y="0" w="32" h="32"/>
+    <sprite n="HighElf_M_Idle + Walk_4.png" x="96" y="0" w="32" h="32"/>
+</TextureAtlas>
