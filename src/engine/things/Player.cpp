@@ -47,7 +47,8 @@ void Player::toggleShieldVisible(bool vis) {
 void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
     // CHARACTER MOVEMENT
     bool idle = true;
-	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
+    int DEAD_ZONE = 10000;
+	if ((pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) || joystickState.xVal1 - DEAD_ZONE > 0) {
 		if (checkDoubleTaps(SDL_SCANCODE_RIGHT)) {
             if (this->current->animName.compare("Slide") != 0)
                 this->play("Slide");
@@ -63,7 +64,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 		}
         idle = false;
 	}
-    if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
+    if ((pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) || joystickState.xVal1 + DEAD_ZONE < 0) {
 		if (checkDoubleTaps(SDL_SCANCODE_LEFT)) {
             if (this->current->animName.compare("SlideLeft") != 0)
                 this->play("SlideLeft");
@@ -79,7 +80,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 		}
         idle = false;
 	}
-	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
+	if ((pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) || joystickState.yVal1 - DEAD_ZONE > 0) {
 		if (checkDoubleTaps(SDL_SCANCODE_DOWN)) {
             if (this->current->animName.compare("Slide") != 0)
                 this->play("Slide");
@@ -95,7 +96,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 		}
         idle = false;
 	}
-	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
+	if ((pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) || joystickState.yVal1 + DEAD_ZONE < 0) {
 		if (checkDoubleTaps(SDL_SCANCODE_UP)) {
             if (this->current->animName.compare("Slide") != 0)
                 this->play("Slide");
@@ -123,8 +124,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
             shieldSwitchCooldown = TOGGLE_COOLDOWN;
     		shield->switchType();
     	}
-    	if (pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end()) {
-            shield->bashing =
+    	if ((pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end()) || joystickState.xVal2 - DEAD_ZONE > 0) {
             shield->position.x = 105;
             shield->position.y = 10;
             shield->rotation = 0;
@@ -142,7 +142,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                 return;
     		}
     	}
-    	if (pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) {
+    	if ((pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) || joystickState.xVal2 + DEAD_ZONE < 0) {
             shield->position.x = -5;
             shield->position.y = 10;
             shield->rotation = 0;
@@ -160,7 +160,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                 return;
     		}
     	}
-    	if (pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) {
+    	if ((pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) || joystickState.yVal2 - DEAD_ZONE > 0) {
             shield->position.x = -8;
             shield->position.y = 100;
             shield->rotation = PI / 2;
@@ -178,7 +178,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                 return;
     		}
     	}
-    	if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
+    	if ((pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) || joystickState.yVal2 + DEAD_ZONE < 0) {
             shield->position.x = 20;
             shield->position.y = -105;
             shield->rotation = -PI / 2;
