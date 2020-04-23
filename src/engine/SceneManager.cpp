@@ -10,68 +10,98 @@
 SceneManager::SceneManager(Camera* c, Player* p) {
     this->p = p;
     this->c = c;
+    // scene pointers - head and tail are dummy scene nodes
+    this->head = new Scene("empty_scene_head");
+    this->tail = new Scene("empty_scene_tail");
     this->currScene = NULL;
+    this->iter = NULL;
+    // set up linked list
+    this->head->nextScene = this->tail;
+    this->tail->prevScene = this->head;
 }
 
 SceneManager::~SceneManager() {
-    this->queuedScenes.clear();
+    this->iter = this->head->nextScene;
+    while (this->iter != this->tail) {
+        this->iter = this->iter->nextScene;
+        // delete any remaining events
+        if (EventDispatcher::getInstance().hasEventListener(this->iter->prevScene, NewSceneEvent::FADE_OUT_EVENT)) {
+		    EventDispatcher::getInstance().removeEventListener(this->iter->prevScene, NewSceneEvent::FADE_OUT_EVENT);
+	    }
+        if (EventDispatcher::getInstance().hasEventListener(this->iter->prevScene, TweenEvent::TWEEN_COMPLETE_EVENT)) {
+		    EventDispatcher::getInstance().removeEventListener(this->iter->prevScene, TweenEvent::TWEEN_COMPLETE_EVENT);
+	    }
+        if (EventDispatcher::getInstance().hasEventListener(this->iter->prevScene, NewSceneEvent::FADE_IN_EVENT)) {
+		    EventDispatcher::getInstance().removeEventListener(this->iter->prevScene, NewSceneEvent::FADE_IN_EVENT);
+	    }    
+        delete this->iter->prevScene;
+    }
+    delete this->head;
+    delete this->tail;
 }
 
-void SceneManager::loadArea(int area, int rooms) {
+void SceneManager::loadArea(int area, int rooms) { // each area MUST have at least 2 rooms
     std::string areaNo = std::to_string(area);
+    // set head and tail
     for (int i = 1; i <= rooms; i++) {
         std::string roomNo = std::to_string(i);
         Scene* scene = new Scene("scene" + roomNo);
         scene->scenePath = std::string("./resources/Rebound/area" + areaNo + "/room" + roomNo + "/room" + roomNo + "map.json");
         // add current scene to SceneManager's scenes
-        this->queuedScenes.push_back(scene);
-    }
-    int i = 1;
-    for (auto* scene : this->queuedScenes) {
-        // add pointer to previous scene
-        if (i == 1) {
-            scene->prevScene = NULL;
-        }
-        else {
-            std::string prevKey = std::to_string(i-1); 
-            scene->prevScene = findScene("scene" + prevKey);
-        } 
-        // add pointer to next scene
-        if (i == rooms) {
-            scene->nextScene = NULL;
-        }
-        else {
-            std::string nextKey = std::to_string(i+1); 
-            scene->nextScene = findScene("scene" + nextKey);
-        }
-        i++;
+        this->addScene(scene);
     }
 }
 
 Scene* SceneManager::findScene(std::string id) {
-    for (auto* scene : this->queuedScenes) {
-        if (scene->id == id) {
-            return scene;
+    this->iter = this->head;
+    while (this->iter != this->tail) {
+        if (this->iter->id == id) {
+            return this->iter;
+        }
+        else {
+            this->iter = this->iter->nextScene;
         }
     }
     return nullptr;
 }
 
-void SceneManager::addScene(Scene* scene) {
-    this->queuedScenes.push_back(scene); 
+void SceneManager::addScene(Scene* scene) { // insert at tail
+    Scene* newScene = scene;
+    newScene->prevScene = this->tail->prevScene;
+    newScene->nextScene = this->tail;
+    this->tail->prevScene->nextScene = newScene;
+    this->tail->prevScene = newScene;
+    this->roomsCount++;    
 }
 
-void SceneManager::deleteScene(Scene* scene) {
-    // EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_OUT_EVENT));			
-    auto it = std::find(this->queuedScenes.cbegin(), this->queuedScenes.cend(), scene);
-    if (it != this->queuedScenes.cend()) {
-        delete *it;
-        this->queuedScenes.erase(it);
+void SceneManager::deleteScene(std::string id) {
+    this->iter = this->head;
+    while (this->iter != this->tail) {
+        if (this->iter->id == id) {
+            this->iter->prevScene->nextScene = this->iter->nextScene;
+            this->iter->nextScene->prevScene = this->iter->prevScene;;
+            this->roomsCount--;
+            // delete any remaining events
+            if (EventDispatcher::getInstance().hasEventListener(iter, NewSceneEvent::FADE_OUT_EVENT)) {
+		        EventDispatcher::getInstance().removeEventListener(iter, NewSceneEvent::FADE_OUT_EVENT);
+	        }
+            if (EventDispatcher::getInstance().hasEventListener(iter, TweenEvent::TWEEN_COMPLETE_EVENT)) {
+		        EventDispatcher::getInstance().removeEventListener(iter, TweenEvent::TWEEN_COMPLETE_EVENT);
+	        }
+            if (EventDispatcher::getInstance().hasEventListener(iter, NewSceneEvent::FADE_IN_EVENT)) {
+		        EventDispatcher::getInstance().removeEventListener(iter, NewSceneEvent::FADE_IN_EVENT);
+	        }
+            delete iter;
+            break;
+        }
+        else {
+            this->iter = this->iter->nextScene;
+        }
     }
 }
 
 void SceneManager::loadFirstScene() {
-    this->currScene = this->queuedScenes.front();
+    this->currScene = this->head->nextScene;
     // set player and camera
     this->currScene->player = p;
     this->currScene->camera = c;
@@ -96,6 +126,15 @@ void SceneManager::loadFirstScene() {
     c->position = this->currScene->camEntrancePosition;
     c->pivot = this->currScene->camEntrancePivot;
     c->addChild(this->currScene);
+
+    // create collision system
+    this->collisionSystem = new CollisionSystem();
+    // set collisions between player and all environmental objects
+    this->collisionSystem->watchForCollisions("player", "WalkOnObject");
+    this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
+    this->collisionSystem->watchForCollisions("player", "arrow");
+    this->collisionSystem->watchForCollisions("shield", "arrow");
+    this->collisionSystem->watchForCollisions("shield", "enemy");
 
     // add tween complete event for scene manager
 	EventDispatcher::getInstance().addEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
@@ -141,6 +180,16 @@ void SceneManager::loadNextScene() {
     c->position = this->currScene->camEntrancePosition;
     c->pivot = this->currScene->camEntrancePivot;
     c->addChild(this->currScene);
+
+    // create collision system
+    delete collisionSystem;
+    this->collisionSystem = new CollisionSystem();
+    // set collisions between player and all environmental objects
+    this->collisionSystem->watchForCollisions("player", "WalkOnObject");
+    this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
+    this->collisionSystem->watchForCollisions("player", "arrow");
+    this->collisionSystem->watchForCollisions("shield", "arrow");
+    this->collisionSystem->watchForCollisions("shield", "enemy");
 
     // queue scene transition
     EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_IN_EVENT));
@@ -197,6 +246,7 @@ void SceneManager::updateScene() {
             this->sceneChange = "next";
             this->currScene->removeImmediateChildWithoutDelete(p);
             this->unloadScene();
+            return;
         }
     }
     if (this->currScene->forward_coord == "x" && this->currScene->forward_comp == "<") {
@@ -204,6 +254,7 @@ void SceneManager::updateScene() {
             this->sceneChange = "next";
             this->currScene->removeImmediateChildWithoutDelete(p);
             this->unloadScene();
+            return;
         }
     }
     if (this->currScene->forward_coord == "y" && this->currScene->forward_comp == ">") {
@@ -211,6 +262,7 @@ void SceneManager::updateScene() {
             this->sceneChange = "next";
             this->currScene->removeImmediateChildWithoutDelete(p);
             this->unloadScene();
+            return;
         }
     }
     if (this->currScene->forward_coord == "y" && this->currScene->forward_comp == "<") {
@@ -218,6 +270,7 @@ void SceneManager::updateScene() {
             this->sceneChange = "next";
             this->currScene->removeImmediateChildWithoutDelete(p);
             this->unloadScene();
+            return;
         }
     }
 
@@ -227,6 +280,7 @@ void SceneManager::updateScene() {
             this->sceneChange = "previous";
             this->currScene->removeImmediateChildWithoutDelete(p);
             this->unloadScene();
+            return;
         }
     }
     if (this->currScene->back_coord == "x" && this->currScene->back_comp == "<") {
@@ -234,6 +288,7 @@ void SceneManager::updateScene() {
             this->sceneChange = "previous";
             this->currScene->removeImmediateChildWithoutDelete(p);
             this->unloadScene();
+            return;
         }
     }
     if (this->currScene->back_coord == "y" && this->currScene->back_comp == ">") {
@@ -241,6 +296,7 @@ void SceneManager::updateScene() {
             this->sceneChange = "previous";
             this->currScene->removeImmediateChildWithoutDelete(p);
             this->unloadScene();
+            return;
         }
     }
     if (this->currScene->back_coord == "y" && this->currScene->back_comp == "<") {
@@ -248,8 +304,10 @@ void SceneManager::updateScene() {
             this->sceneChange = "previous";
             this->currScene->removeImmediateChildWithoutDelete(p);
             this->unloadScene();
+            return;
         }
     }
+    this->collisionSystem->update();
 }
 
 void SceneManager::handleEvent(Event* e) {
@@ -258,7 +316,7 @@ void SceneManager::handleEvent(Event* e) {
         if (((TweenEvent*) e)->getTween()->getID() == currScene->id + "_out_transition") {
             this->c->removeImmediateChildWithoutDelete(currScene);
             if (this->sceneChange == "previous") {
-                this->loadPrevScene();           
+                this->loadPrevScene();     
             }
             else {
                 this->loadNextScene();

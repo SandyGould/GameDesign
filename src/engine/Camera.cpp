@@ -106,7 +106,3 @@ void Camera::draw(AffineTransform& at) {
     }
     reverseTransformations(at);  
 }
-
-void Camera::handleEvent(Event* e){
-    
-}

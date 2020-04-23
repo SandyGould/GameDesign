@@ -16,7 +16,7 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"Sprite",
+                        "type":"EnvironmentObject",
                         "name":"structure1",
                         "filepath":"./resources/Rebound/area1/room2/assets/structure_1.png",
                         "x_pos": 800,
@@ -27,7 +27,7 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"Sprite",
+                        "type":"EnvironmentObject",
                         "name":"structure2",
                         "filepath":"./resources/Rebound/area1/room2/assets/structure_2.png",
                         "x_pos":900,
@@ -38,7 +38,7 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"Sprite",
+                        "type":"EnvironmentObject",
                         "name":"barrel",
                         "filepath":"./resources/Rebound/area1/room2/assets/barrel_tile.png",
                         "x_pos": 850,

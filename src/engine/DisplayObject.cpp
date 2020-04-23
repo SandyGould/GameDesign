@@ -224,17 +224,6 @@ DisplayObject* DisplayObject::getChild(int index) const {
     }
 }
 
-DisplayObject* DisplayObject::getAndRemoveChild(std::string id) { // not working properly yet!
-    for (auto* child : children) {
-        if (child->id == id) {
-            DisplayObject* temp = child;
-            delete child;
-            return temp;
-        }
-    }
-    return nullptr;
-}
-
 DisplayObject* DisplayObject::getChild(const std::string& id) const {
     for (auto* child : children) {
         if (child->id == id) {
@@ -506,3 +495,14 @@ void DisplayObject::handleEvent(Event* e){
     }
 }
 
+// for debugging, don't mind me
+void DisplayObject::printDisplayTreeHelper(DisplayObject* root) { 
+    for (auto* child : root->children) {    
+        this->printDisplayTreeHelper(child);
+    }
+    std::cout << root->id << std::endl;
+}
+
+void DisplayObject::printDisplayTree() {
+    this->printDisplayTreeHelper(this);
+}

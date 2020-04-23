@@ -73,9 +73,8 @@ public:
     void removeImmediateChild(std::string id);
     void removeChild(size_t index);
     void removeThis();
-
-	  DisplayObject* getAndRemoveChild(std::string id);
-    [[nodiscard]] int numChildren() const;
+	
+	[[nodiscard]] int numChildren() const;
     [[nodiscard]] DisplayObject* getChild(int index) const;
     [[nodiscard]] DisplayObject* getChild(const std::string& id) const;
 
@@ -123,6 +122,10 @@ public:
 	double parallaxSpeed = 1.0;
 
     std::vector<DisplayObject*> children;
+
+	// for debugging
+	void printDisplayTreeHelper(DisplayObject* root);
+	void printDisplayTree();
 
 private:
 	static double distance(SDL_Point& p1, SDL_Point& p2);

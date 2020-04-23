@@ -18,14 +18,14 @@ using namespace std;
 Rooms::Rooms() : Game(600, 500) {
 	instance = this;
 
-    // create collision system
-    this->collisionSystem = new CollisionSystem();
-    // set collisions between player and all environmental objects
-    this->collisionSystem->watchForCollisions("player", "WalkOnObject");
-    this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
-    this->collisionSystem->watchForCollisions("player", "arrow");
-    this->collisionSystem->watchForCollisions("shield", "arrow");
-    this->collisionSystem->watchForCollisions("shield", "enemy");
+    // // create collision system
+    // this->collisionSystem = new CollisionSystem();
+    // // set collisions between player and all environmental objects
+    // this->collisionSystem->watchForCollisions("player", "WalkOnObject");
+    // this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
+    // this->collisionSystem->watchForCollisions("player", "arrow");
+    // this->collisionSystem->watchForCollisions("shield", "arrow");
+    // this->collisionSystem->watchForCollisions("shield", "enemy");
 
 	camera = new Camera();
 
@@ -90,7 +90,6 @@ Rooms::Rooms() : Game(600, 500) {
 
     TweenJuggler::getInstance().add(player_tween);
     EventDispatcher::getInstance().addEventListener(this->start_text_box, TweenEvent::TWEEN_COMPLETE_EVENT);
-	EventDispatcher::getInstance().addEventListener(this->camera, TweenEvent::TWEEN_COMPLETE_EVENT);
 	
 	
 	this->sceneManager = new SceneManager(camera, player);
@@ -110,7 +109,7 @@ Rooms::~Rooms() {
 
 
 void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {
-	this->collisionSystem->update();	
+	//this->collisionSystem->update();	
 
 	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
 		player->position.x += 2;
@@ -141,7 +140,7 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 
 	Game::update(pressedKeys, joystickState, pressedButtons);
 	camera->follow(player->position.x, player->position.y);
-	this->collisionSystem->update();
+	//this->collisionSystem->update();
 }
 
 void Rooms::draw(AffineTransform& at) {
