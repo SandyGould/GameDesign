@@ -106,12 +106,3 @@ void Camera::draw(AffineTransform& at) {
     }
     reverseTransformations(at);  
 }
-
-void Camera::handleEvent(Event* e){
-    if (e->getType() == TweenEvent::TWEEN_COMPLETE_EVENT) {
-        EventDispatcher::getInstance().removeEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
-        if (((TweenEvent*) e)->getTween()->getID() == "out_transition") {
-            this->changeScene = true;
-        }
-    }
-}

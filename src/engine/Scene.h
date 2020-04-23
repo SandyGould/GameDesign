@@ -90,10 +90,38 @@ public:
 	Player* p = NULL;
   */
 
-	// for scene transitions
-	bool keepScene = false;
+
 	Player* player;
 	Camera* camera;
+
+	// for scene transitions
+	bool keepScene = false;
+	// pointers to previous and next scenes
+	Scene* prevScene = NULL;
+	Scene* nextScene = NULL;
+
+	// define SDL points for advancing to next scene, or going back to previous scene
+	SDL_Point goForward = {1200,200};
+	SDL_Point goBack = {0,200};
+	// define when you could go forward and backward
+	std::string forward_coord = std::string("x"); // 1 for x
+	std::string forward_comp = std::string(">"); // 2 for greater than
+	std::string back_coord = std::string("x");
+	std::string back_comp = std::string("<"); // 1 for less than
+
+	// starting camera positions
+	SDL_Point camEntrancePivot = {200,100};
+	SDL_Point camEntrancePosition = {200,100};
+	// starting player position
+	SDL_Point playerEntrancePos = {50,250};
+
+	// ending camera positions
+	SDL_Point camExitPivot = {800,100};
+	SDL_Point camExitPosition = {200,100};
+	// starting player position
+	SDL_Point playerExitPos = {1150,250};
+	
+	std::string scenePath = "";
 
 private:
 	DisplayObject* root;

@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
 			}
 			editor->start();
 		} else if (arg == "sfx_demo") {
-			Rooms rooms{};
+			Rooms rooms{}; 
             rooms.start();
 		} else {
             cout << "Unrecognized arguments, launching game." << endl;

@@ -18,7 +18,7 @@
 #include "../engine/tweens/Tween.h"
 #include "../engine/tweens/TweenJuggler.h"
 #include "../engine/StatBar.h"
-#include "../engine/CollisionSystem.h"
+#include "../engine/SceneManager.h"
 
 
 class Rooms : public Game {
@@ -34,6 +34,8 @@ private:
     bool esc_prepressed = false;
     bool sceneChange = false;
     bool sceneChange2 = false;
+
+    SceneManager* sceneManager;
     //bool prevScene = false;
 
 	Camera* camera;

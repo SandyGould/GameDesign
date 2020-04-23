@@ -13,7 +13,7 @@ Layer::Layer(std::string id) : DisplayObject(id) {
 }
 
 void Layer::setParallax(){
-    position.x = -cam->pivot.x * parallaxSpeed;
+   // position.x = -cam->pivot.x * parallaxSpeed;
 }
 
 void Layer::draw(AffineTransform& at) {
