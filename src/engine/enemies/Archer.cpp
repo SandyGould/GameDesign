@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iostream>
 
-static int archer_count =1;
+static int archer_count = 1;
 /*
 States:
 Init 0
@@ -17,12 +17,13 @@ Ded 7
 */
 
 // Init
-Archer::Archer(Player* player): BaseEnemy("Archer", "./resources/assets/Display_Objects/archer.png", "", player){
+Archer::Archer(Player* player): BaseEnemy("Archer" + std::to_string(archer_count), "./resources/assets/Display_Objects/archer.png", "", player){
     this->state = 0;
     this->facingRight=true;
     this->saveType = "archer";
     this->actionFrames = 12;
     this->arrow = nullptr;
+    archer_count++;
 }
 
 void Archer::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
