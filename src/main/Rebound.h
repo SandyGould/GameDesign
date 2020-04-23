@@ -21,6 +21,7 @@
 #include "../engine/enemies/KingdomMage.h"
 #include "../engine/enemies/Orc.h"
 #include "../engine/enemies/Ogre.h"
+#include "../engine/enemies/MonsterKing.h"
 #include "../engine/enemies/Poisoner.h"
 #include "../engine/enemies/Arrow.h"
 #include "../engine/enemies/SecondBoss.h"
@@ -46,6 +47,7 @@ private:
 	Poisoner* poisoner;
 	Orc* orc;
 	Ogre* ogre;
+	MonsterKing* mKing;
 	KingdomMage* kingdomMage;
 	DisplayObject* allSprites;
 	Arrow* arrow;

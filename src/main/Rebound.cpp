@@ -36,16 +36,23 @@ Rebound::Rebound() : Game(1200, 800) {
     archer-> position = {200,200};
     archer->height = 80;
     archer->width = 70;
-	
+
     allSprites->addChild(archer);*/
 
-	ogre = new Ogre(player);
-    ogre-> position = {200,200};
-    ogre->height = 160;
-    ogre->width = 150;
-	ogre->play("OgreIdle");
+	// ogre = new Ogre(player);
+    // ogre-> position = {200,200};
+    // ogre->height = 160;
+    // ogre->width = 150;
+	// ogre->play("OgreIdle");
+	//
+    // allSprites->addChild(ogre);
 
-    allSprites->addChild(ogre);
+	mKing = new MonsterKing(player);
+    mKing->position = {300,200};
+    mKing->height = 160;
+    mKing->width = 150;
+
+    allSprites->addChild(mKing);
 
 	/*masterArcher = new MasterArcher(player);
     masterArcher-> position = {500,500};
@@ -149,7 +156,7 @@ Rebound::Rebound() : Game(1200, 800) {
 	collisionSystem->watchForCollisions("ogre", "mage_attack");
 	collisionSystem->watchForCollisions("ogre", "cannonball");
 	collisionSystem->watchForCollisions("ogre", "rubber_cannonball");
-	collisionSystem->watchForCollisions("ogre", "poison_bomb");	
+	collisionSystem->watchForCollisions("ogre", "poison_bomb");
 }
 
 Rebound::~Rebound() {

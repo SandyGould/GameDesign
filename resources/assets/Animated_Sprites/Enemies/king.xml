@@ -20,8 +20,10 @@ verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
 triangles  => sprite triangulation, 3 vertex indices per triangle
 -->
 <TextureAtlas imagePath="king.png" width="128" height="32">
-    <sprite n="HighElf_M_Idle + Walk_1.png" x="0" y="0" w="32" h="32"/>
-    <sprite n="HighElf_M_Idle + Walk_2.png" x="32" y="0" w="32" h="32"/>
-    <sprite n="HighElf_M_Idle + Walk_3.png" x="64" y="0" w="32" h="32"/>
-    <sprite n="HighElf_M_Idle + Walk_4.png" x="96" y="0" w="32" h="32"/>
+    <Anim name="King" numFrames="4" frameRate="12" loop="true">
+        <sprite n="HighElf_M_Idle + Walk_1.png" x="0" y="0" w="32" h="32"/>
+        <sprite n="HighElf_M_Idle + Walk_2.png" x="32" y="0" w="32" h="32"/>
+        <sprite n="HighElf_M_Idle + Walk_3.png" x="64" y="0" w="32" h="32"/>
+        <sprite n="HighElf_M_Idle + Walk_4.png" x="96" y="0" w="32" h="32"/>
+    </Anim>
 </TextureAtlas>

@@ -9,7 +9,7 @@ Mage::Mage(Player* player) : BaseEnemy("mage", "./resources/assets/Animated_Spri
 }
 
 Mage::Mage(Player* player, std::string filepath, std::string xml): BaseEnemy("kMage", filepath, xml, player){
-    
+
 }
 
 /*
@@ -26,7 +26,7 @@ void Mage::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
     }
 
     if(this->state == 0){
-        this->ready =301;
+        this->ready = 301;
         this->state = 1;
     }
     else if(this->state ==1){

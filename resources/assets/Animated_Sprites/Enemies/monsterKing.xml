@@ -20,12 +20,19 @@ verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
 triangles  => sprite triangulation, 3 vertex indices per triangle
 -->
 <TextureAtlas imagePath="monsterKing.png" width="256" height="32">
-    <sprite n="ForestGuardian_Idle_1.png" x="0" y="0" w="32" h="32"/>
-    <sprite n="ForestGuardian_Idle_2.png" x="32" y="0" w="32" h="32"/>
-    <sprite n="ForestGuardian_Idle_3.png" x="64" y="0" w="32" h="32"/>
-    <sprite n="ForestGuardian_Idle_4.png" x="96" y="0" w="32" h="32"/>
-    <sprite n="ForestGuardian_walk_1.png" x="128" y="0" w="32" h="32"/>
-    <sprite n="ForestGuardian_walk_2.png" x="160" y="0" w="32" h="32"/>
-    <sprite n="ForestGuardian_walk_3.png" x="192" y="0" w="32" h="32"/>
-    <sprite n="ForestGuardian_walk_4.png" x="224" y="0" w="32" h="32"/>
+
+    <Anim name="MKingIdle" numFrames="4" frameRate="12" loop="true">
+        <sprite n="ForestGuardian_Idle_1.png" x="0" y="0" w="32" h="32"/>
+        <sprite n="ForestGuardian_Idle_2.png" x="32" y="0" w="32" h="32"/>
+        <sprite n="ForestGuardian_Idle_3.png" x="64" y="0" w="32" h="32"/>
+        <sprite n="ForestGuardian_Idle_4.png" x="96" y="0" w="32" h="32"/>
+    </Anim>
+
+    <Anim name="MKingWalk" numFrames="4" frameRate="12" loop="true">
+        <sprite n="ForestGuardian_walk_1.png" x="128" y="0" w="32" h="32"/>
+        <sprite n="ForestGuardian_walk_2.png" x="160" y="0" w="32" h="32"/>
+        <sprite n="ForestGuardian_walk_3.png" x="192" y="0" w="32" h="32"/>
+        <sprite n="ForestGuardian_walk_4.png" x="224" y="0" w="32" h="32"/>
+    </Anim>
+
 </TextureAtlas>

@@ -103,7 +103,7 @@ void Ogre::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
     else if (this->state == 7) {
         if(this->actionFrames == 0){
             this->actionFrames = 120;
-            this->state =8;
+            this->state = 8;
         }
         if(this->actionFrames >3){
             if(directionX > 0){
@@ -168,4 +168,3 @@ bool Ogre::onCollision(DisplayObject* other){
      }
     return BaseEnemy::onCollision(other);
 }
-
