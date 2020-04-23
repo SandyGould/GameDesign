@@ -16,11 +16,9 @@ Fire Attack
 Reload
 Ded*/
 void Mage::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
-   if(this->health <=0){
-        this->clean = true;
-    }
-    if(this->clean){
-        this->cleanUp();
+    if(this->health <= 0) {
+        this->removeThis();
+        return;
     }
 
     if(this->state == 0){

@@ -6,12 +6,11 @@ SecondBoss::SecondBoss(Player* player): BaseEnemy("SecondBoss", "./resources/ass
 }
 
 void SecondBoss::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
-    if(this->health <=0){
-        this->clean = true;
+    if(this->health <= 0) {
+        this->removeThis();
+        return;
     }
-    if(this->clean){
-        cleanUp();
-    }
+
     if(this->state == 0){
         //init
         this->state =1;
