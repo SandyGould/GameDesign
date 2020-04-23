@@ -95,7 +95,7 @@ void Scene::loadScene_Editor(std::string sceneFilePath){
             json mj = json_layer["objects"][y];
             if(obj_type.compare("DisplayObject") == 0){temp_layer->addChild(setBasicInfo(new DisplayObject(mj["name"], mj["filepath"]), mj));}
             else if(aspr.find(obj_type) != aspr.end()){temp_layer->addChild((AnimatedSprite*)setBasicInfo(new AnimatedSprite(mj["name"], mj["sheetpath"], mj["xmlpath"]), mj));}
-            else if(spr.find(obj_type) != aspr.end()){temp_layer->addChild((Sprite*)setBasicInfo(new Sprite(mj["name"], mj["filepath"]), mj));}
+            else if(spr.find(obj_type) != spr.end()){temp_layer->addChild((Sprite*)setBasicInfo(new Sprite(mj["name"], mj["filepath"]), mj));}
         }            
         this->addChild(temp_layer);
     }
