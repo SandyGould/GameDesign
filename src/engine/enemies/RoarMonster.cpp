@@ -55,17 +55,37 @@ void RoarMonster::update(const std::unordered_set<SDL_Scancode>& pressedKeys, co
         }
         actionFrames= (actionFrames + 29) % 30;
         this->position = {(int)actualPosX, (int)actualPosY};
-        /*if(player is in front of me){
-            WOAH.
-        }*/
+        SDL_Point playerPos = player->getGlobalPosition();
+        SDL_Point myPos = this->getGlobalPosition();
+        if(playerPos.x - myPos.x < 30 && playerPos.x - myPos.x > -30 && playerPos.y - myPos.y < 30 && playerPos.y - myPos.y > -30){
+            this->state = 3;
+            this->actionFrames = 15;
+        }
     }
     else if(this->state == 3){
-        //Player is in my cone of view.
+        if(this->actionFrames == 0){
+            SDL_Point playerPos = player->getGlobalPosition();
+            SDL_Point myPos = this->getGlobalPosition();
+            if(playerPos.x - myPos.x < 30 && playerPos.x - myPos.x > -30 && playerPos.y - myPos.y < 30 && playerPos.y - myPos.y > -30){
+                this->state = 4;
+            }
+        }
+        else{
+            this->actionFrames--;
+        }
     }
     else if(this->state ==4){
-        //ROAR
+        this->myAttack = new Roar();
+        this->addChild(myAttack);
+        this->state = 5;
+        this->actionFrames = 135;
     }
     else if(this->state == 5){
-        //recharge
+        if(this->actionFrames == 0){
+            this->state = 2;
+        }
+        else{
+            this->actionFrames--;
+        }
     }
 }
