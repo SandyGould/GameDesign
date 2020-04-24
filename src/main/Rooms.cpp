@@ -80,7 +80,7 @@ Rooms::Rooms() : Game(600, 500) {
 	EventDispatcher::getInstance().addEventListener(this->selection_quit_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);
 
 	// health bar
-	health = std::make_shared<StatBar>("Health", 255, 0, 0);
+	health = std::make_shared<StatBar>("Health", 255, 0, 0, player);
 	health->position = {50,460};
 	container->addChild(health);
 
@@ -128,9 +128,8 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
     TweenJuggler::getInstance().nextFrame();
     
 	// update scene if criteria for changing scene are met
-
 	this->sceneManager->updateScene();
-
+	health->updateHealth();
 	Game::update(pressedKeys, joystickState, pressedButtons);
 	player->slowed = false;
     this->collisionSystem->update();
