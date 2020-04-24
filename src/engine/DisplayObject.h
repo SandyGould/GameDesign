@@ -85,13 +85,13 @@ public:
 	void applyTransformations(AffineTransform& at) const;
 	void reverseTransformations(AffineTransform& at) const;
 
-	[[nodiscard]] SDL_Point getGlobalPosition() const;
 	void updateSourceRect(SDL_Rect* s);
 
 	void scaleHeight(int h);
 	void scaleWidth(int w);
 
 	void getGlobalTransform(AffineTransform& at) const;
+    [[nodiscard]] SDL_Point getGlobalPosition() const;
 
     virtual bool onCollision(std::shared_ptr<DisplayObject> other);
 

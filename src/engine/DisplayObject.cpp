@@ -5,7 +5,6 @@
 #include "events/NewSceneEvent.h"
 #include "events/TweenEvent.h"
 #include "tweens/TweenJuggler.h"
-#include "things/Player.h"
 
 #include <algorithm>
 #include <cmath>
@@ -107,36 +106,6 @@ void DisplayObject::loadRGBTexture(int red, int green, int blue, int width, int 
     texture = SDL_CreateTextureFromSurface(this->renderer, image);
     SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
     setTexture(texture);
-}
-
-// TODO: Can this just pull from getGlobalTransform
-SDL_Point DisplayObject::getGlobalPosition() const {
-    DisplayObject* parent = this->parent;
-    std::vector<DisplayObject*> parentList;
-    while (parent != nullptr) {
-        parentList.push_back(parent);
-        parent = parent->parent;
-    }
-
-    AffineTransform at;
-    for (auto i = parentList.rbegin(); i != parentList.rend(); ++i) {
-        (*i)->applyTransformations(at);
-        if ((*i)->type != "Camera") {
-            at.translate((*i)->pivot.x, (*i)->pivot.y);
-        }
-    }
-
-    applyTransformations(at);
-    SDL_Point origin = at.transformPoint(0, 0);
-    reverseTransformations(at);
-
-    for (auto i = parentList.begin(); i != parentList.end(); ++i) {
-        if ((*i)->type != "Camera") {
-            at.translate(-(*i)->pivot.x, -(*i)->pivot.y);
-        }
-        (*i)->reverseTransformations(at);
-    }
-    return origin;
 }
 
 void DisplayObject::setTexture(SDL_Texture* t) {
@@ -313,6 +282,12 @@ void DisplayObject::getGlobalTransform(AffineTransform& at) const {
 	//undo parent's pivot
 	//apply this object's transform to at
 	this->applyTransformations(at);
+}
+
+SDL_Point DisplayObject::getGlobalPosition() const {
+    AffineTransform at;
+    this->getGlobalTransform(at);
+    return at.transformPoint(0, 0);
 }
 
 // Override this method to handle collisions by yourself
