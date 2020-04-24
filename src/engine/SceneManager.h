@@ -54,7 +54,7 @@ class SceneManager : public EventListener, public std::enable_shared_from_this<S
         int currRoom = 1;
         int currArea = 1;
 
-        int numRooms[4] = {3,2,3,7};
+        int numRooms[4] = {3,8,8,7};
         
 };
 

@@ -13,6 +13,7 @@
 SceneManager::SceneManager(shared_ptr<Camera> c, shared_ptr<Player> p) {
     this->p = p;
     this->c = c;
+    //this->collisionSystem = collisionSystem;
     // scene pointers - head and tail are dummy scene nodes
     this->head = std::make_shared<Scene>("empty_scene_head");
     this->tail = std::make_shared<Scene>("empty_scene_tail");
@@ -170,13 +171,13 @@ void SceneManager::loadFirstScene() {
     c->addChild(this->currScene);
 
     // create collision system
-    this->collisionSystem = std::make_shared<CollisionSystem>();
+    //this->collisionSystem = std::make_shared<CollisionSystem>();
     // set collisions between player and all environmental objects
-    this->collisionSystem->watchForCollisions("player", "WalkOnObject");
-    this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
-    this->collisionSystem->watchForCollisions("player", "arrow");
-    this->collisionSystem->watchForCollisions("shield", "arrow");
-    this->collisionSystem->watchForCollisions("shield", "enemy");
+    // this->collisionSystem->watchForCollisions("player", "WalkOnObject");
+    // this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
+    // this->collisionSystem->watchForCollisions("player", "arrow");
+    // this->collisionSystem->watchForCollisions("shield", "arrow");
+    // this->collisionSystem->watchForCollisions("shield", "enemy");
 
 
     // add tween complete event for scene manager
@@ -247,14 +248,14 @@ void SceneManager::loadNextScene() {
 
     // create collision system
     // delete collisionSystem;
-    this->collisionSystem = std::make_shared<CollisionSystem>();
-    EventDispatcher::getInstance().newCollisionSystemListener(this->collisionSystem.get());
+    //this->collisionSystem = std::make_shared<CollisionSystem>();
+    //EventDispatcher::getInstance().newCollisionSystemListener(this->collisionSystem.get());
     // set collisions between player and all environmental objects
-    this->collisionSystem->watchForCollisions("player", "WalkOnObject");
-    this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
-    this->collisionSystem->watchForCollisions("player", "arrow");
-    this->collisionSystem->watchForCollisions("shield", "arrow");
-    this->collisionSystem->watchForCollisions("shield", "enemy");
+    //this->collisionSystem->watchForCollisions("player", "WalkOnObject");
+    //this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
+    //this->collisionSystem->watchForCollisions("player", "arrow");
+    //this->collisionSystem->watchForCollisions("shield", "arrow");
+    //this->collisionSystem->watchForCollisions("shield", "enemy");
 
     // display a message if in new area (for debugging)
     if (this->currRoom == 1) {
@@ -302,13 +303,13 @@ void SceneManager::loadPrevScene() {
     this->c->printDisplayTree();
 
     // create collision system
-    this->collisionSystem = std::make_shared<CollisionSystem>();
+   // this->collisionSystem = std::make_shared<CollisionSystem>();
     // set collisions between player and all environmental objects
-    this->collisionSystem->watchForCollisions("player", "WalkOnObject");
-    this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
-    this->collisionSystem->watchForCollisions("player", "arrow");
-    this->collisionSystem->watchForCollisions("shield", "arrow");
-    this->collisionSystem->watchForCollisions("shield", "enemy");
+    // this->collisionSystem->watchForCollisions("player", "WalkOnObject");
+    // this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
+    // this->collisionSystem->watchForCollisions("player", "arrow");
+    // this->collisionSystem->watchForCollisions("shield", "arrow");
+    // this->collisionSystem->watchForCollisions("shield", "enemy");
 
 }
 
@@ -388,7 +389,7 @@ void SceneManager::updateScene() {
             return;
     }
 
-    this->collisionSystem->update();
+    //this->collisionSystem->update();
 }
 
 

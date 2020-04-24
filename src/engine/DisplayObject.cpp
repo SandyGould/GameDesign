@@ -143,9 +143,9 @@ void DisplayObject::removeImmediateChild(std::string id) {
 void DisplayObject::removeImmediateChildWithoutDelete(std::shared_ptr<DisplayObject> child) {
     auto it = std::find(this->children.cbegin(), this->children.cend(), child);
     if (it != this->children.cend()) {
-        DisplayTreeChangeEvent* event = new DisplayTreeChangeEvent(*it, false);
-        EventDispatcher::getInstance().dispatchEvent(event);
-        delete event;
+        //DisplayTreeChangeEvent* event = new DisplayTreeChangeEvent(*it, false);
+        //EventDispatcher::getInstance().dispatchEvent(event);
+        //delete event;
 
         //delete *it;
         this->children.erase(it);

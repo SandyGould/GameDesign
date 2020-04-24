@@ -59,6 +59,7 @@ void EventDispatcher::dispatchEvent(Event* e) {
     }
 
     for (auto listener : listeners.at(e->getType())) {
+        std::cout << e->getType() << std::endl;
         listener->handleEvent(e);
     }
 }
