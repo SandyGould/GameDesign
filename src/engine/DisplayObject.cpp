@@ -85,10 +85,10 @@ DisplayObject::~DisplayObject() {
 
 void DisplayObject::loadTexture(const std::string& filepath) {
     image = IMG_Load(filepath.c_str());
-    // if (image != nullptr) {
-    //     height = image->h;
-    //     width = image->w;
-    // }
+    if (image != nullptr) {
+        height = image->h;
+        width = image->w;
+    }
     texture = SDL_CreateTextureFromSurface(this->renderer, image);
     setTexture(texture);
 }
