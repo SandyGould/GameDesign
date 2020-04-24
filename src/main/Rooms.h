@@ -1,25 +1,21 @@
 #ifndef ROOMS_H
 #define ROOMS_H
 
-#include "../engine/Game.h"
-#include "../engine/Sprite.h"
 #include "../engine/AnimatedSprite.h"
-#include "../engine/Scene.h"
 #include "../engine/Camera.h"
-// #include "../engine/TextObject.h"
+#include "../engine/CollisionSystem.h"
+#include "../engine/Game.h"
+#include "../engine/Scene.h"
+#include "../engine/SceneManager.h"
+#include "../engine/Sprite.h"
+#include "../engine/StatBar.h"
 #include "../engine/things/Coin.h"
 #include "../engine/things/Player.h"
-#include "../engine/things/TextBox.h"
 #include "../engine/things/SelectionMenuBase.h"
 #include "../engine/things/SelectionMenuOption.h"
-// #include "../engine/QuestManager.h"
-// #include "../engine/events/PickedUpEvent.h"
-// #include "../engine/Sound.h"
+#include "../engine/things/TextBox.h"
 #include "../engine/tweens/Tween.h"
 #include "../engine/tweens/TweenJuggler.h"
-#include "../engine/StatBar.h"
-#include "../engine/SceneManager.h"
-
 
 class Rooms : public Game {
 

@@ -10,7 +10,7 @@
 
 #include <list>
 
-class SceneManager : public EventListener, public std::enable_shared_from_this<SceneManager>  { 
+class SceneManager : public EventListener {
 
     public:
         SceneManager(shared_ptr<Camera>c, shared_ptr<Player> p);
