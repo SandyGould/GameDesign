@@ -9,7 +9,7 @@
               "rotation": 0,
               "scaleX": 10,
               "scaleY": 5,
-              "type": "DisplayObject",
+              "type": "Sprite",
               "x_pos": 0,
               "y_pos": 0
             },
@@ -19,7 +19,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 301,
               "y_pos": 438
             },
@@ -29,7 +29,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 241,
               "y_pos": 438
             },
@@ -39,7 +39,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 361,
               "y_pos": 438
             },
@@ -49,7 +49,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 421,
               "y_pos": 438
             },
@@ -59,7 +59,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 121,
               "y_pos": 438
             },
@@ -69,7 +69,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 1,
               "y_pos": 438
             },
@@ -79,7 +79,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 61,
               "y_pos": 438
             },
@@ -89,7 +89,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 181,
               "y_pos": 438
             },
@@ -99,7 +99,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 721,
               "y_pos": 438
             },
@@ -109,7 +109,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 781,
               "y_pos": 438
             },
@@ -119,7 +119,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 901,
               "y_pos": 438
             },
@@ -129,7 +129,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 481,
               "y_pos": 438
             },
@@ -139,7 +139,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 661,
               "y_pos": 438
             },
@@ -149,7 +149,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 601,
               "y_pos": 438
             },
@@ -159,7 +159,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 541,
               "y_pos": 438
             },
@@ -169,7 +169,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 841,
               "y_pos": 438
             },
@@ -179,7 +179,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 1,
               "y_pos": 1
             },
@@ -189,7 +189,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 601,
               "y_pos": 1
             },
@@ -199,7 +199,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 901,
               "y_pos": 1
             },
@@ -209,7 +209,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 541,
               "y_pos": 1
             },
@@ -219,7 +219,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 841,
               "y_pos": 1
             },
@@ -229,7 +229,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 181,
               "y_pos": 1
             },
@@ -239,7 +239,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 301,
               "y_pos": 1
             },
@@ -249,7 +249,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 721,
               "y_pos": 1
             },
@@ -259,7 +259,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 421,
               "y_pos": 1
             },
@@ -269,7 +269,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 241,
               "y_pos": 1
             },
@@ -279,7 +279,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 661,
               "y_pos": 1
             },
@@ -289,7 +289,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 481,
               "y_pos": 1
             },
@@ -299,7 +299,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 781,
               "y_pos": 1
             },
@@ -309,7 +309,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 61,
               "y_pos": 1
             },
@@ -319,7 +319,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 361,
               "y_pos": 1
             },
@@ -329,7 +329,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 121,
               "y_pos": 1
             },
@@ -339,7 +339,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 940,
               "y_pos": 69
             },
@@ -349,7 +349,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 940,
               "y_pos": 129
             },
@@ -359,7 +359,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 940,
               "y_pos": 188
             },
@@ -369,7 +369,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 940,
               "y_pos": 248
             },
@@ -379,7 +379,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 940,
               "y_pos": 369
             },
@@ -389,7 +389,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 940,
               "y_pos": 309
             },
@@ -449,7 +449,7 @@
               "rotation": 0,
               "scaleX": 1.5,
               "scaleY": 1.5,
-              "type": "DisplayObject",
+              "type": "Sprite",
               "x_pos": 636,
               "y_pos": 171
             },
@@ -459,7 +459,7 @@
               "rotation": 0,
               "scaleX": 0.5,
               "scaleY": 0.5,
-              "type": "mage",
+              "type": "Mage",
               "x_pos": 841,
               "y_pos": 351
             },
@@ -469,7 +469,7 @@
               "rotation": 0,
               "scaleX": 0.4,
               "scaleY": 0.5,
-              "type": "poisoner",
+              "type": "Poisoner",
               "x_pos": 424,
               "y_pos": 142
             },
@@ -479,7 +479,7 @@
               "rotation": 0,
               "scaleX": 0.4,
               "scaleY": 0.5,
-              "type": "poisoner",
+              "type": "Poisoner",
               "x_pos": 422,
               "y_pos": 294
             },
@@ -489,7 +489,7 @@
               "rotation": 0,
               "scaleX": 0.4,
               "scaleY": 0.5,
-              "type": "poisoner",
+              "type": "Poisoner",
               "x_pos": 580,
               "y_pos": 118
             },
@@ -499,7 +499,7 @@
               "rotation": 0,
               "scaleX": 0.4,
               "scaleY": 0.5,
-              "type": "poisoner",
+              "type": "Poisoner",
               "x_pos": 585,
               "y_pos": 344
             }

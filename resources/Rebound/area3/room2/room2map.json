@@ -511,7 +511,7 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"Sprite",
+                        "type":"Poisoner",
                         "name":"poisoner",
                         "filepath":"./resources/Rebound/area3_res/assets/poisoner.png",
                         "x_pos":750,
@@ -522,7 +522,7 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"Sprite",
+                        "type":"Poisoner",
                         "name":"poisoner",
                         "filepath":"./resources/Rebound/area3_res/assets/poisoner.png",
                         "x_pos":750,
@@ -533,7 +533,7 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"Sprite",
+                        "type":"Poisoner",
                         "name":"poisoner",
                         "filepath":"./resources/Rebound/area3_res/assets/poisoner.png",
                         "x_pos":750,
@@ -544,7 +544,7 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"Sprite",
+                        "type":"Mage",
                         "name":"mage",
                         "filepath":"./resources/Rebound/area3_res/assets/mage.png",
                         "x_pos":870,
@@ -555,7 +555,7 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"Sprite",
+                        "type":"Mage",
                         "name":"mage",
                         "filepath":"./resources/Rebound/area3_res/assets/mage.png",
                         "x_pos":870,

@@ -9,7 +9,7 @@
               "rotation": 0,
               "scaleX": 10,
               "scaleY": 5,
-              "type": "DisplayObject",
+              "type": "Sprite",
               "x_pos": 0,
               "y_pos": 0
             },
@@ -19,7 +19,7 @@
               "rotation": 0,
               "scaleX": 0.98,
               "scaleY": 0.5,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": -1,
               "y_pos": 135
             },
@@ -29,7 +29,7 @@
               "rotation": 0,
               "scaleX": 0.98,
               "scaleY": 0.5,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": -1,
               "y_pos": 320
             },
@@ -39,7 +39,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 216,
               "y_pos": 114
             },
@@ -49,7 +49,7 @@
               "rotation": 0,
               "scaleX": 0.6,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "WalkOnObject",
               "x_pos": 215,
               "y_pos": 330
             },
@@ -59,7 +59,7 @@
               "rotation": 0,
               "scaleX": 1.01,
               "scaleY": 2.4,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 318,
               "y_pos": 121
             },
@@ -69,7 +69,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 2,
               "y_pos": 454
             },
@@ -79,7 +79,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 94,
               "y_pos": 454
             },
@@ -89,7 +89,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 187,
               "y_pos": 454
             },
@@ -99,7 +99,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 280,
               "y_pos": 454
             },
@@ -109,7 +109,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 373,
               "y_pos": 455
             },
@@ -119,7 +119,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 467,
               "y_pos": 455
             },
@@ -129,7 +129,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 561,
               "y_pos": 455
             },
@@ -139,7 +139,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 655,
               "y_pos": 455
             },
@@ -149,7 +149,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 747,
               "y_pos": 454
             },
@@ -159,7 +159,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 840,
               "y_pos": 454
             },
@@ -169,7 +169,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 466,
               "y_pos": 2
             },
@@ -179,7 +179,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 560,
               "y_pos": 2
             },
@@ -189,7 +189,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 746,
               "y_pos": 1
             },
@@ -199,7 +199,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 654,
               "y_pos": 2
             },
@@ -209,7 +209,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 93,
               "y_pos": 1
             },
@@ -219,7 +219,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 279,
               "y_pos": 1
             },
@@ -229,7 +229,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 1,
               "y_pos": 1
             },
@@ -239,7 +239,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 839,
               "y_pos": 1
             },
@@ -249,7 +249,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 372,
               "y_pos": 2
             },
@@ -259,7 +259,7 @@
               "rotation": 0,
               "scaleX": 1.15,
               "scaleY": 0.45,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 186,
               "y_pos": 1
             },
@@ -269,7 +269,7 @@
               "rotation": 0,
               "scaleX": 0.23,
               "scaleY": 1.2,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 0,
               "y_pos": 379
             },
@@ -279,7 +279,7 @@
               "rotation": 0,
               "scaleX": 0.23,
               "scaleY": 1.2,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 1,
               "y_pos": 27
             },
@@ -289,7 +289,7 @@
               "rotation": 0,
               "scaleX": 0.23,
               "scaleY": 1.2,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 966,
               "y_pos": 2
             },
@@ -299,7 +299,7 @@
               "rotation": 0,
               "scaleX": 0.23,
               "scaleY": 1.2,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 966,
               "y_pos": 76
             },
@@ -309,7 +309,7 @@
               "rotation": 0,
               "scaleX": 0.23,
               "scaleY": 1.2,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 966,
               "y_pos": 302
             },
@@ -319,7 +319,7 @@
               "rotation": 0,
               "scaleX": 0.23,
               "scaleY": 1.2,
-              "type": "DisplayObject",
+              "type": "EnvironmentObject",
               "x_pos": 968,
               "y_pos": 376
             },
@@ -329,7 +329,7 @@
               "rotation": 0,
               "scaleX": 0.4,
               "scaleY": 0.6,
-              "type": "poisoner",
+              "type": "Poisoner",
               "x_pos": 456,
               "y_pos": 69
             },
@@ -339,7 +339,7 @@
               "rotation": 0,
               "scaleX": 0.4,
               "scaleY": 0.6,
-              "type": "poisoner",
+              "type": "Poisoner",
               "x_pos": 454,
               "y_pos": 365
             },
@@ -349,17 +349,17 @@
               "rotation": 0,
               "scaleX": 1.5,
               "scaleY": 1.5,
-              "type": "second_boss",
+              "type": "SecondBoss",
               "x_pos": 616,
               "y_pos": 158
             },
             {
-              "filepath": "./resources/assets/Display_Objects/kingdom_mage.png",
-              "name": "kingdom_mage_copy",
+              "filepath": "./resources/assets/Display_Objects/mage.png",
+              "name": "mage_copy",
               "rotation": 0,
               "scaleX": 0.4,
               "scaleY": 0.6,
-              "type": "DisplayObject",
+              "type": "Mage",
               "x_pos": 836,
               "y_pos": 222
             }
