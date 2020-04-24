@@ -34,13 +34,10 @@ void Mage::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
         this->state = 2;
     }
     else if(this->state == 2){
-        if(this->ready == 301){
-            this->mageAttack = std::make_shared<MageAttack>();
-     		this->addChild(mageAttack);
-            mageAttack->visible =false;
-        }
         this->ready--;
         if(this->ready==240){
+            this->mageAttack = std::make_shared<MageAttack>();
+     		this->addChild(mageAttack);
             mageAttack->visible=true;
             this->state = 3;
         }
@@ -59,7 +56,7 @@ void Mage::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
 }
 
 bool Mage::onCollision(std::shared_ptr<DisplayObject> other){
-    if(other == this->mageAttack && mageAttack->firing == false){
+    if(other == this->mageAttack){
         return true;
     }
     return BaseEnemy::onCollision(other);
