@@ -63,7 +63,7 @@ void Mage::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
 }
 
 bool Mage::onCollision(std::shared_ptr<DisplayObject> other){
-    if(other == this->mageAttack){
+    if(other == this->mageAttack && this->firing == false){
         return true;
     }
     return BaseEnemy::onCollision(other);
