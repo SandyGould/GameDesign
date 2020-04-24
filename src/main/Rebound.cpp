@@ -39,12 +39,12 @@ Rebound::Rebound() : Game(1200, 800) {
 	//
 	// allSprites->addChild(king);
 
-    archer = make_shared<Archer>(player);
-    archer-> position = {200,200};
-    archer->height = 80;
-    archer->width = 70;
-
-    allSprites->addChild(archer);
+    // archer = make_shared<Archer>(player);
+    // archer-> position = {200,200};
+    // archer->height = 80;
+    // archer->width = 70;
+	//
+    // allSprites->addChild(archer);
 
 	// ogre = new Ogre(player);
     // ogre-> position = {200,200};
@@ -61,69 +61,69 @@ Rebound::Rebound() : Game(1200, 800) {
 	//
     // allSprites->addChild(mKing);
 
-	/*masterArcher = new MasterArcher(player);
-    masterArcher-> position = {500,500};
-    masterArcher->height = 80;
-    masterArcher->width = 70;
+	// masterArcher = new MasterArcher(player);
+    // masterArcher-> position = {500,500};
+    // masterArcher->height = 80;
+    // masterArcher->width = 70;
+	//
+    // allSprites->addChild(masterArcher);
 
-    allSprites->addChild(masterArcher);
 
-
-	orc = new Orc(player);
+	orc = make_shared<Orc>(player);
 	orc->position = {450,450};
 	orc->height = 80;
 	orc->width = 70;
 
 	allSprites->addChild(orc);
 
-	poisoner = new Poisoner(player);
-	poisoner->position = {40,160};
-	poisoner->height = 80;
-	poisoner->width = 70;
+	// poisoner = new Poisoner(player);
+	// poisoner->position = {40,160};
+	// poisoner->height = 80;
+	// poisoner->width = 70;
+	//
+	// allSprites->addChild(poisoner);
+	// roarMonster = new RoarMonster(player);
+	// roarMonster-> position = {100, 100};
+	// roarMonster->height = 80;
+	// roarMonster->width = 70;
+	//
+	// allSprites->addChild(roarMonster);
 
-	allSprites->addChild(poisoner);
-	roarMonster = new RoarMonster(player);
-	roarMonster-> position = {100, 100};
-	roarMonster->height = 80;
-	roarMonster->width = 70;
-
-	allSprites->addChild(roarMonster);
-
-	knight = new Knight(player);
+	knight = make_shared<Knight>(player);
 	knight->position = {200,400};
 	knight->height = 80;
 	knight->width = 70;
 
 	allSprites->addChild(knight);
 
-	cannoneer = new Cannoneer(player);
-	cannoneer->position = {500,100};
-	cannoneer->height = 80;
-	cannoneer->width = 70;
-
-	allSprites->addChild(cannoneer);
-
-	rubberCannoneer = new RubberCannoneer(player);
-	rubberCannoneer->position = {600, 200};
-	rubberCannoneer->height=80;
-	rubberCannoneer->width=70;
-
-	allSprites->addChild(rubberCannoneer);
-
-	kingdomArcher = new KingdomArcher(player);
-	kingdomArcher->position = {400,200};
-	kingdomArcher->height= 80;
-	kingdomArcher->width=80;
-
-	allSprites->addChild(kingdomArcher);
-
-
-	kingdomMage = new KingdomMage(player);
-	kingdomMage->position = {350,350};
-	kingdomMage->height = 80;
-	kingdomMage->width = 70;
-
-	allSprites->addChild(kingdomMage);*/
+	// cannoneer = new Cannoneer(player);
+	// cannoneer->position = {500,100};
+	// cannoneer->height = 80;
+	// cannoneer->width = 70;
+	//
+	// allSprites->addChild(cannoneer);
+	//
+	// rubberCannoneer = new RubberCannoneer(player);
+	// rubberCannoneer->position = {600, 200};
+	// rubberCannoneer->height=80;
+	// rubberCannoneer->width=70;
+	//
+	// allSprites->addChild(rubberCannoneer);
+	//
+	// kingdomArcher = new KingdomArcher(player);
+	// kingdomArcher->position = {400,200};
+	// kingdomArcher->height= 80;
+	// kingdomArcher->width=80;
+	//
+	// allSprites->addChild(kingdomArcher);
+	//
+	//
+	// kingdomMage = new KingdomMage(player);
+	// kingdomMage->position = {350,350};
+	// kingdomMage->height = 80;
+	// kingdomMage->width = 70;
+	//
+	// allSprites->addChild(kingdomMage);
 
 	// secondBoss = new SecondBoss(player);
 	// secondBoss->position = {600,600};

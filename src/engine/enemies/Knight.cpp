@@ -1,13 +1,14 @@
 #include "Knight.h"
 #include <iostream>
 
-Knight::Knight(std::shared_ptr<Player> player): BaseEnemy("knight", "./resources/assets/Display_Objects/knight.png", "", player){
+Knight::Knight(std::shared_ptr<Player> player): BaseEnemy("knight", "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", player){
     this->type = "knight";
     this->saveType = this->type;
+    this->play("KnightIdle");
 }
 
 Knight::Knight(std::shared_ptr<Player> player, std::string filepath, std::string xml): BaseEnemy("orc", filepath, xml, player){
-    
+
 }
 
 void Knight::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
@@ -59,7 +60,7 @@ void Knight::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
             if(this->actionFrames==300){
                 this->state = 5;
                 this->actionFrames = 120;
-        }   
+        }
         }
     }
     else if(this->state == 3){
@@ -134,5 +135,7 @@ void Knight::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
         }
         this->actionFrames--;
     }
+
+    BaseEnemy::update(pressedKeys, joystickState, pressedButtons);
 
 }

@@ -49,6 +49,34 @@ triangles  => sprite triangulation, 3 vertex indices per triangle
         <sprite n="necromancer_idle_anim_f3.png" x="32" y="344" w="16" h="20"/>
     </Anim>
 
+    <Anim name="KnightIdle" numFrames="4" frameRate="12" loop="true">
+        <sprite n="knight_m_idle_anim_f0.png" x="48" y="561" w="16" h="28"/>
+        <sprite n="knight_m_idle_anim_f1.png" x="64" y="561" w="16" h="28"/>
+        <sprite n="knight_m_idle_anim_f2.png" x="80" y="561" w="16" h="28"/>
+        <sprite n="knight_m_idle_anim_f3.png" x="96" y="561" w="16" h="28"/>
+    </Anim>
+
+    <Anim name="KnightRun" numFrames="4" frameRate="12" loop="true">
+        <sprite n="knight_m_run_anim_f0.png" x="112" y="561" w="16" h="28"/>
+        <sprite n="knight_m_run_anim_f1.png" x="0" y="589" w="16" h="28"/>
+        <sprite n="knight_m_run_anim_f2.png" x="16" y="589" w="16" h="28"/>
+        <sprite n="knight_m_run_anim_f3.png" x="32" y="589" w="16" h="28"/>
+    </Anim>
+
+    <Anim name="OrcIdle" numFrames="4" frameRate="12" loop="true">
+        <sprite n="skelet_idle_anim_f0.png" x="0" y="144" w="16" h="16"/>
+        <sprite n="skelet_idle_anim_f1.png" x="16" y="144" w="16" h="16"/>
+        <sprite n="skelet_idle_anim_f2.png" x="32" y="144" w="16" h="16"/>
+        <sprite n="skelet_idle_anim_f3.png" x="48" y="144" w="16" h="16"/>
+    </Anim>
+
+    <Anim name="OrcRun" numFrames="4" frameRate="12" loop="true">
+        <sprite n="skelet_run_anim_f0.png" x="64" y="144" w="16" h="16"/>
+        <sprite n="skelet_run_anim_f1.png" x="80" y="144" w="16" h="16"/>
+        <sprite n="skelet_run_anim_f2.png" x="96" y="144" w="16" h="16"/>
+        <sprite n="skelet_run_anim_f3.png" x="112" y="144" w="16" h="16"/>
+    </Anim>
+
     <sprite n="big_demon_idle_anim_f0.png" x="96" y="894" w="32" h="36"/>
     <sprite n="big_demon_idle_anim_f1.png" x="0" y="930" w="32" h="36"/>
     <sprite n="big_demon_idle_anim_f2.png" x="32" y="930" w="32" h="36"/>
@@ -171,14 +199,7 @@ triangles  => sprite triangulation, 3 vertex indices per triangle
     <sprite n="knight_f_run_anim_f2.png" x="0" y="561" w="16" h="28"/>
     <sprite n="knight_f_run_anim_f3.png" x="16" y="561" w="16" h="28"/>
     <sprite n="knight_m_hit_anim_f0.png" x="32" y="561" w="16" h="28"/>
-    <sprite n="knight_m_idle_anim_f0.png" x="48" y="561" w="16" h="28"/>
-    <sprite n="knight_m_idle_anim_f1.png" x="64" y="561" w="16" h="28"/>
-    <sprite n="knight_m_idle_anim_f2.png" x="80" y="561" w="16" h="28"/>
-    <sprite n="knight_m_idle_anim_f3.png" x="96" y="561" w="16" h="28"/>
-    <sprite n="knight_m_run_anim_f0.png" x="112" y="561" w="16" h="28"/>
-    <sprite n="knight_m_run_anim_f1.png" x="0" y="589" w="16" h="28"/>
-    <sprite n="knight_m_run_anim_f2.png" x="16" y="589" w="16" h="28"/>
-    <sprite n="knight_m_run_anim_f3.png" x="32" y="589" w="16" h="28"/>
+
     <sprite n="lizard_f_hit_anim_f0.png" x="48" y="589" w="16" h="28"/>
     <sprite n="lizard_f_idle_anim_f0.png" x="64" y="589" w="16" h="28"/>
     <sprite n="lizard_f_idle_anim_f1.png" x="80" y="589" w="16" h="28"/>
@@ -232,14 +253,7 @@ triangles  => sprite triangulation, 3 vertex indices per triangle
     <sprite n="orc_warrior_run_anim_f1.png" x="64" y="384" w="16" h="20"/>
     <sprite n="orc_warrior_run_anim_f2.png" x="80" y="384" w="16" h="20"/>
     <sprite n="orc_warrior_run_anim_f3.png" x="96" y="384" w="16" h="20"/>
-    <sprite n="skelet_idle_anim_f0.png" x="0" y="144" w="16" h="16"/>
-    <sprite n="skelet_idle_anim_f1.png" x="16" y="144" w="16" h="16"/>
-    <sprite n="skelet_idle_anim_f2.png" x="32" y="144" w="16" h="16"/>
-    <sprite n="skelet_idle_anim_f3.png" x="48" y="144" w="16" h="16"/>
-    <sprite n="skelet_run_anim_f0.png" x="64" y="144" w="16" h="16"/>
-    <sprite n="skelet_run_anim_f1.png" x="80" y="144" w="16" h="16"/>
-    <sprite n="skelet_run_anim_f2.png" x="96" y="144" w="16" h="16"/>
-    <sprite n="skelet_run_anim_f3.png" x="112" y="144" w="16" h="16"/>
+
     <sprite n="skull.png" x="0" y="160" w="16" h="16"/>
     <sprite n="swampy_idle_anim_f0.png" x="16" y="160" w="16" h="16"/>
     <sprite n="swampy_idle_anim_f1.png" x="32" y="160" w="16" h="16"/>
