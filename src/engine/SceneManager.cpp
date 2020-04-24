@@ -13,7 +13,6 @@
 SceneManager::SceneManager(shared_ptr<Camera> c, shared_ptr<Player> p) {
     this->p = p;
     this->c = c;
-    //this->collisionSystem = collisionSystem;
     // scene pointers - head and tail are dummy scene nodes
     this->head = std::make_shared<Scene>("empty_scene_head");
     this->tail = std::make_shared<Scene>("empty_scene_tail");
@@ -170,15 +169,6 @@ void SceneManager::loadFirstScene() {
     c->pivot = this->currScene->camEntrancePivot;
     c->addChild(this->currScene);
 
-    // create collision system
-    //this->collisionSystem = std::make_shared<CollisionSystem>();
-    // set collisions between player and all environmental objects
-    // this->collisionSystem->watchForCollisions("player", "WalkOnObject");
-    // this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
-    // this->collisionSystem->watchForCollisions("player", "arrow");
-    // this->collisionSystem->watchForCollisions("shield", "arrow");
-    // this->collisionSystem->watchForCollisions("shield", "enemy");
-
 
     // add tween complete event for scene manager
 	if (!EventDispatcher::getInstance().hasEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT)) {
@@ -246,17 +236,6 @@ void SceneManager::loadNextScene() {
     c->pivot = this->currScene->camEntrancePivot;
     c->addChild(this->currScene);
 
-    // create collision system
-    // delete collisionSystem;
-    //this->collisionSystem = std::make_shared<CollisionSystem>();
-    //EventDispatcher::getInstance().newCollisionSystemListener(this->collisionSystem.get());
-    // set collisions between player and all environmental objects
-    //this->collisionSystem->watchForCollisions("player", "WalkOnObject");
-    //this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
-    //this->collisionSystem->watchForCollisions("player", "arrow");
-    //this->collisionSystem->watchForCollisions("shield", "arrow");
-    //this->collisionSystem->watchForCollisions("shield", "enemy");
-
     // display a message if in new area (for debugging)
     if (this->currRoom == 1) {
         new_area_text = std::make_shared<TextBox>("start_text", "Area " + std::to_string(this->currArea));
@@ -301,15 +280,6 @@ void SceneManager::loadPrevScene() {
     c->addChild(this->currScene);
     std::cout << "----------------------------------------------" << std::endl;
     this->c->printDisplayTree();
-
-    // create collision system
-   // this->collisionSystem = std::make_shared<CollisionSystem>();
-    // set collisions between player and all environmental objects
-    // this->collisionSystem->watchForCollisions("player", "WalkOnObject");
-    // this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
-    // this->collisionSystem->watchForCollisions("player", "arrow");
-    // this->collisionSystem->watchForCollisions("shield", "arrow");
-    // this->collisionSystem->watchForCollisions("shield", "enemy");
 
 }
 

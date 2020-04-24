@@ -6,7 +6,6 @@
 #include "things/Player.h"
 #include "events/EventListener.h"
 #include "events/Event.h"
-#include "CollisionSystem.h"
 #include "things/TextBox.h"
 
 #include <list>
@@ -37,8 +36,6 @@ class SceneManager : public EventListener, public std::enable_shared_from_this<S
     private:
         shared_ptr<Player> p;
         shared_ptr<Camera> c;
-
-        shared_ptr<CollisionSystem> collisionSystem;
         
         std::string sceneChange = std::string("");
 
