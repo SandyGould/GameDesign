@@ -135,7 +135,7 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 
 				// pass player to new scene
 				scene2->addChild(player);
-				scene->removeImmediateChildWithoutDelete(player);
+				scene->removeImmediateChild(player);
 				player->position = {0, 200};
 
 				EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_IN_EVENT));
@@ -171,7 +171,7 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 
 				// pass player
 				scene3->addChild(player);
-				scene2->removeImmediateChildWithoutDelete(player);
+				scene2->removeImmediateChild(player);
 				player->position = {20, 20};
 
 				EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_IN_EVENT));

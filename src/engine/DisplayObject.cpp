@@ -177,17 +177,6 @@ void DisplayObject::removeImmediateChild(std::shared_ptr<DisplayObject> child) {
     }
 }
 
-void DisplayObject::removeImmediateChildWithoutDelete(std::shared_ptr<DisplayObject> child) {
-    auto it = std::find(this->children.cbegin(), this->children.cend(), child);
-    if (it != this->children.cend()) {
-        DisplayTreeChangeEvent* event = new DisplayTreeChangeEvent(*it, false);
-        EventDispatcher::getInstance().dispatchEvent(event);
-        delete event;
-
-        objectsToErase.push_back(*it);
-    }
-}
-
 void DisplayObject::removeImmediateChild(std::string id) {
     auto it = std::find_if(this->children.cbegin(), this->children.cend(), [&](const auto child) { return child->id == id; });
     if (it != this->children.cend()) {
@@ -227,18 +216,6 @@ std::shared_ptr<DisplayObject> DisplayObject::getChild(int index) const {
     } else {
         return children[index];
     }
-}
-
-std::shared_ptr<DisplayObject> DisplayObject::getAndRemoveChild(std::string id) {
-    // for (auto child : children) {
-    //     if (child->id == id) {
-    //         DisplayObject* temp = child;
-    //         // delete child;
-    //         return temp;
-    //     }
-    // }
-    // return nullptr;
-    return getChild(id);
 }
 
 std::shared_ptr<DisplayObject> DisplayObject::getChild(const std::string& id) const {
