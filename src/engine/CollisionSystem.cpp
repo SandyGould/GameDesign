@@ -34,31 +34,22 @@ void CollisionSystem::buildDisplayMap(shared_ptr<DisplayObject> object) {
 //checks collisions between pairs of DOs where the corresponding types have been requested
 //to be checked (via a single call to watchForCollisions) below.
 void CollisionSystem::update() {
-    cout << "collisionPair's size is: " << collisionPairs.size() << endl;
     for (auto& [object1, object2] : collisionPairs) {
         // Before we do anything! We must make sure we're not trying to
         // operate on objects that have already been removed
         // (We cannot delete them from collisionPairs immediately b/c
         // that would invalidate the iterator we're looping on)
-        cout << "checking objects to erase" << endl;
-        // cout << "cbegin " << objectsToErase.cbegin() << endl;
-        // cout << "cend " << objectsToErase.cend() << endl;
-        cout << "object1 " << object1 << endl;
-        cout << "object2 " << object2 << endl;
         if (find(objectsToErase.cbegin(), objectsToErase.cend(), object1) != objectsToErase.cend() ||
             find(objectsToErase.cbegin(), objectsToErase.cend(), object2) != objectsToErase.cend()) {
-            cout << "there are objects to erase" << endl;
             break;
         }
 
-        cout << "updating points" << endl;
         SDL_Point obj1Position = object1->position;
         SDL_Point obj2Position = object2->position;
 
         SDL_Point obj1Prev = prevPositions.at(object1);
         SDL_Point obj2Prev = prevPositions.at(object2);
 
-        cout << "checking if they've collided" << endl;
         if (obj1Prev.x == obj1Position.x && obj1Prev.y == obj1Position.y &&
             obj2Prev.x == obj2Position.x && obj2Prev.y == obj2Position.y) {
             // Wait, they didn't move! They couldn't have collided, then.

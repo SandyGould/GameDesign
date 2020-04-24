@@ -105,8 +105,6 @@ Rooms::~Rooms() {
 }
 
 void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {
-	//this->collisionSystem->update();	
-
 	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
 		player->position.x += 2;
 	}
@@ -134,16 +132,12 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 	// update scene if criteria for changing scene are met
 	this->sceneManager->updateScene();
 
-	cout << "updating with game's update" << endl;
 	Game::update(pressedKeys, joystickState, pressedButtons);
-	cout << "going to slow down now" << endl;
 	player->slowed = false;
-	cout << "updating collision system" << endl;
     this->collisionSystem->update();
 	if(!player->slowed){
 		player->speed = 4;
 	}
-	cout << "following now" << endl;
     camera->follow(player->position.x, player->position.y);
 }
 

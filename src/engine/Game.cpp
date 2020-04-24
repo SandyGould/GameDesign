@@ -85,7 +85,6 @@ void Game::initSDL() {
 }
 
 void Game::start() {
-    cout << "got to start" << endl;
     milliseconds ms_per_frame(1000ms / this->frames_per_sec);
     auto start = steady_clock::now();
 
@@ -97,25 +96,18 @@ void Game::start() {
         milliseconds duration = duration_cast<milliseconds>(end - start);
         if (duration > ms_per_frame) {
             start = end;
-            cout << "going to update" << endl;
             this->update(pressedKeys, joystickState, pressedButtons);
-            cout << "done updating" << endl;
             AffineTransform at;
-            cout << "going to draw" << endl;
             this->draw(at);
         }
 
         // While there are events to process:
-        cout << "ok getting events now" << endl;
         while (SDL_PollEvent(&event)) {
-            cout << "checking event type" << endl;
             switch (event.type) {
             case SDL_QUIT:
-                cout << "it's quit" << endl;
                 quit = true;
                 break;
             case SDL_WINDOWEVENT:
-                cout << "it's a window event" << endl;
                 if (event.window.event == SDL_WINDOWEVENT_CLOSE) {
                     quit = true;
                 } else if (event.window.event == SDL_WINDOWEVENT_ENTER) {
@@ -127,22 +119,18 @@ void Game::start() {
                 }
                 break;
             case SDL_KEYDOWN:
-                cout << "it's a keydown" << endl;
                 pressedKeys.insert(event.key.keysym.scancode);
                 EventDispatcher::getInstance().dispatchEvent(new KeyDownEvent());
                 break;
             case SDL_KEYUP:
-                cout << "it's a keyup" << endl;
                 this->pressedKeys.erase(event.key.keysym.scancode);
                 break;
             case SDL_MOUSEBUTTONDOWN:
-                cout << "it's a mouse down" << endl;
                 this->modifiers = SDL_GetModState();
                 EventDispatcher::getInstance().dispatchEvent(new MouseDownEvent(event.button.x, event.button.y, event.button.button, event.button.clicks, event.button.windowID, this->modifiers));
                 this->mouseState = MouseState::CLICKING;
                 break;
             case SDL_MOUSEBUTTONUP:
-                cout << "it's a mouse up" << endl;
                 if (this->mouseState == MouseState::CLICKING) {
                     EventDispatcher::getInstance().dispatchEvent(new MouseUpEvent(event.button.x, event.button.y, event.button.button, event.button.clicks, event.button.windowID, this->modifiers));
                     // We could throw in a ClickEvent here if we needed to
@@ -153,7 +141,6 @@ void Game::start() {
                 this->mouseState = MouseState::NONE;
                 break;
             case SDL_MOUSEMOTION:
-                cout << "THE MOUSE MOVED" << endl;
                 this->modifiers = SDL_GetModState();
                 EventDispatcher::getInstance().dispatchEvent(new MouseMotionEvent(event.motion.x, event.motion.y, event.motion.windowID, this->modifiers));
 
@@ -167,7 +154,6 @@ void Game::start() {
                 }
                 break;
             case SDL_MOUSEWHEEL:
-                cout << "it's the mouse wheel" << endl;
                 EventDispatcher::getInstance().dispatchEvent(new MouseWheelEvent(event.wheel.x, event.wheel.y, event.wheel.windowID));
                 break;
             case SDL_TEXTINPUT:
@@ -211,9 +197,7 @@ void Game::presentRenderers() {
 
 void Game::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
     frameCounter++;
-    cout << "updating container" << endl;
     this->container->update(pressedKeys, joystickState, pressedButtons);
-    cout << "done updating container" << endl;
 }
 
 void Game::draw(AffineTransform& at) {

@@ -191,19 +191,14 @@ std::shared_ptr<DisplayObject> DisplayObject::getChild(const std::string& id) co
 
 void DisplayObject::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
     for (auto child : children) {
-        std::cout << "updating child " << child->id << std::endl;
         child->update(pressedKeys, joystickState, pressedButtons);
     }
 
     // Clear ourselves of any deleted children
-    std::cout << "erasing objects for " << this->id << std::endl;
     for (auto object : objectsToErase) {
-        std::cout << "in the for loop" << std::endl;
         children.erase(std::remove(children.begin(), children.end(), object), children.cend());
     }
-    std::cout << "about to clear " << std::endl;
     objectsToErase.clear();
-    std::cout << "done?" << std::endl;
 }
 
 void DisplayObject::draw(AffineTransform& at) {
