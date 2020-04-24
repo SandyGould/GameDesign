@@ -24,10 +24,10 @@ public:
 	std::shared_ptr<Shield> shield;
 	double speed = 4;
 	bool slowed = false;
-
-private:
 	int health = 100;
 	int stamina = 1000;
+
+private:
 	int shieldSwitchCooldown;
 	int shieldBashCooldown;
 	bool hit;
