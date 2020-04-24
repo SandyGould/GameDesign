@@ -322,52 +322,6 @@ void Editor::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState
             }
         }
 
-        // Old version of editing object attributes, probably obsolete now
-
-        // // Pivot
-        // if (pressedKeys.find(SDL_SCANCODE_I) != pressedKeys.end()) {
-        //     heldPivot.y -= 5;
-        // }
-        // if (pressedKeys.find(SDL_SCANCODE_J) != pressedKeys.end()) {
-        //     heldPivot.x -= 5;
-        // }
-        // if (pressedKeys.find(SDL_SCANCODE_K) != pressedKeys.end()) {
-        //     heldPivot.y += 5;
-        // }
-        // if (pressedKeys.find(SDL_SCANCODE_L) != pressedKeys.end()) {
-        //     heldPivot.x += 5;
-        // }
-
-        // // Rotation
-        // if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
-        //     heldRotation -= 0.05;
-        // }
-        // if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
-        //     heldRotation += 0.05;
-        // }
-
-        // // Scaling
-        // if (pressedKeys.find(SDL_SCANCODE_MINUS) != pressedKeys.end()) {
-        //     heldScaleX -= 0.05;
-        //     heldScaleY -= 0.05;
-        // }
-        // if (pressedKeys.find(SDL_SCANCODE_EQUALS) != pressedKeys.end()) {
-        //     heldScaleX += 0.05;
-        //     heldScaleY += 0.05;
-        // }
-        // if (pressedKeys.find(SDL_SCANCODE_O) != pressedKeys.end()) {
-        //     heldScaleX -= 0.05;
-        // }
-        // if (pressedKeys.find(SDL_SCANCODE_P) != pressedKeys.end()) {
-        //     heldScaleX += 0.05;
-        // }
-        // if (pressedKeys.find(SDL_SCANCODE_LEFTBRACKET) != pressedKeys.end()) {
-        //     heldScaleY -= 0.05;
-        // }
-        // if (pressedKeys.find(SDL_SCANCODE_RIGHTBRACKET) != pressedKeys.end()) {
-        //     heldScaleY += 0.05;
-        // }
-
         // Jason's debugging tool
         if (pressedKeys.find(SDL_SCANCODE_Y) != pressedKeys.end()) {
             cout << edit->numChildren() << endl;
@@ -466,8 +420,8 @@ void Editor::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState
     edit->getChild("layerOneIndicator")->visible = layer == 1;
     edit->getChild("layerTwoIndicator")->visible = layer == 2;
     edit->getChild("freeMoveIndicator")->visible = freeMove;
-    edit->getChild("incrSnapIndicator")->visible = incrSnap;
-    edit->getChild("gridSnapIndicator")->visible = gridSnap;
+    edit->getChild("incrSnapIndicator")->visible = incrSnap && !freeMove;
+    edit->getChild("gridSnapIndicator")->visible = gridSnap && !freeMove;
     
     prevKeys = pressedKeys;
 
