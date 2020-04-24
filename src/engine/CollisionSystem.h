@@ -17,7 +17,7 @@ class CollisionSystem : public EventListener {
 
 public:
     CollisionSystem();
-    ~CollisionSystem() = default;
+    ~CollisionSystem();
 
     //checks collisions between pairs of DOs where the corresponding types have been requested
     //to be checked (via a single call to watchForCollisions) below.
