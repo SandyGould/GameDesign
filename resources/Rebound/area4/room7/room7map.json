@@ -1,0 +1,157 @@
+{
+    "Scene":[
+        {
+            "L0":{
+                "speed":1,
+                "objects":[
+                    
+                    {
+                        "type":"Sprite",
+                        "name":"background",
+                        "filepath":"./resources/Rebound/area4/assets/background4_5.png",
+                        "x_pos":0,
+                        "y_pos":0,
+                        "rotation":0,
+                        "scaleX":10,
+                        "scaleY":5,
+                        "parentHierarchy":[]
+                    },
+
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"Wood Wall",
+                        "filepath":"./resources/Rebound/area4/assets/woodwallbottom.png",
+                        "x_pos":0,
+                        "y_pos":420,
+                        "rotation":0,
+                        "scaleX":3.5,
+                        "scaleY":0.8,
+                        "parentHierarchy":[]
+                    },
+
+
+
+
+
+
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"Wood Wall",
+                        "filepath":"./resources/Rebound/area4/assets/woodwallbottom.png",
+                        "x_pos":650,
+                        "y_pos":420,
+                        "rotation":0,
+                        "scaleX":3.5,
+                        "scaleY":0.8,
+                        "parentHierarchy":[]
+                    },
+
+
+
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"Half Wall",
+                        "filepath":"./resources/Rebound/area4/assets/halfwall.png",
+                        "x_pos":0,
+                        "y_pos":0,
+                        "rotation":0,
+                        "scaleX":3,
+                        "scaleY":1.5,
+                        "parentHierarchy":[]
+                    },
+
+
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"Half Wall",
+                        "filepath":"./resources/Rebound/area4/assets/halfwall.png",
+                        "x_pos":670,
+                        "y_pos":0,
+                        "rotation":0,
+                        "scaleX":3,
+                        "scaleY":1.5,
+                        "parentHierarchy":[]
+                    },
+
+
+
+
+
+
+
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"border",
+                        "filepath":"./resources/Rebound/area4/assets/border.png",
+                        "x_pos":0,
+                        "y_pos":0,
+                        "rotation":0,
+                        "scaleX":0.35,
+                        "scaleY":5,
+                        "parentHierarchy":[]
+                    },
+
+
+
+
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"border",
+                        "filepath":"./resources/Rebound/area4/assets/border.png",
+                        "x_pos":965,
+                        "y_pos":0,
+                        "rotation":0,
+                        "scaleX":0.35,
+                        "scaleY":5,
+                        "parentHierarchy":[]
+                    },
+
+
+                    {
+                        "type":"WalkOnObject",
+                        "name":"potion",
+                        "filepath":"./resources/Rebound/area4/assets/potion.png",
+                        "x_pos":500,
+                        "y_pos":250,
+                        "rotation":0,
+                        "scaleX":0.3,
+                        "scaleY":0.3,
+                        "parentHierarchy":[]
+                    },
+
+                    {
+                        "type":"WalkOnObject",
+                        "name":"potion",
+                        "filepath":"./resources/Rebound/area4/assets/potion.png",
+                        "x_pos":620,
+                        "y_pos":250,
+                        "rotation":0,
+                        "scaleX":0.3,
+                        "scaleY":0.3,
+                        "parentHierarchy":[]
+                    },
+
+
+                    {
+                        "type":"WalkOnObject",
+                        "name":"potion",
+                        "filepath":"./resources/Rebound/area4/assets/potion.png",
+                        "x_pos":380,
+                        "y_pos":250,
+                        "rotation":0,
+                        "scaleX":0.3,
+                        "scaleY":0.3,
+                        "parentHierarchy":[]
+                    }
+
+                ]
+            }
+        },
+        {
+            "L1":{
+                "speed":1,
+                "objects":[ ]
+            }
+        }
+    ]
+}

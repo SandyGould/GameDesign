@@ -31,9 +31,9 @@ Rooms::Rooms() : Game(600, 500) {
 
 	// load and prep camera
 	camera->setTopLimit(0);
-	camera->setLeftLimit(200);
-	camera->setRightLimit(810);
-    camera->setBottomLimit(0);
+	camera->setLeftLimit(0); //200
+	camera->setRightLimit(810); //810
+    camera->setBottomLimit(0); //0
 	// move that point to the middle
 
 	instance->addChild(camera);
@@ -94,7 +94,7 @@ Rooms::Rooms() : Game(600, 500) {
 	
 	this->sceneManager = new SceneManager(camera, player);
 	// load the entire first area
-	this->sceneManager->loadArea(2, 3);
+	this->sceneManager->loadAllAreas(4);
 	// load first scene
 	this->sceneManager->loadFirstScene();
 }

@@ -94,8 +94,6 @@ public:
 	Player* player;
 	Camera* camera;
 
-	// for scene transitions
-	bool keepScene = false;
 	// pointers to previous and next scenes
 	Scene* prevScene = NULL;
 	Scene* nextScene = NULL;
@@ -118,6 +116,7 @@ public:
 	// ending camera positions
 	SDL_Point camExitPivot = {800,100};
 	SDL_Point camExitPosition = {200,100};
+	
 	// starting player position
 	SDL_Point playerExitPos = {1150,250};
 	
