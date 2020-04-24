@@ -4,12 +4,14 @@ target_sources(rebound PRIVATE
         BaseEnemy.cpp
         CannonBall.cpp
         Cannoneer.cpp
+        IceAttack.cpp
         KingdomArcher.cpp
         KingdomMage.cpp
         Knight.cpp
         Mage.cpp
         MageAttack.cpp
         MasterArcher.cpp
+        MonsterKing.cpp
         Ogre.cpp
         Orc.cpp
         PoisonBomb.cpp

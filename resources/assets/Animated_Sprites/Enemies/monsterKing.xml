@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:9f7a00c2746539cbdc598f3e4433a335:365bd01ce3ec5080928be60f608dcfe4:a39c7798df1b96b529ef1f16138da030$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="monsterKing.png" width="256" height="32">
+
+    <Anim name="MKingIdle" numFrames="4" frameRate="12" loop="true">
+        <sprite n="ForestGuardian_Idle_1.png" x="0" y="0" w="32" h="32"/>
+        <sprite n="ForestGuardian_Idle_2.png" x="32" y="0" w="32" h="32"/>
+        <sprite n="ForestGuardian_Idle_3.png" x="64" y="0" w="32" h="32"/>
+        <sprite n="ForestGuardian_Idle_4.png" x="96" y="0" w="32" h="32"/>
+    </Anim>
+
+    <Anim name="MKingWalk" numFrames="4" frameRate="12" loop="true">
+        <sprite n="ForestGuardian_walk_1.png" x="128" y="0" w="32" h="32"/>
+        <sprite n="ForestGuardian_walk_2.png" x="160" y="0" w="32" h="32"/>
+        <sprite n="ForestGuardian_walk_3.png" x="192" y="0" w="32" h="32"/>
+        <sprite n="ForestGuardian_walk_4.png" x="224" y="0" w="32" h="32"/>
+    </Anim>
+
+</TextureAtlas>
