@@ -21,7 +21,7 @@ void Arrow::drawBack(){
 
 double Arrow::aim(std::shared_ptr<DisplayObject> targetSprite) {
     double angle = Projectile::aim(targetSprite);
-    this->rotation = angle + 3*M_PI/4;
+    this->rotation = angle + 3*PI/4;
     return angle;
 }
 
