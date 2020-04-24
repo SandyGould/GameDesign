@@ -208,5 +208,19 @@
                 "objects":[ ]
             }
         }
-    ]
+    ],
+    "Camera":{
+        "camEntrancePivotX":200,
+        "camEntrancePivotY":100,
+        "camEntrancePositionX":200,
+        "camEntrancePositionY":100,
+        "playerEntrancePosX":50,
+        "playerEntrancePosY":250,
+        "camExitPivotX":800,
+        "camExitPivotY":100,
+        "camExitPositionX":800,
+        "camExitPositionY":100,
+        "playerExitPosX":1150,
+        "playerExitPosY":250
+    }
 }
