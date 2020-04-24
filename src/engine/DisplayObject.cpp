@@ -189,7 +189,6 @@ void DisplayObject::removeChild(size_t index) {
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
 
-        // delete children[index];
         children.erase(children.begin() + index);
     }
 }
