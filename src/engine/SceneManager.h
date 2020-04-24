@@ -7,6 +7,7 @@
 #include "events/EventListener.h"
 #include "events/Event.h"
 #include "CollisionSystem.h"
+#include "things/TextBox.h"
 
 #include <list>
 
@@ -16,6 +17,9 @@ class SceneManager : public EventListener  {
         SceneManager(Camera* c, Player* p);
 	    ~SceneManager();
         void loadArea(int area, int rooms);
+        void loadAllAreas(int areas);
+        void loadNewArea(int area, int rooms);
+        void clearArea();
         Scene* findScene(std::string id);
         void addScene(Scene* scene);
         void deleteScene(std::string id);
@@ -42,7 +46,14 @@ class SceneManager : public EventListener  {
         Scene* tail;
         Scene* iter;
 
-        int roomsCount = 1;
+        TextBox* new_area_text;
+
+        // miscellaneous things to keep track of
+        int roomsCount = 0;
+        int currRoom = 1;
+        int currArea = 1;
+
+        int numRooms[4] = {3,2,3,7};
         
 };
 

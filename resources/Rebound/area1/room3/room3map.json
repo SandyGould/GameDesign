@@ -16,7 +16,7 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"Sprite",
+                        "type":"EnvironmentObject",
                         "name":"structure",
                         "filepath":"./resources/Rebound/area1/room3/assets/structure.png",
                         "x_pos": 400,
