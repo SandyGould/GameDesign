@@ -19,7 +19,7 @@ Rooms::Rooms() : Game(600, 500) {
 	instance = this;
 
     // // create collision system
-    // this->collisionSystem = new CollisionSystem();
+    this->collisionSystem = new CollisionSystem();
     // // set collisions between player and all environmental objects
     // this->collisionSystem->watchForCollisions("player", "WalkOnObject");
     // this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
