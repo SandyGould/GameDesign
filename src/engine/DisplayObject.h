@@ -69,8 +69,8 @@ public:
     void setTexture(SDL_Texture* t);
 	void setSurface(SDL_Surface* s);
 
-    void addChild(std::shared_ptr<DisplayObject> child);
-    void removeImmediateChild(std::shared_ptr<DisplayObject> child);
+    void addChild(const std::shared_ptr<DisplayObject>& child);
+    void removeImmediateChild(const std::shared_ptr<DisplayObject>& child);
     void removeImmediateChild(std::string id);
     void removeChild(size_t index);
     void removeThis();
@@ -101,7 +101,7 @@ public:
     [[nodiscard]] Hitbox getHitbox() const;
     void drawHitbox(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE}) const;
 
-	void propogateEvent(Event* e, std::shared_ptr<DisplayObject> root);
+	void propogateEvent(Event* e, const std::shared_ptr<DisplayObject>& root);
 	void handleEvent(Event* e) override;
 
     bool visible = true;
