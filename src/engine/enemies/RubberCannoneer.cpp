@@ -1,7 +1,7 @@
 #include "RubberCannoneer.h"
 
-RubberCannoneer::RubberCannoneer(std::shared_ptr<Player> player) : BaseEnemy("RubberCannoneer", "./resources/assets/Display_Objects/rubber_cannoneer.png", "", player){
-    this->saveType = "rubber_cannoneer";
+RubberCannoneer::RubberCannoneer(std::shared_ptr<Player> player) : BaseEnemy("RubberCannoneer", "./resources/assets/Display_Objects/RubberCannoneer.png", "", player){
+    this->saveType = "RubberCannoneer";
 }
 
 void RubberCannoneer::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){

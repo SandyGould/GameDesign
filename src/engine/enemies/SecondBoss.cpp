@@ -1,7 +1,7 @@
 #include "SecondBoss.h"
 #include <iostream>
-SecondBoss::SecondBoss(std::shared_ptr<Player> player): BaseEnemy("SecondBoss", "./resources/assets/Display_Objects/second_boss/second_boss.png", "", player){
-    this->type = "second_boss";
+SecondBoss::SecondBoss(std::shared_ptr<Player> player): BaseEnemy("SecondBoss", "./resources/assets/Display_Objects/second_boss/SecondBoss.png", "", player){
+    this->type = "SecondBoss";
     this->saveType = this->type;
 }
 

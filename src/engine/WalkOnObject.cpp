@@ -4,18 +4,22 @@
 
 WalkOnObject::WalkOnObject(std::string id, SDL_Renderer *r) : EnvironmentObject(id) {
 	this->type = "WalkOnObject";
+	this->saveType = this->type;
 	this->renderer = r;
 }
 WalkOnObject::WalkOnObject(std::string id, std::string filepath, SDL_Renderer *r) : EnvironmentObject(id, filepath) {
 	this->type = "WalkOnObject";
+	this->saveType = this->type;
 	this->renderer = r;
 }
 WalkOnObject::WalkOnObject(std::string id, int red, int green, int blue, SDL_Renderer *r) : EnvironmentObject(id, red, green, blue) {
 	this->type = "WalkOnObject";
+	this->saveType = this->type;
 	this->renderer = r;
 }
 WalkOnObject::WalkOnObject(const DisplayObject& other) : EnvironmentObject(other) {
 	this->type = "WalkOnObject";
+	this->saveType = this->type;
 }
 
 WalkOnObject::~WalkOnObject(){

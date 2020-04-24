@@ -1,8 +1,8 @@
 #include "Knight.h"
 #include <iostream>
 
-Knight::Knight(std::shared_ptr<Player> player): BaseEnemy("knight", "./resources/assets/Display_Objects/knight.png", "", player){
-    this->type = "knight";
+Knight::Knight(std::shared_ptr<Player> player): BaseEnemy("knight", "./resources/assets/Display_Objects/Knight.png", "", player){
+    this->type = "Knight";
     this->saveType = this->type;
 }
 

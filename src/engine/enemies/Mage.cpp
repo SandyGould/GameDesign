@@ -4,7 +4,7 @@
 
 Mage::Mage(std::shared_ptr<Player> player) : BaseEnemy("mage", "./resources/assets/Animated_Sprites/Enemies/Mage/Mage.png", "", player) {
     hasCollision = true;
-    this->saveType = "mage";
+    this->saveType = "Mage";
     this->mageAttack = nullptr;
 }
 

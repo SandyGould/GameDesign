@@ -17,10 +17,10 @@ Ded 7
 */
 
 // Init
-Archer::Archer(std::shared_ptr<Player> player): BaseEnemy("Archer" + std::to_string(archer_count), "./resources/assets/Display_Objects/archer.png", "", player){
+Archer::Archer(std::shared_ptr<Player> player): BaseEnemy("Archer" + std::to_string(archer_count), "./resources/assets/Display_Objects/Archer.png", "", player){
     this->state = 0;
     this->facingRight=true;
-    this->saveType = "archer";
+    this->saveType = "Archer";
     this->actionFrames = 12;
     this->arrow = nullptr;
     archer_count++;

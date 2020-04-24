@@ -164,7 +164,10 @@ Editor::Editor(const string& sceneToLoad)
     edit->addChild(incrSnapIndicator);
     edit->addChild(gridSnapIndicator);
 
-    entityTypes = {"arrow", "mage_attack", "poison_bomb", "rubber_cannonball", "archer", "cannoneer", "knight", "mage", "master_archer", "ogre", "poisoner", "roar_monster", "rubber_cannoneer", "second_boss"};
+    entityTypes = {"arrow", "mage_attack", "poison_bomb", "rubber_cannonball", 
+                   "Archer", "Cannoneer", "Knight", "Mage", "MasterArcher",
+                   "Ogre", "Poisoner", "RoarMonster", "RubberCannoneer",
+                   "SecondBoss", "KingdomArcher", "KingdomMage", "Orc"};
 
     setupfiles("./resources/assets");
 }
