@@ -85,16 +85,17 @@ DisplayObject::~DisplayObject() {
 
 void DisplayObject::loadTexture(const std::string& filepath) {
     image = IMG_Load(filepath.c_str());
-    // TODO: Add this back in for correct scaling
-    // if (image){
-    //     height = image->h;
-    //     width = image->w;
-    // }
+    if (image != nullptr) {
+        height = image->h;
+        width = image->w;
+    }
     texture = SDL_CreateTextureFromSurface(this->renderer, image);
     setTexture(texture);
 }
 
 void DisplayObject::loadRGBTexture(int red, int green, int blue, int width, int height) {
+    this->height = height;
+    this->width = width;
     image = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0x000000ff);
     SDL_FillRect(image, nullptr, SDL_MapRGB(image->format, red, green, blue));
     texture = SDL_CreateTextureFromSurface(this->renderer, image);
