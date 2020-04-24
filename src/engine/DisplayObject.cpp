@@ -440,8 +440,8 @@ void DisplayObject::handleEvent(Event* e){
 }
 
 // for debugging, don't mind me
-void DisplayObject::printDisplayTreeHelper(std::shared_ptr<DisplayObject> root) { 
-    for (auto child : root->children) {    
+void DisplayObject::printDisplayTreeHelper(std::shared_ptr<DisplayObject> root) {
+    for (auto child : root->children) {
         this->printDisplayTreeHelper(child);
     }
     std::cout << root->id << std::endl;

@@ -25,19 +25,26 @@ Rebound::Rebound() : Game(1200, 800) {
 	player->shield->visible = true;
 	allSprites->addChild(player);
 
-	mage = make_shared<Mage>(player);
-	mage->position = {400, 400};
-	mage->height = 80;
-	mage->width = 70;
-
-	allSprites->addChild(mage);
-
-    // archer = new Archer(player);
-    // archer-> position = {200,200};
-    // archer->height = 80;
-    // archer->width = 70;
+	// mage = make_shared<Mage>(player);
+	// mage->position = {400, 400};
+	// mage->height = 80;
+	// mage->width = 70;
 	//
-    // allSprites->addChild(archer);
+	// allSprites->addChild(mage);
+
+	// king = make_shared<KingdomKing>(player);
+	// king->position = {400, 400};
+	// king->height = 80;
+	// king->width = 70;
+	//
+	// allSprites->addChild(king);
+
+    archer = make_shared<Archer>(player);
+    archer-> position = {200,200};
+    archer->height = 80;
+    archer->width = 70;
+
+    allSprites->addChild(archer);
 
 	// ogre = new Ogre(player);
     // ogre-> position = {200,200};

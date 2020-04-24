@@ -22,6 +22,7 @@
 #include "../engine/enemies/Orc.h"
 #include "../engine/enemies/Ogre.h"
 #include "../engine/enemies/MonsterKing.h"
+#include "../engine/enemies/KingdomKing.h"
 #include "../engine/enemies/Poisoner.h"
 #include "../engine/enemies/Arrow.h"
 #include "../engine/enemies/SecondBoss.h"
@@ -48,6 +49,7 @@ private:
 	std::shared_ptr<Orc> orc;
 	std::shared_ptr<Ogre> ogre;
 	std::shared_ptr<MonsterKing> mKing;
+	std::shared_ptr<KingdomKing> king;
 	std::shared_ptr<KingdomMage> kingdomMage;
 	std::shared_ptr<DisplayObject> allSprites;
 	std::shared_ptr<Arrow> arrow;

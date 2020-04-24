@@ -17,12 +17,13 @@ Ded 7
 */
 
 // Init
-Archer::Archer(std::shared_ptr<Player> player): BaseEnemy("Archer" + std::to_string(archer_count), "./resources/assets/Display_Objects/archer.png", "", player){
+Archer::Archer(std::shared_ptr<Player> player): BaseEnemy("Archer" + std::to_string(archer_count), "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", player){
     this->state = 0;
     this->facingRight=true;
     this->saveType = "archer";
     this->actionFrames = 12;
     this->arrow = nullptr;
+    this->play("ArcherIdle");
     archer_count++;
 }
 
@@ -45,17 +46,17 @@ void Archer::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
         this->state = 2;
     }
     else if(this->state == 2){ //"knock" arrow
-        this->arrow = std::make_shared<Arrow>(30);
+        this->arrow = std::make_shared<Arrow>(10);
         if(this->facingRight){
             arrow->facingRight = true;
         }
         this->addChild(this->arrow);
-        this->actionFrames = 12;
+        this->actionFrames = 26;
         this->state = 3;
     }
     else if(this->state == 3){//draw back arrow
         if(this->actionFrames ==0){
-            this->state =4;
+            this->state = 4;
         }
         else{
             arrow->drawBack(); //Slowly draw back for a few frames :)

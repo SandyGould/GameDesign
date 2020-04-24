@@ -5,10 +5,11 @@
 #define ATTACK_CHARGE 120
 #define ATTACK_COOLDOWN 221
 
-Mage::Mage(std::shared_ptr<Player> player) : BaseEnemy("mage", "./resources/assets/Animated_Sprites/Enemies/Mage/Mage.png", "", player) {
+Mage::Mage(std::shared_ptr<Player> player) : BaseEnemy("mage", "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", player) {
     hasCollision = true;
     this->saveType = "mage";
     this->mageAttack = nullptr;
+    this->play("MageIdle");
 }
 
 Mage::Mage(std::shared_ptr<Player> player, std::string filepath, std::string xml): BaseEnemy("kMage", filepath, xml, player){

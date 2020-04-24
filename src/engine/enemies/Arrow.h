@@ -13,6 +13,7 @@ class Arrow: public Projectile{
     int drawBackY;
 
     void draw(AffineTransform& at) override;
+    double aim(std::shared_ptr<DisplayObject> targetSprite);
 };
 
 #endif
