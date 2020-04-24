@@ -27,10 +27,10 @@ void StatBar::scaleStat(double change) {
     if (this->StatPerc + change >= 0 && this->StatPerc + change <= 1)  {
         this->StatPerc = this->StatPerc + change;
         this->scaleX = StatPerc;
-        std::cout << "Your current health is: " << this->StatPerc << std::endl;
+        // std::cout << "Your current health is: " << this->StatPerc << std::endl;
     }
     else {
-        std::cout << "Sorry, you're dead! " << std::endl;
+        // std::cout << "Sorry, you're dead! " << std::endl;
     }
 }
 

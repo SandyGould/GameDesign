@@ -319,45 +319,45 @@ void SceneManager::updateScene() {
         }
     }
 
-    // if backward condition is satisfied, go back to previous scene
-    if (this->currScene->back_coord == "x" && this->currScene->back_comp == ">") {
-        if (p->position.x > this->currScene->goBack.x) {
-            if (this->currRoom > 1) {
-                this->sceneChange = "previous";
-                this->currScene->removeImmediateChild(p);
-                this->unloadScene();
-            }
-            return;
-        }
-    }
-    if (this->currScene->back_coord == "x" && this->currScene->back_comp == "<") {
-        if (p->position.x < this->currScene->goBack.x) {
-            if (this->currRoom > 1) {
-                this->sceneChange = "previous";
-                this->currScene->removeImmediateChild(p);
-                this->unloadScene();
-            }
-            return;
-        }
-    }
-    if (this->currScene->back_coord == "y" && this->currScene->back_comp == ">") {
-        if (p->position.y < this->currScene->goBack.y) {
-            if (this->currRoom > 1) {
-                this->sceneChange = "previous";
-                this->currScene->removeImmediateChild(p);
-                this->unloadScene();
-            }
-            return;
-        }
-    }
-    if (this->currScene->back_coord == "y" && this->currScene->back_comp == "<") {
-        if (this->currRoom > 1) {
-                this->sceneChange = "previous";
-                this->currScene->removeImmediateChild(p);
-                this->unloadScene();
-            }
-            return;
-    }
+    // // if backward condition is satisfied, go back to previous scene
+    // if (this->currScene->back_coord == "x" && this->currScene->back_comp == ">") {
+    //     if (p->position.x > this->currScene->goBack.x) {
+    //         if (this->currRoom > 1) {
+    //             this->sceneChange = "previous";
+    //             this->currScene->removeImmediateChild(p);
+    //             this->unloadScene();
+    //         }
+    //         return;
+    //     }
+    // }
+    // if (this->currScene->back_coord == "x" && this->currScene->back_comp == "<") {
+    //     if (p->position.x < this->currScene->goBack.x) {
+    //         if (this->currRoom > 1) {
+    //             this->sceneChange = "previous";
+    //             this->currScene->removeImmediateChild(p);
+    //             this->unloadScene();
+    //         }
+    //         return;
+    //     }
+    // }
+    // if (this->currScene->back_coord == "y" && this->currScene->back_comp == ">") {
+    //     if (p->position.y < this->currScene->goBack.y) {
+    //         if (this->currRoom > 1) {
+    //             this->sceneChange = "previous";
+    //             this->currScene->removeImmediateChild(p);
+    //             this->unloadScene();
+    //         }
+    //         return;
+    //     }
+    // }
+    // if (this->currScene->back_coord == "y" && this->currScene->back_comp == "<") {
+    //     if (this->currRoom > 1) {
+    //             this->sceneChange = "previous";
+    //             this->currScene->removeImmediateChild(p);
+    //             this->unloadScene();
+    //         }
+    //         return;
+    // }
 
     //this->collisionSystem->update();
 }

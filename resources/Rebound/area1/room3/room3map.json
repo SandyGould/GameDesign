@@ -11,19 +11,52 @@
                         "x_pos":100,
                         "y_pos":0,
                         "rotation":0,
-                        "scaleX":12,
-                        "scaleY":5,
+                        "scaleX":4,
+                        "scaleY":4,
                         "parentHierarchy":[]
                     },
                     {
                         "type":"EnvironmentObject",
                         "name":"structure",
                         "filepath":"./resources/Rebound/area1/room3/assets/structure.png",
-                        "x_pos": 400,
-                        "y_pos": 100,
+                        "x_pos": 600,
+                        "y_pos": 50,
                         "rotation": 0,
-                        "scaleX": 3,
+                        "scaleX":3,
                         "scaleY":3,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"Archer",
+                        "name":"archer1",
+                        "filepath": "./resources/assets/Display_Objects/archer.png",
+                        "x_pos": 150,
+                        "y_pos": 400,
+                        "rotation":0,
+                        "scaleX":2.5,
+                        "scaleY":2.5,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"Archer",
+                        "name":"archer2",
+                        "filepath": "./resources/assets/Display_Objects/archer.png",
+                        "x_pos": 650,
+                        "y_pos": 350,
+                        "rotation":0,
+                        "scaleX":2.5,
+                        "scaleY":2.5,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"Archer",
+                        "name":"archer3",
+                        "filepath": "./resources/assets/Display_Objects/archer.png",
+                        "x_pos": 800,
+                        "y_pos": 100,
+                        "rotation":0,
+                        "scaleX":2.5,
+                        "scaleY":2.5,
                         "parentHierarchy":[]
                     }
                 ]

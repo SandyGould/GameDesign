@@ -29,7 +29,7 @@
                     {
                         "type":"Sprite",
                         "name":"sign",
-                        "filepath":"./resources/Rebound/area1/room1/assets/Display_Objects/sign.png",
+                        "filepath":"./resources/Rebound/area1/room1/assets/sign.png",
                         "x_pos":1110,
                         "y_pos":230,
                         "rotation":0,
