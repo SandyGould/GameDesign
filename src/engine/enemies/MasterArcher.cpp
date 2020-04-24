@@ -1,6 +1,5 @@
 #include "MasterArcher.h"
 #include <cstdlib>
-#include <stdlib.h>
 #include <cmath>
 #include <iostream>
 
@@ -18,18 +17,16 @@ Ded 7
 */
 
 // Init
-MasterArcher::MasterArcher(Player* player): BaseEnemy("MasterArcher" + master_archer_count, "./resources/assets/Display_Objects/master_archer.png", "", player){
+MasterArcher::MasterArcher(std::shared_ptr<Player> player): BaseEnemy("MasterArcher" + std::to_string(master_archer_count), "./resources/assets/Display_Objects/master_archer.png", "", player){
     this->state = 0;
     this->facingRight=true;
     master_archer_count++;
-    this->saveType = "master_archer";
+    this->saveType = "MasterArcher";
 }
 
 void MasterArcher::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
-    if(this->health ==0){
-        this->clean = true;
-    }
-    if(this->clean){
+    if(this->health <= 0) {
+        // We don't delete this one like the others?
         this->visible = false;
         this->state = -1;
     }
@@ -49,9 +46,9 @@ void MasterArcher::update(const std::unordered_set<SDL_Scancode>& pressedKeys, c
         this->arrow2 = arrows.back();
         this->arrows.emplace_back(new Arrow(35));
         this->arrow3 = arrows.back();*/
-        this->arrow1 = new Arrow(35);
-        this->arrow2 = new Arrow(35);
-        this->arrow3 = new Arrow(35);
+        this->arrow1 = std::make_shared<Arrow>(35);
+        this->arrow2 = std::make_shared<Arrow>(35);
+        this->arrow3 = std::make_shared<Arrow>(35);
         arrows.emplace_back(arrow1);
         arrows.emplace_back(arrow2);
         arrows.emplace_back(arrow3);
@@ -116,7 +113,7 @@ void MasterArcher::draw(AffineTransform& at){
     BaseEnemy::draw(at);
 }
 
-bool MasterArcher::onCollision(DisplayObject* other){
+bool MasterArcher::onCollision(std::shared_ptr<DisplayObject> other){
     if(arrows.size() == 3){
         if(other == arrows.at(0)|| other==arrows.at(1) || other==arrows.at(2)){
             return true;

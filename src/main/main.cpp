@@ -1,8 +1,8 @@
 #include "Editor.h"
 #include "Rebound.h"
+#include "Rooms.h"
 #include "demos/CollisionDemo.h"
 #include "demos/LoadSceneDemo.h"
-#include "Rooms.h"
 
 #include <iostream>
 #include <string>
@@ -13,48 +13,41 @@
 using namespace std;
 
 int main(int argc, char** argv) {
-	if (argc > 3) {
-		cout << "Unrecognized arguments, launching game." << endl;
-		Rebound* rebound = new Rebound();
-		rebound->start();
-	} else if (argc > 1){
-		string arg(argv[1]);
-		if (arg == "demo") {
-			if (argc == 3) {
+    if (argc > 3) {
+        cout << "Unrecognized arguments, launching game." << endl;
+        Rebound().start();
+    } else if (argc > 1) {
+        string arg(argv[1]);
+        if (arg == "demo") {
+            if (argc == 3) {
                 string demo(argv[2]);
                 if (demo == "collision") {
-                    CollisionDemo* demo = new CollisionDemo();
-                    demo->start();
-                } else if (demo == "load_scene"){
-					LoadSceneDemo* demo = new LoadSceneDemo();
-					demo->start();
-				} else {
+                    CollisionDemo().start();
+                } else if (demo == "load_scene") {
+                    LoadSceneDemo().start();
+                } else {
                     cout << "Unknown demo!" << endl;
                 }
             }
-		} else if (arg == "editor") {
-			Editor* editor;
-			if (argc == 3) {
-				string scene(argv[2]);
-				editor = new Editor(scene);
-			} else {
-				editor = new Editor();
-			}
-			editor->start();
-		} else if (arg == "sfx_demo") {
-			Rooms rooms{}; 
-            rooms.start();
-		} else {
+        } else if (arg == "editor") {
+            if (argc == 3) {
+                string scene(argv[2]);
+                Editor(scene).start();
+            } else {
+                Editor().start();
+            }
+        } else if (arg == "sfx_demo") {
+            cout << "Getting here" << endl;
+            Rooms().start();
+        } else {
             cout << "Unrecognized arguments, launching game." << endl;
-            Rebound* rebound = new Rebound();
-            rebound->start();
+            Rebound().start();
         }
-	} else {
-			Rooms rooms{};
-            rooms.start();
-		// Rebound* rebound = new Rebound();
-		// rebound->start();
-	}
+    } else {
+        Rooms().start();
+        // Rebound* rebound = new Rebound();
+        // rebound->start();
+    }
 
-	return 0;
+    return 0;
 }

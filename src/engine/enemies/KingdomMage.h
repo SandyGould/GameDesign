@@ -5,7 +5,7 @@
 
 class KingdomMage : public Mage{
     public:
-        KingdomMage(Player* player);
+        KingdomMage(std::shared_ptr<Player> player);
 
 };
 

@@ -11,17 +11,17 @@
 
 #include <list>
 
-class SceneManager : public EventListener  { 
+class SceneManager : public EventListener, public std::enable_shared_from_this<SceneManager>  { 
 
     public:
-        SceneManager(Camera* c, Player* p);
+        SceneManager(shared_ptr<Camera>c, shared_ptr<Player> p);
 	    ~SceneManager();
         void loadArea(int area, int rooms);
         void loadAllAreas(int areas);
         void loadNewArea(int area, int rooms);
         void clearArea();
-        Scene* findScene(std::string id);
-        void addScene(Scene* scene);
+        shared_ptr<Scene> findScene(std::string id);
+        void addScene(shared_ptr<Scene> scene);
         void deleteScene(std::string id);
         void unloadScene();
         void loadFirstScene();
@@ -32,21 +32,21 @@ class SceneManager : public EventListener  {
 
         void handleEvent(Event* e) override;
 
-        Scene* currScene;
+        shared_ptr<Scene> currScene;
 
     private:
-        Player* p;
-        Camera* c;
+        shared_ptr<Player> p;
+        shared_ptr<Camera> c;
 
-        CollisionSystem* collisionSystem;
+        shared_ptr<CollisionSystem> collisionSystem;
         
         std::string sceneChange = std::string("");
 
-        Scene* head;
-        Scene* tail;
-        Scene* iter;
+        shared_ptr<Scene> head;
+        shared_ptr<Scene> tail;
+        shared_ptr<Scene> iter;
 
-        TextBox* new_area_text;
+        shared_ptr<TextBox> new_area_text;
 
         // miscellaneous things to keep track of
         int roomsCount = 0;

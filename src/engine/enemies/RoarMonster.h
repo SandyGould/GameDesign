@@ -3,12 +3,13 @@
 
 #include "BaseEnemy.h"
 #include <cmath>
+#include "Roar.h"
 
 class RoarMonster : public BaseEnemy{
     public:
-        RoarMonster(Player* player);
+        RoarMonster(std::shared_ptr<Player> player);
         void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
-
+        std::shared_ptr<Roar> myAttack;
     private:
         int actionFrames = 10;
         double xVelocity = 0;

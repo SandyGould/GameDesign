@@ -1,6 +1,6 @@
 #include "Poisoner.h"
 
-Poisoner::Poisoner(Player* player) : BaseEnemy("poisoner", "./resources/assets/Display_Objects/poisoner.png", "", player){
+Poisoner::Poisoner(std::shared_ptr<Player> player) : BaseEnemy("poisoner", "./resources/assets/Display_Objects/poisoner.png", "", player){
     this->saveType="poisoner";
 }
 
@@ -13,12 +13,11 @@ Recharge
 Ded
 */
 void Poisoner::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
-    if(this->health <=0){
-        this->clean = true;
+    if(this->health <= 0) {
+        this->removeThis();
+        return;
     }
-    if(this->clean){
-        cleanUp();
-    }
+
     if(this->state == 0){
         //init
         this->state = 1;
@@ -55,8 +54,8 @@ void Poisoner::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const
         }
     }
     else if(this->state == 3){
-        PoisonBomb* bomb = new PoisonBomb();
-        this->parent->addChild(bomb);
+        auto bomb = std::make_shared<PoisonBomb>();
+        parent->addChild(bomb);
         bomb->position = this->position;
         this->actionFrames--;
         //place poison

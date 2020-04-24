@@ -1,18 +1,11 @@
 #include "RubberCannoneer.h"
 
-    RubberCannoneer::RubberCannoneer(Player* player) : BaseEnemy("RubberCannoneer", "./resources/assets/Display_Objects/rubber_cannoneer.png", "", player){
-        this->saveType = "rubber_cannoneer";
-    }
+RubberCannoneer::RubberCannoneer(std::shared_ptr<Player> player) : BaseEnemy("RubberCannoneer", "./resources/assets/Display_Objects/rubber_cannoneer.png", "", player){
+    this->saveType = "rubber_cannoneer";
+}
 
-    void RubberCannoneer::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
-    if(this->health<=0){
-        this->clean = true;
-    }
-
-    if(this->clean){
-        for(DisplayObject* object: children){
-            this->removeImmediateChild(object);
-        }
+void RubberCannoneer::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
+    if(this->health <= 0) {
         this->removeThis();
         return;
     }
@@ -26,7 +19,7 @@
     }
     else if(this->state == 2){
         if(wait == 12){
-            cannonball = new RubberCannonBall(45);
+            cannonball = std::make_shared<RubberCannonBall>(45);
             cannonball->position = {45,0}; //IDK something so it doesn't spawn on top of the cannon lol
         }
         if(wait == 0){

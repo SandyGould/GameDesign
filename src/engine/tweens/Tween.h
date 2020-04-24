@@ -11,10 +11,10 @@
 class Tween { 
 
     public:
-	    Tween(DisplayObject* object);
-        Tween(DisplayObject* object, TweenTransitions transition);
-        Tween(std::string id, DisplayObject* object);
-        Tween(std::string id, DisplayObject* object, TweenTransitions transition);
+	    Tween(std::shared_ptr<DisplayObject> object);
+        Tween(std::shared_ptr<DisplayObject> object, TweenTransitions transition);
+        Tween(std::string id, std::shared_ptr<DisplayObject> object);
+        Tween(std::string id, std::shared_ptr<DisplayObject> object, TweenTransitions transition);
         ~Tween();
         void animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time);
         void animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time, std::string easeType);
@@ -26,7 +26,7 @@ class Tween {
         std::string getID();
      
     private:
-        DisplayObject *currObject;
+        std::shared_ptr<DisplayObject> currObject;
         std::list<TweenParam*> currTweening;
         double amountChange;
         double timeElapsed;
