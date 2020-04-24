@@ -21,7 +21,6 @@ class Rooms : public Game {
 
 public:
 	Rooms();
-	~Rooms() override;
 
     void update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) override;
 	void draw(AffineTransform& at) override;
@@ -52,7 +51,7 @@ private:
 
     int room;
 
-    CollisionSystem* collisionSystem;
+    std::unique_ptr<CollisionSystem> collisionSystem;
 
     std::shared_ptr<Tween> player_tween;
     std::shared_ptr<Tween> start_text_tween;

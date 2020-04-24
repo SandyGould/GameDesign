@@ -18,9 +18,9 @@ using namespace std;
 Rooms::Rooms() : Game(600, 500) {
 	instance = this;
 
-    // // create collision system
-    this->collisionSystem = new CollisionSystem();
-    // // set collisions between player and all environmental objects
+    // create collision system
+    this->collisionSystem = std::make_unique<CollisionSystem>();
+    // set collisions between player and all environmental objects
     this->collisionSystem->watchForCollisions("player", "WalkOnObject");
     this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
     this->collisionSystem->watchForCollisions("player", "arrow");
@@ -98,10 +98,6 @@ Rooms::Rooms() : Game(600, 500) {
 	this->sceneManager->loadAllAreas(4);
 	// load first scene
 	this->sceneManager->loadFirstScene();
-}
-
-Rooms::~Rooms() {
-	delete this->collisionSystem;
 }
 
 void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {
