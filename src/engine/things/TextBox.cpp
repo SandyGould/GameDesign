@@ -86,7 +86,7 @@ void TextBox::handleEvent(Event* e){
 	if (e->getType() == TweenEvent::TWEEN_COMPLETE_EVENT){
 		if(((TweenEvent*) e)->getTween()->getID() == "player_tween"){
 			EventDispatcher::getInstance().removeEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
-			std::shared_ptr<Tween> start_text_tween = std::make_shared<Tween>("start_text_tween", shared_from_this());
+			auto start_text_tween = std::make_shared<Tween>("start_text_tween", shared_from_this());
 			start_text_tween->animate(TweenableParams::ALPHA, 0, 255, 10, TweenParam::EASE_IN);
 			start_text_tween->animate(TweenableParams::SCALE_Y, 0, 1.0, 10, TweenParam::EASE_IN);
 			start_text_tween->animate(TweenableParams::SCALE_X, 0, 1.0, 10, TweenParam::EASE_IN);

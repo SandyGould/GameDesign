@@ -50,58 +50,58 @@ Editor::Editor(const string& sceneToLoad)
     edit = std::make_shared<DisplayObject>("edit");
     edit->renderer = this->edit_renderer;
 
-    std::shared_ptr<TextObject> idLabel = std::make_shared<TextObject>(string("idLabel"), string("ID:"), Game::font, edit_renderer);
+    auto idLabel = std::make_shared<TextObject>(string("idLabel"), string("ID:"), Game::font, edit_renderer);
 
-    std::shared_ptr<TextObject> posLabel  = std::make_shared<TextObject>(string("posLabel"),  string("Position"), Game::font, edit_renderer);
-    std::shared_ptr<TextObject> posXLabel = std::make_shared<TextObject>(string("posXLabel"), string("X:"),       Game::font, edit_renderer);
-    std::shared_ptr<TextObject> posYLabel = std::make_shared<TextObject>(string("posYLabel"), string("Y:"),       Game::font, edit_renderer);
+    auto posLabel  = std::make_shared<TextObject>(string("posLabel"),  string("Position"), Game::font, edit_renderer);
+    auto posXLabel = std::make_shared<TextObject>(string("posXLabel"), string("X:"),       Game::font, edit_renderer);
+    auto posYLabel = std::make_shared<TextObject>(string("posYLabel"), string("Y:"),       Game::font, edit_renderer);
     posLabel->position = {0, 40};
     posXLabel->position = {0, 70};
     posYLabel->position = {150, 70};
 
-    std::shared_ptr<TextObject> pivLabel  = std::make_shared<TextObject>(string("pivLabel"),  string("Pivot"), Game::font, edit_renderer);
-    std::shared_ptr<TextObject> pivXLabel = std::make_shared<TextObject>(string("pivXLabel"), string("X:"),    Game::font, edit_renderer);
-    std::shared_ptr<TextObject> pivYLabel = std::make_shared<TextObject>(string("pivYLabel"), string("Y:"),    Game::font, edit_renderer);
+    auto pivLabel  = std::make_shared<TextObject>(string("pivLabel"),  string("Pivot"), Game::font, edit_renderer);
+    auto pivXLabel = std::make_shared<TextObject>(string("pivXLabel"), string("X:"),    Game::font, edit_renderer);
+    auto pivYLabel = std::make_shared<TextObject>(string("pivYLabel"), string("Y:"),    Game::font, edit_renderer);
     pivLabel->position = {0, 110};
     pivXLabel->position = {0, 140};
     pivYLabel->position = {150, 140};
 
-    std::shared_ptr<TextObject> scaleLabel  = std::make_shared<TextObject>(string("scaleLabel"),  string("Scale"), Game::font, edit_renderer);
-    std::shared_ptr<TextObject> scaleXLabel = std::make_shared<TextObject>(string("scaleXLabel"), string("X:"),    Game::font, edit_renderer);
-    std::shared_ptr<TextObject> scaleYLabel = std::make_shared<TextObject>(string("scaleYLabel"), string("Y:"),    Game::font, edit_renderer);
+    auto scaleLabel  = std::make_shared<TextObject>(string("scaleLabel"),  string("Scale"), Game::font, edit_renderer);
+    auto scaleXLabel = std::make_shared<TextObject>(string("scaleXLabel"), string("X:"),    Game::font, edit_renderer);
+    auto scaleYLabel = std::make_shared<TextObject>(string("scaleYLabel"), string("Y:"),    Game::font, edit_renderer);
     scaleLabel->position = {0, 180};
     scaleXLabel->position = {0, 210};
     scaleYLabel->position = {150, 210};
 
-    std::shared_ptr<TextObject> rotLabel = std::make_shared<TextObject>(string("rotLabel"), string("Rotation:"), Game::font, edit_renderer);
+    auto rotLabel = std::make_shared<TextObject>(string("rotLabel"), string("Rotation:"), Game::font, edit_renderer);
     rotLabel->position = {0, 250};
 
     std::shared_ptr<DisplayObject> layerZeroBackground = std::make_shared<DisplayObject>("layerZeroBackground", 36, 113, 96, 37, 25, edit_renderer);
     layerZeroBackground->position = {0, 425};
 
-    std::shared_ptr<TextObject> layerZeroButton = std::make_shared<TextObject>(string("layerZeroButton"), string("L0"), Game::font, edit_renderer);
+    auto layerZeroButton = std::make_shared<TextObject>(string("layerZeroButton"), string("L0"), Game::font, edit_renderer);
     layerZeroButton->position = {5, 420};
 
     std::shared_ptr<DisplayObject> layerOneBackground = std::make_shared<DisplayObject>("layerOneBackground", 36, 113, 96, 37, 25, edit_renderer);
     layerOneBackground->position = {40, 425};
 
-    std::shared_ptr<TextObject> layerOneButton = std::make_shared<TextObject>(string("layerOneButton"), string("L1"), Game::font, edit_renderer);
+    auto layerOneButton = std::make_shared<TextObject>(string("layerOneButton"), string("L1"), Game::font, edit_renderer);
     layerOneButton->position = {45, 420};
 
     std::shared_ptr<DisplayObject> layerTwoBackground = std::make_shared<DisplayObject>("layerTwoBackground", 36, 113, 96, 37, 25, edit_renderer);
     layerTwoBackground->position = {80, 425};
 
-    std::shared_ptr<TextObject> layerTwoButton = std::make_shared<TextObject>(string("layerTwoButton"), string("L2"), Game::font, edit_renderer);
+    auto layerTwoButton = std::make_shared<TextObject>(string("layerTwoButton"), string("L2"), Game::font, edit_renderer);
     layerTwoButton->position = {85, 420};
 
-    std::shared_ptr<DisplayObject> layerZeroIndicator = std::make_shared<DisplayObject>("layerZeroIndicator", 0, 255, 0, 10, 10, edit_renderer);
+    auto layerZeroIndicator = std::make_shared<DisplayObject>("layerZeroIndicator", 0, 255, 0, 10, 10, edit_renderer);
     layerZeroIndicator->position = {15, 410};
 
-    std::shared_ptr<DisplayObject> layerOneIndicator = std::make_shared<DisplayObject>("layerOneIndicator", 0, 255, 0, 10, 10, edit_renderer);
+    auto layerOneIndicator = std::make_shared<DisplayObject>("layerOneIndicator", 0, 255, 0, 10, 10, edit_renderer);
     layerOneIndicator->position = {55, 410};
     layerOneIndicator->visible = false;
 
-    std::shared_ptr<DisplayObject> layerTwoIndicator = std::make_shared<DisplayObject>("layerTwoIndicator", 0, 255, 0, 10, 10, edit_renderer);
+    auto layerTwoIndicator = std::make_shared<DisplayObject>("layerTwoIndicator", 0, 255, 0, 10, 10, edit_renderer);
     layerTwoIndicator->position = {95, 410};
     layerTwoIndicator->visible = false;
     

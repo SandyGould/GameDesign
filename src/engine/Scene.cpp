@@ -29,7 +29,7 @@ void Scene::loadScene(std::string sceneFilePath){
     i >> j;
     for(int z = 0; z < j["Scene"].size(); z++){
         std::string layer_value = "L" + std::to_string(z);
-        std::shared_ptr<Layer> temp_layer = std::make_shared<Layer>(layer_value);
+        auto temp_layer = std::make_shared<Layer>(layer_value);
         json json_layer = j["Scene"][z][layer_value];
         temp_layer->parallaxSpeed = json_layer["speed"];
         temp_layer->cam = this->camera;
@@ -80,7 +80,7 @@ void Scene::loadScene_Editor(std::string sceneFilePath){
 
     for(int z = 0; z < j["Scene"].size(); z++){
         std::string layer_value = "L" + std::to_string(z);
-        std::shared_ptr<Layer> temp_layer = std::make_shared<Layer>(layer_value);
+        auto temp_layer = std::make_shared<Layer>(layer_value);
         json json_layer = j["Scene"][z][layer_value];
         temp_layer->parallaxSpeed = json_layer["speed"];
         temp_layer->cam = this->camera;
@@ -429,7 +429,7 @@ void Scene::addToJSON(json &Layer, std::shared_ptr<DisplayObject> dObject){
                 tempDO = tempDO->parent;
             }
             if (child->type == "AnimatedSprite"){
-                std::shared_ptr<AnimatedSprite> tempAS = std::static_pointer_cast<AnimatedSprite>(child);
+                auto tempAS = std::static_pointer_cast<AnimatedSprite>(child);
                 Layer.push_back({ {"type", tempAS->saveType}, {"name", tempAS->id}, {"sheetpath", tempAS->sheetpath}, {"xmlpath", tempAS->xmlpath}, {"x_pos", tempAS->position.x}, {"y_pos", tempAS->position.y}, {"rotation", tempAS->rotation}, {"scaleX", tempAS->scaleX}, {"scaleY", tempAS->scaleY} /*,{"parentHierarchy", tempVec}*/ });
             } else{
                 Layer.push_back({ {"type", child->saveType}, {"name", child->id}, {"filepath", child->imgPath}, {"x_pos", child->position.x}, {"y_pos", child->position.y}, {"rotation", child->rotation}, {"scaleX", child->scaleX}, {"scaleY", child->scaleY} /*,{"parentHierarchy", tempVec}*/ });

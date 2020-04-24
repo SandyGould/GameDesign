@@ -184,7 +184,6 @@ void DisplayObject::removeImmediateChild(std::string id) {
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
 
-        // delete *it;
         objectsToErase.push_back(*it);
     }
 }
@@ -444,7 +443,7 @@ void DisplayObject::propogateEvent(Event* e, std::shared_ptr<DisplayObject> root
         for (auto child : root->children) {
             propogateEvent(e, child);
         }
-        std::shared_ptr<Tween> out_transition = std::make_shared<Tween>("out_transition", root);
+        auto out_transition = std::make_shared<Tween>("out_transition", root);
 		out_transition->animate(TweenableParams::ALPHA, 255, 0, 200, TweenParam::EASE_IN);
 		TweenJuggler::getInstance().add(out_transition);
     }
@@ -454,7 +453,7 @@ void DisplayObject::propogateEvent(Event* e, std::shared_ptr<DisplayObject> root
         for (auto child : root->children) {
             propogateEvent(e, child);
         }
-        std::shared_ptr<Tween> in_transition = std::make_shared<Tween>("in_transition", root);
+        auto in_transition = std::make_shared<Tween>("in_transition", root);
 		in_transition->animate(TweenableParams::ALPHA, 0, 255, 200, TweenParam::EASE_IN);
 		TweenJuggler::getInstance().add(in_transition);
 	}
@@ -480,7 +479,7 @@ void DisplayObject::handleEvent(Event* e){
         EventDispatcher::getInstance().removeEventListener(this, NewSceneEvent::SCALE_OUT_EVENT);
         double curScaleX = this->scaleX;
         double curScaleY = this->scaleY;
-        std::shared_ptr<Tween> out_transition = std::make_shared<Tween>("out_transition", shared_from_this());
+        auto out_transition = std::make_shared<Tween>("out_transition", shared_from_this());
 		out_transition->animate(TweenableParams::SCALE_X, curScaleX, 0, 200, TweenParam::EASE_IN);
 		out_transition->animate(TweenableParams::SCALE_Y, curScaleY, 0, 200, TweenParam::EASE_IN);
 		TweenJuggler::getInstance().add(out_transition);
@@ -488,7 +487,7 @@ void DisplayObject::handleEvent(Event* e){
     // scale in event
     if (e->getType() == NewSceneEvent::SCALE_IN_EVENT) {
         EventDispatcher::getInstance().removeEventListener(this, NewSceneEvent::SCALE_IN_EVENT);
-        std::shared_ptr<Tween> in_transition = std::make_shared<Tween>("in_transition", shared_from_this());
+        auto in_transition = std::make_shared<Tween>("in_transition", shared_from_this());
 		in_transition->animate(TweenableParams::SCALE_X, 0, 1, 200, TweenParam::EASE_IN);
 		in_transition->animate(TweenableParams::SCALE_Y, 0, 1, 200, TweenParam::EASE_IN);
 		TweenJuggler::getInstance().add(in_transition);
