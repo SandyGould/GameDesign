@@ -55,8 +55,8 @@
                         "x_pos": 300,
                         "y_pos": 100,
                         "rotation":0,
-                        "scaleX":2.5,
-                        "scaleY":2.5,
+                        "scaleX":1,
+                        "scaleY":0.1,
                         "parentHierarchy":[]
                     },
                     {
@@ -66,8 +66,8 @@
                         "x_pos": 350,
                         "y_pos": 200,
                         "rotation":0,
-                        "scaleX":2.5,
-                        "scaleY":2.5,
+                        "scaleX":1,
+                        "scaleY":0.1,
                         "parentHierarchy":[]
                     },
                     {
@@ -77,8 +77,8 @@
                         "x_pos": 250,
                         "y_pos": 400,
                         "rotation":0,
-                        "scaleX":2.5,
-                        "scaleY":2.5,
+                        "scaleX":1,
+                        "scaleY":0.1,
                         "parentHierarchy":[]
                     },
                     {
@@ -88,8 +88,8 @@
                         "x_pos": 250,
                         "y_pos": 350,
                         "rotation":0,
-                        "scaleX":2.5,
-                        "scaleY":2.5,
+                        "scaleX":1,
+                        "scaleY":0.1,
                         "parentHierarchy":[]
                     }          
                 ]
