@@ -13,7 +13,7 @@ static int mking_count = 1;
 // Cooldown
 // Ded
 
-MonsterKing::MonsterKing(Player* player) : BaseEnemy("monsterKing", "./resources/assets/Animated_Sprites/Enemies/monsterKing.png", "./resources/assets/Animated_Sprites/Enemies/monsterKing.xml",player) {
+MonsterKing::MonsterKing(std::shared_ptr<Player> player) : BaseEnemy("monsterKing", "./resources/assets/Animated_Sprites/Enemies/monsterKing.png", "./resources/assets/Animated_Sprites/Enemies/monsterKing.xml",player) {
     this->state = 0;
     this->health = 100;
     this->facingRight=true;
@@ -49,7 +49,7 @@ void MonsterKing::update(const std::unordered_set<SDL_Scancode>& pressedKeys, co
     }
     else if (this->state == 4) { // Shoot Ice Projectiles
         if (this->ready == 201) {
-            this->iceAttack = new IceAttack();
+            this->iceAttack = std::make_shared<IceAttack>();
      		this->addChild(iceAttack);
             iceAttack->visible =false;
         } else if (this->ready == 140) {
@@ -164,7 +164,7 @@ void MonsterKing::draw(AffineTransform& at){
 }
 
 
-bool MonsterKing::onCollision(DisplayObject* other){
+bool MonsterKing::onCollision(std::shared_ptr<DisplayObject> other){
     if(other == this->iceAttack && iceAttack->firing == false){
         return true;
     }
