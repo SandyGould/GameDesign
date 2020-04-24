@@ -11,8 +11,8 @@
                         "x_pos":0,
                         "y_pos":1,
                         "rotation":0,
-                        "scaleX":12,
-                        "scaleY":5.5,
+                        "scaleX":5,
+                        "scaleY":5,
                         "parentHierarchy":[]
                     },
                     {
@@ -22,8 +22,8 @@
                         "x_pos":200,
                         "y_pos":0,
                         "rotation":0,
-                        "scaleX":0.34,
-                        "scaleY":1.361,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     },
                     {
@@ -33,8 +33,8 @@
                         "x_pos":234,
                         "y_pos":102,
                         "rotation":0,
-                        "scaleX":2.64,
-                        "scaleY":0.34,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     },
                     {
@@ -44,7 +44,7 @@
                         "x_pos":480,
                         "y_pos":102,
                         "rotation":0,
-                        "scaleX":0.34,
+                        "scaleX":2,
                         "scaleY":2,
                         "parentHierarchy":[]
                     },
@@ -55,8 +55,8 @@
                         "x_pos":300,
                         "y_pos":45,
                         "rotation":0,
-                        "scaleX":0.4,
-                        "scaleY":0.35,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     },
                     {
@@ -66,7 +66,7 @@
                         "x_pos":410,
                         "y_pos":302,
                         "rotation":0,
-                        "scaleX":0.3,
+                        "scaleX":2,
                         "scaleY":0.35,
                         "parentHierarchy":[]
                     },

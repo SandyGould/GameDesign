@@ -11,7 +11,7 @@
                         "x_pos":0,
                         "y_pos":0,
                         "rotation":0,
-                        "scaleX":12,
+                        "scaleX":5,
                         "scaleY":5,
                         "parentHierarchy":[]
                     },
@@ -19,22 +19,22 @@
                         "type":"EnvironmentObject",
                         "name":"wall1",
                         "filepath":"./resources/Rebound/area2/room2/assets/area2_2_wall.png",
-                        "x_pos":240,
-                        "y_pos":95,
+                        "x_pos":280,
+                        "y_pos":100,
                         "rotation":0,
-                        "scaleX":3.43,
-                        "scaleY":0.31,
+                        "scaleX":5,
+                        "scaleY":5,
                         "parentHierarchy":[]
                     },
                     {
                         "type":"EnvironmentObject",
                         "name":"wall2",
                         "filepath":"./resources/Rebound/area2/room2/assets/area2_2_wall.png",
-                        "x_pos":240,
-                        "y_pos":406,
+                        "x_pos":280,
+                        "y_pos":480,
                         "rotation":0,
-                        "scaleX":3.43,
-                        "scaleY":0.31,
+                        "scaleX":5,
+                        "scaleY":5,
                         "parentHierarchy":[]
                     },
                     {
@@ -44,8 +44,8 @@
                         "x_pos": 240,
                         "y_pos": 125,
                         "rotation": 0,
-                        "scaleX":0.34,
-                        "scaleY":0.32,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     },
                     {
@@ -55,8 +55,8 @@
                         "x_pos": 240,
                         "y_pos": 187,
                         "rotation": 0,
-                        "scaleX":0.34,
-                        "scaleY":0.32,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     },
                     {
@@ -66,8 +66,8 @@
                         "x_pos": 240,
                         "y_pos": 312,
                         "rotation": 0,
-                        "scaleX":0.34,
-                        "scaleY":0.32,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     },
                     {
@@ -77,8 +77,8 @@
                         "x_pos": 240,
                         "y_pos": 374,
                         "rotation": 0,
-                        "scaleX":0.34,
-                        "scaleY":0.32,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     },
                     {
@@ -88,8 +88,8 @@
                         "x_pos": 550,
                         "y_pos": 125,
                         "rotation": 0,
-                        "scaleX":0.34,
-                        "scaleY":0.32,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     },
                     {
@@ -99,8 +99,8 @@
                         "x_pos": 550,
                         "y_pos": 187,
                         "rotation": 0,
-                        "scaleX":0.34,
-                        "scaleY":0.32,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     },
                     {
@@ -110,8 +110,8 @@
                         "x_pos": 550,
                         "y_pos": 312,
                         "rotation": 0,
-                        "scaleX":0.34,
-                        "scaleY":0.32,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     },
                     {
@@ -121,8 +121,8 @@
                         "x_pos": 550,
                         "y_pos": 374,
                         "rotation": 0,
-                        "scaleX":0.34,
-                        "scaleY":0.32,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     },
                     {
@@ -132,8 +132,8 @@
                         "x_pos": 1130,
                         "y_pos": 235,
                         "rotation": 0,
-                        "scaleX":0.34,
-                        "scaleY":0.32,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     },
                     {
@@ -143,8 +143,8 @@
                         "x_pos":400,
                         "y_pos":245,
                         "rotation":0,
-                        "scaleX":0.4,
-                        "scaleY":0.35,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     }
                 ]
@@ -170,11 +170,11 @@
         "camEntrancePositionY":100,
         "playerEntrancePosX":100,
         "playerEntrancePosY":250,
-        "camExitPivotX":800,
+        "camExitPivotX":1200,
         "camExitPivotY":100,
-        "camExitPositionX":200,
+        "camExitPositionX":1200,
         "camExitPositionY":100,
-        "playerExitPosX":1100,
+        "playerExitPosX":1200,
         "playerExitPosY":250
     }
 }

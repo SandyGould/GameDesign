@@ -11,7 +11,7 @@
                         "x_pos":0,
                         "y_pos":0,
                         "rotation":0,
-                        "scaleX":12,
+                        "scaleX":5,
                         "scaleY":5,
                         "parentHierarchy":[]
                     },
@@ -19,44 +19,44 @@
                         "type":"EnvironmentObject",
                         "name":"wall1",
                         "filepath":"./resources/Rebound/area2/room1/assets/area2_1_wall1.png",
-                        "x_pos":460,
+                        "x_pos":520,
                         "y_pos":0,
                         "rotation":0,
-                        "scaleX":0.36,
-                        "scaleY":1.25,
+                        "scaleX":5,
+                        "scaleY":5,
                         "parentHierarchy":[]
                     },
                     {
                         "type":"EnvironmentObject",
                         "name":"wall2",
                         "filepath":"./resources/Rebound/area2/room1/assets/area2_1_wall4.png",
-                        "x_pos":600,
+                        "x_pos":680,
                         "y_pos":0,
                         "rotation":0,
-                        "scaleX":0.36,
-                        "scaleY":1.25,
+                        "scaleX":5,
+                        "scaleY":5,
                         "parentHierarchy":[]
                     },
                     {
                         "type":"EnvironmentObject",
                         "name":"wall3",
                         "filepath":"./resources/Rebound/area2/room1/assets/area2_1_wall2.png",
-                        "x_pos":530,
-                        "y_pos":219,
+                        "x_pos":600,
+                        "y_pos":280,
                         "rotation":0,
-                        "scaleX":0.36,
-                        "scaleY":1.25,
+                        "scaleX":5,
+                        "scaleY":5,
                         "parentHierarchy":[]
                     },
                     {
                         "type":"EnvironmentObject",
                         "name":"wall4",
                         "filepath":"./resources/Rebound/area2/room1/assets/area2_1_wall3.png",
-                        "x_pos":566,
-                        "y_pos":313,
+                        "x_pos":640,
+                        "y_pos":400,
                         "rotation":0,
-                        "scaleX":1.41,
-                        "scaleY":0.315,
+                        "scaleX":5,
+                        "scaleY":5,
                         "parentHierarchy":[]
                     },
                     {
@@ -66,19 +66,19 @@
                         "x_pos": 1130,
                         "y_pos": 235,
                         "rotation": 0,
-                        "scaleX":0.35,
-                        "scaleY":0.3,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     },
                     {
                         "type":"WalkOnObject",
                         "name":"chest",
                         "filepath":"./resources/Rebound/area2/room1/assets/Chest.png",
-                        "x_pos":530,
+                        "x_pos":600,
                         "y_pos":45,
                         "rotation":0,
-                        "scaleX":0.4,
-                        "scaleY":0.35,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     },
                     {
@@ -88,8 +88,8 @@
                         "x_pos": 400,
                         "y_pos": 200,
                         "rotation":0,
-                        "scaleX":0.5,
-                        "scaleY":0.5,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     },
                     {
@@ -99,8 +99,8 @@
                         "x_pos": 400,
                         "y_pos": 500,
                         "rotation":0,
-                        "scaleX":0.5,
-                        "scaleY":0.5,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     },
                     {
@@ -110,8 +110,8 @@
                         "x_pos": 450,
                         "y_pos": 300,
                         "rotation":0,
-                        "scaleX":0.5,
-                        "scaleY":0.5,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     },
                     {
@@ -121,8 +121,8 @@
                         "x_pos": 800,
                         "y_pos": 300,
                         "rotation":0,
-                        "scaleX":0.5,
-                        "scaleY":0.5,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     },
                     {
@@ -132,8 +132,8 @@
                         "x_pos": 900,
                         "y_pos": 200,
                         "rotation":0,
-                        "scaleX":0.5,
-                        "scaleY":0.5,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     },
                     {
@@ -143,8 +143,8 @@
                         "x_pos": 800,
                         "y_pos": 100,
                         "rotation":0,
-                        "scaleX":0.5,
-                        "scaleY":0.5,
+                        "scaleX":2,
+                        "scaleY":2,
                         "parentHierarchy":[]
                     }
                 ]
@@ -168,13 +168,13 @@
         "camEntrancePivotY":100,
         "camEntrancePositionX":100,
         "camEntrancePositionY":100,
-        "playerEntrancePosX":100,
+        "playerEntrancePosX":800,
         "playerEntrancePosY":250,
-        "camExitPivotX":800,
+        "camExitPivotX":1000,
         "camExitPivotY":100,
-        "camExitPositionX":200,
+        "camExitPositionX":500,
         "camExitPositionY":100,
-        "playerExitPosX":1100,
+        "playerExitPosX":1200,
         "playerExitPosY":250
     }
 }

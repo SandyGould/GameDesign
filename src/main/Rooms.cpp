@@ -26,6 +26,8 @@ Rooms::Rooms() : Game(600, 500) {
     this->collisionSystem->watchForCollisions("player", "arrow");
     this->collisionSystem->watchForCollisions("shield", "arrow");
     this->collisionSystem->watchForCollisions("shield", "enemy");
+    this->collisionSystem->watchForCollisions("enemy", "EnvironmentObject");
+
 
 	camera = std::make_shared<Camera>();
 

@@ -6,6 +6,8 @@
 #define BASH_COOLDOWN 40
 #define TOGGLE_COOLDOWN 40
 
+using namespace std;
+
 Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites/Player/Player.png", "./resources/assets/Animated_Sprites/Player/Player.xml") {
     type = "player";
     this->saveType = this->type;
