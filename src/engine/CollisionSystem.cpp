@@ -76,7 +76,7 @@ void CollisionSystem::update() {
         collisionPairs.erase(remove_if(collisionPairs.begin(),
                                        collisionPairs.end(),
                                        [&](auto x) {
-                                         return x.first == object || x.second == object;
+                                           return x.first == object || x.second == object;
                                        }),
                              collisionPairs.cend());
     }
@@ -100,9 +100,7 @@ void CollisionSystem::handleEvent(Event* e) {
             if (it != displayObjectsMap.cend()) {
                 it->second.emplace(object);
             } else {
-                unordered_set<shared_ptr<DisplayObject>> new_set;
-                new_set.emplace(object);
-                displayObjectsMap.try_emplace(type, new_set);
+                displayObjectsMap.try_emplace(type, unordered_set<shared_ptr<DisplayObject>>{object});
             }
 
             if (collisionTypes.find(type) != collisionTypes.cend()) {
