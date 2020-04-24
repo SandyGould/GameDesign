@@ -31,9 +31,9 @@ Rooms::Rooms() : Game(600, 500) {
 
 	// load and prep camera
 	camera->setTopLimit(0);
-	camera->setLeftLimit(0); //200
-	camera->setRightLimit(810); //810
-    camera->setBottomLimit(800); //0
+	camera->setLeftLimit(200);
+	camera->setRightLimit(810);
+    camera->setBottomLimit(0);
 	// move that point to the middle
 
 	instance->addChild(camera);
@@ -44,19 +44,6 @@ Rooms::Rooms() : Game(600, 500) {
 	player->width = player->height = 50;
 	player->pivot = {50, 50};
 	//player->type = "player";
-
-	// load and prep scene 1
-	room = 1;
-	// scene = new Scene(camera, player);
-	// scene->loadScene("./resources/Rebound/area3_res/area3_3.json");
-
-	// camera->addChild(scene);
-
-	// // load and prep scene 2
-	// scene2 = new Scene(camera, player);
-	// scene2->loadScene("./resources/Rebound/area1/room2/area1room2map.json");
-
-	// scene->addChild(player);
 
 	// start text box
 	start_text_box = new TextBox("start_text", "Welcome to Rebound!\n\nPress any key to continue");
@@ -107,7 +94,7 @@ Rooms::Rooms() : Game(600, 500) {
 	
 	this->sceneManager = new SceneManager(camera, player);
 	// load the entire first area
-	this->sceneManager->loadArea(1, 3);
+	this->sceneManager->loadArea(2, 3);
 	// load first scene
 	this->sceneManager->loadFirstScene();
 }
