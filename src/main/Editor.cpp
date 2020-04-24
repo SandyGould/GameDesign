@@ -325,6 +325,63 @@ void Editor::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState
         }
     }
 
+    // Update edit window if there is one non-asset object selected that differs from currently displayed object
+    if (!selectedAsset && selected.size() == 1 && editSelected != *selected.begin()){ 
+        editSelected = std::static_pointer_cast<TextObject>(*selected.begin());
+
+        shared_ptr<TextObject> idText = make_shared<TextObject>(string("idText"), string(editSelected->id) , Game::font, edit_renderer);
+        idText->position = {37, 0};
+
+        shared_ptr<TextObject> posXText = make_shared<TextObject>(string("posXText"),  to_string(editSelected->position.x), Game::font, edit_renderer);
+        shared_ptr<TextObject> posYText = make_shared<TextObject>(string("posYText"),  to_string(editSelected->position.y), Game::font, edit_renderer);
+        posXText->position = {25, 70};
+        posYText->position = {175, 70};
+
+        shared_ptr<TextObject> pivXText = make_shared<TextObject>(string("pivXText"),  to_string(editSelected->pivot.x), Game::font, edit_renderer);
+        shared_ptr<TextObject> pivYText = make_shared<TextObject>(string("pivYText"),  to_string(editSelected->pivot.y), Game::font, edit_renderer);
+        pivXText->position = {25, 140};
+        pivYText->position = {175, 140};
+
+        shared_ptr<TextObject> scaleXText = make_shared<TextObject>(string("scaleXText"),  to_string(editSelected->scaleX), Game::font, edit_renderer);
+        shared_ptr<TextObject> scaleYText = make_shared<TextObject>(string("scaleYText"),  to_string(editSelected->scaleY), Game::font, edit_renderer);
+        scaleXText->position = {25, 210};
+        scaleYText->position = {175, 210};
+
+        shared_ptr<TextObject> rotText = make_shared<TextObject>(string("rotText"),  to_string(editSelected->rotation), Game::font, edit_renderer);
+        rotText->position = {110, 250};
+
+        shared_ptr<DisplayObject> parentButtonBackground = make_shared<DisplayObject>("parentButtonBackground", 36, 113, 96, 125, 25, edit_renderer);
+        parentButtonBackground->position = {0, 295};
+
+        shared_ptr<TextObject> setParentButton = make_shared<TextObject>(string("setParentButton"), string("Set Parent"), Game::font, edit_renderer);
+        setParentButton->position = {5, 290};
+
+        
+        
+        edit->addChild(idText);
+        edit->addChild(posXText);
+        edit->addChild(posYText);
+        edit->addChild(pivXText);
+        edit->addChild(pivYText);
+        edit->addChild(scaleXText);
+        edit->addChild(scaleYText);
+        edit->addChild(rotText);
+        edit->addChild(parentButtonBackground);
+        edit->addChild(setParentButton);
+
+        editable.insert(idText);
+        editable.insert(posXText);
+        editable.insert(posYText);
+        editable.insert(pivXText);
+        editable.insert(pivYText);
+        editable.insert(scaleXText);
+        editable.insert(scaleYText);
+        editable.insert(rotText);
+    } // if (selected.size() == 1 && editSelected != *selected.begin())
+    else{
+        editSelected = NULL;
+    }
+
     edit->getChild("layerZeroIndicator")->visible = layer == 0;
     edit->getChild("layerOneIndicator")->visible = layer == 1;
     edit->getChild("layerTwoIndicator")->visible = layer == 2;
@@ -601,67 +658,11 @@ void Editor::handleEvent(Event* e) {
 
             //Delete all children beyond the default 20 that are always displayed
             for (int i = 20; i < tempNumChildren; ++i){
-                edit->removeImmediateChild(edit->getChild(20));
+                edit->removeImmediateChild(edit->getChild(i));
             }
 
             // Clear the editable objects
             editable.clear();
-        }
-        
-        // Update edit window if there is one non-asset object selected that differs from currently displayed object
-        if (!selectedAsset && selected.size() == 1 && editSelected != *selected.begin()){ 
-            editSelected = std::static_pointer_cast<TextObject>(*selected.begin());
-
-            shared_ptr<TextObject> idText = make_shared<TextObject>(string("idText"), string(editSelected->id) , Game::font, edit_renderer);
-            idText->position = {37, 0};
-
-            shared_ptr<TextObject> posXText = make_shared<TextObject>(string("posXText"),  to_string(editSelected->position.x), Game::font, edit_renderer);
-            shared_ptr<TextObject> posYText = make_shared<TextObject>(string("posYText"),  to_string(editSelected->position.y), Game::font, edit_renderer);
-            posXText->position = {25, 70};
-            posYText->position = {175, 70};
-
-            shared_ptr<TextObject> pivXText = make_shared<TextObject>(string("pivXText"),  to_string(editSelected->pivot.x), Game::font, edit_renderer);
-            shared_ptr<TextObject> pivYText = make_shared<TextObject>(string("pivYText"),  to_string(editSelected->pivot.y), Game::font, edit_renderer);
-            pivXText->position = {25, 140};
-            pivYText->position = {175, 140};
-
-            shared_ptr<TextObject> scaleXText = make_shared<TextObject>(string("scaleXText"),  to_string(editSelected->scaleX), Game::font, edit_renderer);
-            shared_ptr<TextObject> scaleYText = make_shared<TextObject>(string("scaleYText"),  to_string(editSelected->scaleY), Game::font, edit_renderer);
-            scaleXText->position = {25, 210};
-            scaleYText->position = {175, 210};
-
-            shared_ptr<TextObject> rotText = make_shared<TextObject>(string("rotText"),  to_string(editSelected->rotation), Game::font, edit_renderer);
-            rotText->position = {110, 250};
-
-            shared_ptr<DisplayObject> parentButtonBackground = make_shared<DisplayObject>("parentButtonBackground", 36, 113, 96, 125, 25, edit_renderer);
-            parentButtonBackground->position = {0, 295};
-
-            shared_ptr<TextObject> setParentButton = make_shared<TextObject>(string("setParentButton"), string("Set Parent"), Game::font, edit_renderer);
-            setParentButton->position = {5, 290};
-
-            
-            
-            edit->addChild(idText);
-            edit->addChild(posXText);
-            edit->addChild(posYText);
-            edit->addChild(pivXText);
-            edit->addChild(pivYText);
-            edit->addChild(scaleXText);
-            edit->addChild(scaleYText);
-            edit->addChild(rotText);
-            edit->addChild(parentButtonBackground);
-            edit->addChild(setParentButton);
-
-            editable.insert(idText);
-            editable.insert(posXText);
-            editable.insert(posYText);
-            editable.insert(pivXText);
-            editable.insert(pivYText);
-            editable.insert(scaleXText);
-            editable.insert(scaleYText);
-            editable.insert(rotText);
-        } else if (selected.size() == 1 && editSelected != *selected.begin()){
-            editSelected = NULL;
         }
     } else if (e->getType() == DragStartEvent::DRAG_START_EVENT) {
         this->displacementX.clear();
