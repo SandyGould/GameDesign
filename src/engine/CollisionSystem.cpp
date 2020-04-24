@@ -98,7 +98,6 @@ void CollisionSystem::handleEvent(Event* e) {
     if (e->getType() == DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT) {
         DisplayTreeChangeEvent* event = static_cast<DisplayTreeChangeEvent*>(e);
         shared_ptr<DisplayObject> object(event->object);
-        const string type = object->type;
         if (event->added) {
             addObjects(object);
         } else {
@@ -107,8 +106,9 @@ void CollisionSystem::handleEvent(Event* e) {
     }
 }
 
+// Recursively add objects to the display tree, collision pairs, etc
 void CollisionSystem::addObjects(const shared_ptr<DisplayObject>& object) {
-    auto type = object->type;
+    const string type = object->type;
     auto it = displayObjectsMap.find(type);
     if (it != displayObjectsMap.cend()) {
         it->second.emplace(object);
@@ -129,15 +129,19 @@ void CollisionSystem::addObjects(const shared_ptr<DisplayObject>& object) {
     }
 }
 
+// Recursively remove objects from the display tree, collision pairs, etc
 void CollisionSystem::eraseObjects(const shared_ptr<DisplayObject>& object) {
-    if (collisionTypes.find(object->type) != collisionTypes.cend()) {
+    const string type = object->type;
+
+    // Optimization: only try to erase from collisionPairs if we are registered for collision
+    if (collisionTypes.find(type) != collisionTypes.cend()) {
         // Defer erasing from collisionPairs as it's possible that
         // we're in the middle of an update() loop, and deleting now
         // would invalidate the iterators
         objectsToErase.emplace_back(object);
     }
 
-    displayObjectsMap.at(object->type).erase(object);
+    displayObjectsMap.at(type).erase(object);
     prevPositions.erase(object);
 
     for (const auto& child : object->children) {
