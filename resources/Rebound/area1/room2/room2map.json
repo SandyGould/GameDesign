@@ -58,7 +58,29 @@
                         "scaleX":0.1,
                         "scaleY":0.1,
                         "parentHierarchy":[]
-                    }
+                    },
+                    {
+                         "type":"Archer",
+                         "name":"archer1",
+                         "filepath": "./resources/assets/Display_Objects/archer.png",
+                         "x_pos": 400,
+                         "y_pos": 100,
+                         "rotation":0,
+                         "scaleX":0.5,
+                         "scaleY":0.5,
+                         "parentHierarchy":[]
+                     },
+                     {
+                         "type":"Archer",
+                         "name":"archer2",
+                         "filepath": "./resources/assets/Display_Objects/archer.png",
+                         "x_pos": 800,
+                         "y_pos": 300,
+                         "rotation":0,
+                         "scaleX": -0.5,
+                         "scaleY": 0.5,
+                         "parentHierarchy":[]
+                     }
                 ]
             }
         },

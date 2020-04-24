@@ -10,6 +10,7 @@ Arrow::Arrow(int velocity) : Projectile("Arrow" + std::to_string(arrow_id_counte
     this->hasCollision = true;
     this->type = "arrow";
     this->saveType = this->type;
+    this->visible = true;
 }
 
 void Arrow::drawBack(){

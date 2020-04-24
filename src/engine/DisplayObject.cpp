@@ -68,7 +68,7 @@ DisplayObject::DisplayObject(const DisplayObject& other) : enable_shared_from_th
     this->saveType = other.saveType;
     this->loadTexture(this->imgPath);
 
-    for (auto child : other.children) {
+    for (const auto& child : other.children) {
         this->addChild(std::make_shared<DisplayObject>(*child));
     }
 }
@@ -85,10 +85,10 @@ DisplayObject::~DisplayObject() {
 
 void DisplayObject::loadTexture(const std::string& filepath) {
     image = IMG_Load(filepath.c_str());
-    if (image != nullptr) {
-        height = image->h;
-        width = image->w;
-    }
+    // if (image != nullptr) {
+    //     height = image->h;
+    //     width = image->w;
+    // }
     texture = SDL_CreateTextureFromSurface(this->renderer, image);
     setTexture(texture);
 }
@@ -107,9 +107,9 @@ void DisplayObject::setTexture(SDL_Texture* t) {
     this->curTexture = t;
 }
 
-void DisplayObject::addChild(std::shared_ptr<DisplayObject> child) {
+void DisplayObject::addChild(const std::shared_ptr<DisplayObject>& child) {
     if (child->parent != this) {
-        children.push_back(child);
+        children.emplace_back(child);
         child->parent = this; // make sure to include reverse reference also
 
         auto* event = new DisplayTreeChangeEvent(child, true);
@@ -118,7 +118,7 @@ void DisplayObject::addChild(std::shared_ptr<DisplayObject> child) {
     }
 }
 
-void DisplayObject::removeImmediateChild(std::shared_ptr<DisplayObject> child) {
+void DisplayObject::removeImmediateChild(const std::shared_ptr<DisplayObject>& child) {
     auto it = std::find(this->children.cbegin(), this->children.cend(), child);
     if (it != this->children.cend()) {
         auto* event = new DisplayTreeChangeEvent(*it, false);
@@ -190,12 +190,12 @@ std::shared_ptr<DisplayObject> DisplayObject::getChild(const std::string& id) co
 }
 
 void DisplayObject::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
-    for (auto child : children) {
+    for (const auto& child : children) {
         child->update(pressedKeys, joystickState, pressedButtons);
     }
 
     // Clear ourselves of any deleted children
-    for (auto object : objectsToErase) {
+    for (const auto& object : objectsToErase) {
         children.erase(std::remove(children.begin(), children.end(), object), children.cend());
     }
     objectsToErase.clear();
@@ -229,7 +229,7 @@ void DisplayObject::draw(AffineTransform& at) {
 
     // undo the parent's pivot
     at.translate(pivot.x, pivot.y);
-    for (auto child : children) {
+    for (const auto& child : children) {
         child->draw(at);
     }
     // redo the parent's pivot
@@ -284,7 +284,7 @@ void DisplayObject::getGlobalTransform(AffineTransform& at) const {
             at.translate(parent->pivot.x, parent->pivot.y);
         }
 	}
-	
+
 	//at = parent's global
 	//undo parent's pivot
 	//apply this object's transform to at
@@ -403,11 +403,11 @@ void DisplayObject::setSurface(SDL_Surface* s) {
     this->image = s;
 }
 
-void DisplayObject::propogateEvent(Event* e, std::shared_ptr<DisplayObject> root) {
+void DisplayObject::propogateEvent(Event* e, const std::shared_ptr<DisplayObject>& root) {
 
     if (e->getType() == NewSceneEvent::FADE_OUT_EVENT){
         EventDispatcher::getInstance().removeEventListener(root.get(), NewSceneEvent::FADE_OUT_EVENT);
-        for (auto child : root->children) {
+        for (const auto& child : root->children) {
             propogateEvent(e, child);
         }
         auto out_transition = std::make_shared<Tween>(root->id + "_out_transition", root);
@@ -416,7 +416,7 @@ void DisplayObject::propogateEvent(Event* e, std::shared_ptr<DisplayObject> root
     }
     if (e->getType() == NewSceneEvent::FADE_IN_EVENT){
         EventDispatcher::getInstance().removeEventListener(root.get(), NewSceneEvent::FADE_IN_EVENT);
-        for (auto child : root->children) {
+        for (const auto& child : root->children) {
             propogateEvent(e, child);
         }
         auto in_transition = std::make_shared<Tween>(root->id + "_in_transition", root);
@@ -426,6 +426,7 @@ void DisplayObject::propogateEvent(Event* e, std::shared_ptr<DisplayObject> root
 }
 
 void DisplayObject::handleEvent(Event* e){
+
     // scale out event
     if (e->getType() == NewSceneEvent::SCALE_OUT_EVENT) {
         EventDispatcher::getInstance().removeEventListener(this, NewSceneEvent::SCALE_OUT_EVENT);

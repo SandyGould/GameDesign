@@ -41,8 +41,8 @@ Rooms::Rooms() : Game(600, 500) {
 	// load and prep player
 	player = std::make_shared<Player>();
 	player->position = {50, 250};
-	player->width = 110;
-	player->height = 80;
+	// player->width = 110;
+	// player->height = 80;
 	player->pivot = {50, 50};
 	//player->type = "player";
 

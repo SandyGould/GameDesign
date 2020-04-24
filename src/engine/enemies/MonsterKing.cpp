@@ -41,6 +41,8 @@ void MonsterKing::update(const std::unordered_set<SDL_Scancode>& pressedKeys, co
         this->state = 2;
     }
     else if(this->state == 2){ //move select
+        if (this->current->animName.compare("MKingIdle") != 0)
+            this->play("MKingIdle");
         this->state = rand() %3 + 3;
         this->maxWalkFrames = 380;
     }
