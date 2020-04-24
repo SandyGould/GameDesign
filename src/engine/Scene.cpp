@@ -27,6 +27,16 @@ void Scene::loadScene(std::string sceneFilePath){
     std::ifstream i(sceneFilePath);
     json j;
     i >> j;
+
+    /* Load camera + player positions */
+    this->camEntrancePivot = {j["Camera"]["camEntrancePivotX"], j["Camera"]["camEntrancePivotY"]};
+    this->camEntrancePosition = {j["Camera"]["camEntrancePositionX"], j["Camera"]["camEntrancePositionY"]};
+    this->playerEntrancePos = {j["Camera"]["playerEntrancePosX"], j["Camera"]["playerEntrancePosY"]};
+    this->camExitPivot = {j["Camera"]["camExitPivotX"], j["Camera"]["camExitPivotY"]};
+    this->camExitPosition = {j["Camera"]["camExitPositionX"], j["Camera"]["camExitPositionY"]};
+    this->playerExitPos = {j["Camera"]["playerExitPosX"], j["Camera"]["playerExitPosY"]};
+
+
     for(int z = 0; z < j["Scene"].size(); z++){
         std::string layer_value = "L" + std::to_string(z);
         auto temp_layer = std::make_shared<Layer>(layer_value);
