@@ -39,12 +39,12 @@ Rebound::Rebound() : Game(1200, 800) {
 	//
 	// allSprites->addChild(king);
 
-    // archer = new Archer(player);
-    // archer-> position = {200,200};
-    // archer->height = 80;
-    // archer->width = 70;
-	//
-    // allSprites->addChild(archer);
+    archer = make_shared<Archer>(player);
+    archer-> position = {200,200};
+    archer->height = 80;
+    archer->width = 70;
+
+    allSprites->addChild(archer);
 
 	// ogre = new Ogre(player);
     // ogre-> position = {200,200};
