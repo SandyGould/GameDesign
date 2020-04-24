@@ -104,6 +104,35 @@ Editor::Editor(const string& sceneToLoad)
     auto layerTwoIndicator = std::make_shared<DisplayObject>("layerTwoIndicator", 0, 255, 0, 10, 10, edit_renderer);
     layerTwoIndicator->position = {95, 410};
     layerTwoIndicator->visible = false;
+
+    std::shared_ptr<DisplayObject> freeMoveBackground = std::make_shared<DisplayObject>("freeMoveBackground", 36, 113, 96, 37, 25, edit_renderer);
+    freeMoveBackground->position = {183, 425};
+
+    auto freeMoveButton = std::make_shared<TextObject>(string("freeMoveButton"), string("FM"), Game::font, edit_renderer);
+    freeMoveButton->position = {184, 420};
+
+    std::shared_ptr<DisplayObject> incrSnapBackground = std::make_shared<DisplayObject>("incrSnapBackground", 36, 113, 96, 37, 25, edit_renderer);
+    incrSnapBackground->position = {223, 425};
+
+    auto incrSnapButton = std::make_shared<TextObject>(string("incrSnapButton"), string("IS"), Game::font, edit_renderer);
+    incrSnapButton->position = {228, 420};
+
+    std::shared_ptr<DisplayObject> gridSnapBackground = std::make_shared<DisplayObject>("gridSnapBackground", 36, 113, 96, 37, 25, edit_renderer);
+    gridSnapBackground->position = {263, 425};
+
+    auto gridSnapButton = std::make_shared<TextObject>(string("gridSnapButton"), string("GS"), Game::font, edit_renderer);
+    gridSnapButton->position = {266, 420};
+
+    auto freeMoveIndicator = std::make_shared<DisplayObject>("freeMoveIndicator", 0, 255, 0, 10, 10, edit_renderer);
+    freeMoveIndicator->position = {198, 410};
+
+    auto incrSnapIndicator = std::make_shared<DisplayObject>("incrSnapIndicator", 0, 255, 0, 10, 10, edit_renderer);
+    incrSnapIndicator->position = {238, 410};
+    incrSnapIndicator->visible = false;
+
+    auto gridSnapIndicator = std::make_shared<DisplayObject>("gridSnapIndicator", 0, 255, 0, 10, 10, edit_renderer);
+    gridSnapIndicator->position = {288, 410};
+    gridSnapIndicator->visible = false;
     
     edit->addChild(idLabel);
     edit->addChild(posLabel);
@@ -125,6 +154,15 @@ Editor::Editor(const string& sceneToLoad)
     edit->addChild(layerZeroIndicator);
     edit->addChild(layerOneIndicator);
     edit->addChild(layerTwoIndicator);
+    edit->addChild(freeMoveBackground);
+    edit->addChild(freeMoveButton);
+    edit->addChild(incrSnapBackground);
+    edit->addChild(incrSnapButton);
+    edit->addChild(gridSnapBackground);
+    edit->addChild(gridSnapButton);
+    edit->addChild(freeMoveIndicator);
+    edit->addChild(incrSnapIndicator);
+    edit->addChild(gridSnapIndicator);
 
     entityTypes = {"arrow", "mage_attack", "poison_bomb", "rubber_cannonball", "archer", "cannoneer", "knight", "mage", "master_archer", "ogre", "poisoner", "roar_monster", "rubber_cannoneer", "second_boss"};
 
@@ -150,7 +188,11 @@ void Editor::setupfiles(const string& path) {
     for (int i = 0; i < aSprites.size(); ++i) {
         aSprites[i]->position.x = i % 2 == 0 ? 0 : 150;
         aSprites[i]->position.y = (i / 2) * 150;
-        aSprites[i]->scaleHeight(150);
+        if (aSprites[i]->height > aSprites[i]->width){
+            aSprites[i]->scaleHeight(150);
+        } else{
+            aSprites[i]->scaleWidth(150);
+        }
         if (entityTypes.find(aSprites[i]->id) != entityTypes.end()){
             aSprites[i]->saveType = aSprites[i]->id;
         }
@@ -159,7 +201,11 @@ void Editor::setupfiles(const string& path) {
     for (int i = 0; i < dos.size(); ++i) {
         dos[i]->position.x = (i + aSprites.size()) % 2 == 0 ? 0 : 150;
         dos[i]->position.y = ((i + aSprites.size()) / 2) * 150;
-        dos[i]->scaleHeight(150);
+        if (dos[i]->height > dos[i]->width){
+            dos[i]->scaleHeight(150);
+        } else{
+            dos[i]->scaleWidth(150);
+        }
         if (entityTypes.find(dos[i]->id) != entityTypes.end()){
             dos[i]->saveType = dos[i]->id;
         }
@@ -168,8 +214,12 @@ void Editor::setupfiles(const string& path) {
     for (int i = 0; i < sprites.size(); ++i) {
         sprites[i]->position.x = (i + aSprites.size() + dos.size()) % 2 == 0 ? 0 : 150;
         sprites[i]->position.y = ((i + aSprites.size() + dos.size()) / 2) * 150;
-        sprites[i]->scaleHeight(150);
-        if (entityTypes.find(aSprites[i]->id) != entityTypes.end()){
+        if (sprites[i]->height > sprites[i]->width){
+            sprites[i]->scaleHeight(150);
+        } else{
+            sprites[i]->scaleWidth(150);
+        }
+        if (entityTypes.find(sprites[i]->id) != entityTypes.end()){
             sprites[i]->saveType = sprites[i]->id;
         }
         assets->addChild(sprites[i]);
@@ -264,6 +314,14 @@ void Editor::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState
             this->selected.clear();
         }
 
+        if (SDL_GetModState() & KMOD_ALT){
+            freeMove = true;
+        } else{
+            if (incrSnap || gridSnap){
+                freeMove = false;
+            }
+        }
+
         // Old version of editing object attributes, probably obsolete now
 
         // // Pivot
@@ -312,9 +370,7 @@ void Editor::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState
 
         // Jason's debugging tool
         if (pressedKeys.find(SDL_SCANCODE_Y) != pressedKeys.end()) {
-            if (setParentMode){
-                cout << "Set Parent Mode" << endl;
-            }
+            cout << edit->numChildren() << endl;
         }
 
         // Save scene to file
@@ -327,6 +383,17 @@ void Editor::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState
 
     // Update edit window if there is one non-asset object selected that differs from currently displayed object
     if (!selectedAsset && selected.size() == 1 && editSelected != *selected.begin()){ 
+        // Store pre-modification number of children
+        int tempNumChildren = edit->numChildren();
+
+        //Delete all children beyond the default 29 that are always displayed
+        for (int i = 29; i < tempNumChildren; ++i){
+            edit->removeImmediateChild(edit->getChild(i));
+        }
+
+        // Clear the editable objects
+        editable.clear();
+
         editSelected = std::static_pointer_cast<TextObject>(*selected.begin());
 
         shared_ptr<TextObject> idText = make_shared<TextObject>(string("idText"), string(editSelected->id) , Game::font, edit_renderer);
@@ -377,14 +444,30 @@ void Editor::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState
         editable.insert(scaleXText);
         editable.insert(scaleYText);
         editable.insert(rotText);
-    } // if (selected.size() == 1 && editSelected != *selected.begin())
-    else{
+    } else if ((selected.size() == 1 && editSelected != *selected.begin()) || selected.size() != 1){
         editSelected = NULL;
+        // Store pre-modification number of children
+        int tempNumChildren = edit->numChildren();
+
+        //Delete all children beyond the default 29 that are always displayed
+        for (int i = 29; i < tempNumChildren; ++i){
+            edit->removeImmediateChild(edit->getChild(i));
+        }
+
+        // Clear the editable objects
+        editable.clear();
     }
+    // // Remove the children that show values if selected differs from currently displayed values
+    // if (selected.size() != 1 || editSelected != *selected.begin()){
+        
+    // }
 
     edit->getChild("layerZeroIndicator")->visible = layer == 0;
     edit->getChild("layerOneIndicator")->visible = layer == 1;
     edit->getChild("layerTwoIndicator")->visible = layer == 2;
+    edit->getChild("freeMoveIndicator")->visible = freeMove;
+    edit->getChild("incrSnapIndicator")->visible = incrSnap;
+    edit->getChild("gridSnapIndicator")->visible = gridSnap;
     
     prevKeys = pressedKeys;
 
@@ -650,25 +733,16 @@ void Editor::handleEvent(Event* e) {
                 this->selected.clear();
             }
         }
-        
-        // Remove the children that show values if selected differs from currently displayed values
-        if (selected.size() != 1 || editSelected != *selected.begin()){
-            // Store pre-modification number of children
-            int tempNumChildren = edit->numChildren();
-
-            //Delete all children beyond the default 20 that are always displayed
-            for (int i = 20; i < tempNumChildren; ++i){
-                edit->removeImmediateChild(edit->getChild(i));
-            }
-
-            // Clear the editable objects
-            editable.clear();
-        }
     } else if (e->getType() == DragStartEvent::DRAG_START_EVENT) {
+        DragStartEvent* event = static_cast<DragStartEvent*>(e);
         this->displacementX.clear();
         this->displacementY.clear();
 
         for (auto object : this->selected) {
+            if (gridSnap && !freeMove){
+                object->position.x -= object->position.x % Editor::GRID_SIZE;
+                object->position.y -= object->position.y % Editor::GRID_SIZE;
+            }
             this->displacementX.insert({object, 0.0});
             this->displacementY.insert({object, 0.0});
         }
@@ -691,7 +765,7 @@ void Editor::handleEvent(Event* e) {
 
                 // Calculate movement threshold
                 double threshold = this->camera->getZoom();
-                if (!(event->modifiers & KMOD_ALT)) {
+                if ((incrSnap || gridSnap) && !freeMove) {
                     // Snap by the grid size if we are not holding alt
                     threshold *= Editor::GRID_SIZE;
                 }
@@ -717,6 +791,12 @@ void Editor::handleEvent(Event* e) {
                 // whereas the result of fmod is [0, denom)
                 this->displacementX.at(object) = fmod(this->displacementX.at(object), threshold);
                 this->displacementY.at(object) = fmod(this->displacementY.at(object), threshold);
+
+                
+            }
+            if (editSelected != NULL){
+                static_pointer_cast<TextObject>(edit->getChild("posXText"))->setText(to_string(editSelected->position.x));
+                static_pointer_cast<TextObject>(edit->getChild("posYText"))->setText(to_string(editSelected->position.y));
             }
         }
     } else if (e->getType() == MouseUpEvent::MOUSE_UP_EVENT) {
@@ -848,7 +928,7 @@ bool Editor::onMouseDown(shared_ptr<DisplayObject> object, MouseDownEvent* event
         }
     }
 
-    if (CollisionSystem::isInside({event->x, event->y}, object->getHitbox())) {
+    if (CollisionSystem::isInside({event->x, event->y}, object->getHitbox()) && object->type != "Camera") {
         if (setParentMode){
             if (object != editSelected && event->wID == SDL_GetWindowID(window)){
                 auto it = std::find(editSelected->parent->children.cbegin(), editSelected->parent->children.cend(), editSelected);
@@ -905,6 +985,15 @@ bool Editor::onMouseUp(shared_ptr<DisplayObject> object, MouseUpEvent* event) {
                 layer = 1;
             } else if (object->id == "layerTwoBackground" || object->id == "layerTwoButton"){
                 layer = 2;
+            } else if (object->id == "freeMoveBackground" || object->id == "freeMoveButton"){
+                freeMove = true;
+                incrSnap = gridSnap = false;
+            } else if (object->id == "incrSnapBackground" || object->id == "incrSnapButton"){
+                incrSnap = true;
+                freeMove = gridSnap = false;
+            } else if (object->id == "gridSnapBackground" || object->id == "gridSnapButton"){
+                gridSnap = true;
+                freeMove = incrSnap = false;
             }
             return false;
         } else if (!(event->modifiers & KMOD_CTRL)) {

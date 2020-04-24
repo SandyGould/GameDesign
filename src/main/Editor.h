@@ -68,6 +68,10 @@ private:
 	bool editWindowActive = false;
 	shared_ptr<DisplayObject> selectedAsset = nullptr;
 
+	bool freeMove = true;
+	bool incrSnap = false;
+	bool gridSnap = false;
+
 	shared_ptr<TextObject> editSelected = nullptr;
 	shared_ptr<TextObject> attributeSelected = nullptr;
 	unordered_set<shared_ptr<DisplayObject>> editable;

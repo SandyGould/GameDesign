@@ -22,7 +22,7 @@ LoadSceneDemo::LoadSceneDemo() : Game(1200, 800) {
 	player->play("Idle");
 
     this->scene = std::make_shared<Scene>(this->camera, this->player);
-    this->scene->loadScene("./resources/loadSceneDemo/three_archer_very_scary.json");
+    this->scene->loadScene("./resources/scene/test.json");
     this->scene->getChild(0)->addChild(player);
     this->scene->camera = this->camera;
 

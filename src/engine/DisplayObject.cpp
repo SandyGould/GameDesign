@@ -103,6 +103,10 @@ DisplayObject::~DisplayObject() {
 
 void DisplayObject::loadTexture(const std::string& filepath, SDL_Renderer* r) {
     image = IMG_Load(filepath.c_str());
+    if (image){
+        height = image->h;
+        width = image->w;
+    }
     texture = SDL_CreateTextureFromSurface(r, image);
     setTexture(texture);
 }
@@ -301,7 +305,9 @@ void DisplayObject::scaleHeight(int h){
 }
 
 void DisplayObject::scaleWidth(int w){
-
+    double ratio = (double) w / (double) width;
+    this->scaleX = ratio;
+    this->scaleY = ratio;
 }
 
 void DisplayObject::getGlobalTransform(AffineTransform& at) const {
