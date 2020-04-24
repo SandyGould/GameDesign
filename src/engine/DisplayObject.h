@@ -132,7 +132,7 @@ private:
 	SDL_Surface* image = nullptr;
 
 	/* Texture currently being drawn. Equal to texture for normal DO */
-	SDL_Texture* curTexture;
+	SDL_Texture* curTexture = nullptr;
 
     // Keep track of any objects that were erased during our update loop,
     // so that we can properly erase them from children afterwards

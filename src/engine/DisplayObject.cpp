@@ -15,10 +15,6 @@ DisplayObject::DisplayObject(const std::string& id) {
     this->saveType = this->type;
 
     this->renderer = Game::renderer;
-
-    this->image = nullptr;
-    this->texture = nullptr;
-    this->curTexture = nullptr;
 }
 
 DisplayObject::DisplayObject(const std::string& id, const std::string& path)
@@ -55,8 +51,7 @@ DisplayObject::DisplayObject(const std::string& id, int red, int green, int blue
     this->loadRGBTexture(red, green, blue, width, height);
 }
 
-// TODO: Needs to copy children
-DisplayObject::DisplayObject(const DisplayObject& other) {
+DisplayObject::DisplayObject(const DisplayObject& other) : enable_shared_from_this(other) {
     this->renderer = other.renderer;
     this->position = other.position;
     this->width = other.width;
@@ -67,16 +62,15 @@ DisplayObject::DisplayObject(const DisplayObject& other) {
     this->rotation = other.rotation; // in radians
     this->facingRight = other.facingRight;
     this->hasCollision = other.hasCollision;
-    // copy(static_cast<DisplayObjectContainer*>(other)->children.begin(),
-    // (static_cast<DisplayObjectContainer*>(other)->children.end()),
-    // back_inserter((static_cast<DisplayObjectContainer*>(this)->children)));
-    // copy(static_cast<DisplayObjectContainer*>(other)->collisionList.begin(),
-    // static_cast<DisplayObjectContainer*>(other)->collisionList.end(),
-    // back_inserter(static_cast<DisplayObjectContainer*>(this)->collisionList));
     this->id = other.id + "_copy";
+    this->type = other.type;
     this->imgPath = other.imgPath;
     this->saveType = other.saveType;
     this->loadTexture(this->imgPath);
+
+    for (auto child : other.children) {
+        this->addChild(std::make_shared<DisplayObject>(*child));
+    }
 }
 
 DisplayObject::~DisplayObject() {
