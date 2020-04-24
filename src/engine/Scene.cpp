@@ -50,8 +50,8 @@ void Scene::loadScene(std::string sceneFilePath){
             // if(json_layer["objects"][y]["parentHierarchy"].size() > 0){
             //     parent = find_parent(json_layer["objects"][y]["parentHierarchy"], temp_layer);
             // } 
-
             std::string obj_type = json_layer["objects"][y]["type"].get<std::string>();
+            std::cout << obj_type << std::endl;
             json mj = json_layer["objects"][y];
             if(obj_type.compare("DisplayObject") == 0){temp_layer->addChild(setBasicInfo(std::make_shared<DisplayObject>(mj["name"], mj["filepath"]), mj));}
             else if(obj_type.compare("AnimatedSprite") == 0){temp_layer->addChild(std::static_pointer_cast<AnimatedSprite>(setBasicInfo(std::make_shared<AnimatedSprite>(mj["name"], mj["sheetpath"], mj["xmlpath"]), mj)));}
