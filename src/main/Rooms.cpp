@@ -112,13 +112,8 @@ Rooms::Rooms() : Game(600, 500) {
 }
 
 Rooms::~Rooms() {
-	//delete camera;
-	//delete scene;
-	//delete health;
-	//delete player;
-	//delete scene2;
+	delete this->collisionSystem;
 }
-
 
 void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {
   	if (sceneChange) {

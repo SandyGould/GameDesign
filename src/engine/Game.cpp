@@ -40,9 +40,6 @@ Game::Game(int windowWidth, int windowHeight) {
 }
 
 Game::~Game() {
-    // We must destroy our own textures BEFORE destroying the renderer
-    // delete container;
-
     quitSDL();
 }
 

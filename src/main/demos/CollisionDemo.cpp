@@ -49,11 +49,7 @@ CollisionDemo::CollisionDemo() : Game(1200, 800) {
 }
 
 CollisionDemo::~CollisionDemo() {
-    // delete camera;
-    // delete scene;
-    // delete parentObj;
-    // delete child1;
-    // delete child2;
+    delete this->collisionSystem;
 }
 
 void CollisionDemo::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {

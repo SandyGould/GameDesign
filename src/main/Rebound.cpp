@@ -160,6 +160,7 @@ Rebound::Rebound() : Game(1200, 800) {
 }
 
 Rebound::~Rebound() {
+    delete this->collisionSystem;
 }
 
 void Rebound::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {
