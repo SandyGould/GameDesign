@@ -1,4 +1,5 @@
 #include "EventDispatcher.h"
+#include "DisplayTreeChangeEvent.h"
 #include <iostream>
 
 EventDispatcher::EventDispatcher() {}
@@ -22,6 +23,13 @@ void EventDispatcher::removeEventListener(EventListener* l, std::string eventTyp
         }
     }
     vl.erase(vl.begin() + listener_index);
+}
+
+void EventDispatcher::newCollisionSystemListener(EventListener* l) {
+    auto vl = listeners.at(DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
+    vl.clear();
+
+    vl.push_back(l);
 }
 
 bool EventDispatcher::hasEventListener(EventListener* l, std::string eventType) {

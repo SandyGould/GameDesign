@@ -1,6 +1,7 @@
 #include "SceneManager.h"
 #include "events/NewSceneEvent.h"
 #include "events/TweenEvent.h"
+#include "events/DisplayTreeChangeEvent.h"
 #include "Camera.h"
 #include "things/Player.h"
 #include "tweens/TweenJuggler.h"
@@ -247,6 +248,7 @@ void SceneManager::loadNextScene() {
     // create collision system
     // delete collisionSystem;
     this->collisionSystem = std::make_shared<CollisionSystem>();
+    EventDispatcher::getInstance().newCollisionSystemListener(this->collisionSystem.get());
     // set collisions between player and all environmental objects
     this->collisionSystem->watchForCollisions("player", "WalkOnObject");
     this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
