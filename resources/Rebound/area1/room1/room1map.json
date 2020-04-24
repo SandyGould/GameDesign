@@ -17,7 +17,7 @@
                     },
                     {
                         "type":"WalkOnObject",
-                        "name":"spike",
+                        "name":"mud",
                         "filepath":"./resources/Rebound/area1/room1/assets/mud.png",
                         "x_pos":400,
                         "y_pos":200,

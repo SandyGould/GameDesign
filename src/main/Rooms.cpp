@@ -131,9 +131,9 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 	this->sceneManager->updateScene();
 	health->updateHealth();
 	Game::update(pressedKeys, joystickState, pressedButtons);
-	player->slowed = false;
+	player->speedChange = false;
     this->collisionSystem->update();
-	if(!player->slowed){
+	if(!player->speedChange){
 		player->speed = 4;
 	}
     camera->follow(player->position.x, player->position.y);

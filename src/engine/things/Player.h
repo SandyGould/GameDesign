@@ -23,7 +23,7 @@ public:
 	bool onCollision(std::shared_ptr<DisplayObject> other) override;
 	std::shared_ptr<Shield> shield;
 	double speed = 4;
-	bool slowed = false;
+	bool speedChange = false;
 	int health = 100;
 	int stamina = 1000;
 
