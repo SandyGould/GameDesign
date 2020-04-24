@@ -150,7 +150,7 @@ void DisplayObject::setTexture(SDL_Texture* t) {
 }
 
 void DisplayObject::addChild(std::shared_ptr<DisplayObject> child) {
-    if (this->parent != this) {
+    if (child->parent != this) {
         children.push_back(child);
         child->parent = this; // make sure to include reverse reference also
 
