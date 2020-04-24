@@ -42,11 +42,11 @@ void StatBar::updateHealth(){
     // Player health always maxed at 100
     if (this->player->health > 0){
         this->scaleX = player->health * 0.01; // Convert 100 -> 1 scale
-        std::cout << "Your current health is: " << player->health << std::endl;
+        // std::cout << "Your current health is: " << player->health << std::endl;
     }
     else{
         this->scaleX = 0;
-        std::cout << "Sorry, you're dead! " << std::endl;
+        // std::cout << "Sorry, you're dead! " << std::endl;
         // Potentially add a tween fade out for player
         // EventDispatch death screen
     }
