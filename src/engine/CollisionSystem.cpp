@@ -30,20 +30,9 @@ void CollisionSystem::buildDisplayMap(shared_ptr<DisplayObject> object) {
 //checks collisions between pairs of DOs where the corresponding types have been requested
 //to be checked (via a single call to watchForCollisions) below.
 void CollisionSystem::update() {
-    // Clear ourselves of any deleted elements
-    for (auto object : objectsToErase) {
-        collisionPairs.erase(remove_if(collisionPairs.begin(),
-                                       collisionPairs.end(),
-                                       [&](auto x) {
-                                         return x.first == object || x.second == object;
-                                       }),
-                             collisionPairs.cend());
-    }
-    objectsToErase.clear();
-
     for (auto& [object1, object2] : collisionPairs) {
         // Before we do anything! We must make sure we're not trying to
-        // operate on objects that have already been deleted
+        // operate on objects that have already been removed
         // (We cannot delete them from collisionPairs immediately b/c
         // that would invalidate the iterator we're looping on)
         if (find(objectsToErase.cbegin(), objectsToErase.cend(), object1) != objectsToErase.cend() ||
@@ -75,6 +64,23 @@ void CollisionSystem::update() {
             resolveCollision(object1, object2, xD1, yD1, xD2, yD2);
         }
     }
+
+    // Add new pairs
+    while (!pairsToAdd.empty()) {
+        collisionPairs.emplace_back(pairsToAdd.front());
+        pairsToAdd.pop();
+    }
+
+    // Clear ourselves of any deleted elements
+    for (auto object : objectsToErase) {
+        collisionPairs.erase(remove_if(collisionPairs.begin(),
+                                       collisionPairs.end(),
+                                       [&](auto x) {
+                                         return x.first == object || x.second == object;
+                                       }),
+                             collisionPairs.cend());
+    }
+    objectsToErase.clear();
 
     // Update previous positions
     for (auto& [object, _] : prevPositions) {
@@ -147,16 +153,16 @@ void CollisionSystem::pairObjectWithType(shared_ptr<DisplayObject> object, const
         // Here, we sort by type then ID to make sure the unordered_set
         // doesn't contain duplicates.
         if (object->type < type) {
-            collisionPairs.emplace_back(object, object2);
+            pairsToAdd.emplace(object, object2);
         } else if (object->type == type) {
             // Don't register for collision if the two objects are the same
             if (object->id < object2->id) {
-                collisionPairs.emplace_back(object, object2);
+                pairsToAdd.emplace(object, object2);
             } else if (object->id > object2->id) {
-                collisionPairs.emplace_back(object2, object);
+                pairsToAdd.emplace(object2, object);
             }
         } else {
-            collisionPairs.emplace_back(object2, object);
+            pairsToAdd.emplace(object2, object);
         }
 
         // Keep track of positions for collision deltas

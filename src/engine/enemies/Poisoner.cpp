@@ -55,7 +55,7 @@ void Poisoner::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const
     }
     else if(this->state == 3){
         std::shared_ptr<PoisonBomb> bomb = std::make_shared<PoisonBomb>();
-        this->parent->addChild(bomb);
+        parent->addChild(bomb);
         bomb->position = this->position;
         this->actionFrames--;
         //place poison

@@ -38,7 +38,7 @@ Editor::Editor(const string& sceneToLoad)
 
     curScene->loadScene_Editor(sceneToLoad);
     
-    for (const auto& layer : curScene->children) {
+    for (auto layer : curScene->children) {
         static_pointer_cast<Layer>(layer)->cam = camera;
     }
 
@@ -496,7 +496,7 @@ void Editor::copy(const unordered_set<shared_ptr<DisplayObject>>& objects, bool 
         copy->position.y += 16;
 
         if (!keepHierarchy){
-            copy->parent = NULL;
+            // copy->parent = NULL;
             copy->children.clear();
         }
 

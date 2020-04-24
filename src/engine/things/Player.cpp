@@ -14,15 +14,6 @@ Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites
     history = new std::unordered_set<SDL_Scancode> [HISTORY_SIZE];
     shieldSwitchCooldown = 0;
     shieldBashCooldown = 0;
-
-    shield = std::make_shared<Shield>();
-	this->addChild(shield);
-	shield->position.x = 105;
-	shield->position.y = 10;
-	shield->width = 10;
-	shield->height = 70;
-	shield->pivot = {50, 50};
-    shield->visible = false;
 }
 
 void Player::changeHealth(int amount) {
@@ -41,6 +32,15 @@ void Player::changeStamina(int amount) {
 }
 
 void Player::toggleShieldVisible(bool vis) {
+    if (!shield) {
+        shield = std::make_shared<Shield>();
+        this->addChild(shield);
+        shield->position.x = 105;
+        shield->position.y = 10;
+        shield->width = 10;
+        shield->height = 70;
+        shield->pivot = {50, 50};
+    }
     shield->visible = vis;
 }
 

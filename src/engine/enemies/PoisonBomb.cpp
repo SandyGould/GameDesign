@@ -29,7 +29,7 @@ void PoisonBomb::explode(){
         this->alpha = 50;
     }
     if(this->explosionTime == 0){
-        this->parent->removeImmediateChild(std::shared_ptr<PoisonBomb>(this));
+        this->removeThis();
     }
     this->scaleX+= 0.5;
     this->scaleY+= 0.5;

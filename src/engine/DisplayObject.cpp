@@ -122,8 +122,8 @@ void DisplayObject::loadRGBTexture(int red, int green, int blue, int width, int 
 
 // TODO: Can this just pull from getGlobalTransform
 SDL_Point DisplayObject::getGlobalPosition() const {
-    std::shared_ptr<DisplayObject> parent = this->parent;
-    std::vector<std::shared_ptr<DisplayObject>> parentList;
+    DisplayObject* parent = this->parent;
+    std::vector<DisplayObject*> parentList;
     while (parent != nullptr) {
         parentList.push_back(parent);
         parent = parent->parent;
@@ -155,9 +155,9 @@ void DisplayObject::setTexture(SDL_Texture* t) {
 }
 
 void DisplayObject::addChild(std::shared_ptr<DisplayObject> child) {
-    if (child->parent != std::shared_ptr<DisplayObject>(this)) {
+    if (this->parent != this) {
         children.push_back(child);
-        child->parent = std::shared_ptr<DisplayObject>(this); // make sure to include reverse reference also
+        child->parent = this; // make sure to include reverse reference also
 
         auto* event = new DisplayTreeChangeEvent(child, true);
         EventDispatcher::getInstance().dispatchEvent(event);
@@ -493,7 +493,8 @@ void DisplayObject::handleEvent(Event* e){
                 for (auto child : children) {
                     this->removeImmediateChild(child);
                 }
-                this->parent->removeImmediateChild(this->id);
+
+                this->removeThis();
             }
         }
     }
@@ -502,7 +503,7 @@ void DisplayObject::handleEvent(Event* e){
         EventDispatcher::getInstance().removeEventListener(this, NewSceneEvent::SCALE_OUT_EVENT);
         double curScaleX = this->scaleX;
         double curScaleY = this->scaleY;
-        std::shared_ptr<Tween> out_transition = std::make_shared<Tween>("out_transition", std::shared_ptr<DisplayObject>(this));
+        std::shared_ptr<Tween> out_transition = std::make_shared<Tween>("out_transition", shared_from_this());
 		out_transition->animate(TweenableParams::SCALE_X, curScaleX, 0, 200, TweenParam::EASE_IN);
 		out_transition->animate(TweenableParams::SCALE_Y, curScaleY, 0, 200, TweenParam::EASE_IN);
 		TweenJuggler::getInstance().add(out_transition);
@@ -510,14 +511,14 @@ void DisplayObject::handleEvent(Event* e){
     // scale in event
     if (e->getType() == NewSceneEvent::SCALE_IN_EVENT) {
         EventDispatcher::getInstance().removeEventListener(this, NewSceneEvent::SCALE_IN_EVENT);
-        std::shared_ptr<Tween> in_transition = std::make_shared<Tween>("in_transition", std::shared_ptr<DisplayObject>(this));
+        std::shared_ptr<Tween> in_transition = std::make_shared<Tween>("in_transition", shared_from_this());
 		in_transition->animate(TweenableParams::SCALE_X, 0, 1, 200, TweenParam::EASE_IN);
 		in_transition->animate(TweenableParams::SCALE_Y, 0, 1, 200, TweenParam::EASE_IN);
 		TweenJuggler::getInstance().add(in_transition);
     }
     // scale in event
     if (e->getType() == NewSceneEvent::FADE_IN_EVENT || e->getType() == NewSceneEvent::FADE_OUT_EVENT) {
-        propogateEvent(e, std::shared_ptr<DisplayObject>(this));
+        propogateEvent(e, shared_from_this());
     }
 
 }

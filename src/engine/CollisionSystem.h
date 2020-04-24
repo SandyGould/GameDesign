@@ -3,6 +3,8 @@
 #include "DisplayObject.h"
 #include "events/EventListener.h"
 
+#include <queue>
+
 using namespace std;
 
 enum class Orientation {
@@ -63,7 +65,8 @@ private:
     // i.e. obj->position, NOT obj->getHitbox().ul
     unordered_map<std::shared_ptr<DisplayObject>, SDL_Point> prevPositions;
 
-    // Keep track of any objects that were erased during our update loop,
-    // so that we can properly erase them from collisionPairs afterwards
+    // Keep track of any objects that were added/erased during our update loop,
+    // so that we can properly add/erase them to/from collisionPairs afterwards
+    queue<pair<std::shared_ptr<DisplayObject>, std::shared_ptr<DisplayObject>>> pairsToAdd;
     vector<std::shared_ptr<DisplayObject>> objectsToErase;
 };

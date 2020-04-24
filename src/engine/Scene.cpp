@@ -423,8 +423,8 @@ void Scene::addToJSON(json &Layer, std::shared_ptr<DisplayObject> dObject){
     if (dObject){
         for (auto child : dObject->children){
             std::vector<std::string> tempVec;
-            std::shared_ptr<DisplayObject> tempDO = child->parent;
-            while (tempDO != NULL){
+            auto tempDO = child->parent;
+            while (tempDO != nullptr){
                 tempVec.push_back(tempDO->id);
                 tempDO = tempDO->parent;
             }

@@ -37,7 +37,7 @@ struct Hitbox {
     SDL_Point lr;
 };
 
-class DisplayObject : public EventListener {
+class DisplayObject : public EventListener, public std::enable_shared_from_this<DisplayObject> {
 
 public:
 	std::string id = "DEFAULT_ID";
@@ -45,7 +45,9 @@ public:
 	std::string type = "DisplayObject";
 	std::string saveType;
 
-	std::shared_ptr<DisplayObject> parent = nullptr;
+    // Purposely not a weak_ptr!
+    // We do not control the parent, and we need references to it in the constructor
+	DisplayObject* parent = nullptr;
 
 	int red = 0;
 	int green = 0;
