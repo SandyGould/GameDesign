@@ -122,9 +122,6 @@ void SceneManager::deleteScene(std::string id) {
             if (EventDispatcher::getInstance().hasEventListener(iter.get(), NewSceneEvent::FADE_IN_EVENT)) {
 		        EventDispatcher::getInstance().removeEventListener(iter.get(), NewSceneEvent::FADE_IN_EVENT);
 	        }
-            if (EventDispatcher::getInstance().hasEventListener(iter.get(), NewSceneEvent::SCALE_OUT_EVENT)) {
-		        EventDispatcher::getInstance().removeEventListener(iter.get(), NewSceneEvent::SCALE_OUT_EVENT);
-	        }
             // delete iter;
             break;
         }
