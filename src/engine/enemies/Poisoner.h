@@ -5,7 +5,7 @@
 
 class Poisoner : public BaseEnemy{
     public:
-        Poisoner(Player* player);
+        Poisoner(std::shared_ptr<Player> player);
         void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
     private:
         int actionFrames;

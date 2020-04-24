@@ -2,9 +2,9 @@
 #include "../events/EventDispatcher.h"
 #include <iostream>
 
-MageAttack::MageAttack() : Projectile("mage_attack", "./resources/assets/Animated_Sprites/Enemies/Mage/mageAttack.png", 25){
-    this->width = 30;
-    this->height= 30;
+MageAttack::MageAttack() : Projectile("mage_attack", "./resources/assets/Animated_Sprites/Enemies/Mage/mageAttack.png", 12){
+    this->width = 40;
+    this->height= 40;
     this->type = "mage_attack";
     this->saveType = this->type;
 };

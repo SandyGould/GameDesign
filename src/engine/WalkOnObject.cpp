@@ -30,15 +30,15 @@ void WalkOnObject::draw(AffineTransform& at){
 	DisplayObject::draw(at);
 }
 
-bool WalkOnObject::onCollision(DisplayObject* other){
+bool WalkOnObject::onCollision(std::shared_ptr<DisplayObject> other){
 	if(this->id == "shield_power_up" && other->type == "player"){
 		this->visible = false;
-		Player * player = dynamic_cast<Player*>(other);
+		auto player = std::static_pointer_cast<Player>(other);
 		player->toggleShieldVisible(true);
 		return true;
 	}
 	else if ((this->id == "mud" || this->id == "ice") && other->type == "player"){
-		Player* player = (Player*)other;
+		auto player = std::static_pointer_cast<Player>(other);
 		player->speed = 0.5;
 		player->slowed = true;
 		return true;

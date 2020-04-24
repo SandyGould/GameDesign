@@ -50,7 +50,7 @@ AnimatedSprite::AnimatedSprite(const DisplayObject& other) : Sprite(other.id){
         this->hasCollision = AS->hasCollision;
         parse(this->xmlpath);
         this->imgPath = other.imgPath;
-        this->loadTexture(this->imgPath, Game::renderer);
+        this->loadTexture(this->imgPath);
     } else{
         this->type = "AnimatedSprite";
         this->id = "FAILED_COPY";

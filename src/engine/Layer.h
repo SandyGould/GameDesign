@@ -20,7 +20,7 @@ public:
 
 	void setParallax();
 	void draw(AffineTransform &at) override;
-	Camera* cam;
+	std::shared_ptr<Camera> cam;
 
 private:
 };

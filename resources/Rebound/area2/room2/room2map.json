@@ -2,83 +2,149 @@
     "Scene":[
         {
             "L0":{
-                "speed":1,
+                "speed":0,
                 "objects":[
                     {
                         "type":"Sprite",
                         "name":"background",
-                        "filepath":"./resources/Rebound/area1/room2/assets/background.png",
-                        "x_pos":100,
+                        "filepath":"./resources/Rebound/area2/room2/assets/area2_2_background.png",
+                        "x_pos":0,
                         "y_pos":0,
                         "rotation":0,
-                        "scaleX":9,
+                        "scaleX":12,
                         "scaleY":5,
                         "parentHierarchy":[]
                     },
                     {
                         "type":"EnvironmentObject",
-                        "name":"structure1",
-                        "filepath":"./resources/Rebound/area1/room2/assets/structure_1.png",
-                        "x_pos": 800,
-                        "y_pos": 0,
+                        "name":"wall1",
+                        "filepath":"./resources/Rebound/area2/room2/assets/area2_2_wall.png",
+                        "x_pos":240,
+                        "y_pos":95,
+                        "rotation":0,
+                        "scaleX":3.43,
+                        "scaleY":0.31,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"wall2",
+                        "filepath":"./resources/Rebound/area2/room2/assets/area2_2_wall.png",
+                        "x_pos":240,
+                        "y_pos":406,
+                        "rotation":0,
+                        "scaleX":3.43,
+                        "scaleY":0.31,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"rock1",
+                        "filepath":"./resources/Rebound/area2/room2/assets/rock.png",
+                        "x_pos": 240,
+                        "y_pos": 125,
                         "rotation": 0,
-                        "scaleX": 1.5,
-                        "scaleY":0.25,
+                        "scaleX":0.34,
+                        "scaleY":0.32,
                         "parentHierarchy":[]
                     },
                     {
                         "type":"EnvironmentObject",
-                        "name":"structure2",
-                        "filepath":"./resources/Rebound/area1/room2/assets/structure_2.png",
-                        "x_pos":900,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":0.5,
-                        "scaleY":0.25,
+                        "name":"rock2",
+                        "filepath":"./resources/Rebound/area2/room2/assets/rock.png",
+                        "x_pos": 240,
+                        "y_pos": 187,
+                        "rotation": 0,
+                        "scaleX":0.34,
+                        "scaleY":0.32,
                         "parentHierarchy":[]
                     },
                     {
                         "type":"EnvironmentObject",
-                        "name":"barrel",
-                        "filepath":"./resources/Rebound/area1/room2/assets/barrel_tile.png",
-                        "x_pos": 850,
-                        "y_pos": 70,
-                        "rotation":0,
-                        "scaleX":0.1,
-                        "scaleY":0.1,
+                        "name":"rock3",
+                        "filepath":"./resources/Rebound/area2/room2/assets/rock.png",
+                        "x_pos": 240,
+                        "y_pos": 312,
+                        "rotation": 0,
+                        "scaleX":0.34,
+                        "scaleY":0.32,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"rock4",
+                        "filepath":"./resources/Rebound/area2/room2/assets/rock.png",
+                        "x_pos": 240,
+                        "y_pos": 374,
+                        "rotation": 0,
+                        "scaleX":0.34,
+                        "scaleY":0.32,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"rock5",
+                        "filepath":"./resources/Rebound/area2/room2/assets/rock.png",
+                        "x_pos": 550,
+                        "y_pos": 125,
+                        "rotation": 0,
+                        "scaleX":0.34,
+                        "scaleY":0.32,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"rock6",
+                        "filepath":"./resources/Rebound/area2/room2/assets/rock.png",
+                        "x_pos": 550,
+                        "y_pos": 187,
+                        "rotation": 0,
+                        "scaleX":0.34,
+                        "scaleY":0.32,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"rock7",
+                        "filepath":"./resources/Rebound/area2/room2/assets/rock.png",
+                        "x_pos": 550,
+                        "y_pos": 312,
+                        "rotation": 0,
+                        "scaleX":0.34,
+                        "scaleY":0.32,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"rock8",
+                        "filepath":"./resources/Rebound/area2/room2/assets/rock.png",
+                        "x_pos": 550,
+                        "y_pos": 374,
+                        "rotation": 0,
+                        "scaleX":0.34,
+                        "scaleY":0.32,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"rock9",
+                        "filepath":"./resources/Rebound/area2/room2/assets/rock.png",
+                        "x_pos": 1130,
+                        "y_pos": 235,
+                        "rotation": 0,
+                        "scaleX":0.34,
+                        "scaleY":0.32,
                         "parentHierarchy":[]
                     },
                     {
                         "type":"WalkOnObject",
-                        "name":"shield_power_up",
-                        "filepath": "./resources/Rebound/area1/room2/assets/shield.png",
-                        "x_pos": 300,
-                        "y_pos": 250,
+                        "name":"chest",
+                        "filepath":"./resources/Rebound/area2/room2/assets/Chest.png",
+                        "x_pos":400,
+                        "y_pos":245,
                         "rotation":0,
-                        "scaleX":0.3,
-                        "scaleY":0.3,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"Archer",
-                        "name":"archer1",
-                        "filepath": "./resources/assets/Display_Objects/archer.png",
-                        "x_pos": 400,
-                        "y_pos": 100,
-                        "rotation":0,
-                        "scaleX":0.5,
-                        "scaleY":0.5,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"Archer",
-                        "name":"archer2",
-                        "filepath": "./resources/assets/Display_Objects/archer.png",
-                        "x_pos": 800,
-                        "y_pos": 300,
-                        "rotation":0,
-                        "scaleX": -0.5,
-                        "scaleY": 0.5,
+                        "scaleX":0.4,
+                        "scaleY":0.35,
                         "parentHierarchy":[]
                     }
                 ]
@@ -87,7 +153,7 @@
         {
             "L1":{
                 "speed":1,
-                "objects":[ ]
+                "objects":[]
             }
         },
         {

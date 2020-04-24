@@ -15,8 +15,8 @@ target_sources(rebound PRIVATE
         Layer.cpp
         QuestManager.cpp
         Scene.cpp
+        SceneManager.cpp
         Sprite.cpp
         StatBar.cpp
         TextObject.cpp
-        WalkOnObject.cpp
-        pugixml.cpp)
+        WalkOnObject.cpp)

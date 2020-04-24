@@ -7,9 +7,9 @@
 class Cannoneer : public BaseEnemy{
 
     public:
-        Cannoneer(Player* player);
+        explicit Cannoneer(std::shared_ptr<Player> player);
         void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
-        Projectile* cannonball;
+        std::shared_ptr<Projectile> cannonball;
     private:
         int wait = 0;
 };

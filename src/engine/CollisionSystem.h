@@ -3,6 +3,8 @@
 #include "DisplayObject.h"
 #include "events/EventListener.h"
 
+#include <queue>
+
 using namespace std;
 
 enum class Orientation {
@@ -15,7 +17,7 @@ class CollisionSystem : public EventListener {
 
 public:
     CollisionSystem();
-    ~CollisionSystem() = default;
+    ~CollisionSystem();
 
     //checks collisions between pairs of DOs where the corresponding types have been requested
     //to be checked (via a single call to watchForCollisions) below.
@@ -34,32 +36,37 @@ public:
     static bool isInside(SDL_Point point, Hitbox hitbox);
 
 private:
-    void buildDisplayMap(DisplayObject* object);
+    void buildDisplayMap(shared_ptr<DisplayObject> object);
 
-    void pairObjectWithType(DisplayObject* object, const string& type);
+    void pairObjectWithType(shared_ptr<DisplayObject> object, const string& type);
 
     // Returns true iff obj1 hitbox and obj2 hitbox overlap
-    static bool collidesWith(DisplayObject* obj1, DisplayObject* obj2);
+    static bool collidesWith(shared_ptr<DisplayObject> obj1, shared_ptr<DisplayObject> obj2);
 
     // Resolves the collision that occurred between d and other
     // xDelta1 and yDelta1 are the amount d moved before causing the collision.
     // xDelta2 and yDelta2 are the amount other moved before causing the collision.
-    static void resolveCollision(DisplayObject* d, DisplayObject* other, int xDelta1, int yDelta1, int xDelta2, int yDelta2);
+    static void resolveCollision(shared_ptr<DisplayObject> d, shared_ptr<DisplayObject> other, int xDelta1, int yDelta1, int xDelta2, int yDelta2);
 
     static bool isIntersecting(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2);
+    static bool isIntersecting(Hitcircle hitcircle, pair<SDL_Point, SDL_Point> line);
     static Orientation getOrientation(SDL_Point p1, SDL_Point p2, SDL_Point p3);
-    static SDL_Point getCenter(std::pair<SDL_Point, SDL_Point> line1, std::pair<SDL_Point, SDL_Point> line2);
 
     // platform -> [platform1, platform2, platform3, ...]
-    unordered_map<string, unordered_set<DisplayObject*>> displayObjectsMap;
+    unordered_map<string, unordered_set<std::shared_ptr<DisplayObject>>> displayObjectsMap;
 
     // {[player, platform1], [player, platform2], ...}
-    vector<pair<DisplayObject*, DisplayObject*>> collisionPairs;
+    vector<pair<std::shared_ptr<DisplayObject>, std::shared_ptr<DisplayObject>>> collisionPairs;
 
     // player -> [player, platform, ...]
     unordered_map<string, unordered_set<string>> collisionTypes;
 
     // *Must* be local coordinates!
     // i.e. obj->position, NOT obj->getHitbox().ul
-    unordered_map<DisplayObject*, SDL_Point> prevPositions;
+    unordered_map<std::shared_ptr<DisplayObject>, SDL_Point> prevPositions;
+
+    // Keep track of any objects that were added/erased during our update loop,
+    // so that we can properly add/erase them to/from collisionPairs afterwards
+    queue<pair<std::shared_ptr<DisplayObject>, std::shared_ptr<DisplayObject>>> pairsToAdd;
+    vector<std::shared_ptr<DisplayObject>> objectsToErase;
 };

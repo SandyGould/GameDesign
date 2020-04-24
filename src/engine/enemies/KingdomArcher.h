@@ -5,7 +5,7 @@
 
 class KingdomArcher : public Archer{
     public:
-        KingdomArcher(Player* player);
+        KingdomArcher(std::shared_ptr<Player> player);
 };
 
 #endif
