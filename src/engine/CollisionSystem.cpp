@@ -100,23 +100,32 @@ void CollisionSystem::handleEvent(Event* e) {
         shared_ptr<DisplayObject> object(event->object);
         const string type = object->type;
         if (event->added) {
-            auto it = displayObjectsMap.find(type);
-            if (it != displayObjectsMap.cend()) {
-                it->second.emplace(object);
-            } else {
-                displayObjectsMap.try_emplace(type, unordered_set<shared_ptr<DisplayObject>>{object});
-            }
-
-            if (collisionTypes.find(type) != collisionTypes.cend()) {
-                for (auto& otherType : collisionTypes.at(type)) {
-                    if (displayObjectsMap.find(otherType) != displayObjectsMap.cend()) {
-                        this->pairObjectWithType(object, otherType);
-                    }
-                }
-            }
+            addObjects(object);
         } else {
             eraseObjects(object);
         }
+    }
+}
+
+void CollisionSystem::addObjects(const shared_ptr<DisplayObject>& object) {
+    auto type = object->type;
+    auto it = displayObjectsMap.find(type);
+    if (it != displayObjectsMap.cend()) {
+        it->second.emplace(object);
+    } else {
+        displayObjectsMap.try_emplace(type, unordered_set<shared_ptr<DisplayObject>>{object});
+    }
+
+    if (collisionTypes.find(type) != collisionTypes.cend()) {
+        for (auto& otherType : collisionTypes.at(type)) {
+            if (displayObjectsMap.find(otherType) != displayObjectsMap.cend()) {
+                this->pairObjectWithType(object, otherType);
+            }
+        }
+    }
+
+    for (const auto& child : object->children) {
+        addObjects(child);
     }
 }
 
@@ -130,8 +139,6 @@ void CollisionSystem::eraseObjects(const shared_ptr<DisplayObject>& object) {
 
     displayObjectsMap.at(object->type).erase(object);
     prevPositions.erase(object);
-
-    // cout << "Preparing to erase " << object->id << endl;
 
     for (const auto& child : object->children) {
         eraseObjects(child);
