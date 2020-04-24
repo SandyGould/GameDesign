@@ -2,6 +2,9 @@
 
 #include <iostream>
 
+#define ATTACK_CHARGE 120
+#define ATTACK_COOLDOWN 221
+
 Mage::Mage(std::shared_ptr<Player> player) : BaseEnemy("mage", "./resources/assets/Animated_Sprites/Enemies/Mage/Mage.png", "", player) {
     hasCollision = true;
     this->saveType = "mage";
@@ -34,10 +37,14 @@ void Mage::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
         this->state = 2;
     }
     else if(this->state == 2){
-        this->ready--;
-        if(this->ready==240){
+        if(this->ready == ATTACK_COOLDOWN){
             this->mageAttack = std::make_shared<MageAttack>();
+            this->mageAttack->position = {-40, -10};
      		this->addChild(mageAttack);
+            mageAttack->visible =false;
+        }
+        this->ready--;
+        if(this->ready==ATTACK_CHARGE){
             mageAttack->visible=true;
             this->state = 3;
         }
@@ -47,7 +54,7 @@ void Mage::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
         if(this->ready == 0){
             this->mageAttack->target = this->mageAttack->aim(player);
             this->mageAttack->fire();
-            this->ready = 301;
+            this->ready = ATTACK_COOLDOWN;
             this->state = 2;
         }
     }

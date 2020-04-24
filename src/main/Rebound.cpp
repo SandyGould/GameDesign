@@ -16,7 +16,7 @@ Rebound::Rebound() : Game(1200, 800) {
 	// move that point to the middle
 	allSprites->position = {200, 100};
 	container->addChild(allSprites);
-	player = std::make_shared<Player>();
+	player = make_shared<Player>();
 	player->position = {0, 0};
 	player->width = 110;
 	player->height = 80;
@@ -25,19 +25,19 @@ Rebound::Rebound() : Game(1200, 800) {
 	player->shield->visible = true;
 	allSprites->addChild(player);
 
-	/*mage = new Mage(player);
+	mage = make_shared<Mage>(player);
 	mage->position = {400, 400};
 	mage->height = 80;
 	mage->width = 70;
 
 	allSprites->addChild(mage);
 
-    archer = new Archer(player);
-    archer-> position = {200,200};
-    archer->height = 80;
-    archer->width = 70;
-
-    allSprites->addChild(archer);*/
+    // archer = new Archer(player);
+    // archer-> position = {200,200};
+    // archer->height = 80;
+    // archer->width = 70;
+	//
+    // allSprites->addChild(archer);
 
 	// ogre = new Ogre(player);
     // ogre-> position = {200,200};
@@ -47,12 +47,12 @@ Rebound::Rebound() : Game(1200, 800) {
 	//
     // allSprites->addChild(ogre);
 
-	mKing = std::make_shared<MonsterKing>(player);
-    mKing->position = {300,200};
-    mKing->height = 160;
-    mKing->width = 150;
-
-    allSprites->addChild(mKing);
+	// mKing = std::make_shared<MonsterKing>(player);
+    // mKing->position = {300,200};
+    // mKing->height = 160;
+    // mKing->width = 150;
+	//
+    // allSprites->addChild(mKing);
 
 	/*masterArcher = new MasterArcher(player);
     masterArcher-> position = {500,500};
