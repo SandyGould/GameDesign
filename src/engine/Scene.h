@@ -54,20 +54,20 @@ class Scene : public DisplayObject {
 
 public:
 	Scene();
-	Scene(Camera* camera, Player* player);
+	Scene(std::shared_ptr<Camera> camera, std::shared_ptr<Player> player);
 	explicit Scene(std::string id);
-	// ~Scene() override;
+	~Scene() override = default;
 
 	/* Load scene from a file */
 	void loadScene(std::string sceneFilePath);
 	void loadScene_Editor(std::string sceneFilePath);
 	void saveScene(std::string sceneName);
-	void addToJSON(nlohmann::json &Layer, DisplayObject* dObject);
+	void addToJSON(nlohmann::json &Layer, std::shared_ptr<DisplayObject> dObject);
 
 	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
 	void draw(AffineTransform& at) override;
 
-	DisplayObject* setBasicInfo(DisplayObject* d_obj, json j);
+	std::shared_ptr<DisplayObject> setBasicInfo(std::shared_ptr<DisplayObject> d_obj, json j);
   /*
 	DisplayObject* generateDO(json j);
 	AnimatedSprite* generateAS(json j);
@@ -90,13 +90,14 @@ public:
 	Player* p = NULL;
   */
 
-
-	Player* player;
-	Camera* camera;
+	// for scene transitions
+	bool keepScene = false;
+	std::shared_ptr<Player> player;
+	std::shared_ptr<Camera> camera;
 
 	// pointers to previous and next scenes
-	Scene* prevScene = NULL;
-	Scene* nextScene = NULL;
+	std::shared_ptr<Scene> prevScene = NULL;
+	std::shared_ptr<Scene> nextScene = NULL;
 
 	// define SDL points for advancing to next scene, or going back to previous scene
 	SDL_Point goForward = {1200,200};
@@ -123,6 +124,6 @@ public:
 	std::string scenePath = "";
 
 private:
-	DisplayObject* root;
+	std::shared_ptr<DisplayObject> root;
 
 };

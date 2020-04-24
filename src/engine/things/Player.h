@@ -20,8 +20,8 @@ public:
 	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
 	void draw(AffineTransform& at) override;
 
-	bool onCollision(DisplayObject* other) override;
-	Shield* shield;
+	bool onCollision(std::shared_ptr<DisplayObject> other) override;
+	std::shared_ptr<Shield> shield;
 	double speed = 4;
 	bool slowed = false;
 
@@ -31,13 +31,13 @@ private:
 	int shieldSwitchCooldown;
 	int shieldBashCooldown;
 	bool hit;
-	void cannonBallHit(DisplayObject* other);
+	void cannonBallHit(std::shared_ptr<DisplayObject> other);
 	std::unordered_set<SDL_Scancode>* history;
 
 	void updateHistory(std::unordered_set<SDL_Scancode> pressedKeys);
 	bool checkDoubleTaps(SDL_Scancode key);
 
-	Tween* shieldBash;
+	std::shared_ptr<Tween> shieldBash;
 
 };
 

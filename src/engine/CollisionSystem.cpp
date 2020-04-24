@@ -11,15 +11,19 @@ CollisionSystem::CollisionSystem() {
     EventDispatcher::getInstance().addEventListener(this, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
 
     // Keep track of any objects that were added before we were created
-    this->buildDisplayMap(Game::instance);
+    this->buildDisplayMap(Game::instance->container);
 }
 
-void CollisionSystem::buildDisplayMap(DisplayObject* object) {
+CollisionSystem::~CollisionSystem() {
+    EventDispatcher::getInstance().removeEventListener(this, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
+}
+
+void CollisionSystem::buildDisplayMap(shared_ptr<DisplayObject> object) {
     auto it = displayObjectsMap.find(object->type);
     if (it != displayObjectsMap.cend()) {
         it->second.insert(object);
     } else {
-        displayObjectsMap.try_emplace(object->type, unordered_set<DisplayObject*>({object}));
+        displayObjectsMap.try_emplace(object->type, unordered_set<shared_ptr<DisplayObject>>({object}));
     }
 
     for (auto child : object->children) {
@@ -30,19 +34,31 @@ void CollisionSystem::buildDisplayMap(DisplayObject* object) {
 //checks collisions between pairs of DOs where the corresponding types have been requested
 //to be checked (via a single call to watchForCollisions) below.
 void CollisionSystem::update() {
+    cout << "collisionPair's size is: " << collisionPairs.size() << endl;
     for (auto& [object1, object2] : collisionPairs) {
-        if(object1 == NULL || object2 == NULL){
-            continue;
+        // Before we do anything! We must make sure we're not trying to
+        // operate on objects that have already been removed
+        // (We cannot delete them from collisionPairs immediately b/c
+        // that would invalidate the iterator we're looping on)
+        cout << "checking objects to erase" << endl;
+        // cout << "cbegin " << objectsToErase.cbegin() << endl;
+        // cout << "cend " << objectsToErase.cend() << endl;
+        cout << "object1 " << object1 << endl;
+        cout << "object2 " << object2 << endl;
+        if (find(objectsToErase.cbegin(), objectsToErase.cend(), object1) != objectsToErase.cend() ||
+            find(objectsToErase.cbegin(), objectsToErase.cend(), object2) != objectsToErase.cend()) {
+            cout << "there are objects to erase" << endl;
+            break;
         }
+
+        cout << "updating points" << endl;
         SDL_Point obj1Position = object1->position;
         SDL_Point obj2Position = object2->position;
 
-        if(prevPositions.find(object1) == prevPositions.end() || prevPositions.find(object2) == prevPositions.end()){
-            continue;
-        }
         SDL_Point obj1Prev = prevPositions.at(object1);
         SDL_Point obj2Prev = prevPositions.at(object2);
-        
+
+        cout << "checking if they've collided" << endl;
         if (obj1Prev.x == obj1Position.x && obj1Prev.y == obj1Position.y &&
             obj2Prev.x == obj2Position.x && obj2Prev.y == obj2Position.y) {
             // Wait, they didn't move! They couldn't have collided, then.
@@ -62,11 +78,25 @@ void CollisionSystem::update() {
         }
     }
 
+    // Add new pairs
+    while (!pairsToAdd.empty()) {
+        collisionPairs.emplace_back(pairsToAdd.front());
+        pairsToAdd.pop();
+    }
+
+    // Clear ourselves of any deleted elements
+    for (auto object : objectsToErase) {
+        collisionPairs.erase(remove_if(collisionPairs.begin(),
+                                       collisionPairs.end(),
+                                       [&](auto x) {
+                                           return x.first == object || x.second == object;
+                                       }),
+                             collisionPairs.cend());
+    }
+    objectsToErase.clear();
+
     // Update previous positions
     for (auto& [object, _] : prevPositions) {
-        if(object == NULL){
-            continue;
-        }
         prevPositions.at(object) = object->position;
     }
 }
@@ -76,14 +106,14 @@ void CollisionSystem::update() {
 void CollisionSystem::handleEvent(Event* e) {
     if (e->getType() == DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT) {
         DisplayTreeChangeEvent* event = static_cast<DisplayTreeChangeEvent*>(e);
-        DisplayObject* object = event->object;
+        shared_ptr<DisplayObject> object(event->object);
         const string type = object->type;
         if (event->added) {
             auto it = displayObjectsMap.find(type);
             if (it != displayObjectsMap.cend()) {
-                it->second.insert(object);
+                it->second.emplace(object);
             } else {
-                displayObjectsMap.try_emplace(type, unordered_set<DisplayObject*>({object}));
+                displayObjectsMap.try_emplace(type, unordered_set<shared_ptr<DisplayObject>>{object});
             }
 
             if (collisionTypes.find(type) != collisionTypes.cend()) {
@@ -94,13 +124,11 @@ void CollisionSystem::handleEvent(Event* e) {
                 }
             }
         } else {
+            // Defer erasing from collisionPairs as it's possible that
+            // we're in the middle of an update() loop, and deleting now
+            // would invalidate the iterators
+            objectsToErase.emplace_back(object);
             displayObjectsMap.at(type).erase(object);
-            collisionPairs.erase(remove_if(collisionPairs.begin(),
-                                           collisionPairs.end(),
-                                           [&](auto x) {
-                                               return x.first == object || x.second == object;
-                                           }),
-                                 collisionPairs.cend());
             prevPositions.erase(object);
         }
     }
@@ -131,21 +159,21 @@ void CollisionSystem::watchForCollisions(const string& type1, const string& type
     collisionTypes.try_emplace(type2, unordered_set<string>({type1}));
 }
 
-void CollisionSystem::pairObjectWithType(DisplayObject* object, const string& type) {
+void CollisionSystem::pairObjectWithType(shared_ptr<DisplayObject> object, const string& type) {
     for (auto& object2 : displayObjectsMap.at(type)) {
         // Here, we sort by type then ID to make sure the unordered_set
         // doesn't contain duplicates.
         if (object->type < type) {
-            collisionPairs.emplace_back(object, object2);
+            pairsToAdd.emplace(object, object2);
         } else if (object->type == type) {
             // Don't register for collision if the two objects are the same
             if (object->id < object2->id) {
-                collisionPairs.emplace_back(object, object2);
+                pairsToAdd.emplace(object, object2);
             } else if (object->id > object2->id) {
-                collisionPairs.emplace_back(object2, object);
+                pairsToAdd.emplace(object2, object);
             }
         } else {
-            collisionPairs.emplace_back(object2, object);
+            pairsToAdd.emplace(object2, object);
         }
 
         // Keep track of positions for collision deltas
@@ -193,6 +221,26 @@ bool CollisionSystem::isIntersecting(SDL_Point p1, SDL_Point p2, SDL_Point q1, S
     return false;
 }
 
+bool CollisionSystem::isIntersecting(Hitcircle hitcircle, pair<SDL_Point, SDL_Point> line) {
+    // https://math.stackexchange.com/questions/275529/check-if-line-intersects-with-circles-perimeter
+    double ax = line.first.x - hitcircle.center.x;
+    double ay = line.first.y - hitcircle.center.y;
+    double bx = line.second.x - hitcircle.center.x;
+    double by = line.second.y - hitcircle.center.y;
+    double a = (bx - ax) * (bx - ax) + (by - ay) * (by - ay);
+    double b = 2 * (ax * (bx - ax) + ay * (by - ay));
+    double c = ax * ax + ay * ay - hitcircle.radius * hitcircle.radius;
+    double disc = b * b - 4 * a * c;
+    if (disc <= 0) {
+        return false;
+    }
+
+    double sqrtdisc = sqrt(disc);
+    double t1 = (-b + sqrtdisc) / (2 * a);
+    double t2 = (-b - sqrtdisc) / (2 * a);
+    return (0 < t1 && t1 < 1) || (0 < t2 && t2 < 1);
+}
+
 bool CollisionSystem::isInside(SDL_Point point, Hitbox hitbox) {
     auto [ul, ur, ll, lr] = hitbox; // Wizardry! 🧙‍♂️
 
@@ -212,29 +260,9 @@ bool CollisionSystem::isInside(SDL_Point point, Hitbox hitbox) {
     return area_t1_2x + area_t2_2x + area_t3_2x + area_t4_2x == area_quad_2x;
 }
 
-SDL_Point CollisionSystem::getCenter(std::pair<SDL_Point, SDL_Point> line1,
-                                     std::pair<SDL_Point, SDL_Point> line2) {
-    // https://www.geeksforgeeks.org/program-for-point-of-intersection-of-two-lines/
-    double a1 = line1.second.y - line1.first.y;
-    double b1 = line1.first.x - line1.second.x;
-    double c1 = a1 * line1.first.x + b1 * line1.first.y;
-
-    double a2 = line2.second.y - line2.first.y;
-    double b2 = line2.first.x - line2.second.x;
-    double c2 = a2 * line2.first.x + b2 * line2.first.y;
-
-    double determinant = a1 * b2 - a2 * b1;
-
-    // This crashes if determinant == 0, but that should never happen
-    // as our lines are guaranteed to intersect. I hope.
-    int x = (b2 * c1 - b1 * c2) / determinant;
-    int y = (a1 * c2 - a2 * c1) / determinant;
-    return {x, y};
-}
-
 // Returns true iff obj1 hitbox and obj2 hitbox overlap
-bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
-    if(obj1->hitboxType == HitboxType::Rectangle && obj2->hitboxType == HitboxType::Rectangle) {
+bool CollisionSystem::collidesWith(shared_ptr<DisplayObject> obj1, shared_ptr<DisplayObject> obj2) {
+    if (obj1->hitboxType == HitboxType::Rectangle && obj2->hitboxType == HitboxType::Rectangle) {
         Hitbox obj1Hitbox = obj1->getHitbox();
         Hitbox obj2Hitbox = obj2->getHitbox();
 
@@ -265,8 +293,8 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
         cout << "circle <-> circle collision detection not yet implemented" << endl;
         return false;
     } else {
-        DisplayObject* circle;
-        DisplayObject* rect;
+        shared_ptr<DisplayObject> circle;
+        shared_ptr<DisplayObject> rect;
         if (obj1->hitboxType == HitboxType::Circle) {
             circle = obj1;
             rect = obj2;
@@ -278,61 +306,18 @@ bool CollisionSystem::collidesWith(DisplayObject* obj1, DisplayObject* obj2) {
         Hitbox hitbox = rect->getHitbox();
         Hitcircle hitcircle = circle->getHitcircle();
 
-        // Find the center of the rectangle
-        // https://math.stackexchange.com/a/2878092
-
-        // top-left
-        SDL_Point centroid1 = {
-            (hitbox.ul.x + hitbox.ur.x + hitbox.ll.x) / 3,
-            (hitbox.ul.y + hitbox.ur.y + hitbox.ll.y) / 3,
-        };
-        // top-right
-        SDL_Point centroid2 = {
-            (hitbox.ul.x + hitbox.ur.x + hitbox.lr.x) / 3,
-            (hitbox.ul.y + hitbox.ur.y + hitbox.lr.y) / 3,
-        };
-        // bottom-left
-        SDL_Point centroid3 = {
-            (hitbox.ul.x + hitbox.ll.x + hitbox.lr.x) / 3,
-            (hitbox.ul.y + hitbox.ll.y + hitbox.lr.y) / 3,
-        };
-        // bottom-right
-        SDL_Point centroid4 = {
-            (hitbox.ll.x + hitbox.ur.x + hitbox.lr.x) / 3,
-            (hitbox.ll.y + hitbox.ur.y + hitbox.lr.y) / 3,
-        };
-
-        // Lines: centroid1 <-> centroid4; centroid2 <-> centroid3
-        SDL_Point center = getCenter({centroid1, centroid4}, {centroid2, centroid3});
-
-        // https://stackoverflow.com/questions/21089959/detecting-collision-of-rectangle-with-circle
-        // Step1- find distances between circle's center and rectangle's center.
-        double calc_width = std::sqrt(((hitbox.ur.y - hitbox.ul.y) * (hitbox.ur.y - hitbox.ul.y)) + ((hitbox.ur.x - hitbox.ul.x) * (hitbox.ur.x - hitbox.ul.x)));
-        double calc_height = std::sqrt(((hitbox.ll.y - hitbox.ul.y) * (hitbox.ll.y - hitbox.ul.y)) + ((hitbox.ll.x - hitbox.ul.x) * (hitbox.ll.x - hitbox.ul.x)));
-        double distX = abs(hitcircle.center.x - center.x);
-        double distY = abs(hitcircle.center.y - center.y);
-
-        // Step2- if distance greater than halfcircle + half rect, they're not colliding
-        if (distX > calc_width / 2 + hitcircle.radius || distY > calc_height / 2 + hitcircle.radius) {
-            return false;
-        }
-
-        // step3- if distance is less than halfrect, they are colliding
-        if (distX <= calc_width / 2 || distY <= calc_height / 2) {
-            return true;
-        }
-
-        // Step4- compares distance between circle and rectangle corners.
-        double dx = distX - calc_width / 2;
-        double dy = distY - calc_height / 2;
-        return dx * dx + dy * dy <= hitcircle.radius * hitcircle.radius;
+        return isInside(hitcircle.center, hitbox) ||
+               isIntersecting(hitcircle, {hitbox.ul, hitbox.ll}) ||
+               isIntersecting(hitcircle, {hitbox.ul, hitbox.ur}) ||
+               isIntersecting(hitcircle, {hitbox.ur, hitbox.lr}) ||
+               isIntersecting(hitcircle, {hitbox.ll, hitbox.lr});
     }
 }
 
 // Resolves the collision that occurred between d and other
 // xDelta1 and yDelta1 are the amount d moved before causing the collision.
 // xDelta2 and yDelta2 are the amount other moved before causing the collision.
-void CollisionSystem::resolveCollision(DisplayObject* d, DisplayObject* other,
+void CollisionSystem::resolveCollision(shared_ptr<DisplayObject> d, shared_ptr<DisplayObject> other,
                                        int xDelta1, int yDelta1, int xDelta2, int yDelta2) {
     // Give the objects the chance to handle the collision by themselves
     if (d->onCollision(other) || other->onCollision(d)) {
@@ -340,16 +325,9 @@ void CollisionSystem::resolveCollision(DisplayObject* d, DisplayObject* other,
     }
 
     unsigned int maxD = max({abs(xDelta1), abs(yDelta1), abs(xDelta2), abs(yDelta2)});
-    int m = 1;
 
-    // Binary search collision resolution
-    // Figure out the number of times we need to adjust the deltas by
-    while (maxD >>= 1u) {
-        ++m;
-    }
-
-    bool collideLast = false;
-    for (int i = 0; i < m; ++i) {
+    // Binary search collision resolution using the biggest delta
+    for (int i = 0; i <= log2(maxD); i++) {
         // Halve deltas to find the midpoint, rounding away from 0
         xDelta1 = lround(xDelta1 / 2.0);
         yDelta1 = lround(yDelta1 / 2.0);
@@ -359,38 +337,24 @@ void CollisionSystem::resolveCollision(DisplayObject* d, DisplayObject* other,
         // If we are colliding and we weren't colliding the last search,
         // move halfway back (using the deltas above).
         // Ditto if we aren't colliding, but were before.
-        if (collidesWith(d, other) && !collideLast) {
-            xDelta1 = -xDelta1;
-            yDelta1 = -yDelta1;
-            xDelta2 = -xDelta2;
-            yDelta2 = -yDelta2;
-            collideLast = true;
-        } else if (!collidesWith(d, other) && collideLast) {
-            xDelta1 = -xDelta1;
-            yDelta1 = -yDelta1;
-            xDelta2 = -xDelta2;
-            yDelta2 = -yDelta2;
-            collideLast = false;
+        if (collidesWith(d, other)) {
+            d->position.x -= xDelta1;
+            d->position.y -= yDelta1;
+            other->position.x -= xDelta2;
+            other->position.y -= yDelta2;
+        } else {
+            d->position.x += xDelta1;
+            d->position.y += yDelta1;
+            other->position.x += xDelta2;
+            other->position.y += yDelta2;
         }
-
-        // Set new positions
-        d->position.x += xDelta1;
-        d->position.y += yDelta1;
-        other->position.x += xDelta2;
-        other->position.y += yDelta2;
     }
 
     // If we're still colliding after the binary search, fix that.
     if (collidesWith(d, other)) {
-        if (!collideLast) {
-            xDelta1 = -xDelta1;
-            yDelta1 = -yDelta1;
-            xDelta2 = -xDelta2;
-            yDelta2 = -yDelta2;
-        }
-        d->position.x += xDelta1;
-        d->position.y += yDelta1;
-        other->position.x += xDelta2;
-        other->position.y += yDelta2;
+        d->position.x -= xDelta1;
+        d->position.y -= yDelta1;
+        other->position.x -= xDelta2;
+        other->position.y -= yDelta2;
     }
 }

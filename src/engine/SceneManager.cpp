@@ -9,12 +9,12 @@
 #include <iostream>
 
 
-SceneManager::SceneManager(Camera* c, Player* p) {
+SceneManager::SceneManager(shared_ptr<Camera> c, shared_ptr<Player> p) {
     this->p = p;
     this->c = c;
     // scene pointers - head and tail are dummy scene nodes
-    this->head = new Scene("empty_scene_head");
-    this->tail = new Scene("empty_scene_tail");
+    this->head = std::make_shared<Scene>("empty_scene_head");
+    this->tail = std::make_shared<Scene>("empty_scene_tail");
     this->currScene = NULL;
     this->iter = NULL;
     // set up linked list
@@ -25,9 +25,9 @@ SceneManager::SceneManager(Camera* c, Player* p) {
 
 SceneManager::~SceneManager() {
     this->clearArea();
-    delete this->iter;
-    delete this->head;
-    delete this->tail;
+    // delete this->iter;
+    // delete this->head;
+    // delete this->tail;
 }
 
 
@@ -36,7 +36,7 @@ void SceneManager::loadArea(int area, int rooms) { // each area must have at lea
     // set head and tail
     for (int i = 1; i <= rooms; i++) {
         std::string roomNo = std::to_string(i);
-        Scene* scene = new Scene("scene" + roomNo);
+        auto scene = std::make_shared<Scene>("scene" + roomNo);
         scene->scenePath = std::string("./resources/Rebound/area" + areaNo + "/room" + roomNo + "/room" + roomNo + "map.json");
         std::cout << scene->scenePath << std::endl;
         // add current scene to SceneManager's scenes
@@ -62,7 +62,7 @@ void SceneManager::loadNewArea(int area, int rooms) { // not functioning correct
         std::string roomNo = std::to_string(i);
         this->iter = this->iter->nextScene;
         if (this->iter == this->tail) {
-            Scene* scene = new Scene("scene" + roomNo);
+            auto scene = std::make_shared<Scene>("scene" + roomNo);
             scene->scenePath = std::string("./resources/Rebound/area" + areaNo + "/room" + roomNo + "/room" + roomNo + "map.json");
             // add current scene to SceneManager's scenes
             this->addScene(scene);
@@ -84,7 +84,7 @@ void SceneManager::clearArea() {
 }
 
 
-Scene* SceneManager::findScene(std::string id) {
+std::shared_ptr<Scene> SceneManager::findScene(std::string id) {
     this->iter = this->head;
     while (this->iter != this->tail) {
         if (this->iter->id == id) {
@@ -98,8 +98,8 @@ Scene* SceneManager::findScene(std::string id) {
 }
 
 
-void SceneManager::addScene(Scene* scene) { // insert at tail
-    Scene* newScene = scene;
+void SceneManager::addScene(shared_ptr<Scene> scene) { // insert at tail
+    shared_ptr<Scene> newScene = scene;
     newScene->prevScene = this->tail->prevScene;
     newScene->nextScene = this->tail;
     this->tail->prevScene->nextScene = newScene;
@@ -116,16 +116,16 @@ void SceneManager::deleteScene(std::string id) {
             this->iter->nextScene->prevScene = this->iter->prevScene;;
             this->roomsCount--;
             // delete any remaining events
-            if (EventDispatcher::getInstance().hasEventListener(iter, NewSceneEvent::FADE_OUT_EVENT)) {
-		        EventDispatcher::getInstance().removeEventListener(iter, NewSceneEvent::FADE_OUT_EVENT);
+            if (EventDispatcher::getInstance().hasEventListener(iter.get(), NewSceneEvent::FADE_OUT_EVENT)) {
+		        EventDispatcher::getInstance().removeEventListener(iter.get(), NewSceneEvent::FADE_OUT_EVENT);
 	        }
-            if (EventDispatcher::getInstance().hasEventListener(iter, NewSceneEvent::FADE_IN_EVENT)) {
-		        EventDispatcher::getInstance().removeEventListener(iter, NewSceneEvent::FADE_IN_EVENT);
+            if (EventDispatcher::getInstance().hasEventListener(iter.get(), NewSceneEvent::FADE_IN_EVENT)) {
+		        EventDispatcher::getInstance().removeEventListener(iter.get(), NewSceneEvent::FADE_IN_EVENT);
 	        }
-            if (EventDispatcher::getInstance().hasEventListener(iter, NewSceneEvent::SCALE_OUT_EVENT)) {
-		        EventDispatcher::getInstance().removeEventListener(iter, NewSceneEvent::SCALE_OUT_EVENT);
+            if (EventDispatcher::getInstance().hasEventListener(iter.get(), NewSceneEvent::SCALE_OUT_EVENT)) {
+		        EventDispatcher::getInstance().removeEventListener(iter.get(), NewSceneEvent::SCALE_OUT_EVENT);
 	        }
-            delete iter;
+            // delete iter;
             break;
         }
         else {
@@ -146,11 +146,11 @@ void SceneManager::loadFirstScene() {
     
     // EVENTS FOR UNLOADING
     // create fade out event listener for this scene
-    EventDispatcher::getInstance().addEventListener(currScene, NewSceneEvent::FADE_OUT_EVENT);
+    EventDispatcher::getInstance().addEventListener(currScene.get(), NewSceneEvent::FADE_OUT_EVENT);
 
     // EVENTS FOR LOADING
     // create fade in event listener for this scene
-    EventDispatcher::getInstance().addEventListener(currScene, NewSceneEvent::FADE_IN_EVENT);
+    EventDispatcher::getInstance().addEventListener(currScene.get(), NewSceneEvent::FADE_IN_EVENT);
     
     this->currScene->loadScene(this->currScene->scenePath);
 	
@@ -165,7 +165,7 @@ void SceneManager::loadFirstScene() {
     c->addChild(this->currScene);
 
     // create collision system
-    this->collisionSystem = new CollisionSystem();
+    this->collisionSystem = std::make_shared<CollisionSystem>();
     // set collisions between player and all environmental objects
     this->collisionSystem->watchForCollisions("player", "WalkOnObject");
     this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
@@ -189,8 +189,8 @@ void SceneManager::unloadScene() {
 
 void SceneManager::loadNextScene() {
     if (this->currScene->nextScene == this->tail) {
-        this->currScene = new Scene();
-        new_area_text = new TextBox("start_text", "Game Over");
+        this->currScene = std::make_shared<Scene>();
+        new_area_text = std::make_shared<TextBox>("start_text", "Game Over");
 	    new_area_text->position = {300, 200};
 	    this->currScene->addChild(new_area_text);
         return;
@@ -210,10 +210,10 @@ void SceneManager::loadNextScene() {
     
     // create fade out event listener for this scene
     if (!EventDispatcher::getInstance().hasEventListener(this, NewSceneEvent::FADE_OUT_EVENT)) {
-        EventDispatcher::getInstance().addEventListener(currScene, NewSceneEvent::FADE_OUT_EVENT);
+        EventDispatcher::getInstance().addEventListener(currScene.get(), NewSceneEvent::FADE_OUT_EVENT);
     }
     if (!EventDispatcher::getInstance().hasEventListener(this, NewSceneEvent::FADE_IN_EVENT)) {
-        EventDispatcher::getInstance().addEventListener(currScene, NewSceneEvent::FADE_IN_EVENT);
+        EventDispatcher::getInstance().addEventListener(currScene.get(), NewSceneEvent::FADE_IN_EVENT);
     }
     
     // load the scene
@@ -230,8 +230,8 @@ void SceneManager::loadNextScene() {
     c->addChild(this->currScene);
 
     // create collision system
-    delete collisionSystem;
-    this->collisionSystem = new CollisionSystem();
+    // delete collisionSystem;
+    this->collisionSystem = std::make_shared<CollisionSystem>();
     // set collisions between player and all environmental objects
     this->collisionSystem->watchForCollisions("player", "WalkOnObject");
     this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
@@ -240,7 +240,7 @@ void SceneManager::loadNextScene() {
     this->collisionSystem->watchForCollisions("shield", "enemy");
 
     if (this->currRoom == 1) {
-        new_area_text = new TextBox("start_text", "Area " + std::to_string(this->currArea));
+        new_area_text = std::make_shared<TextBox>("start_text", "Area " + std::to_string(this->currArea));
 	    new_area_text->position = {300, 200};
 	    this->currScene->addChild(new_area_text);
     }
@@ -260,11 +260,11 @@ void SceneManager::loadPrevScene() {
     
     // EVENTS FOR UNLOADING
     // create fade out event listener for this scene
-    EventDispatcher::getInstance().addEventListener(currScene, NewSceneEvent::FADE_OUT_EVENT);
+    EventDispatcher::getInstance().addEventListener(currScene.get(), NewSceneEvent::FADE_OUT_EVENT);
     
     // EVENTS FOR LOADING
     // create fade in event
-    EventDispatcher::getInstance().addEventListener(currScene, NewSceneEvent::FADE_IN_EVENT);
+    EventDispatcher::getInstance().addEventListener(currScene.get(), NewSceneEvent::FADE_IN_EVENT);
 
     // load player
     p->position = this->currScene->playerExitPos;
