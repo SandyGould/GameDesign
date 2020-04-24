@@ -40,6 +40,9 @@ Game::Game(int windowWidth, int windowHeight) {
 }
 
 Game::~Game() {
+    // Delete ourselves before SDL destroys our renderer
+    this->container.reset();
+
     quitSDL();
 }
 
