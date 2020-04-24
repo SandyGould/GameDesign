@@ -118,10 +118,18 @@ void CollisionSystem::handleEvent(Event* e) {
             // Defer erasing from collisionPairs as it's possible that
             // we're in the middle of an update() loop, and deleting now
             // would invalidate the iterators
-            objectsToErase.emplace_back(object);
+            addObjectsToErase(object);
             displayObjectsMap.at(type).erase(object);
             prevPositions.erase(object);
         }
+    }
+}
+
+void CollisionSystem::addObjectsToErase(const shared_ptr<DisplayObject>& object) {
+    objectsToErase.emplace_back(object);
+
+    for (const auto& child : object->children) {
+        addObjectsToErase(child);
     }
 }
 

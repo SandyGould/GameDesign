@@ -194,7 +194,7 @@ void SceneManager::unloadScene() {
 
 void SceneManager::loadNextScene() {
     // done w/ tween, this scene is no longer a child of camera
-    this->c->removeImmediateChildWithoutDelete(this->currScene);
+    this->c->removeImmediateChild(this->currScene);
 
     // if at the end of the game, create new scene showing a game over message
     if (this->currScene->nextScene == this->tail) {
@@ -296,7 +296,7 @@ void SceneManager::loadPrevScene() {
     c->pivot = this->currScene->camExitPivot;
     this->c->printDisplayTree();
     // done w/ tween, this scene is no longer a child of camera
-    this->c->removeImmediateChildWithoutDelete(this->currScene->nextScene);
+    this->c->removeImmediateChild(this->currScene->nextScene);
     std::cout << this->currScene->id << std::endl;
     c->addChild(this->currScene);
     std::cout << "----------------------------------------------" << std::endl;
@@ -319,7 +319,7 @@ void SceneManager::updateScene() {
     if (this->currScene->forward_coord == "x" && this->currScene->forward_comp == ">") {
         if (p->position.x > this->currScene->goForward.x) {
             this->sceneChange = "next";
-            this->currScene->removeImmediateChildWithoutDelete(p);
+            this->currScene->removeImmediateChild(p);
             this->unloadScene();
             return;
         }
@@ -327,7 +327,7 @@ void SceneManager::updateScene() {
     if (this->currScene->forward_coord == "x" && this->currScene->forward_comp == "<") {
         if (p->position.x < this->currScene->goForward.x) {
             this->sceneChange = "next";
-            this->currScene->removeImmediateChildWithoutDelete(p);
+            this->currScene->removeImmediateChild(p);
             this->unloadScene();
             return;
         }
@@ -335,7 +335,7 @@ void SceneManager::updateScene() {
     if (this->currScene->forward_coord == "y" && this->currScene->forward_comp == ">") {
         if (p->position.y > this->currScene->goForward.y) {
             this->sceneChange = "next";
-            this->currScene->removeImmediateChildWithoutDelete(p);
+            this->currScene->removeImmediateChild(p);
             this->unloadScene();
             return;
         }
@@ -343,7 +343,7 @@ void SceneManager::updateScene() {
     if (this->currScene->forward_coord == "y" && this->currScene->forward_comp == "<") {
         if (p->position.y < this->currScene->goForward.y) {
             this->sceneChange = "next";
-            this->currScene->removeImmediateChildWithoutDelete(p);
+            this->currScene->removeImmediateChild(p);
             this->unloadScene();
             return;
         }
@@ -354,7 +354,7 @@ void SceneManager::updateScene() {
         if (p->position.x > this->currScene->goBack.x) {
             if (this->currRoom > 1) {
                 this->sceneChange = "previous";
-                this->currScene->removeImmediateChildWithoutDelete(p);
+                this->currScene->removeImmediateChild(p);
                 this->unloadScene();
             }
             return;
@@ -364,7 +364,7 @@ void SceneManager::updateScene() {
         if (p->position.x < this->currScene->goBack.x) {
             if (this->currRoom > 1) {
                 this->sceneChange = "previous";
-                this->currScene->removeImmediateChildWithoutDelete(p);
+                this->currScene->removeImmediateChild(p);
                 this->unloadScene();
             }
             return;
@@ -374,7 +374,7 @@ void SceneManager::updateScene() {
         if (p->position.y < this->currScene->goBack.y) {
             if (this->currRoom > 1) {
                 this->sceneChange = "previous";
-                this->currScene->removeImmediateChildWithoutDelete(p);
+                this->currScene->removeImmediateChild(p);
                 this->unloadScene();
             }
             return;
@@ -383,7 +383,7 @@ void SceneManager::updateScene() {
     if (this->currScene->back_coord == "y" && this->currScene->back_comp == "<") {
         if (this->currRoom > 1) {
                 this->sceneChange = "previous";
-                this->currScene->removeImmediateChildWithoutDelete(p);
+                this->currScene->removeImmediateChild(p);
                 this->unloadScene();
             }
             return;

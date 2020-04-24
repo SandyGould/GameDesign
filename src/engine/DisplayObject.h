@@ -72,7 +72,6 @@ public:
     void addChild(const std::shared_ptr<DisplayObject>& child);
     void removeImmediateChild(const std::shared_ptr<DisplayObject>& child);
     void removeImmediateChild(std::string id);
-    void removeImmediateChildWithoutDelete(std::shared_ptr<DisplayObject> child);
     void removeChild(size_t index);
     void removeThis();
 

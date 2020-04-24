@@ -131,15 +131,11 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
     
 	// update scene if criteria for changing scene are met
 
-	std::cout << "we here 1" << std::endl;
 	this->sceneManager->updateScene();
-	std::cout << "we here 2" << std::endl;
 
 	Game::update(pressedKeys, joystickState, pressedButtons);
-	std::cout << "we here 3" << std::endl;
 	player->slowed = false;
     this->collisionSystem->update();
-	std::cout << "we here 4" << std::endl;
 	if(!player->slowed){
 		player->speed = 4;
 	}
