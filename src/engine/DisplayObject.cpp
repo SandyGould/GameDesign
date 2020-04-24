@@ -20,8 +20,6 @@ DisplayObject::DisplayObject(const std::string& id) {
     this->image = nullptr;
     this->texture = nullptr;
     this->curTexture = nullptr;
-
-    this->hitbox = {{0, 0}, {width, 0}, {0, height}, {width, height}};
 }
 
 DisplayObject::DisplayObject(const std::string& id, const std::string& path)
@@ -80,7 +78,6 @@ DisplayObject::DisplayObject(const DisplayObject& other) {
     this->imgPath = other.imgPath;
     this->saveType = other.saveType;
     this->loadTexture(this->imgPath);
-    this->hitbox = {{0, 0}, {width, 0}, {0, height}, {width, height}};
 }
 
 DisplayObject::~DisplayObject() {
@@ -164,7 +161,6 @@ void DisplayObject::removeImmediateChild(std::shared_ptr<DisplayObject> child) {
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
 
-        // delete *it;
         objectsToErase.push_back(*it);
     }
 }
@@ -386,10 +382,6 @@ Hitbox DisplayObject::getHitbox() const {
     AffineTransform at;
 	this->getGlobalTransform(at);
 	return {
-        // at.transformPoint(hitbox.ul.x, hitbox.ul.y),
-        // at.transformPoint(hitbox.ur.x, hitbox.ur.y),
-        // at.transformPoint(hitbox.ll.x, hitbox.ll.y),
-        // at.transformPoint(hitbox.lr.x, hitbox.lr.y),
         at.transformPoint(0, 0),
         at.transformPoint(width, 0),
         at.transformPoint(0, height),

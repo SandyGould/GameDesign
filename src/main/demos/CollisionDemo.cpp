@@ -14,8 +14,7 @@ CollisionDemo::CollisionDemo() : Game(1200, 800) {
 
     // Yup we're creating an invisible player for Scene
     this->player = std::make_shared<Player>();
-    //this->player->visible = false;
-    this->player->hitbox = {{25, 10}, {75, 10}, {25, 100}, {75, 100}};
+    this->player->visible = false;
 
     this->scene = std::make_shared<Scene>(this->camera, this->player);
     this->scene->loadScene("./resources/cameraDemo/loadScene.json");

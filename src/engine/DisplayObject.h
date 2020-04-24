@@ -118,8 +118,6 @@ public:
     HitboxType hitboxType = HitboxType::Rectangle;
 	SDL_Renderer* renderer;
 
-	Hitbox hitbox;
-
 	bool hasCollision = false;
 
 	double parallaxSpeed = 1.0;
