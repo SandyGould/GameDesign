@@ -117,7 +117,7 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
 		player->position.y -= 2;
 	}
-	
+
 	// menu controls
 	if (pressedKeys.find(SDL_SCANCODE_ESCAPE) != pressedKeys.end()) {
 		if(!esc_prepressed)

@@ -11,8 +11,8 @@
                         "x_pos":0,
                         "y_pos":0,
                         "rotation":0,
-                        "scaleX":3,
-                        "scaleY":3,
+                        "scaleX":4,
+                        "scaleY":4,
                         "parentHierarchy":[]
                     },
                     {
@@ -22,8 +22,8 @@
                         "x_pos":400,
                         "y_pos":200,
                         "rotation":0,
-                        "scaleX":0.5,
-                        "scaleY":0.5,
+                        "scaleX":0.2,
+                        "scaleY":0.2,
                         "parentHierarchy":[]
                     },
                     {
@@ -55,8 +55,8 @@
                         "x_pos":0,
                         "y_pos":0,
                         "rotation":0,
-                        "scaleX":1,
-                        "scaleY":1,
+                        "scaleX":4,
+                        "scaleY":4,
                         "parentHierarchy":[]
                     },
                     {
@@ -64,10 +64,10 @@
                         "name":"bottom_trees",
                         "filepath":"./resources/Rebound/area1/room1/assets/bottom_trees.png",
                         "x_pos":0,
-                        "y_pos":350,
+                        "y_pos":375,
                         "rotation":0,
-                        "scaleX":1,
-                        "scaleY":1,
+                        "scaleX":4,
+                        "scaleY":4,
                         "parentHierarchy":[]
                     },
                     {
@@ -77,8 +77,8 @@
                         "x_pos": 600,
                         "y_pos": 140,
                         "rotation":0,
-                        "scaleX":1,
-                        "scaleY":1,
+                        "scaleX":3.5,
+                        "scaleY":3.5,
                         "parentHierarchy":[]
                     }
                 ]
