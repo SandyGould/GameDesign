@@ -35,7 +35,7 @@ Sprite::Sprite(const DisplayObject& other) : DisplayObject(other.id){
         this->facingRight = S->facingRight;
         this->hasCollision = S->hasCollision;
         this->imgPath = S->imgPath;
-        this->loadTexture(this->imgPath, Game::renderer);
+        this->loadTexture(this->imgPath);
     } else{
         this->type = "Sprite";
         this->id = "FAILED_COPY";

@@ -19,7 +19,7 @@ private:
     void draw(AffineTransform &at) override;
     void draw_post() override;
 
-    Camera* camera;
-    Scene* scene;
-    Player* player;
+    std::shared_ptr<Camera> camera;
+    std::shared_ptr<Scene> scene;
+    std::shared_ptr<Player> player;
 };

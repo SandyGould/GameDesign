@@ -25,7 +25,7 @@ public:
 	void handleEvent(Event* e) override;
 
 private:
-	TextBox * textbox;
+	std::shared_ptr<TextBox> textbox;
 
 	string text;
 };

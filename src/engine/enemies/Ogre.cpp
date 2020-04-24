@@ -19,7 +19,7 @@ Dead 9
 */
 
 // Init
-Ogre::Ogre(Player* player): BaseEnemy("ogre", "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml",player){
+Ogre::Ogre(std::shared_ptr<Player> player): BaseEnemy("ogre", "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml",player){
     this->state = 0;
     this->facingRight=true;
     this->type = "ogre";
@@ -53,7 +53,7 @@ void Ogre::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
     }
 
     else if(this->state == 3){ //"knock" arrow
-        this->arrow = new Arrow(30);
+        this->arrow = std::make_shared<Arrow>(30);
         arrow->facingRight = this->facingRight;
         this->addChild(this->arrow);
         this->actionFrames = 12;
@@ -162,7 +162,7 @@ void Ogre::draw(AffineTransform& at){
 }
 
 
-bool Ogre::onCollision(DisplayObject* other){
+bool Ogre::onCollision(std::shared_ptr<DisplayObject> other){
      if(other == arrow && arrow->firing == false){
          return true;
      }

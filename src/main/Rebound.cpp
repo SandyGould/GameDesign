@@ -9,14 +9,14 @@ Rebound::Rebound() : Game(1200, 800) {
 
     this->collisionSystem = new CollisionSystem();
 
-	allSprites = new DisplayObject("allSprites");
+	allSprites = std::make_shared<DisplayObject>("allSprites");
 
-	questManager = new QuestManager();
+	questManager = std::make_shared<QuestManager>();
 
 	// move that point to the middle
 	allSprites->position = {200, 100};
 	container->addChild(allSprites);
-	player = new Player();
+	player = std::make_shared<Player>();
 	player->position = {0, 0};
 	player->width = 110;
 	player->height = 80;
@@ -47,7 +47,7 @@ Rebound::Rebound() : Game(1200, 800) {
 	//
     // allSprites->addChild(ogre);
 
-	mKing = new MonsterKing(player);
+	mKing = std::make_shared<MonsterKing>(player);
     mKing->position = {300,200};
     mKing->height = 160;
     mKing->width = 150;
@@ -160,6 +160,7 @@ Rebound::Rebound() : Game(1200, 800) {
 }
 
 Rebound::~Rebound() {
+    delete this->collisionSystem;
 }
 
 void Rebound::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {

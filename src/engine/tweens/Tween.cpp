@@ -6,26 +6,26 @@
 #include <iostream>
 #include <cstdlib>
 
-Tween::Tween(DisplayObject* object) {
+Tween::Tween(std::shared_ptr<DisplayObject> object) {
     this->currObject = object;
     this->amountChange = 0;
     this->timeElapsed = 0;
 }
 
-Tween::Tween(DisplayObject* object, TweenTransitions transition) {
+Tween::Tween(std::shared_ptr<DisplayObject> object, TweenTransitions transition) {
     this->currObject = object;
     this->amountChange = 0;
     this->timeElapsed = 0;
 }
 
-Tween::Tween(std::string id, DisplayObject* object){
+Tween::Tween(std::string id, std::shared_ptr<DisplayObject> object){
     this->id = id;
     this->currObject = object;
     this->amountChange = 0;
     this->timeElapsed = 0;
 }
 
-Tween::Tween(std::string id, DisplayObject* object, TweenTransitions transition) {
+Tween::Tween(std::string id, std::shared_ptr<DisplayObject> object, TweenTransitions transition) {
     this->id = id;
     this->currObject = object;
     this->amountChange = 0;

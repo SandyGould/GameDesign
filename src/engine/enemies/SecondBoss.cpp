@@ -1,6 +1,6 @@
 #include "SecondBoss.h"
 #include <iostream>
-SecondBoss::SecondBoss(Player* player): BaseEnemy("SecondBoss", "./resources/assets/Display_Objects/second_boss/second_boss.png", "", player){
+SecondBoss::SecondBoss(std::shared_ptr<Player> player): BaseEnemy("SecondBoss", "./resources/assets/Display_Objects/second_boss/second_boss.png", "", player){
     this->type = "second_boss";
     this->saveType = this->type;
 }
@@ -114,7 +114,7 @@ void SecondBoss::fire(double angle){
     firing = true;
 }
 
-double SecondBoss::aim(DisplayObject* targetSprite){ //Cause a lot of enemies need to aim :)
+double SecondBoss::aim(std::shared_ptr<DisplayObject> targetSprite){ //Cause a lot of enemies need to aim :)
     //Just finds the angle between the center of the DO given(may be self, may be a Projectile, etc) and the Player
     SDL_Point target = targetSprite->getGlobalPosition();
     //std::cout<<"Target"<<target.x<<","<<target.y<<"\n";
@@ -128,7 +128,7 @@ double SecondBoss::aim(DisplayObject* targetSprite){ //Cause a lot of enemies ne
 }
 
 //bounes off of literally anything.
-bool SecondBoss::onCollision(DisplayObject* other){
+bool SecondBoss::onCollision(std::shared_ptr<DisplayObject> other){
     /*bounces--;
     this->deltaX = -this->deltaX * (bounces/8);
     this->deltaY = -this->deltaY * (bounces/8);

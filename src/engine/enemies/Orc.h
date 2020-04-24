@@ -4,7 +4,7 @@
 
 class Orc : public Knight{
     public:
-        Orc(Player* player);
+        Orc(std::shared_ptr<Player> player);
 };
 
 #endif

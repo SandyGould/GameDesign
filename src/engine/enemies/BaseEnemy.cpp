@@ -1,7 +1,7 @@
 #include "BaseEnemy.h"
 #include <iostream>
 
-BaseEnemy::BaseEnemy(std::string id, std::string spritesheet, std::string xml, Player* player) : AnimatedSprite(id, spritesheet, xml){
+BaseEnemy::BaseEnemy(std::string id, std::string spritesheet, std::string xml, std::shared_ptr<Player> player) : AnimatedSprite(id, spritesheet, xml){
     hasCollision=true;
     this->player = player;
     this->type = "enemy";
@@ -19,7 +19,7 @@ void BaseEnemy::changeHealth(int amount){
     this->health+=amount;
 }
 
-bool BaseEnemy::onCollision(DisplayObject* other){
+bool BaseEnemy::onCollision(std::shared_ptr<DisplayObject> other){
      if(other->type == "mage_attack" || other->type == "arrow"){
         this->changeHealth(-20);
         other->removeThis();

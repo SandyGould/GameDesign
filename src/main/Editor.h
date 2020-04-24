@@ -37,14 +37,14 @@ public:
 	void clearRenderers() override;
 	void presentRenderers() override;
 
-	void cut(const unordered_set<DisplayObject*>& objects);
-	void copy(const unordered_set<DisplayObject*>& objects, bool keepHierarchy = true);
+	void cut(const unordered_set<shared_ptr<DisplayObject>>& objects);
+	void copy(const unordered_set<shared_ptr<DisplayObject>>& objects, bool keepHierarchy = true);
 	void paste(MouseDownEvent* event = NULL);
 
 	void handleEvent(Event* e) override;
 
-	bool onMouseDown(DisplayObject* object, MouseDownEvent* event);
-	bool onMouseUp(DisplayObject* object, MouseUpEvent* event);
+	bool onMouseDown(shared_ptr<DisplayObject> object, MouseDownEvent* event);
+	bool onMouseUp(shared_ptr<DisplayObject> object, MouseUpEvent* event);
 
 	SDL_Window* assets_window;
 	SDL_Renderer* assets_renderer;
@@ -53,24 +53,28 @@ public:
 	SDL_Renderer* edit_renderer;
 
 private:
-	Camera* camera;
-	Scene* curScene;
+	std::shared_ptr<Camera> camera;
+	std::shared_ptr<Scene> curScene;
 
-	vector<Sprite*> sprites;
-	vector<DisplayObject*> dos;
-	vector<AnimatedSprite*> aSprites;
+	vector<std::shared_ptr<Sprite>> sprites;
+	vector<std::shared_ptr<DisplayObject>> dos;
+	vector<std::shared_ptr<AnimatedSprite>> aSprites;
 
-	DisplayObject* assets;
-	DisplayObject* edit;
+	shared_ptr<DisplayObject> assets;
+	shared_ptr<DisplayObject> edit;
 
 	bool mainWindowActive = true;
 	bool assetsWindowActive = false;
 	bool editWindowActive = false;
-	DisplayObject* selectedAsset = NULL;
+	shared_ptr<DisplayObject> selectedAsset = nullptr;
 
-	DisplayObject* editSelected = NULL;
-	TextObject* attributeSelected = NULL;
-	unordered_set<DisplayObject*> editable;
+	bool freeMove = true;
+	bool incrSnap = false;
+	bool gridSnap = false;
+
+	shared_ptr<TextObject> editSelected = nullptr;
+	shared_ptr<TextObject> attributeSelected = nullptr;
+	unordered_set<shared_ptr<DisplayObject>> editable;
 	bool setParentMode = false;
 	void updateAttribute();
 	int layer = 0;
@@ -81,16 +85,16 @@ private:
 	double heldScaleY = 1.0;
 	double heldRotation = 0.0;
 
-	unordered_set<DisplayObject*> selected;
-	unordered_set<DisplayObject*> copied;
+	unordered_set<shared_ptr<DisplayObject>> selected;
+	unordered_set<shared_ptr<DisplayObject>> copied;
 
 	unordered_set<SDL_Scancode> prevKeys;
 
 	unordered_set<string> entityTypes;
 
     // Oh boy
-    unordered_map<DisplayObject*, double> displacementX;
-    unordered_map<DisplayObject*, double> displacementY;
+    unordered_map<shared_ptr<DisplayObject>, double> displacementX;
+    unordered_map<shared_ptr<DisplayObject>, double> displacementY;
 
     static constexpr int GRID_SIZE = 80;
 };

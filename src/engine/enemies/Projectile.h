@@ -20,7 +20,7 @@ class Projectile : public Sprite{
     double distance(SDL_Point& p1, SDL_Point& p2);
     void reflect();
 
-    double aim(DisplayObject* targetSprite);
+    double aim(std::shared_ptr<DisplayObject> targetSprite);
     void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
     void draw(AffineTransform& at) override;
 };

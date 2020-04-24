@@ -23,7 +23,7 @@ public:
     static Game* instance;
 
     /* The global DisplayObject container */
-    DisplayObject* container;
+    std::shared_ptr<DisplayObject> container;
 
     int frames_per_sec = 60;
     int windowWidth, windowHeight;

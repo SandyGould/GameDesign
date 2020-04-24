@@ -7,22 +7,21 @@ CollisionDemo::CollisionDemo() : Game(1200, 800) {
 
     this->collisionSystem = new CollisionSystem();
 
-    this->camera = new Camera();
+    this->camera = std::make_shared<Camera>();
     this->camera->position = {this->windowWidth / 2, this->windowHeight / 2};
     this->camera->pivot = {this->windowWidth / 2, this->windowHeight / 2};
     this->container->addChild(this->camera);
 
     // Yup we're creating an invisible player for Scene
-    this->player = new Player();
-    //this->player->visible = false;
-    this->player->hitbox = {{25, 10}, {75, 10}, {25, 100}, {75, 100}};
+    this->player = std::make_shared<Player>();
+    this->player->visible = false;
 
-    this->scene = new Scene(this->camera, this->player);
+    this->scene = std::make_shared<Scene>(this->camera, this->player);
     this->scene->loadScene("./resources/cameraDemo/loadScene.json");
 
     this->camera->addChild(this->scene);
 
-    this->parentObj = new DisplayObject("parent", "./resources/assets/Display_Objects/Moon.png");
+    this->parentObj = std::make_shared<DisplayObject>("parent", "./resources/assets/Display_Objects/Moon.png");
     this->parentObj->type = "parent";
     this->parentObj->position = {this->windowWidth / 2 - 100, this->windowHeight / 2 - 100};
     //this->parentObj->width = this->parentObj->height = 200;
@@ -30,13 +29,13 @@ CollisionDemo::CollisionDemo() : Game(1200, 800) {
     this->parentObj->scaleX = this->parentObj->scaleY = 2.0;
     this->scene->getChild(0)->addChild(this->parentObj);
 
-    this->child1 = new Coin();
+    this->child1 = std::make_shared<Coin>();
     this->child1->position = {200, 0};
     this->child1->width = this->child1->height = 100;
     this->child1->pivot = {50, 50};
     this->parentObj->addChild(this->child1);
 
-    this->child2 = new Coin();
+    this->child2 = std::make_shared<Coin>();
     this->child2->position = {200, 200};
     this->child2->width = this->child2->height = 30;
     this->child2->pivot = {15, 15};
@@ -49,11 +48,7 @@ CollisionDemo::CollisionDemo() : Game(1200, 800) {
 }
 
 CollisionDemo::~CollisionDemo() {
-    // delete camera;
-    // delete scene;
-    // delete parentObj;
-    // delete child1;
-    // delete child2;
+    delete this->collisionSystem;
 }
 
 void CollisionDemo::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {

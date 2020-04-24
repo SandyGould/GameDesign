@@ -20,13 +20,13 @@ class TweenJuggler {
     	void operator=(TweenJuggler const& other) = delete;
 
 	    ~TweenJuggler();
-        void add(Tween* tween);
+        void add(std::shared_ptr<Tween> tween);
         void nextFrame();  //invoked every frame by Game, calls update() on every Tween and cleans up old / complete Tweens
         
     private:
         TweenJuggler();
         static TweenJuggler* instance;
-        std::list<Tween*> tweenList;
+        std::list<std::shared_ptr<Tween>> tweenList;
 };
 
 #endif

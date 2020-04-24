@@ -29,7 +29,7 @@ void PoisonBomb::explode(){
         this->alpha = 50;
     }
     if(this->explosionTime == 0){
-        this->parent->removeImmediateChild(this);
+        this->removeThis();
     }
     this->scaleX+= 0.5;
     this->scaleY+= 0.5;
@@ -37,14 +37,14 @@ void PoisonBomb::explode(){
 }
 
 
-bool PoisonBomb::onCollision(DisplayObject* other){
+bool PoisonBomb::onCollision(std::shared_ptr<DisplayObject> other){
     if(this->exploding){
         if(other->type == "player"){
-            dynamic_cast<Player*>(other)->changeHealth(-1);
+            std::static_pointer_cast<Player>(other)->changeHealth(-1);
             return true;
         }
         else if((other->type == "enemy")||(other->type == "knight")||(other->type == "ogre")){
-            dynamic_cast<BaseEnemy*>(other)->changeHealth(-1);
+            std::static_pointer_cast<BaseEnemy>(other)->changeHealth(-1);
             return true;
         }
     }

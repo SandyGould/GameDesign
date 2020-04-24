@@ -25,7 +25,7 @@ class Rooms : public Game {
 
 public:
 	Rooms();
-	virtual ~Rooms();
+	~Rooms() override;
 
     void update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) override;
 	void draw(AffineTransform& at) override;
@@ -36,29 +36,29 @@ private:
     bool sceneChange2 = false;
     //bool prevScene = false;
 
-	Camera* camera;
+	std::shared_ptr<Camera> camera;
 
-	Player* player;
+	std::shared_ptr<Player> player;
 
-    SelectionMenuBase* selection_menu_base;
-    SelectionMenuOption * selection_quit_option;
-    SelectionMenuOption * selection_resume_option;
+    std::shared_ptr<SelectionMenuBase> selection_menu_base;
+    std::shared_ptr<SelectionMenuOption> selection_quit_option;
+    std::shared_ptr<SelectionMenuOption> selection_resume_option;
 
-    Scene* scene;
-    Scene* scene2;
-    Scene* scene3;
+    std::shared_ptr<Scene> scene;
+    std::shared_ptr<Scene> scene2;
+    std::shared_ptr<Scene> scene3;
 
-    TextBox* start_text_box;
+    std::shared_ptr<TextBox> start_text_box;
 
-    StatBar* health;
+    std::shared_ptr<StatBar> health;
 
     int room;
 
     CollisionSystem* collisionSystem;
 
-    Tween* player_tween;
-    Tween* start_text_tween;
-    Tween* scene_transition;
+    std::shared_ptr<Tween> player_tween;
+    std::shared_ptr<Tween> start_text_tween;
+    std::shared_ptr<Tween> scene_transition;
 };
 
 #endif

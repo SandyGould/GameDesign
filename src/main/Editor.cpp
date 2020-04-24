@@ -29,81 +29,110 @@ Editor::Editor(const string& sceneToLoad)
     EventDispatcher::getInstance().addEventListener(this, MouseWheelEvent::MOUSE_WHEEL_EVENT);
 
     instance = this;
-    curScene = new Scene();
+    curScene = std::make_shared<Scene>();
 
-    camera = new Camera();
+    camera = std::make_shared<Camera>();
     camera->position = {this->windowWidth / 2, this->windowHeight / 2};
     camera->pivot = {this->windowWidth / 2, this->windowHeight / 2};
     this->container->addChild(camera);
 
     curScene->loadScene_Editor(sceneToLoad);
     
-    for (auto* layer : curScene->children) {
-        ((Layer*) layer)->cam = camera;
+    for (auto layer : curScene->children) {
+        static_pointer_cast<Layer>(layer)->cam = camera;
     }
 
     camera->addChild(curScene);
 
-    assets = new DisplayObject("assets");
+    assets = std::make_shared<DisplayObject>("assets");
     assets->renderer = this->assets_renderer;
 
-    edit = new DisplayObject("edit");
+    edit = std::make_shared<DisplayObject>("edit");
     edit->renderer = this->edit_renderer;
 
-    TextObject* idLabel = new TextObject(string("idLabel"), string("ID:"), Game::font, edit_renderer);
+    auto idLabel = std::make_shared<TextObject>(string("idLabel"), string("ID:"), Game::font, edit_renderer);
 
-    TextObject* posLabel  = new TextObject(string("posLabel"),  string("Position"), Game::font, edit_renderer);
-    TextObject* posXLabel = new TextObject(string("posXLabel"), string("X:"),       Game::font, edit_renderer);
-    TextObject* posYLabel = new TextObject(string("posYLabel"), string("Y:"),       Game::font, edit_renderer);
+    auto posLabel  = std::make_shared<TextObject>(string("posLabel"),  string("Position"), Game::font, edit_renderer);
+    auto posXLabel = std::make_shared<TextObject>(string("posXLabel"), string("X:"),       Game::font, edit_renderer);
+    auto posYLabel = std::make_shared<TextObject>(string("posYLabel"), string("Y:"),       Game::font, edit_renderer);
     posLabel->position = {0, 40};
     posXLabel->position = {0, 70};
     posYLabel->position = {150, 70};
 
-    TextObject* pivLabel  = new TextObject(string("pivLabel"),  string("Pivot"), Game::font, edit_renderer);
-    TextObject* pivXLabel = new TextObject(string("pivXLabel"), string("X:"),    Game::font, edit_renderer);
-    TextObject* pivYLabel = new TextObject(string("pivYLabel"), string("Y:"),    Game::font, edit_renderer);
+    auto pivLabel  = std::make_shared<TextObject>(string("pivLabel"),  string("Pivot"), Game::font, edit_renderer);
+    auto pivXLabel = std::make_shared<TextObject>(string("pivXLabel"), string("X:"),    Game::font, edit_renderer);
+    auto pivYLabel = std::make_shared<TextObject>(string("pivYLabel"), string("Y:"),    Game::font, edit_renderer);
     pivLabel->position = {0, 110};
     pivXLabel->position = {0, 140};
     pivYLabel->position = {150, 140};
 
-    TextObject* scaleLabel  = new TextObject(string("scaleLabel"),  string("Scale"), Game::font, edit_renderer);
-    TextObject* scaleXLabel = new TextObject(string("scaleXLabel"), string("X:"),    Game::font, edit_renderer);
-    TextObject* scaleYLabel = new TextObject(string("scaleYLabel"), string("Y:"),    Game::font, edit_renderer);
+    auto scaleLabel  = std::make_shared<TextObject>(string("scaleLabel"),  string("Scale"), Game::font, edit_renderer);
+    auto scaleXLabel = std::make_shared<TextObject>(string("scaleXLabel"), string("X:"),    Game::font, edit_renderer);
+    auto scaleYLabel = std::make_shared<TextObject>(string("scaleYLabel"), string("Y:"),    Game::font, edit_renderer);
     scaleLabel->position = {0, 180};
     scaleXLabel->position = {0, 210};
     scaleYLabel->position = {150, 210};
 
-    TextObject* rotLabel = new TextObject(string("rotLabel"), string("Rotation:"), Game::font, edit_renderer);
+    auto rotLabel = std::make_shared<TextObject>(string("rotLabel"), string("Rotation:"), Game::font, edit_renderer);
     rotLabel->position = {0, 250};
 
-    DisplayObject* layerZeroBackground = new DisplayObject("layerZeroBackground", 36, 113, 96, 37, 25, edit_renderer);
+    std::shared_ptr<DisplayObject> layerZeroBackground = std::make_shared<DisplayObject>("layerZeroBackground", 36, 113, 96, 37, 25, edit_renderer);
     layerZeroBackground->position = {0, 425};
 
-    TextObject* layerZeroButton = new TextObject(string("layerZeroButton"), string("L0"), Game::font, edit_renderer);
+    auto layerZeroButton = std::make_shared<TextObject>(string("layerZeroButton"), string("L0"), Game::font, edit_renderer);
     layerZeroButton->position = {5, 420};
 
-    DisplayObject* layerOneBackground = new DisplayObject("layerOneBackground", 36, 113, 96, 37, 25, edit_renderer);
+    std::shared_ptr<DisplayObject> layerOneBackground = std::make_shared<DisplayObject>("layerOneBackground", 36, 113, 96, 37, 25, edit_renderer);
     layerOneBackground->position = {40, 425};
 
-    TextObject* layerOneButton = new TextObject(string("layerOneButton"), string("L1"), Game::font, edit_renderer);
+    auto layerOneButton = std::make_shared<TextObject>(string("layerOneButton"), string("L1"), Game::font, edit_renderer);
     layerOneButton->position = {45, 420};
 
-    DisplayObject* layerTwoBackground = new DisplayObject("layerTwoBackground", 36, 113, 96, 37, 25, edit_renderer);
+    std::shared_ptr<DisplayObject> layerTwoBackground = std::make_shared<DisplayObject>("layerTwoBackground", 36, 113, 96, 37, 25, edit_renderer);
     layerTwoBackground->position = {80, 425};
 
-    TextObject* layerTwoButton = new TextObject(string("layerTwoButton"), string("L2"), Game::font, edit_renderer);
+    auto layerTwoButton = std::make_shared<TextObject>(string("layerTwoButton"), string("L2"), Game::font, edit_renderer);
     layerTwoButton->position = {85, 420};
 
-    DisplayObject* layerZeroIndicator = new DisplayObject("layerZeroIndicator", 0, 255, 0, 10, 10, edit_renderer);
+    auto layerZeroIndicator = std::make_shared<DisplayObject>("layerZeroIndicator", 0, 255, 0, 10, 10, edit_renderer);
     layerZeroIndicator->position = {15, 410};
 
-    DisplayObject* layerOneIndicator = new DisplayObject("layerOneIndicator", 0, 255, 0, 10, 10, edit_renderer);
+    auto layerOneIndicator = std::make_shared<DisplayObject>("layerOneIndicator", 0, 255, 0, 10, 10, edit_renderer);
     layerOneIndicator->position = {55, 410};
     layerOneIndicator->visible = false;
 
-    DisplayObject* layerTwoIndicator = new DisplayObject("layerTwoIndicator", 0, 255, 0, 10, 10, edit_renderer);
+    auto layerTwoIndicator = std::make_shared<DisplayObject>("layerTwoIndicator", 0, 255, 0, 10, 10, edit_renderer);
     layerTwoIndicator->position = {95, 410};
     layerTwoIndicator->visible = false;
+
+    std::shared_ptr<DisplayObject> freeMoveBackground = std::make_shared<DisplayObject>("freeMoveBackground", 36, 113, 96, 37, 25, edit_renderer);
+    freeMoveBackground->position = {183, 425};
+
+    auto freeMoveButton = std::make_shared<TextObject>(string("freeMoveButton"), string("FM"), Game::font, edit_renderer);
+    freeMoveButton->position = {184, 420};
+
+    std::shared_ptr<DisplayObject> incrSnapBackground = std::make_shared<DisplayObject>("incrSnapBackground", 36, 113, 96, 37, 25, edit_renderer);
+    incrSnapBackground->position = {223, 425};
+
+    auto incrSnapButton = std::make_shared<TextObject>(string("incrSnapButton"), string("IS"), Game::font, edit_renderer);
+    incrSnapButton->position = {228, 420};
+
+    std::shared_ptr<DisplayObject> gridSnapBackground = std::make_shared<DisplayObject>("gridSnapBackground", 36, 113, 96, 37, 25, edit_renderer);
+    gridSnapBackground->position = {263, 425};
+
+    auto gridSnapButton = std::make_shared<TextObject>(string("gridSnapButton"), string("GS"), Game::font, edit_renderer);
+    gridSnapButton->position = {266, 420};
+
+    auto freeMoveIndicator = std::make_shared<DisplayObject>("freeMoveIndicator", 0, 255, 0, 10, 10, edit_renderer);
+    freeMoveIndicator->position = {198, 410};
+
+    auto incrSnapIndicator = std::make_shared<DisplayObject>("incrSnapIndicator", 0, 255, 0, 10, 10, edit_renderer);
+    incrSnapIndicator->position = {238, 410};
+    incrSnapIndicator->visible = false;
+
+    auto gridSnapIndicator = std::make_shared<DisplayObject>("gridSnapIndicator", 0, 255, 0, 10, 10, edit_renderer);
+    gridSnapIndicator->position = {288, 410};
+    gridSnapIndicator->visible = false;
     
     edit->addChild(idLabel);
     edit->addChild(posLabel);
@@ -125,6 +154,15 @@ Editor::Editor(const string& sceneToLoad)
     edit->addChild(layerZeroIndicator);
     edit->addChild(layerOneIndicator);
     edit->addChild(layerTwoIndicator);
+    edit->addChild(freeMoveBackground);
+    edit->addChild(freeMoveButton);
+    edit->addChild(incrSnapBackground);
+    edit->addChild(incrSnapButton);
+    edit->addChild(gridSnapBackground);
+    edit->addChild(gridSnapButton);
+    edit->addChild(freeMoveIndicator);
+    edit->addChild(incrSnapIndicator);
+    edit->addChild(gridSnapIndicator);
 
     entityTypes = {"arrow", "mage_attack", "poison_bomb", "rubber_cannonball", "archer", "cannoneer", "knight", "mage", "master_archer", "ogre", "poisoner", "roar_monster", "rubber_cannoneer", "second_boss"};
 
@@ -135,22 +173,26 @@ void Editor::setupfiles(const string& path) {
     for (const auto& entry : fs::directory_iterator(path)) {
         if (entry.path() == "./resources/assets/Spritesheets") {
             for (const auto& AS : fs::directory_iterator(entry.path())) {
-                aSprites.push_back(new AnimatedSprite(AS.path().stem().string(), AS.path().string() + "/" + AS.path().stem().string() + ".png", AS.path().string() + "/" + AS.path().stem().string() + ".xml", assets_renderer));
+                aSprites.push_back(std::make_shared<AnimatedSprite>(AS.path().stem().string(), AS.path().string() + "/" + AS.path().stem().string() + ".png", AS.path().string() + "/" + AS.path().stem().string() + ".xml", assets_renderer));
             }
         } else if (entry.path() == "./resources/assets/Display_Objects") {
             for (const auto& DO : fs::directory_iterator(entry.path())) {
-                dos.push_back(new DisplayObject(DO.path().stem().string(), DO.path().string(), assets_renderer));
+                dos.push_back(std::make_shared<DisplayObject>(DO.path().stem().string(), DO.path().string(), assets_renderer));
             }
         } else if (entry.path() == "./resources/assets/Sprites") {
             for (const auto& S : fs::directory_iterator(entry.path())) {
-                sprites.push_back(new Sprite(S.path().stem().string(), S.path().string(), assets_renderer));
+                sprites.push_back(std::make_shared<Sprite>(S.path().stem().string(), S.path().string(), assets_renderer));
             }
         }
     }
     for (int i = 0; i < aSprites.size(); ++i) {
         aSprites[i]->position.x = i % 2 == 0 ? 0 : 150;
         aSprites[i]->position.y = (i / 2) * 150;
-        aSprites[i]->scaleHeight(150);
+        if (aSprites[i]->height > aSprites[i]->width){
+            aSprites[i]->scaleHeight(150);
+        } else{
+            aSprites[i]->scaleWidth(150);
+        }
         if (entityTypes.find(aSprites[i]->id) != entityTypes.end()){
             aSprites[i]->saveType = aSprites[i]->id;
         }
@@ -159,7 +201,11 @@ void Editor::setupfiles(const string& path) {
     for (int i = 0; i < dos.size(); ++i) {
         dos[i]->position.x = (i + aSprites.size()) % 2 == 0 ? 0 : 150;
         dos[i]->position.y = ((i + aSprites.size()) / 2) * 150;
-        dos[i]->scaleHeight(150);
+        if (dos[i]->height > dos[i]->width){
+            dos[i]->scaleHeight(150);
+        } else{
+            dos[i]->scaleWidth(150);
+        }
         if (entityTypes.find(dos[i]->id) != entityTypes.end()){
             dos[i]->saveType = dos[i]->id;
         }
@@ -168,8 +214,12 @@ void Editor::setupfiles(const string& path) {
     for (int i = 0; i < sprites.size(); ++i) {
         sprites[i]->position.x = (i + aSprites.size() + dos.size()) % 2 == 0 ? 0 : 150;
         sprites[i]->position.y = ((i + aSprites.size() + dos.size()) / 2) * 150;
-        sprites[i]->scaleHeight(150);
-        if (entityTypes.find(aSprites[i]->id) != entityTypes.end()){
+        if (sprites[i]->height > sprites[i]->width){
+            sprites[i]->scaleHeight(150);
+        } else{
+            sprites[i]->scaleWidth(150);
+        }
+        if (entityTypes.find(sprites[i]->id) != entityTypes.end()){
             sprites[i]->saveType = sprites[i]->id;
         }
         assets->addChild(sprites[i]);
@@ -258,63 +308,23 @@ void Editor::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState
 
         if (pressedKeys.find(SDL_SCANCODE_DELETE) != pressedKeys.end() &&
             prevKeys.find(SDL_SCANCODE_DELETE) == prevKeys.end()) {
-            for (DisplayObject* object : this->selected){
+            for (auto object : this->selected){
                 object->removeThis();
             }
             this->selected.clear();
         }
 
-        // Old version of editing object attributes, probably obsolete now
-
-        // // Pivot
-        // if (pressedKeys.find(SDL_SCANCODE_I) != pressedKeys.end()) {
-        //     heldPivot.y -= 5;
-        // }
-        // if (pressedKeys.find(SDL_SCANCODE_J) != pressedKeys.end()) {
-        //     heldPivot.x -= 5;
-        // }
-        // if (pressedKeys.find(SDL_SCANCODE_K) != pressedKeys.end()) {
-        //     heldPivot.y += 5;
-        // }
-        // if (pressedKeys.find(SDL_SCANCODE_L) != pressedKeys.end()) {
-        //     heldPivot.x += 5;
-        // }
-
-        // // Rotation
-        // if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
-        //     heldRotation -= 0.05;
-        // }
-        // if (pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) {
-        //     heldRotation += 0.05;
-        // }
-
-        // // Scaling
-        // if (pressedKeys.find(SDL_SCANCODE_MINUS) != pressedKeys.end()) {
-        //     heldScaleX -= 0.05;
-        //     heldScaleY -= 0.05;
-        // }
-        // if (pressedKeys.find(SDL_SCANCODE_EQUALS) != pressedKeys.end()) {
-        //     heldScaleX += 0.05;
-        //     heldScaleY += 0.05;
-        // }
-        // if (pressedKeys.find(SDL_SCANCODE_O) != pressedKeys.end()) {
-        //     heldScaleX -= 0.05;
-        // }
-        // if (pressedKeys.find(SDL_SCANCODE_P) != pressedKeys.end()) {
-        //     heldScaleX += 0.05;
-        // }
-        // if (pressedKeys.find(SDL_SCANCODE_LEFTBRACKET) != pressedKeys.end()) {
-        //     heldScaleY -= 0.05;
-        // }
-        // if (pressedKeys.find(SDL_SCANCODE_RIGHTBRACKET) != pressedKeys.end()) {
-        //     heldScaleY += 0.05;
-        // }
+        if (SDL_GetModState() & KMOD_ALT){
+            freeMove = true;
+        } else{
+            if (incrSnap || gridSnap){
+                freeMove = false;
+            }
+        }
 
         // Jason's debugging tool
         if (pressedKeys.find(SDL_SCANCODE_Y) != pressedKeys.end()) {
-            if (setParentMode){
-                cout << "Set Parent Mode" << endl;
-            }
+            cout << edit->numChildren() << endl;
         }
 
         // Save scene to file
@@ -325,9 +335,93 @@ void Editor::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState
         }
     }
 
+    // Update edit window if there is one non-asset object selected that differs from currently displayed object
+    if (!selectedAsset && selected.size() == 1 && editSelected != *selected.begin()){ 
+        // Store pre-modification number of children
+        int tempNumChildren = edit->numChildren();
+
+        //Delete all children beyond the default 29 that are always displayed
+        for (int i = 29; i < tempNumChildren; ++i){
+            edit->removeImmediateChild(edit->getChild(i));
+        }
+
+        // Clear the editable objects
+        editable.clear();
+
+        editSelected = std::static_pointer_cast<TextObject>(*selected.begin());
+
+        shared_ptr<TextObject> idText = make_shared<TextObject>(string("idText"), string(editSelected->id) , Game::font, edit_renderer);
+        idText->position = {37, 0};
+
+        shared_ptr<TextObject> posXText = make_shared<TextObject>(string("posXText"),  to_string(editSelected->position.x), Game::font, edit_renderer);
+        shared_ptr<TextObject> posYText = make_shared<TextObject>(string("posYText"),  to_string(editSelected->position.y), Game::font, edit_renderer);
+        posXText->position = {25, 70};
+        posYText->position = {175, 70};
+
+        shared_ptr<TextObject> pivXText = make_shared<TextObject>(string("pivXText"),  to_string(editSelected->pivot.x), Game::font, edit_renderer);
+        shared_ptr<TextObject> pivYText = make_shared<TextObject>(string("pivYText"),  to_string(editSelected->pivot.y), Game::font, edit_renderer);
+        pivXText->position = {25, 140};
+        pivYText->position = {175, 140};
+
+        shared_ptr<TextObject> scaleXText = make_shared<TextObject>(string("scaleXText"),  to_string(editSelected->scaleX), Game::font, edit_renderer);
+        shared_ptr<TextObject> scaleYText = make_shared<TextObject>(string("scaleYText"),  to_string(editSelected->scaleY), Game::font, edit_renderer);
+        scaleXText->position = {25, 210};
+        scaleYText->position = {175, 210};
+
+        shared_ptr<TextObject> rotText = make_shared<TextObject>(string("rotText"),  to_string(editSelected->rotation), Game::font, edit_renderer);
+        rotText->position = {110, 250};
+
+        shared_ptr<DisplayObject> parentButtonBackground = make_shared<DisplayObject>("parentButtonBackground", 36, 113, 96, 125, 25, edit_renderer);
+        parentButtonBackground->position = {0, 295};
+
+        shared_ptr<TextObject> setParentButton = make_shared<TextObject>(string("setParentButton"), string("Set Parent"), Game::font, edit_renderer);
+        setParentButton->position = {5, 290};
+
+        
+        
+        edit->addChild(idText);
+        edit->addChild(posXText);
+        edit->addChild(posYText);
+        edit->addChild(pivXText);
+        edit->addChild(pivYText);
+        edit->addChild(scaleXText);
+        edit->addChild(scaleYText);
+        edit->addChild(rotText);
+        edit->addChild(parentButtonBackground);
+        edit->addChild(setParentButton);
+
+        editable.insert(idText);
+        editable.insert(posXText);
+        editable.insert(posYText);
+        editable.insert(pivXText);
+        editable.insert(pivYText);
+        editable.insert(scaleXText);
+        editable.insert(scaleYText);
+        editable.insert(rotText);
+    } else if ((selected.size() == 1 && editSelected != *selected.begin()) || selected.size() != 1){
+        editSelected = NULL;
+        // Store pre-modification number of children
+        int tempNumChildren = edit->numChildren();
+
+        //Delete all children beyond the default 29 that are always displayed
+        for (int i = 29; i < tempNumChildren; ++i){
+            edit->removeImmediateChild(edit->getChild(i));
+        }
+
+        // Clear the editable objects
+        editable.clear();
+    }
+    // // Remove the children that show values if selected differs from currently displayed values
+    // if (selected.size() != 1 || editSelected != *selected.begin()){
+        
+    // }
+
     edit->getChild("layerZeroIndicator")->visible = layer == 0;
     edit->getChild("layerOneIndicator")->visible = layer == 1;
     edit->getChild("layerTwoIndicator")->visible = layer == 2;
+    edit->getChild("freeMoveIndicator")->visible = freeMove;
+    edit->getChild("incrSnapIndicator")->visible = incrSnap && !freeMove;
+    edit->getChild("gridSnapIndicator")->visible = gridSnap && !freeMove;
     
     prevKeys = pressedKeys;
 
@@ -338,7 +432,7 @@ void Editor::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState
 
 void Editor::draw(AffineTransform& at) {
     this->clearRenderers();
-	Game::draw(at);
+    this->container->draw(at);
 
     assets->draw(at);
     edit->draw(at);
@@ -386,10 +480,9 @@ void Editor::draw_post() {
         attributeSelected->drawHitbox({255, 255, 255, SDL_ALPHA_OPAQUE});
     }
 
-    for (DisplayObject* object : this->selected) {
+    for (auto object : this->selected) {
         object->drawHitbox({255, 255, 255, SDL_ALPHA_OPAQUE});
     }
-    
 }
 
 void Editor::clearRenderers(){
@@ -408,7 +501,7 @@ void Editor::presentRenderers(){
     SDL_RenderPresent(Editor::edit_renderer);
 }
 
-void Editor::cut(const unordered_set<DisplayObject*>& objects) {
+void Editor::cut(const unordered_set<shared_ptr<DisplayObject>>& objects) {
     // this->copied.clear();
     // if (!objects.empty()){
     //     for (DisplayObject* object : objects) {
@@ -432,17 +525,17 @@ void Editor::cut(const unordered_set<DisplayObject*>& objects) {
     // }
 
     this->copied.clear();
-    for (DisplayObject* object : objects) {
+    for (auto object : objects) {
         // Make the copy now so that future changes won't affect the copy
-        DisplayObject* copy;
+        shared_ptr<DisplayObject> copy;
         if (object->type == "DisplayObject"){
-            copy = new DisplayObject(*object);
+            copy = make_shared<DisplayObject>(*object);
         } else if (object->type == "Sprite" ||
                    object->type == "arrow" ||
                    object->type == "mage_attack" ||
                    object->type == "poison_bomb" ||
                    object->type == "rubber_cannonball"){
-            copy = new Sprite(*object);
+            copy = make_shared<Sprite>(*object);
         } else if (object->type == "AnimatedSprite" ||
                    object->type == "archer" ||
                    object->type == "cannoneer" ||
@@ -454,7 +547,7 @@ void Editor::cut(const unordered_set<DisplayObject*>& objects) {
                    object->type == "roar_monster" ||
                    object->type == "rubber_cannoneer" ||
                    object->type == "second_boss"){
-            copy = new AnimatedSprite(*object);
+            copy = make_shared<AnimatedSprite>(*object);
         }
         copy->type = object->type;
         copy->renderer = Game::renderer;
@@ -478,17 +571,17 @@ void Editor::cut(const unordered_set<DisplayObject*>& objects) {
     this->selected.clear();
 }
 
-void Editor::copy(const unordered_set<DisplayObject*>& objects, bool keepHierarchy) {
+void Editor::copy(const unordered_set<shared_ptr<DisplayObject>>& objects, bool keepHierarchy) {
     this->copied.clear();
-    for (DisplayObject* object : objects) {
+    for (auto object : objects) {
         // Make the copy now so that future changes won't affect the copy
-        DisplayObject* copy;
+        shared_ptr<DisplayObject> copy;
         if (object->type == "DisplayObject"){
-            copy = new DisplayObject(*object);
+            copy = make_shared<DisplayObject>(*object);
         } else if (object->type == "Sprite"){
-            copy = new Sprite(*object);
+            copy = make_shared<Sprite>(*object);
         } else if (object->type == "AnimatedSprite"){
-            copy = new AnimatedSprite(*object);
+            copy = make_shared<AnimatedSprite>(*object);
         }
         copy->renderer = Game::renderer;
 
@@ -497,7 +590,7 @@ void Editor::copy(const unordered_set<DisplayObject*>& objects, bool keepHierarc
         copy->position.y += 16;
 
         if (!keepHierarchy){
-            copy->parent = NULL;
+            // copy->parent = NULL;
             copy->children.clear();
         }
 
@@ -518,7 +611,7 @@ void Editor::paste(MouseDownEvent* event) {
     if (!event){
         this->selected.clear();
     }
-    for (DisplayObject* object : this->copied) {
+    for (auto object : this->copied) {
         // TODO: This always inserts at the root.
         // Should that always be the case?
         this->curScene->getChild(layer)->addChild(object);
@@ -535,7 +628,7 @@ void Editor::paste(MouseDownEvent* event) {
     }
 
     // Pre-emptively get ready to copy the same objects again
-    unordered_set<DisplayObject*> temp = this->copied;
+    unordered_set<shared_ptr<DisplayObject>> temp = this->copied;
     this->copy(temp);
 }
 
@@ -546,14 +639,14 @@ void Editor::handleEvent(Event* e) {
             assetsWindowActive = true;
             editWindowActive = mainWindowActive = false;
 
-            DisplayObject* temp = NULL;
+            shared_ptr<DisplayObject> temp = nullptr;
             if (!this->selected.empty()){
                 temp = *(this->selected.begin());
             }
             this->selected.clear();
             if (selectedAsset){
                 curScene->getChild(layer)->removeImmediateChild(selectedAsset);
-                selectedAsset = NULL;
+                selectedAsset = nullptr;
             }
             if (this->onMouseDown(assets, event)){
                 if (*this->selected.begin() == temp){
@@ -570,7 +663,7 @@ void Editor::handleEvent(Event* e) {
             editWindowActive = true;
             assetsWindowActive = mainWindowActive = false;
 
-            this->attributeSelected = NULL;
+            this->attributeSelected = nullptr;
 
             if (this->onMouseDown(edit, event)){
 
@@ -594,81 +687,16 @@ void Editor::handleEvent(Event* e) {
                 this->selected.clear();
             }
         }
-        
-        // Remove the children that show values if selected differs from currently displayed values
-        if (selected.size() != 1 || editSelected != *selected.begin()){
-            // Store pre-modification number of children
-            int tempNumChildren = edit->numChildren();
-
-            //Delete all children beyond the default 20 that are always displayed
-            for (int i = 20; i < tempNumChildren; ++i){
-                edit->removeImmediateChild(edit->getChild(20));
-            }
-
-            // Clear the editable objects
-            editable.clear();
-        }
-        
-        // Update edit window if there is one non-asset object selected that differs from currently displayed object
-        if (!selectedAsset && selected.size() == 1 && editSelected != *selected.begin()){ 
-            editSelected = *selected.begin();
-
-            TextObject* idText = new TextObject(string("idText"), string(editSelected->id) , Game::font, edit_renderer);
-            idText->position = {37, 0};
-
-            TextObject* posXText = new TextObject(string("posXText"),  to_string(editSelected->position.x), Game::font, edit_renderer);
-            TextObject* posYText = new TextObject(string("posYText"),  to_string(editSelected->position.y), Game::font, edit_renderer);
-            posXText->position = {25, 70};
-            posYText->position = {175, 70};
-
-            TextObject* pivXText = new TextObject(string("pivXText"),  to_string(editSelected->pivot.x), Game::font, edit_renderer);
-            TextObject* pivYText = new TextObject(string("pivYText"),  to_string(editSelected->pivot.y), Game::font, edit_renderer);
-            pivXText->position = {25, 140};
-            pivYText->position = {175, 140};
-
-            TextObject* scaleXText = new TextObject(string("scaleXText"),  to_string(editSelected->scaleX), Game::font, edit_renderer);
-            TextObject* scaleYText = new TextObject(string("scaleYText"),  to_string(editSelected->scaleY), Game::font, edit_renderer);
-            scaleXText->position = {25, 210};
-            scaleYText->position = {175, 210};
-
-            TextObject* rotText = new TextObject(string("rotText"),  to_string(editSelected->rotation), Game::font, edit_renderer);
-            rotText->position = {110, 250};
-
-            DisplayObject* parentButtonBackground = new DisplayObject("parentButtonBackground", 36, 113, 96, 125, 25, edit_renderer);
-            parentButtonBackground->position = {0, 295};
-
-            TextObject* setParentButton = new TextObject(string("setParentButton"), string("Set Parent"), Game::font, edit_renderer);
-            setParentButton->position = {5, 290};
-
-            
-            
-            edit->addChild(idText);
-            edit->addChild(posXText);
-            edit->addChild(posYText);
-            edit->addChild(pivXText);
-            edit->addChild(pivYText);
-            edit->addChild(scaleXText);
-            edit->addChild(scaleYText);
-            edit->addChild(rotText);
-            edit->addChild(parentButtonBackground);
-            edit->addChild(setParentButton);
-
-            editable.insert(idText);
-            editable.insert(posXText);
-            editable.insert(posYText);
-            editable.insert(pivXText);
-            editable.insert(pivYText);
-            editable.insert(scaleXText);
-            editable.insert(scaleYText);
-            editable.insert(rotText);
-        } else if (selected.size() == 1 && editSelected != *selected.begin()){
-            editSelected = NULL;
-        }
     } else if (e->getType() == DragStartEvent::DRAG_START_EVENT) {
+        DragStartEvent* event = static_cast<DragStartEvent*>(e);
         this->displacementX.clear();
         this->displacementY.clear();
 
-        for (DisplayObject* object : this->selected) {
+        for (auto object : this->selected) {
+            if (gridSnap && !freeMove){
+                object->position.x -= object->position.x % Editor::GRID_SIZE;
+                object->position.y -= object->position.y % Editor::GRID_SIZE;
+            }
             this->displacementX.insert({object, 0.0});
             this->displacementY.insert({object, 0.0});
         }
@@ -686,12 +714,12 @@ void Editor::handleEvent(Event* e) {
             mainWindowActive = true;
             assetsWindowActive = editWindowActive = false;
 
-            for (DisplayObject* object : this->selected) {
+            for (auto object : this->selected) {
                 // Okay, this is convoluted. Here's a walkthrough...
 
                 // Calculate movement threshold
                 double threshold = this->camera->getZoom();
-                if (!(event->modifiers & KMOD_ALT)) {
+                if ((incrSnap || gridSnap) && !freeMove) {
                     // Snap by the grid size if we are not holding alt
                     threshold *= Editor::GRID_SIZE;
                 }
@@ -717,6 +745,12 @@ void Editor::handleEvent(Event* e) {
                 // whereas the result of fmod is [0, denom)
                 this->displacementX.at(object) = fmod(this->displacementX.at(object), threshold);
                 this->displacementY.at(object) = fmod(this->displacementY.at(object), threshold);
+
+                
+            }
+            if (editSelected != NULL){
+                static_pointer_cast<TextObject>(edit->getChild("posXText"))->setText(to_string(editSelected->position.x));
+                static_pointer_cast<TextObject>(edit->getChild("posYText"))->setText(to_string(editSelected->position.y));
             }
         }
     } else if (e->getType() == MouseUpEvent::MOUSE_UP_EVENT) {
@@ -840,7 +874,7 @@ void Editor::handleEvent(Event* e) {
     }
 }
 
-bool Editor::onMouseDown(DisplayObject* object, MouseDownEvent* event) {
+bool Editor::onMouseDown(shared_ptr<DisplayObject> object, MouseDownEvent* event) {
     // Reverse iterator to check the topmost objects first
     for (auto it = object->children.crbegin(); it != object->children.crend(); it++) {
         if (this->onMouseDown(*it, event)) {
@@ -848,7 +882,7 @@ bool Editor::onMouseDown(DisplayObject* object, MouseDownEvent* event) {
         }
     }
 
-    if (CollisionSystem::isInside({event->x, event->y}, object->getHitbox())) {
+    if (CollisionSystem::isInside({event->x, event->y}, object->getHitbox()) && object->type != "Camera") {
         if (setParentMode){
             if (object != editSelected && event->wID == SDL_GetWindowID(window)){
                 auto it = std::find(editSelected->parent->children.cbegin(), editSelected->parent->children.cend(), editSelected);
@@ -876,7 +910,7 @@ bool Editor::onMouseDown(DisplayObject* object, MouseDownEvent* event) {
     return false;
 }
 
-bool Editor::onMouseUp(DisplayObject* object, MouseUpEvent* event) {
+bool Editor::onMouseUp(shared_ptr<DisplayObject> object, MouseUpEvent* event) {
     // Reverse iterator to check the topmost objects first
     for (auto it = object->children.crbegin(); it != object->children.crend(); it++) {
         if (this->onMouseUp(*it, event)) {
@@ -887,12 +921,12 @@ bool Editor::onMouseUp(DisplayObject* object, MouseUpEvent* event) {
     if (CollisionSystem::isInside({event->x, event->y}, object->getHitbox())) {
         if (event->wID == SDL_GetWindowID(edit_window)){
             if (editable.find(object) != editable.end() && object->type == "TextObject"){
-                attributeSelected = (TextObject*) object;
+                attributeSelected = static_pointer_cast<TextObject>(object);
                 return true;
             } else if (object->id == "parentButtonBackground" || object->id == "setParentButton"){
                 setParentMode = !setParentMode;
                 if (setParentMode){
-                    DisplayObject* indicator = new DisplayObject("setParentModeIndicator", 255, 0, 0, 10, 10, edit_renderer);
+                    std::shared_ptr<DisplayObject> indicator = std::make_shared<DisplayObject>("setParentModeIndicator", 255, 0, 0, 10, 10, edit_renderer);
                     indicator->position = {140, 300};
                     edit->addChild(indicator);
                 } else{
@@ -905,6 +939,15 @@ bool Editor::onMouseUp(DisplayObject* object, MouseUpEvent* event) {
                 layer = 1;
             } else if (object->id == "layerTwoBackground" || object->id == "layerTwoButton"){
                 layer = 2;
+            } else if (object->id == "freeMoveBackground" || object->id == "freeMoveButton"){
+                freeMove = true;
+                incrSnap = gridSnap = false;
+            } else if (object->id == "incrSnapBackground" || object->id == "incrSnapButton"){
+                incrSnap = true;
+                freeMove = gridSnap = false;
+            } else if (object->id == "gridSnapBackground" || object->id == "gridSnapButton"){
+                gridSnap = true;
+                freeMove = incrSnap = false;
             }
             return false;
         } else if (!(event->modifiers & KMOD_CTRL)) {

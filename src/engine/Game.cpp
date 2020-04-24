@@ -24,7 +24,7 @@ unsigned int Game::frameCounter = 0;
 Game::Game(int windowWidth, int windowHeight) {
     Game::instance = this;
 
-    this->container = new DisplayObject("game");
+    this->container = std::make_shared<DisplayObject>("game");
     this->container->type = "game";
     this->container->saveType = this->container->type;
 
@@ -40,8 +40,8 @@ Game::Game(int windowWidth, int windowHeight) {
 }
 
 Game::~Game() {
-    // We must destroy our own textures BEFORE destroying the renderer
-    delete container;
+    // Delete ourselves before SDL destroys our renderer
+    this->container.reset();
 
     quitSDL();
 }

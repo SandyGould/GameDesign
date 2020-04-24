@@ -1,7 +1,7 @@
 #include "Cannoneer.h"
 
 
-Cannoneer::Cannoneer(Player* player) : BaseEnemy("Cannoneer", "./resources/assets/Display_Objects/cannoneer.png", "", player){
+Cannoneer::Cannoneer(std::shared_ptr<Player> player) : BaseEnemy("Cannoneer", "./resources/assets/Display_Objects/cannoneer.png", "", player){
     this->type = "cannoneer";
     this->saveType = this->type;
 }
@@ -30,7 +30,7 @@ void Cannoneer::update(const std::unordered_set<SDL_Scancode>& pressedKeys, cons
     }
     else if(this->state == 2){
         if(wait == 12){
-            cannonball = new Projectile("Cannonball", "", 45);
+            cannonball = std::make_shared<Projectile>("Cannonball", "", 45);
             cannonball->position = {45,0}; //IDK something so it doesn't spawn on top of the cannon lol
         }
         if(wait == 0){

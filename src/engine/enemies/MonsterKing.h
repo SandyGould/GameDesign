@@ -6,11 +6,11 @@
 
 class MonsterKing : public BaseEnemy {
     public:
-        MonsterKing(Player* player);
+        MonsterKing(std::shared_ptr<Player> player);
 
         void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
         void draw(AffineTransform& at) override;
-        bool onCollision(DisplayObject* other) override;
+        bool onCollision(std::shared_ptr<DisplayObject> other) override;
     private:
         int coolDownFrames = -1;
         int ready = 0;
@@ -21,9 +21,9 @@ class MonsterKing : public BaseEnemy {
         int rushFrames = 0;
         int maxWalkFrames = 0;
 
-        IceAttack* iceAttack;
-        BaseEnemy* minion1;
-        BaseEnemy* minion2;
+        std::shared_ptr<IceAttack> iceAttack;
+        std::shared_ptr<BaseEnemy> minion1;
+        std::shared_ptr<BaseEnemy> minion2;
 
 };
 

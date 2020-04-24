@@ -34,29 +34,29 @@ public:
 
 private:
     CollisionSystem* collisionSystem;
-	Player* player;
-	Mage* mage;
-    Archer* archer;
-	MageAttack* mageAttack;
-	MasterArcher* masterArcher;
-	RoarMonster* roarMonster;
-	Cannoneer* cannoneer;
-	Knight* knight;
-	RubberCannoneer* rubberCannoneer;
-	KingdomArcher* kingdomArcher;
-	Poisoner* poisoner;
-	Orc* orc;
-	Ogre* ogre;
-	MonsterKing* mKing;
-	KingdomMage* kingdomMage;
-	DisplayObject* allSprites;
-	Arrow* arrow;
-	SecondBoss* secondBoss;
-	QuestManager* questManager;
+	std::shared_ptr<Player> player;
+	std::shared_ptr<Mage> mage;
+    std::shared_ptr<Archer> archer;
+	std::shared_ptr<MageAttack> mageAttack;
+	std::shared_ptr<MasterArcher> masterArcher;
+	std::shared_ptr<RoarMonster> roarMonster;
+	std::shared_ptr<Cannoneer> cannoneer;
+	std::shared_ptr<Knight> knight;
+	std::shared_ptr<RubberCannoneer> rubberCannoneer;
+	std::shared_ptr<KingdomArcher> kingdomArcher;
+	std::shared_ptr<Poisoner> poisoner;
+	std::shared_ptr<Orc> orc;
+	std::shared_ptr<Ogre> ogre;
+	std::shared_ptr<MonsterKing> mKing;
+	std::shared_ptr<KingdomMage> kingdomMage;
+	std::shared_ptr<DisplayObject> allSprites;
+	std::shared_ptr<Arrow> arrow;
+	std::shared_ptr<SecondBoss> secondBoss;
+	std::shared_ptr<QuestManager> questManager;
 
-	DisplayObject* character;
-	Scene* scene;
-	Scene* scene2;
+	std::shared_ptr<DisplayObject> character;
+	std::shared_ptr<Scene> scene;
+	std::shared_ptr<Scene> scene2;
 
     void update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) override;
 	void draw(AffineTransform& at) override;

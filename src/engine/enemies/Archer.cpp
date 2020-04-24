@@ -17,7 +17,7 @@ Ded 7
 */
 
 // Init
-Archer::Archer(Player* player): BaseEnemy("Archer" + std::to_string(archer_count), "./resources/assets/Display_Objects/archer.png", "", player){
+Archer::Archer(std::shared_ptr<Player> player): BaseEnemy("Archer" + std::to_string(archer_count), "./resources/assets/Display_Objects/archer.png", "", player){
     this->state = 0;
     this->facingRight=true;
     this->saveType = "archer";
@@ -26,7 +26,7 @@ Archer::Archer(Player* player): BaseEnemy("Archer" + std::to_string(archer_count
     archer_count++;
 }
 
-Archer::Archer(Player* player, std::string filepath, std::string xml): BaseEnemy("kArcher", filepath, xml, player){
+Archer::Archer(std::shared_ptr<Player> player, std::string filepath, std::string xml): BaseEnemy("kArcher", filepath, xml, player){
 
 }
 
@@ -45,7 +45,7 @@ void Archer::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
         this->state = 2;
     }
     else if(this->state == 2){ //"knock" arrow
-        this->arrow = new Arrow(30);
+        this->arrow = std::make_shared<Arrow>(30);
         if(this->facingRight){
             arrow->facingRight = true;
         }
@@ -95,7 +95,7 @@ void Archer::draw(AffineTransform& at){
     BaseEnemy::draw(at);
 }
 
-bool Archer::onCollision(DisplayObject* other){
+bool Archer::onCollision(std::shared_ptr<DisplayObject> other){
      if(other == arrow && arrow->firing == false){
          return true;
      }

@@ -6,13 +6,13 @@
 
 class SecondBoss : public BaseEnemy{
     public:
-        SecondBoss(Player* player);
+        SecondBoss(std::shared_ptr<Player> player);
         int health = 300;
         void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
-        double aim(DisplayObject* targetSprite);
+        double aim(std::shared_ptr<DisplayObject> targetSprite);
         void fire(double angle);
         void bounce();
-        bool onCollision(DisplayObject* other) override;
+        bool onCollision(std::shared_ptr<DisplayObject> other) override;
 
     private:
         int velocity = 50;
