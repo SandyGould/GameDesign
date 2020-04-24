@@ -1,0 +1,92 @@
+{
+    "Scene":[
+        {
+            "L0":{
+                "speed":1,
+                "objects":[
+                    {
+                        "type":"Sprite",
+                        "name":"background",
+                        "filepath":"./resources/Rebound/area1/room3/assets/background.png",
+                        "x_pos":100,
+                        "y_pos":0,
+                        "rotation":0,
+                        "scaleX":4,
+                        "scaleY":4,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"structure",
+                        "filepath":"./resources/Rebound/area1/room3/assets/structure.png",
+                        "x_pos": 600,
+                        "y_pos": 50,
+                        "rotation": 0,
+                        "scaleX":3,
+                        "scaleY":3,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"Archer",
+                        "name":"archer1",
+                        "filepath": "./resources/assets/Display_Objects/archer.png",
+                        "x_pos": 150,
+                        "y_pos": 400,
+                        "rotation":0,
+                        "scaleX":2.5,
+                        "scaleY":2.5,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"Archer",
+                        "name":"archer2",
+                        "filepath": "./resources/assets/Display_Objects/archer.png",
+                        "x_pos": 650,
+                        "y_pos": 350,
+                        "rotation":0,
+                        "scaleX":2.5,
+                        "scaleY":2.5,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"Archer",
+                        "name":"archer3",
+                        "filepath": "./resources/assets/Display_Objects/archer.png",
+                        "x_pos": 800,
+                        "y_pos": 100,
+                        "rotation":0,
+                        "scaleX":2.5,
+                        "scaleY":2.5,
+                        "parentHierarchy":[]
+                    }
+                ]
+            }
+        },
+        {
+            "L1":{
+                "speed":1,
+                "objects":[ ]
+            }
+        },
+        {
+            "L2":{
+                "speed":1,
+                "objects":[]
+            }
+        }
+    ],
+    "Camera":{
+        "camEntrancePivotX":200,
+        "camEntrancePivotY":100,
+        "camEntrancePositionX":200,
+        "camEntrancePositionY":100,
+        "playerEntrancePosX":50,
+        "playerEntrancePosY":250,
+        "camExitPivotX":800,
+        "camExitPivotY":100,
+        "camExitPositionX":800,
+        "camExitPositionY":100,
+        "playerExitPosX":1150,
+        "playerExitPosY":250
+    }
+}

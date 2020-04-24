@@ -27,6 +27,16 @@ void Scene::loadScene(std::string sceneFilePath){
     std::ifstream i(sceneFilePath);
     json j;
     i >> j;
+
+    /* Load camera + player positions */
+    this->camEntrancePivot = {j["Camera"]["camEntrancePivotX"], j["Camera"]["camEntrancePivotY"]};
+    this->camEntrancePosition = {j["Camera"]["camEntrancePositionX"], j["Camera"]["camEntrancePositionY"]};
+    this->playerEntrancePos = {j["Camera"]["playerEntrancePosX"], j["Camera"]["playerEntrancePosY"]};
+    this->camExitPivot = {j["Camera"]["camExitPivotX"], j["Camera"]["camExitPivotY"]};
+    this->camExitPosition = {j["Camera"]["camExitPositionX"], j["Camera"]["camExitPositionY"]};
+    this->playerExitPos = {j["Camera"]["playerExitPosX"], j["Camera"]["playerExitPosY"]};
+
+
     for(int z = 0; z < j["Scene"].size(); z++){
         std::string layer_value = "L" + std::to_string(z);
         auto temp_layer = std::make_shared<Layer>(layer_value);
@@ -40,8 +50,8 @@ void Scene::loadScene(std::string sceneFilePath){
             // if(json_layer["objects"][y]["parentHierarchy"].size() > 0){
             //     parent = find_parent(json_layer["objects"][y]["parentHierarchy"], temp_layer);
             // } 
-
             std::string obj_type = json_layer["objects"][y]["type"].get<std::string>();
+            // std::cout << obj_type << std::endl;
             json mj = json_layer["objects"][y];
             if(obj_type.compare("DisplayObject") == 0){temp_layer->addChild(setBasicInfo(std::make_shared<DisplayObject>(mj["name"], mj["filepath"]), mj));}
             else if(obj_type.compare("AnimatedSprite") == 0){temp_layer->addChild(std::static_pointer_cast<AnimatedSprite>(setBasicInfo(std::make_shared<AnimatedSprite>(mj["name"], mj["sheetpath"], mj["xmlpath"]), mj)));}

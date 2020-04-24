@@ -1,22 +1,30 @@
 #include "TweenJuggler.h"
 
+#include <iostream>
+
 TweenJuggler::TweenJuggler() { }
 
 TweenJuggler::~TweenJuggler() {
     tweenList.clear();
 }
 
+void TweenJuggler::add(std::shared_ptr<Tween> tween) {
+    bool found = false;
+    for (auto t : tweenList) {
+        if (t->getID() == tween->getID()) {
+            found = true;
+        }
+    }
+    if (!found) {
+        tweenList.push_back(tween);
+    }
+}
 // TweenJuggler* TweenJuggler::getInstance() {
 //     if (!instance) {
 //         instance = new TweenJuggler();
 //     }
 //     return instance;
 // }
-
-void TweenJuggler::add(std::shared_ptr<Tween> tween) {
-    // throw event - tween starting
-    tweenList.push_back(tween);   
-}
 
 void TweenJuggler::nextFrame() {
     for (auto it = this->tweenList.begin(); it != this->tweenList.end(); ) {

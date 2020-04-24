@@ -124,6 +124,10 @@ public:
 
     std::vector<std::shared_ptr<DisplayObject>> children;
 
+	// for debugging
+	void printDisplayTreeHelper(std::shared_ptr<DisplayObject> root);
+	void printDisplayTree();
+
 private:
 	static double distance(SDL_Point& p1, SDL_Point& p2);
 	static double calculateRotation(SDL_Point& origin, SDL_Point& p);

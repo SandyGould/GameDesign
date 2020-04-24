@@ -6,6 +6,7 @@
 #include "../engine/tweens/TweenParam.h"
 #include "../engine/tweens/TweenJuggler.h"
 #include "../engine/events/NewSceneEvent.h"
+#include "../engine/SceneManager.h"
 
 
 #include <algorithm>
@@ -18,47 +19,34 @@ Rooms::Rooms() : Game(600, 500) {
 	instance = this;
 
     // create collision system
-    this->collisionSystem = new CollisionSystem();
+    this->collisionSystem = std::make_unique<CollisionSystem>();
     // set collisions between player and all environmental objects
     this->collisionSystem->watchForCollisions("player", "WalkOnObject");
     this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
     this->collisionSystem->watchForCollisions("player", "arrow");
     this->collisionSystem->watchForCollisions("shield", "arrow");
     this->collisionSystem->watchForCollisions("shield", "enemy");
+    this->collisionSystem->watchForCollisions("enemy", "EnvironmentObject");
+
 
 	camera = std::make_shared<Camera>();
 
 	// load and prep camera
 	camera->setTopLimit(0);
-	camera->setLeftLimit(200);
-	camera->setRightLimit(810);
-    camera->setBottomLimit(0);
+	camera->setLeftLimit(0); //200
+	camera->setRightLimit(810); //810
+    camera->setBottomLimit(0); //0
 	// move that point to the middle
-	camera->position = {200, 100};
-	camera->pivot = {200, 100};
 
 	container->addChild(camera);
 
 	// load and prep player
 	player = std::make_shared<Player>();
 	player->position = {50, 250};
-	player->width = 110;
-	player->height = 80;
+	// player->width = 110;
+	// player->height = 80;
 	player->pivot = {50, 50};
 	//player->type = "player";
-
-	// load and prep scene 1
-	room = 1;
-	scene = std::make_shared<Scene>(camera, player);
-	scene->loadScene("./resources/Rebound/area1/area1map.json");
-
-	camera->addChild(scene);
-
-	// load and prep scene 2
-	scene2 = std::make_shared<Scene>(camera, player);
-	scene2->loadScene("./resources/Rebound/area2/area2map.json");
-
-	scene->addChild(player);
 
 	// start text box
 	start_text_box = std::make_shared<TextBox>("start_text", "Welcome to Rebound!\n\nPress any key to continue");
@@ -92,7 +80,7 @@ Rooms::Rooms() : Game(600, 500) {
 	EventDispatcher::getInstance().addEventListener(this->selection_quit_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);
 
 	// health bar
-	health = std::make_shared<StatBar>("Health", 255, 0, 0);
+	health = std::make_shared<StatBar>("Health", 255, 0, 0, player);
 	health->position = {50,460};
 	container->addChild(health);
 
@@ -105,100 +93,27 @@ Rooms::Rooms() : Game(600, 500) {
 
     TweenJuggler::getInstance().add(player_tween);
     EventDispatcher::getInstance().addEventListener(this->start_text_box.get(), TweenEvent::TWEEN_COMPLETE_EVENT);
-	EventDispatcher::getInstance().addEventListener(this->scene.get(), NewSceneEvent::FADE_OUT_EVENT);
-	EventDispatcher::getInstance().addEventListener(this->scene.get(), TweenEvent::TWEEN_COMPLETE_EVENT);
-	EventDispatcher::getInstance().addEventListener(this->camera.get(), TweenEvent::TWEEN_COMPLETE_EVENT);
-	EventDispatcher::getInstance().addEventListener(this->scene2.get(), NewSceneEvent::FADE_IN_EVENT);
-}
-
-Rooms::~Rooms() {
-	delete this->collisionSystem;
+	
+	
+	this->sceneManager = std::make_shared<SceneManager>(camera, player);
+	// load the entire first area
+	this->sceneManager->loadAllAreas(4);
+	// load first scene
+	this->sceneManager->loadFirstScene();
 }
 
 void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {
-  	if (sceneChange) {
-		if (room == 1) {
-			EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_OUT_EVENT));
-			if (camera->changeScene) {
-				// setup camera
-				camera->addChild(scene2);
-				camera->setRightLimit(300);
-				camera->setTopLimit(0);
-				camera->position = {200, 200};
-				camera->pivot = {200, 200};
-				camera->changeScene = false;
-
-				// pass player to new scene
-				scene2->addChild(player);
-				scene->removeImmediateChild(player);
-				player->position = {0, 200};
-
-				EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_IN_EVENT));
-				sceneChange = false;
-				room = 2;
-			}
-		}
+	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
+		player->position.x += 2;
 	}
-	if (sceneChange2) {
-		if (room == 2) {
-			if (!EventDispatcher::getInstance().hasEventListener(this->scene2.get(), NewSceneEvent::FADE_OUT_EVENT)) {
-				EventDispatcher::getInstance().addEventListener(this->scene2.get(), NewSceneEvent::FADE_OUT_EVENT);
-			}
-			if (!EventDispatcher::getInstance().hasEventListener(this->scene2.get(), TweenEvent::TWEEN_COMPLETE_EVENT)) {
-				EventDispatcher::getInstance().addEventListener(this->scene2.get(), TweenEvent::TWEEN_COMPLETE_EVENT);
-			}
-			EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_OUT_EVENT));
-			if (camera->changeScene) {
-				//setup camera
-				scene3 = std::make_shared<Scene>(camera, player);
-				scene3->loadScene("./resources/Rebound/area3/area3map.json");
-				if (!EventDispatcher::getInstance().hasEventListener(this->scene3.get(), NewSceneEvent::FADE_IN_EVENT)) {
-					EventDispatcher::getInstance().addEventListener(this->scene3.get(), NewSceneEvent::FADE_IN_EVENT);
-				}
-
-				camera->addChild(scene3);
-				camera->setRightLimit(300);
-				camera->setTopLimit(0);
-				//camera->setBottomLimit(200);
-				camera->position = {200, 200};
-				camera->pivot = {200, 200};
-				camera->changeScene = false;
-
-				// pass player
-				scene3->addChild(player);
-				scene2->removeImmediateChild(player);
-				player->position = {20, 20};
-
-				EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_IN_EVENT));
-				sceneChange = false;
-				room = 3;
-			}
-		}
-
+	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
+        player->position.x -= 2;
+    }
+	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
+			player->position.y += 2;
 	}
-
-	// std::cout << "x" << std::endl;
-	// std::cout << player->position.x << std::endl;
-	// std::cout << "y" << std::endl;
-	// std::cout << player->position.y << std::endl;
-
-
-	// scene 1 change
-	if (room == 1 && !sceneChange) {
-		if (player->position.x > 1200) {
-			sceneChange = true;
-		}
-	}
-
-	if (room == 2 && !sceneChange2) {
-		if (player->position.y > 510) {
-			sceneChange2 = true;
-		}
-	}
-
-	if (room == 3) {
-		std::cout << "x: " << camera->pivot.x << std::endl;
-		std::cout << "y: " << camera->pivot.y << std::endl;
+	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
+		player->position.y -= 2;
 	}
 
 	// menu controls
@@ -211,10 +126,14 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 	}
 
     TweenJuggler::getInstance().nextFrame();
+    
+	// update scene if criteria for changing scene are met
+	this->sceneManager->updateScene();
+	health->updateHealth();
 	Game::update(pressedKeys, joystickState, pressedButtons);
-	player->slowed = false;
+	player->speedChange = false;
     this->collisionSystem->update();
-	if(!player->slowed){
+	if(!player->speedChange){
 		player->speed = 4;
 	}
     camera->follow(player->position.x, player->position.y);

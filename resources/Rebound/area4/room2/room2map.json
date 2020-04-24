@@ -1,0 +1,165 @@
+{
+    "Scene":[
+        {
+            "L0":{
+                "speed":1,
+                "objects":[
+                    {
+                        "type":"Sprite",
+                        "name":"background",
+                        "filepath":"./resources/Rebound/area4/assets/background_4_2.png",
+                        "x_pos":0,
+                        "y_pos":0,
+                        "rotation":0,
+                        "scaleX":10,
+                        "scaleY":5,
+                        "parentHierarchy":[]
+                    },
+                    
+
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"Wall Tower",
+                        "filepath":"./resources/Rebound/area4/assets/walltower.png",
+                        "x_pos":470,
+                        "y_pos":210,
+                        "rotation":0,
+                        "scaleX":1,
+                        "scaleY":2,
+                        "parentHierarchy":[]  
+                    },
+
+                    {
+                        "type":"Sprite",
+                        "name":"knight",
+                        "filepath":"./resources/Rebound/area4/assets/knight.png",
+                        "x_pos":380,
+                        "y_pos":230,
+                        "rotation":0,
+                        "scaleX":0.4,
+                        "scaleY":0.6,
+                        "parentHierarchy":[]  
+                    },
+
+                    {
+                        "type":"Sprite",
+                        "name":"knight",
+                        "filepath":"./resources/Rebound/area4/assets/knight.png",
+                        "x_pos":380,
+                        "y_pos":310,
+                        "rotation":0,
+                        "scaleX":0.4,
+                        "scaleY":0.6,
+                        "parentHierarchy":[]  
+                    },
+
+                    {
+                        "type":"Sprite",
+                        "name":"knight",
+                        "filepath":"./resources/Rebound/area4/assets/knight.png",
+                        "x_pos":715,
+                        "y_pos":270,
+                        "rotation":0,
+                        "scaleX":0.4,
+                        "scaleY":0.6,
+                        "parentHierarchy":[]  
+                    },
+
+
+                    {
+                        "type":"Sprite",
+                        "name":"archer",
+                        "filepath":"./resources/Rebound/area4/assets/archer.png",
+                        "x_pos":930,
+                        "y_pos":115,
+                        "rotation":0,
+                        "scaleX":0.4,
+                        "scaleY":0.6,
+                        "parentHierarchy":[]
+                    },
+
+                    {
+                        "type":"Sprite",
+                        "name":"archer",
+                        "filepath":"./resources/Rebound/area4/assets/archer.png",
+                        "x_pos":930,
+                        "y_pos":345,
+                        "rotation":0,
+                        "scaleX":0.4,
+                        "scaleY":0.6,
+                        "parentHierarchy":[]
+                    },
+
+
+                    {
+                        "type":"Sprite",
+                        "name":"Wizard",
+                        "filepath":"./resources/Rebound/area4/assets/wizard.png",
+                        "x_pos":690,
+                        "y_pos":150,
+                        "rotation":0,
+                        "scaleX":0.4,
+                        "scaleY":0.6,
+                        "parentHierarchy":[]
+                    },
+
+                    {
+                        "type":"Sprite",
+                        "name":"Wizard",
+                        "filepath":"./resources/Rebound/area4/assets/wizard.png",
+                        "x_pos":690,
+                        "y_pos":365,
+                        "rotation":0,
+                        "scaleX":0.4,
+                        "scaleY":0.6,
+                        "parentHierarchy":[]
+                    },
+
+                    {
+                        "type":"Sprite",
+                        "name":"archer",
+                        "filepath":"./resources/Rebound/area4/assets/archer.png",
+                        "x_pos":175,
+                        "y_pos":120,
+                        "rotation":0,
+                        "scaleX":0.4,
+                        "scaleY":0.6,
+                        "parentHierarchy":[]
+                    },
+
+                    {
+                        "type":"Sprite",
+                        "name":"archer",
+                        "filepath":"./resources/Rebound/area4/assets/archer.png",
+                        "x_pos":175,
+                        "y_pos":395,
+                        "rotation":0,
+                        "scaleX":0.4,
+                        "scaleY":0.6,
+                        "parentHierarchy":[]
+                    }
+                ]
+            }
+        },
+        {
+            "L1":{
+                "speed":1,
+                "objects":[ ]
+            }
+        }
+    ],
+    "Camera":{
+        "camEntrancePivotX":200,
+        "camEntrancePivotY":100,
+        "camEntrancePositionX":200,
+        "camEntrancePositionY":100,
+        "playerEntrancePosX":50,
+        "playerEntrancePosY":250,
+        "camExitPivotX":800,
+        "camExitPivotY":100,
+        "camExitPositionX":800,
+        "camExitPositionY":100,
+        "playerExitPosX":1150,
+        "playerExitPosY":250
+    }
+}

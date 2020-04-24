@@ -37,6 +37,7 @@ int main(int argc, char** argv) {
                 Editor().start();
             }
         } else if (arg == "sfx_demo") {
+            cout << "Getting here" << endl;
             Rooms().start();
         } else {
             cout << "Unrecognized arguments, launching game." << endl;

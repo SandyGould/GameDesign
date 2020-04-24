@@ -115,13 +115,26 @@ void CollisionSystem::handleEvent(Event* e) {
                 }
             }
         } else {
-            // Defer erasing from collisionPairs as it's possible that
-            // we're in the middle of an update() loop, and deleting now
-            // would invalidate the iterators
-            objectsToErase.emplace_back(object);
-            displayObjectsMap.at(type).erase(object);
-            prevPositions.erase(object);
+            eraseObjects(object);
         }
+    }
+}
+
+void CollisionSystem::eraseObjects(const shared_ptr<DisplayObject>& object) {
+    if (collisionTypes.find(object->type) != collisionTypes.cend()) {
+        // Defer erasing from collisionPairs as it's possible that
+        // we're in the middle of an update() loop, and deleting now
+        // would invalidate the iterators
+        objectsToErase.emplace_back(object);
+    }
+
+    displayObjectsMap.at(object->type).erase(object);
+    prevPositions.erase(object);
+
+    // cout << "Preparing to erase " << object->id << endl;
+
+    for (const auto& child : object->children) {
+        eraseObjects(child);
     }
 }
 

@@ -1,0 +1,295 @@
+{
+    "Scene":[
+        {
+            "L0":{
+                "speed":1,
+                "objects":[
+                    {
+                        "type":"Sprite",
+                        "name":"background",
+                        "filepath":"./resources/Rebound/area4/assets/background4_5.png",
+                        "x_pos":0,
+                        "y_pos":0,
+                        "rotation":0,
+                        "scaleX":10,
+                        "scaleY":5,
+                        "parentHierarchy":[]
+                    },
+
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"Wood Wall",
+                        "filepath":"./resources/Rebound/area4/assets/woodwallbottom.png",
+                        "x_pos":0,
+                        "y_pos":420,
+                        "rotation":0,
+                        "scaleX":3.5,
+                        "scaleY":0.8,
+                        "parentHierarchy":[]
+                    },
+
+
+
+
+
+
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"Wood Wall",
+                        "filepath":"./resources/Rebound/area4/assets/woodwallbottom.png",
+                        "x_pos":650,
+                        "y_pos":420,
+                        "rotation":0,
+                        "scaleX":3.5,
+                        "scaleY":0.8,
+                        "parentHierarchy":[]
+                    },
+
+
+
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"Half Wall",
+                        "filepath":"./resources/Rebound/area4/assets/halfwall.png",
+                        "x_pos":0,
+                        "y_pos":0,
+                        "rotation":0,
+                        "scaleX":3,
+                        "scaleY":1.5,
+                        "parentHierarchy":[]
+                    },
+
+
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"Half Wall",
+                        "filepath":"./resources/Rebound/area4/assets/halfwall.png",
+                        "x_pos":670,
+                        "y_pos":0,
+                        "rotation":0,
+                        "scaleX":3,
+                        "scaleY":1.5,
+                        "parentHierarchy":[]
+                    },
+
+
+
+
+
+
+
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"border",
+                        "filepath":"./resources/Rebound/area4/assets/border.png",
+                        "x_pos":0,
+                        "y_pos":0,
+                        "rotation":0,
+                        "scaleX":0.35,
+                        "scaleY":5,
+                        "parentHierarchy":[]
+                    },
+
+
+
+
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"border",
+                        "filepath":"./resources/Rebound/area4/assets/border.png",
+                        "x_pos":965,
+                        "y_pos":0,
+                        "rotation":0,
+                        "scaleX":0.35,
+                        "scaleY":5,
+                        "parentHierarchy":[]
+                    },
+
+
+                    {
+                        "type":"WalkOnObject",
+                        "name":"Gravity Tile",
+                        "filepath":"./resources/Rebound/area4/assets/gravtile.png",
+                        "x_pos":480,
+                        "y_pos":230,
+                        "rotation":0,
+                        "scaleX":0.63,
+                        "scaleY":0.63,
+                        "parentHierarchy":[]
+                    },
+
+                    {
+                        "type":"WalkOnObject",
+                        "name":"spike",
+                        "filepath":"./resources/Rebound/area4/assets/spike.png",
+                        "x_pos":480,
+                        "y_pos":165,
+                        "rotation":0,
+                        "scaleX":0.63,
+                        "scaleY":0.63,
+                        "parentHierarchy":[]
+                    },
+
+                    {
+                        "type":"WalkOnObject",
+                        "name":"spike",
+                        "filepath":"./resources/Rebound/area4/assets/spike.png",
+                        "x_pos":545,
+                        "y_pos":233,
+                        "rotation":0,
+                        "scaleX":0.63,
+                        "scaleY":0.63,
+                        "parentHierarchy":[]
+                    },
+
+                    {
+                        "type":"WalkOnObject",
+                        "name":"spike",
+                        "filepath":"./resources/Rebound/area4/assets/spike.png",
+                        "x_pos":480,
+                        "y_pos":297,
+                        "rotation":0,
+                        "scaleX":0.63,
+                        "scaleY":0.63,
+                        "parentHierarchy":[]
+                    },
+
+                     {
+                        "type":"WalkOnObject",
+                        "name":"spike",
+                        "filepath":"./resources/Rebound/area4/assets/spike.png",
+                        "x_pos":415,
+                        "y_pos":230,
+                        "rotation":0,
+                        "scaleX":0.63,
+                        "scaleY":0.63,
+                        "parentHierarchy":[]
+                    },
+
+                    
+                    {
+                        "type":"Sprite",
+                        "name":"archer",
+                        "filepath":"./resources/Rebound/area4/assets/archer.png",
+                        "x_pos":905,
+                        "y_pos":160,
+                        "rotation":0,
+                        "scaleX":0.4,
+                        "scaleY":0.6,
+                        "parentHierarchy":[]
+                    },
+
+                    {
+                        "type":"Sprite",
+                        "name":"cannon",
+                        "filepath":"./resources/Rebound/area4/assets/cannon.png",
+                        "x_pos":750,
+                        "y_pos":160,
+                        "rotation":0,
+                        "scaleX":1.1,
+                        "scaleY":0.9,
+                        "parentHierarchy":[]
+                    },
+
+                    {
+                        "type":"Sprite",
+                        "name":"wizard",
+                        "filepath":"./resources/Rebound/area4/assets/wizard.png",
+                        "x_pos":845,
+                        "y_pos":260,
+                        "rotation":0,
+                        "scaleX":0.4,
+                        "scaleY":0.6,
+                        "parentHierarchy":[]
+                    },
+
+                      {
+                        "type":"Sprite",
+                        "name":"wizard",
+                        "filepath":"./resources/Rebound/area4/assets/wizard.png",
+                        "x_pos":785,
+                        "y_pos":360,
+                        "rotation":0,
+                        "scaleX":0.4,
+                        "scaleY":0.6,
+                        "parentHierarchy":[]
+                    },
+
+                    {
+                        "type":"Sprite",
+                        "name":"switch",
+                        "filepath":"./resources/Rebound/area4/assets/switch_off.png",
+                        "x_pos":875,
+                        "y_pos":360,
+                        "rotation":0,
+                        "scaleX":0.4,
+                        "scaleY":0.6,
+                        "parentHierarchy":[]
+                    },
+
+
+                    {
+                        "type":"Sprite",
+                        "name":"poisoner",
+                        "filepath":"./resources/Rebound/area4/assets/poisoner.png",
+                        "x_pos":255,
+                        "y_pos":230,
+                        "rotation":0,
+                        "scaleX":0.4,
+                        "scaleY":0.6,
+                        "parentHierarchy":[]
+                    },
+
+                    {
+                        "type":"Sprite",
+                        "name":"poisoner",
+                        "filepath":"./resources/Rebound/area4/assets/poisoner.png",
+                        "x_pos":255,
+                        "y_pos":230,
+                        "rotation":0,
+                        "scaleX":0.4,
+                        "scaleY":0.6,
+                        "parentHierarchy":[]
+                    },
+
+                    {
+                        "type":"Sprite",
+                        "name":"monster",
+                        "filepath":"./resources/Rebound/area4/assets/monster.png",
+                        "x_pos":135,
+                        "y_pos":170,
+                        "rotation":0,
+                        "scaleX":0.4,
+                        "scaleY":0.5,
+                        "parentHierarchy":[]
+                    },
+
+
+                    {
+                        "type":"Sprite",
+                        "name":"monster",
+                        "filepath":"./resources/Rebound/area4/assets/monster.png",
+                        "x_pos":135,
+                        "y_pos":290,
+                        "rotation":0,
+                        "scaleX":0.4,
+                        "scaleY":0.5,
+                        "parentHierarchy":[]
+                    }
+
+
+
+
+
+
+                ]
+            }
+        },
+        {
+            "L1":{
+                "speed":1,
+                "objects":[ ]
+            }
+        }
+    ]
+}

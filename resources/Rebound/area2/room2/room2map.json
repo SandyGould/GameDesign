@@ -1,0 +1,180 @@
+{
+    "Scene":[
+        {
+            "L0":{
+                "speed":0,
+                "objects":[
+                    {
+                        "type":"Sprite",
+                        "name":"background",
+                        "filepath":"./resources/Rebound/area2/room2/assets/area2_2_background.png",
+                        "x_pos":0,
+                        "y_pos":0,
+                        "rotation":0,
+                        "scaleX":5,
+                        "scaleY":5,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"wall1",
+                        "filepath":"./resources/Rebound/area2/room2/assets/area2_2_wall.png",
+                        "x_pos":280,
+                        "y_pos":100,
+                        "rotation":0,
+                        "scaleX":5,
+                        "scaleY":5,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"wall2",
+                        "filepath":"./resources/Rebound/area2/room2/assets/area2_2_wall.png",
+                        "x_pos":280,
+                        "y_pos":480,
+                        "rotation":0,
+                        "scaleX":5,
+                        "scaleY":5,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"rock1",
+                        "filepath":"./resources/Rebound/area2/room2/assets/rock.png",
+                        "x_pos": 240,
+                        "y_pos": 125,
+                        "rotation": 0,
+                        "scaleX":2,
+                        "scaleY":2,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"rock2",
+                        "filepath":"./resources/Rebound/area2/room2/assets/rock.png",
+                        "x_pos": 240,
+                        "y_pos": 187,
+                        "rotation": 0,
+                        "scaleX":2,
+                        "scaleY":2,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"rock3",
+                        "filepath":"./resources/Rebound/area2/room2/assets/rock.png",
+                        "x_pos": 240,
+                        "y_pos": 312,
+                        "rotation": 0,
+                        "scaleX":2,
+                        "scaleY":2,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"rock4",
+                        "filepath":"./resources/Rebound/area2/room2/assets/rock.png",
+                        "x_pos": 240,
+                        "y_pos": 374,
+                        "rotation": 0,
+                        "scaleX":2,
+                        "scaleY":2,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"rock5",
+                        "filepath":"./resources/Rebound/area2/room2/assets/rock.png",
+                        "x_pos": 550,
+                        "y_pos": 125,
+                        "rotation": 0,
+                        "scaleX":2,
+                        "scaleY":2,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"rock6",
+                        "filepath":"./resources/Rebound/area2/room2/assets/rock.png",
+                        "x_pos": 550,
+                        "y_pos": 187,
+                        "rotation": 0,
+                        "scaleX":2,
+                        "scaleY":2,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"rock7",
+                        "filepath":"./resources/Rebound/area2/room2/assets/rock.png",
+                        "x_pos": 550,
+                        "y_pos": 312,
+                        "rotation": 0,
+                        "scaleX":2,
+                        "scaleY":2,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"rock8",
+                        "filepath":"./resources/Rebound/area2/room2/assets/rock.png",
+                        "x_pos": 550,
+                        "y_pos": 374,
+                        "rotation": 0,
+                        "scaleX":2,
+                        "scaleY":2,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"rock9",
+                        "filepath":"./resources/Rebound/area2/room2/assets/rock.png",
+                        "x_pos": 1130,
+                        "y_pos": 235,
+                        "rotation": 0,
+                        "scaleX":2,
+                        "scaleY":2,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"WalkOnObject",
+                        "name":"chest",
+                        "filepath":"./resources/Rebound/area2/room2/assets/Chest.png",
+                        "x_pos":400,
+                        "y_pos":245,
+                        "rotation":0,
+                        "scaleX":2,
+                        "scaleY":2,
+                        "parentHierarchy":[]
+                    }
+                ]
+            }
+        },
+        {
+            "L1":{
+                "speed":1,
+                "objects":[]
+            }
+        },
+        {
+            "L2":{
+                "speed":1,
+                "objects":[]
+            }
+        }
+    ],
+    "Camera":{
+        "camEntrancePivotX":0,
+        "camEntrancePivotY":100,
+        "camEntrancePositionX":100,
+        "camEntrancePositionY":100,
+        "playerEntrancePosX":100,
+        "playerEntrancePosY":250,
+        "camExitPivotX":1200,
+        "camExitPivotY":100,
+        "camExitPositionX":1200,
+        "camExitPositionY":100,
+        "playerExitPosX":1200,
+        "playerExitPosY":250
+    }
+}

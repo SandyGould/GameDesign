@@ -6,6 +6,8 @@
 #define BASH_COOLDOWN 40
 #define TOGGLE_COOLDOWN 40
 
+using namespace std;
+
 Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites/Player/Player.png", "./resources/assets/Animated_Sprites/Player/Player.xml") {
     type = "player";
     this->saveType = this->type;
@@ -27,14 +29,20 @@ Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites
 
 void Player::changeHealth(int amount) {
     if (health + amount < 100) {
-        health += amount;
+        if (health + amount > 0){
+            health += amount;
+        }
+        else{health = 0;}
     } else {
         health = 100;
     }
 }
 void Player::changeStamina(int amount) {
     if (stamina + amount < 1000) {
-        stamina += amount;
+        if (stamina + amount > 0){
+            stamina += amount;
+        }
+        else{stamina = 0;}
     } else {
         stamina = 1000;
     }

@@ -13,8 +13,10 @@
 #include "events/WindowExitEvent.h"
 
 #include <chrono>
+#include <iostream>
 
 using namespace std::chrono;
+using namespace std;
 
 SDL_Renderer* Game::renderer;
 TTF_Font* Game::font;
