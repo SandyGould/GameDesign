@@ -395,7 +395,7 @@ void Editor::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState
 
 void Editor::draw(AffineTransform& at) {
     this->clearRenderers();
-	Game::draw(at);
+    this->container->draw(at);
 
     assets->draw(at);
     edit->draw(at);
