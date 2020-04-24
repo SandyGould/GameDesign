@@ -64,8 +64,8 @@ public:
 	DisplayObject(const DisplayObject& other);
 	virtual ~DisplayObject();
 
-    void loadTexture(const std::string& filepath, SDL_Renderer* r);
-    void loadRGBTexture(int red, int green, int blue, int width, int height, SDL_Renderer* r);
+    void loadTexture(const std::string& filepath);
+    void loadRGBTexture(int red, int green, int blue, int width, int height);
     void setTexture(SDL_Texture* t);
 	void setSurface(SDL_Surface* s);
 

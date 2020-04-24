@@ -12,11 +12,11 @@ Shield::Shield() : Sprite("shield", "./resources/assets/Display_Objects/Shield.p
 void Shield::switchType() {
     if (this->magic) {
         this->imgPath = "./resources/assets/Display_Objects/Shield.png";
-        loadTexture(this->imgPath, Game::renderer);
+        loadTexture(this->imgPath);
         this->magic = false;
     } else {
         this->imgPath = "./resources/assets/Display_Objects/MShield.png";
-        loadTexture(this->imgPath, Game::renderer);
+        loadTexture(this->imgPath);
         this->magic = true;
     }
 }

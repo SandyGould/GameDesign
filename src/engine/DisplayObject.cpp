@@ -25,11 +25,7 @@ DisplayObject::DisplayObject(const std::string& id) {
 }
 
 DisplayObject::DisplayObject(const std::string& id, const std::string& path)
-    : DisplayObject(id) {
-    this->imgPath = path;
-
-    loadTexture(path, Game::renderer);
-    this->hitbox = {{0, 0}, {width, 0}, {0, height}, {width, height}};
+    : DisplayObject(id, path, Game::renderer) {
 }
 
 DisplayObject::DisplayObject(const std::string& id, const std::string& path, SDL_Renderer* r)
@@ -37,8 +33,7 @@ DisplayObject::DisplayObject(const std::string& id, const std::string& path, SDL
     this->imgPath = path;
     this->renderer = r;
 
-    loadTexture(path, r);
-    this->hitbox = {{0, 0}, {width, 0}, {0, height}, {width, height}};
+    loadTexture(path);
 }
 
 DisplayObject::DisplayObject(const std::string& id, int red, int green, int blue)
@@ -51,8 +46,6 @@ DisplayObject::DisplayObject(const std::string& id, int red, int green, int blue
 
 DisplayObject::DisplayObject(const std::string& id, int red, int green, int blue, int width, int height, SDL_Renderer* r)
     : DisplayObject(id) {
-    this->id = id;
-
     this->red = red;
     this->blue = blue;
     this->green = green;
@@ -62,8 +55,7 @@ DisplayObject::DisplayObject(const std::string& id, int red, int green, int blue
 
     this->renderer = r;
 
-    this->loadRGBTexture(red, green, blue, width, height, r);
-    this->hitbox = {{0, 0}, {width, 0}, {0, height}, {width, height}};
+    this->loadRGBTexture(red, green, blue, width, height);
 }
 
 // TODO: Needs to copy children
@@ -87,7 +79,7 @@ DisplayObject::DisplayObject(const DisplayObject& other) {
     this->id = other.id + "_copy";
     this->imgPath = other.imgPath;
     this->saveType = other.saveType;
-    this->loadTexture(this->imgPath, Game::renderer);
+    this->loadTexture(this->imgPath);
     this->hitbox = {{0, 0}, {width, 0}, {0, height}, {width, height}};
 }
 
@@ -101,21 +93,21 @@ DisplayObject::~DisplayObject() {
     }
 }
 
-void DisplayObject::loadTexture(const std::string& filepath, SDL_Renderer* r) {
+void DisplayObject::loadTexture(const std::string& filepath) {
     image = IMG_Load(filepath.c_str());
     // TODO: Add this back in for correct scaling
     // if (image){
     //     height = image->h;
     //     width = image->w;
     // }
-    texture = SDL_CreateTextureFromSurface(r, image);
+    texture = SDL_CreateTextureFromSurface(this->renderer, image);
     setTexture(texture);
 }
 
-void DisplayObject::loadRGBTexture(int red, int green, int blue, int width, int height, SDL_Renderer* r) {
+void DisplayObject::loadRGBTexture(int red, int green, int blue, int width, int height) {
     image = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0x000000ff);
     SDL_FillRect(image, nullptr, SDL_MapRGB(image->format, red, green, blue));
-    texture = SDL_CreateTextureFromSurface(r, image);
+    texture = SDL_CreateTextureFromSurface(this->renderer, image);
     SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
     setTexture(texture);
 }

@@ -2,14 +2,9 @@
 #include "SelectionMenuOption.h"
 #include "../events/KeyDownEvent.h"
 
-#include <iostream>
-
-SelectionMenuBase::SelectionMenuBase() : DisplayObject("selection_menu"){
+SelectionMenuBase::SelectionMenuBase() : DisplayObject("selection_menu", 0, 0, 0) {
 	this->alpha = 0;
-
-	loadRGBTexture(red, green, blue, width, height, renderer);
 }
-
 
 void SelectionMenuBase::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons){
 	DisplayObject::update(pressedKeys, joystickState, pressedButtons);
