@@ -40,7 +40,7 @@ private:
 
     void pairObjectWithType(shared_ptr<DisplayObject> object, const string& type);
 
-    void addObjectsToErase(const shared_ptr<DisplayObject>& object);
+    void eraseObjects(const shared_ptr<DisplayObject>& object);
 
     // Returns true iff obj1 hitbox and obj2 hitbox overlap
     static bool collidesWith(shared_ptr<DisplayObject> obj1, shared_ptr<DisplayObject> obj2);
