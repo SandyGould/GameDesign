@@ -14,6 +14,10 @@ CollisionSystem::CollisionSystem() {
     this->buildDisplayMap(Game::instance->container);
 }
 
+CollisionSystem::~CollisionSystem() {
+    EventDispatcher::getInstance().removeEventListener(this, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
+}
+
 void CollisionSystem::buildDisplayMap(DisplayObject* object) {
     auto it = displayObjectsMap.find(object->type);
     if (it != displayObjectsMap.cend()) {
