@@ -442,9 +442,9 @@ void Editor::draw(AffineTransform& at) {
 }
 
 void Editor::initSDL() {
-    assets_window = SDL_CreateWindow("Assets", 0, 500, 300, 450, SDL_WINDOW_ALLOW_HIGHDPI);
+    assets_window = SDL_CreateWindow("Assets", 0, 500, 300, 450, 0);
 
-    edit_window = SDL_CreateWindow("Edit", 0, 0, 300, 450, SDL_WINDOW_ALLOW_HIGHDPI);
+    edit_window = SDL_CreateWindow("Edit", 0, 0, 300, 450, 0);
 
     assets_renderer = SDL_CreateRenderer(assets_window, -1, 0);
     edit_renderer = SDL_CreateRenderer(edit_window, -1, 0);
