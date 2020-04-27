@@ -550,7 +550,7 @@ void Editor::cut(const unordered_set<shared_ptr<DisplayObject>>& objects) {
             copy = shared_ptr<AnimatedSprite>(static_cast<AnimatedSprite*>(object->clone()));
         }
         copy->type = object->type;
-        copy->renderer = Game::renderer;
+        copy->setRenderer(Game::renderer);
 
         // Offset a bit
         copy->position.x += 16;
@@ -583,7 +583,7 @@ void Editor::copy(const unordered_set<shared_ptr<DisplayObject>>& objects, bool 
         } else if (object->type == "AnimatedSprite"){
             copy = shared_ptr<AnimatedSprite>(static_cast<AnimatedSprite*>(object->clone()));
         }
-        copy->renderer = Game::renderer;
+        copy->setRenderer(Game::renderer);
 
         // Offset a bit
         copy->position.x += 16;

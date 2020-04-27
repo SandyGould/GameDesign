@@ -70,6 +70,7 @@ public:
     void loadRGBTexture(int red, int green, int blue, int width, int height);
     void setTexture(SDL_Texture* t);
 	void setSurface(SDL_Surface* s);
+	virtual void setRenderer(SDL_Renderer* r);
 
     void addChild(const std::shared_ptr<DisplayObject>& child);
     void removeImmediateChild(const std::shared_ptr<DisplayObject>& child);
