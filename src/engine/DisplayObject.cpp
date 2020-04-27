@@ -391,6 +391,17 @@ void DisplayObject::setSurface(SDL_Surface* s) {
     this->image = s;
 }
 
+void DisplayObject::setRenderer(SDL_Renderer* r){
+    if (r != nullptr){
+        this->renderer = r;
+    }
+    if (this->imgPath != ""){
+        this->loadTexture(this->imgPath);
+    } else{
+        this->loadRGBTexture(red, green, blue, width, height);
+    }
+}
+
 void DisplayObject::propogateEvent(Event* e, const std::shared_ptr<DisplayObject>& root) {
 
     if (e->getType() == NewSceneEvent::FADE_OUT_EVENT){
