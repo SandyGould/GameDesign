@@ -529,13 +529,13 @@ void Editor::cut(const unordered_set<shared_ptr<DisplayObject>>& objects) {
         // Make the copy now so that future changes won't affect the copy
         shared_ptr<DisplayObject> copy;
         if (object->type == "DisplayObject"){
-            copy = make_shared<DisplayObject>(*object);
+            copy = shared_ptr<DisplayObject>(object->clone());
         } else if (object->type == "Sprite" ||
                    object->type == "arrow" ||
                    object->type == "mage_attack" ||
                    object->type == "poison_bomb" ||
                    object->type == "rubber_cannonball"){
-            copy = make_shared<Sprite>(*object);
+            copy = shared_ptr<Sprite>(static_cast<Sprite*>(object->clone()));
         } else if (object->type == "AnimatedSprite" ||
                    object->type == "archer" ||
                    object->type == "cannoneer" ||
@@ -547,7 +547,7 @@ void Editor::cut(const unordered_set<shared_ptr<DisplayObject>>& objects) {
                    object->type == "roar_monster" ||
                    object->type == "rubber_cannoneer" ||
                    object->type == "second_boss"){
-            copy = make_shared<AnimatedSprite>(*object);
+            copy = shared_ptr<AnimatedSprite>(static_cast<AnimatedSprite*>(object->clone()));
         }
         copy->type = object->type;
         copy->renderer = Game::renderer;
@@ -577,11 +577,11 @@ void Editor::copy(const unordered_set<shared_ptr<DisplayObject>>& objects, bool 
         // Make the copy now so that future changes won't affect the copy
         shared_ptr<DisplayObject> copy;
         if (object->type == "DisplayObject"){
-            copy = make_shared<DisplayObject>(*object);
+            copy = shared_ptr<DisplayObject>(object->clone());
         } else if (object->type == "Sprite"){
-            copy = make_shared<Sprite>(*object);
+            copy = shared_ptr<Sprite>(static_cast<Sprite*>(object->clone()));
         } else if (object->type == "AnimatedSprite"){
-            copy = make_shared<AnimatedSprite>(*object);
+            copy = shared_ptr<AnimatedSprite>(static_cast<AnimatedSprite*>(object->clone()));
         }
         copy->renderer = Game::renderer;
 

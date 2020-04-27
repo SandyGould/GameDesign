@@ -14,8 +14,10 @@ WalkOnObject::WalkOnObject(std::string id, int red, int green, int blue, SDL_Ren
 	this->type = "WalkOnObject";
 	this->renderer = r;
 }
-WalkOnObject::WalkOnObject(const DisplayObject& other) : EnvironmentObject(other) {
-	this->type = "WalkOnObject";
+WalkOnObject* WalkOnObject::clone() {
+    auto* clone = static_cast<WalkOnObject*>(EnvironmentObject::clone());
+    clone->type = "WalkOnObject";
+    return clone;
 }
 
 WalkOnObject::~WalkOnObject(){

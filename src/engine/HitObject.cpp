@@ -12,12 +12,15 @@ HitObject::HitObject(std::string id, int red, int green, int blue, SDL_Renderer 
 	this->type = "HitObject";
 	this->renderer = r;
 }
-HitObject::HitObject(const DisplayObject& other) : EnvironmentObject(other) {
-	this->type = "HitObject";
-}
 
 HitObject::~HitObject(){
 	
+}
+
+HitObject* HitObject::clone() {
+    auto* clone = static_cast<HitObject*>(Sprite::clone());
+    clone->type = "HitObject";
+    return clone;
 }
 
 void HitObject::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){

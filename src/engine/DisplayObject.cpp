@@ -51,26 +51,30 @@ DisplayObject::DisplayObject(const std::string& id, int red, int green, int blue
     this->loadRGBTexture(red, green, blue, width, height);
 }
 
-DisplayObject::DisplayObject(const DisplayObject& other) : enable_shared_from_this(other) {
-    this->renderer = other.renderer;
-    this->position = other.position;
-    this->width = other.width;
-    this->height = other.height;
-    this->pivot = other.pivot;
-    this->scaleX = other.scaleX;
-    this->scaleY = other.scaleY;
-    this->rotation = other.rotation; // in radians
-    this->facingRight = other.facingRight;
-    this->hasCollision = other.hasCollision;
-    this->id = other.id + "_copy";
-    this->type = other.type;
-    this->imgPath = other.imgPath;
-    this->saveType = other.saveType;
-    this->loadTexture(this->imgPath);
+DisplayObject* DisplayObject::clone() {
+    std::cout << "DO" << std::endl;
+    auto* clone = new DisplayObject(this->id + "_copy");
+    clone->renderer = this->renderer;
+    clone->position = this->position;
+    clone->width = this->width;
+    clone->height = this->height;
+    clone->pivot = this->pivot;
+    clone->scaleX = this->scaleX;
+    clone->scaleY = this->scaleY;
+    clone->rotation = this->rotation; // in radians
+    clone->facingRight = this->facingRight;
+    clone->hasCollision = this->hasCollision;
+    clone->visible = this->visible;
+    clone->type = this->type;
+    clone->imgPath = this->imgPath;
+    clone->saveType = this->saveType;
+    clone->loadTexture(clone->imgPath);
 
-    for (const auto& child : other.children) {
-        this->addChild(std::make_shared<DisplayObject>(*child));
+    for (const auto& child : this->children) {
+        clone->addChild(std::shared_ptr<DisplayObject>(child->clone()));
     }
+
+    return clone;
 }
 
 DisplayObject::~DisplayObject() {

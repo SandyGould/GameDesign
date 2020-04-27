@@ -1,7 +1,10 @@
 #include "AnimatedSprite.h"
+
 #include "json.hpp"
 #include "pugixml.hpp"
+
 #include <fstream>
+#include <iostream>
 
 using namespace std::string_literals;
 using json = nlohmann::json;
@@ -10,6 +13,8 @@ AnimatedSprite::AnimatedSprite(std::string id, SDL_Renderer *r) : Sprite(id) {
     this->type = "AnimatedSprite";
     this->saveType = this->type;
     this->renderer = r;
+    this->sheetpath = "";
+    this->xmlpath = "";
 }
 
 //Spritesheet constructors
@@ -24,41 +29,41 @@ AnimatedSprite::AnimatedSprite(std::string id, std::string spritesheet, std::str
     this->renderer = r;
     this->xmlpath = xml;
     this->visible = true;
-    parse(this->xmlpath);
-    if (!animations.empty()){
+    this->parse(this->xmlpath);
+    if (!animations.empty()) {
         this->play(0);
     }
 }
 
-AnimatedSprite::AnimatedSprite(const DisplayObject& other) : Sprite(other.id){
-    if (other.type == "AnimatedSprite"){
-        AnimatedSprite* AS = (AnimatedSprite*) &other;
-        this->id = AS->id + "_copy";
-        this->type = AS->type;
-        this->saveType = AS->saveType;
-        this->sheetpath = AS->sheetpath;
-        this->renderer = AS->renderer;
-        this->xmlpath = AS->xmlpath;
-        this->width = AS->width;
-        this->height = AS->height;
-        this->visible = AS->visible;
-        this->pivot = AS->pivot;
-        this->scaleX = AS->scaleX;
-        this->scaleY = AS->scaleY;
-        this->rotation = AS->rotation;
-        this->facingRight = AS->facingRight;
-        this->hasCollision = AS->hasCollision;
-        parse(this->xmlpath);
-        this->imgPath = other.imgPath;
-        this->loadTexture(this->imgPath);
-    } else{
-        this->type = "AnimatedSprite";
-        this->id = "FAILED_COPY";
-        this->renderer = Game::renderer;
+AnimatedSprite* AnimatedSprite::clone() {
+    std::cout << "ANIMATEDSPRITE" << std::endl;
+    auto* clone = new AnimatedSprite(this->id + "_copy", this->renderer);
+    clone->position = this->position;
+    clone->width = this->width;
+    clone->height = this->height;
+    clone->pivot = this->pivot;
+    clone->scaleX = this->scaleX;
+    clone->scaleY = this->scaleY;
+    clone->rotation = this->rotation; // in radians
+    clone->facingRight = this->facingRight;
+    clone->hasCollision = this->hasCollision;
+    clone->visible = this->visible;
+    clone->type = this->type;
+    clone->imgPath = this->imgPath;
+    clone->saveType = this->saveType;
+    clone->loadTexture(clone->imgPath);
+
+    clone->sheetpath = this->sheetpath;
+    clone->xmlpath = this->xmlpath;
+    clone->parse(clone->xmlpath);
+    if (!animations.empty()) {
+        clone->play(0);
     }
-    if (!animations.empty()){
-        this->play(0);
+
+    for (const auto& child : this->children) {
+        clone->addChild(std::shared_ptr<DisplayObject>(child->clone()));
     }
+    return clone;
 }
 
 void AnimatedSprite::parse(std::string xml){

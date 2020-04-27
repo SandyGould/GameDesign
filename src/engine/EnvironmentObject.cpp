@@ -12,8 +12,11 @@ EnvironmentObject::EnvironmentObject(std::string id, int red, int green, int blu
 	this->type = "EnvironmentObject";
 	this->renderer = r;
 }
-EnvironmentObject::EnvironmentObject(const DisplayObject& other) : Sprite(other) {
-	this->type = "EnvironmentObject";
+
+EnvironmentObject* EnvironmentObject::clone() {
+    auto* clone = static_cast<EnvironmentObject*>(Sprite::clone());
+	clone->type = "EnvironmentObject";
+    return clone;
 }
 
 EnvironmentObject::~EnvironmentObject(){

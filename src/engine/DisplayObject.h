@@ -61,8 +61,10 @@ public:
 	DisplayObject(const std::string& id, int red, int green, int blue);
 	DisplayObject(const std::string& id, int red, int green, int blue, int width, int height);
 	DisplayObject(const std::string& id, int red, int green, int blue, int width, int height, SDL_Renderer* r);
-	DisplayObject(const DisplayObject& other);
+	DisplayObject(const DisplayObject& other) = delete;
 	virtual ~DisplayObject();
+
+    virtual DisplayObject* clone();
 
     void loadTexture(const std::string& filepath);
     void loadRGBTexture(int red, int green, int blue, int width, int height);
