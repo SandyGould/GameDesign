@@ -1,168 +1,399 @@
 {
-    "Scene":[
-        {
-            "L0":{
-                "speed":0,
-                "objects":[
-                    {
-                        "type":"Sprite",
-                        "name":"background",
-                        "filepath":"./resources/Rebound/area2/room1/assets/area2_1_background.png",
-                        "x_pos":0,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":12,
-                        "scaleY":5,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"wall1",
-                        "filepath":"./resources/Rebound/area2/room1/assets/area2_1_wall1.png",
-                        "x_pos":460,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":0.36,
-                        "scaleY":1.25,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"wall2",
-                        "filepath":"./resources/Rebound/area2/room1/assets/area2_1_wall4.png",
-                        "x_pos":600,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":0.36,
-                        "scaleY":1.25,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"wall3",
-                        "filepath":"./resources/Rebound/area2/room1/assets/area2_1_wall2.png",
-                        "x_pos":530,
-                        "y_pos":219,
-                        "rotation":0,
-                        "scaleX":0.36,
-                        "scaleY":1.25,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"wall4",
-                        "filepath":"./resources/Rebound/area2/room1/assets/area2_1_wall3.png",
-                        "x_pos":566,
-                        "y_pos":313,
-                        "rotation":0,
-                        "scaleX":1.41,
-                        "scaleY":0.315,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"rock",
-                        "filepath":"./resources/Rebound/area2/room1/assets/rock.png",
-                        "x_pos": 1130,
-                        "y_pos": 235,
-                        "rotation": 0,
-                        "scaleX":0.35,
-                        "scaleY":0.3,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"chest",
-                        "filepath":"./resources/Rebound/area2/room1/assets/Chest.png",
-                        "x_pos":530,
-                        "y_pos":45,
-                        "rotation":0,
-                        "scaleX":0.4,
-                        "scaleY":0.35,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"Orc",
-                        "name":"orc1",
-                        "filepath": "./resources/assets/Display_Objects/orc.png",
-                        "x_pos": 400,
-                        "y_pos": 200,
-                        "rotation":0,
-                        "scaleX":0.5,
-                        "scaleY":0.5,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"Orc",
-                        "name":"orc2",
-                        "filepath": "./resources/assets/Display_Objects/orc.png",
-                        "x_pos": 400,
-                        "y_pos": 500,
-                        "rotation":0,
-                        "scaleX":0.5,
-                        "scaleY":0.5,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"Archer",
-                        "name":"archer1",
-                        "filepath": "./resources/assets/Display_Objects/archer.png",
-                        "x_pos": 450,
-                        "y_pos": 300,
-                        "rotation":0,
-                        "scaleX":0.5,
-                        "scaleY":0.5,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"Archer",
-                        "name":"archer2",
-                        "filepath": "./resources/assets/Display_Objects/archer.png",
-                        "x_pos": 800,
-                        "y_pos": 300,
-                        "rotation":0,
-                        "scaleX":0.5,
-                        "scaleY":0.5,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"Archer",
-                        "name":"archer3",
-                        "filepath": "./resources/assets/Display_Objects/archer.png",
-                        "x_pos": 900,
-                        "y_pos": 200,
-                        "rotation":0,
-                        "scaleX":0.5,
-                        "scaleY":0.5,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"MasterArcher",
-                        "name":"master_archer",
-                        "filepath": "./resources/assets/Display_Objects/master_archer.png",
-                        "x_pos": 800,
-                        "y_pos": 100,
-                        "rotation":0,
-                        "scaleX":0.5,
-                        "scaleY":0.5,
-                        "parentHierarchy":[]
-                    }
-                ]
-            }
-        },
-        {
-            "L1":{
-                "speed":1,
-                "objects":[]
-            }
-        },
-        {
-            "L2":{
-                "speed":1,
-                "objects":[]
-            }
-        }
-    ],
+  "Scene": [
+    {
+      "L0": {
+        "objects": [
+          {
+            "filepath": "./resources/Rebound/area2/room6/assets/area2_6_background.png",
+            "name": "background",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "DisplayObject",
+            "x_pos": 0,
+            "y_pos": 0,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/Rebound/area2/room6/assets/area2_6_wall.png",
+            "name": "wall1",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 680,
+            "y_pos": 0,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/Rebound/area2/room6/assets/area2_6_spikes2.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 721,
+            "y_pos": 120,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/Rebound/area2/room6/assets/area2_6_spikes1.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 840,
+            "y_pos": 0,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud_square.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 0,
+            "y_pos": 0,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud3.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 160,
+            "y_pos": 0,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud3.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 200,
+            "y_pos": 50,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud6.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 0,
+            "y_pos": 160,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud4.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 160,
+            "y_pos": 120,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud5.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 160,
+            "y_pos": 40,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud5.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 160,
+            "y_pos": 80,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud4.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 200,
+            "y_pos": 80,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud_square.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 0,
+            "y_pos": 480,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud_square.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 160,
+            "y_pos": 480,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud3.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 320,
+            "y_pos": 600,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud8.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 240,
+            "y_pos": 410,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud8.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 80,
+            "y_pos": 410,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud8.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 280,
+            "y_pos": 450,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud8.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 120,
+            "y_pos": 450,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud7.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 40,
+            "y_pos": 410,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud7.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 200,
+            "y_pos": 410,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud7.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 0,
+            "y_pos": 450,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud7.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 160,
+            "y_pos": 450,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud5.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 80,
+            "y_pos": 440,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud5.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 40,
+            "y_pos": 440,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud5.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 200,
+            "y_pos": 440,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mud5.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 240,
+            "y_pos": 440,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/PoisonBomb.png",
+            "name": "PoisonBomb",
+            "rotation": 0.0,
+            "scaleX": 0.35,
+            "scaleY": 0.075,
+            "type": "PoisonBomb",
+            "x_pos": 135,
+            "y_pos": 527,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/archer.png",
+            "name": "archer1",
+            "rotation": 0.0,
+            "scaleX": 0.35,
+            "scaleY": 0.075,
+            "type": "Archer",
+            "x_pos": 190,
+            "y_pos": 500,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/archer.png",
+            "name": "archer2",
+            "rotation": 0.0,
+            "scaleX": 0.35,
+            "scaleY": 0.075,
+            "type": "Archer",
+            "x_pos": 40,
+            "y_pos": 500,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/poisoner.png",
+            "name": "poisoner",
+            "rotation": 0.0,
+            "scaleX": 0.35,
+            "scaleY": 0.075,
+            "type": "Poisoner",
+            "x_pos": 648,
+            "y_pos": 386,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/master_archer.png",
+            "name": "master_archer",
+            "rotation": 0.0,
+            "scaleX": 4,
+            "scaleY": 4,
+            "type": "MasterArcher",
+            "x_pos": 735,
+            "y_pos": 0,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mage.png",
+            "name": "mage1",
+            "rotation": 0.0,
+            "scaleX": 0.55,
+            "scaleY": 0.1,
+            "type": "Mage",
+            "x_pos": 980,
+            "y_pos": 355,
+            "parentHierarchy": []
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mage.png",
+            "name": "mage2",
+            "rotation": 0.0,
+            "scaleX": 0.55,
+            "scaleY": 0.1,
+            "type": "Mage",
+            "x_pos": 971,
+            "y_pos": 493,
+            "parentHierarchy": []
+          }
+        ],
+        "speed": 0.0
+      }
+    },
+    {
+      "L1": {
+        "objects": [],
+        "speed": 0.0
+      }
+    },
+    {
+      "L2": {
+        "objects": [],
+        "speed": 0.0
+      }
+    }
+  ],
     "Camera":{
         "camEntrancePivotX":0,
         "camEntrancePivotY":100,
@@ -172,7 +403,7 @@
         "playerEntrancePosY":250,
         "camExitPivotX":800,
         "camExitPivotY":100,
-        "camExitPositionX":200,
+        "camExitPositionX":1200,
         "camExitPositionY":100,
         "playerExitPosX":1100,
         "playerExitPosY":250

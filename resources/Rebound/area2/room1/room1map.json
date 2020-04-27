@@ -1,178 +1,171 @@
 {
-    "Scene":[
-        {
-            "L0":{
-                "speed":0,
-                "objects":[
-                    {
-                        "type":"Sprite",
-                        "name":"background",
-                        "filepath":"./resources/Rebound/area2/room1/assets/area2_1_background.png",
-                        "x_pos":0,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":5,
-                        "scaleY":5,
+	"Scene":
+	[
+		{
+			"L0":
+			{
+				"objects":
+				[
+					{
+						"filepath":"./resources/Rebound/area2/room1/assets/area2_1_background.png",
+						"name": "background",
+                        "rotation": 0.0,
+                        "scaleX": 5.0,
+                        "scaleY": 5.0,
+                        "type": "DisplayObject",
+                        "x_pos": 0,
+                        "y_pos": 0,
                         "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"wall1",
-                        "filepath":"./resources/Rebound/area2/room1/assets/area2_1_wall1.png",
-                        "x_pos":520,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":5,
-                        "scaleY":5,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"wall2",
+					},
+					{
+						"type":"EnvironmentObject",
                         "filepath":"./resources/Rebound/area2/room1/assets/area2_1_wall4.png",
-                        "x_pos":680,
+						"name":"wall1",
+						"x_pos":680,
                         "y_pos":0,
                         "rotation":0,
                         "scaleX":5,
                         "scaleY":5,
                         "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"wall3",
+					},
+					{
+						"type":"EnvironmentObject",
+                        "filepath":"./resources/Rebound/area2/room1/assets/area2_1_wall1.png",
+						"name":"wall2",
+						"x_pos":520,
+                        "y_pos":0,
+                        "rotation":0,
+                        "scaleX":5,
+                        "scaleY":5,
+                        "parentHierarchy":[]
+					},
+					{
+						"type":"EnvironmentObject",
                         "filepath":"./resources/Rebound/area2/room1/assets/area2_1_wall2.png",
-                        "x_pos":600,
+						"name":"wall3",
+						"x_pos":600,
                         "y_pos":280,
                         "rotation":0,
                         "scaleX":5,
                         "scaleY":5,
                         "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"wall4",
+					},
+					{
+						"type":"EnvironmentObject",
                         "filepath":"./resources/Rebound/area2/room1/assets/area2_1_wall3.png",
-                        "x_pos":640,
+						"name":"wall4",
+						"x_pos":640,
                         "y_pos":400,
                         "rotation":0,
                         "scaleX":5,
                         "scaleY":5,
                         "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"rock",
+					},
+					{
+						"type":"EnvironmentObject",
                         "filepath":"./resources/Rebound/area2/room1/assets/rock.png",
-                        "x_pos": 1130,
-                        "y_pos": 235,
-                        "rotation": 0,
-                        "scaleX":2,
-                        "scaleY":2,
+						"name":"rock",
+						"rotation":0.0,
+						"scaleX":5.0,
+						"scaleY":5.0,
+						"type":"EnvironmentObject",
+						"x_pos":1300,
+						"y_pos":300,
                         "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"chest",
-                        "filepath":"./resources/Rebound/area2/room1/assets/Chest.png",
-                        "x_pos":600,
-                        "y_pos":45,
-                        "rotation":0,
-                        "scaleX":2,
-                        "scaleY":2,
+					},
+					{
+						"filepath":"./resources/Rebound/area2/room1/assets/Chest.png",
+						"name":"Chest",
+						"rotation":0.0,
+						"scaleX":2.5,
+						"scaleY":2.5,
+						"type":"WalkOnObject",
+						"x_pos": 594,
+                        "y_pos": 68,
                         "parentHierarchy":[]
-                    },
-                    {
-                        "type":"Orc",
-                        "name":"orc1",
-                        "filepath": "./resources/assets/Display_Objects/orc.png",
-                        "x_pos": 400,
-                        "y_pos": 200,
-                        "rotation":0,
-                        "scaleX":2,
-                        "scaleY":2,
+					},
+					{
+						"filepath":"./resources/assets/Display_Objectss/orc.png",
+						"name":"orc1",
+						"rotation":0.0,
+						"scaleX":0.35,
+						"scaleY":0.075,
+						"type":"Orc",
+						"x_pos":295,
+						"y_pos":105,
                         "parentHierarchy":[]
-                    },
-                    {
-                        "type":"Orc",
-                        "name":"orc2",
-                        "filepath": "./resources/assets/Display_Objects/orc.png",
-                        "x_pos": 400,
-                        "y_pos": 500,
-                        "rotation":0,
-                        "scaleX":2,
-                        "scaleY":2,
+					},
+					{
+						"filepath":"./resources/assets/Display_Objects/orc.png",
+						"name":"orc2",
+						"rotation":0.0,
+						"scaleX":0.35,
+						"scaleY":0.075,
+						"type":"Orc",
+						"x_pos":330,
+						"y_pos":350,
                         "parentHierarchy":[]
-                    },
-                    {
-                        "type":"Archer",
-                        "name":"archer1",
-                        "filepath": "./resources/assets/Display_Objects/archer.png",
-                        "x_pos": 450,
-                        "y_pos": 300,
-                        "rotation":0,
-                        "scaleX":2,
-                        "scaleY":2,
+					},
+					{
+						"filepath":"./resources/assets/Display_Objects/archer.png",
+						"name":"archer1",
+						"rotation":0.0,
+						"scaleX":0.35,
+						"scaleY":0.075,
+						"type":"Archer",
+						"x_pos":410,
+						"y_pos":240,
                         "parentHierarchy":[]
-                    },
-                    {
-                        "type":"Archer",
-                        "name":"archer2",
-                        "filepath": "./resources/assets/Display_Objects/archer.png",
-                        "x_pos": 800,
-                        "y_pos": 300,
-                        "rotation":0,
-                        "scaleX":2,
-                        "scaleY":2,
+					},
+					{
+						"filepath":"./resources/assets/Display_Objects/archer.png",
+						"name":"archer2",
+						"rotation":0.0,
+						"scaleX":0.35,
+						"scaleY":0.075,
+						"type":"Archer",
+						"x_pos":850,
+						"y_pos":100,
                         "parentHierarchy":[]
-                    },
-                    {
-                        "type":"Archer",
-                        "name":"archer3",
-                        "filepath": "./resources/assets/Display_Objects/archer.png",
-                        "x_pos": 900,
-                        "y_pos": 200,
-                        "rotation":0,
-                        "scaleX":2,
-                        "scaleY":2,
+					},
+					{
+						"filepath":"./resources/assets/Display_Objects/master_archer.png",
+						"name":"master_archer",
+						"rotation":0.0,
+						"scaleX":0.35,
+						"scaleY":0.075,
+						"type":"MasterArcher",
+						"x_pos":700,
+						"y_pos":50,
                         "parentHierarchy":[]
-                    },
-                    {
-                        "type":"MasterArcher",
-                        "name":"master_archer",
-                        "filepath": "./resources/assets/Display_Objects/master_archer.png",
-                        "x_pos": 800,
-                        "y_pos": 100,
-                        "rotation":0,
-                        "scaleX":2,
-                        "scaleY":2,
-                        "parentHierarchy":[]
-                    }
-                ]
-            }
-        },
-        {
-            "L1":{
-                "speed":1,
-                "objects":[]
-            }
-        },
-        {
-            "L2":{
-                "speed":1,
-                "objects":[]
-            }
-        }
-    ],
+					}
+				],
+				"speed":0.0
+			}
+		},
+		{
+			"L1":{
+					"objects":[],
+					"speed":0.0
+				}
+			},
+		{
+			"L2": {
+					"objects":[],
+					"speed":0.0
+				}
+			}
+		 ],
     "Camera":{
         "camEntrancePivotX":0,
         "camEntrancePivotY":100,
         "camEntrancePositionX":100,
         "camEntrancePositionY":100,
-        "playerEntrancePosX":800,
+        "playerEntrancePosX":100,
         "playerEntrancePosY":250,
         "camExitPivotX":1000,
         "camExitPivotY":100,
-        "camExitPositionX":500,
+        "camExitPositionX":1000,
         "camExitPositionY":100,
         "playerExitPosX":1200,
         "playerExitPosY":250
