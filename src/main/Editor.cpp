@@ -306,9 +306,11 @@ void Editor::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState
             this->paste();
         }
 
-        if (pressedKeys.find(SDL_SCANCODE_DELETE) != pressedKeys.end() &&
-            prevKeys.find(SDL_SCANCODE_DELETE) == prevKeys.end()) {
-            for (auto object : this->selected){
+        if ((pressedKeys.find(SDL_SCANCODE_DELETE) != pressedKeys.end() &&
+             prevKeys.find(SDL_SCANCODE_DELETE) == prevKeys.end()) ||
+            (pressedKeys.find(SDL_SCANCODE_BACKSPACE) != pressedKeys.end() &&
+             prevKeys.find(SDL_SCANCODE_BACKSPACE) == prevKeys.end())) {
+            for (const auto& object : this->selected){
                 object->removeThis();
             }
             this->selected.clear();
