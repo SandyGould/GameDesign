@@ -1,118 +1,121 @@
 {
-    "Scene":[
-        {
-            "L0":{
-                "speed":1,
-                "objects":[
-                    {
-                        "type":"Sprite",
-                        "name":"background",
-                        "filepath":"./resources/Rebound/area1/room2/assets/background.png",
-                        "x_pos":0,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":4,
-                        "scaleY":4,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"structure1",
-                        "filepath":"./resources/Rebound/area1/room2/assets/structure_1.png",
-                        "x_pos": 800,
-                        "y_pos": 0,
-                        "rotation": 0,
-                        "scaleX":3,
-                        "scaleY":3,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"structure2",
-                        "filepath":"./resources/Rebound/area1/room2/assets/structure_2.png",
-                        "x_pos":900,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":3,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"barrel",
-                        "filepath":"./resources/Rebound/area1/room2/assets/barrel_tile.png",
-                        "x_pos": 850,
-                        "y_pos": 70,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":3,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"shield_power_up",
-                        "filepath": "./resources/Rebound/area1/room2/assets/shield.png",
-                        "x_pos": 300,
-                        "y_pos": 250,
-                        "rotation":0,
-                        "scaleX":0.15,
-                        "scaleY":0.15,
-                        "parentHierarchy":[]
-                    },
-                    {
-                         "type":"Archer",
-                         "name":"archer1",
-                         "filepath": "./resources/assets/Display_Objects/archer.png",
-                         "x_pos": 400,
-                         "y_pos": 100,
-                         "rotation":0,
-                         "scaleX":0.5,
-                         "scaleY":0.05,
-                         "parentHierarchy":[]
-                     },
-                     {
-                         "type":"Archer",
-                         "name":"archer2",
-                         "filepath": "./resources/assets/Display_Objects/archer.png",
-                         "x_pos": 800,
-                         "y_pos": 300,
-                         "rotation":0,
-                         "scaleX": 0.5,
-                         "scaleY": 0.05,
-                         "parentHierarchy":[]
-                     }
-                ]
-            }
-        },
-        {
-            "L1":{
-                "speed":1,
-                "objects":[ ]
-            }
-        },
-        {
-            "L2":{
-                "speed":1,
-                "objects":[]
-            }
-        }
-    ],
-    "Camera":{
-        "camEntrancePivotX":200,
-        "camEntrancePivotY":238,
-        "camEntrancePositionX":200,
-        "camEntrancePositionY":100,
-        "playerEntrancePosX":50,
-        "playerEntrancePosY":250,
-        "camExitPivotX":800,
-        "camExitPivotY":100,
-        "camExitPositionX":200,
-        "camExitPositionY":100,
-        "playerExitPosX":1150,
-        "playerExitPosY":250,
-        "camTopLimit":100,
-        "camBottomLimit":240,
-        "camRightLimit":720,
-        "camLeftLimit":200
+  "Scene": [
+    {
+      "L0": {
+        "objects": [
+          {
+            "filepath": "./resources/Rebound/area1/room2/assets/background.png",
+            "name": "background",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "DisplayObject",
+            "x_pos": 0,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room2/assets/treeblock_1.png",
+            "name": "treeblock1",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "EnvironmentObject",
+            "x_pos": 0,
+            "y_pos": 573
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room2/assets/treeblock_2.png",
+            "name": "treeblock2",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "EnvironmentObject",
+            "x_pos": 1025,
+            "y_pos": 573
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room2/assets/structure_left_facing.png",
+            "name": "structure1",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "EnvironmentObject",
+            "x_pos": 1000,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room2/assets/structure_right_facing.png",
+            "name": "structure2",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "EnvironmentObject",
+            "x_pos": 728,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room2/assets/shield.png",
+            "name": "shield_power_up",
+            "rotation": 0.0,
+            "scaleX": 0.11,
+            "scaleY": 0.11,
+            "type": "WalkOnObject",
+            "x_pos": 163,
+            "y_pos": 373
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/archer.png",
+            "name": "archer1",
+            "rotation": 0.0,
+            "scaleX": 0.35,
+            "scaleY": 0.075,
+            "type": "Archer",
+            "x_pos": 281,
+            "y_pos": 47
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/archer.png",
+            "name": "archer2",
+            "rotation": 0.0,
+            "scaleX": 0.35,
+            "scaleY": 0.075,
+            "type": "Archer",
+            "x_pos": 953,
+            "y_pos": 277
+          }
+        ],
+        "speed": 0.0
+      }
+    },
+    {
+      "L1": {
+        "objects": [],
+        "speed": 0.0
+      }
+    },
+    {
+      "L2": {
+        "objects": [],
+        "speed": 0.0
+      }
     }
+  ],
+  "Camera": {
+    "camEntrancePivotX": 200,
+    "camEntrancePivotY": 238,
+    "camEntrancePositionX": 200,
+    "camEntrancePositionY": 100,
+    "playerEntrancePosX": 50,
+    "playerEntrancePosY": 250,
+    "camExitPivotX": 800,
+    "camExitPivotY": 100,
+    "camExitPositionX": 200,
+    "camExitPositionY": 100,
+    "playerExitPosX": 1150,
+    "playerExitPosY": 250,
+    "camTopLimit": 100,
+    "camBottomLimit": 240,
+    "camRightLimit": 720,
+    "camLeftLimit": 200
+  }
 }

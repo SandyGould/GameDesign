@@ -62,7 +62,7 @@
                     {
                         "type":"WalkOnObject",
                         "name":"mud",
-                        "filepath":"./resources/Rebound/area2/room3/assets/area2_3_mud1.png",
+                        "filepath":"./resources/Rebound/area2/mud1.png",
                         "rotation": 0.0,
                         "scaleX": 5.0,
                         "scaleY": 5.0,
@@ -73,7 +73,7 @@
                     {
                         "type":"WalkOnObject",
                         "name":"mud",
-                        "filepath":"./resources/Rebound/area2/room3/assets/area2_3_mud1.png",
+                        "filepath":"./resources/Rebound/area2/mud1.png",
                         "rotation": 0.0,
                         "scaleX": 5.0,
                         "scaleY": 5.0,
@@ -84,7 +84,7 @@
                     {
                         "type":"WalkOnObject",
                         "name":"mud",
-                        "filepath":"./resources/Rebound/area2/room3/assets/area2_3_mud2.png",
+                        "filepath":"./resources/Rebound/area2/mud2.png",
                         "rotation": 0.0,
                         "scaleX": 5.0,
                         "scaleY": 5.0,
@@ -95,7 +95,7 @@
                     {
                         "type":"WalkOnObject",
                         "name":"mud",
-                        "filepath":"./resources/Rebound/area2/room3/assets/area2_3_mud2.png",
+                        "filepath":"./resources/Rebound/area2/mud2.png",
                         "rotation": 0.0,
                         "scaleX": 5.0,
                         "scaleY": 5.0,
@@ -106,7 +106,7 @@
                     {
                         "type":"WalkOnObject",
                         "name":"mud",
-                        "filepath":"./resources/Rebound/area2/room3/assets/area2_3_mud2.png",
+                        "filepath":"./resources/Rebound/area2/mud2.png",
                         "rotation": 0.0,
                         "scaleX": 5.0,
                         "scaleY": 5.0,
@@ -117,7 +117,7 @@
                     {
                         "type":"WalkOnObject",
                         "name":"mud",
-                        "filepath":"./resources/Rebound/area2/room3/assets/area2_3_mud3.png",
+                        "filepath":"./resources/Rebound/area2/mud3.png",
                         "rotation": 0.0,
                         "scaleX": 5.0,
                         "scaleY": 5.0,
@@ -128,7 +128,7 @@
                     {
                         "type":"WalkOnObject",
                         "name":"mud",
-                        "filepath":"./resources/Rebound/area2/room3/assets/area2_3_mud3.png",
+                        "filepath":"./resources/Rebound/area2/mud3.png",
                         "rotation": 0.0,
                         "scaleX": 5.0,
                         "scaleY": 5.0,
@@ -139,7 +139,7 @@
                     {
                         "type":"WalkOnObject",
                         "name":"mud",
-                        "filepath":"./resources/Rebound/area2/room3/assets/area2_3_mud3.png",
+                        "filepath":"./resources/Rebound/area2/mud3.png",
                         "rotation": 0.0,
                         "scaleX": 5.0,
                         "scaleY": 5.0,
@@ -150,7 +150,7 @@
                     {
                         "type":"WalkOnObject",
                         "name":"mud",
-                        "filepath":"./resources/Rebound/area2/room3/assets/area2_3_mud4.png",
+                        "filepath":"./resources/Rebound/area2/mud4.png",
                         "rotation": 0.0,
                         "scaleX": 5.0,
                         "scaleY": 5.0,
@@ -161,7 +161,7 @@
                     {
                         "type":"WalkOnObject",
                         "name":"mud",
-                        "filepath":"./resources/Rebound/area2/room3/assets/area2_3_mud4.png",
+                        "filepath":"./resources/Rebound/area2/mud4.png",
                         "rotation": 0.0,
                         "scaleX": 5.0,
                         "scaleY": 5.0,
@@ -172,7 +172,7 @@
                     {
                         "type":"WalkOnObject",
                         "name":"mud",
-                        "filepath":"./resources/Rebound/area2/room3/assets/area2_3_mud5.png",
+                        "filepath":"./resources/Rebound/area2/mud5.png",
                         "rotation": 0.0,
                         "scaleX": 5.0,
                         "scaleY": 5.0,
@@ -183,7 +183,7 @@
                     {
                         "type":"WalkOnObject",
                         "name":"mud",
-                        "filepath":"./resources/Rebound/area2/room3/assets/area2_3_mud5.png",
+                        "filepath":"./resources/Rebound/area2/mud5.png",
                         "rotation": 0.0,
                         "scaleX": 5.0,
                         "scaleY": 5.0,
@@ -194,7 +194,7 @@
                     {
                         "type":"WalkOnObject",
                         "name":"mud",
-                        "filepath":"./resources/Rebound/area2/room3/assets/area2_3_mud5.png",
+                        "filepath":"./resources/Rebound/area2/mud5.png",
                         "rotation": 0.0,
                         "scaleX": 5.0,
                         "scaleY": 5.0,
@@ -205,7 +205,7 @@
                     {
                         "type":"WalkOnObject",
                         "name":"mud",
-                        "filepath":"./resources/Rebound/area2/room3/assets/area2_3_mud5.png",
+                        "filepath":"./resources/Rebound/area2/mud5.png",
                         "rotation": 0.0,
                         "scaleX": 5.0,
                         "scaleY": 5.0,
@@ -216,7 +216,7 @@
                     {
                         "type":"WalkOnObject",
                         "name":"mud",
-                        "filepath":"./resources/Rebound/area2/room3/assets/area2_3_mud5.png",
+                        "filepath":"./resources/Rebound/area2/mud5.png",
                         "rotation": 0.0,
                         "scaleX": 5.0,
                         "scaleY": 5.0,
@@ -227,7 +227,7 @@
                     {
                         "type":"WalkOnObject",
                         "name":"mud",
-                        "filepath":"./resources/Rebound/area2/room3/assets/area2_3_mud5.png",
+                        "filepath":"./resources/Rebound/area2/mud5.png",
                         "rotation": 0.0,
                         "scaleX": 5.0,
                         "scaleY": 5.0,
@@ -238,7 +238,7 @@
                     {
                         "type":"WalkOnObject",
                         "name":"mud",
-                        "filepath":"./resources/Rebound/area2/room3/assets/area2_3_mud5.png",
+                        "filepath":"./resources/Rebound/area2/mud5.png",
                         "rotation": 0.0,
                         "scaleX": 5.0,
                         "scaleY": 5.0,

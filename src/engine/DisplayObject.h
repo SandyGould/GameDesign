@@ -8,6 +8,7 @@
 #include <SDL2/SDL_image.h>
 #include <memory>
 #include <string>
+#include <queue>
 #include <unordered_set>
 #include <vector>
 
@@ -141,5 +142,6 @@ private:
 
     // Keep track of any objects that were erased during our update loop,
     // so that we can properly erase them from children afterwards
-    std::vector<std::shared_ptr<DisplayObject>> objectsToErase;
+    std::vector<std::shared_ptr<DisplayObject>> objectsToAdd;
+    std::queue<std::shared_ptr<DisplayObject>> objectsToErase;
 };

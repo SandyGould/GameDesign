@@ -1,118 +1,141 @@
 {
-    "Scene":[
-        {
-            "L0":{
-                "speed":0,
-                "objects":[
-                    {
-                        "type":"Sprite",
-                        "name":"background",
-                        "filepath":"./resources/Rebound/area1/room1/assets/background.png",
-                        "x_pos":0,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":4,
-                        "scaleY":4,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"mud",
-                        "filepath":"./resources/Rebound/area1/room1/assets/mud.png",
-                        "x_pos":400,
-                        "y_pos":200,
-                        "rotation":0,
-                        "scaleX":0.2,
-                        "scaleY":0.2,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"stone",
-                        "filepath":"./resources/Rebound/area1/room1/assets/stone.png",
-                        "x_pos": 30,
-                        "y_pos": 280,
-                        "rotation": 0,
-                        "scaleX":0.25,
-                        "scaleY":0.25,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"sign",
-                        "filepath":"./resources/Rebound/area1/room1/assets/sign.png",
-                        "x_pos":1110,
-                        "y_pos":230,
-                        "rotation":0,
-                        "scaleX":0.30,
-                        "scaleY":0.30,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"top_trees",
-                        "filepath":"./resources/Rebound/area1/room1/assets/top_trees.png",
-                        "x_pos":0,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":4,
-                        "scaleY":4,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"bottom_trees",
-                        "filepath":"./resources/Rebound/area1/room1/assets/bottom_trees.png",
-                        "x_pos":0,
-                        "y_pos":375,
-                        "rotation":0,
-                        "scaleX":4,
-                        "scaleY":4,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"obstacle",
-                        "filepath":"./resources/Rebound/area1/room1/assets/obstacle.png",
-                        "x_pos": 600,
-                        "y_pos": 140,
-                        "rotation":0,
-                        "scaleX":3.5,
-                        "scaleY":3.5,
-                        "parentHierarchy":[]
-                    }
-                ]
-            }
-        },
-        {
-            "L1":{
-                "speed":1,
-                "objects":[]
-            }
-        },
-        {
-            "L2":{
-                "speed":1,
-                "objects":[]
-            }
-        }
-    ],
-    "Camera":{
-        "camEntrancePivotX":0,
-        "camEntrancePivotY":100,
-        "camEntrancePositionX":100,
-        "camEntrancePositionY":100,
-        "playerEntrancePosX":100,
-        "playerEntrancePosY":250,
-        "camExitPivotX":800,
-        "camExitPivotY":100,
-        "camExitPositionX":200,
-        "camExitPositionY":100,
-        "playerExitPosX":1100,
-        "playerExitPosY":250,
-        "camTopLimit":0,
-        "camBottomLimit":0,
-        "camRightLimit":740,
-        "camLeftLimit":100
+  "Scene": [
+    {
+      "L0": {
+        "objects": [
+          {
+            "filepath": "./resources/Rebound/area1/room1/assets/background.png",
+            "name": "background_copy",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "DisplayObject",
+            "x_pos": 0,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room1/assets/trees_layer3.png",
+            "name": "trees_layer3_copy",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "EnvironmentObject",
+            "x_pos": 0,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room1/assets/trees_layer3.png",
+            "name": "trees_layer3_copy_copy",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "EnvironmentObject",
+            "x_pos": 0,
+            "y_pos": 448
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room1/assets/trees_layer2.png",
+            "name": "trees_layer2_copy",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "EnvironmentObject",
+            "x_pos": 0,
+            "y_pos": 65
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room1/assets/trees_layer2.png",
+            "name": "trees_layer2_copy_copy",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "EnvironmentObject",
+            "x_pos": 0,
+            "y_pos": 416
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room1/assets/trees_layer1.png",
+            "name": "trees_layer1_copy",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "EnvironmentObject",
+            "x_pos": 0,
+            "y_pos": 384
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room1/assets/trees_layer1.png",
+            "name": "trees_layer1_copy_copy",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "EnvironmentObject",
+            "x_pos": 0,
+            "y_pos": 97
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room1/assets/stone.png",
+            "name": "stone_copy",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "EnvironmentObject",
+            "x_pos": 18,
+            "y_pos": 301
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room1/assets/obstacle.png",
+            "name": "obstacle_copy",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "EnvironmentObject",
+            "x_pos": 584,
+            "y_pos": 153
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room1/assets/sign.png",
+            "name": "sign_copy",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "DisplayObject",
+            "x_pos": 1164,
+            "y_pos": 229
+          }
+        ],
+        "speed": 0.0
+      }
+    },
+    {
+      "L1": {
+        "objects": [],
+        "speed": 0.0
+      }
+    },
+    {
+      "L2": {
+        "objects": [],
+        "speed": 0.0
+      }
     }
+  ],
+  "Camera": {
+    "camEntrancePivotX": 0,
+    "camEntrancePivotY": 100,
+    "camEntrancePositionX": 100,
+    "camEntrancePositionY": 100,
+    "playerEntrancePosX": 100,
+    "playerEntrancePosY": 250,
+    "camExitPivotX": 800,
+    "camExitPivotY": 100,
+    "camExitPositionX": 200,
+    "camExitPositionY": 100,
+    "playerExitPosX": 1100,
+    "playerExitPosY": 250,
+    "camTopLimit": 0,
+    "camBottomLimit": 0,
+    "camRightLimit": 740,
+    "camLeftLimit": 100
+  }
 }
