@@ -8,6 +8,7 @@
 
 #include <string.h>
 #include <iostream>
+#include <SDL2/SDL.h>
 
 
 SceneManager::SceneManager(shared_ptr<Camera> c, shared_ptr<Player> p) {
@@ -167,6 +168,11 @@ void SceneManager::loadFirstScene() {
     // set camera limits - still need to do
     c->position = this->currScene->camEntrancePosition;
     c->pivot = this->currScene->camEntrancePivot;
+    // set camera limits
+    c->setTopLimit(this->currScene->camTopLimit);
+	c->setLeftLimit(this->currScene->camLeftLimit);
+	c->setRightLimit(this->currScene->camRightLimit);
+    c->setBottomLimit(this->currScene->camBottomLimit);
     c->addChild(this->currScene);
 
 
@@ -178,6 +184,7 @@ void SceneManager::loadFirstScene() {
 
 void SceneManager::unloadScene() {
     // scene is done; queue fade out transition
+    // std::cout << this->currScene->id << std::endl;
     EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_OUT_EVENT));
 }
 
@@ -234,6 +241,11 @@ void SceneManager::loadNextScene() {
     // set camera limits - still need to do
     c->position = this->currScene->camEntrancePosition;
     c->pivot = this->currScene->camEntrancePivot;
+    // set camera limits
+    c->setTopLimit(this->currScene->camTopLimit);
+	c->setLeftLimit(this->currScene->camLeftLimit);
+	c->setRightLimit(this->currScene->camRightLimit);
+    c->setBottomLimit(this->currScene->camBottomLimit);
     c->addChild(this->currScene);
 
     // display a message if in new area (for debugging)
@@ -318,6 +330,11 @@ void SceneManager::updateScene() {
             return;
         }
     }
+    
+    // std::cout << "x" << std::endl;
+    // std::cout << this->p->position.x << std::endl;
+    // std::cout << "y" << std::endl;
+    // std::cout << this->p->position.y << std::endl;
 
     // // if backward condition is satisfied, go back to previous scene
     // if (this->currScene->back_coord == "x" && this->currScene->back_comp == ">") {

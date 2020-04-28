@@ -16,8 +16,8 @@
                         "parentHierarchy":[]
                     },
                     {
-                        "type":"EnvironmentObject",
-                        "name":"structure",
+                        "type":"WalkOnObject",
+                        "name":"spike",
                         "filepath":"./resources/Rebound/area1/room3/assets/structure.png",
                         "x_pos": 600,
                         "y_pos": 50,
@@ -80,13 +80,17 @@
         "camEntrancePivotY":100,
         "camEntrancePositionX":200,
         "camEntrancePositionY":100,
-        "playerEntrancePosX":50,
+        "playerEntrancePosX":300,
         "playerEntrancePosY":250,
         "camExitPivotX":800,
         "camExitPivotY":100,
         "camExitPositionX":800,
         "camExitPositionY":100,
         "playerExitPosX":1150,
-        "playerExitPosY":250
+        "playerExitPosY":250,
+        "camTopLimit":100,
+        "camBottomLimit":100,
+        "camRightLimit":800,
+        "camLeftLimit":300
     }
 }

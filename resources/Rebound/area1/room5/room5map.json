@@ -11,8 +11,41 @@
                         "x_pos":0,
                         "y_pos":0,
                         "rotation":0,
-                        "scaleX":5,
-                        "scaleY":5,
+                        "scaleX":4,
+                        "scaleY":4,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"WalkOnObject",
+                        "name":"spike",
+                        "filepath":"./resources/Rebound/area1/room5/assets/structure2.png",
+                        "x_pos":100,
+                        "y_pos":1000,
+                        "rotation":0,
+                        "scaleX":4,
+                        "scaleY":4,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"switch",
+                        "filepath":"./resources/Rebound/area1/room5/assets/lever.png",
+                        "x_pos":400,
+                        "y_pos":700,
+                        "rotation":0,
+                        "scaleX":4,
+                        "scaleY":4,
+                        "parentHierarchy":[]
+                    },
+                    {
+                        "type":"EnvironmentObject",
+                        "name":"switch",
+                        "filepath":"./resources/Rebound/area1/room5/assets/lever.png",
+                        "x_pos":400,
+                        "y_pos":700,
+                        "rotation":0,
+                        "scaleX":4,
+                        "scaleY":4,
                         "parentHierarchy":[]
                     }
                 ]
@@ -32,17 +65,21 @@
         }
     ],
     "Camera":{
-        "camEntrancePivotX":0,
-        "camEntrancePivotY":100,
+        "camEntrancePivotX":50,
+        "camEntrancePivotY":720,
         "camEntrancePositionX":100,
         "camEntrancePositionY":100,
-        "playerEntrancePosX":100,
-        "playerEntrancePosY":250,
+        "playerEntrancePosX":450,
+        "playerEntrancePosY":1100,
         "camExitPivotX":800,
         "camExitPivotY":100,
         "camExitPositionX":200,
         "camExitPositionY":100,
         "playerExitPosX":1100,
-        "playerExitPosY":250
+        "playerExitPosY":250,
+        "camTopLimit":100,
+        "camBottomLimit":720,
+        "camRightLimit":50,
+        "camLeftLimit":50
     }
 }

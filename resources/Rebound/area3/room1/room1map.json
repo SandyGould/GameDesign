@@ -437,16 +437,20 @@
     ],
     "Camera":{
         "camEntrancePivotX":200,
-        "camEntrancePivotY":100,
+        "camEntrancePivotY":225,
         "camEntrancePositionX":200,
         "camEntrancePositionY":100,
-        "playerEntrancePosX":50,
+        "playerEntrancePosX":200,
         "playerEntrancePosY":250,
         "camExitPivotX":800,
         "camExitPivotY":100,
         "camExitPositionX":800,
         "camExitPositionY":100,
         "playerExitPosX":1150,
-        "playerExitPosY":250
+        "playerExitPosY":250,
+        "camTopLimit":100,
+        "camBottomLimit":230,
+        "camRightLimit":85000,
+        "camLeftLimit":200
     }
 }

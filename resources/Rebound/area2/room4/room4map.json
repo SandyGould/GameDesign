@@ -264,7 +264,7 @@
     ],
     "Camera":{
         "camEntrancePivotX":0,
-        "camEntrancePivotY":100,
+        "camEntrancePivotY":225,
         "camEntrancePositionX":100,
         "camEntrancePositionY":100,
         "playerEntrancePosX":100,
@@ -274,6 +274,10 @@
         "camExitPositionX":1200,
         "camExitPositionY":100,
         "playerExitPosX":1100,
-        "playerExitPosY":250
+        "playerExitPosY":250,
+		"camTopLimit":100,
+        "camBottomLimit":230,
+        "camRightLimit":850,
+        "camLeftLimit":100
     }
 }

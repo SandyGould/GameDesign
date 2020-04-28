@@ -35,6 +35,10 @@ void Scene::loadScene(std::string sceneFilePath){
     this->camExitPivot = {j["Camera"]["camExitPivotX"], j["Camera"]["camExitPivotY"]};
     this->camExitPosition = {j["Camera"]["camExitPositionX"], j["Camera"]["camExitPositionY"]};
     this->playerExitPos = {j["Camera"]["playerExitPosX"], j["Camera"]["playerExitPosY"]};
+    this->camTopLimit = {j["Camera"]["camTopLimit"]};
+    this->camBottomLimit = {j["Camera"]["camBottomLimit"]};
+    this->camRightLimit = {j["Camera"]["camRightLimit"]};
+    this->camLeftLimit = {j["Camera"]["camLeftLimit"]};
 
 
     for(int z = 0; z < j["Scene"].size(); z++){

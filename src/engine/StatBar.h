@@ -12,6 +12,7 @@ public:
     explicit StatBar(std::string id, std::shared_ptr<Player> player);
     StatBar(std::string id, int red, int green, int blue, std::shared_ptr<Player> player);
     StatBar(std::string id, int red, int green, int blue, std::shared_ptr<Player> player, int w, int h);
+    StatBar(std::string id, std::string filepath, std::shared_ptr<Player> player);
 
 	~StatBar() override;
 
@@ -24,5 +25,7 @@ public:
 private:
     double StatPerc;
     std::shared_ptr<Player> player;
+    std::shared_ptr<DisplayObject> bar;
+    std::shared_ptr<DisplayObject> frame;
 };
 #endif
