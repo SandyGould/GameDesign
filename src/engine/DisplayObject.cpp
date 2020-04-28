@@ -109,8 +109,8 @@ void DisplayObject::setTexture(SDL_Texture* t) {
 
 void DisplayObject::addChild(const std::shared_ptr<DisplayObject>& child) {
     if (child->parent != this) {
+        children.emplace_back(child);
         child->parent = this; // make sure to include reverse reference also
-        objectsToAdd.push_back(child);
 
         auto* event = new DisplayTreeChangeEvent(child, true);
         EventDispatcher::getInstance().dispatchEvent(event);
@@ -125,7 +125,7 @@ void DisplayObject::removeImmediateChild(const std::shared_ptr<DisplayObject>& c
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
 
-        objectsToErase.push(*it);
+        objectsToErase.push_back(*it);
     }
 }
 
@@ -136,7 +136,7 @@ void DisplayObject::removeImmediateChild(std::string id) {
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
 
-        objectsToErase.push(*it);
+        objectsToErase.push_back(*it);
     }
 }
 
@@ -146,7 +146,7 @@ void DisplayObject::removeChild(size_t index) {
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
 
-        objectsToErase.push(*(children.begin() + index));
+        children.erase(children.begin() + index);
     }
 }
 
@@ -178,22 +178,15 @@ std::shared_ptr<DisplayObject> DisplayObject::getChild(const std::string& id) co
 }
 
 void DisplayObject::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
-    // Add new children
-    for (const auto& object : objectsToAdd) {
-        children.emplace_back(object);
-    }
-    objectsToAdd.clear();
-
     for (const auto& child : children) {
         child->update(pressedKeys, joystickState, pressedButtons);
     }
 
     // Clear ourselves of any deleted children
-    while (!objectsToErase.empty()) {
-        children.erase(remove(children.begin(), children.end(), objectsToErase.front()),
-                       children.cend());
-        objectsToErase.pop();
+    for (const auto& object : objectsToErase) {
+        children.erase(std::remove(children.begin(), children.end(), object), children.cend());
     }
+    objectsToErase.clear();
 }
 
 void DisplayObject::draw(AffineTransform& at) {
@@ -454,9 +447,6 @@ void DisplayObject::handleEvent(Event* e){
     // scale in event
     if (e->getType() == NewSceneEvent::FADE_IN_EVENT || e->getType() == NewSceneEvent::FADE_OUT_EVENT) {
         propogateEvent(e, shared_from_this());
-        for (const auto& object : objectsToAdd) {
-            propogateEvent(e, object);
-        }
     }
 }
 
