@@ -161,15 +161,30 @@ int DisplayObject::numChildren() const {
 }
 
 std::shared_ptr<DisplayObject> DisplayObject::getChild(int index) const {
-    if (index < 0 || index > numChildren()) {
+    if (index < 0) {
         return nullptr;
-    } else {
-        return children[index];
     }
+
+    if (index >= this->children.size()) {
+        index -= this->children.size();
+        if (index >= objectsToAdd.size()) {
+            return nullptr;
+        }
+
+        return objectsToAdd[index];
+    }
+
+    return children[index];
 }
 
 std::shared_ptr<DisplayObject> DisplayObject::getChild(const std::string& id) const {
     for (auto child : children) {
+        if (child->id == id) {
+            return child;
+        }
+    }
+
+    for (auto child : objectsToAdd) {
         if (child->id == id) {
             return child;
         }
