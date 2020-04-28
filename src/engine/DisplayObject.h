@@ -7,6 +7,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <memory>
+#include <queue>
 #include <string>
 #include <unordered_set>
 #include <vector>
@@ -139,7 +140,8 @@ private:
 	/* Texture currently being drawn. Equal to texture for normal DO */
 	SDL_Texture* curTexture = nullptr;
 
-    // Keep track of any objects that were erased during our update loop,
-    // so that we can properly erase them from children afterwards
-    std::vector<std::shared_ptr<DisplayObject>> objectsToErase;
+    // Keep track of any objects that were added/erased during our update loop,
+    // so that we can properly add/erase them from children afterwards
+    std::vector<std::shared_ptr<DisplayObject>> objectsToAdd;
+    std::queue<std::shared_ptr<DisplayObject>> objectsToErase;
 };
