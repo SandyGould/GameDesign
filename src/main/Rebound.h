@@ -7,6 +7,7 @@
 #include "../engine/Scene.h"
 #include "../engine/things/Player.h"
 #include "../engine/things/Shield.h"
+#include "../engine/things/Chest.h"
 #include "../engine/enemies/Mage.h"
 #include "../engine/enemies/MageAttack.h"
 #include "../engine/enemies/Archer.h"
@@ -36,6 +37,7 @@ public:
 private:
     CollisionSystem* collisionSystem;
 	std::shared_ptr<Player> player;
+	std::shared_ptr<Chest> chest;
 	std::shared_ptr<Mage> mage;
     std::shared_ptr<Archer> archer;
 	std::shared_ptr<MageAttack> mageAttack;
