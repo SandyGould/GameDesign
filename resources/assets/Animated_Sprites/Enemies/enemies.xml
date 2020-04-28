@@ -77,6 +77,17 @@ triangles  => sprite triangulation, 3 vertex indices per triangle
         <sprite n="skelet_run_anim_f3.png" x="112" y="144" w="16" h="16"/>
     </Anim>
 
+    <Anim name="ChestIdle" numFrames="2" frameRate="12" loop="true">
+        <sprite n="chest_full_open_anim_f0.png" x="0" y="16" w="16" h="16"/>
+        <sprite n="chest_empty_open_anim_f0.png" x="70" y="0" w="16" h="16"/>
+    </Anim>
+
+    <Anim name="ChestOpen" numFrames="3" frameRate="12" loop="false">
+        <sprite n="chest_full_open_anim_f0.png" x="0" y="16" w="16" h="16"/>
+        <sprite n="chest_full_open_anim_f1.png" x="16" y="16" w="16" h="16"/>
+        <sprite n="chest_full_open_anim_f2.png" x="32" y="16" w="16" h="16"/>
+    </Anim>
+
     <sprite n="big_demon_idle_anim_f0.png" x="96" y="894" w="32" h="36"/>
     <sprite n="big_demon_idle_anim_f1.png" x="0" y="930" w="32" h="36"/>
     <sprite n="big_demon_idle_anim_f2.png" x="32" y="930" w="32" h="36"/>
@@ -96,9 +107,7 @@ triangles  => sprite triangulation, 3 vertex indices per triangle
     <sprite n="chest_empty_open_anim_f0.png" x="70" y="0" w="16" h="16"/>
     <sprite n="chest_empty_open_anim_f1.png" x="86" y="0" w="16" h="16"/>
     <sprite n="chest_empty_open_anim_f2.png" x="102" y="0" w="16" h="16"/>
-    <sprite n="chest_full_open_anim_f0.png" x="0" y="16" w="16" h="16"/>
-    <sprite n="chest_full_open_anim_f1.png" x="16" y="16" w="16" h="16"/>
-    <sprite n="chest_full_open_anim_f2.png" x="32" y="16" w="16" h="16"/>
+
     <sprite n="chest_mimic_open_anim_f0.png" x="48" y="16" w="16" h="16"/>
     <sprite n="chest_mimic_open_anim_f1.png" x="64" y="16" w="16" h="16"/>
     <sprite n="chest_mimic_open_anim_f2.png" x="80" y="16" w="16" h="16"/>

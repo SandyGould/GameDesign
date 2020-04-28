@@ -43,8 +43,6 @@ Rooms::Rooms() : Game(600, 500) {
 	// load and prep player
 	player = std::make_shared<Player>();
 	player->position = {50, 250};
-	// player->width = 110;
-	// player->height = 80;
 	player->pivot = {50, 50};
 	//player->type = "player";
 
@@ -92,8 +90,8 @@ Rooms::Rooms() : Game(600, 500) {
 
     TweenJuggler::getInstance().add(player_tween);
     EventDispatcher::getInstance().addEventListener(this->start_text_box.get(), TweenEvent::TWEEN_COMPLETE_EVENT);
-	
-	
+
+
 	this->sceneManager = std::make_shared<SceneManager>(camera, player);
 	// load the entire first area
 	this->sceneManager->loadAllAreas(4);
@@ -102,19 +100,6 @@ Rooms::Rooms() : Game(600, 500) {
 }
 
 void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {
-	if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) {
-		player->position.x += 2;
-	}
-	if (pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) {
-        player->position.x -= 2;
-    }
-	if (pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) {
-			player->position.y += 2;
-	}
-	if (pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) {
-		player->position.y -= 2;
-	}
-
 	// menu controls
 	if (pressedKeys.find(SDL_SCANCODE_ESCAPE) != pressedKeys.end()) {
 		if(!esc_prepressed)
@@ -125,17 +110,18 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 	}
 
     TweenJuggler::getInstance().nextFrame();
-    
+
 	// update scene if criteria for changing scene are met
 	this->sceneManager->updateScene();
 	health->updateHealth();
-	Game::update(pressedKeys, joystickState, pressedButtons);
 	player->speedChange = false;
     this->collisionSystem->update();
 	if(!player->speedChange){
 		player->speed = 4;
 	}
     camera->follow(player->position.x, player->position.y);
+
+	Game::update(pressedKeys, joystickState, pressedButtons);
 }
 
 void Rooms::draw(AffineTransform& at) {

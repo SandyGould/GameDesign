@@ -25,6 +25,13 @@ Rebound::Rebound() : Game(1200, 800) {
 	player->shield->visible = true;
 	allSprites->addChild(player);
 
+	chest = make_shared<Chest>();
+	chest->position = {400, 400};
+	chest->height = 80;
+	chest->width = 70;
+
+	allSprites->addChild(chest);
+
 	// mage = make_shared<Mage>(player);
 	// mage->position = {400, 400};
 	// mage->height = 80;
@@ -69,12 +76,12 @@ Rebound::Rebound() : Game(1200, 800) {
     // allSprites->addChild(masterArcher);
 
 
-	orc = make_shared<Orc>(player);
-	orc->position = {450,450};
-	orc->height = 80;
-	orc->width = 70;
-
-	allSprites->addChild(orc);
+	// orc = make_shared<Orc>(player);
+	// orc->position = {450,450};
+	// orc->height = 80;
+	// orc->width = 70;
+	//
+	// allSprites->addChild(orc);
 
 	// poisoner = new Poisoner(player);
 	// poisoner->position = {40,160};
@@ -89,12 +96,12 @@ Rebound::Rebound() : Game(1200, 800) {
 	//
 	// allSprites->addChild(roarMonster);
 
-	knight = make_shared<Knight>(player);
-	knight->position = {200,400};
-	knight->height = 80;
-	knight->width = 70;
-
-	allSprites->addChild(knight);
+	// knight = make_shared<Knight>(player);
+	// knight->position = {200,400};
+	// knight->height = 80;
+	// knight->width = 70;
+	//
+	// allSprites->addChild(knight);
 
 	// cannoneer = new Cannoneer(player);
 	// cannoneer->position = {500,100};
