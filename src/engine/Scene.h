@@ -106,7 +106,7 @@ public:
 	std::string forward_coord = std::string("x"); // 1 for x
 	std::string forward_comp = std::string(">"); // 2 for greater than
 	std::string back_coord = std::string("x");
-	std::string back_comp = std::string("<"); // 1 for less than
+	std::string back_comp = std::string("<"); // 1 for less than 
 
 	// starting camera positions
 	SDL_Point camEntrancePivot = {200,100};
@@ -122,6 +122,13 @@ public:
 	SDL_Point playerExitPos = {1150,250};
 	
 	std::string scenePath = "";
+
+	// setting camera limits
+	int camTopLimit;
+	int camBottomLimit;
+	int camRightLimit;
+	int camLeftLimit;
+	
 
 private:
 	std::shared_ptr<DisplayObject> root;

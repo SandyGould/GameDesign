@@ -32,10 +32,10 @@ Rooms::Rooms() : Game(600, 500) {
 	camera = std::make_shared<Camera>();
 
 	// load and prep camera
-	camera->setTopLimit(0);
-	camera->setLeftLimit(0); //200
-	camera->setRightLimit(810); //810
-    camera->setBottomLimit(0); //0
+	// camera->setTopLimit(0);
+	// camera->setLeftLimit(0); //200
+	// camera->setRightLimit(810); //810
+    // camera->setBottomLimit(0); //0
 	// move that point to the middle
 
 	container->addChild(camera);
@@ -80,8 +80,7 @@ Rooms::Rooms() : Game(600, 500) {
 	EventDispatcher::getInstance().addEventListener(this->selection_quit_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);
 
 	// health bar
-	health = std::make_shared<StatBar>("Health", 255, 0, 0, player);
-	health->position = {50,460};
+	health = std::make_shared<StatBar>("Health", "./resources/Rebound/greenbar (3).png", player);
 	container->addChild(health);
 
 	// tween stuff
