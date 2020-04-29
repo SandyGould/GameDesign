@@ -14,7 +14,6 @@
 struct Animation {
     std::vector<SDL_Rect> frames;
     std::string animName;
-    int numFrames;
     int frameRate;
     bool loop;
     int curFrame;

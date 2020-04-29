@@ -3,7 +3,7 @@
 #include "json.hpp"
 #include "pugixml.hpp"
 
-#include <fstream>
+#include <iostream>
 
 using namespace std::string_literals;
 using json = nlohmann::json;
@@ -67,9 +67,15 @@ AnimatedSprite::AnimatedSprite(const DisplayObject& other)
 }
 
 void AnimatedSprite::parse(const std::string& xml) {
-    //for more information about this library look here https://stackoverflow.com/questions/39067300/c-parsing-sub-nodes-of-xml
+    // for more information about this library look here
+    // https://stackoverflow.com/questions/39067300/c-parsing-sub-nodes-of-xml
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(xml.c_str());
+
+    if (result.status != pugi::status_ok) {
+        std::cerr << "Failed to parse " << xml << ": " << result.description() << std::endl;
+        return;
+    }
 
     std::vector<Animation> animations;
 
@@ -77,7 +83,6 @@ void AnimatedSprite::parse(const std::string& xml) {
         Animation newanim{
             std::vector<SDL_Rect>(anim.attribute("numFrames").as_int()),
             anim.attribute("name").as_string(),
-            anim.attribute("numFrames").as_int(),
             anim.attribute("frameRate").as_int(),
             anim.attribute("loop").as_string() == "true"s, // force "true" to be a std::string
             0,
@@ -107,7 +112,6 @@ Animation AnimatedSprite::getAnimation(const std::string& animName) {
     return {
         {},
         "INVALID_ANIMATION",
-        0,
         0,
         false,
         0,
@@ -144,7 +148,7 @@ void AnimatedSprite::update(const std::unordered_set<SDL_Scancode>& pressedKeys,
             // increment local frame counter
             current.curFrame++;
             // check for array out of bounds
-            if (current.curFrame == current.numFrames - 1) {
+            if (current.curFrame == current.frames.size() - 1) {
                 // check for looping, reset if looping
                 if (!current.loop) {
                     stop();
