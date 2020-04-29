@@ -444,7 +444,7 @@ void Scene::addToJSON(json &Layer, std::shared_ptr<DisplayObject> dObject){
             }
             if (child->type == "AnimatedSprite"){
                 auto tempAS = std::static_pointer_cast<AnimatedSprite>(child);
-                Layer.push_back({ {"type", tempAS->saveType}, {"name", tempAS->id}, {"sheetpath", tempAS->sheetpath}, {"xmlpath", tempAS->xmlpath}, {"x_pos", tempAS->position.x}, {"y_pos", tempAS->position.y}, {"rotation", tempAS->rotation}, {"scaleX", tempAS->scaleX}, {"scaleY", tempAS->scaleY} /*,{"parentHierarchy", tempVec}*/ });
+                Layer.push_back({ {"type", tempAS->saveType}, {"name", tempAS->id}, {"xmlpath", tempAS->xmlpath}, {"x_pos", tempAS->position.x}, {"y_pos", tempAS->position.y}, {"rotation", tempAS->rotation}, {"scaleX", tempAS->scaleX}, {"scaleY", tempAS->scaleY} /*,{"parentHierarchy", tempVec}*/ });
             } else{
                 Layer.push_back({ {"type", child->saveType}, {"name", child->id}, {"filepath", child->imgPath}, {"x_pos", child->position.x}, {"y_pos", child->position.y}, {"rotation", child->rotation}, {"scaleX", child->scaleX}, {"scaleY", child->scaleY} /*,{"parentHierarchy", tempVec}*/ });
             }

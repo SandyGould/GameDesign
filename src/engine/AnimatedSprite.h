@@ -1,15 +1,15 @@
 #ifndef ANIMATEDSPRITE_H
 #define ANIMATEDSPRITE_H
 
-#include "Sprite.h"
 #include "Game.h"
+#include "Sprite.h"
+#include "pugixml.hpp"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-
-#include <vector>
 #include <string>
 #include <utility>
+#include <vector>
 
 struct Animation {
     std::vector<SDL_Rect> frames;
@@ -38,18 +38,15 @@ public:
 
 	bool playing = false;
 	void parse(std::string xml);
-	std::string sheetpath;
 	std::string xmlpath;
 	std::vector<Animation> animations;
 
 	Animation current;
 
 private:
-
+    static std::unordered_map<std::string, std::vector<Animation>> spritesheets;
 
 	int frameCount;
-
-
 };
 
 #endif

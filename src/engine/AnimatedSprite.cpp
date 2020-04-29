@@ -8,15 +8,21 @@
 using namespace std::string_literals;
 using json = nlohmann::json;
 
+std::unordered_map<std::string, std::vector<Animation>> AnimatedSprite::spritesheets;
+
 AnimatedSprite::AnimatedSprite(std::string id, std::string spritesheet, std::string xml, SDL_Renderer* r)
     : Sprite(id, spritesheet, r) {
     this->type = "AnimatedSprite";
     this->saveType = this->type;
-    this->sheetpath = spritesheet;
     this->renderer = r;
     this->xmlpath = xml;
-    parse(this->xmlpath);
-    if (!animations.empty()) {
+
+    if (AnimatedSprite::spritesheets.find(xml) == AnimatedSprite::spritesheets.cend()) {
+        this->parse(this->xmlpath);
+    }
+
+    this->animations = AnimatedSprite::spritesheets.at(xml);
+    if (!this->animations.empty()) {
         this->play(0);
     }
 }
@@ -28,7 +34,6 @@ AnimatedSprite::AnimatedSprite(const DisplayObject& other)
         this->id = AS->id + "_copy";
         this->type = AS->type;
         this->saveType = AS->saveType;
-        this->sheetpath = AS->sheetpath;
         this->renderer = AS->renderer;
         this->xmlpath = AS->xmlpath;
         this->width = AS->width;
@@ -40,7 +45,9 @@ AnimatedSprite::AnimatedSprite(const DisplayObject& other)
         this->rotation = AS->rotation;
         this->facingRight = AS->facingRight;
         this->hasCollision = AS->hasCollision;
-        parse(this->xmlpath);
+        if (AnimatedSprite::spritesheets.find(this->xmlpath) == AnimatedSprite::spritesheets.cend()) {
+            parse(this->xmlpath);
+        }
         this->imgPath = other.imgPath;
         this->loadTexture(this->imgPath);
     } else {
@@ -49,7 +56,8 @@ AnimatedSprite::AnimatedSprite(const DisplayObject& other)
         this->renderer = Game::renderer;
     }
 
-    if (!animations.empty()) {
+    this->animations = AnimatedSprite::spritesheets.at(this->xmlpath);
+    if (!this->animations.empty()) {
         this->play(0);
     }
 }
@@ -58,6 +66,8 @@ void AnimatedSprite::parse(std::string xml) {
     //for more information about this library look here https://stackoverflow.com/questions/39067300/c-parsing-sub-nodes-of-xml
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(xml.c_str());
+
+    std::vector<Animation> animations;
 
     for (auto& anim : doc.child("TextureAtlas")) {
         Animation newanim{
@@ -70,19 +80,21 @@ void AnimatedSprite::parse(std::string xml) {
         };
 
         int framenum = 0;
-        for (auto sprite : anim) {
-            newanim.frames[framenum].x = sprite.attribute("x").as_int();
-            newanim.frames[framenum].y = sprite.attribute("y").as_int();
-            newanim.frames[framenum].w = sprite.attribute("w").as_int();
-            newanim.frames[framenum].h = sprite.attribute("h").as_int();
+        for (auto frame : anim) {
+            newanim.frames[framenum].x = frame.attribute("x").as_int();
+            newanim.frames[framenum].y = frame.attribute("y").as_int();
+            newanim.frames[framenum].w = frame.attribute("w").as_int();
+            newanim.frames[framenum].h = frame.attribute("h").as_int();
             framenum++;
         }
         animations.push_back(newanim);
     }
+
+    AnimatedSprite::spritesheets.try_emplace(xml, animations);
 }
 
 Animation AnimatedSprite::getAnimation(std::string animName) {
-    for (auto animation : animations) {
+    for (auto animation : this->animations) {
         if (animation.animName == animName) {
             return animation;
         }
@@ -99,8 +111,8 @@ Animation AnimatedSprite::getAnimation(std::string animName) {
 }
 
 void AnimatedSprite::play(int index) {
-    if (index < animations.size()) {
-        Animation anim = animations[index];
+    if (index < this->animations.size()) {
+        Animation anim = this->animations[index];
         this->current = anim;
         this->current.curFrame = 0;
         frameCount = 0;
