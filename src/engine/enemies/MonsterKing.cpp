@@ -41,7 +41,7 @@ void MonsterKing::update(const std::unordered_set<SDL_Scancode>& pressedKeys, co
         this->state = 2;
     }
     else if(this->state == 2){ //move select
-        if (this->current->animName.compare("MKingIdle") != 0)
+        if (this->current.animName.compare("MKingIdle") != 0)
             this->play("MKingIdle");
         this->state = rand() %3 + 3;
         this->maxWalkFrames = 380;
@@ -70,7 +70,7 @@ void MonsterKing::update(const std::unordered_set<SDL_Scancode>& pressedKeys, co
         SDL_Point playerLoc = player->getGlobalPosition();
         directionX = this->getGlobalPosition().x - playerLoc.x;
         directionY = this->getGlobalPosition().y - playerLoc.y;
-        if (this->current->animName.compare("MKingWalk") != 0)
+        if (this->current.animName.compare("MKingWalk") != 0)
             this->play("MKingWalk");
         if(directionX > 0){
             this->position = {this->position.x - 1, this->position.y};
@@ -129,7 +129,7 @@ void MonsterKing::update(const std::unordered_set<SDL_Scancode>& pressedKeys, co
         this->rushFrames--;
     }
     else if(this->state == 7){ // Stunned
-        if (this->current->animName.compare("MKingIdle") != 0)
+        if (this->current.animName.compare("MKingIdle") != 0)
             this->play("MKingIdle");
         if(this->stunFrames == 0){
             this->stunFrames = 90;
@@ -140,7 +140,7 @@ void MonsterKing::update(const std::unordered_set<SDL_Scancode>& pressedKeys, co
         }
     }
     else if(this->state == 8){ // Cooldown
-        if (this->current->animName.compare("MKingIdle") != 0)
+        if (this->current.animName.compare("MKingIdle") != 0)
             this->play("MKingIdle");
         if (coolDownFrames == -1) { //If the cooldown has expired we'll set it to -1
             this->coolDownFrames = generateCoolDown();

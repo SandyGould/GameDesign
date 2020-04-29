@@ -58,14 +58,14 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
     int DEAD_ZONE = 10000;
 	if ((pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) || joystickState.xVal1 - DEAD_ZONE > 0) {
 		if (checkDoubleTaps(SDL_SCANCODE_RIGHT) || (joystickState.xVal1 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
-            if (this->current->animName.compare("Slide") != 0)
+            if (this->current.animName.compare("Slide") != 0)
                 this->play("Slide");
 			this->position.x += this->speed*2;
 			this->changeStamina(-30);
             AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
             return;
 		} else {
-            if (this->current->animName.compare("Run") != 0)
+            if (this->current.animName.compare("Run") != 0)
                 this->play("Run");
 			this->position.x += this->speed;
 			this->changeStamina(-3);
@@ -74,14 +74,14 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 	}
     if ((pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) || joystickState.xVal1 + DEAD_ZONE < 0) {
 		if (checkDoubleTaps(SDL_SCANCODE_LEFT) || (joystickState.xVal1 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
-            if (this->current->animName.compare("SlideLeft") != 0)
+            if (this->current.animName.compare("SlideLeft") != 0)
                 this->play("SlideLeft");
 			this->position.x -= this->speed*2;
 			this->changeStamina(-30);
             AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
             return;
 		} else {
-            if (this->current->animName.compare("RunLeft") != 0)
+            if (this->current.animName.compare("RunLeft") != 0)
                 this->play("RunLeft");
 			this->position.x -= this->speed;
 			this->changeStamina(-3);
@@ -90,14 +90,14 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 	}
 	if ((pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) || joystickState.yVal1 - DEAD_ZONE > 0) {
 		if (checkDoubleTaps(SDL_SCANCODE_DOWN) || (joystickState.yVal1 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
-            if (this->current->animName.compare("Slide") != 0)
+            if (this->current.animName.compare("Slide") != 0)
                 this->play("Slide");
 			this->position.y += this->speed*2;
 			this->changeStamina(-30);
             AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
             return;
 		} else {
-            if (this->current->animName.compare("Run") != 0)
+            if (this->current.animName.compare("Run") != 0)
                 this->play("Run");
 			this->position.y += this->speed;
 			this->changeStamina(-3);
@@ -106,14 +106,14 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 	}
 	if ((pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) || joystickState.yVal1 + DEAD_ZONE < 0) {
 		if (checkDoubleTaps(SDL_SCANCODE_UP) || (joystickState.yVal1 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
-            if (this->current->animName.compare("Slide") != 0)
+            if (this->current.animName.compare("Slide") != 0)
                 this->play("Slide");
 			this->position.y -= this->speed*2;
 			this->changeStamina(-30);
             AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
             return;
 		} else {
-            if (this->current->animName.compare("Run") != 0)
+            if (this->current.animName.compare("Run") != 0)
                 this->play("Run");
 			this->position.y -= this->speed;
 			this->changeStamina(-3);
@@ -122,7 +122,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 	}
 
     if (idle) {
-        if (this->current->animName.compare("Idle") != 0)
+        if (this->current.animName.compare("Idle") != 0)
             this->play("Idle");
     }
 

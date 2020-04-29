@@ -78,7 +78,7 @@ void Ogre::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
         SDL_Point playerLoc = player->getGlobalPosition();
         directionX = this->getGlobalPosition().x - playerLoc.x;
         directionY = this->getGlobalPosition().y - playerLoc.y;
-        if (this->current->animName.compare("OgreRun") != 0)
+        if (this->current.animName.compare("OgreRun") != 0)
             this->play("OgreRun");
         if(directionX > 0){
             this->position = {this->position.x - 2, this->position.y};
@@ -136,7 +136,7 @@ void Ogre::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
     }
 
     else if(this->state == 8) { //cooldown //Works.
-        if (this->current->animName.compare("OgreIdle") != 0)
+        if (this->current.animName.compare("OgreIdle") != 0)
             this->play("OgreIdle");
         if (coolDownFrames == -1) { //If the cooldown has expired we'll set it to -1
             this->coolDownFrames = generateCoolDown();

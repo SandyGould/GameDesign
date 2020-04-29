@@ -11,47 +11,21 @@
 #include <string>
 #include <utility>
 
-struct Frame {
-	//SDL_Surface* image;
-	//SDL_Texture* texture;
-	//SDL_Rect source;
-	int x;
-	int y;
-	int w;
-	int h;
-};
-
 struct Animation {
-	SDL_Rect ** frames;
+    std::vector<SDL_Rect> frames;
 	std::string animName;
 	int numFrames;
 	int frameRate;
 	bool loop;
 	int curFrame;
-	std::string basepath;
 };
-
-struct sheetAnim{
-	SDL_Surface* sheet_surface;
-	SDL_Texture* sheet_texture;
-};
-
-struct sheetFrame{
-
-};
-
 
 class AnimatedSprite : public Sprite {
 public:
-	AnimatedSprite(std::string id, SDL_Renderer* r);
-	AnimatedSprite(std::string id, std::string spritesheet, std::string xml);
-	AnimatedSprite(std::string id, std::string spritesheet, std::string xml, SDL_Renderer* r);
+	AnimatedSprite(std::string id, std::string spritesheet, std::string xml, SDL_Renderer* r = Game::renderer);
 	explicit AnimatedSprite(const DisplayObject& other);
-	~AnimatedSprite() override;
 
-	void addAnimation(std::string basepath, std::string animName, int numFrames, int frameRate, bool loop);
-	void spritesheetAnimation(std::string animName, int numFrames, int frameRate, bool loop);
-	Animation* getAnimation(std::string animName);
+	Animation getAnimation(std::string animName);
 
 	void play(int index);
 	void play(std::string animName);
@@ -63,24 +37,19 @@ public:
 	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
 
 	bool playing = false;
-	bool useSheet = false;
 	void parse(std::string xml);
-	std::vector<std::pair<int,int>> xy;
 	std::string sheetpath;
 	std::string xmlpath;
-	std::vector<Animation*> animations;
-	SDL_Surface* image;
-	SDL_Texture* texture;
-	//SDL_Rect source;
+	std::vector<Animation> animations;
 
-	Animation* current;
+	Animation current;
 
 private:
-	
-	
+
+
 	int frameCount;
-	
-	
+
+
 };
 
 #endif
