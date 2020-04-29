@@ -11,7 +11,6 @@ class Layer : public DisplayObject {
 public:
 	Layer();
     explicit Layer(std::string id);
-	~Layer() override = default;
 
 	// void applyTransformations(AffineTransform& at);
 	// void reverseTransformations(AffineTransform& at);
