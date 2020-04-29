@@ -24,6 +24,9 @@ AnimatedSprite::AnimatedSprite(const std::string& id, const std::string& sprites
 
     this->animations = AnimatedSprite::spritesheets.at(xml);
     this->play(animName);
+    // Play is delayed until update -- we want to change the source rect **now**,
+    // so that the entire spritesheet doesn't display
+    this->updateSourceRect(&current.frames[current.curFrame]);
 
     auto animation = this->getAnimation(animName);
     if (animation.animName != "INVALID_ANIMATION") {
