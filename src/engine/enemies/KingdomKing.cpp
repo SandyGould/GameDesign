@@ -184,7 +184,7 @@ void KingdomKing::update(const std::unordered_set<SDL_Scancode>& pressedKeys, co
         // ========================== Shooting himself as a projectile ============================//
         else if(this->state == 10){
             if(actionFrames == 0){
-                this->state ==11;
+                this->state = 11;
             }
             else{
                 actionFrames--;
