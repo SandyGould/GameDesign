@@ -370,14 +370,28 @@ void DisplayObject::drawHitcircle(SDL_Color color) const {
     SDL_SetRenderDrawColor(renderer, oldR, oldG, oldB, oldA);
 }
 
+void DisplayObject::setHitbox(double left, double right, double top, double bottom){
+    hitbox_leftEdge   = left;
+    hitbox_rightEdge  = right;
+    hitbox_topEdge    = top;
+    hitbox_bottomEdge = bottom;
+}
+
+void DisplayObject::setHitbox(int left, int right, int top, int bottom){
+    hitbox_leftEdge   = double(left)/double(width);
+    hitbox_rightEdge  = double(right)/double(width);
+    hitbox_topEdge    = double(top)/double(height);
+    hitbox_bottomEdge = double(bottom)/double(height);
+}
+
 Hitbox DisplayObject::getHitbox() const {
     AffineTransform at;
 	this->getGlobalTransform(at);
 	return {
-        at.transformPoint(0, 0),
-        at.transformPoint(width, 0),
-        at.transformPoint(0, height),
-        at.transformPoint(width, height),
+        at.transformPoint(int(hitbox_leftEdge*width), int(hitbox_topEdge*height)),
+        at.transformPoint(int(hitbox_rightEdge*width), int(hitbox_topEdge*height)),
+        at.transformPoint(int(hitbox_leftEdge*width), int(hitbox_bottomEdge*height)),
+        at.transformPoint(int(hitbox_rightEdge*width), int(hitbox_bottomEdge*height)),
     };
 }
 

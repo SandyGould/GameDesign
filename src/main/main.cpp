@@ -3,6 +3,7 @@
 #include "Rooms.h"
 #include "demos/CollisionDemo.h"
 #include "demos/LoadSceneDemo.h"
+#include "demos/HitboxTest.h"
 
 #include <iostream>
 #include <string>
@@ -25,6 +26,8 @@ int main(int argc, char** argv) {
                     CollisionDemo().start();
                 } else if (demo == "load_scene") {
                     LoadSceneDemo().start();
+                } else if (demo == "hitbox") {
+                    HitboxTest().start();
                 } else {
                     cout << "Unknown demo!" << endl;
                 }

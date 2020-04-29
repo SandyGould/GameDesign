@@ -100,8 +100,15 @@ public:
     [[nodiscard]] Hitcircle getHitcircle() const;
     void drawHitcircle(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE}) const;
 
+	void setHitbox(double left, double right, double top, double bottom);
+	void setHitbox(int left, int right, int top, int bottom);
     [[nodiscard]] Hitbox getHitbox() const;
     void drawHitbox(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE}) const;
+
+	double hitbox_leftEdge   = 0.0;
+	double hitbox_rightEdge  = 1.0;
+	double hitbox_topEdge    = 0.0;
+	double hitbox_bottomEdge = 1.0;
 
 	void propogateEvent(Event* e, const std::shared_ptr<DisplayObject>& root);
 	void handleEvent(Event* e) override;
