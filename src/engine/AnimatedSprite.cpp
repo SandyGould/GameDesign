@@ -157,8 +157,8 @@ void AnimatedSprite::update(const std::unordered_set<SDL_Scancode>& pressedKeys,
                 }
             }
 
-            this->height = current.frames[current.curFrame].h;
-            this->width = current.frames[current.curFrame].w;
+            // this->height = current.frames[current.curFrame].h;
+            // this->width = current.frames[current.curFrame].w;
 
             //We update the location of the image each frame
             this->updateSourceRect(&current.frames[current.curFrame]);
