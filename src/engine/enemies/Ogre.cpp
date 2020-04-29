@@ -19,7 +19,7 @@ Dead 9
 */
 
 // Init
-Ogre::Ogre(std::shared_ptr<Player> player): BaseEnemy("ogre", "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml",player){
+Ogre::Ogre(std::shared_ptr<Player> player): BaseEnemy("ogre", "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "OgreIdle", player){
     this->state = 0;
     this->facingRight=true;
     this->type = "ogre";

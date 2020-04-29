@@ -173,7 +173,7 @@ void Editor::setupfiles(const string& path) {
     for (const auto& entry : fs::directory_iterator(path)) {
         if (entry.path() == "./resources/assets/Spritesheets") {
             for (const auto& AS : fs::directory_iterator(entry.path())) {
-                aSprites.push_back(std::make_shared<AnimatedSprite>(AS.path().stem().string(), AS.path().string() + "/" + AS.path().stem().string() + ".png", AS.path().string() + "/" + AS.path().stem().string() + ".xml", assets_renderer));
+                aSprites.push_back(std::make_shared<AnimatedSprite>(AS.path().stem().string(), AS.path().string() + "/" + AS.path().stem().string() + ".png", AS.path().string() + "/" + AS.path().stem().string() + ".xml", "", assets_renderer));
             }
         } else if (entry.path() == "./resources/assets/Display_Objects") {
             for (const auto& DO : fs::directory_iterator(entry.path())) {

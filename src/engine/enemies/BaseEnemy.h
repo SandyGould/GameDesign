@@ -12,7 +12,7 @@ class BaseEnemy : public AnimatedSprite{
 
 public:
 
-    BaseEnemy(std::string id, std::string spritesheet, std::string xml, std::shared_ptr<Player> player);
+    BaseEnemy(std::string id, std::string spritesheet, std::string xml, std::string animName, std::shared_ptr<Player> player);
 
     void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
     void draw(AffineTransform& at) override;

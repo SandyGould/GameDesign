@@ -17,7 +17,7 @@ Ded 7
 */
 
 // Init
-MasterArcher::MasterArcher(std::shared_ptr<Player> player): BaseEnemy("MasterArcher" + std::to_string(master_archer_count), "./resources/assets/Display_Objects/master_archer.png", "", player){
+MasterArcher::MasterArcher(std::shared_ptr<Player> player): BaseEnemy("MasterArcher" + std::to_string(master_archer_count), "./resources/assets/Display_Objects/master_archer.png", "", "", player){
     this->state = 0;
     this->facingRight=true;
     master_archer_count++;

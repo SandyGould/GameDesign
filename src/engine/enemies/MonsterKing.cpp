@@ -13,7 +13,7 @@ static int mking_count = 1;
 // Cooldown
 // Ded
 
-MonsterKing::MonsterKing(std::shared_ptr<Player> player) : BaseEnemy("monsterKing", "./resources/assets/Animated_Sprites/Enemies/monsterKing.png", "./resources/assets/Animated_Sprites/Enemies/monsterKing.xml",player) {
+MonsterKing::MonsterKing(std::shared_ptr<Player> player) : BaseEnemy("monsterKing", "./resources/assets/Animated_Sprites/Enemies/monsterKing.png", "./resources/assets/Animated_Sprites/Enemies/monsterKing.xml", "MKingIdle", player) {
     this->state = 0;
     this->health = 100;
     this->facingRight=true;

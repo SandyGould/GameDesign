@@ -1,7 +1,7 @@
 #include "Cannoneer.h"
 
 
-Cannoneer::Cannoneer(std::shared_ptr<Player> player) : BaseEnemy("Cannoneer", "./resources/assets/Display_Objects/cannoneer.png", "", player){
+Cannoneer::Cannoneer(std::shared_ptr<Player> player) : BaseEnemy("Cannoneer", "./resources/assets/Display_Objects/cannoneer.png", "", "", player){
     this->type = "cannoneer";
     this->saveType = this->type;
 }

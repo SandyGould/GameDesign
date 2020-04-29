@@ -10,18 +10,26 @@ using json = nlohmann::json;
 
 std::unordered_map<std::string, std::vector<Animation>> AnimatedSprite::spritesheets;
 
-AnimatedSprite::AnimatedSprite(std::string id, std::string spritesheet, std::string xml, SDL_Renderer* r)
+AnimatedSprite::AnimatedSprite(const std::string& id, const std::string& spritesheet, const std::string& xml, const std::string& animName, SDL_Renderer* r)
     : Sprite(id, spritesheet, r) {
     this->type = "AnimatedSprite";
     this->saveType = this->type;
     this->renderer = r;
     this->xmlpath = xml;
+    this->frameCount = 0;
 
     if (AnimatedSprite::spritesheets.find(xml) == AnimatedSprite::spritesheets.cend()) {
-        this->parse(this->xmlpath);
+        AnimatedSprite::parse(this->xmlpath);
     }
 
     this->animations = AnimatedSprite::spritesheets.at(xml);
+    this->play(animName);
+
+    auto animation = this->getAnimation(animName);
+    if (animation.animName != "INVALID_ANIMATION") {
+        this->height = animation.frames[0].h;
+        this->width = animation.frames[0].w;
+    }
 }
 
 AnimatedSprite::AnimatedSprite(const DisplayObject& other)
@@ -33,6 +41,7 @@ AnimatedSprite::AnimatedSprite(const DisplayObject& other)
         this->saveType = AS->saveType;
         this->renderer = AS->renderer;
         this->xmlpath = AS->xmlpath;
+        this->frameCount = AS->frameCount;
         this->width = AS->width;
         this->height = AS->height;
         this->visible = AS->visible;
@@ -43,7 +52,7 @@ AnimatedSprite::AnimatedSprite(const DisplayObject& other)
         this->facingRight = AS->facingRight;
         this->hasCollision = AS->hasCollision;
         if (AnimatedSprite::spritesheets.find(this->xmlpath) == AnimatedSprite::spritesheets.cend()) {
-            parse(this->xmlpath);
+            AnimatedSprite::parse(this->xmlpath);
         }
 
         this->animations = AnimatedSprite::spritesheets.at(this->xmlpath);
@@ -54,7 +63,7 @@ AnimatedSprite::AnimatedSprite(const DisplayObject& other)
     }
 }
 
-void AnimatedSprite::parse(std::string xml) {
+void AnimatedSprite::parse(const std::string& xml) {
     //for more information about this library look here https://stackoverflow.com/questions/39067300/c-parsing-sub-nodes-of-xml
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(xml.c_str());
@@ -85,7 +94,7 @@ void AnimatedSprite::parse(std::string xml) {
     AnimatedSprite::spritesheets.try_emplace(xml, animations);
 }
 
-Animation AnimatedSprite::getAnimation(std::string animName) {
+Animation AnimatedSprite::getAnimation(const std::string& animName) {
     for (auto animation : this->animations) {
         if (animation.animName == animName) {
             return animation;
@@ -112,7 +121,7 @@ void AnimatedSprite::play(int index) {
     }
 }
 
-void AnimatedSprite::play(std::string animName) {
+void AnimatedSprite::play(const std::string& animName) {
     Animation anim = getAnimation(animName);
     if (anim.animName == "INVALID_ANIMATION") {
         return;
@@ -150,6 +159,9 @@ void AnimatedSprite::update(const std::unordered_set<SDL_Scancode>& pressedKeys,
                     current.curFrame = 0;
                 }
             }
+
+            this->height = current.frames[current.curFrame].h;
+            this->width = current.frames[current.curFrame].w;
 
             //We update the location of the image each frame
             this->updateSourceRect(&current.frames[current.curFrame]);

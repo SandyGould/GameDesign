@@ -1,7 +1,7 @@
 #include "BaseEnemy.h"
 #include <iostream>
 
-BaseEnemy::BaseEnemy(std::string id, std::string spritesheet, std::string xml, std::shared_ptr<Player> player) : AnimatedSprite(id, spritesheet, xml){
+BaseEnemy::BaseEnemy(std::string id, std::string spritesheet, std::string xml, std::string animName, std::shared_ptr<Player> player) : AnimatedSprite(id, spritesheet, xml, animName) {
     hasCollision=true;
     this->player = player;
     this->type = "enemy";

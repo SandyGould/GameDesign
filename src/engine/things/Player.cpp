@@ -8,7 +8,7 @@
 
 using namespace std;
 
-Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites/Player/Player.png", "./resources/assets/Animated_Sprites/Player/Player.xml") {
+Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites/Player/Player.png", "./resources/assets/Animated_Sprites/Player/Player.xml", "Idle") {
     type = "player";
     this->saveType = this->type;
     hasCollision = true;

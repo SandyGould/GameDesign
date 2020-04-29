@@ -1,6 +1,6 @@
 #include "RoarMonster.h"
 #include <iostream>
-RoarMonster::RoarMonster(std::shared_ptr<Player> player): BaseEnemy("RoaringMonster","./resources/assets/Display_Objects/roaring_monster.png", "", player){
+RoarMonster::RoarMonster(std::shared_ptr<Player> player): BaseEnemy("RoaringMonster","./resources/assets/Display_Objects/roaring_monster.png", "", "", player){
     this->saveType="roar_monster";
 }
 

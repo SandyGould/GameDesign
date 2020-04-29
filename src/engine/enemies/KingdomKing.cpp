@@ -16,7 +16,7 @@ States:
 6 magic attack
 */
 
-KingdomKing::KingdomKing(std::shared_ptr<Player> player):BaseEnemy("kingdom_king", "./resources/assets/Animated_Sprites/Enemies/king.png", "./resources/assets/Animated_Sprites/Enemies/king.xml", player){
+KingdomKing::KingdomKing(std::shared_ptr<Player> player) : BaseEnemy("kingdom_king", "./resources/assets/Animated_Sprites/Enemies/king.png", "./resources/assets/Animated_Sprites/Enemies/king.xml", "King", player){
 
 }
 

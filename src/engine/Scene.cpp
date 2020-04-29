@@ -58,10 +58,10 @@ void Scene::loadScene(std::string sceneFilePath){
             // std::cout << obj_type << std::endl;
             json mj = json_layer["objects"][y];
             if(obj_type.compare("DisplayObject") == 0){temp_layer->addChild(setBasicInfo(std::make_shared<DisplayObject>(mj["name"], mj["filepath"]), mj));}
-            else if(obj_type.compare("AnimatedSprite") == 0){temp_layer->addChild(std::static_pointer_cast<AnimatedSprite>(setBasicInfo(std::make_shared<AnimatedSprite>(mj["name"], mj["sheetpath"], mj["xmlpath"]), mj)));}
+            else if(obj_type.compare("AnimatedSprite") == 0){temp_layer->addChild(std::static_pointer_cast<AnimatedSprite>(setBasicInfo(std::make_shared<AnimatedSprite>(mj["name"], mj["sheetpath"], mj["xmlpath"], ""), mj)));}
             else if(obj_type.compare("Sprite") == 0){temp_layer->addChild(std::static_pointer_cast<Sprite>(setBasicInfo(std::make_shared<Sprite>(mj["name"], mj["filepath"]), mj)));}
             /* enemies */
-            else if(obj_type.compare("BaseEnemy") == 0){temp_layer->addChild(std::static_pointer_cast<BaseEnemy>(setBasicInfo(std::make_shared<BaseEnemy>(mj["name"], mj["sheetpath"], mj["xmlpath"], this->player), mj)));}
+            else if(obj_type.compare("BaseEnemy") == 0){temp_layer->addChild(std::static_pointer_cast<BaseEnemy>(setBasicInfo(std::make_shared<BaseEnemy>(mj["name"], mj["sheetpath"], mj["xmlpath"], "", this->player), mj)));}
             else if(obj_type.compare("Archer") == 0){temp_layer->addChild(std::static_pointer_cast<Archer>(setBasicInfo(std::make_shared<Archer>(this->player), mj)));}
             else if(obj_type.compare("KingdomArcher") == 0){temp_layer->addChild(std::static_pointer_cast<KingdomArcher>(setBasicInfo(std::make_shared<KingdomArcher>(this->player), mj)));}
             else if(obj_type.compare("MasterArcher") == 0){temp_layer->addChild(std::static_pointer_cast<MasterArcher>(setBasicInfo(std::make_shared<MasterArcher>(this->player), mj)));}
@@ -108,7 +108,7 @@ void Scene::loadScene_Editor(std::string sceneFilePath){
             std::string obj_type = json_layer["objects"][y]["type"].get<std::string>();
             json mj = json_layer["objects"][y];
             if(obj_type.compare("DisplayObject") == 0){temp_layer->addChild(setBasicInfo(std::make_shared<DisplayObject>(mj["name"], mj["filepath"]), mj));}
-            else if(aspr.find(obj_type) != aspr.end()){temp_layer->addChild(std::static_pointer_cast<AnimatedSprite>(setBasicInfo(std::make_shared<AnimatedSprite>(mj["name"], mj["sheetpath"], mj["xmlpath"]), mj)));}
+            else if(aspr.find(obj_type) != aspr.end()){temp_layer->addChild(std::static_pointer_cast<AnimatedSprite>(setBasicInfo(std::make_shared<AnimatedSprite>(mj["name"], mj["sheetpath"], mj["xmlpath"], ""), mj)));}
             else if(spr.find(obj_type) != spr.end()){temp_layer->addChild(std::static_pointer_cast<Sprite>(setBasicInfo(std::make_shared<Sprite>(mj["name"], mj["filepath"]), mj)));}
         }            
         this->addChild(temp_layer);

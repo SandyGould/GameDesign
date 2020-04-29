@@ -22,13 +22,17 @@ struct Animation {
 
 class AnimatedSprite : public Sprite {
 public:
-	AnimatedSprite(std::string id, std::string spritesheet, std::string xml, SDL_Renderer* r = Game::renderer);
+    AnimatedSprite(const std::string& id,
+                   const std::string& spritesheet,
+                   const std::string& xml,
+                   const std::string& animName,
+                   SDL_Renderer* r = Game::renderer);
 	explicit AnimatedSprite(const DisplayObject& other);
 
-	Animation getAnimation(std::string animName);
+	Animation getAnimation(const std::string& animName);
 
 	void play(int index);
-	void play(std::string animName);
+	void play(const std::string& animName);
 	void replay();
 	void stop();
 
@@ -37,13 +41,14 @@ public:
 	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
 
 	bool playing = false;
-	void parse(std::string xml);
 	std::string xmlpath;
 	std::vector<Animation> animations;
 
 	Animation current;
 
 private:
+    static void parse(const std::string& xml);
+
     static std::unordered_map<std::string, std::vector<Animation>> spritesheets;
 
 	int frameCount;
