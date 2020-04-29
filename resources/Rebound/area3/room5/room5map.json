@@ -457,8 +457,8 @@
               "filepath": "./resources/assets/Display_Objects/mage.png",
               "name": "mage_copy",
               "rotation": 0,
-              "scaleX": 0.5,
-              "scaleY": 0.5,
+              "scaleX": 3,
+              "scaleY": 3,
               "type": "Mage",
               "x_pos": 783,
               "y_pos": 236
@@ -467,8 +467,8 @@
               "filepath": "./resources/assets/Display_Objects/orc.png",
               "name": "orc_copy",
               "rotation": 0,
-              "scaleX": 0.4,
-              "scaleY": 0.4,
+              "scaleX": 3,
+              "scaleY": 3,
               "type": "Orc",
               "x_pos": 494,
               "y_pos": 145
@@ -477,8 +477,8 @@
               "filepath": "./resources/assets/Display_Objects/orc.png",
               "name": "orc_copy_copy",
               "rotation": 0,
-              "scaleX": 0.4,
-              "scaleY": 0.4,
+              "scaleX": 3,
+              "scaleY": 3,
               "type": "Orc",
               "x_pos": 556,
               "y_pos": 336

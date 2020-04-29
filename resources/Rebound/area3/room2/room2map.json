@@ -227,8 +227,8 @@
             "filepath": "./resources/assets/Display_Objects/mage.png",
             "name": "mage1",
             "rotation": 0.0,
-            "scaleX": 0.55,
-            "scaleY": 0.1,
+            "scaleX": 3,
+            "scaleY": 3,
             "type": "Mage",
             "x_pos": 1216,
             "y_pos": 122
@@ -237,8 +237,8 @@
             "filepath": "./resources/assets/Display_Objects/mage.png",
             "name": "mage2",
             "rotation": 0.0,
-            "scaleX": 0.55,
-            "scaleY": 0.1,
+            "scaleX": 3,
+            "scaleY": 3,
             "type": "Mage",
             "x_pos": 1216,
             "y_pos": 444
