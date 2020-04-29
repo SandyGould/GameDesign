@@ -35,6 +35,7 @@
 #include "enemies/Knight.h"
 #include "enemies/Mage.h"
 #include "enemies/MasterArcher.h"
+#include "enemies/MonsterKing.h"
 #include "enemies/Ogre.h"
 #include "enemies/Orc.h"
 #include "enemies/Poisoner.h"
