@@ -4,10 +4,8 @@
 int arrow_id_counter = 1;
 
 Arrow::Arrow(int velocity) : Projectile("Arrow" + std::to_string(arrow_id_counter), "./resources/assets/Animated_Sprites/Enemies/arrow.png", velocity){
-    arrow_id_counter++;
-    // this->scaleX = 0.25;
-    // this->scaleY = 0.25;
-    this->height = this->width = 24;
+    // arrow_id_counter++;
+    this->height = this->width = 6;
     this->hasCollision = true;
     this->type = "arrow";
     this->saveType = this->type;

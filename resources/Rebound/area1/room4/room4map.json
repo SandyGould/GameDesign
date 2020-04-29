@@ -107,8 +107,8 @@
             "filepath": "./resources/assets/Display_Objects/archer.png",
             "name": "archer1",
             "rotation": 0.0,
-            "scaleX": 0.35,
-            "scaleY": 0.075,
+            "scaleX": 3,
+            "scaleY": 3,
             "type": "Archer",
             "x_pos": 217,
             "y_pos": 65
@@ -117,8 +117,8 @@
             "filepath": "./resources/assets/Display_Objects/archer.png",
             "name": "archer2",
             "rotation": 0.0,
-            "scaleX": 0.35,
-            "scaleY": 0.075,
+            "scaleX": 3,
+            "scaleY": 3,
             "type": "Archer",
             "x_pos": 314,
             "y_pos": 234
@@ -127,8 +127,8 @@
             "filepath": "./resources/assets/Display_Objects/archer.png",
             "name": "archer3",
             "rotation": 0.0,
-            "scaleX": 0.35,
-            "scaleY": 0.075,
+            "scaleX": 3,
+            "scaleY": 3,
             "type": "Archer",
             "x_pos": 148,
             "y_pos": 373
@@ -137,8 +137,8 @@
             "filepath": "./resources/assets/Display_Objects/orc.png",
             "name": "orc",
             "rotation": 0.0,
-            "scaleX": 0.35,
-            "scaleY": 0.075,
+            "scaleX": 3,
+            "scaleY": 3,
             "type": "Orc",
             "x_pos": 89,
             "y_pos": 159

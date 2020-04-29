@@ -67,8 +67,8 @@
             "filepath": "./resources/assets/Display_Objects/archer.png",
             "name": "archer1",
             "rotation": 0.0,
-            "scaleX": 0.35,
-            "scaleY": 0.075,
+            "scaleX": 3,
+            "scaleY": 3,
             "type": "Archer",
             "x_pos": 281,
             "y_pos": 47
@@ -77,8 +77,8 @@
             "filepath": "./resources/assets/Display_Objects/archer.png",
             "name": "archer2",
             "rotation": 0.0,
-            "scaleX": 0.35,
-            "scaleY": 0.075,
+            "scaleX": 3,
+            "scaleY": 3,
             "type": "Archer",
             "x_pos": 953,
             "y_pos": 277

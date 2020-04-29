@@ -187,8 +187,8 @@
             "filepath": "./resources/assets/Display_Objects/orc.png",
             "name": "orc1",
             "rotation": 0.0,
-            "scaleX": 0.35,
-            "scaleY": 0.075,
+            "scaleX": 3,
+            "scaleY": 3,
             "type": "Orc",
             "x_pos": 863,
             "y_pos": 57
@@ -197,8 +197,8 @@
             "filepath": "./resources/assets/Display_Objects/orc.png",
             "name": "orc2",
             "rotation": 0.0,
-            "scaleX": 0.35,
-            "scaleY": 0.075,
+            "scaleX": 3,
+            "scaleY": 3,
             "type": "Orc",
             "x_pos": 855,
             "y_pos": 494
@@ -227,8 +227,8 @@
             "filepath": "./resources/assets/Display_Objects/archer.png",
             "name": "archer",
             "rotation": 0.0,
-            "scaleX": 0.35,
-            "scaleY": 0.075,
+            "scaleX": 3,
+            "scaleY": 3,
             "type": "Archer",
             "x_pos": 1149,
             "y_pos": 387
