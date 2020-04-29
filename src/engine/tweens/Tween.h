@@ -11,11 +11,11 @@
 class Tween { 
 
     public:
-	    Tween(std::shared_ptr<DisplayObject> object);
-        Tween(std::shared_ptr<DisplayObject> object, TweenTransitions transition);
-        Tween(std::string id, std::shared_ptr<DisplayObject> object);
-        Tween(std::string id, std::shared_ptr<DisplayObject> object, TweenTransitions transition);
-        ~Tween();
+	    explicit Tween(std::weak_ptr<DisplayObject> object);
+        Tween(std::weak_ptr<DisplayObject> object, TweenTransitions transition);
+        Tween(std::string id, std::weak_ptr<DisplayObject> object);
+        Tween(std::string id, std::weak_ptr<DisplayObject> object, TweenTransitions transition);
+
         void animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time);
         void animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time, std::string easeType);
         void update(); //invoked once per frame by the TweenJuggler. Updates this tween / DisplayObject
@@ -26,7 +26,7 @@ class Tween {
         std::string getID();
      
     private:
-        std::shared_ptr<DisplayObject> currObject;
+        std::weak_ptr<DisplayObject> currObject;
         std::list<TweenParam*> currTweening;
         double amountChange;
         double timeElapsed;

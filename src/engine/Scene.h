@@ -56,7 +56,6 @@ public:
 	Scene();
 	Scene(std::shared_ptr<Camera> camera, std::shared_ptr<Player> player);
 	explicit Scene(std::string id);
-	~Scene() override = default;
 
 	/* Load scene from a file */
 	void loadScene(std::string sceneFilePath);

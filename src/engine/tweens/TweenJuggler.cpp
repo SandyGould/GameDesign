@@ -2,12 +2,6 @@
 
 #include <iostream>
 
-TweenJuggler::TweenJuggler() { }
-
-TweenJuggler::~TweenJuggler() {
-    tweenList.clear();
-}
-
 void TweenJuggler::add(std::shared_ptr<Tween> tween) {
     bool found = false;
     for (auto t : tweenList) {
