@@ -39,7 +39,7 @@ void Mage::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
     else if(this->state == 2){
         if(this->ready == ATTACK_COOLDOWN){
             this->mageAttack = std::make_shared<MageAttack>();
-            this->mageAttack->position = {-40, -10};
+            this->mageAttack->position = {-6, -6};
      		this->addChild(mageAttack);
             mageAttack->visible =false;
         }

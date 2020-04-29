@@ -176,8 +176,8 @@
                         "x_pos": 1200,
                         "y_pos": 500,  
                         "rotation":0,
-                        "scaleX":0.55,
-                        "scaleY":0.1,
+                        "scaleX":3,
+                        "scaleY":3,
                         "parentHierarchy":[]
                     },
                     {
@@ -187,8 +187,8 @@
                         "x_pos": 747,
                         "y_pos": 42,  
                         "rotation":0,
-                        "scaleX":0.55,
-                        "scaleY":0.1,
+                        "scaleX":3,
+                        "scaleY":3,
                         "parentHierarchy":[]
                     },
                     {
@@ -198,8 +198,8 @@
                         "x_pos": 965,
                         "y_pos": 443,
                         "rotation":0,
-                        "scaleX":0.55,
-                        "scaleY":0.1,
+                        "scaleX":3,
+                        "scaleY":3,
                         "parentHierarchy":[]
                     },
                     {

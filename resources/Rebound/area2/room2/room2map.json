@@ -152,8 +152,8 @@
                         "name":"mage",
                         "filepath":"./resources/assets/Animated_Sprites/Enemies/Mage/Mage.png",
                         "rotation": 0.0,
-                        "scaleX": 0.55,
-                        "scaleY": 0.1,
+                        "scaleX": 3,
+                        "scaleY": 3,
                         "x_pos": 900,
                         "y_pos": 250,
                         "parentHierarchy":[]

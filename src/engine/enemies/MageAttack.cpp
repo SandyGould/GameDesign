@@ -3,8 +3,8 @@
 #include <iostream>
 
 MageAttack::MageAttack() : Projectile("mage_attack", "./resources/assets/Animated_Sprites/Enemies/Mage/mageAttack.png", 12){
-    this->width = 40;
-    this->height= 40;
+    this->width = 6;
+    this->height = 6;
     this->type = "mage_attack";
     this->magic = true;
     this->saveType = this->type;
