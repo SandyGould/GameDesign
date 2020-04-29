@@ -64,6 +64,12 @@ AnimatedSprite::AnimatedSprite(const DisplayObject& other)
             AnimatedSprite::parse(this->xmlpath);
         }
 
+        if (AnimatedSprite::spritesheets.find(this->xmlpath) == AnimatedSprite::spritesheets.cend()) {
+            // welp
+            std::cerr << "ERROR: Could not load spritesheet for " << this->id << std::endl;
+            return;
+        }
+
         this->animations = AnimatedSprite::spritesheets.at(this->xmlpath);
     } else {
         this->type = "AnimatedSprite";
