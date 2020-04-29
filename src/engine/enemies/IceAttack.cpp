@@ -6,6 +6,7 @@ IceAttack::IceAttack() : Projectile("ice_attack", "./resources/assets/Animated_S
     this->width = 50;
     this->height= 50;
     this->type = "ice_attack";
+    this->magic = true;
     this->saveType = this->type;
 };
 

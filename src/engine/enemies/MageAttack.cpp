@@ -6,6 +6,7 @@ MageAttack::MageAttack() : Projectile("mage_attack", "./resources/assets/Animate
     this->width = 40;
     this->height= 40;
     this->type = "mage_attack";
+    this->magic = true;
     this->saveType = this->type;
 };
 

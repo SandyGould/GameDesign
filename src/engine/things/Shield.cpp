@@ -13,10 +13,14 @@ void Shield::switchType() {
     if (this->magic) {
         this->imgPath = "./resources/assets/Display_Objects/Shield.png";
         loadTexture(this->imgPath);
+        this->width = 10;
+        this->height = 70;
         this->magic = false;
     } else {
         this->imgPath = "./resources/assets/Display_Objects/MShield.png";
         loadTexture(this->imgPath);
+        this->width = 10;
+        this->height = 70;
         this->magic = true;
     }
 }
@@ -36,8 +40,10 @@ void Shield::draw(AffineTransform& at) {
 }
 
 bool Shield::onCollision(std::shared_ptr<DisplayObject> other){
-    if(other->type == "arrow" || other->type== "mage_attack" || other->type == "cannonball" || other->type=="rubber_cannonball"){
-        std::static_pointer_cast<Projectile>(other)->reflect();
+    if(other->type == "arrow" || other->type== "mage_attack" || other->type == "cannonball" || other->type=="rubber_cannonball" || other->type=="ice_attack"){
+        if (this->magic == std::static_pointer_cast<Projectile>(other)->magic) {
+            std::static_pointer_cast<Projectile>(other)->reflect();
+        }
     }
     if(bashing){
         if(other->type == "enemy" || other->type == "ogre" || other->type == "knight"){
