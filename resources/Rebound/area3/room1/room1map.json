@@ -337,8 +337,8 @@
             "filepath": "./resources/assets/Display_Objects/poisoner.png",
             "name": "poisoner1",
             "rotation": 0.0,
-            "scaleX": 4.0,
-            "scaleY": 4.0,
+            "scaleX": 3.0,
+            "scaleY": 3.0,
             "type": "Poisoner",
             "x_pos": 1125,
             "y_pos": 126
@@ -347,8 +347,8 @@
             "filepath": "./resources/assets/Display_Objects/poisoner.png",
             "name": "poisoner2",
             "rotation": 0.0,
-            "scaleX": 4.0,
-            "scaleY": 4.0,
+            "scaleX": 3.0,
+            "scaleY": 3.0,
             "type": "Poisoner",
             "x_pos": 1122,
             "y_pos": 350

@@ -4,7 +4,7 @@
       "L0": {
         "objects": [
           {
-            "filepath": "./resources/assets/Display_Objects/background_4_full.png",
+            "filepath": "./resources/Rebound/area3_res/assets/background_4_full.png",
             "name": "background",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -14,7 +14,7 @@
             "y_pos": 0
           },
           {
-            "filepath": "./resources/assets/Display_Objects/hay.png",
+            "filepath": "./resources/Rebound/area3_res/assets/hay.png",
             "name": "hay1",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -24,7 +24,7 @@
             "y_pos": 0
           },
           {
-            "filepath": "./resources/assets/Display_Objects/hay.png",
+            "filepath": "./resources/Rebound/area3_res/assets/hay.png",
             "name": "hay2",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -34,7 +34,7 @@
             "y_pos": 0
           },
           {
-            "filepath": "./resources/assets/Display_Objects/hay.png",
+            "filepath": "./resources/Rebound/area3_res/assets/hay.png",
             "name": "hay3",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -44,7 +44,7 @@
             "y_pos": 0
           },
           {
-            "filepath": "./resources/assets/Display_Objects/hay.png",
+            "filepath": "./resources/Rebound/area3_res/assets/hay.png",
             "name": "hay4",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -54,7 +54,7 @@
             "y_pos": 0
           },
           {
-            "filepath": "./resources/assets/Display_Objects/hay.png",
+            "filepath": "./resources/Rebound/area3_res/assets/hay.png",
             "name": "hay5",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -64,7 +64,7 @@
             "y_pos": 555
           },
           {
-            "filepath": "./resources/assets/Display_Objects/hay.png",
+            "filepath": "./resources/Rebound/area3_res/assets/hay.png",
             "name": "hay6",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -74,7 +74,7 @@
             "y_pos": 555
           },
           {
-            "filepath": "./resources/assets/Display_Objects/hay.png",
+            "filepath": "./resources/Rebound/area3_res/assets/hay.png",
             "name": "hay7",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -84,7 +84,7 @@
             "y_pos": 555
           },
           {
-            "filepath": "./resources/assets/Display_Objects/hay.png",
+            "filepath": "./resources/Rebound/area3_res/assets/hay.png",
             "name": "hay8",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -94,7 +94,7 @@
             "y_pos": 555
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area3_res/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -104,7 +104,7 @@
             "y_pos": 280
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area3_res/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -114,7 +114,7 @@
             "y_pos": 170
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area3_res/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -124,7 +124,7 @@
             "y_pos": 400
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area3_res/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -134,7 +134,7 @@
             "y_pos": 530
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area3_res/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -144,7 +144,7 @@
             "y_pos": 530
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area3_res/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -154,7 +154,7 @@
             "y_pos": 400
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area3_res/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -164,7 +164,7 @@
             "y_pos": 105
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area3_res/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -174,7 +174,7 @@
             "y_pos": 40
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area3_res/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -197,8 +197,8 @@
             "filepath": "./resources/assets/Display_Objects/orc.png",
             "name": "orc1",
             "rotation": 0.0,
-            "scaleX": 3,
-            "scaleY": 3,
+            "scaleX": 4,
+            "scaleY": 4,
             "type": "Orc",
             "x_pos": 727,
             "y_pos": 157
@@ -207,8 +207,8 @@
             "filepath": "./resources/assets/Display_Objects/orc.png",
             "name": "orc2",
             "rotation": 0.0,
-            "scaleX": 3,
-            "scaleY": 3,
+            "scaleX": 4,
+            "scaleY": 4,
             "type": "Orc",
             "x_pos": 1026,
             "y_pos": 163
@@ -217,8 +217,8 @@
             "filepath": "./resources/assets/Display_Objects/orc.png",
             "name": "orc3",
             "rotation": 0.0,
-            "scaleX": 3,
-            "scaleY": 3,
+            "scaleX": 4,
+            "scaleY": 4,
             "type": "Orc",
             "x_pos": 734,
             "y_pos": 391
@@ -227,8 +227,8 @@
             "filepath": "./resources/assets/Display_Objects/orc.png",
             "name": "orc4",
             "rotation": 0.0,
-            "scaleX": 3,
-            "scaleY": 3,
+            "scaleX": 4,
+            "scaleY": 4,
             "type": "Orc",
             "x_pos": 1029,
             "y_pos": 403
@@ -237,8 +237,8 @@
             "filepath": "./resources/assets/Display_Objects/poisoner.png",
             "name": "poisoner",
             "rotation": 0.0,
-            "scaleX": 3,
-            "scaleY": 3,
+            "scaleX": 4,
+            "scaleY": 4,
             "type": "Poisoner",
             "x_pos": 890,
             "y_pos": 263

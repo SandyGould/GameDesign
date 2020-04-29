@@ -4,7 +4,7 @@
       "L0": {
         "objects": [
           {
-            "filepath": "./resources/assets/Display_Objects/background_3_full.png",
+            "filepath": "./resources/Rebound/area3_res/assets/background_3_full.png",
             "name": "background",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -14,7 +14,7 @@
             "y_pos": 0
           },
           {
-            "filepath": "./resources/assets/Display_Objects/fence_2.png",
+            "filepath": "./resources/Rebound/area3_res/assets/fence_2.png",
             "name": "fence1",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -24,7 +24,7 @@
             "y_pos": 175
           },
           {
-            "filepath": "./resources/assets/Display_Objects/fence_2.png",
+            "filepath": "./resources/Rebound/area3_res/assets/fence_2.png",
             "name": "fence2",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -34,7 +34,7 @@
             "y_pos": 410
           },
           {
-            "filepath": "./resources/assets/Display_Objects/boulder.png",
+            "filepath": "./resources/Rebound/area3_res/assets/boulder.png",
             "name": "boulder",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -44,7 +44,7 @@
             "y_pos": 155
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area3_res/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -54,7 +54,7 @@
             "y_pos": 145
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area3_res/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -67,8 +67,8 @@
             "filepath": "./resources/assets/Display_Objects/poisoner.png",
             "name": "poisoner1",
             "rotation": 0.0,
-            "scaleX": 4.5,
-            "scaleY": 4.5,
+            "scaleX": 3,
+            "scaleY": 3,
             "type": "Poisoner",
             "x_pos": 636,
             "y_pos": 44
@@ -77,8 +77,8 @@
             "filepath": "./resources/assets/Display_Objects/poisoner.png",
             "name": "poisoner2",
             "rotation": 0.0,
-            "scaleX": 4.5,
-            "scaleY": 4.5,
+            "scaleX": 3,
+            "scaleY": 3,
             "type": "Poisoner",
             "x_pos": 599,
             "y_pos": 465
@@ -97,8 +97,8 @@
             "filepath": "./resources/assets/Display_Objects/roaring_monster.png",
             "name": "roarmonster",
             "rotation": 0.0,
-            "scaleX": 4.5,
-            "scaleY": 4.5,
+            "scaleX": 3,
+            "scaleY": 3,
             "type": "RoarMonster",
             "x_pos": 799,
             "y_pos": 236
