@@ -22,6 +22,12 @@ AnimatedSprite::AnimatedSprite(const std::string& id, const std::string& sprites
         AnimatedSprite::parse(this->xmlpath);
     }
 
+    if (AnimatedSprite::spritesheets.find(xml) == AnimatedSprite::spritesheets.cend()) {
+        // welp
+        std::cerr << "ERROR: Could not load spritesheet for " << this->id << std::endl;
+        return;
+    }
+
     this->animations = AnimatedSprite::spritesheets.at(xml);
     this->play(animName);
     // Play is delayed until update -- we want to change the source rect **now**,
