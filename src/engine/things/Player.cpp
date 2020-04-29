@@ -12,6 +12,7 @@ Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites
     type = "player";
     this->saveType = this->type;
     hasCollision = true;
+    this->setHitbox(0.1, 0.8, 0.1, 0.9);
 
     history = new std::unordered_set<SDL_Scancode> [HISTORY_SIZE];
     shieldSwitchCooldown = 0;
