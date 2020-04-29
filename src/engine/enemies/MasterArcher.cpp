@@ -17,7 +17,7 @@ Ded 7
 */
 
 // Init
-MasterArcher::MasterArcher(std::shared_ptr<Player> player): BaseEnemy("MasterArcher" + std::to_string(master_archer_count), "./resources/assets/Display_Objects/master_archer.png", "", "", player){
+MasterArcher::MasterArcher(std::shared_ptr<Player> player): BaseEnemy("MasterArcher" + std::to_string(master_archer_count), "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "MArcherIdle", player){
     this->state = 0;
     this->facingRight=true;
     master_archer_count++;
@@ -46,16 +46,16 @@ void MasterArcher::update(const std::unordered_set<SDL_Scancode>& pressedKeys, c
         this->arrow2 = arrows.back();
         this->arrows.emplace_back(new Arrow(35));
         this->arrow3 = arrows.back();*/
-        this->arrow1 = std::make_shared<Arrow>(35);
-        this->arrow2 = std::make_shared<Arrow>(35);
-        this->arrow3 = std::make_shared<Arrow>(35);
+        this->arrow1 = std::make_shared<Arrow>(15);
+        this->arrow2 = std::make_shared<Arrow>(15);
+        this->arrow3 = std::make_shared<Arrow>(15);
         arrows.emplace_back(arrow1);
         arrows.emplace_back(arrow2);
         arrows.emplace_back(arrow3);
         this->addChild(arrow1);
         this->addChild(arrow2);
         this->addChild(arrow3);
-        std::cout<<this->children.size();
+        // std::cout<<this->children.size();
         //TODO: configure this to look cool AF
         arrow1->rotation = 15;
         arrow1->position = {5,1};
@@ -67,7 +67,7 @@ void MasterArcher::update(const std::unordered_set<SDL_Scancode>& pressedKeys, c
     else if(this->state == 3){ //aim.
             //TODO: use a tween to make this look pretty :)
             this->state = 4;
-            this->actionFrames=12; //SET THIS TO THE NUMBER OF FRAMES FOR DRAWING BACK ANIMATION(if we get one)
+            this->actionFrames=22; //SET THIS TO THE NUMBER OF FRAMES FOR DRAWING BACK ANIMATION(if we get one)
             arrow2->rotation = arrow2->aim(player);
     }
     else if(this->state == 4){//draw back arrow
@@ -106,7 +106,7 @@ void MasterArcher::update(const std::unordered_set<SDL_Scancode>& pressedKeys, c
 
 int MasterArcher::generateCoolDown(){ //returns a number of frames that will be at least 2 seconds, but at most 5
     //return (rand() % 180) + 120;
-    return 60;
+    return 180;
 }
 
 void MasterArcher::draw(AffineTransform& at){

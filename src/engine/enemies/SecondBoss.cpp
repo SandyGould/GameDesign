@@ -3,7 +3,7 @@
 
 using namespace std;
 
-SecondBoss::SecondBoss(std::shared_ptr<Player> player): BaseEnemy("SecondBoss", "./resources/assets/Display_Objects/second_boss/second_boss.png", "", "", player){
+SecondBoss::SecondBoss(std::shared_ptr<Player> player): BaseEnemy("SecondBoss", "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "SecondBossIdle", player){
     this->type = "second_boss";
     this->saveType = this->type;
 }
@@ -19,6 +19,8 @@ void SecondBoss::update(const std::unordered_set<SDL_Scancode>& pressedKeys, con
         this->state =1;
     }
     else if(this->state == 1){
+        if (this->current.animName.compare("SecondBossIdle") != 0)
+            this->play("SecondBossIdle");
         this->state = 2;
     }
     else if(this->state == 2){
@@ -31,6 +33,8 @@ void SecondBoss::update(const std::unordered_set<SDL_Scancode>& pressedKeys, con
             this->actionFrames = 15;
         }
         else{
+            if (this->current.animName.compare("SecondBossRun") != 0)
+                this->play("SecondBossRun");
             if(directionX > 0){
                 this->position = {this->position.x - 2, this->position.y};
             }
@@ -47,7 +51,7 @@ void SecondBoss::update(const std::unordered_set<SDL_Scancode>& pressedKeys, con
             if(this->actionFrames==300){
                 this->state = 5;
                 this->actionFrames = 120;
-        }   
+        }
         }
     }
     else if(this->state == 3){

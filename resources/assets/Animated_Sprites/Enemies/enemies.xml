@@ -88,14 +88,90 @@ triangles  => sprite triangulation, 3 vertex indices per triangle
         <sprite n="chest_full_open_anim_f2.png" x="32" y="16" w="16" h="16"/>
     </Anim>
 
-    <sprite n="big_demon_idle_anim_f0.png" x="96" y="894" w="32" h="36"/>
-    <sprite n="big_demon_idle_anim_f1.png" x="0" y="930" w="32" h="36"/>
-    <sprite n="big_demon_idle_anim_f2.png" x="32" y="930" w="32" h="36"/>
-    <sprite n="big_demon_idle_anim_f3.png" x="64" y="930" w="32" h="36"/>
-    <sprite n="big_demon_run_anim_f0.png" x="96" y="930" w="32" h="36"/>
-    <sprite n="big_demon_run_anim_f1.png" x="0" y="966" w="32" h="36"/>
-    <sprite n="big_demon_run_anim_f2.png" x="32" y="966" w="32" h="36"/>
-    <sprite n="big_demon_run_anim_f3.png" x="64" y="966" w="32" h="36"/>
+    <Anim name="MArcherIdle" numFrames="4" frameRate="12" loop="true">
+        <sprite n="orc_shaman_idle_anim_f0.png" x="112" y="344" w="16" h="20"/>
+        <sprite n="orc_shaman_idle_anim_f1.png" x="0" y="364" w="16" h="20"/>
+        <sprite n="orc_shaman_idle_anim_f2.png" x="16" y="364" w="16" h="20"/>
+        <sprite n="orc_shaman_idle_anim_f3.png" x="32" y="364" w="16" h="20"/>
+    </Anim>
+
+    <Anim name="KMageIdle" numFrames="4" frameRate="12" loop="true">
+        <sprite n="wizzard_m_idle_anim_f0.png" x="112" y="673" w="16" h="28"/>
+        <sprite n="wizzard_m_idle_anim_f1.png" x="0" y="701" w="16" h="28"/>
+        <sprite n="wizzard_m_idle_anim_f2.png" x="16" y="701" w="16" h="28"/>
+        <sprite n="wizzard_m_idle_anim_f3.png" x="32" y="701" w="16" h="28"/>
+    </Anim>
+
+    <Anim name="KArcherIdle" numFrames="4" frameRate="12" loop="true">
+        <sprite n="elf_m_idle_anim_f0.png" x="16" y="505" w="16" h="28"/>
+        <sprite n="elf_m_idle_anim_f1.png" x="32" y="505" w="16" h="28"/>
+        <sprite n="elf_m_idle_anim_f2.png" x="48" y="505" w="16" h="28"/>
+        <sprite n="elf_m_idle_anim_f3.png" x="64" y="505" w="16" h="28"/>
+    </Anim>
+
+    <Anim name="CannoneerIdle" numFrames="4" frameRate="12" loop="true">
+        <sprite n="lizard_m_idle_anim_f0.png" x="80" y="617" w="16" h="28"/>
+        <sprite n="lizard_m_idle_anim_f1.png" x="96" y="617" w="16" h="28"/>
+        <sprite n="lizard_m_idle_anim_f2.png" x="112" y="617" w="16" h="28"/>
+        <sprite n="lizard_m_idle_anim_f3.png" x="0" y="645" w="16" h="28"/>
+    </Anim>
+
+    <Anim name="RoarIdle" numFrames="4" frameRate="12" loop="true">
+        <sprite n="chort_idle_anim_f0.png" x="71" y="425" w="16" h="24"/>
+        <sprite n="chort_idle_anim_f1.png" x="87" y="425" w="16" h="24"/>
+        <sprite n="chort_idle_anim_f2.png" x="103" y="425" w="16" h="24"/>
+        <sprite n="chort_idle_anim_f3.png" x="0" y="449" w="16" h="24"/>
+    </Anim>
+
+    <Anim name="RoarRun" numFrames="4" frameRate="12" loop="true">
+        <sprite n="chort_run_anim_f0.png" x="16" y="449" w="16" h="24"/>
+        <sprite n="chort_run_anim_f1.png" x="32" y="449" w="16" h="24"/>
+        <sprite n="chort_run_anim_f2.png" x="48" y="449" w="16" h="24"/>
+        <sprite n="chort_run_anim_f3.png" x="64" y="449" w="16" h="24"/>
+    </Anim>
+
+    <Anim name="RCannoneerIdle" numFrames="4" frameRate="12" loop="true">
+        <sprite n="lizard_f_idle_anim_f0.png" x="64" y="589" w="16" h="28"/>
+        <sprite n="lizard_f_idle_anim_f1.png" x="80" y="589" w="16" h="28"/>
+        <sprite n="lizard_f_idle_anim_f2.png" x="96" y="589" w="16" h="28"/>
+        <sprite n="lizard_f_idle_anim_f3.png" x="112" y="589" w="16" h="28"/>
+    </Anim>
+
+    <Anim name="SecondBossIdle" numFrames="4" frameRate="12" loop="true">
+        <sprite n="big_demon_idle_anim_f0.png" x="96" y="894" w="32" h="36"/>
+        <sprite n="big_demon_idle_anim_f1.png" x="0" y="930" w="32" h="36"/>
+        <sprite n="big_demon_idle_anim_f2.png" x="32" y="930" w="32" h="36"/>
+        <sprite n="big_demon_idle_anim_f3.png" x="64" y="930" w="32" h="36"/>
+    </Anim>
+
+    <Anim name="SecondBossRun" numFrames="4" frameRate="12" loop="true">
+        <sprite n="big_demon_run_anim_f0.png" x="96" y="930" w="32" h="36"/>
+        <sprite n="big_demon_run_anim_f1.png" x="0" y="966" w="32" h="36"/>
+        <sprite n="big_demon_run_anim_f2.png" x="32" y="966" w="32" h="36"/>
+        <sprite n="big_demon_run_anim_f3.png" x="64" y="966" w="32" h="36"/>
+    </Anim>
+
+    <Anim name="SecondBossIdle" numFrames="4" frameRate="12" loop="true">
+        <sprite n="big_demon_idle_anim_f0.png" x="96" y="894" w="32" h="36"/>
+        <sprite n="big_demon_idle_anim_f1.png" x="0" y="930" w="32" h="36"/>
+        <sprite n="big_demon_idle_anim_f2.png" x="32" y="930" w="32" h="36"/>
+        <sprite n="big_demon_idle_anim_f3.png" x="64" y="930" w="32" h="36"/>
+    </Anim>
+
+    <Anim name="PoisonerIdle" numFrames="4" frameRate="12" loop="true">
+        <sprite n="masked_orc_idle_anim_f0.png" x="104" y="304" w="16" h="20"/>
+        <sprite n="masked_orc_idle_anim_f1.png" x="0" y="324" w="16" h="20"/>
+        <sprite n="masked_orc_idle_anim_f2.png" x="16" y="324" w="16" h="20"/>
+        <sprite n="masked_orc_idle_anim_f3.png" x="32" y="324" w="16" h="20"/>
+    </Anim>
+
+    <Anim name="PoisonerRun" numFrames="4" frameRate="12" loop="true">
+        <sprite n="masked_orc_run_anim_f0.png" x="48" y="324" w="16" h="20"/>
+        <sprite n="masked_orc_run_anim_f1.png" x="64" y="324" w="16" h="20"/>
+        <sprite n="masked_orc_run_anim_f2.png" x="80" y="324" w="16" h="20"/>
+        <sprite n="masked_orc_run_anim_f3.png" x="96" y="324" w="16" h="20"/>
+    </Anim>
+
     <sprite n="big_zombie_idle_anim_f0.png" x="32" y="826" w="32" h="34"/>
     <sprite n="big_zombie_idle_anim_f1.png" x="64" y="826" w="32" h="34"/>
     <sprite n="big_zombie_idle_anim_f2.png" x="96" y="826" w="32" h="34"/>
@@ -111,14 +187,7 @@ triangles  => sprite triangulation, 3 vertex indices per triangle
     <sprite n="chest_mimic_open_anim_f0.png" x="48" y="16" w="16" h="16"/>
     <sprite n="chest_mimic_open_anim_f1.png" x="64" y="16" w="16" h="16"/>
     <sprite n="chest_mimic_open_anim_f2.png" x="80" y="16" w="16" h="16"/>
-    <sprite n="chort_idle_anim_f0.png" x="71" y="425" w="16" h="24"/>
-    <sprite n="chort_idle_anim_f1.png" x="87" y="425" w="16" h="24"/>
-    <sprite n="chort_idle_anim_f2.png" x="103" y="425" w="16" h="24"/>
-    <sprite n="chort_idle_anim_f3.png" x="0" y="449" w="16" h="24"/>
-    <sprite n="chort_run_anim_f0.png" x="16" y="449" w="16" h="24"/>
-    <sprite n="chort_run_anim_f1.png" x="32" y="449" w="16" h="24"/>
-    <sprite n="chort_run_anim_f2.png" x="48" y="449" w="16" h="24"/>
-    <sprite n="chort_run_anim_f3.png" x="64" y="449" w="16" h="24"/>
+
     <sprite n="coin_anim_f0.png" x="32" y="0" w="8" h="8"/>
     <sprite n="coin_anim_f1.png" x="40" y="0" w="8" h="8"/>
     <sprite n="coin_anim_f2.png" x="48" y="0" w="8" h="8"/>
@@ -144,10 +213,7 @@ triangles  => sprite triangulation, 3 vertex indices per triangle
     <sprite n="elf_f_run_anim_f2.png" x="96" y="477" w="16" h="28"/>
     <sprite n="elf_f_run_anim_f3.png" x="112" y="477" w="16" h="28"/>
     <sprite n="elf_m_hit_anim_f0.png" x="0" y="505" w="16" h="28"/>
-    <sprite n="elf_m_idle_anim_f0.png" x="16" y="505" w="16" h="28"/>
-    <sprite n="elf_m_idle_anim_f1.png" x="32" y="505" w="16" h="28"/>
-    <sprite n="elf_m_idle_anim_f2.png" x="48" y="505" w="16" h="28"/>
-    <sprite n="elf_m_idle_anim_f3.png" x="64" y="505" w="16" h="28"/>
+
     <sprite n="elf_m_run_anim_f0.png" x="80" y="505" w="16" h="28"/>
     <sprite n="elf_m_run_anim_f1.png" x="96" y="505" w="16" h="28"/>
     <sprite n="elf_m_run_anim_f2.png" x="112" y="505" w="16" h="28"/>
@@ -210,31 +276,18 @@ triangles  => sprite triangulation, 3 vertex indices per triangle
     <sprite n="knight_m_hit_anim_f0.png" x="32" y="561" w="16" h="28"/>
 
     <sprite n="lizard_f_hit_anim_f0.png" x="48" y="589" w="16" h="28"/>
-    <sprite n="lizard_f_idle_anim_f0.png" x="64" y="589" w="16" h="28"/>
-    <sprite n="lizard_f_idle_anim_f1.png" x="80" y="589" w="16" h="28"/>
-    <sprite n="lizard_f_idle_anim_f2.png" x="96" y="589" w="16" h="28"/>
-    <sprite n="lizard_f_idle_anim_f3.png" x="112" y="589" w="16" h="28"/>
+
     <sprite n="lizard_f_run_anim_f0.png" x="0" y="617" w="16" h="28"/>
     <sprite n="lizard_f_run_anim_f1.png" x="16" y="617" w="16" h="28"/>
     <sprite n="lizard_f_run_anim_f2.png" x="32" y="617" w="16" h="28"/>
     <sprite n="lizard_f_run_anim_f3.png" x="48" y="617" w="16" h="28"/>
     <sprite n="lizard_m_hit_anim_f0.png" x="64" y="617" w="16" h="28"/>
-    <sprite n="lizard_m_idle_anim_f0.png" x="80" y="617" w="16" h="28"/>
-    <sprite n="lizard_m_idle_anim_f1.png" x="96" y="617" w="16" h="28"/>
-    <sprite n="lizard_m_idle_anim_f2.png" x="112" y="617" w="16" h="28"/>
-    <sprite n="lizard_m_idle_anim_f3.png" x="0" y="645" w="16" h="28"/>
+
     <sprite n="lizard_m_run_anim_f0.png" x="16" y="645" w="16" h="28"/>
     <sprite n="lizard_m_run_anim_f1.png" x="32" y="645" w="16" h="28"/>
     <sprite n="lizard_m_run_anim_f2.png" x="48" y="645" w="16" h="28"/>
     <sprite n="lizard_m_run_anim_f3.png" x="64" y="645" w="16" h="28"/>
-    <sprite n="masked_orc_idle_anim_f0.png" x="104" y="304" w="16" h="20"/>
-    <sprite n="masked_orc_idle_anim_f1.png" x="0" y="324" w="16" h="20"/>
-    <sprite n="masked_orc_idle_anim_f2.png" x="16" y="324" w="16" h="20"/>
-    <sprite n="masked_orc_idle_anim_f3.png" x="32" y="324" w="16" h="20"/>
-    <sprite n="masked_orc_run_anim_f0.png" x="48" y="324" w="16" h="20"/>
-    <sprite n="masked_orc_run_anim_f1.png" x="64" y="324" w="16" h="20"/>
-    <sprite n="masked_orc_run_anim_f2.png" x="80" y="324" w="16" h="20"/>
-    <sprite n="masked_orc_run_anim_f3.png" x="96" y="324" w="16" h="20"/>
+
     <sprite n="muddy_idle_anim_f0.png" x="0" y="128" w="16" h="16"/>
     <sprite n="muddy_idle_anim_f1.png" x="16" y="128" w="16" h="16"/>
     <sprite n="muddy_idle_anim_f2.png" x="32" y="128" w="16" h="16"/>
@@ -249,10 +302,6 @@ triangles  => sprite triangulation, 3 vertex indices per triangle
     <sprite n="necromancer_run_anim_f2.png" x="80" y="344" w="16" h="20"/>
     <sprite n="necromancer_run_anim_f3.png" x="96" y="344" w="16" h="20"/>
 
-    <sprite n="orc_shaman_idle_anim_f0.png" x="112" y="344" w="16" h="20"/>
-    <sprite n="orc_shaman_idle_anim_f1.png" x="0" y="364" w="16" h="20"/>
-    <sprite n="orc_shaman_idle_anim_f2.png" x="16" y="364" w="16" h="20"/>
-    <sprite n="orc_shaman_idle_anim_f3.png" x="32" y="364" w="16" h="20"/>
     <sprite n="orc_shaman_run_anim_f0.png" x="48" y="364" w="16" h="20"/>
     <sprite n="orc_shaman_run_anim_f1.png" x="64" y="364" w="16" h="20"/>
     <sprite n="orc_shaman_run_anim_f2.png" x="80" y="364" w="16" h="20"/>
@@ -364,10 +413,7 @@ triangles  => sprite triangulation, 3 vertex indices per triangle
     <sprite n="wizzard_f_run_anim_f2.png" x="64" y="673" w="16" h="28"/>
     <sprite n="wizzard_f_run_anim_f3.png" x="80" y="673" w="16" h="28"/>
     <sprite n="wizzard_m_hit_anim_f0.png" x="96" y="673" w="16" h="28"/>
-    <sprite n="wizzard_m_idle_anim_f0.png" x="112" y="673" w="16" h="28"/>
-    <sprite n="wizzard_m_idle_anim_f1.png" x="0" y="701" w="16" h="28"/>
-    <sprite n="wizzard_m_idle_anim_f2.png" x="16" y="701" w="16" h="28"/>
-    <sprite n="wizzard_m_idle_anim_f3.png" x="32" y="701" w="16" h="28"/>
+
     <sprite n="wizzard_m_run_anim_f0.png" x="48" y="701" w="16" h="28"/>
     <sprite n="wizzard_m_run_anim_f1.png" x="64" y="701" w="16" h="28"/>
     <sprite n="wizzard_m_run_anim_f2.png" x="80" y="701" w="16" h="28"/>

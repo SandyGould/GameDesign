@@ -68,7 +68,7 @@ Rebound::Rebound() : Game(1200, 800) {
 	//
     // allSprites->addChild(mKing);
 
-	// masterArcher = new MasterArcher(player);
+	// masterArcher = std::make_shared<MasterArcher>(player);
     // masterArcher-> position = {500,500};
     // masterArcher->height = 80;
     // masterArcher->width = 70;
@@ -83,13 +83,14 @@ Rebound::Rebound() : Game(1200, 800) {
 	//
 	// allSprites->addChild(orc);
 
-	// poisoner = new Poisoner(player);
+	// poisoner = make_shared<Poisoner>(player);
 	// poisoner->position = {40,160};
 	// poisoner->height = 80;
 	// poisoner->width = 70;
 	//
 	// allSprites->addChild(poisoner);
-	// roarMonster = new RoarMonster(player);
+
+	// roarMonster = make_shared<RoarMonster>(player);
 	// roarMonster-> position = {100, 100};
 	// roarMonster->height = 80;
 	// roarMonster->width = 70;
@@ -103,21 +104,21 @@ Rebound::Rebound() : Game(1200, 800) {
 	//
 	// allSprites->addChild(knight);
 
-	// cannoneer = new Cannoneer(player);
+	// cannoneer = make_shared<Cannoneer>(player);
 	// cannoneer->position = {500,100};
 	// cannoneer->height = 80;
 	// cannoneer->width = 70;
 	//
 	// allSprites->addChild(cannoneer);
 	//
-	// rubberCannoneer = new RubberCannoneer(player);
+	// rubberCannoneer = make_shared<RubberCannoneer>(player);
 	// rubberCannoneer->position = {600, 200};
 	// rubberCannoneer->height=80;
 	// rubberCannoneer->width=70;
 	//
 	// allSprites->addChild(rubberCannoneer);
 	//
-	// kingdomArcher = new KingdomArcher(player);
+	// kingdomArcher = make_shared<KingdomArcher>(player);
 	// kingdomArcher->position = {400,200};
 	// kingdomArcher->height= 80;
 	// kingdomArcher->width=80;
@@ -125,18 +126,18 @@ Rebound::Rebound() : Game(1200, 800) {
 	// allSprites->addChild(kingdomArcher);
 	//
 	//
-	// kingdomMage = new KingdomMage(player);
+	// kingdomMage = make_shared<KingdomMage>(player);
 	// kingdomMage->position = {350,350};
 	// kingdomMage->height = 80;
 	// kingdomMage->width = 70;
 	//
 	// allSprites->addChild(kingdomMage);
 
-	// secondBoss = new SecondBoss(player);
+	// secondBoss = make_shared<SecondBoss>(player);
 	// secondBoss->position = {600,600};
 	// secondBoss->height = 100;
 	// secondBoss->width = 100;
-
+	//
 	// allSprites->addChild(secondBoss);
 
 	collisionSystem->watchForCollisions("player", "arrow");

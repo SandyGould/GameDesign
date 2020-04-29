@@ -1,6 +1,6 @@
 #include "Poisoner.h"
 
-Poisoner::Poisoner(std::shared_ptr<Player> player) : BaseEnemy("poisoner", "./resources/assets/Display_Objects/poisoner.png", "", "", player){
+Poisoner::Poisoner(std::shared_ptr<Player> player) : BaseEnemy("poisoner", "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "PoisonerIdle", player){
     this->saveType="poisoner";
 }
 
@@ -77,6 +77,8 @@ void Poisoner::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const
         }
     }
     else if(this->state == 4){
+        if (this->current.animName.compare("PoisonerRun") != 0)
+            this->play("PoisonerRun");
         this->actionFrames--;
         if(this->actionFrames == 0){
             this->state = 5;
@@ -85,6 +87,8 @@ void Poisoner::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const
         this->position = {this->position.x + xVelocity, this->position.y + yVelocity};
     }
     else if(this->state == 5){
+        if (this->current.animName.compare("PoisonerIdle") != 0)
+            this->play("PoisonerIdle");
         if(this->actionFrames ==0){
             this->actionFrames = 120;
             this->state = 2;
@@ -93,4 +97,5 @@ void Poisoner::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const
             actionFrames--;
         }
     }
+    BaseEnemy::update(pressedKeys, joystickState, pressedButtons);
 }
