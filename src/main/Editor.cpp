@@ -233,10 +233,12 @@ void Editor::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState
 
         if (pressedKeys.find(SDL_SCANCODE_BACKSPACE) != pressedKeys.end() &&
         prevKeys.find(SDL_SCANCODE_BACKSPACE) == prevKeys.end()){
-            attributeSelected->text.pop_back();
-            attributeSelected->setText(attributeSelected->text);
-            
-            this->updateAttribute();
+            if (attributeSelected){
+                attributeSelected->text.pop_back();
+                attributeSelected->setText(attributeSelected->text);
+                
+                this->updateAttribute();
+            }
         }
     } else{
         // If we are not in text input mode, these normal controls are active
@@ -975,49 +977,51 @@ bool Editor::onMouseUp(shared_ptr<DisplayObject> object, MouseUpEvent* event) {
 }
 
 void Editor::updateAttribute(){
-    // Fetch the current text of the attribute
-    string valToSet = attributeSelected->text;
+    if (editSelected && attributeSelected){
+        // Fetch the current text of the attribute
+        string valToSet = attributeSelected->text;
 
-    // If we are updating the id, set immediately and return
-    if (attributeSelected->id == "idText"){
-        editSelected->id = valToSet;
-        return;
-    }
+        // If we are updating the id, set immediately and return
+        if (attributeSelected->id == "idText"){
+            editSelected->id = valToSet;
+            return;
+        }
 
-    // If the value is a single space or minus
-    // set the value to 0.0001 if we are updating scale, set to 0 otherwise
-    if (valToSet == " " || valToSet == "-"){
-        if (attributeSelected->id == "scaleXText" || attributeSelected->id == "scaleYText"){
-            valToSet = "0.0001";
-        } else {
-            valToSet = "0";
+        // If the value is a single space or minus
+        // set the value to 0.0001 if we are updating scale, set to 0 otherwise
+        if (valToSet == " " || valToSet == "-"){
+            if (attributeSelected->id == "scaleXText" || attributeSelected->id == "scaleYText"){
+                valToSet = "0.0001";
+            } else {
+                valToSet = "0";
+            }
         }
-    }
 
-    // Check what field we are updating, and do so accordingly
-    if (attributeSelected->id == "posXText"){
-        editSelected->position.x = stoi(valToSet);
-    } else if (attributeSelected->id == "posYText"){
-        editSelected->position.y = stoi(valToSet);
-    } else if (attributeSelected->id == "pivXText"){
-        editSelected->pivot.x = stoi(valToSet);
-    } else if (attributeSelected->id == "pivYText"){
-        editSelected->pivot.y = stoi(valToSet);
-    } else if (attributeSelected->id == "scaleXText"){
-        double val = stod(valToSet);
-        if (val - 0.0001 < 0){
-            editSelected->scaleX = 0.0001;
-        } else{
-            editSelected->scaleX = val;
+        // Check what field we are updating, and do so accordingly
+        if (attributeSelected->id == "posXText"){
+            editSelected->position.x = stoi(valToSet);
+        } else if (attributeSelected->id == "posYText"){
+            editSelected->position.y = stoi(valToSet);
+        } else if (attributeSelected->id == "pivXText"){
+            editSelected->pivot.x = stoi(valToSet);
+        } else if (attributeSelected->id == "pivYText"){
+            editSelected->pivot.y = stoi(valToSet);
+        } else if (attributeSelected->id == "scaleXText"){
+            double val = stod(valToSet);
+            if (val - 0.0001 < 0){
+                editSelected->scaleX = 0.0001;
+            } else{
+                editSelected->scaleX = val;
+            }
+        } else if (attributeSelected->id == "scaleYText"){
+            double val = stod(valToSet);
+            if (val - 0.0001 < 0){
+                editSelected->scaleY = 0.0001;
+            } else{
+                editSelected->scaleY = val;
+            }
+        } else if (attributeSelected->id == "rotText"){
+            editSelected->rotation = stod(valToSet);
         }
-    } else if (attributeSelected->id == "scaleYText"){
-        double val = stod(valToSet);
-        if (val - 0.0001 < 0){
-            editSelected->scaleY = 0.0001;
-        } else{
-            editSelected->scaleY = val;
-        }
-    } else if (attributeSelected->id == "rotText"){
-        editSelected->rotation = stod(valToSet);
     }
 }
