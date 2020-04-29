@@ -75,6 +75,7 @@ void Scene::loadScene(std::string sceneFilePath){
             else if(obj_type.compare("Poisoner") == 0){temp_layer->addChild(std::static_pointer_cast<Poisoner>(setBasicInfo(std::make_shared<Poisoner>(this->player), mj)));}
             else if(obj_type.compare("RoarMonster") == 0){temp_layer->addChild(std::static_pointer_cast<RoarMonster>(setBasicInfo(std::make_shared<RoarMonster>(this->player), mj)));}
             else if(obj_type.compare("SecondBoss") == 0){temp_layer->addChild(std::static_pointer_cast<SecondBoss>(setBasicInfo(std::make_shared<SecondBoss>(this->player), mj)));}
+            else if(obj_type.compare("MonsterKing") == 0){temp_layer->addChild(std::static_pointer_cast<MonsterKing>(setBasicInfo(std::make_shared<MonsterKing>(this->player), mj)));}
             /* environmental objects */
             else if(obj_type.compare("EnvironmentObject") == 0){temp_layer->addChild(std::static_pointer_cast<EnvironmentObject>(setBasicInfo(std::make_shared<EnvironmentObject>(mj["name"], mj["filepath"]), mj)));}
             else if(obj_type.compare("HitObject") == 0){temp_layer->addChild(std::static_pointer_cast<HitObject>(setBasicInfo(std::make_shared<HitObject>(mj["name"], mj["filepath"]), mj)));}
