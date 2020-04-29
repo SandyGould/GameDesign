@@ -8,38 +8,46 @@ HitboxTest::HitboxTest() : Game(1200, 800) {
     instance = this;
 
     player = std::make_shared<Player>();
-    player->height = 80;
-    player->width = 110;
+    // player->height = 80;
+    // player->width = 110;
     this->container->addChild(player);
 
-    this->container->addChild(std::make_shared<Archer>(player));
-    this->container->addChild(std::make_shared<Arrow>(0));
-    //this->container->addChild(std::make_shared<CannonBall>());
-    this->container->addChild(std::make_shared<Cannoneer>(player));
-    this->container->addChild(std::make_shared<IceAttack>());
-    this->container->addChild(std::make_shared<KingdomArcher>(player));
-    this->container->addChild(std::make_shared<KingdomKing>(player));
-    this->container->addChild(std::make_shared<KingdomMage>(player));
-    this->container->addChild(std::make_shared<Knight>(player));
-    this->container->addChild(std::make_shared<Mage>(player));
-    this->container->addChild(std::make_shared<MageAttack>());
-    this->container->addChild(std::make_shared<MasterArcher>(player));
-    this->container->addChild(std::make_shared<MonsterKing>(player));
-    this->container->addChild(std::make_shared<Ogre>(player));
-    this->container->addChild(std::make_shared<Orc>(player));
-    this->container->addChild(std::make_shared<PoisonBomb>());
-    this->container->addChild(std::make_shared<Poisoner>(player));
-    this->container->addChild(std::make_shared<Roar>());
-    this->container->addChild(std::make_shared<RoarMonster>(player));
-    this->container->addChild(std::make_shared<RubberCannonBall>(0));
-    this->container->addChild(std::make_shared<RubberCannoneer>(player));
+    // this->container->addChild(std::make_shared<Archer>(player));
+    // this->container->addChild(std::make_shared<Arrow>(0));
+    // this->container->addChild(std::make_shared<CannonBall>());
+    // this->container->addChild(std::make_shared<Cannoneer>(player));
+    // this->container->addChild(std::make_shared<IceAttack>());
+    // this->container->addChild(std::make_shared<KingdomArcher>(player));
+    // this->container->addChild(std::make_shared<KingdomKing>(player));
+    // this->container->addChild(std::make_shared<KingdomMage>(player));
+    // this->container->addChild(std::make_shared<Knight>(player));
+    // this->container->addChild(std::make_shared<Mage>(player));
+    // this->container->addChild(std::make_shared<MageAttack>());
+    // this->container->addChild(std::make_shared<MasterArcher>(player));
+    // this->container->addChild(std::make_shared<MonsterKing>(player));
+    // this->container->addChild(std::make_shared<Ogre>(player));
+    // this->container->addChild(std::make_shared<Orc>(player));
+    // this->container->addChild(std::make_shared<PoisonBomb>());
+    // this->container->addChild(std::make_shared<Poisoner>(player));
+    // this->container->addChild(std::make_shared<Roar>());
+    // this->container->addChild(std::make_shared<RoarMonster>(player));
+    // this->container->addChild(std::make_shared<RubberCannonBall>(0));
+    // this->container->addChild(std::make_shared<RubberCannoneer>(player));
     // this->container->addChild(std::make_shared<SecondBoss>(player));
+    this->container->addChild(std::make_shared<WalkOnObject>("mud", "./resources/assets/Display_Objects/mud1.png"));
+    this->container->addChild(std::make_shared<WalkOnObject>("mud", "./resources/assets/Display_Objects/mud2.png"));
+    this->container->addChild(std::make_shared<WalkOnObject>("mud", "./resources/assets/Display_Objects/mud3.png"));
+    this->container->addChild(std::make_shared<WalkOnObject>("mud", "./resources/assets/Display_Objects/mud4.png"));
+    this->container->addChild(std::make_shared<WalkOnObject>("mud", "./resources/assets/Display_Objects/mud5.png"));
+    this->container->addChild(std::make_shared<WalkOnObject>("mud", "./resources/assets/Display_Objects/mud6.png"));
+    this->container->addChild(std::make_shared<WalkOnObject>("mud", "./resources/assets/Display_Objects/mud7.png"));
+    this->container->addChild(std::make_shared<WalkOnObject>("mud", "./resources/assets/Display_Objects/mud8.png"));
 
     this->container->addChild(std::make_shared<Chest>());
     this->container->addChild(std::make_shared<Coin>());
     this->container->addChild(std::make_shared<Shield>());
 
-    maxIndex = 23;
+    maxIndex = 11;
 }
 
 HitboxTest::~HitboxTest() {
