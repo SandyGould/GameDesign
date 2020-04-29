@@ -22,9 +22,6 @@ AnimatedSprite::AnimatedSprite(std::string id, std::string spritesheet, std::str
     }
 
     this->animations = AnimatedSprite::spritesheets.at(xml);
-    if (!this->animations.empty()) {
-        this->play(0);
-    }
 }
 
 AnimatedSprite::AnimatedSprite(const DisplayObject& other)
@@ -48,17 +45,12 @@ AnimatedSprite::AnimatedSprite(const DisplayObject& other)
         if (AnimatedSprite::spritesheets.find(this->xmlpath) == AnimatedSprite::spritesheets.cend()) {
             parse(this->xmlpath);
         }
-        this->imgPath = other.imgPath;
-        this->loadTexture(this->imgPath);
+
+        this->animations = AnimatedSprite::spritesheets.at(this->xmlpath);
     } else {
         this->type = "AnimatedSprite";
         this->id = "FAILED_COPY";
         this->renderer = Game::renderer;
-    }
-
-    this->animations = AnimatedSprite::spritesheets.at(this->xmlpath);
-    if (!this->animations.empty()) {
-        this->play(0);
     }
 }
 
