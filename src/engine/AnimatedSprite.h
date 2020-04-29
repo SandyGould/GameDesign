@@ -13,11 +13,11 @@
 
 struct Animation {
     std::vector<SDL_Rect> frames;
-	std::string animName;
-	int numFrames;
-	int frameRate;
-	bool loop;
-	int curFrame;
+    std::string animName;
+    int numFrames;
+    int frameRate;
+    bool loop;
+    int curFrame;
 };
 
 class AnimatedSprite : public Sprite {
@@ -27,31 +27,30 @@ public:
                    const std::string& xml,
                    const std::string& animName,
                    SDL_Renderer* r = Game::renderer);
-	explicit AnimatedSprite(const DisplayObject& other);
+    explicit AnimatedSprite(const DisplayObject& other);
 
-	Animation getAnimation(const std::string& animName);
+    Animation getAnimation(const std::string& animName);
 
-	void play(int index);
-	void play(const std::string& animName);
-	void replay();
-	void stop();
+    void play(const std::string& animName);
+    void replay();
+    void stop();
 
-	void draw(AffineTransform& at) override;
+    void draw(AffineTransform& at) override;
+    void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
 
-	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
+    std::string xmlpath;
 
-	bool playing = false;
-	std::string xmlpath;
-	std::vector<Animation> animations;
-
-	Animation current;
+    Animation current;
 
 private:
     static void parse(const std::string& xml);
 
     static std::unordered_map<std::string, std::vector<Animation>> spritesheets;
 
-	int frameCount;
+    bool playing = false;
+    std::vector<Animation> animations;
+
+    int frameCount;
 };
 
 #endif

@@ -114,16 +114,6 @@ Animation AnimatedSprite::getAnimation(const std::string& animName) {
     };
 }
 
-void AnimatedSprite::play(int index) {
-    if (index < this->animations.size()) {
-        Animation anim = this->animations[index];
-        this->current = anim;
-        this->current.curFrame = 0;
-        frameCount = 0;
-        playing = true;
-    }
-}
-
 void AnimatedSprite::play(const std::string& animName) {
     Animation anim = getAnimation(animName);
     if (anim.animName == "INVALID_ANIMATION") {
