@@ -517,8 +517,8 @@
                         "x_pos":750,
                         "y_pos":110,
                         "rotation":0,
-                        "scaleX":0.4,
-                        "scaleY":0.6,
+                        "scaleX":3,
+                        "scaleY":3,
                         "parentHierarchy":[]
                     },
                     {
@@ -528,8 +528,8 @@
                         "x_pos":750,
                         "y_pos":310,
                         "rotation":0,
-                        "scaleX":0.4,
-                        "scaleY":0.6,
+                        "scaleX":3,
+                        "scaleY":3,
                         "parentHierarchy":[]
                     },
                     {
@@ -539,8 +539,8 @@
                         "x_pos":750,
                         "y_pos":110,
                         "rotation":0,
-                        "scaleX":0.4,
-                        "scaleY":0.6,
+                        "scaleX":3,
+                        "scaleY":3,
                         "parentHierarchy":[]
                     },
                     {
@@ -550,8 +550,8 @@
                         "x_pos":870,
                         "y_pos":100,
                         "rotation":0,
-                        "scaleX":0.4,
-                        "scaleY":0.6,
+                        "scaleX":3,
+                        "scaleY":3,
                         "parentHierarchy":[]
                     },
                     {
@@ -561,8 +561,8 @@
                         "x_pos":870,
                         "y_pos":320,
                         "rotation":0,
-                        "scaleX":0.4,
-                        "scaleY":0.6,
+                        "scaleX":3,
+                        "scaleY":3,
                         "parentHierarchy":[]
                     }
                 ]
