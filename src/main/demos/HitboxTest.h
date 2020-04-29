@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "../../engine/Game.h"
+#include "../../engine/WalkOnObject.h"
 
 #include "../../engine/enemies/Archer.h"
 #include "../../engine/enemies/Arrow.h"

@@ -25,12 +25,12 @@ Rebound::Rebound() : Game(1200, 800) {
 	player->shield->visible = true;
 	allSprites->addChild(player);
 
-	chest = make_shared<Chest>();
-	chest->position = {400, 400};
-	chest->height = 80;
-	chest->width = 70;
-
-	allSprites->addChild(chest);
+	// chest = make_shared<Chest>();
+	// chest->position = {400, 400};
+	// chest->height = 80;
+	// chest->width = 70;
+	//
+	// allSprites->addChild(chest);
 
 	// mage = make_shared<Mage>(player);
 	// mage->position = {400, 400};
@@ -148,6 +148,7 @@ Rebound::Rebound() : Game(1200, 800) {
 
 	collisionSystem->watchForCollisions("shield", "arrow");
 	collisionSystem->watchForCollisions("shield", "mage_attack");
+	collisionSystem->watchForCollisions("shield", "ice_attack");
 	collisionSystem->watchForCollisions("shield", "cannonball");
 	collisionSystem->watchForCollisions("shield", "rubber_cannonball");
 	collisionSystem->watchForCollisions("shield", "enemy");
