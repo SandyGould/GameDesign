@@ -84,7 +84,7 @@
             "y_pos": 1192
           },
           {
-            "filepath": "./resources/Rebound/area1/room5/assets/switch_off.png",
+            "filepath": "./resources/assets/Display_Objects/switch_off.png",
             "name": "switch",
             "rotation": 0.0,
             "scaleX": 4.8,

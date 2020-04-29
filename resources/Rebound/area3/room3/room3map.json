@@ -1,401 +1,141 @@
 {
-    "Scene": [
-      {
-        "L0": {
-          "objects": [
-            {
-              "filepath": "./resources/assets/Display_Objects/background_3_full.png",
-              "name": "background_3_full_copy",
-              "rotation": 0,
-              "scaleX": 10,
-              "scaleY": 5,
-              "type": "Sprite",
-              "x_pos": 0,
-              "y_pos": 0
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_4.png",
-              "name": "fence_4_copy",
-              "rotation": 0,
-              "scaleX": 0.98,
-              "scaleY": 0.5,
-              "type": "EnvironmentObject",
-              "x_pos": -1,
-              "y_pos": 135
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_4.png",
-              "name": "fence_4_copy_copy",
-              "rotation": 0,
-              "scaleX": 0.98,
-              "scaleY": 0.5,
-              "type": "EnvironmentObject",
-              "x_pos": -1,
-              "y_pos": 320
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/spike.png",
-              "name": "spike_copy",
-              "rotation": 0,
-              "scaleX": 0.6,
-              "scaleY": 0.6,
-              "type": "WalkOnObject",
-              "x_pos": 216,
-              "y_pos": 114
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/spike.png",
-              "name": "spike_copy_copy",
-              "rotation": 0,
-              "scaleX": 0.6,
-              "scaleY": 0.6,
-              "type": "WalkOnObject",
-              "x_pos": 215,
-              "y_pos": 330
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/boulder.png",
-              "name": "boulder_copy",
-              "rotation": 0,
-              "scaleX": 1.01,
-              "scaleY": 2.4,
-              "type": "EnvironmentObject",
-              "x_pos": 318,
-              "y_pos": 121
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 2,
-              "y_pos": 454
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 94,
-              "y_pos": 454
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 187,
-              "y_pos": 454
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 280,
-              "y_pos": 454
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy_copy_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 373,
-              "y_pos": 455
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy_copy_copy_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 467,
-              "y_pos": 455
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy_copy_copy_copy_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 561,
-              "y_pos": 455
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy_copy_copy_copy_copy_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 655,
-              "y_pos": 455
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy_copy_copy_copy_copy_copy_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 747,
-              "y_pos": 454
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 840,
-              "y_pos": 454
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy_copy_copy_copy_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 466,
-              "y_pos": 2
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy_copy_copy_copy_copy_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 560,
-              "y_pos": 2
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 746,
-              "y_pos": 1
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy_copy_copy_copy_copy_copy_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 654,
-              "y_pos": 2
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 93,
-              "y_pos": 1
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy_copy_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 279,
-              "y_pos": 1
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 1,
-              "y_pos": 1
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 839,
-              "y_pos": 1
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy_copy_copy_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 372,
-              "y_pos": 2
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_2.png",
-              "name": "fence_2_copy_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 1.15,
-              "scaleY": 0.45,
-              "type": "EnvironmentObject",
-              "x_pos": 186,
-              "y_pos": 1
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_5.png",
-              "name": "fence_5_copy",
-              "rotation": 0,
-              "scaleX": 0.23,
-              "scaleY": 1.2,
-              "type": "EnvironmentObject",
-              "x_pos": 0,
-              "y_pos": 379
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_5.png",
-              "name": "fence_5_copy_copy",
-              "rotation": 0,
-              "scaleX": 0.23,
-              "scaleY": 1.2,
-              "type": "EnvironmentObject",
-              "x_pos": 1,
-              "y_pos": 27
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_5.png",
-              "name": "fence_5_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 0.23,
-              "scaleY": 1.2,
-              "type": "EnvironmentObject",
-              "x_pos": 966,
-              "y_pos": 2
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_5.png",
-              "name": "fence_5_copy_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 0.23,
-              "scaleY": 1.2,
-              "type": "EnvironmentObject",
-              "x_pos": 966,
-              "y_pos": 76
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_5.png",
-              "name": "fence_5_copy_copy_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 0.23,
-              "scaleY": 1.2,
-              "type": "EnvironmentObject",
-              "x_pos": 966,
-              "y_pos": 302
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/fence_5.png",
-              "name": "fence_5_copy_copy_copy_copy_copy_copy",
-              "rotation": 0,
-              "scaleX": 0.23,
-              "scaleY": 1.2,
-              "type": "EnvironmentObject",
-              "x_pos": 968,
-              "y_pos": 376
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/poisoner.png",
-              "name": "poisoner_copy",
-              "rotation": 0,
-              "scaleX": 0.4,
-              "scaleY": 0.6,
-              "type": "Poisoner",
-              "x_pos": 456,
-              "y_pos": 69
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/poisoner.png",
-              "name": "poisoner_copy_copy",
-              "rotation": 0,
-              "scaleX": 0.4,
-              "scaleY": 0.6,
-              "type": "Poisoner",
-              "x_pos": 454,
-              "y_pos": 365
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/second_boss.png",
-              "name": "second_boss_copy",
-              "rotation": 0,
-              "scaleX": 1.5,
-              "scaleY": 1.5,
-              "type": "SecondBoss",
-              "x_pos": 616,
-              "y_pos": 158
-            },
-            {
-              "filepath": "./resources/assets/Display_Objects/mage.png",
-              "name": "mage_copy",
-              "rotation": 0,
-              "scaleX": 0.4,
-              "scaleY": 0.6,
-              "type": "Mage",
-              "x_pos": 836,
-              "y_pos": 222
-            }
-          ],
-          "speed": 0
-        }
-      },
-      {
-        "L1": {
-          "objects": [],
-          "speed": 0
-        }
-      },
-      {
-        "L2": {
-          "objects": [],
-          "speed": 0
-        }
+  "Scene": [
+    {
+      "L0": {
+        "objects": [
+          {
+            "filepath": "./resources/assets/Display_Objects/background_3_full.png",
+            "name": "background",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "DisplayObject",
+            "x_pos": 0,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_2.png",
+            "name": "fence1",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": -25,
+            "y_pos": 175
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_2.png",
+            "name": "fence2",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": -25,
+            "y_pos": 410
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/boulder.png",
+            "name": "boulder",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 445,
+            "y_pos": 155
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 305,
+            "y_pos": 145
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 305,
+            "y_pos": 420
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/poisoner.png",
+            "name": "poisoner1",
+            "rotation": 0.0,
+            "scaleX": 4.5,
+            "scaleY": 4.5,
+            "type": "Poisoner",
+            "x_pos": 636,
+            "y_pos": 44
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/poisoner.png",
+            "name": "poisoner2",
+            "rotation": 0.0,
+            "scaleX": 4.5,
+            "scaleY": 4.5,
+            "type": "Poisoner",
+            "x_pos": 599,
+            "y_pos": 465
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/mage.png",
+            "name": "mage",
+            "rotation": 0.0,
+            "scaleX": 0.55,
+            "scaleY": 0.1,
+            "type": "Mage",
+            "x_pos": 1202,
+            "y_pos": 261
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/roaring_monster.png",
+            "name": "roarmonster",
+            "rotation": 0.0,
+            "scaleX": 4.5,
+            "scaleY": 4.5,
+            "type": "RoarMonster",
+            "x_pos": 799,
+            "y_pos": 236
+          }
+        ],
+        "speed": 0.0
       }
-    ],
-    "Camera": {
-      "camEntrancePivotX": 200,
-      "camEntrancePivotY": 100,
-      "camEntrancePositionX": 200,
-      "camEntrancePositionY": 100,
-      "playerEntrancePosX": 50,
-      "playerEntrancePosY": 250,
-      "camExitPivotX": 800,
-      "camExitPivotY": 100,
-      "camExitPositionX": 800,
-      "camExitPositionY": 100,
-      "playerExitPosX": 1150,
-      "playerExitPosY": 250,
-      "camTopLimit":-10000,
-      "camBottomLimit":23000,
-      "camRightLimit":85000,
-      "camLeftLimit":-10000
+    },
+    {
+      "L1": {
+        "objects": [],
+        "speed": 0.0
+      }
+    },
+    {
+      "L2": {
+        "objects": [],
+        "speed": 0.0
+      }
     }
+  ],
+  "Camera": {
+    "camEntrancePivotX": 200,
+    "camEntrancePivotY": 100,
+    "camEntrancePositionX": 200,
+    "camEntrancePositionY": 250,
+    "playerEntrancePosX": 50,
+    "playerEntrancePosY": 250,
+    "camExitPivotX": 800,
+    "camExitPivotY": 100,
+    "camExitPositionX": 800,
+    "camExitPositionY": 100,
+    "playerExitPosX": 1150,
+    "playerExitPosY": 250,
+    "camTopLimit": -10000,
+    "camBottomLimit": 23000,
+    "camRightLimit": 85000,
+    "camLeftLimit": -10000
   }
+}

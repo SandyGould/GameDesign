@@ -1,456 +1,391 @@
 {
-    "Scene":[
-        {
-            "L0":{
-                "speed":1,
-                "objects":[
-                    {
-                        "type":"Sprite",
-                        "name":"background",
-                        "filepath":"./resources/Rebound/area3_res/assets/background_1.png",
-                        "x_pos":0,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":10,
-                        "scaleY":5,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area3_res/assets/spike.png",
-                        "x_pos":940,
-                        "y_pos":1,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-                    
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area3_res/assets/spike.png",
-                        "x_pos":940,
-                        "y_pos":64,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area3_res/assets/spike.png",
-                        "x_pos":940,
-                        "y_pos":350,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-                    
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area3_res/assets/spike.png",
-                        "x_pos":940,
-                        "y_pos":414,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_2.png",
-                        "x_pos":0,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":1.15,
-                        "scaleY":0.45,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_2.png",
-                        "x_pos":93,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":1.15,
-                        "scaleY":0.45,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_2.png",
-                        "x_pos":186,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":1.15,
-                        "scaleY":0.45,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_2.png",
-                        "x_pos":279,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":1.15,
-                        "scaleY":0.45,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_2.png",
-                        "x_pos":372,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":1.15,
-                        "scaleY":0.45,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_2.png",
-                        "x_pos":465,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":1.15,
-                        "scaleY":0.45,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_2.png",
-                        "x_pos":558,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":1.15,
-                        "scaleY":0.45,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_2.png",
-                        "x_pos":651,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":1.15,
-                        "scaleY":0.45,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_2.png",
-                        "x_pos":744,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":1.15,
-                        "scaleY":0.45,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_2.png",
-                        "x_pos":837,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":1.15,
-                        "scaleY":0.45,
-                        "parentHierarchy":[]
-                    },
-
-
-
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_3.png",
-                        "x_pos":900,
-                        "y_pos":150,
-                        "rotation":0,
-                        "scaleX":1,
-                        "scaleY":0.45,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_3.png",
-                        "x_pos":900,
-                        "y_pos":300,
-                        "rotation":0,
-                        "scaleX":1,
-                        "scaleY":0.45,
-                        "parentHierarchy":[]
-                    },
-
-
-
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_2.png",
-                        "x_pos":0,
-                        "y_pos":456,
-                        "rotation":0,
-                        "scaleX":1.15,
-                        "scaleY":0.45,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_2.png",
-                        "x_pos":93,
-                        "y_pos":456,
-                        "rotation":0,
-                        "scaleX":1.15,
-                        "scaleY":0.45,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_2.png",
-                        "x_pos":406,
-                        "y_pos":456,
-                        "rotation":0,
-                        "scaleX":1.15,
-                        "scaleY":0.45,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_2.png",
-                        "x_pos":724,
-                        "y_pos":456,
-                        "rotation":0,
-                        "scaleX":1.15,
-                        "scaleY":0.45,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_2.png",
-                        "x_pos":817,
-                        "y_pos":456,
-                        "rotation":0,
-                        "scaleX":1.15,
-                        "scaleY":0.45,
-                        "parentHierarchy":[]
-                    },
-
-
-
-
-
-
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"hay",
-                        "filepath":"./resources/Rebound/area3_res/assets/hay.png",
-                        "x_pos":219,
-                        "y_pos":427,
-                        "rotation":0,
-                        "scaleX":0.6,
-                        "scaleY":0.7,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"hay",
-                        "filepath":"./resources/Rebound/area3_res/assets/hay.png",
-                        "x_pos":278,
-                        "y_pos":427,
-                        "rotation":0,
-                        "scaleX":0.6,
-                        "scaleY":0.7,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"hay",
-                        "filepath":"./resources/Rebound/area3_res/assets/hay.png",
-                        "x_pos":337,
-                        "y_pos":427,
-                        "rotation":0,
-                        "scaleX":0.6,
-                        "scaleY":0.7,
-                        "parentHierarchy":[]
-                    },
-
-
-
-
-
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"hay",
-                        "filepath":"./resources/Rebound/area3_res/assets/hay.png",
-                        "x_pos":534,
-                        "y_pos":427,
-                        "rotation":0,
-                        "scaleX":0.6,
-                        "scaleY":0.7,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"hay",
-                        "filepath":"./resources/Rebound/area3_res/assets/hay.png",
-                        "x_pos":593,
-                        "y_pos":427,
-                        "rotation":0,
-                        "scaleX":0.6,
-                        "scaleY":0.7,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"hay",
-                        "filepath":"./resources/Rebound/area3_res/assets/hay.png",
-                        "x_pos":652,
-                        "y_pos":427,
-                        "rotation":0,
-                        "scaleX":0.6,
-                        "scaleY":0.7,
-                        "parentHierarchy":[]
-                    },
-
-
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_5.png",
-                        "x_pos":0,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":0.23,
-                        "scaleY":1.2,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_5.png",
-                        "x_pos":0,
-                        "y_pos":80,
-                        "rotation":0,
-                        "scaleX":0.23,
-                        "scaleY":1.2,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_5.png",
-                        "x_pos":0,
-                        "y_pos":155,
-                        "rotation":0,
-                        "scaleX":0.23,
-                        "scaleY":1.2,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_5.png",
-                        "x_pos":0,
-                        "y_pos":230,
-                        "rotation":0,
-                        "scaleX":0.23,
-                        "scaleY":1.2,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_5.png",
-                        "x_pos":0,
-                        "y_pos":305,
-                        "rotation":0,
-                        "scaleX":0.23,
-                        "scaleY":1.2,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"fence",
-                        "filepath":"./resources/Rebound/area3_res/assets/fence_5.png",
-                        "x_pos":0,
-                        "y_pos":380,
-                        "rotation":0,
-                        "scaleX":0.23,
-                        "scaleY":1.2,
-                        "parentHierarchy":[]
-                    },
-
-
-
-
-                    {
-                        "type":"Poisoner",
-                        "name":"poisoner",
-                        "filepath":"./resources/Rebound/area3_res/assets/poisoner.png",
-                        "x_pos":750,
-                        "y_pos":110,
-                        "rotation":0,
-                        "scaleX":0.4,
-                        "scaleY":0.6,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"Poisoner",
-                        "name":"poisoner",
-                        "filepath":"./resources/Rebound/area3_res/assets/poisoner.png",
-                        "x_pos":750,
-                        "y_pos":310,
-                        "rotation":0,
-                        "scaleX":0.4,
-                        "scaleY":0.6,
-                        "parentHierarchy":[]
-                    }
-                ]
-            }
-        },
-        {
-            "L1":{
-                "speed":1,
-                "objects":[ ]
-            }
-        }
-    ],
-    "Camera":{
-        "camEntrancePivotX":200,
-        "camEntrancePivotY":225,
-        "camEntrancePositionX":200,
-        "camEntrancePositionY":100,
-        "playerEntrancePosX":200,
-        "playerEntrancePosY":250,
-        "camExitPivotX":800,
-        "camExitPivotY":100,
-        "camExitPositionX":800,
-        "camExitPositionY":100,
-        "playerExitPosX":1150,
-        "playerExitPosY":250,
-        "camTopLimit":100,
-        "camBottomLimit":230,
-        "camRightLimit":85000,
-        "camLeftLimit":200
+  "Scene": [
+    {
+      "L0": {
+        "objects": [
+          {
+            "filepath": "./resources/assets/Display_Objects/background_1_wall.png",
+            "name": "background",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "DisplayObject",
+            "x_pos": 0,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/hay.png",
+            "name": "hay1",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 320,
+            "y_pos": 545
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/hay.png",
+            "name": "hay2",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 400,
+            "y_pos": 545
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/hay.png",
+            "name": "hay3",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 480,
+            "y_pos": 545
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/hay.png",
+            "name": "hay4",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 0,
+            "y_pos": 170
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/hay.png",
+            "name": "hay5",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 0,
+            "y_pos": 275
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/hay.png",
+            "name": "hay6",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 0,
+            "y_pos": 380
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/hay.png",
+            "name": "hay6",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 725,
+            "y_pos": 545
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/hay.png",
+            "name": "hay7",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 810,
+            "y_pos": 545
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/hay.png",
+            "name": "hay8",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "DisplayObject",
+            "x_pos": 890,
+            "y_pos": 545
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_5.png",
+            "name": "fence1",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 0,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_5.png",
+            "name": "fence2",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 0,
+            "y_pos": 480
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_4.png",
+            "name": "fence3",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 25,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_4.png",
+            "name": "fence4",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 155,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_4.png",
+            "name": "fence5",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 285,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_4.png",
+            "name": "fence6",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 415,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_4.png",
+            "name": "fence7",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 545,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_4.png",
+            "name": "fence8",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 675,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_4.png",
+            "name": "fence9",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 805,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_4.png",
+            "name": "fence10",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 935,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_4.png",
+            "name": "fence11",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 1065,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_4.png",
+            "name": "fence12",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 1190,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_4.png",
+            "name": "fence13",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 25,
+            "y_pos": 580
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_2.png",
+            "name": "fence14",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 160,
+            "y_pos": 580
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_2.png",
+            "name": "fence15",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 565,
+            "y_pos": 580
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_2.png",
+            "name": "fence16",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 975,
+            "y_pos": 580
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_2.png",
+            "name": "fence17",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 1150,
+            "y_pos": 580
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 1320,
+            "y_pos": 480
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 1320,
+            "y_pos": 560
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 1320,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_3.png",
+            "name": "fence18",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 1265,
+            "y_pos": 190
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/fence_3.png",
+            "name": "fence19",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 1265,
+            "y_pos": 380
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 1320,
+            "y_pos": 80
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/poisoner.png",
+            "name": "poisoner1",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "Poisoner",
+            "x_pos": 1125,
+            "y_pos": 126
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/poisoner.png",
+            "name": "poisoner2",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "Poisoner",
+            "x_pos": 1122,
+            "y_pos": 350
+          }
+        ],
+        "speed": 0.0
+      }
+    },
+    {
+      "L1": {
+        "objects": [],
+        "speed": 0.0
+      }
+    },
+    {
+      "L2": {
+        "objects": [],
+        "speed": 0.0
+      }
     }
+  ],
+  "Camera": {
+    "camEntrancePivotX": 200,
+    "camEntrancePivotY": 225,
+    "camEntrancePositionX": 200,
+    "camEntrancePositionY": 100,
+    "playerEntrancePosX": 200,
+    "playerEntrancePosY": 250,
+    "camExitPivotX": 800,
+    "camExitPivotY": 100,
+    "camExitPositionX": 800,
+    "camExitPositionY": 100,
+    "playerExitPosX": 1150,
+    "playerExitPosY": 250,
+    "camTopLimit": 100,
+    "camBottomLimit": 230,
+    "camRightLimit": 85000,
+    "camLeftLimit": 200
+  }
 }
