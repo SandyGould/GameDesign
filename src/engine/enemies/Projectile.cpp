@@ -45,6 +45,7 @@ double Projectile::aim(std::shared_ptr<DisplayObject> targetSprite){ //Cause a l
 }
 
 void Projectile::reflect() {
+    this->reflected = true;
     this->deltaX = -deltaX;
     this->deltaY = -deltaY;
 }

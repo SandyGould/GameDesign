@@ -16,6 +16,7 @@ class Projectile : public Sprite{
     void fire(double angle); //Every projectile will need to fire at some point
     bool firing;
     bool magic = false;
+    bool reflected = false;
     int deltaX;
     int deltaY;
     double distance(SDL_Point& p1, SDL_Point& p2);

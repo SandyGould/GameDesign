@@ -20,9 +20,11 @@ void BaseEnemy::changeHealth(int amount){
 }
 
 bool BaseEnemy::onCollision(std::shared_ptr<DisplayObject> other){
-     if(other->type == "mage_attack" || other->type == "arrow"){
-        this->changeHealth(-20);
-        other->removeThis();
+     if(other->type == "mage_attack" || other->type == "arrow") {
+        if (std::static_pointer_cast<Projectile>(other)->reflected == true) {
+            this->changeHealth(-20);
+            other->removeThis();
+        }
         return true;
     }
     if(other->type == "rubber_cannonball" || other->type == "cannonball"){
