@@ -6,6 +6,7 @@ target_sources(rebound PRIVATE
         Cannoneer.cpp
         IceAttack.cpp
         KingdomArcher.cpp
+        KingdomKing.cpp
         KingdomMage.cpp
         Knight.cpp
         Mage.cpp
