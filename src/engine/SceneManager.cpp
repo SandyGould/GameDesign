@@ -1,14 +1,7 @@
 #include "SceneManager.h"
 #include "events/NewSceneEvent.h"
-#include "events/TweenEvent.h"
-#include "events/DisplayTreeChangeEvent.h"
-#include "Camera.h"
-#include "things/Player.h"
-#include "tweens/TweenJuggler.h"
 
-#include <string.h>
 #include <iostream>
-#include <SDL2/SDL.h>
 
 
 SceneManager::SceneManager(shared_ptr<Camera> c, shared_ptr<Player> p) {
@@ -185,6 +178,7 @@ void SceneManager::loadFirstScene() {
 void SceneManager::unloadScene() {
     // scene is done; queue fade out transition
     // std::cout << this->currScene->id << std::endl;
+    this->unloading = true;
     EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_OUT_EVENT));
 }
 
@@ -297,6 +291,10 @@ void SceneManager::loadPrevScene() {
 
 
 void SceneManager::updateScene() {
+    if (this->unloading) {
+        return;
+    }
+
     // if forward condition is satisfied, transition to next scene
     if (this->currScene->forward_coord == "x" && this->currScene->forward_comp == ">") {
         if (p->position.x > this->currScene->goForward.x) {
@@ -385,6 +383,8 @@ void SceneManager::handleEvent(Event* e) {
         EventDispatcher::getInstance().removeEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
         // fade out transition - load next scene once this scene transition is done
         if (((TweenEvent*) e)->getTween()->getID() == currScene->id + "_out_transition") {
+            this->unloading = false;
+
             if (this->sceneChange == "previous") {
                 this->loadPrevScene();
             }

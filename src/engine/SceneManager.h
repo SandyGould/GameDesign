@@ -45,6 +45,8 @@ class SceneManager : public EventListener {
 
         shared_ptr<TextBox> new_area_text;
 
+        bool unloading = false;
+
         // miscellaneous things to keep track of
         int totalRoomsCount = 0;
         int areaRoomsCount = 0;
