@@ -22,6 +22,12 @@ void BaseEnemy::changeHealth(int amount){
 bool BaseEnemy::onCollision(std::shared_ptr<DisplayObject> other){
      if(other->type == "mage_attack" || other->type == "arrow") {
         if (std::static_pointer_cast<Projectile>(other)->reflected == true) {
+            damage = std::make_shared<Tween>(shared_from_this());
+            damage->animate(TweenableParams::ALPHA, 255, 40, 48);
+            damage->animate(TweenableParams::ALPHA, 40, 200, 32);
+            damage->animate(TweenableParams::ALPHA, 200, 40, 32);
+            damage->animate(TweenableParams::ALPHA, 40, 255, 48);
+            TweenJuggler::getInstance().add(damage);
             this->changeHealth(-20);
             other->removeThis();
         }

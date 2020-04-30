@@ -12,7 +12,7 @@ Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites
     type = "player";
     this->saveType = this->type;
     hasCollision = true;
-    this->setHitbox(0.32, 0.66, 0.15, 0.98);
+    this->setHitbox(0.1, 0.8, 0.1, 0.9);
 
     history = new std::unordered_set<SDL_Scancode> [HISTORY_SIZE];
     shieldSwitchCooldown = 0;
@@ -33,9 +33,19 @@ void Player::changeHealth(int amount) {
         if (health + amount > 0){
             health += amount;
         }
-        else{health = 0;}
+        else {
+            health = 0;
+        }
     } else {
         health = 100;
+    }
+    if (amount < 0) {
+        damage = std::make_shared<Tween>(shared_from_this());
+        damage->animate(TweenableParams::ALPHA, 255, 40, 48);
+        damage->animate(TweenableParams::ALPHA, 40, 200, 32);
+        damage->animate(TweenableParams::ALPHA, 200, 40, 32);
+        damage->animate(TweenableParams::ALPHA, 40, 255, 48);
+        TweenJuggler::getInstance().add(damage);
     }
 }
 void Player::changeStamina(int amount) {
@@ -43,7 +53,9 @@ void Player::changeStamina(int amount) {
         if (stamina + amount > 0){
             stamina += amount;
         }
-        else{stamina = 0;}
+        else {
+            stamina = 0;
+        }
     } else {
         stamina = 1000;
     }
@@ -61,19 +73,15 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
     int DEAD_ZONE = 10000;
 	if ((pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) || joystickState.xVal1 - DEAD_ZONE > 0) {
 		if (checkDoubleTaps(SDL_SCANCODE_RIGHT) || (joystickState.xVal1 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
-            if (this->current.animName.compare("Slide") != 0){
+            if (this->current.animName.compare("Slide") != 0)
                 this->play("Slide");
-                this->setHitbox(0.28, 0.72, 0.5, 0.98);
-            }
 			this->position.x += this->speed*2;
 			this->changeStamina(-30);
             AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
             return;
 		} else {
-            if (this->current.animName.compare("Run") != 0){
+            if (this->current.animName.compare("Run") != 0)
                 this->play("Run");
-                this->setHitbox(0.46, 0.72, 0.23, 0.98);
-            }
 			this->position.x += this->speed;
 			this->changeStamina(-3);
 		}
@@ -81,19 +89,15 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 	}
     if ((pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) || joystickState.xVal1 + DEAD_ZONE < 0) {
 		if (checkDoubleTaps(SDL_SCANCODE_LEFT) || (joystickState.xVal1 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
-            if (this->current.animName.compare("SlideLeft") != 0){
+            if (this->current.animName.compare("SlideLeft") != 0)
                 this->play("SlideLeft");
-                this->setHitbox(0.28, 0.72, 0.5, 0.98);
-            }
 			this->position.x -= this->speed*2;
 			this->changeStamina(-30);
             AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
             return;
 		} else {
-            if (this->current.animName.compare("RunLeft") != 0){
+            if (this->current.animName.compare("RunLeft") != 0)
                 this->play("RunLeft");
-                this->setHitbox(0.3, 0.56, 0.23, 0.98);
-            }
 			this->position.x -= this->speed;
 			this->changeStamina(-3);
 		}
@@ -101,19 +105,15 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 	}
 	if ((pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) || joystickState.yVal1 - DEAD_ZONE > 0) {
 		if (checkDoubleTaps(SDL_SCANCODE_DOWN) || (joystickState.yVal1 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
-            if (this->current.animName.compare("Slide") != 0){
+            if (this->current.animName.compare("Slide") != 0)
                 this->play("Slide");
-                this->setHitbox(0.28, 0.72, 0.5, 0.98);
-            }
 			this->position.y += this->speed*2;
 			this->changeStamina(-30);
             AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
             return;
 		} else {
-            if (this->current.animName.compare("Run") != 0){
+            if (this->current.animName.compare("Run") != 0)
                 this->play("Run");
-                this->setHitbox(0.46, 0.72, 0.23, 0.98);
-            }
 			this->position.y += this->speed;
 			this->changeStamina(-3);
 		}
@@ -121,19 +121,15 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 	}
 	if ((pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) || joystickState.yVal1 + DEAD_ZONE < 0) {
 		if (checkDoubleTaps(SDL_SCANCODE_UP) || (joystickState.yVal1 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
-            if (this->current.animName.compare("Slide") != 0){
+            if (this->current.animName.compare("Slide") != 0)
                 this->play("Slide");
-                this->setHitbox(0.28, 0.72, 0.5, 0.98);
-            }
 			this->position.y -= this->speed*2;
 			this->changeStamina(-30);
             AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
             return;
 		} else {
-            if (this->current.animName.compare("Run") != 0){
+            if (this->current.animName.compare("Run") != 0)
                 this->play("Run");
-                this->setHitbox(0.46, 0.72, 0.23, 0.98);
-            }
 			this->position.y -= this->speed;
 			this->changeStamina(-3);
 		}
@@ -141,10 +137,8 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 	}
 
     if (idle) {
-        if (this->current.animName.compare("Idle") != 0){
+        if (this->current.animName.compare("Idle") != 0)
             this->play("Idle");
-            this->setHitbox(0.32, 0.66, 0.15, 0.98);
-        }
     }
 
 	// SHIELD CONTROLS

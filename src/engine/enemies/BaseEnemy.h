@@ -7,6 +7,8 @@
 #include "../things/Player.h"
 #include "../Sprite.h"
 #include "Projectile.h"
+#include "../tweens/Tween.h"
+#include "../tweens/TweenJuggler.h"
 
 class BaseEnemy : public AnimatedSprite{
 
@@ -22,6 +24,8 @@ public:
 
     //Knowing about the player is nice :)
     std::shared_ptr<Player> player;
+
+    std::shared_ptr<Tween> damage;
 
     //Info about the Enemies' state
     int health = 100;
