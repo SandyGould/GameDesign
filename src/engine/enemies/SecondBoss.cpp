@@ -6,6 +6,7 @@ using namespace std;
 SecondBoss::SecondBoss(std::shared_ptr<Player> player): BaseEnemy("SecondBoss", "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "SecondBossIdle", player){
     this->type = "second_boss";
     this->saveType = this->type;
+    this->setHitbox(0.1, 0.9, 0.1, 0.9);
 }
 
 void SecondBoss::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
@@ -29,7 +30,7 @@ void SecondBoss::update(const std::unordered_set<SDL_Scancode>& pressedKeys, con
         directionX = this->getGlobalPosition().x - playerLoc.x;
         directionY = this->getGlobalPosition().y - playerLoc.y;
         if(abs(directionX) < 200 && abs(directionY) < 200){
-            this->state = 3;
+            this->state = 4;
             this->actionFrames = 15;
         }
         else{
@@ -67,16 +68,16 @@ void SecondBoss::update(const std::unordered_set<SDL_Scancode>& pressedKeys, con
         }
         else{
             if(directionX > 0){
-                this->position = {this->position.x - 8, this->position.y};
+                this->position = {this->position.x - 2, this->position.y};
             }
             if(directionX < 0){
-                this->position = {this->position.x + 8, this->position.y};
+                this->position = {this->position.x + 2, this->position.y};
             }
             if(directionY > 0){
-                this->position = {this->position.x, this->position.y-8};
+                this->position = {this->position.x, this->position.y-2};
             }
             if(directionY < 0){
-                this->position = {this->position.x, this->position.y+8};
+                this->position = {this->position.x, this->position.y+2};
             }
             directionX = this->getGlobalPosition().x - playerLoc.x;
             directionY = this->getGlobalPosition().y - playerLoc.y;
@@ -89,7 +90,7 @@ void SecondBoss::update(const std::unordered_set<SDL_Scancode>& pressedKeys, con
     else if(this->state == 4){
         this->fire(this->aim(player));
         this->state = 5;
-        this->bounces = 8;
+        this->bounces = 6;
     }
     else if(this->state == 5){
         if(bounces==0){
@@ -109,6 +110,7 @@ void SecondBoss::update(const std::unordered_set<SDL_Scancode>& pressedKeys, con
     if(firing){
         this->position.x+=deltaX;
         this->position.y+=deltaY;
+        // cout << "deltaX: " << deltaX << "\n";
     }
     BaseEnemy::update(pressedKeys, joystickState, pressedButtons);
 }
@@ -116,7 +118,9 @@ void SecondBoss::update(const std::unordered_set<SDL_Scancode>& pressedKeys, con
 
 
 void SecondBoss::fire(double angle){
-    deltaX = velocity * cos(angle * PI / 180);
+    if (deltaX == 0) {
+        deltaX = velocity * cos(angle * PI / 180);
+    }
     deltaY = velocity * -sin(angle * PI / 180);
     firing = true;
 }
@@ -134,8 +138,26 @@ double SecondBoss::aim(std::shared_ptr<DisplayObject> targetSprite){ //Cause a l
     return goalAngle;
 }
 
+void SecondBoss::bounce() {
+    if (bounceCooldown == 0) {
+        this->deltaX = -this->deltaX + rand()%4;
+        this->deltaY = -this->deltaY + rand()%4;
+        bounceCooldown = 12;
+    } else {
+        bounceCooldown--;
+    }
+
+}
+
 //bounes off of literally anything.
 bool SecondBoss::onCollision(std::shared_ptr<DisplayObject> other){
+    BaseEnemy::onCollision(other);
+    if (bounces > 0) {
+        bounces--;
+        bounce();
+    } else {
+        bounces = 4;
+    }
     /*bounces--;
     this->deltaX = -this->deltaX * (bounces/8);
     this->deltaY = -this->deltaY * (bounces/8);

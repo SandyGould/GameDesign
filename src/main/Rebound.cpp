@@ -133,12 +133,12 @@ Rebound::Rebound() : Game(1200, 800) {
 	//
 	// allSprites->addChild(kingdomMage);
 
-	// secondBoss = make_shared<SecondBoss>(player);
-	// secondBoss->position = {600,600};
-	// secondBoss->height = 100;
-	// secondBoss->width = 100;
-	//
-	// allSprites->addChild(secondBoss);
+	secondBoss = make_shared<SecondBoss>(player);
+	secondBoss->position = {600,600};
+	secondBoss->height = 100;
+	secondBoss->width = 100;
+
+	allSprites->addChild(secondBoss);
 
 	collisionSystem->watchForCollisions("player", "arrow");
 	collisionSystem->watchForCollisions("player", "poison_bomb");
@@ -155,6 +155,7 @@ Rebound::Rebound() : Game(1200, 800) {
 	collisionSystem->watchForCollisions("shield", "enemy");
 	collisionSystem->watchForCollisions("shield", "knight");
 	collisionSystem->watchForCollisions("shield", "ogre");
+	collisionSystem->watchForCollisions("shield", "second_boss");
 
 	collisionSystem->watchForCollisions("enemy", "arrow");
 	collisionSystem->watchForCollisions("enemy", "mage_attack");

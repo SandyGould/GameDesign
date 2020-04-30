@@ -15,11 +15,12 @@ class SecondBoss : public BaseEnemy{
         bool onCollision(std::shared_ptr<DisplayObject> other) override;
 
     private:
-        int velocity = 50;
+        int velocity = 20;
         int deltaX = 0;
         int deltaY = 0;
         bool firing =false;
         int actionFrames = 0;
+        int bounceCooldown = 0;
         SDL_Point playerLoc = {0,0};
         int directionX = 0;
         int directionY = 0;
