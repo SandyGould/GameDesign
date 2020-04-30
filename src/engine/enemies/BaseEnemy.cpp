@@ -32,6 +32,14 @@ bool BaseEnemy::onCollision(std::shared_ptr<DisplayObject> other){
             other->removeThis();
         }
         return true;
+    } if (other->type == "WalkOnObject" && other->id == "spike"){
+        damage = std::make_shared<Tween>(shared_from_this());
+        damage->animate(TweenableParams::ALPHA, 255, 40, 48);
+        damage->animate(TweenableParams::ALPHA, 40, 200, 32);
+        damage->animate(TweenableParams::ALPHA, 200, 40, 32);
+        damage->animate(TweenableParams::ALPHA, 40, 255, 48);
+        TweenJuggler::getInstance().add(damage);
+        this->changeHealth(-20);
     }
     if(other->type == "rubber_cannonball" || other->type == "cannonball"){
         this->changeHealth(-100);

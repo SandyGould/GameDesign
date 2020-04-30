@@ -49,9 +49,9 @@ bool WalkOnObject::onCollision(std::shared_ptr<DisplayObject> other){
 		player->speedChange = true;
 		return true;
 	}
-	else if (this->id == "spike" && (other->type == "player" || other->type == "enemy")){
-		auto player = std::static_pointer_cast<Player>(other);
-		player->changeHealth(-100);
+	else if (this->id == "spike" && other->type == "player"){
+			auto player = std::static_pointer_cast<Player>(other);
+			player->changeHealth(-100);
 		return true;
 	}
 	return false;
