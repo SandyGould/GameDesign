@@ -49,7 +49,7 @@ void SceneManager::loadArea(int area, int rooms) {
 
 void SceneManager::loadAllAreas(int areas) {
     // load all the areas into the linked list at once
-    for (int a = 4; a <= areas; a++) {
+    for (int a = 1; a <= areas; a++) {
         loadArea(a, this->numRooms[a-1]);
     }
 }
