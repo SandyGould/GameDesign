@@ -132,7 +132,7 @@ void DisplayObject::removeImmediateChild(const std::shared_ptr<DisplayObject>& c
 void DisplayObject::removeImmediateChild(std::string id) {
     auto it = std::find_if(this->children.cbegin(), this->children.cend(), [&](const auto child) { return child->id == id; });
     if (it != this->children.cend()) {
-        auto* event = new DisplayTreeChangeEvent(*it, true);
+        auto* event = new DisplayTreeChangeEvent(*it, false);
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
 

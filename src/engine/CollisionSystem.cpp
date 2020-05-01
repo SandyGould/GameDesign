@@ -174,7 +174,7 @@ void CollisionSystem::watchForCollisions(const string& type1, const string& type
     collisionTypes.try_emplace(type2, unordered_set<string>({type1}));
 }
 
-void CollisionSystem::pairObjectWithType(shared_ptr<DisplayObject> object, const string& type) {
+void CollisionSystem::pairObjectWithType(const shared_ptr<DisplayObject>& object, const string& type) {
     for (auto& object2 : displayObjectsMap.at(type)) {
         // Here, we sort by type then ID to make sure the unordered_set
         // doesn't contain duplicates.

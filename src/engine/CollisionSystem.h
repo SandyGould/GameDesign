@@ -38,7 +38,7 @@ public:
 private:
     void buildDisplayMap(shared_ptr<DisplayObject> object);
 
-    void pairObjectWithType(shared_ptr<DisplayObject> object, const string& type);
+    void pairObjectWithType(const shared_ptr<DisplayObject>& object, const string& type);
 
     void addObjects(const shared_ptr<DisplayObject>& object);
     void eraseObjects(const shared_ptr<DisplayObject>& object);

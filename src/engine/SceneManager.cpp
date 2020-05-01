@@ -185,7 +185,7 @@ void SceneManager::unloadScene() {
 
 void SceneManager::loadNextScene() {
     // done w/ tween, this scene is no longer a child of camera
-    this->c->removeImmediateChild(this->currScene);
+    this->currScene->removeThis();
 
     // if at the end of the game, create new scene showing a game over message
     if (this->currScene->nextScene == this->tail) {
@@ -199,6 +199,7 @@ void SceneManager::loadNextScene() {
     // advance to next scene and increment current scene counter
     this->currScene = currScene->nextScene;
     this->currRoom++;
+    std::cout << "attempting to load " << this->currScene->id << std::endl;
 
     // if done with this area, advance to next area
     if (this->currRoom > this->areaRoomsCount) {
@@ -373,8 +374,6 @@ void SceneManager::updateScene() {
     //         }
     //         return;
     // }
-
-    //this->collisionSystem->update();
 }
 
 

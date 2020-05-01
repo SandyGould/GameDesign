@@ -27,7 +27,6 @@ public:
 
 	void addEventListener(EventListener* l, std::string eventType);
 	void removeEventListener(EventListener* l, std::string eventType);
-    void newCollisionSystemListener(EventListener* l);
 	bool hasEventListener(EventListener* l, std::string eventType);
 	void dispatchEvent(Event *e);
 
