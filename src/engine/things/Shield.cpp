@@ -40,7 +40,7 @@ void Shield::draw(AffineTransform& at) {
 }
 
 bool Shield::onCollision(std::shared_ptr<DisplayObject> other){
-    if(other->type == "arrow" || other->type== "mage_attack" || other->type == "cannonball" || other->type=="rubber_cannonball" || other->type=="ice_attack"){
+    if(this->visible && (other->type == "arrow" || other->type== "mage_attack" || other->type == "cannonball" || other->type=="rubber_cannonball" || other->type=="ice_attack")){
         if (this->magic == std::static_pointer_cast<Projectile>(other)->magic) {
             std::static_pointer_cast<Projectile>(other)->reflect();
         }
