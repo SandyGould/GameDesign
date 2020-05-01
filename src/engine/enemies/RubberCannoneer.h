@@ -3,7 +3,7 @@
 
 #include "BaseEnemy.h"
 #include "RubberCannonBall.h"
-#include "Sprite.h"
+#include "../Sprite.h"
 
 class RubberCannoneer : public BaseEnemy{
     public:
