@@ -144,6 +144,7 @@ void Rooms::handleEvent(Event* e) {
 
         player_death_tween->animate(TweenableParams::SCALE_X, 1.0, 0.0, 100);
         player_death_tween->animate(TweenableParams::SCALE_Y, 1.0, 0.0, 100);
+        player_death_tween->animate(TweenableParams::ROTATION, 0.0, 4 * PI, 100);
         player_death_tween->animate(TweenableParams::ALPHA, 255, 0, 100);
 
         TweenJuggler::getInstance().add(player_death_tween);
