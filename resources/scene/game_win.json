@@ -1,0 +1,40 @@
+{
+    "Scene":[
+        {
+            "L0":{
+                "objects":[
+                    {
+                        "filepath":"./resources/assets/Display_Objects/treeblock2.png",
+                        "name":"treeblock2_copy",
+                        "rotation":0.0,
+                        "scaleX":5.0,
+                        "scaleY":5.0,"type":"EnvironmentObject","x_pos":0,"y_pos":0}
+                        ,{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":240,"y_pos":0},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":480,"y_pos":0},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":720,"y_pos":0},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":0,"y_pos":80},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":0,"y_pos":160},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":0,"y_pos":240},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":0,"y_pos":400},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":0,"y_pos":480},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":0,"y_pos":320},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":0,"y_pos":560},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":0,"y_pos":880},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":0,"y_pos":640},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":0,"y_pos":800},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":0,"y_pos":720},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":240,"y_pos":880},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":720,"y_pos":880},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":960,"y_pos":880},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":480,"y_pos":880},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":960,"y_pos":640},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":960,"y_pos":160},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":960,"y_pos":320},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":960,"y_pos":560},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":960,"y_pos":480},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":960,"y_pos":720},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":960,"y_pos":0},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":960,"y_pos":80},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":960,"y_pos":800},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":960,"y_pos":400},{"filepath":"./resources/assets/Display_Objects/treeblock2.png","name":"treeblock2_copy_copy_copy_copy","rotation":0.0,"scaleX":5.0,"scaleY":5.0,"type":"EnvironmentObject","x_pos":960,"y_pos":240}],"speed":0.0}},
+            {"L1":{"objects":[
+                {"filepath":"./resources/cameraDemo/cloud.png",
+                    "name":"cloud:)",
+                    "rotation":0.0,
+                    "scaleX":5.0,
+                    "scaleY":5.0,"type":"DisplayObject","x_pos":500,"y_pos":500}
+            ],"speed":0.0}},{"L2":{"objects":[],"speed":0.0}}],
+    "Camera": {
+        "camEntrancePivotX": 0,
+        "camEntrancePivotY": 100,
+        "camEntrancePositionX": 100,
+        "camEntrancePositionY": 100,
+        "playerEntrancePosX": 300,
+        "playerEntrancePosY": 300,
+        "camExitPivotX": 800,
+        "camExitPivotY": 100,
+        "camExitPositionX": 200,
+        "camExitPositionY": 100,
+        "playerExitPosX": 100000,
+        "playerExitPosY": 100000,
+        "playerExitCoord": "x",
+        "playerExitComp": ">",
+        "camTopLimit": 0,
+        "camBottomLimit": 1000,
+        "camRightLimit": 1000,
+        "camLeftLimit": 0
+    }
+}

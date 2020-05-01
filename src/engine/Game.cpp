@@ -117,6 +117,7 @@ void Game::start() {
             case SDL_WINDOWEVENT:
                 if (event.window.event == SDL_WINDOWEVENT_CLOSE) {
                     quit = true;
+                    exit(0);
                 } else if (event.window.event == SDL_WINDOWEVENT_ENTER) {
                     this->modifiers = SDL_GetModState();
                     EventDispatcher::getInstance().dispatchEvent(new WindowEnterEvent(event.window.windowID, this->modifiers));

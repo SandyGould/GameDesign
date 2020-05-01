@@ -179,29 +179,27 @@ void SceneManager::unloadScene() {
 void SceneManager::loadNextScene() {
     // done w/ tween, this scene is no longer a child of camera
     this->currScene->removeThis();
+    bool lol = false;
 
     // if at the end of the game, create new scene showing a game over message
     if (this->currScene->nextScene == this->tail) {
-        this->currScene = std::make_shared<Scene>();
-        new_area_text = std::make_shared<TextBox>("start_text", "Game Over");
-	    new_area_text->position = {300, 200};
-	    this->currScene->addChild(new_area_text);
-        return;
+        auto s = std::make_shared<Scene>("hahahahaha");
+        this->currScene = s;
+        this->currScene->scenePath = "./resources/scene/game_win.json";
+        lol = true;
+    } else{
+        // advance to next scene and increment current scene counter
+        this->currScene = currScene->nextScene;
+        this->currRoom++;
+            // if done with this area, advance to next area
+        if (this->currRoom > this->areaRoomsCount) {
+            this->currArea++;
+            // reset -- on first room of new area
+            this->currRoom = 1;
+            // set area number of rooms based on rooms in current area
+            this->areaRoomsCount = numRooms[this->currArea - 1];
+        }
     }
-
-    // advance to next scene and increment current scene counter
-    this->currScene = currScene->nextScene;
-    this->currRoom++;
-
-    // if done with this area, advance to next area
-    if (this->currRoom > this->areaRoomsCount) {
-        this->currArea++;
-        // reset -- on first room of new area
-        this->currRoom = 1;
-        // set area number of rooms based on rooms in current area
-        this->areaRoomsCount = numRooms[this->currArea - 1];
-    }
-
     // set player and camera
     this->currScene->player = p;
     this->currScene->camera = c;
@@ -229,6 +227,12 @@ void SceneManager::loadNextScene() {
         new_area_text = std::make_shared<TextBox>("start_text", "Area " + std::to_string(this->currArea));
 	    new_area_text->position = {300, 200};
 	    this->currScene->addChild(new_area_text);
+    }
+
+    if (lol){
+        auto text = std::make_shared<TextBox>("win", "Congrats? For winning, enjoy our version of the FFVII Remake!");
+        text->position = {250, 200};
+        this->currScene->addChild(text);
     }
 }
 
