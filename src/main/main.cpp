@@ -4,6 +4,7 @@
 #include "demos/CollisionDemo.h"
 #include "demos/LoadSceneDemo.h"
 #include "demos/HitboxTest.h"
+#include "./TitleScreen.h"
 
 #include <iostream>
 #include <string>
@@ -47,6 +48,8 @@ int main(int argc, char** argv) {
             Rebound().start();
         }
     } else {
+        TitleScreen title;
+        title.begin();
         Rooms().start();
         // Rebound* rebound = new Rebound();
         // rebound->start();
