@@ -1,8 +1,7 @@
 #include "StatBar.h"
-#include "events/GameOverEvent.h"
 
-#include <string>
 #include <iostream>
+#include <string>
 
 StatBar::StatBar(std::string id, std::shared_ptr<Player> player) : StatBar(id, 0, 255, 0, player) {
 }
@@ -64,7 +63,6 @@ void StatBar::updateHealth(){
     }
     else{
         this->bar->scaleX = 0;
-        EventDispatcher::getInstance().dispatchEvent(new Event(GameOverEvent::GAME_OVER_EVENT));
         // std::cout << "Sorry, you're dead! " << std::endl;
         // Potentially add a tween fade out for player
         // EventDispatch death screen

@@ -50,6 +50,8 @@ Game::~Game() {
     // Delete ourselves before SDL destroys our renderer
     this->container.reset();
 
+    EventDispatcher::getInstance().clear();
+
     quitSDL();
 }
 
