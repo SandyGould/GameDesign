@@ -189,7 +189,6 @@ void Game::start() {
             }
         }
     }
-    quitSDL();
 }
 
 void Game::clearRenderers() {
