@@ -300,7 +300,7 @@ void SceneManager::updateScene() {
     if (this->currScene->forward_coord == "x" && this->currScene->forward_comp == ">") {
         if (p->position.x > this->currScene->goForward.x) {
             this->sceneChange = "next";
-            this->currScene->removeImmediateChild(p);
+            this->p->removeThis();
             this->unloadScene();
             return;
         }
@@ -308,7 +308,7 @@ void SceneManager::updateScene() {
     if (this->currScene->forward_coord == "x" && this->currScene->forward_comp == "<") {
         if (p->position.x < this->currScene->goForward.x) {
             this->sceneChange = "next";
-            this->currScene->removeImmediateChild(p);
+            this->p->removeThis();
             this->unloadScene();
             return;
         }
@@ -316,7 +316,7 @@ void SceneManager::updateScene() {
     if (this->currScene->forward_coord == "y" && this->currScene->forward_comp == ">") {
         if (p->position.y > this->currScene->goForward.y) {
             this->sceneChange = "next";
-            this->currScene->removeImmediateChild(p);
+            this->p->removeThis();
             this->unloadScene();
             return;
         }
@@ -324,7 +324,7 @@ void SceneManager::updateScene() {
     if (this->currScene->forward_coord == "y" && this->currScene->forward_comp == "<") {
         if (p->position.y < this->currScene->goForward.y) {
             this->sceneChange = "next";
-            this->currScene->removeImmediateChild(p);
+            this->p->removeThis();
             this->unloadScene();
             return;
         }

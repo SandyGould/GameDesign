@@ -490,13 +490,13 @@ void DisplayObject::handleEvent(Event* e){
 }
 
 // for debugging, don't mind me
-void DisplayObject::printDisplayTreeHelper(std::shared_ptr<DisplayObject> root) {
-    for (auto child : root->children) {
-        this->printDisplayTreeHelper(child);
+void DisplayObject::printDisplayTreeHelper(const std::shared_ptr<DisplayObject>& root, const std::string& indentation) {
+    std::cout << indentation << root->id << std::endl;
+    for (const auto& child : root->children) {
+        this->printDisplayTreeHelper(child, indentation + "  ");
     }
-    std::cout << root->id << std::endl;
 }
 
 void DisplayObject::printDisplayTree() {
-    this->printDisplayTreeHelper(shared_from_this());
+    this->printDisplayTreeHelper(shared_from_this(), "");
 }
