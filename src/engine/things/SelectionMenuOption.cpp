@@ -52,7 +52,6 @@ void SelectionMenuOption::handleEvent(Event* e){
 		else if (this->id == SelectionMenuOption::CONTINUE && this->alpha == 100 &&
 			this->position.x <= event->x && event->x <= this->position.x + this->width &&
 			this->position.y <= event->y && event->y <= this->position.y + this->height){
-				printf("This will let you continue once we have that implemented. Sorry.\n");
 			EventDispatcher::getInstance().dispatchEvent(new Event(RestartEvent::RESTART_EVENT));
 		}
 	}

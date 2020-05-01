@@ -369,14 +369,13 @@ void SceneManager::handleEvent(Event* e) {
             EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_IN_EVENT));
             // Event will get auto-removed by DisplayObject
         }
-    }
-    else if(e->getType() == RestartEvent::RESTART_EVENT)
-    {
+    } else if(e->getType() == RestartEvent::RESTART_EVENT) {
         p->alive = true;
+        this->currScene->removeThis();
         this->currScene = this->currScene->prevScene;
         this->currRoom--;
         this->loadNextScene();
-        this->currScene->addChild(p);
+        // this->currScene->addChild(p);
         //this->loadPrevScene();
         //this->loadNextScene();    
     }

@@ -194,13 +194,10 @@ void Rooms::handleEvent(Event* e) {
         player->alive = true;
         auto player_spawn_tween = std::make_shared<Tween>("player_spawn_tween", player);
 
-    player_spawn_tween->animate(TweenableParams::SCALE_X, 5.0, 1.0, 100);
-    player_spawn_tween->animate(TweenableParams::SCALE_Y, 5.0, 1.0, 100);
-    player_spawn_tween->animate(TweenableParams::ALPHA, 0, 255, 100);
+        player_spawn_tween->animate(TweenableParams::SCALE_X, 5.0, 1.0, 100);
+        player_spawn_tween->animate(TweenableParams::SCALE_Y, 5.0, 1.0, 100);
+        player_spawn_tween->animate(TweenableParams::ALPHA, 0, 255, 100);
 
         TweenJuggler::getInstance().add(player_spawn_tween);
-      //  player = std::make_shared<Player>();
-       // player->position = {50, 250};
-   // player->pivot = {50, 50};
     }
 }

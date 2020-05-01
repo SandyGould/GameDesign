@@ -125,6 +125,8 @@ void DisplayObject::removeImmediateChild(const std::shared_ptr<DisplayObject>& c
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
 
+        (*it)->parent = nullptr;
+
         objectsToErase.push(*it);
     }
 }
@@ -136,6 +138,8 @@ void DisplayObject::removeImmediateChild(std::string id) {
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
 
+        (*it)->parent = nullptr;
+
         objectsToErase.push(*it);
     }
 }
@@ -145,6 +149,8 @@ void DisplayObject::removeChild(size_t index) {
         auto* event = new DisplayTreeChangeEvent(children[index], false);
         EventDispatcher::getInstance().dispatchEvent(event);
         delete event;
+
+        children[index]->parent = nullptr;
 
         objectsToErase.push(*(children.begin() + index));
     }
@@ -193,22 +199,23 @@ std::shared_ptr<DisplayObject> DisplayObject::getChild(const std::string& id) co
 }
 
 void DisplayObject::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
-    // Add new children
-     for (const auto& object : objectsToAdd) {
-         children.emplace_back(object);
-     }
-     objectsToAdd.clear();
-
     for (const auto& child : children) {
         child->update(pressedKeys, joystickState, pressedButtons);
     }
 
     // Clear ourselves of any deleted children
-     while (!objectsToErase.empty()) {
-         children.erase(remove(children.begin(), children.end(), objectsToErase.front()),
-                        children.cend());
-         objectsToErase.pop();
+    while (!objectsToErase.empty()) {
+        children.erase(remove(children.begin(), children.end(), objectsToErase.front()),
+                       children.cend());
+        objectsToErase.pop();
     }
+
+    // Add new children
+    for (const auto& object : objectsToAdd) {
+        std::cout << "Adding " << object->id << std::endl;
+        children.emplace_back(object);
+    }
+    objectsToAdd.clear();
 }
 
 void DisplayObject::draw(AffineTransform& at) {
