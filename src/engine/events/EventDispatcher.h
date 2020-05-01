@@ -29,6 +29,7 @@ public:
 	void addEventListener(EventListener* l, std::string eventType);
 	void removeEventListener(EventListener* l, std::string eventType);
 	bool hasEventListener(EventListener* l, std::string eventType);
+    void clear();
 	void dispatchEvent(Event *e);
 
 private:

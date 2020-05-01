@@ -31,6 +31,10 @@ bool EventDispatcher::hasEventListener(EventListener* l, std::string eventType) 
     return std::find(vl.cbegin(), vl.cend(), l) != vl.cend();
 }
 
+void EventDispatcher::clear() {
+    listeners.clear();
+}
+
 void EventDispatcher::dispatchEvent(Event* e) {
     if (!listeners.count(e->getType())) {
         return;
