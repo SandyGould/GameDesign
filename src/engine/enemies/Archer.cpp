@@ -45,7 +45,7 @@ void Archer::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
         this->state = 2;
     }
     else if(this->state == 2){ //"knock" arrow
-        this->arrow = std::make_shared<Arrow>(10);
+        this->arrow = std::make_shared<Arrow>(2);
         if(this->facingRight){
             arrow->facingRight = true;
         }
@@ -57,8 +57,7 @@ void Archer::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
         if(this->actionFrames ==0){
             this->state = 4;
         }
-        else{
-            arrow->drawBack(); //Slowly draw back for a few frames :)
+        else{ //Slowly draw back for a few frames :)
             this->actionFrames--;
         }
     }

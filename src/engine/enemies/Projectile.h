@@ -17,6 +17,7 @@ class Projectile : public Sprite{
     bool firing;
     bool magic = false;
     bool reflected = false;
+    int lifetime = 600;
     int deltaX;
     int deltaY;
     double distance(SDL_Point& p1, SDL_Point& p2);
