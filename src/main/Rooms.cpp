@@ -1,17 +1,12 @@
 #include "Rooms.h"
 
+#include "../engine/events/GameOverEvent.h"
 #include "../engine/events/KeyDownEvent.h"
 #include "../engine/events/MouseDownEvent.h"
-#include "../engine/events/TweenEvent.h"
-#include "../engine/tweens/TweenParam.h"
-#include "../engine/tweens/TweenJuggler.h"
-#include "../engine/events/NewSceneEvent.h"
-#include "../engine/SceneManager.h"
+#include "../engine/events/PlayerDeathEvent.h"
 
-
-#include <algorithm>
-#include <iostream>
 #include <cmath>
+#include <iostream>
 
 using namespace std;
 
@@ -87,15 +82,16 @@ Rooms::Rooms() : Game(600, 500) {
 	container->addChild(health);
 
 	// tween stuff
-	player_tween = std::make_shared<Tween>("player_tween", player);
+	auto player_spawn_tween = std::make_shared<Tween>("player_spawn_tween", player);
 
-    player_tween->animate(TweenableParams::SCALE_X, 5.0, 1.0, 100);
-	player_tween->animate(TweenableParams::SCALE_Y, 5.0, 1.0, 100);
-	player_tween->animate(TweenableParams::ALPHA, 0, 255, 100);
+    player_spawn_tween->animate(TweenableParams::SCALE_X, 5.0, 1.0, 100);
+	player_spawn_tween->animate(TweenableParams::SCALE_Y, 5.0, 1.0, 100);
+	player_spawn_tween->animate(TweenableParams::ALPHA, 0, 255, 100);
 
-    TweenJuggler::getInstance().add(player_tween);
+    TweenJuggler::getInstance().add(player_spawn_tween);
     EventDispatcher::getInstance().addEventListener(this->start_text_box.get(), TweenEvent::TWEEN_COMPLETE_EVENT);
 
+    EventDispatcher::getInstance().addEventListener(this, PlayerDeathEvent::PLAYER_DEATH_EVENT);
 
 	this->sceneManager = std::make_shared<SceneManager>(camera, player);
 	// load the entire first area
@@ -139,4 +135,31 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 
 void Rooms::draw(AffineTransform& at) {
 	Game::draw(at);
+}
+void Rooms::handleEvent(Event* e) {
+    if (e->getType() == PlayerDeathEvent::PLAYER_DEATH_EVENT) {
+        EventDispatcher::getInstance().removeEventListener(this, PlayerDeathEvent::PLAYER_DEATH_EVENT);
+
+        auto player_death_tween = std::make_shared<Tween>("player_death_tween", player);
+
+        player_death_tween->animate(TweenableParams::SCALE_X, 1.0, 0.0, 100);
+        player_death_tween->animate(TweenableParams::SCALE_Y, 1.0, 0.0, 100);
+        player_death_tween->animate(TweenableParams::ALPHA, 255, 0, 100);
+
+        TweenJuggler::getInstance().add(player_death_tween);
+
+        EventDispatcher::getInstance().addEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
+    } else if (e->getType() == TweenEvent::TWEEN_COMPLETE_EVENT) {
+        auto* event = static_cast<TweenEvent*>(e);
+        if (event->getTween()->getID() == "player_death_tween") {
+            EventDispatcher::getInstance().removeEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
+
+            // Crashes
+            // player->removeThis();
+
+            auto* gameOverEvent = new GameOverEvent();
+            EventDispatcher::getInstance().dispatchEvent(gameOverEvent);
+            delete gameOverEvent;
+        }
+    }
 }
