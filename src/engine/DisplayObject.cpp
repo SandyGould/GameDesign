@@ -74,7 +74,6 @@ DisplayObject::DisplayObject(const DisplayObject& other) : enable_shared_from_th
 }
 
 DisplayObject::~DisplayObject() {
-    std::cout << "Deleting " << this->id << std::endl;
     if (image != nullptr) {
         SDL_FreeSurface(image);
     }
@@ -208,7 +207,6 @@ void DisplayObject::update(const std::unordered_set<SDL_Scancode>& pressedKeys, 
      while (!objectsToErase.empty()) {
          children.erase(remove(children.begin(), children.end(), objectsToErase.front()),
                         children.cend());
-         std::cout << objectsToErase.front()->id << " has " << objectsToErase.front().use_count() << std::endl;
          objectsToErase.pop();
     }
 }
