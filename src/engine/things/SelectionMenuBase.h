@@ -12,7 +12,7 @@ class SelectionMenuBase : public DisplayObject {
 public:
 
 	SelectionMenuBase();
-
+	string id = "";
 	void update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) override;
 	void draw(AffineTransform& at) override;
 

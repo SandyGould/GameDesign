@@ -14,6 +14,7 @@ public:
 
 	inline static const std::string QUIT = "selection_menu_quit_option";
 	inline static const std::string RESUME = "selection_menu_resume_option";
+	inline static const std::string CONTINUE = "selection_menu_continue_option";
 	inline static const std::string START = "selection_menu_start_option";
 
 	SelectionMenuOption(string id, string text);

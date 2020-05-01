@@ -1,17 +1,23 @@
 #include "Rooms.h"
 
-#include "../engine/events/GameOverEvent.h"
 #include "../engine/events/KeyDownEvent.h"
 #include "../engine/events/MouseDownEvent.h"
-#include "../engine/events/PlayerDeathEvent.h"
+#include "../engine/events/TweenEvent.h"
+#include "../engine/tweens/TweenParam.h"
+#include "../engine/tweens/TweenJuggler.h"
+#include "../engine/events/NewSceneEvent.h"
+#include "../engine/SceneManager.h"
 
-#include <cmath>
+
+#include <algorithm>
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
 Rooms::Rooms() : Game(600, 500) {
 	instance = this;
+	EventDispatcher::getInstance().addEventListener(this, GameOverEvent::GAME_OVER_EVENT);
 
     // create collision system
     this->collisionSystem = std::make_unique<CollisionSystem>();
@@ -77,23 +83,47 @@ Rooms::Rooms() : Game(600, 500) {
 	EventDispatcher::getInstance().addEventListener(this->selection_resume_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);
 	EventDispatcher::getInstance().addEventListener(this->selection_quit_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);
 
+	//Game Over menu
+	gameover_base = std::make_shared<SelectionMenuBase>();
+	gameover_base->width = 600;
+	gameover_base->height = 500;
+	container->addChild(gameover_base);
+
+	gameover_resume_option = std::make_shared<SelectionMenuOption>(SelectionMenuOption::CONTINUE, "Continue");
+	gameover_resume_option->width = 200;
+	gameover_resume_option->height = 50;
+	gameover_resume_option->position = {200, 200};
+	gameover_resume_option->alpha = 0;
+	gameover_base->addChild(gameover_resume_option);
+
+	gameover_quit_option = std::make_shared<SelectionMenuOption>(SelectionMenuOption::QUIT, "Quit");
+	gameover_quit_option->width = 200;
+	gameover_quit_option->height = 50;
+	gameover_quit_option->position = {200, 300};
+	gameover_quit_option->alpha = 0;
+	gameover_base->addChild(gameover_quit_option);
+
+	EventDispatcher::getInstance().addEventListener(this->gameover_base.get(), GameOverEvent::GAME_OVER_EVENT);
+	EventDispatcher::getInstance().addEventListener(this->gameover_resume_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);
+	EventDispatcher::getInstance().addEventListener(this->gameover_quit_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);
+
+
 	// health bar
 	health = std::make_shared<StatBar>("Health", "./resources/Rebound/greenbar (3).png", player);
 	container->addChild(health);
 
 	// tween stuff
-	auto player_spawn_tween = std::make_shared<Tween>("player_spawn_tween", player);
+	player_tween = std::make_shared<Tween>("player_tween", player);
 
-    player_spawn_tween->animate(TweenableParams::SCALE_X, 5.0, 1.0, 100);
-	player_spawn_tween->animate(TweenableParams::SCALE_Y, 5.0, 1.0, 100);
-	player_spawn_tween->animate(TweenableParams::ALPHA, 0, 255, 100);
+    player_tween->animate(TweenableParams::SCALE_X, 5.0, 1.0, 100);
+	player_tween->animate(TweenableParams::SCALE_Y, 5.0, 1.0, 100);
+	player_tween->animate(TweenableParams::ALPHA, 0, 255, 100);
 
-    TweenJuggler::getInstance().add(player_spawn_tween);
+    TweenJuggler::getInstance().add(player_tween);
     EventDispatcher::getInstance().addEventListener(this->start_text_box.get(), TweenEvent::TWEEN_COMPLETE_EVENT);
 
-    EventDispatcher::getInstance().addEventListener(this, PlayerDeathEvent::PLAYER_DEATH_EVENT);
 
-	this->sceneManager = std::make_unique<SceneManager>(camera, player);
+	this->sceneManager = std::make_shared<SceneManager>(camera, player);
 	// load the entire first area
 	this->sceneManager->loadAllAreas(4);
 	// load first scene
@@ -137,30 +167,10 @@ void Rooms::draw(AffineTransform& at) {
 	Game::draw(at);
 }
 
-void Rooms::handleEvent(Event* e) {
-    if (e->getType() == PlayerDeathEvent::PLAYER_DEATH_EVENT) {
-        EventDispatcher::getInstance().removeEventListener(this, PlayerDeathEvent::PLAYER_DEATH_EVENT);
-
-        auto player_death_tween = std::make_shared<Tween>("player_death_tween", player);
-
-        player_death_tween->animate(TweenableParams::SCALE_X, 1.0, 0.0, 100);
-        player_death_tween->animate(TweenableParams::SCALE_Y, 1.0, 0.0, 100);
-        player_death_tween->animate(TweenableParams::ROTATION, 0.0, 4 * PI, 100);
-        player_death_tween->animate(TweenableParams::ALPHA, 255, 0, 100);
-
-        TweenJuggler::getInstance().add(player_death_tween);
-
-        EventDispatcher::getInstance().addEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
-    } else if (e->getType() == TweenEvent::TWEEN_COMPLETE_EVENT) {
-        auto* event = static_cast<TweenEvent*>(e);
-        if (event->getTween()->getID() == "player_death_tween") {
-            EventDispatcher::getInstance().removeEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
-
-            player->removeThis();
-
-            auto* gameOverEvent = new GameOverEvent();
-            EventDispatcher::getInstance().dispatchEvent(gameOverEvent);
-            delete gameOverEvent;
-        }
-    }
+void Rooms::handleEvent(Event* e)
+{
+	 if (e->getType() == GameOverEvent::GAME_OVER_EVENT){	
+	 
+	 
+	 }
 }

@@ -1,6 +1,7 @@
 #include "SelectionMenuBase.h"
 #include "SelectionMenuOption.h"
 #include "../events/KeyDownEvent.h"
+#include "../events/GameOverEvent.h"
 
 SelectionMenuBase::SelectionMenuBase() : DisplayObject("selection_menu", 0, 0, 0) {
 	this->alpha = 0;
@@ -15,7 +16,7 @@ void SelectionMenuBase::draw(AffineTransform& at) {
 }
 
 void SelectionMenuBase::handleEvent(Event* e){
-	if (e->getType() == KeyDownEvent::ESC_DOWN_EVENT){
+	if (e->getType() == KeyDownEvent::ESC_DOWN_EVENT || e->getType() == GameOverEvent::GAME_OVER_EVENT){
 		alpha = alpha ^ 50;
 		for(auto child: children){
 			if(auto c = dynamic_pointer_cast<SelectionMenuOption>(child)){
@@ -25,4 +26,5 @@ void SelectionMenuBase::handleEvent(Event* e){
 			}
 		}
 	}
+	
 }
