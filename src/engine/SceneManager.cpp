@@ -43,7 +43,7 @@ void SceneManager::loadArea(int area, int rooms) {
         this->addScene(scene);
     }
     // reset current room number to 1
-    this->currRoom = 2;
+    this->currRoom = 1;
 }
 
 
