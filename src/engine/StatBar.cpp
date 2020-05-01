@@ -1,7 +1,5 @@
 #include "StatBar.h"
 
-#include "events/PlayerDeathEvent.h"
-
 #include <iostream>
 #include <string>
 
@@ -65,7 +63,6 @@ void StatBar::updateHealth(){
     }
     else{
         this->bar->scaleX = 0;
-        EventDispatcher::getInstance().dispatchEvent(new Event(PlayerDeathEvent::PLAYER_DEATH_EVENT));
         // std::cout << "Sorry, you're dead! " << std::endl;
         // Potentially add a tween fade out for player
         // EventDispatch death screen

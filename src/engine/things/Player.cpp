@@ -1,6 +1,9 @@
 #include "Player.h"
-#include <iostream>
+
 #include "../enemies/MageAttack.h"
+#include "../events/PlayerDeathEvent.h"
+
+#include <iostream>
 
 #define HISTORY_SIZE 8
 #define BASH_COOLDOWN 40
@@ -35,6 +38,7 @@ void Player::changeHealth(int amount) {
         }
         else {
             health = 0;
+            EventDispatcher::getInstance().dispatchEvent(new Event(PlayerDeathEvent::PLAYER_DEATH_EVENT));
         }
     } else {
         health = 100;

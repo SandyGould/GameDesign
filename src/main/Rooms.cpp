@@ -93,7 +93,7 @@ Rooms::Rooms() : Game(600, 500) {
 
     EventDispatcher::getInstance().addEventListener(this, PlayerDeathEvent::PLAYER_DEATH_EVENT);
 
-	this->sceneManager = std::make_shared<SceneManager>(camera, player);
+	this->sceneManager = std::make_unique<SceneManager>(camera, player);
 	// load the entire first area
 	this->sceneManager->loadAllAreas(4);
 	// load first scene
@@ -136,6 +136,7 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 void Rooms::draw(AffineTransform& at) {
 	Game::draw(at);
 }
+
 void Rooms::handleEvent(Event* e) {
     if (e->getType() == PlayerDeathEvent::PLAYER_DEATH_EVENT) {
         EventDispatcher::getInstance().removeEventListener(this, PlayerDeathEvent::PLAYER_DEATH_EVENT);
