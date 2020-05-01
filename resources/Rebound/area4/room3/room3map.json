@@ -4,7 +4,7 @@
       "L0": {
         "objects": [
           {
-            "filepath": "./resources/assets/Display_Objects/background_4_3.png",
+            "filepath": "./resources/Rebound/area4/assets/background_4_3.png",
             "name": "background_4_3_copy",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -14,7 +14,7 @@
             "y_pos": 175
           },
           {
-            "filepath": "./resources/assets/Display_Objects/topwall.png",
+            "filepath": "./resources/Rebound/area4/assets/topwall.png",
             "name": "topwall",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -24,7 +24,7 @@
             "y_pos": 0
           },
           {
-            "filepath": "./resources/assets/Display_Objects/bottomwall.png",
+            "filepath": "./resources/Rebound/area4/assets/bottomwall.png",
             "name": "bottomwall",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -34,7 +34,7 @@
             "y_pos": 540
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -44,7 +44,7 @@
             "y_pos": 179
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -54,7 +54,7 @@
             "y_pos": 259
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -64,7 +64,7 @@
             "y_pos": 339
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -74,7 +74,7 @@
             "y_pos": 179
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -84,7 +84,7 @@
             "y_pos": 259
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -94,7 +94,7 @@
             "y_pos": 339
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -104,7 +104,7 @@
             "y_pos": 383
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -114,7 +114,7 @@
             "y_pos": 303
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -124,7 +124,7 @@
             "y_pos": 463
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -134,7 +134,7 @@
             "y_pos": 385
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -144,7 +144,7 @@
             "y_pos": 305
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -154,22 +154,22 @@
             "y_pos": 465
           },
           {
-            "filepath": "./resources/assets/Display_Objects/cannon.png",
+            "filepath": "./resources/Rebound/area4/assets/cannon.png",
             "name": "cannon",
             "rotation": 0.0,
             "scaleX": 4.0,
             "scaleY": 4.0,
-            "type": "Cannoneer",
+            "type": "EnvironmentObject",
             "x_pos": 1032,
             "y_pos": 296
           },
           {
-            "filepath": "./resources/assets/Display_Objects/kingdom_archer.png",
-            "name": "kingdom_archer",
+            "filepath": "./resources/assets/Display_Objects/cannonneer.png",
+            "name": "cannonneer",
             "rotation": 0.0,
             "scaleX": 4.0,
             "scaleY": 4.0,
-            "type": "KingdomArcher",
+            "type": "Cannonneer",
             "x_pos": 1192,
             "y_pos": 308
           },

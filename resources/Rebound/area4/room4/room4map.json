@@ -4,7 +4,7 @@
       "L0": {
         "objects": [
           {
-            "filepath": "./resources/assets/Display_Objects/background_4_3.png",
+            "filepath": "./resources/Rebound/area4/assets/background_4_3.png",
             "name": "background",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -14,7 +14,7 @@
             "y_pos": 170
           },
           {
-            "filepath": "./resources/assets/Display_Objects/topwall.png",
+            "filepath": "./resources/Rebound/area4/assets/topwall.png",
             "name": "topwall",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -24,7 +24,7 @@
             "y_pos": 0
           },
           {
-            "filepath": "./resources/assets/Display_Objects/exit.png",
+            "filepath": "./resources/Rebound/area4/assets/exit.png",
             "name": "exit",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -34,7 +34,7 @@
             "y_pos": 495
           },
           {
-            "filepath": "./resources/assets/Display_Objects/bottomwall_small.png",
+            "filepath": "./resources/Rebound/area4/assets/bottomwall_small.png",
             "name": "bottomwall1",
             "rotation": 0.0,
             "scaleX": 5.5,
@@ -44,7 +44,7 @@
             "y_pos": 545
           },
           {
-            "filepath": "./resources/assets/Display_Objects/bottomwall_small.png",
+            "filepath": "./resources/Rebound/area4/assets/bottomwall_small.png",
             "name": "bottomwall2",
             "rotation": 0.0,
             "scaleX": 5.5,
@@ -54,7 +54,7 @@
             "y_pos": 545
           },
           {
-            "filepath": "./resources/assets/Display_Objects/bottomwall_small.png",
+            "filepath": "./resources/Rebound/area4/assets/bottomwall_small.png",
             "name": "bottomwall3",
             "rotation": 0.0,
             "scaleX": 5.5,
@@ -64,7 +64,7 @@
             "y_pos": 545
           },
           {
-            "filepath": "./resources/assets/Display_Objects/bottomwall_small.png",
+            "filepath": "./resources/Rebound/area4/assets/bottomwall_small.png",
             "name": "bottomwall4",
             "rotation": 0.0,
             "scaleX": 5.5,
@@ -74,7 +74,7 @@
             "y_pos": 545
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -84,7 +84,7 @@
             "y_pos": 265
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -94,7 +94,7 @@
             "y_pos": 425
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -104,7 +104,7 @@
             "y_pos": 265
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -114,7 +114,7 @@
             "y_pos": 425
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -124,7 +124,7 @@
             "y_pos": 265
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,

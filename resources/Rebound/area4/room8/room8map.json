@@ -4,7 +4,7 @@
       "L0": {
         "objects": [
           {
-            "filepath": "./resources/assets/Display_Objects/background_4_8.png",
+            "filepath": "./resources/Rebound/area4/assets/background_4_8.png",
             "name": "background",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -14,7 +14,7 @@
             "y_pos": 0
           },
           {
-            "filepath": "./resources/assets/Display_Objects/wall4_8_2.png",
+            "filepath": "./resources/Rebound/area4/assets/wall4_8_2.png",
             "name": "wall1",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -24,7 +24,7 @@
             "y_pos": 0
           },
           {
-            "filepath": "./resources/assets/Display_Objects/wall4_8_3.png",
+            "filepath": "./resources/Rebound/area4/assets/wall4_8_3.png",
             "name": "wall2",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -34,7 +34,7 @@
             "y_pos": 0
           },
           {
-            "filepath": "./resources/assets/Display_Objects/wall4_8_1.png",
+            "filepath": "./resources/Rebound/area4/assets/wall4_8_1.png",
             "name": "wall3",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -44,7 +44,7 @@
             "y_pos": 610
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -54,7 +54,7 @@
             "y_pos": 100
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -64,7 +64,7 @@
             "y_pos": 100
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -74,7 +74,7 @@
             "y_pos": 530
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -84,7 +84,7 @@
             "y_pos": 530
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -94,7 +94,7 @@
             "y_pos": 100
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -104,7 +104,7 @@
             "y_pos": 100
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -114,7 +114,7 @@
             "y_pos": 530
           },
           {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "filepath": "./resources/Rebound/area4/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,

@@ -4,7 +4,7 @@
       "L0": {
         "objects": [
           {
-            "filepath": "./resources/assets/Display_Objects/background4_5.png",
+            "filepath": "./resources/Rebound/area4/assets/background4_5.png",
             "name": "background",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -14,7 +14,7 @@
             "y_pos": 0
           },
           {
-            "filepath": "./resources/assets/Display_Objects/leftwall.png",
+            "filepath": "./resources/Rebound/area4/assets/leftwall.png",
             "name": "leftwall",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -24,7 +24,7 @@
             "y_pos": 16
           },
           {
-            "filepath": "./resources/assets/Display_Objects/rightwall.png",
+            "filepath": "./resources/Rebound/area4/assets/rightwall.png",
             "name": "rightwall",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -34,7 +34,7 @@
             "y_pos": 16
           },
           {
-            "filepath": "./resources/assets/Display_Objects/woodwallbottom.png",
+            "filepath": "./resources/Rebound/area4/assets/woodwallbottom.png",
             "name": "woodwallbottom",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -44,7 +44,7 @@
             "y_pos": 546
           },
           {
-            "filepath": "./resources/assets/Display_Objects/bottomwall_small.png",
+            "filepath": "./resources/Rebound/area4/assets/bottomwall_small.png",
             "name": "bottomwall_small",
             "rotation": 0.0,
             "scaleX": 5.25,
@@ -54,7 +54,7 @@
             "y_pos": 540
           },
           {
-            "filepath": "./resources/assets/Display_Objects/stone_wall_w.png",
+            "filepath": "./resources/Rebound/area4/assets/stone_wall_w.png",
             "name": "stone_wall",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -64,7 +64,7 @@
             "y_pos": 540
           },
           {
-            "filepath": "./resources/assets/Display_Objects/border.png",
+            "filepath": "./resources/Rebound/area4/assets/border.png",
             "name": "border1",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -74,7 +74,7 @@
             "y_pos": 5
           },
           {
-            "filepath": "./resources/assets/Display_Objects/border.png",
+            "filepath": "./resources/Rebound/area4/assets/border.png",
             "name": "border2",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -84,7 +84,7 @@
             "y_pos": 5
           },
           {
-            "filepath": "./resources/assets/Display_Objects/health.png",
+            "filepath": "./resources/Rebound/area4/assets/health.png",
             "name": "potion",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -94,7 +94,7 @@
             "y_pos": 290
           },
           {
-            "filepath": "./resources/assets/Display_Objects/health.png",
+            "filepath": "./resources/Rebound/area4/assets/health.png",
             "name": "potion",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -104,7 +104,7 @@
             "y_pos": 290
           },
           {
-            "filepath": "./resources/assets/Display_Objects/health.png",
+            "filepath": "./resources/Rebound/area4/assets/health.png",
             "name": "potion",
             "rotation": 0.0,
             "scaleX": 5.0,
