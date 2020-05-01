@@ -233,6 +233,7 @@ void DisplayObject::draw(AffineTransform& at) {
             flip = SDL_FLIP_HORIZONTAL;
         }
 
+        SDL_SetTextureBlendMode(curTexture, SDL_BLENDMODE_BLEND);
         SDL_SetTextureAlphaMod(curTexture, alpha);
         SDL_RenderCopyEx(renderer, curTexture, sourceRect, &dstrect, calculateRotation(origin, upperRight), &corner, flip);
     }
