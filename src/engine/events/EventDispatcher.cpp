@@ -1,5 +1,7 @@
 #include "EventDispatcher.h"
 
+#include <algorithm>
+
 EventDispatcher::EventDispatcher() {}
 
 void EventDispatcher::addEventListener(EventListener* l, std::string eventType) {
