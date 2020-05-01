@@ -7,9 +7,9 @@
 #include <set>
 #include <unordered_set>
 #include <vector>
-#include "../engine/events/EventListener.h"
-#include "../engine/things/SelectionMenuBase.h"
-#include "../engine/things/SelectionMenuOption.h"
+#include "./events/EventListener.h"
+#include "./things/SelectionMenuBase.h"
+#include "./things/SelectionMenuOption.h"
 #include "../engine/events/KeyDownEvent.h"
 #include "../engine/events/MouseDownEvent.h"
 #include "../engine/things/TextBox.h"
