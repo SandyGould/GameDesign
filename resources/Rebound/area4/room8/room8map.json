@@ -154,22 +154,12 @@
             "y_pos": 431
           },
           {
-            "filepath": "./resources/assets/Display_Objects/cannon.png",
-            "name": "cannonneer",
+            "filepath": "./resources/assets/Display_Objects/cannoneer.png",
+            "name": "cannoneer",
             "rotation": 0.0,
             "scaleX": 4.0,
             "scaleY": 4.0,
-            "type": "Cannonneer",
-            "x_pos": 392,
-            "y_pos": 295
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/kingdom_archer.png",
-            "name": "kingdom_archer",
-            "rotation": 0.0,
-            "scaleX": 4.0,
-            "scaleY": 4.0,
-            "type": "KingdomArcher",
+            "type": "Cannoneer",
             "x_pos": 327,
             "y_pos": 309
           },

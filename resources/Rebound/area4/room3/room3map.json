@@ -154,22 +154,12 @@
             "y_pos": 465
           },
           {
-            "filepath": "./resources/Rebound/area4/assets/cannon.png",
-            "name": "cannon",
+            "filepath": "./resources/assets/Display_Objects/cannoneer.png",
+            "name": "cannoneer",
             "rotation": 0.0,
             "scaleX": 4.0,
             "scaleY": 4.0,
-            "type": "EnvironmentObject",
-            "x_pos": 1032,
-            "y_pos": 296
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/cannonneer.png",
-            "name": "cannonneer",
-            "rotation": 0.0,
-            "scaleX": 4.0,
-            "scaleY": 4.0,
-            "type": "Cannonneer",
+            "type": "Cannoneer",
             "x_pos": 1192,
             "y_pos": 308
           },
