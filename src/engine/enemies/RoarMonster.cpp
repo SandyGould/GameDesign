@@ -17,6 +17,7 @@ Ded
 void RoarMonster::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
     if(this->health <= 0) {
         this->removeThis();
+        this->player->numOpponents -= 1;
         return;
     }
 

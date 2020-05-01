@@ -26,6 +26,7 @@ public:
 	bool speedChange = false;
 	int health = 100;
 	int stamina = 1000;
+	int numOpponents = 0;
 
 private:
 	int shieldSwitchCooldown;
