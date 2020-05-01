@@ -18,7 +18,11 @@ void EventDispatcher::removeEventListener(EventListener* l, std::string eventTyp
         return;
     }
 
-    listenersToErase.push(l);
+    if (listenersToErase.find(eventType) == listenersToErase.cend()) {
+        listenersToErase.try_emplace(eventType, std::queue<EventListener*>({l}));
+    } else {
+        listenersToErase.at(eventType).push(l);
+    }
 }
 
 bool EventDispatcher::hasEventListener(EventListener* l, std::string eventType) {
@@ -36,16 +40,22 @@ void EventDispatcher::clear() {
 }
 
 void EventDispatcher::dispatchEvent(Event* e) {
-    if (!listeners.count(e->getType())) {
+    std::string type = e->getType();
+
+    auto it = listeners.find(type);
+    if (it == listeners.cend()) {
         return;
     }
 
-    for (auto listener : listeners.at(e->getType())) {
+    auto vl = it->second;
+    for (auto listener : vl) {
         listener->handleEvent(e);
     }
 
-    while (!listenersToErase.empty()) {
-        listeners.at(e->getType()).erase(std::find(listeners.at(e->getType()).begin(), listeners.at(e->getType()).end(), listenersToErase.front()));
-        listenersToErase.pop();
+    if (listenersToErase.find(type) != listenersToErase.cend()) {
+        while (!listenersToErase.at(type).empty()) {
+            vl.erase(std::find(vl.cbegin(), vl.cend(), listenersToErase.at(type).front()));
+            listenersToErase.at(type).pop();
+        }
     }
 }

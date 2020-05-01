@@ -155,8 +155,7 @@ void Rooms::handleEvent(Event* e) {
         if (event->getTween()->getID() == "player_death_tween") {
             EventDispatcher::getInstance().removeEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
 
-            // Crashes
-            // player->removeThis();
+            player->removeThis();
 
             auto* gameOverEvent = new GameOverEvent();
             EventDispatcher::getInstance().dispatchEvent(gameOverEvent);

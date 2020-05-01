@@ -38,7 +38,7 @@ private:
     /* List of listeners */
 	std::unordered_map<std::string, std::vector<EventListener*>> listeners;
 
-    std::queue<EventListener*> listenersToErase;
+    std::unordered_map<std::string, std::queue<EventListener*>> listenersToErase;
 };
 
 #endif
