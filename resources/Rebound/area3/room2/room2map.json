@@ -273,6 +273,8 @@
     "camExitPositionY": 100,
     "playerExitPosX": 1150,
     "playerExitPosY": 250,
+    "playerExitCoord": "x",
+    "playerExitComp": ">",
     "camTopLimit": 250,
     "camBottomLimit": 300,
     "camRightLimit": 950,

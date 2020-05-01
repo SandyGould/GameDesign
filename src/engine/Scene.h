@@ -91,7 +91,6 @@ public:
   */
 
 	// for scene transitions
-	bool keepScene = false;
 	std::shared_ptr<Player> player;
 	std::shared_ptr<Camera> camera;
 
@@ -100,26 +99,30 @@ public:
 	std::shared_ptr<Scene> nextScene = NULL;
 
 	// define SDL points for advancing to next scene, or going back to previous scene
-	SDL_Point goForward = {1200,200};
-	SDL_Point goBack = {0,200};
-	// define when you could go forward and backward
-	std::string forward_coord = std::string("x"); // 1 for x
-	std::string forward_comp = std::string(">"); // 2 for greater than
+	SDL_Point goForward = {1000,1000};
+	SDL_Point goBack = {0,0};
+	
+	// conditions for going on to the next scene
+	std::string forward_coord = std::string("x"); // i.e, go on to next scene when the player x is greater than goForward.x
+	std::string forward_comp = std::string(">"); 
+	
+	// conditions for going back to the previous scene
 	std::string back_coord = std::string("x");
-	std::string back_comp = std::string("<"); // 1 for less than 
+	std::string back_comp = std::string("<"); 
 
 	// starting camera positions
-	SDL_Point camEntrancePivot = {200,100};
-	SDL_Point camEntrancePosition = {200,100};
-	// starting player position
-	SDL_Point playerEntrancePos = {50,250};
-
-	// ending camera positions
-	SDL_Point camExitPivot = {800,100};
-	SDL_Point camExitPosition = {200,100};
+	SDL_Point camEntrancePivot = {0,0};
+	SDL_Point camEntrancePosition = {0,0};
 	
 	// starting player position
-	SDL_Point playerExitPos = {1150,250};
+	SDL_Point playerEntrancePos = {0,0};
+
+	// ending camera positions
+	SDL_Point camExitPivot = {0,0};
+	SDL_Point camExitPosition = {0,0};
+	
+	// starting player position
+	SDL_Point playerExitPos = {0,0};
 	
 	std::string scenePath = "";
 
