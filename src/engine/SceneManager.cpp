@@ -10,8 +10,8 @@ SceneManager::SceneManager(shared_ptr<Camera> c, shared_ptr<Player> p) {
     // scene pointers - head and tail are dummy scene nodes
     this->head = std::make_shared<Scene>("empty_scene_head");
     this->tail = std::make_shared<Scene>("empty_scene_tail");
-    this->currScene = NULL;
-    this->iter = NULL;
+    this->currScene = nullptr;
+    this->iter = nullptr;
     // set up linked list
     this->head->nextScene = this->tail;
     this->tail->prevScene = this->head;
@@ -34,8 +34,11 @@ void SceneManager::loadArea(int area, int rooms) {
     // load in all rooms for this area
     for (int i = 1; i <= rooms; i++) {
         std::string roomNo = std::to_string(i);
-        auto scene = std::make_shared<Scene>("area" + areaNo + "scene" + roomNo);
-        scene->scenePath = std::string("./resources/Rebound/area" + areaNo + "/room" + roomNo + "/room" + roomNo + "map.json");
+        auto scene = std::make_shared<Scene>("area"s.append(areaNo).append("scene").append(roomNo));
+        scene->scenePath = "./resources/Rebound/area"s
+                               .append(areaNo).append("/room")
+                               .append(roomNo).append("/room")
+                               .append(roomNo).append("map.json");
         // add current scene to SceneManager's scenes
         this->addScene(scene);
     }
@@ -67,14 +70,14 @@ void SceneManager::loadNewArea(int area, int rooms) { // not functioning correct
     //     }
     //     else {
     //         this->iter->scenePath = std::string("./resources/Rebound/area" + areaNo + "/room" + roomNo + "/room" + roomNo + "map.json");
-    //     }   
+    //     }
     // }
     // this->currRoom = 1;
 }
 
 void SceneManager::clearList() {
     this->iter = this->head->nextScene;
-    while (this->iter->nextScene != NULL) {
+    while (this->iter->nextScene != nullptr) {
         this->deleteScene(this->iter->id);
         this->iter = this->iter->nextScene;
     }
@@ -104,7 +107,7 @@ void SceneManager::addScene(shared_ptr<Scene> scene) { // insert at tail
     this->tail->prevScene->nextScene = newScene;
     this->tail->prevScene = newScene;
     // we have one more room scene in the list
-    this->totalRoomsCount++;    
+    this->totalRoomsCount++;
 }
 
 
@@ -143,15 +146,15 @@ void SceneManager::loadFirstScene() {
     // set player and camera
     this->currScene->player = p;
     this->currScene->camera = c;
-    
+
     // load the first scene from the JSON file
     this->currScene->loadScene(this->currScene->scenePath);
-	
+
     // load player info from scene object
     p->position = this->currScene->playerEntrancePos;
     p->width = p->height = 50;
     this->currScene->addChild(p);
-    
+
     // load camera info from scene object
     // set camera limits - still need to do
     c->position = this->currScene->camEntrancePosition;
@@ -198,11 +201,11 @@ void SceneManager::loadNextScene() {
         // set area number of rooms based on rooms in current area
         this->areaRoomsCount = numRooms[this->currArea - 1];
     }
-    
+
     // set player and camera
     this->currScene->player = p;
     this->currScene->camera = c;
-    
+
     // load the scene from JSON file
     this->currScene->loadScene(this->currScene->scenePath);
 
@@ -234,7 +237,7 @@ void SceneManager::loadPrevScene() {
     // go back to previous scene and decrement current scene counter
     this->currScene = currScene->prevScene;
     this->currRoom--;
-    
+
     // set player and camera
     this->currScene->player = p;
     this->currScene->camera = c;
@@ -242,7 +245,7 @@ void SceneManager::loadPrevScene() {
     // load player info from scene object
     p->position = this->currScene->playerExitPos;
     this->currScene->addChild(p);
-    
+
     // load camera info from scene object
     // set camera limits - still need to do
     c->position = this->currScene->camExitPosition;
@@ -296,7 +299,7 @@ void SceneManager::updateScene() {
             return;
         }
     }
-    
+
     // std::cout << "x" << std::endl;
     // std::cout << this->p->position.x << std::endl;
     // std::cout << "y" << std::endl;
