@@ -26,11 +26,12 @@ public:
 	bool speedChange = false;
 	int health = 100;
 	int stamina = 1000;
+	bool alive = true;
 
 private:
 	int shieldSwitchCooldown;
 	int shieldBashCooldown;
-	bool alive = true;
+	
 	void cannonBallHit(std::shared_ptr<DisplayObject> other);
 	std::unordered_set<SDL_Scancode>* history;
 

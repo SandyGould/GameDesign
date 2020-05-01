@@ -1,6 +1,6 @@
 #include "SceneManager.h"
 #include "events/NewSceneEvent.h"
-
+#include "events/RestartEvent.h"
 #include <iostream>
 
 
@@ -18,6 +18,7 @@ SceneManager::SceneManager(shared_ptr<Camera> c, shared_ptr<Player> p) {
 
     // add tween complete event for scene manager
     EventDispatcher::getInstance().addEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
+     EventDispatcher::getInstance().addEventListener(this, RestartEvent::RESTART_EVENT);
 }
 
 
@@ -364,5 +365,15 @@ void SceneManager::handleEvent(Event* e) {
             EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_IN_EVENT));
             // Event will get auto-removed by DisplayObject
         }
+    }
+    else if(e->getType() == RestartEvent::RESTART_EVENT)
+    {
+        p->alive = true;
+        this->currScene = this->currScene->prevScene;
+        this->currRoom--;
+        this->loadNextScene();
+        this->currScene->addChild(p);
+        //this->loadPrevScene();
+        //this->loadNextScene();    
     }
 }

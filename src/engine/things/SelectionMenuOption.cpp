@@ -4,6 +4,7 @@
 #include "../events/KeyDownEvent.h"
 #include "../events/GameStartEvent.h"
 #include "../events/GameOverEvent.h"
+#include "../events/RestartEvent.h"
 
 #include <iostream>
 
@@ -52,7 +53,7 @@ void SelectionMenuOption::handleEvent(Event* e){
 			this->position.x <= event->x && event->x <= this->position.x + this->width &&
 			this->position.y <= event->y && event->y <= this->position.y + this->height){
 				printf("This will let you continue once we have that implemented. Sorry.\n");
-			//EventDispatcher::getInstance().dispatchEvent(new Event(KeyDownEvent::ESC_DOWN_EVENT));
+			EventDispatcher::getInstance().dispatchEvent(new Event(RestartEvent::RESTART_EVENT));
 		}
 	}
 	
