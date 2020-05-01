@@ -5,7 +5,10 @@
 #define ATTACK_CHARGE 120
 #define ATTACK_COOLDOWN 221
 
-Mage::Mage(std::shared_ptr<Player> player) : BaseEnemy("mage", "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "MageIdle", player) {
+static int mage_count = 1;
+
+Mage::Mage(std::shared_ptr<Player> player) : BaseEnemy("mage" + std::to_string(mage_count), "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "MageIdle", player) {
+    mage_count++;
     hasCollision = true;
     this->saveType = "mage";
     this->mageAttack = nullptr;
@@ -25,6 +28,7 @@ Ded*/
 void Mage::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
     if(this->health <= 0) {
         this->removeThis();
+        this->player->numOpponents -= 1;
         return;
     }
 

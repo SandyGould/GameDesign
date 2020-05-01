@@ -30,6 +30,8 @@ public:
     //Info about the Enemies' state
     int health = 100;
     int state = 0;
+private:
+    int collisionWaitTime = 0;
 
 };
 

@@ -20,5 +20,5 @@ public:
 	bool onCollision(std::shared_ptr<DisplayObject> other) override;
 
 private:
-
+	int collisionWaitTime = 0;
 };

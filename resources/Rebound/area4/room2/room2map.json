@@ -1,171 +1,223 @@
 {
-    "Scene":[
-        {
-            "L0":{
-                "speed":1,
-                "objects":[
-                    {
-                        "type":"Sprite",
-                        "name":"background",
-                        "filepath":"./resources/Rebound/area4/assets/background_4_2.png",
-                        "x_pos":0,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":10,
-                        "scaleY":5,
-                        "parentHierarchy":[]
-                    },
-                    
-
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"Wall Tower",
-                        "filepath":"./resources/Rebound/area4/assets/walltower.png",
-                        "x_pos":470,
-                        "y_pos":210,
-                        "rotation":0,
-                        "scaleX":1,
-                        "scaleY":2,
-                        "parentHierarchy":[]  
-                    },
-
-                    {
-                        "type":"Sprite",
-                        "name":"knight",
-                        "filepath":"./resources/Rebound/area4/assets/knight.png",
-                        "x_pos":380,
-                        "y_pos":230,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":3,
-                        "parentHierarchy":[]  
-                    },
-
-                    {
-                        "type":"Sprite",
-                        "name":"knight",
-                        "filepath":"./resources/Rebound/area4/assets/knight.png",
-                        "x_pos":380,
-                        "y_pos":310,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":3,
-                        "parentHierarchy":[]  
-                    },
-
-                    {
-                        "type":"Sprite",
-                        "name":"knight",
-                        "filepath":"./resources/Rebound/area4/assets/knight.png",
-                        "x_pos":715,
-                        "y_pos":270,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":3,
-                        "parentHierarchy":[]  
-                    },
-
-
-                    {
-                        "type":"Sprite",
-                        "name":"archer",
-                        "filepath":"./resources/Rebound/area4/assets/archer.png",
-                        "x_pos":930,
-                        "y_pos":115,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":3,
-                        "parentHierarchy":[]
-                    },
-
-                    {
-                        "type":"Sprite",
-                        "name":"archer",
-                        "filepath":"./resources/Rebound/area4/assets/archer.png",
-                        "x_pos":930,
-                        "y_pos":345,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":3,
-                        "parentHierarchy":[]
-                    },
-
-
-                    {
-                        "type":"Sprite",
-                        "name":"Wizard",
-                        "filepath":"./resources/Rebound/area4/assets/wizard.png",
-                        "x_pos":690,
-                        "y_pos":150,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":3,
-                        "parentHierarchy":[]
-                    },
-
-                    {
-                        "type":"Sprite",
-                        "name":"Wizard",
-                        "filepath":"./resources/Rebound/area4/assets/wizard.png",
-                        "x_pos":690,
-                        "y_pos":365,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":3,
-                        "parentHierarchy":[]
-                    },
-
-                    {
-                        "type":"Sprite",
-                        "name":"archer",
-                        "filepath":"./resources/Rebound/area4/assets/archer.png",
-                        "x_pos":175,
-                        "y_pos":120,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":3,
-                        "parentHierarchy":[]
-                    },
-
-                    {
-                        "type":"Sprite",
-                        "name":"archer",
-                        "filepath":"./resources/Rebound/area4/assets/archer.png",
-                        "x_pos":175,
-                        "y_pos":395,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":3,
-                        "parentHierarchy":[]
-                    }
-                ]
-            }
-        },
-        {
-            "L1":{
-                "speed":1,
-                "objects":[ ]
-            }
-        }
-    ],
-    "Camera":{
-        "camEntrancePivotX":200,
-        "camEntrancePivotY":240,
-        "camEntrancePositionX":200,
-        "camEntrancePositionY":100,
-        "playerEntrancePosX":50,
-        "playerEntrancePosY":350,
-        "camExitPivotX":800,
-        "camExitPivotY":100,
-        "camExitPositionX":800,
-        "camExitPositionY":100,
-        "playerExitPosX":1150,
-        "playerExitPosY":250,
-        "playerExitCoord": "x",
-        "playerExitComp": ">",
-        "camTopLimit": 100,
-        "camBottomLimit": 240,
-        "camRightLimit": 2400,
-        "camLeftLimit": 200
+  "Scene": [
+    {
+      "L0": {
+        "objects": [
+          {
+            "filepath": "./resources/Rebound/area4/assets/background_4_2.png",
+            "name": "background",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "DisplayObject",
+            "x_pos": 0,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/Rebound/area4/assets/stonetower2.png",
+            "name": "stonetower2",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 0,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/Rebound/area4/assets/stonetowertop.png",
+            "name": "stonetowertop",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 0,
+            "y_pos": 540
+          },
+          {
+            "filepath": "./resources/Rebound/area4/assets/stonewall2.png",
+            "name": "stonewall2",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 211,
+            "y_pos": 585
+          },
+          {
+            "filepath": "./resources/Rebound/area4/assets/stonewall1.png",
+            "name": "stonewall1",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 215,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/Rebound/area4/assets/column.png",
+            "name": "column1",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 1169,
+            "y_pos": 498
+          },
+          {
+            "filepath": "./resources/Rebound/area4/assets/halfwall.png",
+            "name": "halfwall",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 1165,
+            "y_pos": -30
+          },
+          {
+            "filepath": "./resources/Rebound/area4/assets/column.png",
+            "name": "column2",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 1170,
+            "y_pos": 40
+          },
+          {
+            "filepath": "./resources/Rebound/area4/assets/walltower copy.png",
+            "name": "walltower1",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 595,
+            "y_pos": 125
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/knight.png",
+            "name": "knight_copy",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "knight",
+            "x_pos": 460,
+            "y_pos": 251
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/knight.png",
+            "name": "knight1",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "Knight",
+            "x_pos": 467,
+            "y_pos": 375
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/kingdom_archer.png",
+            "name": "kingdom_archer1",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "KingdomArcher",
+            "x_pos": 279,
+            "y_pos": 129
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/kingdom_archer.png",
+            "name": "kingdom_archer2",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "KingdomArcher",
+            "x_pos": 288,
+            "y_pos": 501
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/wizard.png",
+            "name": "wizard1",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "KingdomMage",
+            "x_pos": 972,
+            "y_pos": 166
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/wizard.png",
+            "name": "wizard2",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "KingdomMage",
+            "x_pos": 976,
+            "y_pos": 465
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/knight.png",
+            "name": "knight2",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "Knight",
+            "x_pos": 1067,
+            "y_pos": 327
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/kingdom_archer.png",
+            "name": "kingdom_archer3",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "KingdomArcher",
+            "x_pos": 1267,
+            "y_pos": 154
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/kingdom_archer.png",
+            "name": "kingdom_archer4",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "KingdomArcher",
+            "x_pos": 1260,
+            "y_pos": 500
+          }
+        ],
+        "speed": 0.0
+      }
+    },
+    {
+      "L1": {
+        "objects": [],
+        "speed": 0.0
+      }
+    },
+    {
+      "L2": {
+        "objects": [],
+        "speed": 0.0
+      }
     }
+  ],
+  "Camera": {
+    "camEntrancePivotX": 200,
+    "camEntrancePivotY": 240,
+    "camEntrancePositionX": 200,
+    "camEntrancePositionY": 100,
+    "playerEntrancePosX": 50,
+    "playerEntrancePosY": 350,
+    "camExitPivotX": 800,
+    "camExitPivotY": 100,
+    "camExitPositionX": 800,
+    "camExitPositionY": 100,
+    "playerExitPosX": 1150,
+    "playerExitPosY": 250,
+    "playerExitCoord": "x",
+    "playerExitComp": ">",
+    "camTopLimit": 100,
+    "camBottomLimit": 240,
+    "camRightLimit": 2400,
+    "camLeftLimit": 200
+  }
 }

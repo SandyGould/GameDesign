@@ -27,6 +27,7 @@ public:
 	int health = 100;
 	int stamina = 1000;
 	bool alive = true;
+	int numOpponents = 0;
 
 private:
 	int shieldSwitchCooldown;

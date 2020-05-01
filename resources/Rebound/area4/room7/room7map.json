@@ -1,177 +1,153 @@
 {
-    "Scene":[
-        {
-            "L0":{
-                "speed":1,
-                "objects":[
-                    
-                    {
-                        "type":"Sprite",
-                        "name":"background",
-                        "filepath":"./resources/Rebound/area4/assets/background4_5.png",
-                        "x_pos":0,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":10,
-                        "scaleY":5,
-                        "parentHierarchy":[]
-                    },
-
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"Wood Wall",
-                        "filepath":"./resources/Rebound/area4/assets/woodwallbottom.png",
-                        "x_pos":0,
-                        "y_pos":420,
-                        "rotation":0,
-                        "scaleX":3.5,
-                        "scaleY":0.8,
-                        "parentHierarchy":[]
-                    },
-
-
-
-
-
-
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"Wood Wall",
-                        "filepath":"./resources/Rebound/area4/assets/woodwallbottom.png",
-                        "x_pos":650,
-                        "y_pos":420,
-                        "rotation":0,
-                        "scaleX":3.5,
-                        "scaleY":0.8,
-                        "parentHierarchy":[]
-                    },
-
-
-
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"Half Wall",
-                        "filepath":"./resources/Rebound/area4/assets/halfwall.png",
-                        "x_pos":0,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":1.5,
-                        "parentHierarchy":[]
-                    },
-
-
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"Half Wall",
-                        "filepath":"./resources/Rebound/area4/assets/halfwall.png",
-                        "x_pos":670,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":1.5,
-                        "parentHierarchy":[]
-                    },
-
-
-
-
-
-
-
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"border",
-                        "filepath":"./resources/Rebound/area4/assets/border.png",
-                        "x_pos":0,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":0.35,
-                        "scaleY":5,
-                        "parentHierarchy":[]
-                    },
-
-
-
-
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"border",
-                        "filepath":"./resources/Rebound/area4/assets/border.png",
-                        "x_pos":965,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":0.35,
-                        "scaleY":5,
-                        "parentHierarchy":[]
-                    },
-
-
-                    {
-                        "type":"WalkOnObject",
-                        "name":"potion",
-                        "filepath":"./resources/Rebound/area4/assets/potion.png",
-                        "x_pos":500,
-                        "y_pos":250,
-                        "rotation":0,
-                        "scaleX":0.3,
-                        "scaleY":0.3,
-                        "parentHierarchy":[]
-                    },
-
-                    {
-                        "type":"WalkOnObject",
-                        "name":"potion",
-                        "filepath":"./resources/Rebound/area4/assets/potion.png",
-                        "x_pos":620,
-                        "y_pos":250,
-                        "rotation":0,
-                        "scaleX":0.3,
-                        "scaleY":0.3,
-                        "parentHierarchy":[]
-                    },
-
-
-                    {
-                        "type":"WalkOnObject",
-                        "name":"potion",
-                        "filepath":"./resources/Rebound/area4/assets/potion.png",
-                        "x_pos":380,
-                        "y_pos":250,
-                        "rotation":0,
-                        "scaleX":0.3,
-                        "scaleY":0.3,
-                        "parentHierarchy":[]
-                    }
-
-                ]
-            }
-        },
-        {
-            "L1":{
-                "speed":1,
-                "objects":[ ]
-            }
-        }
-    ],
-    "Camera":{
-        "camEntrancePivotX":200,
-        "camEntrancePivotY":240,
-        "camEntrancePositionX":200,
-        "camEntrancePositionY":100,
-        "playerEntrancePosX":150,
-        "playerEntrancePosY":350,
-        "camExitPivotX":800,
-        "camExitPivotY":100,
-        "camExitPositionX":800,
-        "camExitPositionY":100,
-        "playerExitPosX":1150,
-        "playerExitPosY":250,
-        "playerExitCoord": "x",
-        "playerExitComp": ">",
-        "camTopLimit": 100,
-        "camBottomLimit": 240,
-        "camRightLimit": 2375,
-        "camLeftLimit": 200
+  "Scene": [
+    {
+      "L0": {
+        "objects": [
+          {
+            "filepath": "./resources/Rebound/area4/assets/background4_5.png",
+            "name": "background",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "DisplayObject",
+            "x_pos": 0,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/Rebound/area4/assets/leftwall.png",
+            "name": "leftwall",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 0,
+            "y_pos": 16
+          },
+          {
+            "filepath": "./resources/Rebound/area4/assets/rightwall.png",
+            "name": "rightwall",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 960,
+            "y_pos": 16
+          },
+          {
+            "filepath": "./resources/Rebound/area4/assets/woodwallbottom.png",
+            "name": "woodwallbottom",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 960,
+            "y_pos": 546
+          },
+          {
+            "filepath": "./resources/Rebound/area4/assets/bottomwall_small.png",
+            "name": "bottomwall_small",
+            "rotation": 0.0,
+            "scaleX": 5.25,
+            "scaleY": 5.25,
+            "type": "EnvironmentObject",
+            "x_pos": 160,
+            "y_pos": 540
+          },
+          {
+            "filepath": "./resources/Rebound/area4/assets/stone_wall_w.png",
+            "name": "stone_wall",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 35,
+            "y_pos": 540
+          },
+          {
+            "filepath": "./resources/Rebound/area4/assets/border.png",
+            "name": "border1",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 1358,
+            "y_pos": 5
+          },
+          {
+            "filepath": "./resources/Rebound/area4/assets/border.png",
+            "name": "border2",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 0,
+            "y_pos": 5
+          },
+          {
+            "filepath": "./resources/Rebound/area4/assets/health.png",
+            "name": "potion",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 535,
+            "y_pos": 290
+          },
+          {
+            "filepath": "./resources/Rebound/area4/assets/health.png",
+            "name": "potion",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 695,
+            "y_pos": 290
+          },
+          {
+            "filepath": "./resources/Rebound/area4/assets/health.png",
+            "name": "potion",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 855,
+            "y_pos": 290
+          }
+        ],
+        "speed": 0.0
+      }
+    },
+    {
+      "L1": {
+        "objects": [],
+        "speed": 0.0
+      }
+    },
+    {
+      "L2": {
+        "objects": [],
+        "speed": 0.0
+      }
     }
+  ],
+  "Camera": {
+    "camEntrancePivotX": 200,
+    "camEntrancePivotY": 240,
+    "camEntrancePositionX": 200,
+    "camEntrancePositionY": 100,
+    "playerEntrancePosX": 695,
+    "playerEntrancePosY": 100,
+    "camExitPivotX": 800,
+    "camExitPivotY": 100,
+    "camExitPositionX": 800,
+    "camExitPositionY": 100,
+    "playerExitPosX": 695,
+    "playerExitPosY": 560,
+    "playerExitCoord": "y",
+    "playerExitComp": ">",
+    "camTopLimit": 100,
+    "camBottomLimit": 240,
+    "camRightLimit": 2400,
+    "camLeftLimit": 200
+  }
 }
