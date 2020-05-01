@@ -79,7 +79,7 @@ void TitleScreen::handleEvent(Event* e)
     } else if (e->getType() == GameStartEvent::GAME_START_EVENT){
         printf("Got start event");
         // EventDispatcher::getInstance().dispatchEvent(new GameQuitEvent());
-        // this->quit();
-        Rooms().start();
+        this->quit = true;
+        // Rooms().start();
     } 
 }
