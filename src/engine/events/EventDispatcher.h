@@ -29,6 +29,7 @@ public:
 	void addEventListener(EventListener* l, std::string eventType);
 	void removeEventListener(EventListener* l, std::string eventType);
 	bool hasEventListener(EventListener* l, std::string eventType);
+    void clear();
 	void dispatchEvent(Event *e);
 
 private:
@@ -37,7 +38,7 @@ private:
     /* List of listeners */
 	std::unordered_map<std::string, std::vector<EventListener*>> listeners;
 
-    std::queue<EventListener*> listenersToErase;
+    std::unordered_map<std::string, std::queue<EventListener*>> listenersToErase;
 };
 
 #endif

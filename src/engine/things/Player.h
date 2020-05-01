@@ -30,7 +30,7 @@ public:
 private:
 	int shieldSwitchCooldown;
 	int shieldBashCooldown;
-	bool hit;
+	bool alive = true;
 	void cannonBallHit(std::shared_ptr<DisplayObject> other);
 	std::unordered_set<SDL_Scancode>* history;
 

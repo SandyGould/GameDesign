@@ -59,6 +59,8 @@ public:
     virtual void draw_post(){};
     void handleEvent(Event* e) override;
 
+    bool quit = false;
+
 private:
     std::unordered_set<SDL_Scancode> pressedKeys;
 

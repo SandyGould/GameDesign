@@ -300,10 +300,10 @@ void SceneManager::updateScene() {
         }
     }
 
-    std::cout << "x" << std::endl;
-    std::cout << this->c->pivot.x << std::endl;
-    std::cout << "y" << std::endl;
-    std::cout << this->c->pivot.y << std::endl;
+    // std::cout << "x" << std::endl;
+    // std::cout << this->p->position.x << std::endl;
+    // std::cout << "y" << std::endl;
+    // std::cout << this->p->position.y << std::endl;
 
     // // if backward condition is satisfied, go back to previous scene
     // if (this->currScene->back_coord == "x" && this->currScene->back_comp == ">") {
