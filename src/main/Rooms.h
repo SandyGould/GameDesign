@@ -16,6 +16,7 @@
 #include "../engine/things/TextBox.h"
 #include "../engine/tweens/Tween.h"
 #include "../engine/tweens/TweenJuggler.h"
+#include "../engine/events/GameOverEvent.h"
 
 class Rooms : public Game {
 
@@ -24,6 +25,7 @@ public:
 
     void update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) override;
 	void draw(AffineTransform& at) override;
+    void handleEvent(Event * e) override;
 
 private:
     bool esc_prepressed = false;
@@ -40,6 +42,11 @@ private:
     std::shared_ptr<SelectionMenuBase> selection_menu_base;
     std::shared_ptr<SelectionMenuOption> selection_quit_option;
     std::shared_ptr<SelectionMenuOption> selection_resume_option;
+
+
+    std::shared_ptr<SelectionMenuBase> gameover_base;
+    std::shared_ptr<SelectionMenuOption> gameover_quit_option;
+    std::shared_ptr<SelectionMenuOption> gameover_resume_option;
 
     std::shared_ptr<Scene> scene;
     std::shared_ptr<Scene> scene2;
