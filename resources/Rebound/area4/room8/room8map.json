@@ -4,18 +4,18 @@
       "L0": {
         "objects": [
           {
-            "filepath": "./resources/assets/Display_Objects/background_4_3.png",
-            "name": "background_4_3_copy",
+            "filepath": "./resources/assets/Display_Objects/background_4_8.png",
+            "name": "background",
             "rotation": 0.0,
             "scaleX": 5.0,
             "scaleY": 5.0,
             "type": "DisplayObject",
             "x_pos": 0,
-            "y_pos": 175
+            "y_pos": 0
           },
           {
-            "filepath": "./resources/assets/Display_Objects/topwall.png",
-            "name": "topwall",
+            "filepath": "./resources/assets/Display_Objects/wall4_8_2.png",
+            "name": "wall1",
             "rotation": 0.0,
             "scaleX": 5.0,
             "scaleY": 5.0,
@@ -24,14 +24,24 @@
             "y_pos": 0
           },
           {
-            "filepath": "./resources/assets/Display_Objects/bottomwall.png",
-            "name": "bottomwall",
+            "filepath": "./resources/assets/Display_Objects/wall4_8_3.png",
+            "name": "wall2",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 955,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/wall4_8_1.png",
+            "name": "wall3",
             "rotation": 0.0,
             "scaleX": 5.0,
             "scaleY": 5.0,
             "type": "EnvironmentObject",
             "x_pos": 0,
-            "y_pos": 540
+            "y_pos": 610
           },
           {
             "filepath": "./resources/assets/Display_Objects/spike.png",
@@ -40,8 +50,8 @@
             "scaleX": 5.0,
             "scaleY": 5.0,
             "type": "WalkOnObject",
-            "x_pos": 479,
-            "y_pos": 179
+            "x_pos": 155,
+            "y_pos": 100
           },
           {
             "filepath": "./resources/assets/Display_Objects/spike.png",
@@ -50,8 +60,8 @@
             "scaleX": 5.0,
             "scaleY": 5.0,
             "type": "WalkOnObject",
-            "x_pos": 479,
-            "y_pos": 259
+            "x_pos": 235,
+            "y_pos": 100
           },
           {
             "filepath": "./resources/assets/Display_Objects/spike.png",
@@ -60,8 +70,8 @@
             "scaleX": 5.0,
             "scaleY": 5.0,
             "type": "WalkOnObject",
-            "x_pos": 479,
-            "y_pos": 339
+            "x_pos": 130,
+            "y_pos": 530
           },
           {
             "filepath": "./resources/assets/Display_Objects/spike.png",
@@ -70,8 +80,8 @@
             "scaleX": 5.0,
             "scaleY": 5.0,
             "type": "WalkOnObject",
-            "x_pos": 948,
-            "y_pos": 179
+            "x_pos": 210,
+            "y_pos": 530
           },
           {
             "filepath": "./resources/assets/Display_Objects/spike.png",
@@ -80,8 +90,8 @@
             "scaleX": 5.0,
             "scaleY": 5.0,
             "type": "WalkOnObject",
-            "x_pos": 948,
-            "y_pos": 259
+            "x_pos": 1095,
+            "y_pos": 100
           },
           {
             "filepath": "./resources/assets/Display_Objects/spike.png",
@@ -90,8 +100,8 @@
             "scaleX": 5.0,
             "scaleY": 5.0,
             "type": "WalkOnObject",
-            "x_pos": 948,
-            "y_pos": 339
+            "x_pos": 1175,
+            "y_pos": 100
           },
           {
             "filepath": "./resources/assets/Display_Objects/spike.png",
@@ -100,8 +110,8 @@
             "scaleX": 5.0,
             "scaleY": 5.0,
             "type": "WalkOnObject",
-            "x_pos": 239,
-            "y_pos": 383
+            "x_pos": 1105,
+            "y_pos": 530
           },
           {
             "filepath": "./resources/assets/Display_Objects/spike.png",
@@ -110,78 +120,18 @@
             "scaleX": 5.0,
             "scaleY": 5.0,
             "type": "WalkOnObject",
-            "x_pos": 239,
-            "y_pos": 303
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
-            "name": "spike",
-            "rotation": 0.0,
-            "scaleX": 5.0,
-            "scaleY": 5.0,
-            "type": "WalkOnObject",
-            "x_pos": 239,
-            "y_pos": 463
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
-            "name": "spike",
-            "rotation": 0.0,
-            "scaleX": 5.0,
-            "scaleY": 5.0,
-            "type": "WalkOnObject",
-            "x_pos": 720,
-            "y_pos": 385
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
-            "name": "spike",
-            "rotation": 0.0,
-            "scaleX": 5.0,
-            "scaleY": 5.0,
-            "type": "WalkOnObject",
-            "x_pos": 719,
-            "y_pos": 305
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
-            "name": "spike",
-            "rotation": 0.0,
-            "scaleX": 5.0,
-            "scaleY": 5.0,
-            "type": "WalkOnObject",
-            "x_pos": 720,
-            "y_pos": 465
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/cannon.png",
-            "name": "cannon",
-            "rotation": 0.0,
-            "scaleX": 4.0,
-            "scaleY": 4.0,
-            "type": "Cannoneer",
-            "x_pos": 1032,
-            "y_pos": 296
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/kingdom_archer.png",
-            "name": "kingdom_archer",
-            "rotation": 0.0,
-            "scaleX": 4.0,
-            "scaleY": 4.0,
-            "type": "KingdomArcher",
-            "x_pos": 1192,
-            "y_pos": 308
+            "x_pos": 1185,
+            "y_pos": 530
           },
           {
             "filepath": "./resources/assets/Display_Objects/wizard.png",
-            "name": "wizard1",
+            "name": "kingdomking",
             "rotation": 0.0,
             "scaleX": 4.0,
             "scaleY": 4.0,
-            "type": "KingdomMage",
-            "x_pos": 1285,
-            "y_pos": 219
+            "type": "KingdomKing",
+            "x_pos": 96,
+            "y_pos": 307
           },
           {
             "filepath": "./resources/assets/Display_Objects/wizard.png",
@@ -190,8 +140,88 @@
             "scaleX": 4.0,
             "scaleY": 4.0,
             "type": "KingdomMage",
-            "x_pos": 1284,
-            "y_pos": 435
+            "x_pos": 240,
+            "y_pos": 223
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/knight.png",
+            "name": "knight1",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "Knight",
+            "x_pos": 239,
+            "y_pos": 431
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/cannon.png",
+            "name": "cannonneer",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "Cannonneer",
+            "x_pos": 392,
+            "y_pos": 295
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/kingdom_archer.png",
+            "name": "kingdom_archer",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "KingdomArcher",
+            "x_pos": 327,
+            "y_pos": 309
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/monster.png",
+            "name": "mage1",
+            "rotation": 0.0,
+            "scaleX": 10.0,
+            "scaleY": 10.0,
+            "type": "Mage",
+            "x_pos": 16,
+            "y_pos": 8416
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/monster.png",
+            "name": "mage2",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "Mage",
+            "x_pos": 1067,
+            "y_pos": 216
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/poisoner.png",
+            "name": "poisoner",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "Poisoner",
+            "x_pos": 1059,
+            "y_pos": 442
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/roaring_monster.png",
+            "name": "roaring_monster",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "RoarMonster",
+            "x_pos": 956,
+            "y_pos": 304
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/Layer 25.png",
+            "name": "monsterKing",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "MonsterKing",
+            "x_pos": 1190,
+            "y_pos": 273
           }
         ],
         "speed": 0.0
@@ -212,11 +242,11 @@
   ],
   "Camera": {
     "camEntrancePivotX": 200,
-    "camEntrancePivotY": 50,
+    "camEntrancePivotY": 100,
     "camEntrancePositionX": 200,
     "camEntrancePositionY": 100,
     "playerEntrancePosX": 50,
-    "playerEntrancePosY": 200,
+    "playerEntrancePosY": 250,
     "camExitPivotX": 800,
     "camExitPivotY": 100,
     "camExitPositionX": 800,
@@ -225,9 +255,9 @@
     "playerExitPosY": 250,
     "playerExitCoord": "x",
     "playerExitComp": ">",
-    "camTopLimit": 50,
-    "camBottomLimit": 50,
-    "camRightLimit": 2350,
+    "camTopLimit": 100,
+    "camBottomLimit": 240,
+    "camRightLimit": 2375,
     "camLeftLimit": 200
   }
 }

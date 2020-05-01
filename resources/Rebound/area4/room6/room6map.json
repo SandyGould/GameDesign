@@ -1,428 +1,353 @@
 {
-    "Scene":[
-        {
-            "L0":{
-                "speed":1,
-                "objects":[
-                    {
-                        "type":"Sprite",
-                        "name":"background",
-                        "filepath":"./resources/Rebound/area4/assets/background4_6.png",
-                        "x_pos":0,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":10,
-                        "scaleY":5,
-                        "parentHierarchy":[]
-                    },
-{
-                        "type":"EnvironmentObject",
-                        "name":"Half Wall",
-                        "filepath":"./resources/Rebound/area4/assets/leftwall.png",
-                        "x_pos":0,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":3.5,
-                        "scaleY":1.5,
-                        "parentHierarchy":[]
-                    },
-
-
-                    {
-                        "type":"EnvironmentObject",
-                        "name":"Half Wall",
-                        "filepath":"./resources/Rebound/area4/assets/rightwall.png",
-                        "x_pos":630,
-                        "y_pos":0,
-                        "rotation":0,
-                        "scaleX":3.5,
-                        "scaleY":1.5,
-                        "parentHierarchy":[]
-                    },
-
-
-
-
-
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":0,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":50,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-
-                    {
-
-
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":100,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":150,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    }, 
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":200,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":250,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":300,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":350,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":400,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":450,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":500,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":550,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":600,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":650,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":700,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":750,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":800,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":850,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":900,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.63,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-                    {
-                        "type":"WalkOnObject",
-                        "name":"spike",
-                        "filepath":"./resources/Rebound/area4/assets/spike.png",
-                        "x_pos":950,
-                        "y_pos":435,
-                        "rotation":0,
-                        "scaleX":0.53,
-                        "scaleY":0.63,
-                        "parentHierarchy":[]
-                    },
-
-
-
-
-                    {
-                        "type":"Sprite",
-                        "name":"devil",
-                        "filepath":"./resources/Rebound/area4/assets/devil.png",
-                        "x_pos":50,
-                        "y_pos":330,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":3,
-                        "parentHierarchy":[]
-                    }, 
-
-
-                    {
-                        "type":"Sprite",
-                        "name":"monster",
-                        "filepath":"./resources/Rebound/area4/assets/monster.png",
-                        "x_pos":50,
-                        "y_pos":173,
-                        "rotation":0,
-                        "scaleX":0.5,
-                        "scaleY":0.6,
-                        "parentHierarchy":[]
-                    },
-
-                    {
-                        "type":"Sprite",
-                        "name":"alien",
-                        "filepath":"./resources/Rebound/area4/assets/alien.png",
-                        "x_pos":200,
-                        "y_pos":315,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":3,
-                        "parentHierarchy":[]
-                    },
-
-                    {
-                        "type":"Sprite",
-                        "name":"monster",
-                        "filepath":"./resources/Rebound/area4/assets/monster.png",
-                        "x_pos":200,
-                        "y_pos":235,
-                        "rotation":0,
-                        "scaleX":0.5,
-                        "scaleY":0.6,
-                        "parentHierarchy":[]
-                    },
-
-                    {
-                        "type":"Sprite",
-                        "name":"knight",
-                        "filepath":"./resources/Rebound/area4/assets/knight.png",
-                        "x_pos":660,
-                        "y_pos":190,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":3,
-                        "parentHierarchy":[]
-                    },
-
-                    {
-                        "type":"Sprite",
-                        "name":"archer",
-                        "filepath":"./resources/Rebound/area4/assets/archer.png",
-                        "x_pos":740,
-                        "y_pos":315,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":3,
-                        "parentHierarchy":[]
-                    },
-
-                    {
-                        "type":"Sprite",
-                        "name":"wizard",
-                        "filepath":"./resources/Rebound/area4/assets/wizard.png",
-                        "x_pos":780,
-                        "y_pos":195,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":3,
-                        "parentHierarchy":[]
-                    },
-
-
-                    {
-                        "type":"Sprite",
-                        "name":"cannon",
-                        "filepath":"./resources/Rebound/area4/assets/cannon.png",
-                        "x_pos":800,
-                        "y_pos":150,
-                        "rotation":0,
-                        "scaleX":1.1,
-                        "scaleY":0.9,
-                        "parentHierarchy":[]
-                    },
-
-                    {
-                        "type":"Sprite",
-                        "name":"archer",
-                        "filepath":"./resources/Rebound/area4/assets/archer.png",
-                        "x_pos":920,
-                        "y_pos":150,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":3,
-                        "parentHierarchy":[]
-                    },
-
-                    {
-                        "type":"Sprite",
-                        "name":"wizard",
-                        "filepath":"./resources/Rebound/area4/assets/wizard.png",
-                        "x_pos":875,
-                        "y_pos":315,
-                        "rotation":0,
-                        "scaleX":3,
-                        "scaleY":3,
-                        "parentHierarchy":[]
-                    }
-
-                ]
-            }
-        },
-        {
-            "L1":{
-                "speed":1,
-                "objects":[ ]
-            }
-        }
-    ],
-    "Camera":{
-        "camEntrancePivotX":200,
-        "camEntrancePivotY":240,
-        "camEntrancePositionX":200,
-        "camEntrancePositionY":100,
-        "playerEntrancePosX":150,
-        "playerEntrancePosY":350,
-        "camExitPivotX":800,
-        "camExitPivotY":100,
-        "camExitPositionX":800,
-        "camExitPositionY":100,
-        "playerExitPosX":1150,
-        "playerExitPosY":250,
-        "playerExitCoord": "x",
-        "playerExitComp": ">",
-        "camTopLimit": 100,
-        "camBottomLimit": 240,
-        "camRightLimit": 2375,
-        "camLeftLimit": 200
+  "Scene": [
+    {
+      "L0": {
+        "objects": [
+          {
+            "filepath": "./resources/assets/Display_Objects/background4_6.png",
+            "name": "background",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "DisplayObject",
+            "x_pos": 0,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/leftwall.png",
+            "name": "leftwall",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 0,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/rightwall.png",
+            "name": "rightwall",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "EnvironmentObject",
+            "x_pos": 960,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 0,
+            "y_pos": 555
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 80,
+            "y_pos": 555
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 240,
+            "y_pos": 555
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 160,
+            "y_pos": 555
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 400,
+            "y_pos": 555
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 480,
+            "y_pos": 555
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 320,
+            "y_pos": 555
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 560,
+            "y_pos": 555
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 880,
+            "y_pos": 555
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 1200,
+            "y_pos": 555
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 640,
+            "y_pos": 555
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 1040,
+            "y_pos": 555
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike_copy_copy_copy",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "DisplayObject",
+            "x_pos": 720,
+            "y_pos": 555
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 800,
+            "y_pos": 555
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 960,
+            "y_pos": 555
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 1120,
+            "y_pos": 555
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 1360,
+            "y_pos": 555
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/spike.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 5.0,
+            "scaleY": 5.0,
+            "type": "WalkOnObject",
+            "x_pos": 1280,
+            "y_pos": 555
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/devil.png",
+            "name": "roar_monster",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "RoarMonster",
+            "x_pos": 100,
+            "y_pos": 430
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/monster.png",
+            "name": "mage1",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "Mage",
+            "x_pos": 99,
+            "y_pos": 210
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/monster.png",
+            "name": "mage2",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "Mage",
+            "x_pos": 297,
+            "y_pos": 289
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/orc.png",
+            "name": "orc",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "Orc",
+            "x_pos": 310,
+            "y_pos": 403
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/knight.png",
+            "name": "knight1",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "Knight",
+            "x_pos": 942,
+            "y_pos": 229
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/cannon.png",
+            "name": "cannonneer",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "Cannonneer",
+            "x_pos": 1084,
+            "y_pos": 170
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/kingdom_archer.png",
+            "name": "kingdom_archer1",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "KingdomArcher",
+            "x_pos": 1036,
+            "y_pos": 408
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/kingdom_archer.png",
+            "name": "kingdom_archer2",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "KingdomArcher",
+            "x_pos": 1255,
+            "y_pos": 173
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/wizard.png",
+            "name": "wizard1",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "KingdomMage",
+            "x_pos": 1088,
+            "y_pos": 242
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/wizard.png",
+            "name": "wizard2",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "KingdomMage",
+            "x_pos": 1217,
+            "y_pos": 407
+          }
+        ],
+        "speed": 0.0
+      }
+    },
+    {
+      "L1": {
+        "objects": [],
+        "speed": 0.0
+      }
+    },
+    {
+      "L2": {
+        "objects": [],
+        "speed": 0.0
+      }
     }
+  ],
+  "Camera": {
+    "camEntrancePivotX": 200,
+    "camEntrancePivotY": 240,
+    "camEntrancePositionX": 200,
+    "camEntrancePositionY": 100,
+    "playerEntrancePosX": 150,
+    "playerEntrancePosY": 350,
+    "camExitPivotX": 800,
+    "camExitPivotY": 100,
+    "camExitPositionX": 800,
+    "camExitPositionY": 100,
+    "playerExitPosX": 1150,
+    "playerExitPosY": 250,
+    "playerExitCoord": "x",
+    "playerExitComp": ">",
+    "camTopLimit": 100,
+    "camBottomLimit": 240,
+    "camRightLimit": 2375,
+    "camLeftLimit": 200
+  }
 }
