@@ -23,6 +23,10 @@ void Projectile::update(const std::unordered_set<SDL_Scancode>& pressedKeys, con
         this->position.x+=deltaX;
         this->position.y+=deltaY;
     }
+    lifetime--;
+    if (lifetime == 0) {
+        this->removeThis();
+    }
     Sprite::update(pressedKeys,joystickState,pressedButtons);
 }
 
