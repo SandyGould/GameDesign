@@ -104,12 +104,18 @@ Rooms::Rooms() : Game(600, 500) {
 void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {
 	// menu controls
 	if (pressedKeys.find(SDL_SCANCODE_ESCAPE) != pressedKeys.end()) {
-		if(!esc_prepressed)
+		if (!esc_prepressed) {
 	 		EventDispatcher::getInstance().dispatchEvent(new Event(KeyDownEvent::ESC_DOWN_EVENT));
+        }
 	 	esc_prepressed = true;
 	} else {
 		esc_prepressed = false;
 	}
+
+    if (pressedKeys.find(SDL_SCANCODE_BACKSLASH) != pressedKeys.end() &&
+        prevKeys.find(SDL_SCANCODE_BACKSLASH) == prevKeys.end()) {
+        Game::instance->container->printDisplayTree();
+    }
 
     TweenJuggler::getInstance().nextFrame();
 
@@ -124,6 +130,8 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
     camera->follow(player->position.x, player->position.y);
 
 	Game::update(pressedKeys, joystickState, pressedButtons);
+
+    prevKeys = pressedKeys;
 }
 
 void Rooms::draw(AffineTransform& at) {

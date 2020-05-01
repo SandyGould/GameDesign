@@ -134,7 +134,7 @@ public:
     std::vector<std::shared_ptr<DisplayObject>> children;
 
 	// for debugging
-	void printDisplayTreeHelper(std::shared_ptr<DisplayObject> root);
+	void printDisplayTreeHelper(const std::shared_ptr<DisplayObject>& root, const std::string& indentation);
 	void printDisplayTree();
 
 private:

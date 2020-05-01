@@ -56,6 +56,8 @@ private:
     std::shared_ptr<Tween> player_tween;
     std::shared_ptr<Tween> start_text_tween;
     std::shared_ptr<Tween> scene_transition;
+
+    std::unordered_set<SDL_Scancode> prevKeys;
 };
 
 #endif
