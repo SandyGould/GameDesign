@@ -43,7 +43,7 @@ void SceneManager::loadArea(int area, int rooms) {
         this->addScene(scene);
     }
     // reset current room number to 1
-    this->currRoom = 1;
+    this->currRoom = 2;
 }
 
 
@@ -300,10 +300,10 @@ void SceneManager::updateScene() {
         }
     }
 
-    // std::cout << "x" << std::endl;
-    // std::cout << this->p->position.x << std::endl;
-    // std::cout << "y" << std::endl;
-    // std::cout << this->p->position.y << std::endl;
+    std::cout << "x" << std::endl;
+    std::cout << this->p->position.x << std::endl;
+    std::cout << "y" << std::endl;
+    std::cout << this->p->position.y << std::endl;
 
     // // if backward condition is satisfied, go back to previous scene
     // if (this->currScene->back_coord == "x" && this->currScene->back_comp == ">") {

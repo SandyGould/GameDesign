@@ -152,7 +152,7 @@
         "camExitPivotY":100,
         "camExitPositionX":1200,
         "camExitPositionY":100,
-        "playerExitPosX":1100,
+        "playerExitPosX":1350,
         "playerExitPosY":250,
         "playerExitCoord": "x",
         "playerExitComp": ">",
