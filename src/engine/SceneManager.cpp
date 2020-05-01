@@ -34,7 +34,7 @@ void SceneManager::loadArea(int area, int rooms) {
     // load in all rooms for this area
     for (int i = 1; i <= rooms; i++) {
         std::string roomNo = std::to_string(i);
-        auto scene = std::make_shared<Scene>("scene" + roomNo);
+        auto scene = std::make_shared<Scene>("area" + areaNo + "scene" + roomNo);
         scene->scenePath = std::string("./resources/Rebound/area" + areaNo + "/room" + roomNo + "/room" + roomNo + "map.json");
         // add current scene to SceneManager's scenes
         this->addScene(scene);
