@@ -385,7 +385,7 @@
     "playerExitPosY": 250,
     "camTopLimit": 100,
     "camBottomLimit": 230,
-    "camRightLimit": 85000,
+    "camRightLimit": 1000,
     "camLeftLimit": 200
   }
 }
