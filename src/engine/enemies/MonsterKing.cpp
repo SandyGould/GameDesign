@@ -1,5 +1,7 @@
 #include "MonsterKing.h"
 #include <cmath>
+#include "../events/EventDispatcher.h"
+#include "../events/NewSceneEvent.h"
 
 static int mking_count = 1;
 // Init
@@ -20,6 +22,7 @@ MonsterKing::MonsterKing(std::shared_ptr<Player> player) : BaseEnemy("monsterKin
     this->type = "monsterKing";
     this->saveType = this->type;
     this->stunFrames = 90;
+
 }
 
 void MonsterKing::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
@@ -29,6 +32,7 @@ void MonsterKing::update(const std::unordered_set<SDL_Scancode>& pressedKeys, co
         this->state = -1;
         //
         this->player->numOpponents -= 1;
+        EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_OUT_EVENT));
     }
 
     if(this->state == 0){

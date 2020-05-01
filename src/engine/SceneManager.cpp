@@ -24,9 +24,6 @@ SceneManager::SceneManager(shared_ptr<Camera> c, shared_ptr<Player> p) {
 
 SceneManager::~SceneManager() {
     this->clearList();
-    // delete this->iter;
-    // delete this->head;
-    // delete this->tail;
 }
 
 
@@ -166,13 +163,15 @@ void SceneManager::loadFirstScene() {
 	c->setRightLimit(this->currScene->camRightLimit);
     c->setBottomLimit(this->currScene->camBottomLimit);
     c->addChild(this->currScene);
+
+    EventDispatcher::getInstance().addEventListener(this->currScene.get(), NewSceneEvent::FADE_OUT_EVENT);
+
 }
 
 void SceneManager::unloadScene() {
     // scene is done; queue fade out transition
     this->unloading = true;
 
-    EventDispatcher::getInstance().addEventListener(this->currScene.get(), NewSceneEvent::FADE_OUT_EVENT);
     EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_OUT_EVENT));
     // Event will get auto-removed by DisplayObject
 }
@@ -223,12 +222,7 @@ void SceneManager::loadNextScene() {
     c->setBottomLimit(this->currScene->camBottomLimit);
     c->addChild(this->currScene);
 
-    // display a message if in new area (for debugging)
-    if (this->currRoom == 1) {
-        new_area_text = std::make_shared<TextBox>("start_text", "Area " + std::to_string(this->currArea));
-	    new_area_text->position = {300, 200};
-	    this->currScene->addChild(new_area_text);
-    }
+    EventDispatcher::getInstance().addEventListener(this->currScene.get(), NewSceneEvent::FADE_OUT_EVENT);
 
     if (lol){
         auto text = std::make_shared<TextBox>("win", "Congrats? For winning, enjoy our version of the FFVII Remake!");
