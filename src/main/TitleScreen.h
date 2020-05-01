@@ -1,22 +1,22 @@
 #pragma once
 
-#include "DisplayObject.h"
+#include "../engine/DisplayObject.h"
 
 #include <SDL2/SDL_ttf.h>
 #include <map>
 #include <set>
 #include <unordered_set>
 #include <vector>
-#include "./Events/EventListener.h"
-#include "./things/SelectionMenuBase.h"
-#include "./things/SelectionMenuOption.h"
+#include "../engine/events/EventListener.h"
+#include "../engine/things/SelectionMenuBase.h"
+#include "../engine/things/SelectionMenuOption.h"
 #include "../engine/events/KeyDownEvent.h"
 #include "../engine/events/MouseDownEvent.h"
-#include "./things/TextBox.h"
+#include "../engine/things/TextBox.h"
 
 
 
-class TitleScreen: public EventListener {
+class TitleScreen: public Game {
 public:
     /* Singleton pattern */
     //static Game* instance;
@@ -39,8 +39,8 @@ public:
 
     void start();
 
-    virtual void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons);
-    virtual void draw(AffineTransform& at);
+    void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
+    void draw(AffineTransform& at) override;
     void begin();
     //bool paused = false;
     // This happens after drawing but before rendering

@@ -9,8 +9,7 @@ using namespace std::chrono;
 using namespace std;
 
 
-TitleScreen::TitleScreen()
-{}
+TitleScreen::TitleScreen() : Game(600, 500) {}
 
 
 void TitleScreen::begin()
@@ -48,10 +47,10 @@ void TitleScreen::begin()
 	EventDispatcher::getInstance().addEventListener(this->selection_resume_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);
 	EventDispatcher::getInstance().addEventListener(this->selection_quit_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);
 
-    while(release == false)
-    {
-
-    }
+    // while(release == false)
+    // {
+    //
+    // }
     
 
 }
@@ -59,10 +58,11 @@ void TitleScreen::begin()
 
 
 void TitleScreen::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
-    
+    Game::update(pressedKeys, joystickState, pressedButtons);
 }
 
 void TitleScreen::draw(AffineTransform& at) {
+    Game::draw(at);
     
 }
 
