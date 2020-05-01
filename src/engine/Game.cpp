@@ -25,7 +25,7 @@ unsigned int Game::frameCounter = 0;
 
 Game::Game(int windowWidth, int windowHeight) {
     Game::instance = this;
-
+    EventDispatcher::getInstance().addEventListener(this, KeyDownEvent::ESC_DOWN_EVENT);
     this->container = std::make_shared<DisplayObject>("game");
     this->container->type = "game";
     this->container->saveType = this->container->type;
@@ -36,9 +36,12 @@ Game::Game(int windowWidth, int windowHeight) {
     this->mouseState = MouseState::NONE;
     this->modifiers = KMOD_NONE;
 
+
     initSDL();
     TTF_Init();
     font = TTF_OpenFont("./resources/fonts/open-sans/OpenSans-Regular.ttf", 24);
+
+    
 }
 
 Game::~Game() {
@@ -195,9 +198,28 @@ void Game::presentRenderers() {
     SDL_RenderPresent(Game::renderer);
 }
 
+void Game::handleEvent(Event* e)
+{
+ if (e->getType() == KeyDownEvent::ESC_DOWN_EVENT){
+    // printf("Escape event\n");
+    if(paused == true)
+    {
+        paused = false;
+    }
+    else if(paused == false)
+    {
+        paused = true;
+    }
+
+ }   
+}
+
 void Game::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
+    if(paused == false)
+    {
     frameCounter++;
     this->container->update(pressedKeys, joystickState, pressedButtons);
+    }
 }
 
 void Game::draw(AffineTransform& at) {

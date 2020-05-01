@@ -7,6 +7,9 @@
 #include <set>
 #include <unordered_set>
 #include <vector>
+#include "./Events/EventListener.h"
+//#include "./TitleScreen.h"
+
 
 enum class MouseState {
     NONE,
@@ -17,13 +20,17 @@ enum class MouseState {
     //END,
 };
 
-class Game {
+class Game : public EventListener {
 public:
     /* Singleton pattern */
     static Game* instance;
 
     /* The global DisplayObject container */
     std::shared_ptr<DisplayObject> container;
+
+
+
+    
 
     int frames_per_sec = 60;
     int windowWidth, windowHeight;
@@ -47,8 +54,10 @@ public:
     virtual void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons);
     virtual void draw(AffineTransform& at);
 
+    bool paused = false;
     // This happens after drawing but before rendering
     virtual void draw_post(){};
+    void handleEvent(Event* e) override;
 
 private:
     std::unordered_set<SDL_Scancode> pressedKeys;
