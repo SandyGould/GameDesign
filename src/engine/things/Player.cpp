@@ -38,6 +38,7 @@ void Player::changeHealth(int amount) {
         }
         else {
             health = 0;
+            alive = false;
             EventDispatcher::getInstance().dispatchEvent(new Event(PlayerDeathEvent::PLAYER_DEATH_EVENT));
         }
     } else {
@@ -70,6 +71,11 @@ void Player::toggleShieldVisible(bool vis) {
 }
 
 void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
+    if (!alive) {
+        AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
+        return;
+    }
+
     // CHARACTER MOVEMENT
     this->width = 110;
 	this->height = 80;
@@ -238,7 +244,6 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 
     updateHistory(pressedKeys);
 
-    TweenJuggler::getInstance().nextFrame();
     AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
 }
 
