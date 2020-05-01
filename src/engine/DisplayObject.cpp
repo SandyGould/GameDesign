@@ -440,8 +440,7 @@ void DisplayObject::setRenderer(SDL_Renderer* r){
 
 void DisplayObject::propogateEvent(Event* e, const std::shared_ptr<DisplayObject>& root) {
 
-    if (e->getType() == NewSceneEvent::FADE_OUT_EVENT){
-        EventDispatcher::getInstance().removeEventListener(root.get(), NewSceneEvent::FADE_OUT_EVENT);
+    if (e->getType() == NewSceneEvent::FADE_OUT_EVENT) {
         for (const auto& child : root->children) {
             propogateEvent(e, child);
         }
@@ -449,8 +448,7 @@ void DisplayObject::propogateEvent(Event* e, const std::shared_ptr<DisplayObject
 		out_transition->animate(TweenableParams::ALPHA, 255, 0, 100, TweenParam::EASE_IN);
 		TweenJuggler::getInstance().add(out_transition);
     }
-    if (e->getType() == NewSceneEvent::FADE_IN_EVENT){
-        EventDispatcher::getInstance().removeEventListener(root.get(), NewSceneEvent::FADE_IN_EVENT);
+    if (e->getType() == NewSceneEvent::FADE_IN_EVENT) {
         for (const auto& child : root->children) {
             propogateEvent(e, child);
         }
@@ -461,7 +459,6 @@ void DisplayObject::propogateEvent(Event* e, const std::shared_ptr<DisplayObject
 }
 
 void DisplayObject::handleEvent(Event* e){
-
     // scale out event
     if (e->getType() == NewSceneEvent::SCALE_OUT_EVENT) {
         EventDispatcher::getInstance().removeEventListener(this, NewSceneEvent::SCALE_OUT_EVENT);
@@ -482,6 +479,7 @@ void DisplayObject::handleEvent(Event* e){
     }
     // scale in event
     if (e->getType() == NewSceneEvent::FADE_IN_EVENT || e->getType() == NewSceneEvent::FADE_OUT_EVENT) {
+        EventDispatcher::getInstance().removeEventListener(this, e->getType());
         propogateEvent(e, shared_from_this());
         for (const auto& object : objectsToAdd) {
              propogateEvent(e, object);

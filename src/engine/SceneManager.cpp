@@ -15,6 +15,9 @@ SceneManager::SceneManager(shared_ptr<Camera> c, shared_ptr<Player> p) {
     // set up linked list
     this->head->nextScene = this->tail;
     this->tail->prevScene = this->head;
+
+    // add tween complete event for scene manager
+    EventDispatcher::getInstance().addEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
 }
 
 
@@ -141,14 +144,6 @@ void SceneManager::loadFirstScene() {
     this->currScene->player = p;
     this->currScene->camera = c;
     
-    // EVENTS FOR UNLOADING
-    // create fade out event listener for this scene
-    EventDispatcher::getInstance().addEventListener(currScene.get(), NewSceneEvent::FADE_OUT_EVENT);
-
-    // EVENTS FOR LOADING
-    // create fade in event listener for this scene
-    EventDispatcher::getInstance().addEventListener(currScene.get(), NewSceneEvent::FADE_IN_EVENT);
-    
     // load the first scene from the JSON file
     this->currScene->loadScene(this->currScene->scenePath);
 	
@@ -167,21 +162,16 @@ void SceneManager::loadFirstScene() {
 	c->setRightLimit(this->currScene->camRightLimit);
     c->setBottomLimit(this->currScene->camBottomLimit);
     c->addChild(this->currScene);
-
-
-    // add tween complete event for scene manager
-	if (!EventDispatcher::getInstance().hasEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT)) {
-	    EventDispatcher::getInstance().addEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
-    }
 }
 
 void SceneManager::unloadScene() {
     // scene is done; queue fade out transition
-    // std::cout << this->currScene->id << std::endl;
     this->unloading = true;
-    EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_OUT_EVENT));
-}
 
+    EventDispatcher::getInstance().addEventListener(this->currScene.get(), NewSceneEvent::FADE_OUT_EVENT);
+    EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_OUT_EVENT));
+    // Event will get auto-removed by DisplayObject
+}
 
 void SceneManager::loadNextScene() {
     // done w/ tween, this scene is no longer a child of camera
@@ -199,7 +189,6 @@ void SceneManager::loadNextScene() {
     // advance to next scene and increment current scene counter
     this->currScene = currScene->nextScene;
     this->currRoom++;
-    std::cout << "attempting to load " << this->currScene->id << std::endl;
 
     // if done with this area, advance to next area
     if (this->currRoom > this->areaRoomsCount) {
@@ -213,17 +202,6 @@ void SceneManager::loadNextScene() {
     // set player and camera
     this->currScene->player = p;
     this->currScene->camera = c;
-    
-    // EVENTS FOR UNLOADING
-    // create fade out event listener for this scene
-    if (!EventDispatcher::getInstance().hasEventListener(this->currScene.get(), NewSceneEvent::FADE_OUT_EVENT)) {
-        EventDispatcher::getInstance().addEventListener(this->currScene.get(), NewSceneEvent::FADE_OUT_EVENT);
-    }
-    // EVENTS FOR LOADING
-    // create fade in event listener for this scene
-    if (!EventDispatcher::getInstance().hasEventListener(this->currScene.get(), NewSceneEvent::FADE_IN_EVENT)) {
-        EventDispatcher::getInstance().addEventListener(this->currScene.get(), NewSceneEvent::FADE_IN_EVENT);
-    }
     
     // load the scene from JSON file
     this->currScene->loadScene(this->currScene->scenePath);
@@ -260,17 +238,6 @@ void SceneManager::loadPrevScene() {
     // set player and camera
     this->currScene->player = p;
     this->currScene->camera = c;
-    
-    // EVENTS FOR UNLOADING
-    // create fade out event listener for this scene
-    if (!EventDispatcher::getInstance().hasEventListener(this->currScene.get(), NewSceneEvent::FADE_OUT_EVENT)) {
-        EventDispatcher::getInstance().addEventListener(this->currScene.get(), NewSceneEvent::FADE_OUT_EVENT);
-    }
-    // EVENTS FOR LOADING
-    // create fade in event listener for this scene
-    if (!EventDispatcher::getInstance().hasEventListener(this->currScene.get(), NewSceneEvent::FADE_IN_EVENT)) {
-        EventDispatcher::getInstance().addEventListener(this->currScene.get(), NewSceneEvent::FADE_IN_EVENT);
-    }
 
     // load player info from scene object
     p->position = this->currScene->playerExitPos;
@@ -379,7 +346,6 @@ void SceneManager::updateScene() {
 
 void SceneManager::handleEvent(Event* e) {
     if (e->getType() == TweenEvent::TWEEN_COMPLETE_EVENT) {
-        EventDispatcher::getInstance().removeEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
         // fade out transition - load next scene once this scene transition is done
         if (((TweenEvent*) e)->getTween()->getID() == currScene->id + "_out_transition") {
             this->unloading = false;
@@ -391,11 +357,9 @@ void SceneManager::handleEvent(Event* e) {
                 this->loadNextScene();
             }
             // queue scene transition
+            EventDispatcher::getInstance().addEventListener(this->currScene.get(), NewSceneEvent::FADE_IN_EVENT);
             EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_IN_EVENT));
-            // add tween complete event for scene manager
-            if (!EventDispatcher::getInstance().hasEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT)) {
-	            EventDispatcher::getInstance().addEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
-            }
+            // Event will get auto-removed by DisplayObject
         }
     }
 }

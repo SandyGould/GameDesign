@@ -1,6 +1,4 @@
 #include "EventDispatcher.h"
-#include "DisplayTreeChangeEvent.h"
-#include <iostream>
 
 EventDispatcher::EventDispatcher() {}
 
@@ -14,36 +12,21 @@ void EventDispatcher::addEventListener(EventListener* l, std::string eventType) 
 }
 
 void EventDispatcher::removeEventListener(EventListener* l, std::string eventType) {
-    int listener_index = 0;
-    auto vl = listeners.at(eventType);
-    for (size_t i = 0; i < vl.size(); i++) {
-        if (vl.at(i) == l) {
-            listener_index = i;
-            break;
-        }
+    if (listeners.find(eventType) == listeners.cend()) {
+        return;
     }
-    vl.erase(vl.begin() + listener_index);
+
+    listenersToErase.push(l);
 }
 
 bool EventDispatcher::hasEventListener(EventListener* l, std::string eventType) {
-    int listener_index = -1;
-    auto vl = listeners.at(eventType);
-    if (listeners.count(eventType) != 1) {
+    auto it = listeners.find(eventType);
+    if (it == listeners.cend()) {
         return false;
     }
 
-    for (size_t i = 0; i < vl.size(); i++) {
-        if (vl.at(i) == l) {
-            listener_index = i;
-            break;
-        }
-    }
-
-    if (listener_index != -1) {
-        return true;
-    } else {
-        return false;
-    }
+    auto vl = it->second;
+    return std::find(vl.cbegin(), vl.cend(), l) != vl.cend();
 }
 
 void EventDispatcher::dispatchEvent(Event* e) {
@@ -53,5 +36,10 @@ void EventDispatcher::dispatchEvent(Event* e) {
 
     for (auto listener : listeners.at(e->getType())) {
         listener->handleEvent(e);
+    }
+
+    while (!listenersToErase.empty()) {
+        listeners.at(e->getType()).erase(std::find(listeners.at(e->getType()).begin(), listeners.at(e->getType()).end(), listenersToErase.front()));
+        listenersToErase.pop();
     }
 }

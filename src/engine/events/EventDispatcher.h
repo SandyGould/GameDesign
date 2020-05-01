@@ -4,6 +4,7 @@
 #include "Event.h"
 #include "EventListener.h"
 
+#include <queue>
 #include <unordered_map>
 #include <vector>
 #include <string>
@@ -35,6 +36,8 @@ private:
 
     /* List of listeners */
 	std::unordered_map<std::string, std::vector<EventListener*>> listeners;
+
+    std::queue<EventListener*> listenersToErase;
 };
 
 #endif
