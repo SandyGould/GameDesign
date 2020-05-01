@@ -28,6 +28,7 @@ void MonsterKing::update(const std::unordered_set<SDL_Scancode>& pressedKeys, co
         this->visible = false;
         this->state = -1;
         //
+        this->player->numOpponents -= 1;
     }
 
     if(this->state == 0){

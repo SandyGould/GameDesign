@@ -4,6 +4,7 @@
 BaseEnemy::BaseEnemy(std::string id, std::string spritesheet, std::string xml, std::string animName, std::shared_ptr<Player> player) : AnimatedSprite(id, spritesheet, xml, animName) {
     hasCollision=true;
     this->player = player;
+    this->player->numOpponents += 1;
     this->type = "enemy";
 }
 

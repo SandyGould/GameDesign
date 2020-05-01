@@ -269,10 +269,14 @@ void SceneManager::updateScene() {
     if (this->unloading) {
         return;
     }
+    
+    if (this->p->numOpponents > 0) {
+        return;
+    }
 
     // if forward condition is satisfied, transition to next scene
     if (this->currScene->forward_coord == "x" && this->currScene->forward_comp == ">") {
-        if (p->position.x > this->currScene->goForward.x) {
+        if (this->p->position.x > this->currScene->goForward.x) {
             this->sceneChange = "next";
             this->p->removeThis();
             this->unloadScene();
@@ -280,7 +284,7 @@ void SceneManager::updateScene() {
         }
     }
     if (this->currScene->forward_coord == "x" && this->currScene->forward_comp == "<") {
-        if (p->position.x < this->currScene->goForward.x) {
+        if (this->p->position.x < this->currScene->goForward.x) {
             this->sceneChange = "next";
             this->p->removeThis();
             this->unloadScene();
@@ -288,7 +292,7 @@ void SceneManager::updateScene() {
         }
     }
     if (this->currScene->forward_coord == "y" && this->currScene->forward_comp == ">") {
-        if (p->position.y > this->currScene->goForward.y) {
+        if (this->p->position.y > this->currScene->goForward.y) {
             this->sceneChange = "next";
             this->p->removeThis();
             this->unloadScene();
@@ -296,13 +300,15 @@ void SceneManager::updateScene() {
         }
     }
     if (this->currScene->forward_coord == "y" && this->currScene->forward_comp == "<") {
-        if (p->position.y < this->currScene->goForward.y) {
+        if (this->p->position.y < this->currScene->goForward.y) {
             this->sceneChange = "next";
             this->p->removeThis();
             this->unloadScene();
             return;
         }
     }
+
+    
 
     // std::cout << "x" << std::endl;
     // std::cout << this->p->position.x << std::endl;

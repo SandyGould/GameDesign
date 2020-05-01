@@ -22,6 +22,7 @@ void Knight::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
     */
     if(this->health <= 0) {
         this->removeThis();
+        this->player->numOpponents -= 1;
         return;
     }
 
