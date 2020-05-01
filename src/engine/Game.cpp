@@ -11,6 +11,7 @@
 #include "events/TextInputEvent.h"
 #include "events/WindowEnterEvent.h"
 #include "events/WindowExitEvent.h"
+#include "events/GameQuitEvent.h"
 
 #include <chrono>
 #include <iostream>
@@ -26,6 +27,7 @@ unsigned int Game::frameCounter = 0;
 Game::Game(int windowWidth, int windowHeight) {
     Game::instance = this;
     EventDispatcher::getInstance().addEventListener(this, KeyDownEvent::ESC_DOWN_EVENT);
+    EventDispatcher::getInstance().addEventListener(this, GameQuitEvent::GAME_QUIT_EVENT);
     this->container = std::make_shared<DisplayObject>("game");
     this->container->type = "game";
     this->container->saveType = this->container->type;
@@ -91,7 +93,7 @@ void Game::start() {
     milliseconds ms_per_frame(1000ms / this->frames_per_sec);
     auto start = steady_clock::now();
 
-    bool quit = false;
+    this->quit = false;
     SDL_Event event;
 
     while (!quit) {
@@ -200,18 +202,18 @@ void Game::presentRenderers() {
 
 void Game::handleEvent(Event* e)
 {
- if (e->getType() == KeyDownEvent::ESC_DOWN_EVENT){
-    // printf("Escape event\n");
-    if(paused == true)
-    {
-        paused = false;
-    }
-    else if(paused == false)
-    {
-        paused = true;
-    }
+    if (e->getType() == KeyDownEvent::ESC_DOWN_EVENT){
+        // printf("Escape event\n");
+        if(paused == true)
+        {
+            paused = false;
+        }
+        else if(paused == false)
+        {
+            paused = true;
+        }
 
- }   
+    }
 }
 
 void Game::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {

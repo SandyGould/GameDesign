@@ -11,8 +11,11 @@
 #include "../engine/things/SelectionMenuBase.h"
 #include "../engine/things/SelectionMenuOption.h"
 #include "../engine/events/KeyDownEvent.h"
+#include "../engine/events/GameStartEvent.h"
+#include "../engine/events/GameQuitEvent.h"
 #include "../engine/events/MouseDownEvent.h"
 #include "../engine/things/TextBox.h"
+#include "./Rooms.h"
 
 
 
@@ -22,7 +25,7 @@ public:
     //static Game* instance;
 
     /* The global DisplayObject container */
-    std::shared_ptr<DisplayObject> container;
+    //std::shared_ptr<DisplayObject> container;
 
 
 

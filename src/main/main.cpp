@@ -49,8 +49,8 @@ int main(int argc, char** argv) {
         }
     } else {
         TitleScreen title;
-        // title.begin();
-        Rooms().start();
+        title.begin();
+        // Rooms().start();
         // Rebound* rebound = new Rebound();
         // rebound->start();
     }
