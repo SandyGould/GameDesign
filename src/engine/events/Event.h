@@ -10,6 +10,7 @@ class EventDispatcher;
 class Event {
 public:
 	Event(const std::string& type);
+    virtual ~Event() = default;
 
 	std::string getType();
 	//EventDispatcher getSource();

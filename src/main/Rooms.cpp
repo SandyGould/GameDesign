@@ -176,7 +176,7 @@ void Rooms::handleEvent(Event* e) {
 
         EventDispatcher::getInstance().addEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
     } else if (e->getType() == TweenEvent::TWEEN_COMPLETE_EVENT) {
-        auto* event = static_cast<TweenEvent*>(e);
+        auto* event = dynamic_cast<TweenEvent*>(e);
         if (event->getTween()->getID() == "player_death_tween") {
             EventDispatcher::getInstance().removeEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
 
