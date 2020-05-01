@@ -46,9 +46,9 @@ void MasterArcher::update(const std::unordered_set<SDL_Scancode>& pressedKeys, c
         this->arrow2 = arrows.back();
         this->arrows.emplace_back(new Arrow(35));
         this->arrow3 = arrows.back();*/
-        this->arrow1 = std::make_shared<Arrow>(12);
-        this->arrow2 = std::make_shared<Arrow>(12);
-        this->arrow3 = std::make_shared<Arrow>(12);
+        this->arrow1 = std::make_shared<Arrow>(3);
+        this->arrow2 = std::make_shared<Arrow>(3);
+        this->arrow3 = std::make_shared<Arrow>(3);
         arrows.emplace_back(arrow1);
         arrows.emplace_back(arrow2);
         arrows.emplace_back(arrow3);
