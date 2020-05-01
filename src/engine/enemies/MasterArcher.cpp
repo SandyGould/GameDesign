@@ -29,6 +29,7 @@ void MasterArcher::update(const std::unordered_set<SDL_Scancode>& pressedKeys, c
         // We don't delete this one like the others?
         this->visible = false;
         this->state = -1;
+        this->player->numOpponents -= 1;
     }
 
     if(this->state == 0){
