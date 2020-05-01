@@ -3,7 +3,10 @@
 
 Cannoneer::Cannoneer(std::shared_ptr<Player> player) : BaseEnemy("Cannoneer", "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "CannoneerIdle", player){
     this->type = "cannoneer";
+    cannon= std::make_shared<Sprite>("cannon", "./resources/assets/Display_Objects/cannon.png");
+    this->addChild(cannon);
     this->saveType = this->type;
+    cannon->position={-100,20};
 }
 
 
@@ -22,15 +25,19 @@ void Cannoneer::update(const std::unordered_set<SDL_Scancode>& pressedKeys, cons
     }
 
     if(this->state == 0){
-        //init stuff here
+        cannon->scaleHeight(this->height*1.5);
+        cannon->scaleWidth(this->width*1.5);
+        this->state = 1;
     }
     else if(this->state == 1){
-        //Waiting lol
+        this->state =2;
         wait = 12;
     }
     else if(this->state == 2){
         if(wait == 12){
-            cannonball = std::make_shared<Projectile>("Cannonball", "", 45);
+            cannonball = std::make_shared<Projectile>("Cannonball", "./resources/assets/Display_Objects/cannonball.png", 45);
+            cannonball->scaleX = 2;
+            cannonball->scaleY = 2;
             cannonball->position = {45,0}; //IDK something so it doesn't spawn on top of the cannon lol
         }
         if(wait == 0){
@@ -40,7 +47,7 @@ void Cannoneer::update(const std::unordered_set<SDL_Scancode>& pressedKeys, cons
     }
     else if(this->state == 3){
         this->addChild(cannonball);
-        this->cannonball->fire(0);
+        this->cannonball->fire(180);
         wait= 45;
         this->state = 4;
     }
