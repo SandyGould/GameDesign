@@ -440,7 +440,6 @@ void DisplayObject::setRenderer(SDL_Renderer* r){
 }
 
 void DisplayObject::propogateEvent(Event* e, const std::shared_ptr<DisplayObject>& root) {
-
     if (e->getType() == NewSceneEvent::FADE_OUT_EVENT) {
         for (const auto& child : root->children) {
             propogateEvent(e, child);
@@ -452,6 +451,9 @@ void DisplayObject::propogateEvent(Event* e, const std::shared_ptr<DisplayObject
     if (e->getType() == NewSceneEvent::FADE_IN_EVENT) {
         for (const auto& child : root->children) {
             propogateEvent(e, child);
+        }
+        for (const auto& object : root->objectsToAdd) {
+            propogateEvent(e, object);
         }
         auto in_transition = std::make_shared<Tween>(root->id + "_in_transition", root);
 		in_transition->animate(TweenableParams::ALPHA, 0, 255, 100, TweenParam::EASE_IN);
@@ -482,8 +484,8 @@ void DisplayObject::handleEvent(Event* e){
     if (e->getType() == NewSceneEvent::FADE_IN_EVENT || e->getType() == NewSceneEvent::FADE_OUT_EVENT) {
         EventDispatcher::getInstance().removeEventListener(this, e->getType());
         propogateEvent(e, shared_from_this());
-        for (const auto& object : objectsToAdd) {
-             propogateEvent(e, object);
+        for (const auto& object : this->objectsToAdd) {
+            propogateEvent(e, object);
         }
     }
 }
