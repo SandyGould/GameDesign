@@ -9,6 +9,8 @@ Lastly, press the escape key to open the menu.
 KNOWN BUGS:
 1. Orc/knight and Player collisions
 2. Camera will not pan until player reaches close to the top or the left bounds
+3. Camera limits not complete in area 4
+4. Player can walk out of view from the camera & off the room
 
 Thanks for being our TA and grading our game!!!
 
