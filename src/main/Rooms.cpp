@@ -3,6 +3,7 @@
 #include "../engine/events/GameOverEvent.h"
 #include "../engine/events/PlayerDeathEvent.h"
 #include "../engine/events/RestartEvent.h"
+#include "../engine/events/TweenEvent.h"
 
 #include <cmath>
 #include <iostream>
@@ -15,6 +16,7 @@ Rooms::Rooms() : Game(600, 500) {
     // create collision system
     this->collisionSystem = std::make_unique<CollisionSystem>();
     // set collisions between player and all environmental objects
+	this->collisionSystem->watchForCollisions("player", "Switch");
     this->collisionSystem->watchForCollisions("player", "WalkOnObject");
     this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
     this->collisionSystem->watchForCollisions("player", "arrow");

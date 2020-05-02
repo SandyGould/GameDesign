@@ -53,9 +53,9 @@ bool WalkOnObject::onCollision(std::shared_ptr<DisplayObject> other){
 	}
 	else if (this->id.find("spike") != string::npos && other->type == "player"){
 			if(collisionWaitTime >= 10){
-				collisionWaitTime = 0;
 				auto player = std::static_pointer_cast<Player>(other);
 				player->changeHealth(-5);
+				collisionWaitTime = 0;
 			} else {
 				collisionWaitTime++;
 			}
