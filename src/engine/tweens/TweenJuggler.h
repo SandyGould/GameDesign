@@ -2,7 +2,6 @@
 #define TWEENJUGGLER_H
 
 #include "Tween.h"
-#include "../events/TweenEvent.h"
 #include <list>
 
 // Singleton class that handles all of the tweens in the game and updates them
@@ -19,12 +18,11 @@ class TweenJuggler {
     	TweenJuggler(TweenJuggler const& other) = delete;
     	void operator=(TweenJuggler const& other) = delete;
 
-        void add(std::shared_ptr<Tween> tween);
+        void add(const std::shared_ptr<Tween>& tween);
         void nextFrame();  //invoked every frame by Game, calls update() on every Tween and cleans up old / complete Tweens
         
     private:
         TweenJuggler() = default;
-        static TweenJuggler* instance;
         std::list<std::shared_ptr<Tween>> tweenList;
 };
 

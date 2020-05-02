@@ -1,10 +1,12 @@
 #include "TweenJuggler.h"
 
+#include "../events/TweenEvent.h"
+
 #include <iostream>
 
-void TweenJuggler::add(std::shared_ptr<Tween> tween) {
+void TweenJuggler::add(const std::shared_ptr<Tween>& tween) {
     bool found = false;
-    for (auto t : tweenList) {
+    for (const auto& t : tweenList) {
         if (t->getID() == tween->getID()) {
             found = true;
         }
@@ -13,26 +15,19 @@ void TweenJuggler::add(std::shared_ptr<Tween> tween) {
         tweenList.push_back(tween);
     }
 }
-// TweenJuggler* TweenJuggler::getInstance() {
-//     if (!instance) {
-//         instance = new TweenJuggler();
-//     }
-//     return instance;
-// }
 
 void TweenJuggler::nextFrame() {
     for (auto it = this->tweenList.begin(); it != this->tweenList.end(); ) {
-        if ((*it)->isComplete()) {
+        auto tween = *it;
+        if (tween->isComplete()) {
             // throw event - tween ending
-            EventDispatcher::getInstance().dispatchEvent(new TweenEvent(TweenEvent::TWEEN_COMPLETE_EVENT, (*it).get()));
+            EventDispatcher::getInstance().dispatchEvent(new TweenEvent(TweenEvent::TWEEN_COMPLETE_EVENT, tween.get()));
             it = this->tweenList.erase(it);
+            continue;
         }
-        if (it != this->tweenList.end()) {
-            (*it)->update();
-            (*it)->incrementTime();
-            it++;
-        }
+
+        tween->update();
+        tween->incrementTime();
+        it++;
     }
 }
-
-TweenJuggler* TweenJuggler::instance = nullptr;
