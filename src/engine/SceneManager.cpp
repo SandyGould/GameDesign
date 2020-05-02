@@ -364,9 +364,8 @@ void SceneManager::handleEvent(Event* e) {
             EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_IN_EVENT));
             // Event will get auto-removed by DisplayObject
         }
-    }
-    else if(e->getType() == RestartEvent::RESTART_EVENT)
-    {
+    } else if(e->getType() == RestartEvent::RESTART_EVENT) {
+        p->health = 100;
         p->alive = true;
         this->currScene = this->currScene->prevScene;
         this->currRoom--;
