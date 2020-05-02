@@ -45,16 +45,16 @@ void Knight::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
         }
         else{
             if(directionX > 0){
-                this->position = {this->position.x - 2, this->position.y};
+                this->position = {this->position.x - static_cast<int>(2*this->speed), this->position.y};
             }
             if(directionX < 0){
-                this->position = {this->position.x + 2, this->position.y};
+                this->position = {this->position.x + static_cast<int>(2*this->speed), this->position.y};
             }
             if(directionY > 0){
-                this->position = {this->position.x, this->position.y-2};
+                this->position = {this->position.x, this->position.y-static_cast<int>(2*this->speed)};
             }
             if(directionY < 0){
-                this->position = {this->position.x, this->position.y+2};
+                this->position = {this->position.x, this->position.y+static_cast<int>(2*this->speed)};
             }
             this->actionFrames++;
             if(this->actionFrames==300){
@@ -75,16 +75,16 @@ void Knight::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
         }
         else{
             if(directionX > 0){
-                this->position = {this->position.x - 8, this->position.y};
+                this->position = {this->position.x - static_cast<int>(8*this->speed), this->position.y};
             }
             if(directionX < 0){
-                this->position = {this->position.x + 8, this->position.y};
+                this->position = {this->position.x + static_cast<int>(8*this->speed), this->position.y};
             }
             if(directionY > 0){
-                this->position = {this->position.x, this->position.y-8};
+                this->position = {this->position.x, this->position.y-static_cast<int>(8*this->speed)};
             }
             if(directionY < 0){
-                this->position = {this->position.x, this->position.y+8};
+                this->position = {this->position.x, this->position.y+static_cast<int>(8*this->speed)};
             }
             directionX = this->getGlobalPosition().x - playerLoc.x;
             directionY = this->getGlobalPosition().y - playerLoc.y;
@@ -101,29 +101,29 @@ void Knight::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
         }
         if(this->actionFrames >3){
             if(directionX > 0){
-                this->position = {this->position.x - 5, this->position.y};
+                this->position = {this->position.x - static_cast<int>(5*this->speed), this->position.y};
             }
             if(directionX < 0){
-                this->position = {this->position.x + 5, this->position.y};
+                this->position = {this->position.x + static_cast<int>(5*this->speed), this->position.y};
             }
             if(directionY > 0){
-                this->position = {this->position.x, this->position.y-5};
+                this->position = {this->position.x, this->position.y-static_cast<int>(5*this->speed)};
             }
             if(directionY < 0){
-                this->position = {this->position.x, this->position.y+5};
+                this->position = {this->position.x, this->position.y+static_cast<int>(5*this->speed)};
             }
         } else{
             if(directionX > 0){
-                this->position = {this->position.x + 5, this->position.y};
+                this->position = {this->position.x + static_cast<int>(5*this->speed), this->position.y};
             }
             if(directionX < 0){
-                this->position = {this->position.x - 5, this->position.y};
+                this->position = {this->position.x - static_cast<int>(5*this->speed), this->position.y};
             }
             if(directionY > 0){
-                this->position = {this->position.x, this->position.y+5};
+                this->position = {this->position.x, this->position.y+static_cast<int>(5*this->speed)};
             }
             if(directionY < 0){
-                this->position = {this->position.x, this->position.y-5};
+                this->position = {this->position.x, this->position.y-static_cast<int>(5*this->speed)};
             }
         }
         this->actionFrames--;

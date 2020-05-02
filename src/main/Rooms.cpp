@@ -19,13 +19,19 @@ Rooms::Rooms() : Game(600, 500) {
     this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
     this->collisionSystem->watchForCollisions("player", "arrow");
     this->collisionSystem->watchForCollisions("player", "mage_attack");
+    this->collisionSystem->watchForCollisions("player", "cannonball");
     this->collisionSystem->watchForCollisions("shield", "arrow");
     this->collisionSystem->watchForCollisions("shield", "mage_attack");
     this->collisionSystem->watchForCollisions("shield", "enemy");
+    this->collisionSystem->watchForCollisions("shield", "ogre");
     this->collisionSystem->watchForCollisions("enemy", "EnvironmentObject");
     this->collisionSystem->watchForCollisions("enemy", "WalkOnObject");
+    this->collisionSystem->watchForCollisions("ogre", "EnvironmentObject");
+    this->collisionSystem->watchForCollisions("enemy", "WalkOnObject");
     this->collisionSystem->watchForCollisions("enemy", "arrow");
+    this->collisionSystem->watchForCollisions("ogre", "arrow");
     this->collisionSystem->watchForCollisions("enemy", "mage_attack");
+    this->collisionSystem->watchForCollisions("enemy", "cannonball");
 
 
     camera = std::make_shared<Camera>();

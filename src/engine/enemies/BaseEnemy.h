@@ -30,8 +30,10 @@ public:
     //Info about the Enemies' state
     int health = 100;
     int state = 0;
+    double speed = 1;
 private:
     int collisionWaitTime = 0;
+    bool speedChange = false;
 
 };
 

@@ -9,6 +9,10 @@ BaseEnemy::BaseEnemy(std::string id, std::string spritesheet, std::string xml, s
 }
 
 void BaseEnemy::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
+    if(this->speedChange){
+        this->speed = 1;
+        this->speedChange = true;
+    }
     AnimatedSprite::update(pressedKeys,joystickState,pressedButtons);
 }
 
@@ -33,7 +37,7 @@ bool BaseEnemy::onCollision(std::shared_ptr<DisplayObject> other){
             other->removeThis();
         }
         return true;
-    } if (other->type == "WalkOnObject" && other->id == "spike"){
+    } if (other->id == "spike"){
         if(collisionWaitTime >= 10){
             damage = std::make_shared<Tween>(shared_from_this());
             damage->animate(TweenableParams::ALPHA, 255, 40, 48);
@@ -46,6 +50,14 @@ bool BaseEnemy::onCollision(std::shared_ptr<DisplayObject> other){
         } else {
             collisionWaitTime++;
         }
+    } else if (other->id == "mud"){
+        this->speed = 0.5;
+        this->speedChange = true;
+        return true;
+    } else if (other->id == "ice"){
+        this->speed = 2;
+        this->speedChange = true;
+        return true;
     }
     if(other->type == "rubber_cannonball" || other->type == "cannonball"){
         this->changeHealth(-100);
