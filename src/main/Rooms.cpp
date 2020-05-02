@@ -68,14 +68,22 @@ Rooms::Rooms() : Game(600, 500) {
     selection_resume_option = std::make_shared<SelectionMenuOption>(SelectionMenuOption::RESUME, "Resume");
     selection_resume_option->width = 200;
     selection_resume_option->height = 50;
-    selection_resume_option->position = {200, 200};
+    selection_resume_option->position = {200, 220};
     selection_menu_base->addChild(selection_resume_option);
 
     selection_quit_option = std::make_shared<SelectionMenuOption>(SelectionMenuOption::QUIT, "Quit");
     selection_quit_option->width = 200;
     selection_quit_option->height = 50;
-    selection_quit_option->position = {200, 300};
+    selection_quit_option->position = {200, 320};
     selection_menu_base->addChild(selection_quit_option);
+
+    pause_graphic = std::make_shared<DisplayObject>("gameovergraphic", "./resources/Rebound/pause-screen/pause.png");    
+    pause_graphic->width = 500;
+    pause_graphic->height = 250;
+    pause_graphic->position = {50, -10};
+    selection_menu_base->addChild(pause_graphic);
+
+
 
     //Game Over menu
     gameover_base = std::make_shared<SelectionMenuBase>("game_over");
