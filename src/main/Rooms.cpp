@@ -16,10 +16,11 @@ Rooms::Rooms() : Game(600, 500) {
     // create collision system
     this->collisionSystem = std::make_unique<CollisionSystem>();
     // set collisions between player and all environmental objects
-	this->collisionSystem->watchForCollisions("player", "Switch");
     this->collisionSystem->watchForCollisions("player", "WalkOnObject");
     this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
     this->collisionSystem->watchForCollisions("player", "arrow");
+    this->collisionSystem->watchForCollisions("player", "knight");
+    this->collisionSystem->watchForCollisions("player", "orc");
     this->collisionSystem->watchForCollisions("player", "mage_attack");
     this->collisionSystem->watchForCollisions("player", "cannonball");
     this->collisionSystem->watchForCollisions("shield", "arrow");

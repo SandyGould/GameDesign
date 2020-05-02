@@ -267,9 +267,9 @@ void SceneManager::updateScene() {
         return;
     }
     
-    // if (this->p->numOpponents > 0) {
-    //     return;
-    // }
+    if (this->p->numOpponents > 0) {
+        return;
+    }
 
     // if forward condition is satisfied, transition to next scene
     if (this->currScene->forward_coord == "x" && this->currScene->forward_comp == ">") {
