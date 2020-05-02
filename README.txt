@@ -10,6 +10,7 @@ KNOWN BUGS:
 3. Camera limits not complete in area 4
 4. Player can walk out of view from the camera & off the room
 5. Gravity tiles not implemented
+6. Chests not implemented
 
 
 Thanks for being our TA and grading our game!!!
