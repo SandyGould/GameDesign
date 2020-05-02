@@ -2,6 +2,8 @@
 #include "./things/Player.h"
 #include <iostream>
 
+using namespace std;
+
 WalkOnObject::WalkOnObject(std::string id, SDL_Renderer *r) : EnvironmentObject(id) {
 	this->type = "WalkOnObject";
 	this->renderer = r;
@@ -31,25 +33,25 @@ void WalkOnObject::draw(AffineTransform& at){
 }
 
 bool WalkOnObject::onCollision(std::shared_ptr<DisplayObject> other){
-	if(this->id == "shield_power_up" && other->type == "player"){
+	if(this->id.find("shield_power_up") != string::npos && other->type == "player"){
 		this->visible = false;
 		auto player = std::static_pointer_cast<Player>(other);
 		player->toggleShieldVisible(true);
 		return true;
 	}
-	else if (this->id == "mud" && other->type == "player"){
+	else if (this->id.find("mud") != string::npos && other->type == "player"){
 		auto player = std::static_pointer_cast<Player>(other);
 		player->speed = 0.5;
 		player->speedChange = true;
 		return true;
 	}
-	else if (this->id == "ice" && other->type == "player"){
+	else if (this->id.find("ice") != string::npos && other->type == "player"){
 		auto player = std::static_pointer_cast<Player>(other);
 		player->speed = 8;
 		player->speedChange = true;
 		return true;
 	}
-	else if (this->id == "spike" && other->type == "player"){
+	else if (this->id.find("spike") != string::npos && other->type == "player"){
 			if(collisionWaitTime >= 10){
 				collisionWaitTime = 0;
 				auto player = std::static_pointer_cast<Player>(other);
