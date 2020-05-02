@@ -5,7 +5,7 @@
         "objects": [
           {
             "filepath": "./resources/Rebound/area1/room5/assets/background.png",
-            "name": "background",
+            "name": "background5",
             "rotation": 0.0,
             "scaleX": 4.8,
             "scaleY": 4.8,
@@ -15,7 +15,7 @@
           },
           {
             "filepath": "./resources/Rebound/area1/room5/assets/mud1.png",
-            "name": "mud",
+            "name": "mud1",
             "rotation": 0.0,
             "scaleX": 4.8,
             "scaleY": 4.8,
@@ -25,7 +25,7 @@
           },
           {
             "filepath": "./resources/Rebound/area1/room5/assets/mud3.png",
-            "name": "mud",
+            "name": "mud3",
             "rotation": 0.0,
             "scaleX": 4.8,
             "scaleY": 4.8,
@@ -35,7 +35,7 @@
           },
           {
             "filepath": "./resources/Rebound/area1/room5/assets/mud2.png",
-            "name": "mud",
+            "name": "mud2",
             "rotation": 0.0,
             "scaleX": 4.8,
             "scaleY": 4.8,
@@ -65,7 +65,7 @@
           },
           {
             "filepath": "./resources/Rebound/area1/room5/assets/spikes.png",
-            "name": "spike",
+            "name": "spike1",
             "rotation": 0.0,
             "scaleX": 4.8,
             "scaleY": 4.8,
@@ -75,7 +75,7 @@
           },
           {
             "filepath": "./resources/Rebound/area1/room5/assets/spikes.png",
-            "name": "spike",
+            "name": "spike2",
             "rotation": 0.0,
             "scaleX": 4.8,
             "scaleY": 4.8,
