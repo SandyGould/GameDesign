@@ -49,9 +49,12 @@ double Projectile::aim(std::shared_ptr<DisplayObject> targetSprite){ //Cause a l
 }
 
 void Projectile::reflect() {
-    this->reflected = true;
-    this->deltaX = -deltaX;
-    this->deltaY = -deltaY;
+    if (!reflected){
+        this->reflected = true;
+        this->deltaX *= -2;
+        this->deltaY *= -2;
+        this->velocity *= 2;
+    }
 }
 
 void Projectile::draw(AffineTransform& at) {
