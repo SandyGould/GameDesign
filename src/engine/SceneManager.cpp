@@ -370,6 +370,7 @@ void SceneManager::handleEvent(Event* e) {
             // Event will get auto-removed by DisplayObject
         }
     } else if(e->getType() == RestartEvent::RESTART_EVENT) {
+        p->health = 100;
         p->alive = true;
         this->currScene->removeThis();
         this->currScene = this->currScene->prevScene;
