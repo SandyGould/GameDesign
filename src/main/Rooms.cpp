@@ -138,8 +138,10 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
     if (pressedKeys.find(SDL_SCANCODE_ESCAPE) != pressedKeys.end() &&
         prevKeys.find(SDL_SCANCODE_ESCAPE) == prevKeys.end()) {
         if (container->hasChild(selection_menu_base)) {
+            Game::instance->paused = false;
             container->removeImmediateChild(selection_menu_base);
         } else {
+            Game::instance->paused = true;
             container->addChild(selection_menu_base);
         }
     }
@@ -149,21 +151,23 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
         Game::instance->container->printDisplayTree();
     }
 
-    TweenJuggler::getInstance().nextFrame();
+    prevKeys = pressedKeys;
 
-    // update scene if criteria for changing scene are met
-    this->sceneManager->updateScene();
-    health->updateHealth();
-    player->speedChange = false;
-    this->collisionSystem->update();
-    if(!player->speedChange){
-        player->speed = 4;
+    if (!Game::instance->paused) {
+        TweenJuggler::getInstance().nextFrame();
+
+        // update scene if criteria for changing scene are met
+        this->sceneManager->updateScene();
+        health->updateHealth();
+        player->speedChange = false;
+        this->collisionSystem->update();
+        if (!player->speedChange) {
+            player->speed = 4;
+        }
+        camera->follow(player->position.x, player->position.y);
     }
-    camera->follow(player->position.x, player->position.y);
 
     Game::update(pressedKeys, joystickState, pressedButtons);
-
-    prevKeys = pressedKeys;
 }
 
 void Rooms::draw(AffineTransform& at) {

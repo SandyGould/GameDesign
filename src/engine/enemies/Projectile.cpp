@@ -19,6 +19,9 @@ void Projectile::fire(double angle){
 }
 
 void Projectile::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
+    if (Game::instance->paused) {
+        return;
+    }
     if(firing){
         this->position.x+=deltaX;
         this->position.y+=deltaY;

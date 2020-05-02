@@ -34,6 +34,9 @@ void Ogre::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
         this->player->numOpponents -= 1;
         return;
     }
+    if (Game::instance->paused) {
+        return;
+    }
 
     if(this->state == 0) {
         this->state = 1; //We have to now move into the next state. :)

@@ -76,6 +76,10 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
         return;
     }
 
+    if (Game::instance->paused) {
+        return;
+    }
+
     // CHARACTER MOVEMENT
     this->width = 110;
 	this->height = 80;

@@ -9,6 +9,9 @@ BaseEnemy::BaseEnemy(std::string id, std::string spritesheet, std::string xml, s
 }
 
 void BaseEnemy::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
+    if (Game::instance->paused) {
+        return;
+    }
     if(this->speedChange){
         this->speed = 1;
         this->speedChange = true;

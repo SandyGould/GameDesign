@@ -14,6 +14,9 @@ PoisonBomb::PoisonBomb():Sprite("bomb", "./resources/assets/Display_Objects/Pois
 
 
 void PoisonBomb::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
+    if (Game::instance->paused) {
+        return;
+    }
     if(timer == 0){
         this->explode();
     }

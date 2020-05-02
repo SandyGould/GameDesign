@@ -15,6 +15,9 @@ void SecondBoss::update(const std::unordered_set<SDL_Scancode>& pressedKeys, con
         this->player->numOpponents -= 1;
         return;
     }
+    if (Game::instance->paused) {
+        return;
+    }
 
     if(this->state == 0){
         //init
