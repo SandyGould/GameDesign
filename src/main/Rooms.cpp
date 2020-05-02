@@ -98,6 +98,14 @@ Rooms::Rooms() : Game(600, 500) {
     gameover_quit_option->alpha = 0;
     gameover_base->addChild(gameover_quit_option);
 
+    gameover_graphic = std::make_shared<DisplayObject>("gameovergraphic", "./resources/Rebound/game-over-screen/game_over_text.png");
+    gameover_graphic->width = 200;
+    gameover_graphic->height = 200;
+    gameover_graphic->position = {200, 0};
+    gameover_graphic->alpha = 0;
+    gameover_base->addChild(gameover_graphic);
+
+
     EventDispatcher::getInstance().addEventListener(this->gameover_base.get(), GameOverEvent::GAME_OVER_EVENT);
     EventDispatcher::getInstance().addEventListener(this->gameover_resume_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);
     EventDispatcher::getInstance().addEventListener(this->gameover_quit_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);

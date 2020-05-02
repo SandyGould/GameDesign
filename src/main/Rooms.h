@@ -37,6 +37,7 @@ private:
     std::shared_ptr<SelectionMenuBase> gameover_base;
     std::shared_ptr<SelectionMenuOption> gameover_quit_option;
     std::shared_ptr<SelectionMenuOption> gameover_resume_option;
+    std::shared_ptr<DisplayObject> gameover_graphic;
 
     std::shared_ptr<TextBox> start_text_box;
 
