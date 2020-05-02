@@ -28,6 +28,12 @@ TitleScreen::TitleScreen() : Game(600, 500) {
     selection_quit_option->position = {200, 300};
     selection_menu_base->addChild(selection_quit_option);
 
+    title_graphic = std::make_shared<DisplayObject>("title","./resources/Rebound/title-screen/Title.png");
+    title_graphic->width = 200;
+    title_graphic->height = 200;
+    title_graphic->position = {200, 0};
+    selection_menu_base->addChild(title_graphic);
+
     EventDispatcher::getInstance().addEventListener(this->selection_resume_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);
     EventDispatcher::getInstance().addEventListener(this->selection_quit_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);
 }

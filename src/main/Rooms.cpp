@@ -86,6 +86,12 @@ Rooms::Rooms() : Game(600, 500) {
     gameover_quit_option->position = {200, 300};
     gameover_base->addChild(gameover_quit_option);
 
+    gameover_graphic = std::make_shared<DisplayObject>("gameovergraphic", "./resources/Rebound/game-over-screen/game_over_text.png");
+    gameover_graphic->width = 200;
+    gameover_graphic->height = 200;
+    gameover_graphic->position = {200, 0};
+    gameover_base->addChild(gameover_graphic);
+
     // health bar
     health = std::make_shared<StatBar>("Health", "./resources/Rebound/greenbar (3).png", player);
     container->addChild(health);
