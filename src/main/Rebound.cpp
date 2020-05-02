@@ -146,6 +146,7 @@ Rebound::Rebound() : Game(1200, 800) {
 	collisionSystem->watchForCollisions("player", "mage_attack");
 	collisionSystem->watchForCollisions("player", "cannonball");
 	collisionSystem->watchForCollisions("player", "rubber_cannonball");
+	collisionSystem->watchForCollisions("player", "Switch");
 
 	collisionSystem->watchForCollisions("shield", "arrow");
 	collisionSystem->watchForCollisions("shield", "mage_attack");
