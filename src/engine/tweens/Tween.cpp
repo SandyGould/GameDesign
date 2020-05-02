@@ -4,7 +4,6 @@
 
 #include <algorithm>
 #include <iostream>
-#include <cstdlib>
 
 Tween::Tween(std::weak_ptr<DisplayObject> object) {
     this->currObject = object;
@@ -114,9 +113,5 @@ void Tween::setValue(TweenableParams param, double value) {
 
 bool Tween::isComplete() {
     // tween is complete if no more parameters left to tween
-    if (this->currTweening.size() == 0) {
-        EventDispatcher::getInstance().dispatchEvent(new TweenEvent(TweenEvent::TWEEN_COMPLETE_EVENT, this));
-        return true;
-    }
-    return false;
+    return this->currTweening.empty();
 }
