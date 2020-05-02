@@ -1,11 +1,11 @@
 #pragma once
 
-#include "events/Event.h"
+#include "../events/Event.h"
 
 #include "../EnvironmentObject.h"
 #include "../DisplayObject.h"
-#include "Game.h"
-#include "AffineTransform.h"
+#include "../Game.h"
+#include "../AffineTransform.h"
 
 
 class Switch : public EnvironmentObject {

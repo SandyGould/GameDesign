@@ -5,4 +5,5 @@ target_sources(rebound PRIVATE
         SelectionMenuBase.cpp
         SelectionMenuOption.cpp
         Shield.cpp
+        Switch.cpp
         TextBox.cpp)

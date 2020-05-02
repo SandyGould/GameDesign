@@ -3,6 +3,7 @@
 #include "../engine/events/GameOverEvent.h"
 #include "../engine/events/PlayerDeathEvent.h"
 #include "../engine/events/RestartEvent.h"
+#include "../engine/events/TweenEvent.h"
 
 #include <cmath>
 #include <iostream>
