@@ -56,8 +56,12 @@ void CollisionSystem::update() {
             continue;
         }
 
+        if (!object1->visible || !object2->visible) {
+            // Hold up, one of them isn't visible...
+            continue;
+        }
+
         // More optimizations possible:
-        // - Only check for collisions for visible objects
         // - Only check for collisions for objects in the camera view
 
         if (collidesWith(object1, object2)) {
