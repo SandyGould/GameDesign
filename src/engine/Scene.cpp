@@ -82,7 +82,15 @@ void Scene::loadScene(std::string sceneFilePath){
             else if(obj_type.compare("EnvironmentObject") == 0){temp_layer->addChild(std::static_pointer_cast<EnvironmentObject>(setBasicInfo(std::make_shared<EnvironmentObject>(mj["name"], mj["filepath"]), mj)));}
             else if(obj_type.compare("HitObject") == 0){temp_layer->addChild(std::static_pointer_cast<HitObject>(setBasicInfo(std::make_shared<HitObject>(mj["name"], mj["filepath"]), mj)));}
             else if(obj_type.compare("WalkOnObject") == 0){temp_layer->addChild(std::static_pointer_cast<WalkOnObject>(setBasicInfo(std::make_shared<WalkOnObject>(mj["name"], mj["filepath"]), mj)));}
-            else if(obj_type.compare("Switch") == 0){temp_layer->addChild(std::static_pointer_cast<Switch>(setBasicInfo(std::make_shared<Switch>(), mj)));}
+            else if(obj_type.compare("Switch") == 0){
+                std::shared_ptr<Switch> temp_switch = std::make_shared<Switch>();
+                if(mj["children"].size() > 0){
+                    for(int x = 0; x < mj["children"].size(); x++){
+                        temp_switch->temp_children.push_back(std::static_pointer_cast<WalkOnObject>(setBasicInfo(std::make_shared<WalkOnObject>(mj["children"][x]["name"], mj["children"][x]["filepath"]), mj["children"][x])));
+                    }
+                }
+                temp_layer->addChild(std::static_pointer_cast<Switch>(setBasicInfo(temp_switch, mj)));
+                }
         }            
         this->addChild(temp_layer);
     }
