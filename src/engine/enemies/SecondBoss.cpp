@@ -38,16 +38,16 @@ void SecondBoss::update(const std::unordered_set<SDL_Scancode>& pressedKeys, con
             if (this->current.animName.compare("SecondBossRun") != 0)
                 this->play("SecondBossRun");
             if(directionX > 0){
-                this->position = {this->position.x - 2, this->position.y};
+                this->position = {this->position.x - static_cast<int>(2*this->speed), this->position.y};
             }
             if(directionX < 0){
-                this->position = {this->position.x + 2, this->position.y};
+                this->position = {this->position.x + static_cast<int>(2*this->speed), this->position.y};
             }
             if(directionY > 0){
-                this->position = {this->position.x, this->position.y-2};
+                this->position = {this->position.x, this->position.y-static_cast<int>(2*this->speed)};
             }
             if(directionY < 0){
-                this->position = {this->position.x, this->position.y+2};
+                this->position = {this->position.x, this->position.y+static_cast<int>(2*this->speed)};
             }
             this->actionFrames++;
             if(this->actionFrames==300){
@@ -69,16 +69,16 @@ void SecondBoss::update(const std::unordered_set<SDL_Scancode>& pressedKeys, con
         }
         else{
             if(directionX > 0){
-                this->position = {this->position.x - 2, this->position.y};
+                this->position = {this->position.x - static_cast<int>(2*this->speed), this->position.y};
             }
             if(directionX < 0){
-                this->position = {this->position.x + 2, this->position.y};
+                this->position = {this->position.x + static_cast<int>(2*this->speed), this->position.y};
             }
             if(directionY > 0){
-                this->position = {this->position.x, this->position.y-2};
+                this->position = {this->position.x, this->position.y-static_cast<int>(2*this->speed)};
             }
             if(directionY < 0){
-                this->position = {this->position.x, this->position.y+2};
+                this->position = {this->position.x, this->position.y+static_cast<int>(2*this->speed)};
             }
             directionX = this->getGlobalPosition().x - playerLoc.x;
             directionY = this->getGlobalPosition().y - playerLoc.y;

@@ -20,15 +20,19 @@ TitleScreen::TitleScreen() : Game(600, 500) {
     selection_resume_option->width = 200;
     selection_resume_option->height = 50;
     selection_resume_option->position = {200, 200};
-    selection_resume_option->updateAlpha();
     selection_menu_base->addChild(selection_resume_option);
 
     selection_quit_option = std::make_shared<SelectionMenuOption>(SelectionMenuOption::QUIT, "Quit");
     selection_quit_option->width = 200;
     selection_quit_option->height = 50;
     selection_quit_option->position = {200, 300};
-    selection_quit_option->updateAlpha();
     selection_menu_base->addChild(selection_quit_option);
+
+    title_graphic = std::make_shared<DisplayObject>("title","./resources/Rebound/title-screen/Title.png");
+    title_graphic->width = 200;
+    title_graphic->height = 200;
+    title_graphic->position = {200, 0};
+    selection_menu_base->addChild(title_graphic);
 
     EventDispatcher::getInstance().addEventListener(this->selection_resume_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);
     EventDispatcher::getInstance().addEventListener(this->selection_quit_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);

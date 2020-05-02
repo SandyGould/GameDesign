@@ -53,7 +53,7 @@ class SceneManager : public EventListener {
         int currRoom = 1;
         int currArea = 1;
 
-        int numRooms[4] = {5,8,8,8};
+        int numRooms[4] = {8,8,8,8};
         
 };
 

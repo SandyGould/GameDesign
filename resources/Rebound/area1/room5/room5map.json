@@ -1,213 +1,123 @@
 {
-  "Scene": [
-    {
-      "L0": {
-        "objects": [
-          {
-            "filepath": "./resources/Rebound/area1/room5/assets/background.png",
-            "name": "background",
-            "rotation": 0.0,
-            "scaleX": 4.8,
-            "scaleY": 4.8,
-            "type": "DisplayObject",
-            "x_pos": 0,
-            "y_pos": 0
-          },
-          {
-            "filepath": "./resources/Rebound/area1/room5/assets/mud1.png",
-            "name": "mud",
-            "rotation": 0.0,
-            "scaleX": 4.8,
-            "scaleY": 4.8,
-            "type": "WalkOnObject",
-            "x_pos": 140,
-            "y_pos": 1022
-          },
-          {
-            "filepath": "./resources/Rebound/area1/room5/assets/mud3.png",
-            "name": "mud",
-            "rotation": 0.0,
-            "scaleX": 4.8,
-            "scaleY": 4.8,
-            "type": "WalkOnObject",
-            "x_pos": 120,
-            "y_pos": 1040
-          },
-          {
-            "filepath": "./resources/Rebound/area1/room5/assets/mud2.png",
-            "name": "mud",
-            "rotation": 0.0,
-            "scaleX": 4.8,
-            "scaleY": 4.8,
-            "type": "WalkOnObject",
-            "x_pos": 290,
-            "y_pos": 1042
-          },
-          {
-            "filepath": "./resources/Rebound/area1/room5/assets/structure.png",
-            "name": "structure",
-            "rotation": 0.0,
-            "scaleX": 4.8,
-            "scaleY": 4.8,
-            "type": "EnvironmentObject",
-            "x_pos": 288,
-            "y_pos": 1100
-          },
-          {
-            "filepath": "./resources/Rebound/area1/room5/assets/shadow.png",
-            "name": "structure_shadow",
-            "rotation": 0.0,
-            "scaleX": 4.8,
-            "scaleY": 4.8,
-            "type": "DisplayObject",
-            "x_pos": 288,
-            "y_pos": 1133
-          },
-          {
-            "filepath": "./resources/Rebound/area1/room5/assets/spikes.png",
-            "name": "spike",
-            "rotation": 0.0,
-            "scaleX": 4.8,
-            "scaleY": 4.8,
-            "type": "WalkOnObject",
-            "x_pos": 95,
-            "y_pos": 1268
-          },
-          {
-            "filepath": "./resources/Rebound/area1/room5/assets/spikes.png",
-            "name": "spike",
-            "rotation": 0.0,
-            "scaleX": 4.8,
-            "scaleY": 4.8,
-            "type": "WalkOnObject",
-            "x_pos": 103,
-            "y_pos": 1192
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/switch_off.png",
-            "name": "switch",
-            "rotation": 0.0,
-            "scaleX": 4.8,
-            "scaleY": 4.8,
-            "type": "WalkOnObject",
-            "x_pos": 509,
-            "y_pos": 937
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/orc.png",
-            "name": "orc1",
-            "rotation": 0.0,
-            "scaleX": 3,
-            "scaleY": 3,
-            "type": "Orc",
-            "x_pos": 45,
-            "y_pos": 641
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/orc.png",
-            "name": "orc2",
-            "rotation": 0.0,
-            "scaleX": 3,
-            "scaleY": 3,
-            "type": "DisplayObject",
-            "x_pos": 481,
-            "y_pos": 641
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/archer.png",
-            "name": "archer1",
-            "rotation": 0.0,
-            "scaleX": 3,
-            "scaleY": 3,
-            "type": "Archer",
-            "x_pos": 57,
-            "y_pos": 343
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/archer.png",
-            "name": "archer2",
-            "rotation": 0.0,
-            "scaleX": 3,
-            "scaleY": 3,
-            "type": "Archer",
-            "x_pos": 269,
-            "y_pos": 542
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/archer.png",
-            "name": "archer3",
-            "rotation": 0.0,
-            "scaleX": 3,
-            "scaleY": 3,
-            "type": "Archer",
-            "x_pos": 394,
-            "y_pos": 457
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/archer.png",
-            "name": "archer4",
-            "rotation": 0.0,
-            "scaleX": 3,
-            "scaleY": 3,
-            "type": "Archer",
-            "x_pos": 481,
-            "y_pos": 343
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/archer.png",
-            "name": "archer5",
-            "rotation": 0.0,
-            "scaleX": 3,
-            "scaleY": 3,
-            "type": "Archer",
-            "x_pos": 154,
-            "y_pos": 459
-          },
-          {
-            "filepath": "./resources/assets/Animated_Sprites/Enemies/enemies.png",
-            "name": "ogre",
-            "rotation": 0.0,
-            "scaleX": 9,
-            "scaleY": 9,
-            "type": "Ogre",
-            "x_pos": 250,
-            "y_pos": 165
-          }
-        ],
-        "speed": 0.0
+    "Scene": [
+      {
+        "L0": {
+          "objects": [
+            {
+              "filepath": "./resources/Rebound/area1/room5/assets/background.png",
+              "name": "background",
+              "rotation": 0.0,
+              "scaleX": 4.2,
+              "scaleY": 4.2,
+              "type": "DisplayObject",
+              "x_pos": 0,
+              "y_pos": 0
+            },
+            {
+              "filepath": "./resources/Rebound/area1/room5/assets/spike_stripe.png",
+              "name": "spike",
+              "rotation": 0.0,
+              "scaleX": 4.2,
+              "scaleY": 4.2,
+              "type": "WalkOnObject",
+              "x_pos": 800,
+              "y_pos": 0
+            },
+            {
+              "filepath": "./resources/Rebound/area1/room5/assets/spike_stripe.png",
+              "name": "spike",
+              "rotation": 0.0,
+              "scaleX": 4.2,
+              "scaleY": 4.2,
+              "type": "WalkOnObject",
+              "x_pos": 300,
+              "y_pos": 0
+            },
+            {
+                "filepath": "./resources/assets/Display_Objects/switch_off.png",
+                "name": "switch",
+                "rotation": 0.0,
+                "scaleX": 4.2,
+                "scaleY": 4.2,
+                "type": "WalkOnObject",
+                "x_pos": 150,
+                "y_pos": 50
+            },
+            {
+                "filepath": "./resources/assets/Display_Objects/switch_off.png",
+                "name": "switch",
+                "rotation": 0.0,
+                "scaleX": 4.2,
+                "scaleY": 4.2,
+                "type": "WalkOnObject",
+                "x_pos": 600,
+                "y_pos": 400
+            },
+            {
+                "filepath": "./resources/assets/Display_Objects/archer.png",
+                "name": "archer1",
+                "rotation": 0.0,
+                "scaleX": 3,
+                "scaleY": 3,
+                "type": "Archer",
+                "x_pos": 500,
+                "y_pos": 375
+              },
+              {
+                "filepath": "./resources/assets/Display_Objects/archer.png",
+                "name": "archer2",
+                "rotation": 0.0,
+                "scaleX": 3,
+                "scaleY": 3,
+                "type": "Archer",
+                "x_pos": 600,
+                "y_pos": 125
+              },
+              {
+                "filepath": "./resources/assets/Display_Objects/orc.png",
+                "name": "orc1",
+                "rotation": 0.0,
+                "scaleX": 3,
+                "scaleY": 3,
+                "type": "Orc",
+                "x_pos": 450,
+                "y_pos": 225
+              }
+          ],
+          "speed": 0.0
+        }
+      },
+      {
+        "L1": {
+          "objects": [],
+          "speed": 0.0
+        }
+      },
+      {
+        "L2": {
+          "objects": [],
+          "speed": 0.0
+        }
       }
-    },
-    {
-      "L1": {
-        "objects": [],
-        "speed": 0.0
-      }
-    },
-    {
-      "L2": {
-        "objects": [],
-        "speed": 0.0
-      }
+    ],
+    "Camera": {
+      "camEntrancePivotX": 130,
+      "camEntrancePivotY": 100,
+      "camEntrancePositionX": 100,
+      "camEntrancePositionY": 100,
+      "playerEntrancePosX": 50,
+      "playerEntrancePosY": 200,
+      "camExitPivotX": 800,
+      "camExitPivotY": 100,
+      "camExitPositionX": 200,
+      "camExitPositionY": 100,
+      "playerExitPosX": 1100,
+      "playerExitPosY": 0,
+      "playerExitCoord": "x",
+      "playerExitComp": ">",
+      "camTopLimit": 100,
+      "camBottomLimit": 130,
+      "camRightLimit": 580,
+      "camLeftLimit": 100
     }
-  ],
-  "Camera": {
-    "camEntrancePivotX": 110,
-    "camEntrancePivotY": 940,
-    "camEntrancePositionX": 100,
-    "camEntrancePositionY": 100,
-    "playerEntrancePosX": 500,
-    "playerEntrancePosY": 1300,
-    "camExitPivotX": 800,
-    "camExitPivotY": 100,
-    "camExitPositionX": 200,
-    "camExitPositionY": 100,
-    "playerExitPosX": 0,
-    "playerExitPosY": 0,
-    "playerExitCoord": "y",
-    "playerExitComp": "<",
-    "camTopLimit": 100,
-    "camBottomLimit": 940,
-    "camRightLimit": 100,
-    "camLeftLimit": 100
   }
-}

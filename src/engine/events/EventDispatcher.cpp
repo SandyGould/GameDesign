@@ -31,12 +31,13 @@ bool EventDispatcher::hasEventListener(EventListener* l, std::string eventType) 
         return false;
     }
 
-    auto vl = it->second;
+    auto& vl = it->second;
     return std::find(vl.cbegin(), vl.cend(), l) != vl.cend();
 }
 
 void EventDispatcher::clear() {
     listeners.clear();
+    listenersToErase.clear();
 }
 
 void EventDispatcher::dispatchEvent(Event* e) {
@@ -47,7 +48,7 @@ void EventDispatcher::dispatchEvent(Event* e) {
         return;
     }
 
-    auto vl = it->second;
+    auto& vl = it->second;
     for (auto listener : vl) {
         listener->handleEvent(e);
     }

@@ -303,13 +303,6 @@ void SceneManager::updateScene() {
         }
     }
 
-    
-
-    // std::cout << "x" << std::endl;
-    // std::cout << this->p->position.x << std::endl;
-    // std::cout << "y" << std::endl;
-    // std::cout << this->p->position.y << std::endl;
-
     // // if backward condition is satisfied, go back to previous scene
     // if (this->currScene->back_coord == "x" && this->currScene->back_comp == ">") {
     //     if (p->position.x > this->currScene->goBack.x) {
@@ -369,13 +362,14 @@ void SceneManager::handleEvent(Event* e) {
             EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_IN_EVENT));
             // Event will get auto-removed by DisplayObject
         }
-    } else if(e->getType() == RestartEvent::RESTART_EVENT) {
+    }
+    else if(e->getType() == RestartEvent::RESTART_EVENT)
+    {
         p->alive = true;
-        this->currScene->removeThis();
         this->currScene = this->currScene->prevScene;
         this->currRoom--;
         this->loadNextScene();
-        // this->currScene->addChild(p);
+        this->currScene->addChild(p);
         //this->loadPrevScene();
         //this->loadNextScene();    
     }

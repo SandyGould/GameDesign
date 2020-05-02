@@ -106,29 +106,29 @@ void MonsterKing::update(const std::unordered_set<SDL_Scancode>& pressedKeys, co
         }
         if(this->rushFrames >3){
             if(directionX > 0){
-                this->position = {this->position.x - 5, this->position.y};
+                this->position = {this->position.x - static_cast<int>(5*this->speed), this->position.y};
             }
             if(directionX < 0){
-                this->position = {this->position.x + 5, this->position.y};
+                this->position = {this->position.x + static_cast<int>(5*this->speed), this->position.y};
             }
             if(directionY > 0){
-                this->position = {this->position.x, this->position.y-5};
+                this->position = {this->position.x, this->position.y-static_cast<int>(5*this->speed)};
             }
             if(directionY < 0){
-                this->position = {this->position.x, this->position.y+5};
+                this->position = {this->position.x, this->position.y+static_cast<int>(5*this->speed)};
             }
         } else{
             if(directionX > 0){
-                this->position = {this->position.x + 5, this->position.y};
+                this->position = {this->position.x + static_cast<int>(5*this->speed), this->position.y};
             }
             if(directionX < 0){
-                this->position = {this->position.x - 5, this->position.y};
+                this->position = {this->position.x - static_cast<int>(5*this->speed), this->position.y};
             }
             if(directionY > 0){
-                this->position = {this->position.x, this->position.y+5};
+                this->position = {this->position.x, this->position.y+static_cast<int>(5*this->speed)};
             }
             if(directionY < 0){
-                this->position = {this->position.x, this->position.y-5};
+                this->position = {this->position.x, this->position.y-static_cast<int>(5*this->speed)};
             }
         }
         this->rushFrames--;
