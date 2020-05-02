@@ -18,7 +18,9 @@ Wait for refresh (Random time between 1 and 3 seconds.
 Ded
 */
 void Cannoneer::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
-
+    if (Game::instance->paused) {
+        return;
+    }
     if(this->health <= 0) {
         this->removeThis();
         this->player->numOpponents -= 1;

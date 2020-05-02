@@ -21,7 +21,7 @@ class Projectile : public Sprite{
     int deltaX;
     int deltaY;
     double distance(SDL_Point& p1, SDL_Point& p2);
-    void reflect();
+    void reflect(double speedMult);
 
     double aim(std::shared_ptr<DisplayObject> targetSprite);
     void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;

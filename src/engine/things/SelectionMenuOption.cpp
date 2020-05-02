@@ -38,6 +38,7 @@ void SelectionMenuOption::handleEvent(Event* e) {
 		} else if (this->id == SelectionMenuOption::RESUME &&
 			this->position.x <= event->x && event->x <= this->position.x + this->width &&
 			this->position.y <= event->y && event->y <= this->position.y + this->height) {
+            Game::instance->paused = false;
             Game::instance->container->removeImmediateChild(this->parent->id);
 		} else if (this->id == SelectionMenuOption::START &&
 			this->position.x <= event->x && event->x <= this->position.x + this->width &&
@@ -47,6 +48,7 @@ void SelectionMenuOption::handleEvent(Event* e) {
 		else if (this->id == SelectionMenuOption::CONTINUE &&
 			this->position.x <= event->x && event->x <= this->position.x + this->width &&
 			this->position.y <= event->y && event->y <= this->position.y + this->height) {
+            Game::instance->paused = false;
 			EventDispatcher::getInstance().dispatchEvent(new Event(RestartEvent::RESTART_EVENT));
             Game::instance->container->removeImmediateChild(this->parent->id);
 		}

@@ -19,6 +19,9 @@ void Projectile::fire(double angle){
 }
 
 void Projectile::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
+    if (Game::instance->paused) {
+        return;
+    }
     if(firing){
         this->position.x+=deltaX;
         this->position.y+=deltaY;
@@ -48,12 +51,13 @@ double Projectile::aim(std::shared_ptr<DisplayObject> targetSprite){ //Cause a l
     return goalAngle;
 }
 
-void Projectile::reflect() {
+void Projectile::reflect(double speedMult) {
     if (!reflected){
         this->reflected = true;
-        this->deltaX *= -2;
-        this->deltaY *= -2;
-        this->velocity *= 2;
+        this->velocity *= speedMult;
+        double angle = std::atan2(-deltaY, deltaX) * 180 / PI;
+        deltaX = -velocity * cos(angle * PI / 180);
+        deltaY = -velocity * -sin(angle * PI / 180);
     }
 }
 

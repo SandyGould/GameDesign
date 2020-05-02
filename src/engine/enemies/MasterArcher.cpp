@@ -31,6 +31,9 @@ void MasterArcher::update(const std::unordered_set<SDL_Scancode>& pressedKeys, c
         this->state = -1;
         this->player->numOpponents -= 1;
     }
+    if (Game::instance->paused) {
+        return;
+    }
 
     if(this->state == 0){
         this->state = 1; //We have to now move into the next state. :)

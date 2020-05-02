@@ -13,6 +13,9 @@ void RubberCannoneer::update(const std::unordered_set<SDL_Scancode>& pressedKeys
         this->player->numOpponents -= 1;
         return;
     }
+    if (Game::instance->paused) {
+        return;
+    }
 
     if(this->state == 0){        
         cannon->scaleHeight(this->height*1.5);

@@ -27,6 +27,9 @@ void KingdomKing::update(const std::unordered_set<SDL_Scancode>& pressedKeys, co
         this->player->numOpponents -= 1;
         return;
     }
+    if (Game::instance->paused) {
+        return;
+    }
     //std::cout<<"State:"<<this->state<<"\n";
     if(this->state == 0){
         //init
