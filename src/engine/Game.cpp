@@ -205,26 +205,26 @@ void Game::presentRenderers() {
 
 void Game::handleEvent(Event* e)
 {
-    if (e->getType() == KeyDownEvent::ESC_DOWN_EVENT){
-        // printf("Escape event\n");
-        if(paused == true)
-        {
-            paused = false;
-        }
-        else if(paused == false)
-        {
-            paused = true;
-        }
-
-    }
+    // if (e->getType() == KeyDownEvent::ESC_DOWN_EVENT){
+    //     // printf("Escape event\n");
+    //     if(paused == true)
+    //     {
+    //         paused = false;
+    //     }
+    //     else if(paused == false)
+    //     {
+    //         paused = true;
+    //     }
+    //
+    // }
 }
 
 void Game::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
-    if(paused == false)
-    {
+    // if(paused == false)
+    // {
     frameCounter++;
     this->container->update(pressedKeys, joystickState, pressedButtons);
-    }
+    // }
 }
 
 void Game::draw(AffineTransform& at) {

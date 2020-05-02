@@ -34,6 +34,9 @@ void MonsterKing::update(const std::unordered_set<SDL_Scancode>& pressedKeys, co
         this->player->numOpponents -= 1;
         EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_OUT_EVENT));
     }
+    if (Game::instance->paused) {
+        return;
+    }
 
     if(this->state == 0){
         this->play("MKingIdle");

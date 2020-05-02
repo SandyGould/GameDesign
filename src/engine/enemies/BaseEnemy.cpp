@@ -9,6 +9,9 @@ BaseEnemy::BaseEnemy(std::string id, std::string spritesheet, std::string xml, s
 }
 
 void BaseEnemy::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
+    if (Game::instance->paused) {
+        return;
+    }
     if(this->speedChange){
         this->speed = 1;
         this->speedChange = true;
@@ -33,7 +36,7 @@ bool BaseEnemy::onCollision(std::shared_ptr<DisplayObject> other){
             damage->animate(TweenableParams::ALPHA, 200, 40, 32);
             damage->animate(TweenableParams::ALPHA, 40, 255, 48);
             TweenJuggler::getInstance().add(damage);
-            this->changeHealth(-20);
+            this->changeHealth(-50);
             other->removeThis();
         }
         return true;

@@ -16,10 +16,11 @@ Rooms::Rooms() : Game(600, 500) {
     // create collision system
     this->collisionSystem = std::make_unique<CollisionSystem>();
     // set collisions between player and all environmental objects
-	this->collisionSystem->watchForCollisions("player", "Switch");
     this->collisionSystem->watchForCollisions("player", "WalkOnObject");
     this->collisionSystem->watchForCollisions("player", "EnvironmentObject");
     this->collisionSystem->watchForCollisions("player", "arrow");
+    this->collisionSystem->watchForCollisions("player", "knight");
+    this->collisionSystem->watchForCollisions("player", "orc");
     this->collisionSystem->watchForCollisions("player", "mage_attack");
     this->collisionSystem->watchForCollisions("player", "cannonball");
     this->collisionSystem->watchForCollisions("shield", "arrow");
@@ -68,14 +69,22 @@ Rooms::Rooms() : Game(600, 500) {
     selection_resume_option = std::make_shared<SelectionMenuOption>(SelectionMenuOption::RESUME, "Resume");
     selection_resume_option->width = 200;
     selection_resume_option->height = 50;
-    selection_resume_option->position = {200, 200};
+    selection_resume_option->position = {200, 220};
     selection_menu_base->addChild(selection_resume_option);
 
     selection_quit_option = std::make_shared<SelectionMenuOption>(SelectionMenuOption::QUIT, "Quit");
     selection_quit_option->width = 200;
     selection_quit_option->height = 50;
-    selection_quit_option->position = {200, 300};
+    selection_quit_option->position = {200, 320};
     selection_menu_base->addChild(selection_quit_option);
+
+    pause_graphic = std::make_shared<DisplayObject>("gameovergraphic", "./resources/Rebound/pause-screen/pause.png");    
+    pause_graphic->width = 500;
+    pause_graphic->height = 250;
+    pause_graphic->position = {50, -10};
+    selection_menu_base->addChild(pause_graphic);
+
+
 
     //Game Over menu
     gameover_base = std::make_shared<SelectionMenuBase>("game_over");
@@ -130,8 +139,10 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
     if (pressedKeys.find(SDL_SCANCODE_ESCAPE) != pressedKeys.end() &&
         prevKeys.find(SDL_SCANCODE_ESCAPE) == prevKeys.end()) {
         if (container->hasChild(selection_menu_base)) {
+            Game::instance->paused = false;
             container->removeImmediateChild(selection_menu_base);
         } else {
+            Game::instance->paused = true;
             container->addChild(selection_menu_base);
         }
     }
@@ -141,21 +152,23 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
         Game::instance->container->printDisplayTree();
     }
 
-    TweenJuggler::getInstance().nextFrame();
+    prevKeys = pressedKeys;
 
-    // update scene if criteria for changing scene are met
-    this->sceneManager->updateScene();
-    health->updateHealth();
-    player->speedChange = false;
-    this->collisionSystem->update();
-    if(!player->speedChange){
-        player->speed = 4;
+    if (!Game::instance->paused) {
+        TweenJuggler::getInstance().nextFrame();
+
+        // update scene if criteria for changing scene are met
+        this->sceneManager->updateScene();
+        health->updateHealth();
+        player->speedChange = false;
+        this->collisionSystem->update();
+        if (!player->speedChange) {
+            player->speed = 4;
+        }
+        camera->follow(player->position.x, player->position.y);
     }
-    camera->follow(player->position.x, player->position.y);
 
     Game::update(pressedKeys, joystickState, pressedButtons);
-
-    prevKeys = pressedKeys;
 }
 
 void Rooms::draw(AffineTransform& at) {

@@ -153,6 +153,10 @@ void AnimatedSprite::stop() {
 }
 
 void AnimatedSprite::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
+    if (Game::instance->paused) {
+        return;
+    }
+
     Sprite::update(pressedKeys, joystickState, pressedButtons);
     if (playing) {
         frameCount++;

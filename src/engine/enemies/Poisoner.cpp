@@ -18,6 +18,9 @@ void Poisoner::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const
         this->player->numOpponents -= 1;
         return;
     }
+    if (Game::instance->paused) {
+        return;
+    }
 
     if(this->state == 0){
         //init
