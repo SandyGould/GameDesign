@@ -1,0 +1,214 @@
+{
+  "Scene": [
+    {
+      "L0": {
+        "objects": [
+          {
+            "filepath": "./resources/Rebound/area1/room7/assets/background.png",
+            "name": "background",
+            "rotation": 0.0,
+            "scaleX": 4.2,
+            "scaleY": 4.2,
+            "type": "DisplayObject",
+            "x_pos": 0,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room7/assets/spike_strip2.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 4.2,
+            "scaleY": 4.2,
+            "type": "WalkOnObject",
+            "x_pos": 0,
+            "y_pos": 200
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room7/assets/spike_strop1.png",
+            "name": "spike",
+            "rotation": 0.0,
+            "scaleX": 4.2,
+            "scaleY": 4.2,
+            "type": "WalkOnObject",
+            "x_pos": 305,
+            "y_pos": 470
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room7/assets/treeblock1.png",
+            "name": "treeblock1",
+            "rotation": 0.0,
+            "scaleX": 4.2,
+            "scaleY": 4.2,
+            "type": "EnvironmentObject",
+            "x_pos": 0,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room7/assets/treeblock2.png",
+            "name": "treeblock2",
+            "rotation": 0.0,
+            "scaleX": 4.2,
+            "scaleY": 4.2,
+            "type": "EnvironmentObject",
+            "x_pos": 300,
+            "y_pos": 0
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room7/assets/treeblock3.png",
+            "name": "treeblock3",
+            "rotation": 0.0,
+            "scaleX": 4.2,
+            "scaleY": 4.2,
+            "type": "EnvironmentObject",
+            "x_pos": 100,
+            "y_pos": 470
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room7/assets/treeblock3.png",
+            "name": "treeblock3",
+            "rotation": 0.0,
+            "scaleX": 4.2,
+            "scaleY": 4.2,
+            "type": "EnvironmentObject",
+            "x_pos": 725,
+            "y_pos": 470
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room7/assets/treeblock3.png",
+            "name": "treeblock3",
+            "rotation": 0.0,
+            "scaleX": 4.2,
+            "scaleY": 4.2,
+            "type": "EnvironmentObject",
+            "x_pos": 900,
+            "y_pos": 470
+          },
+          {
+            "filepath": "./resources/Rebound/area1/room7/assets/mud1.png",
+            "name": "mud",
+            "rotation": 0.0,
+            "scaleX": 4.2,
+            "scaleY": 4.2,
+            "type": "WalkOnObject",
+            "x_pos": 500,
+            "y_pos": 0
+          },
+          {
+              "filepath": "./resources/assets/Display_Objects/archer.png",
+              "name": "archer1",
+              "rotation": 0.0,
+              "scaleX": 3,
+              "scaleY": 3,
+              "type": "Archer",
+              "x_pos": 950,
+              "y_pos": 50
+            },
+            {
+              "filepath": "./resources/assets/Display_Objects/archer.png",
+              "name": "archer2",
+              "rotation": 0.0,
+              "scaleX": 3,
+              "scaleY": 3,
+              "type": "Archer",
+              "x_pos": 850,
+              "y_pos": 100
+            },
+            {
+              "filepath": "./resources/assets/Display_Objects/archer.png",
+              "name": "archer3",
+              "rotation": 0.0,
+              "scaleX": 3,
+              "scaleY": 3,
+              "type": "Archer",
+              "x_pos": 1050,
+              "y_pos": 200
+            },
+            {
+              "filepath": "./resources/assets/Display_Objects/archer.png",
+              "name": "archer4",
+              "rotation": 0.0,
+              "scaleX": 3,
+              "scaleY": 3,
+              "type": "Archer",
+              "x_pos": 850,
+              "y_pos": 310
+            },
+            {
+              "filepath": "./resources/assets/Display_Objects/archer.png",
+              "name": "archer5",
+              "rotation": 0.0,
+              "scaleX": 3,
+              "scaleY": 3,
+              "type": "Archer",
+              "x_pos": 900,
+              "y_pos": 300
+            },
+            {
+              "filepath": "./resources/assets/Display_Objects/archer.png",
+              "name": "archer6",
+              "rotation": 0.0,
+              "scaleX": 3,
+              "scaleY": 3,
+              "type": "Archer",
+              "x_pos": 950,
+              "y_pos": 325
+            },
+            {
+              "filepath": "./resources/assets/Display_Objects/orc.png",
+              "name": "orc1",
+              "rotation": 0.0,
+              "scaleX": 3,
+              "scaleY": 3,
+              "type": "Orc",
+              "x_pos": 775,
+              "y_pos": 250
+            },
+            {
+              "filepath": "./resources/assets/Display_Objects/orc.png",
+              "name": "orc2",
+              "rotation": 0.0,
+              "scaleX": 3,
+              "scaleY": 3,
+              "type": "Orc",
+              "x_pos": 700,
+              "y_pos": 275
+            }  
+          
+        ],
+        "speed": 0.0
+      }
+    },
+    {
+      "L1": {
+        "objects": [],
+        "speed": 0.0
+      }
+    },
+    {
+      "L2": {
+        "objects": [],
+        "speed": 0.0
+      }
+    }
+  ],
+  "Camera": {
+    "camEntrancePivotX": 100,
+    "camEntrancePivotY": 100,
+    "camEntrancePositionX": 100,
+    "camEntrancePositionY": 100,
+    "playerEntrancePosX": 150,
+    "playerEntrancePosY": 75,
+    "camExitPivotX": 800,
+    "camExitPivotY": 100,
+    "camExitPositionX": 200,
+    "camExitPositionY": 100,
+    "playerExitPosX": 1200,
+    "playerExitPosY": 0,
+    "playerExitCoord": "x",
+    "playerExitComp": ">",
+    "camTopLimit": 100,
+    "camBottomLimit": 130,
+    "camRightLimit": 675,
+    "camLeftLimit": 100
+  }
+}

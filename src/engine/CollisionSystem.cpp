@@ -339,37 +339,61 @@ void CollisionSystem::resolveCollision(shared_ptr<DisplayObject> d, shared_ptr<D
         return;
     }
 
-    unsigned int maxD = max({abs(xDelta1), abs(yDelta1), abs(xDelta2), abs(yDelta2)});
+    d->position.x -= xDelta1;
+    d->position.y -= yDelta1;
+    other->position.x -= xDelta2;
+    other->position.y -= yDelta2;
 
-    // Binary search collision resolution using the biggest delta
-    for (int i = 0; i <= log2(maxD); i++) {
-        // Halve deltas to find the midpoint, rounding away from 0
-        xDelta1 = lround(xDelta1 / 2.0);
-        yDelta1 = lround(yDelta1 / 2.0);
-        xDelta2 = lround(xDelta2 / 2.0);
-        yDelta2 = lround(yDelta2 / 2.0);
+    if (!collidesWith(d, other)){
+        d->position.x += xDelta1;
+        d->position.y += yDelta1;
+        other->position.x += xDelta2;
+        other->position.y += yDelta2;
+        
+        unsigned int maxD = max({abs(xDelta1), abs(yDelta1), abs(xDelta2), abs(yDelta2)});
 
-        // If we are colliding and we weren't colliding the last search,
-        // move halfway back (using the deltas above).
-        // Ditto if we aren't colliding, but were before.
+        // Binary search collision resolution using the biggest delta
+        for (int i = 0; i <= log2(maxD); i++) {
+            // Halve deltas to find the midpoint, rounding away from 0
+            xDelta1 = lround(xDelta1 / 2.0);
+            yDelta1 = lround(yDelta1 / 2.0);
+            xDelta2 = lround(xDelta2 / 2.0);
+            yDelta2 = lround(yDelta2 / 2.0);
+
+            // If we are colliding and we weren't colliding the last search,
+            // move halfway back (using the deltas above).
+            // Ditto if we aren't colliding, but were before.
+            if (collidesWith(d, other)) {
+                d->position.x -= xDelta1;
+                d->position.y -= yDelta1;
+                other->position.x -= xDelta2;
+                other->position.y -= yDelta2;
+            } else {
+                d->position.x += xDelta1;
+                d->position.y += yDelta1;
+                other->position.x += xDelta2;
+                other->position.y += yDelta2;
+            }
+        }
+
+        // If we're still colliding after the binary search, fix that.
         if (collidesWith(d, other)) {
             d->position.x -= xDelta1;
             d->position.y -= yDelta1;
             other->position.x -= xDelta2;
             other->position.y -= yDelta2;
-        } else {
+        }
+    } else{
+        xDelta1 *= int(5.0/xDelta1);
+        yDelta1 *= int(5.0/yDelta1);
+        xDelta2 *= int(5.0/xDelta2);
+        yDelta2 *= int(5.0/yDelta2);
+
+        for (int i = 0; i < 5000 && collidesWith(d, other); ++i){
             d->position.x += xDelta1;
             d->position.y += yDelta1;
             other->position.x += xDelta2;
             other->position.y += yDelta2;
         }
-    }
-
-    // If we're still colliding after the binary search, fix that.
-    if (collidesWith(d, other)) {
-        d->position.x -= xDelta1;
-        d->position.y -= yDelta1;
-        other->position.x -= xDelta2;
-        other->position.y -= yDelta2;
     }
 }
