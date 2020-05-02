@@ -31,6 +31,8 @@ void WalkOnObject::draw(AffineTransform& at){
 }
 
 bool WalkOnObject::onCollision(std::shared_ptr<DisplayObject> other){
+			std::cout << "weird" << std::endl;
+
 	if(this->id == "shield_power_up" && other->type == "player"){
 		this->visible = false;
 		auto player = std::static_pointer_cast<Player>(other);
@@ -50,14 +52,13 @@ bool WalkOnObject::onCollision(std::shared_ptr<DisplayObject> other){
 		return true;
 	}
 	else if (this->id == "spike" && other->type == "player"){
-			if(collisionWaitTime >= 10){
-				collisionWaitTime = 0;
-				auto player = std::static_pointer_cast<Player>(other);
-				player->changeHealth(-5);
-			} else {
-				collisionWaitTime++;
-			}
-			
+		if(collisionWaitTime >= 10){
+			auto player = std::static_pointer_cast<Player>(other);
+			player->changeHealth(-5);
+			collisionWaitTime = 0;
+		} else {
+			collisionWaitTime++;
+		}
 		return true;
 	}
 	return false;
