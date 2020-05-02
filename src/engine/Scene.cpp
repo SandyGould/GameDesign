@@ -82,7 +82,7 @@ void Scene::loadScene(std::string sceneFilePath){
             else if(obj_type.compare("EnvironmentObject") == 0){temp_layer->addChild(std::static_pointer_cast<EnvironmentObject>(setBasicInfo(std::make_shared<EnvironmentObject>(mj["name"], mj["filepath"]), mj)));}
             else if(obj_type.compare("HitObject") == 0){temp_layer->addChild(std::static_pointer_cast<HitObject>(setBasicInfo(std::make_shared<HitObject>(mj["name"], mj["filepath"]), mj)));}
             else if(obj_type.compare("WalkOnObject") == 0){temp_layer->addChild(std::static_pointer_cast<WalkOnObject>(setBasicInfo(std::make_shared<WalkOnObject>(mj["name"], mj["filepath"]), mj)));}
-        
+            else if(obj_type.compare("Switch") == 0){temp_layer->addChild(std::static_pointer_cast<Switch>(setBasicInfo(std::make_shared<Switch>(), mj)));}
         }            
         this->addChild(temp_layer);
     }

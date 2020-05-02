@@ -11,6 +11,7 @@
 #include "EnvironmentObject.h"
 #include "WalkOnObject.h"
 #include "HitObject.h"
+#include "things/Switch.h"
 /*
 #include "enemies/Arrow.h"
 #include "enemies/MageAttack.h"
