@@ -20,14 +20,12 @@ TitleScreen::TitleScreen() : Game(600, 500) {
     selection_resume_option->width = 200;
     selection_resume_option->height = 50;
     selection_resume_option->position = {200, 200};
-    selection_resume_option->updateAlpha();
     selection_menu_base->addChild(selection_resume_option);
 
     selection_quit_option = std::make_shared<SelectionMenuOption>(SelectionMenuOption::QUIT, "Quit");
     selection_quit_option->width = 200;
     selection_quit_option->height = 50;
     selection_quit_option->position = {200, 300};
-    selection_quit_option->updateAlpha();
     selection_menu_base->addChild(selection_quit_option);
 
     EventDispatcher::getInstance().addEventListener(this->selection_resume_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);

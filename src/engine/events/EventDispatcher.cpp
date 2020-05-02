@@ -37,6 +37,7 @@ bool EventDispatcher::hasEventListener(EventListener* l, std::string eventType) 
 
 void EventDispatcher::clear() {
     listeners.clear();
+    listenersToErase.clear();
 }
 
 void EventDispatcher::dispatchEvent(Event* e) {

@@ -1,8 +1,6 @@
 #include "Rooms.h"
 
 #include "../engine/events/GameOverEvent.h"
-#include "../engine/events/KeyDownEvent.h"
-#include "../engine/events/MouseDownEvent.h"
 #include "../engine/events/PlayerDeathEvent.h"
 #include "../engine/events/RestartEvent.h"
 
@@ -58,49 +56,35 @@ Rooms::Rooms() : Game(600, 500) {
     selection_menu_base = std::make_shared<SelectionMenuBase>();
     selection_menu_base->width = 600;
     selection_menu_base->height = 500;
-    container->addChild(selection_menu_base);
 
     selection_resume_option = std::make_shared<SelectionMenuOption>(SelectionMenuOption::RESUME, "Resume");
     selection_resume_option->width = 200;
     selection_resume_option->height = 50;
     selection_resume_option->position = {200, 200};
-    selection_resume_option->alpha = 0;
     selection_menu_base->addChild(selection_resume_option);
 
     selection_quit_option = std::make_shared<SelectionMenuOption>(SelectionMenuOption::QUIT, "Quit");
     selection_quit_option->width = 200;
     selection_quit_option->height = 50;
     selection_quit_option->position = {200, 300};
-    selection_quit_option->alpha = 0;
     selection_menu_base->addChild(selection_quit_option);
 
-    EventDispatcher::getInstance().addEventListener(this->selection_menu_base.get(), KeyDownEvent::ESC_DOWN_EVENT);
-    EventDispatcher::getInstance().addEventListener(this->selection_resume_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);
-    EventDispatcher::getInstance().addEventListener(this->selection_quit_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);
-
     //Game Over menu
-    gameover_base = std::make_shared<SelectionMenuBase>();
+    gameover_base = std::make_shared<SelectionMenuBase>("game_over");
     gameover_base->width = 600;
     gameover_base->height = 500;
-    container->addChild(gameover_base);
 
     gameover_resume_option = std::make_shared<SelectionMenuOption>(SelectionMenuOption::CONTINUE, "Continue");
     gameover_resume_option->width = 200;
     gameover_resume_option->height = 50;
     gameover_resume_option->position = {200, 200};
-    gameover_resume_option->alpha = 0;
     gameover_base->addChild(gameover_resume_option);
 
     gameover_quit_option = std::make_shared<SelectionMenuOption>(SelectionMenuOption::QUIT, "Quit");
     gameover_quit_option->width = 200;
     gameover_quit_option->height = 50;
     gameover_quit_option->position = {200, 300};
-    gameover_quit_option->alpha = 0;
     gameover_base->addChild(gameover_quit_option);
-
-    EventDispatcher::getInstance().addEventListener(this->gameover_base.get(), GameOverEvent::GAME_OVER_EVENT);
-    EventDispatcher::getInstance().addEventListener(this->gameover_resume_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);
-    EventDispatcher::getInstance().addEventListener(this->gameover_quit_option.get(), MouseDownEvent::MOUSE_DOWN_EVENT);
 
     // health bar
     health = std::make_shared<StatBar>("Health", "./resources/Rebound/greenbar (3).png", player);
@@ -117,6 +101,7 @@ Rooms::Rooms() : Game(600, 500) {
     EventDispatcher::getInstance().addEventListener(this->start_text_box.get(), TweenEvent::TWEEN_COMPLETE_EVENT);
 
     EventDispatcher::getInstance().addEventListener(this, PlayerDeathEvent::PLAYER_DEATH_EVENT);
+    EventDispatcher::getInstance().addEventListener(this, GameOverEvent::GAME_OVER_EVENT);
     EventDispatcher::getInstance().addEventListener(this, RestartEvent::RESTART_EVENT);
 
     this->sceneManager = std::make_unique<SceneManager>(camera, player);
@@ -128,13 +113,13 @@ Rooms::Rooms() : Game(600, 500) {
 
 void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const unordered_set<Uint8>& pressedButtons) {
     // menu controls
-    if (pressedKeys.find(SDL_SCANCODE_ESCAPE) != pressedKeys.end()) {
-        if (!esc_prepressed) {
-            EventDispatcher::getInstance().dispatchEvent(new Event(KeyDownEvent::ESC_DOWN_EVENT));
+    if (pressedKeys.find(SDL_SCANCODE_ESCAPE) != pressedKeys.end() &&
+        prevKeys.find(SDL_SCANCODE_ESCAPE) == prevKeys.end()) {
+        if (container->hasChild(selection_menu_base)) {
+            container->removeImmediateChild(selection_menu_base);
+        } else {
+            container->addChild(selection_menu_base);
         }
-        esc_prepressed = true;
-    } else {
-        esc_prepressed = false;
     }
 
     if (pressedKeys.find(SDL_SCANCODE_BACKSLASH) != pressedKeys.end() &&
@@ -188,9 +173,11 @@ void Rooms::handleEvent(Event* e) {
             EventDispatcher::getInstance().dispatchEvent(gameOverEvent);
             delete gameOverEvent;
         }
-    }
-    else if(e->getType() ==  RestartEvent::RESTART_EVENT)
-    {
+    } else if(e->getType() == GameOverEvent::GAME_OVER_EVENT) {
+        container->addChild(gameover_base);
+    } else if(e->getType() == RestartEvent::RESTART_EVENT) {
+        container->removeImmediateChild(gameover_base);
+
         player->alive = true;
         auto player_spawn_tween = std::make_shared<Tween>("player_spawn_tween", player);
 

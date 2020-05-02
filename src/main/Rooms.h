@@ -23,8 +23,6 @@ public:
     void handleEvent(Event* e) override;
 
 private:
-    bool esc_prepressed = false;
-
     std::unique_ptr<SceneManager> sceneManager;
 
     std::shared_ptr<Camera> camera;

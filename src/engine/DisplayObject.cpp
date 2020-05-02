@@ -118,6 +118,10 @@ void DisplayObject::addChild(const std::shared_ptr<DisplayObject>& child) {
     }
 }
 
+bool DisplayObject::hasChild(const std::shared_ptr<DisplayObject>& child) {
+    return std::find(this->children.cbegin(), this->children.cend(), child) != this->children.cend();
+}
+
 void DisplayObject::removeImmediateChild(const std::shared_ptr<DisplayObject>& child) {
     auto it = std::find(this->children.cbegin(), this->children.cend(), child);
     if (it != this->children.cend()) {
@@ -212,7 +216,6 @@ void DisplayObject::update(const std::unordered_set<SDL_Scancode>& pressedKeys, 
 
     // Add new children
     for (const auto& object : objectsToAdd) {
-        std::cout << "Adding " << object->id << std::endl;
         children.emplace_back(object);
     }
     objectsToAdd.clear();
