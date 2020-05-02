@@ -14,38 +14,6 @@
             "y_pos": 0
           },
           {
-            "filepath": "./resources/assets/Display_Objects/switch_off.png",
-            "name": "switch",
-            "rotation": 0.0,
-            "scaleX": 4.8,
-            "scaleY": 4.8,
-            "type": "Switch",
-            "x_pos": 200,
-            "y_pos": 250,
-            "children":[
-              {
-                "filepath": "./resources/Rebound/area1/room8/assets/spikes_2.png",
-                "name": "spike",
-                "rotation": 0.0,
-                "scaleX": 4.8,
-                "scaleY": 4.8,
-                "type": "WalkOnObject",
-                "x_pos": 400,
-                "y_pos": 250
-              }
-            ]
-          },
-          {
-            "filepath": "./resources/Rebound/area1/room8/assets/spikes_2.png",
-            "name": "spike",
-            "rotation": 0.0,
-            "scaleX": 4.8,
-            "scaleY": 4.8,
-            "type": "WalkOnObject",
-            "x_pos": 300,
-            "y_pos": 250
-          },
-          {
             "filepath": "./resources/Rebound/area1/room1/assets/trees_layer3.png",
             "name": "trees_layer3_copy",
             "rotation": 0.0,

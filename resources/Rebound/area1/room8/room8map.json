@@ -89,9 +89,41 @@
             "rotation": 0.0,
             "scaleX": 4.8,
             "scaleY": 4.8,
-            "type": "WalkOnObject",
+            "type": "Switch",
             "x_pos": 509,
-            "y_pos": 937
+            "y_pos": 937,
+            "children":[
+              {
+                "filepath": "./resources/Rebound/area1/room8/assets/spikes_2.png",
+                "name": "spike",
+                "rotation": 0.0,
+                "scaleX": 1,
+                "scaleY": 1,
+                "type": "WalkOnObject",
+                "x_pos": -100,
+                "y_pos": 0
+              },
+              {
+                "filepath": "./resources/Rebound/area1/room8/assets/spikes_2.png",
+                "name": "spike",
+                "rotation": 0.0,
+                "scaleX": 1,
+                "scaleY": 1,
+                "type": "WalkOnObject",
+                "x_pos": -50,
+                "y_pos": -50
+              },
+              {
+                "filepath": "./resources/Rebound/area1/room8/assets/spikes_2.png",
+                "name": "spike",
+                "rotation": 0.0,
+                "scaleX": 1,
+                "scaleY": 1,
+                "type": "WalkOnObject",
+                "x_pos": 0,
+                "y_pos": -80
+              }
+            ]
           },
           {
             "filepath": "./resources/assets/Display_Objects/orc.png",

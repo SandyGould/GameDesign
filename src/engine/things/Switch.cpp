@@ -18,7 +18,7 @@ void Switch::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 void Switch::draw(AffineTransform& at){
 	DisplayObject::draw(at);
 
-    // Somehow without this, children of switch never actually get "drawn" even though draw() is being called
+    // // Somehow without this, children of switch never actually get "drawn" even though draw() is being called
     // at.translate(pivot.x, pivot.y);
     // for (const auto& child : children) {
     //     child->draw(at);
@@ -35,6 +35,9 @@ bool Switch::onCollision(std::shared_ptr<DisplayObject> other){
         Json: Create a children array 
         Scene.cpp: Iterate through the children and add them all to temp_children 
         */
+        for (int x = 0; x < children.size(); x++){
+            this->removeChild(x);
+        }
         for (int x = 0; x < temp_children.size(); x++){
             this->addChild(temp_children[x]);
         }

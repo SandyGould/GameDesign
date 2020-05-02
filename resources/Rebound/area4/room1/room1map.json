@@ -54,54 +54,38 @@
             "y_pos": 270
           },
           {
-            "filepath": "./resources/Rebound/area4/assets/spike.png",
-            "name": "spike",
-            "rotation": 0.0,
-            "scaleX": 5.0,
-            "scaleY": 5.0,
-            "type": "WalkOnObject",
-            "x_pos": 1020,
-            "y_pos": 160
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
-            "name": "spike",
-            "rotation": 0.0,
-            "scaleX": 5.0,
-            "scaleY": 5.0,
-            "type": "WalkOnObject",
-            "x_pos": 1020,
-            "y_pos": 240
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
-            "name": "spike",
-            "rotation": 0.0,
-            "scaleX": 5.0,
-            "scaleY": 5.0,
-            "type": "WalkOnObject",
-            "x_pos": 1020,
-            "y_pos": 320
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/spike.png",
-            "name": "spike",
-            "rotation": 0.0,
-            "scaleX": 5.0,
-            "scaleY": 5.0,
-            "type": "WalkOnObject",
-            "x_pos": 1020,
-            "y_pos": 400
-          },
-          {
             "filepath": "./resources/assets/Display_Objects/switch_off.png",
             "name": "switch",
             "rotation": 0.0,
             "scaleX": 4.0,
             "scaleY": 4.0,
-            "type": "WalkOnObject",
+            "type": "Switch",
             "x_pos": 1002,
-            "y_pos": 63
+            "y_pos": 63,
+            "children":[
+              {
+                "filepath": "./resources/Rebound/area4/assets/spike.png",
+                "visible":"true",
+                "name": "spike",
+                "rotation": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 5.0,
+                "type": "WalkOnObject",
+                "x_pos": 18,
+                "y_pos": 97
+              },
+              {
+                "filepath": "./resources/assets/Display_Objects/spike.png",
+                "visible":"true",
+                "name": "spike",
+                "rotation": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 5.0,
+                "type": "WalkOnObject",
+                "x_pos": 18,
+                "y_pos": 177
+              }
+            ]
           },
           {
             "filepath": "./resources/assets/Display_Objects/switch_off.png",
@@ -109,9 +93,33 @@
             "rotation": 0.0,
             "scaleX": 4.0,
             "scaleY": 4.0,
-            "type": "WalkOnObject",
+            "type": "Switch",
             "x_pos": 1004,
-            "y_pos": 536
+            "y_pos": 536,
+            "children":[
+              {
+                "filepath": "./resources/assets/Display_Objects/spike.png",
+                "visible":"true",
+                "name": "spike",
+                "rotation": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 5.0,
+                "type": "WalkOnObject",
+                "x_pos": 18,
+                "y_pos": 257
+              },
+              {
+                "filepath": "./resources/assets/Display_Objects/spike.png",
+                "visible":"true",
+                "name": "spike",
+                "rotation": 0.0,
+                "scaleX": 5.0,
+                "scaleY": 5.0,
+                "type": "WalkOnObject",
+                "x_pos": 18,
+                "y_pos": 337
+              }
+            ]
           },
           {
             "filepath": "./resources/assets/Display_Objects/kingdom_archer.png",
