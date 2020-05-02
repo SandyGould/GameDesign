@@ -4,7 +4,7 @@
       "L0": {
         "objects": [
           {
-            "filepath": "./resources/Rebound/area1/room8/assets/background.png",
+            "filepath": "./resources/Rebound/area1/room8/assets/background_2.png",
             "name": "background",
             "rotation": 0.0,
             "scaleX": 4.8,
@@ -14,7 +14,7 @@
             "y_pos": 0
           },
           {
-            "filepath": "./resources/Rebound/area1/room8/assets/mud1.png",
+            "filepath": "./resources/Rebound/area1/room8/assets/mud1_2.png",
             "name": "mud",
             "rotation": 0.0,
             "scaleX": 4.8,
@@ -24,7 +24,7 @@
             "y_pos": 1022
           },
           {
-            "filepath": "./resources/Rebound/area1/room8/assets/mud3.png",
+            "filepath": "./resources/Rebound/area1/room8/assets/mud3_2.png",
             "name": "mud",
             "rotation": 0.0,
             "scaleX": 4.8,
@@ -34,7 +34,7 @@
             "y_pos": 1040
           },
           {
-            "filepath": "./resources/Rebound/area1/room8/assets/mud2.png",
+            "filepath": "./resources/Rebound/area1/room8/assets/mud2_2.png",
             "name": "mud",
             "rotation": 0.0,
             "scaleX": 4.8,
@@ -44,7 +44,7 @@
             "y_pos": 1042
           },
           {
-            "filepath": "./resources/Rebound/area1/room8/assets/structure.png",
+            "filepath": "./resources/Rebound/area1/room8/assets/structure_2.png",
             "name": "structure",
             "rotation": 0.0,
             "scaleX": 4.8,
@@ -54,7 +54,7 @@
             "y_pos": 1100
           },
           {
-            "filepath": "./resources/Rebound/area1/room8/assets/shadow.png",
+            "filepath": "./resources/Rebound/area1/room8/assets/shadow_2.png",
             "name": "structure_shadow",
             "rotation": 0.0,
             "scaleX": 4.8,
@@ -64,7 +64,7 @@
             "y_pos": 1133
           },
           {
-            "filepath": "./resources/Rebound/area1/room8/assets/spikes.png",
+            "filepath": "./resources/Rebound/area1/room8/assets/spikes_2.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 4.8,
@@ -74,7 +74,7 @@
             "y_pos": 1268
           },
           {
-            "filepath": "./resources/Rebound/area1/room8/assets/spikes.png",
+            "filepath": "./resources/Rebound/area1/room8/assets/spikes_2.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 4.8,
