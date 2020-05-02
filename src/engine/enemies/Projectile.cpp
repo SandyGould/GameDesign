@@ -48,12 +48,13 @@ double Projectile::aim(std::shared_ptr<DisplayObject> targetSprite){ //Cause a l
     return goalAngle;
 }
 
-void Projectile::reflect() {
+void Projectile::reflect(double speedMult) {
     if (!reflected){
         this->reflected = true;
-        this->deltaX *= -2;
-        this->deltaY *= -2;
-        this->velocity *= 2;
+        this->velocity *= speedMult;
+        double angle = std::atan2(-deltaY, deltaX) * 180 / PI;
+        deltaX = -velocity * cos(angle * PI / 180);
+        deltaY = -velocity * -sin(angle * PI / 180);
     }
 }
 

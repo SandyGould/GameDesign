@@ -33,7 +33,7 @@ bool BaseEnemy::onCollision(std::shared_ptr<DisplayObject> other){
             damage->animate(TweenableParams::ALPHA, 200, 40, 32);
             damage->animate(TweenableParams::ALPHA, 40, 255, 48);
             TweenJuggler::getInstance().add(damage);
-            this->changeHealth(-20);
+            this->changeHealth(-50);
             other->removeThis();
         }
         return true;
