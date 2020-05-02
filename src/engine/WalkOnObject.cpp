@@ -31,8 +31,6 @@ void WalkOnObject::draw(AffineTransform& at){
 }
 
 bool WalkOnObject::onCollision(std::shared_ptr<DisplayObject> other){
-			std::cout << "weird" << std::endl;
-
 	if(this->id == "shield_power_up" && other->type == "player"){
 		this->visible = false;
 		auto player = std::static_pointer_cast<Player>(other);

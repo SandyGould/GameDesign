@@ -24,7 +24,7 @@
             "y_pos": 250,
             "children":[
               {
-                "filepath": "./resources/Rebound/area1/room5/assets/spikes.png",
+                "filepath": "./resources/Rebound/area1/room8/assets/spikes_2.png",
                 "name": "spike",
                 "rotation": 0.0,
                 "scaleX": 4.8,
@@ -36,7 +36,7 @@
             ]
           },
           {
-            "filepath": "./resources/Rebound/area1/room5/assets/spikes.png",
+            "filepath": "./resources/Rebound/area1/room8/assets/spikes_2.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 4.8,

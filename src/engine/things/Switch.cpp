@@ -19,11 +19,11 @@ void Switch::draw(AffineTransform& at){
 	DisplayObject::draw(at);
 
     // Somehow without this, children of switch never actually get "drawn" even though draw() is being called
-    at.translate(pivot.x, pivot.y);
-    for (const auto& child : children) {
-        child->draw(at);
-    }
-    at.translate(-pivot.x, -pivot.y);
+    // at.translate(pivot.x, pivot.y);
+    // for (const auto& child : children) {
+    //     child->draw(at);
+    // }
+    // at.translate(-pivot.x, -pivot.y);
 }
 
 bool Switch::onCollision(std::shared_ptr<DisplayObject> other){
@@ -35,7 +35,10 @@ bool Switch::onCollision(std::shared_ptr<DisplayObject> other){
         Json: Create a children array 
         Scene.cpp: Iterate through the children and add them all to temp_children 
         */
-        this->children = temp_children;
+        for (int x = 0; x < temp_children.size(); x++){
+            this->addChild(temp_children[x]);
+        }
+        // this->children = temp_children;
 		return true;
     }
     else if(state){
