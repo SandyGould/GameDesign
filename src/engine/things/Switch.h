@@ -19,7 +19,6 @@ public:
 
 	bool onCollision(std::shared_ptr<DisplayObject> other) override;
     std::vector<std::shared_ptr<DisplayObject>> temp_children;
-	// AffineTransform at = NULL;
 
 private:
     std::string state_on = "";

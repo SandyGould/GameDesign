@@ -14,34 +14,27 @@
             "y_pos": 0
           },
           {
-            "filepath": "./resources/Rebound/area1/room5/assets/spike_stripe.png",
-            "name": "spike",
-            "rotation": 0.0,
-            "scaleX": 4.2,
-            "scaleY": 4.2,
-            "type": "WalkOnObject",
-            "x_pos": 800,
-            "y_pos": 0
-          },
-          {
-            "filepath": "./resources/Rebound/area1/room5/assets/spike_stripe.png",
-            "name": "spike",
-            "rotation": 0.0,
-            "scaleX": 4.2,
-            "scaleY": 4.2,
-            "type": "WalkOnObject",
-            "x_pos": 300,
-            "y_pos": 0
-          },
-          {
               "filepath": "./resources/assets/Display_Objects/switch_off.png",
               "name": "switch",
               "rotation": 0.0,
               "scaleX": 4.2,
               "scaleY": 4.2,
-              "type": "WalkOnObject",
+              "type": "Switch",
               "x_pos": 150,
-              "y_pos": 50
+              "y_pos": 50,
+              "children":[
+                {
+                  "filepath": "./resources/Rebound/area1/room5/assets/spike_stripe.png",
+                  "visible":"false",
+                  "name": "spike",
+                  "rotation": 0.0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "type": "WalkOnObject",
+                  "x_pos": 25,
+                  "y_pos": -20
+                }
+              ]
           },
           {
               "filepath": "./resources/assets/Display_Objects/switch_off.png",
@@ -49,9 +42,22 @@
               "rotation": 0.0,
               "scaleX": 4.2,
               "scaleY": 4.2,
-              "type": "WalkOnObject",
+              "type": "Switch",
               "x_pos": 600,
-              "y_pos": 400
+              "y_pos": 400,
+              "children":[
+                {
+                  "filepath": "./resources/Rebound/area1/room5/assets/spike_stripe.png",
+                  "visible":"false",
+                  "name": "spike",
+                  "rotation": 0.0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "type": "WalkOnObject",
+                  "x_pos": 25,
+                  "y_pos": -100
+                }
+              ]
           },
           {
               "filepath": "./resources/assets/Display_Objects/archer.png",
