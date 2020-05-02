@@ -28,6 +28,7 @@ public:
 	int health = 100;
 	int stamina = 1000;
 	bool alive = true;
+	bool slidin = false;
 	int numOpponents = 0;
 
 private:

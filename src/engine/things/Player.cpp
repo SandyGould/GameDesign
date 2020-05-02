@@ -90,6 +90,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
             if (this->current.animName.compare("Slide") != 0){
                 this->setHitbox(0.28, 0.72, 0.5, 0.98);
                 this->play("Slide");
+                this->slidin = true;
             }
 			this->position.x += this->speed*2;
 			this->changeStamina(-30);
@@ -99,6 +100,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
             if (this->current.animName.compare("Run") != 0){
                 this->setHitbox(0.46, 0.72, 0.23, 0.98);
                 this->play("Run");
+                this->slidin = false;
             }
 			this->position.x += this->speed;
 			this->changeStamina(-3);
@@ -110,6 +112,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
             if (this->current.animName.compare("SlideLeft") != 0){
                 this->setHitbox(0.28, 0.72, 0.5, 0.98);
                 this->play("SlideLeft");
+                this->slidin = true;
             }
 			this->position.x -= this->speed*2;
 			this->changeStamina(-30);
@@ -119,6 +122,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
             if (this->current.animName.compare("RunLeft") != 0){
                 this->setHitbox(0.3, 0.56, 0.23, 0.98);
                 this->play("RunLeft");
+                this->slidin = false;
             }
 			this->position.x -= this->speed;
 			this->changeStamina(-3);
@@ -130,6 +134,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
             if (this->current.animName.compare("Slide") != 0){
                 this->setHitbox(0.28, 0.72, 0.5, 0.98);
                 this->play("Slide");
+                this->slidin = true;
             }
 			this->position.y += this->speed*2;
 			this->changeStamina(-30);
@@ -139,6 +144,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
             if (this->current.animName.compare("Run") != 0){
                 this->setHitbox(0.46, 0.72, 0.23, 0.98);
                 this->play("Run");
+                this->slidin = false;
             }
 			this->position.y += this->speed;
 			this->changeStamina(-3);
@@ -150,6 +156,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
             if (this->current.animName.compare("Slide") != 0){
                 this->setHitbox(0.28, 0.72, 0.5, 0.98);
                 this->play("Slide");
+                this->slidin = true;
             }
 			this->position.y -= this->speed*2;
 			this->changeStamina(-30);
@@ -159,6 +166,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
             if (this->current.animName.compare("Run") != 0){
                 this->setHitbox(0.46, 0.72, 0.23, 0.98);
                 this->play("Run");
+                this->slidin = false;
             }
 			this->position.y -= this->speed;
 			this->changeStamina(-3);
@@ -170,6 +178,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
         if (this->current.animName.compare("Idle") != 0){
             this->setHitbox(0.32, 0.66, 0.15, 0.98);
             this->play("Idle");
+            this->slidin = false;
         }
     }
 
