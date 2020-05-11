@@ -15,7 +15,7 @@
           },
           {
               "filepath": "./resources/assets/Display_Objects/switch_off.png",
-              "name": "switch",
+              "name": "switch1",
               "rotation": 0.0,
               "scaleX": 4.2,
               "scaleY": 4.2,
@@ -25,8 +25,8 @@
               "children":[
                 {
                   "filepath": "./resources/Rebound/area1/room5/assets/spike_stripe.png",
-                  "visible":"false",
-                  "name": "spike",
+                  "visible": false,
+                  "name": "spike1",
                   "rotation": 0.0,
                   "scaleX": 1,
                   "scaleY": 1,
@@ -38,7 +38,7 @@
           },
           {
               "filepath": "./resources/assets/Display_Objects/switch_off.png",
-              "name": "switch",
+              "name": "switch2",
               "rotation": 0.0,
               "scaleX": 4.2,
               "scaleY": 4.2,
@@ -48,8 +48,8 @@
               "children":[
                 {
                   "filepath": "./resources/Rebound/area1/room5/assets/spike_stripe.png",
-                  "visible":"false",
-                  "name": "spike",
+                  "visible": false,
+                  "name": "spike2",
                   "rotation": 0.0,
                   "scaleX": 1,
                   "scaleY": 1,

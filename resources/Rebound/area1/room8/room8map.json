@@ -95,33 +95,36 @@
             "children":[
               {
                 "filepath": "./resources/Rebound/area1/room8/assets/spikes_2.png",
-                "name": "spike",
+                "name": "spike1",
                 "rotation": 0.0,
                 "scaleX": 1,
                 "scaleY": 1,
                 "type": "WalkOnObject",
                 "x_pos": -100,
-                "y_pos": 0
+                "y_pos": 0,
+                "visible": false
               },
               {
                 "filepath": "./resources/Rebound/area1/room8/assets/spikes_2.png",
-                "name": "spike",
+                "name": "spike2",
                 "rotation": 0.0,
                 "scaleX": 1,
                 "scaleY": 1,
                 "type": "WalkOnObject",
                 "x_pos": -50,
-                "y_pos": -50
+                "y_pos": -50,
+                "visible": false
               },
               {
                 "filepath": "./resources/Rebound/area1/room8/assets/spikes_2.png",
-                "name": "spike",
+                "name": "spike3",
                 "rotation": 0.0,
                 "scaleX": 1,
                 "scaleY": 1,
                 "type": "WalkOnObject",
                 "x_pos": 0,
-                "y_pos": -80
+                "y_pos": -80,
+                "visible": false
               }
             ]
           },

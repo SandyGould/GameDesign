@@ -86,7 +86,7 @@ void Scene::loadScene(std::string sceneFilePath){
                 std::shared_ptr<Switch> temp_switch = std::make_shared<Switch>();
                 if(mj["children"].size() > 0){
                     for(int x = 0; x < mj["children"].size(); x++){
-                        if(mj["children"][x]["visible"].get<std::string>().compare("true")){
+                        if(mj["children"][x]["visible"].get<bool>()){
                             temp_switch->addChild(std::static_pointer_cast<WalkOnObject>(setBasicInfo(std::make_shared<WalkOnObject>(mj["children"][x]["name"], mj["children"][x]["filepath"]), mj["children"][x])));
                         }
                         else{
