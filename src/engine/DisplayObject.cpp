@@ -10,11 +10,19 @@
 #include <cmath>
 #include <iostream>
 
-DisplayObject::DisplayObject(const std::string& id) {
+std::unordered_set<std::string> DisplayObject::ids;
+
+DisplayObject::DisplayObject(std::string id) {
+    while (DisplayObject::ids.find(id) != DisplayObject::ids.cend()) {
+        std::cerr << "ERROR: Attempting to add object " << id << " which already exists; trying " << id + "_copy instead..." << std::endl;
+        id += "_copy";
+    }
     this->id = id;
     this->saveType = this->type;
 
     this->renderer = Game::renderer;
+
+    DisplayObject::ids.insert(id);
 }
 
 DisplayObject::DisplayObject(const std::string& id, const std::string& path)
@@ -81,6 +89,8 @@ DisplayObject::~DisplayObject() {
     if (texture != nullptr) {
         SDL_DestroyTexture(texture);
     }
+
+    DisplayObject::ids.erase(this->id);
 }
 
 void DisplayObject::loadTexture(const std::string& filepath) {
@@ -132,6 +142,8 @@ void DisplayObject::removeImmediateChild(const std::shared_ptr<DisplayObject>& c
         (*it)->parent = nullptr;
 
         objectsToErase.push(*it);
+
+        DisplayObject::ids.erase((*it)->id);
     }
 }
 
@@ -145,6 +157,8 @@ void DisplayObject::removeImmediateChild(std::string id) {
         (*it)->parent = nullptr;
 
         objectsToErase.push(*it);
+
+        DisplayObject::ids.erase((*it)->id);
     }
 }
 
@@ -157,6 +171,8 @@ void DisplayObject::removeChild(size_t index) {
         children[index]->parent = nullptr;
 
         objectsToErase.push(*(children.begin() + index));
+
+        DisplayObject::ids.erase((*(children.begin() + index))->id);
     }
 }
 

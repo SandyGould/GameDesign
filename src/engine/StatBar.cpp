@@ -22,12 +22,12 @@ StatBar::StatBar(std::string id, std::string filepath, std::shared_ptr<Player> p
     this->player = player;
     this->StatPerc = 1;
     
-    this->bar = std::make_shared<DisplayObject>(id, 255, 0, 0, 195, 15);
+    this->bar = std::make_shared<DisplayObject>(id + "_bar", 255, 0, 0, 195, 15);
     this->bar->position = {40,460}; 
     // this->bar->ss = 25;
     // this->bar->scaleY = 0.15;
     
-    this->frame = std::make_shared<DisplayObject>(id, filepath);   
+    this->frame = std::make_shared<DisplayObject>(id + "_frame", filepath);
     this->frame->position = {0,355};
     this->frame->scaleX = 2;
     this->frame->scaleY = 2;

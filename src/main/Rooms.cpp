@@ -79,7 +79,7 @@ Rooms::Rooms() : Game(600, 500) {
     selection_quit_option->position = {200, 320};
     selection_menu_base->addChild(selection_quit_option);
 
-    pause_graphic = std::make_shared<DisplayObject>("gameovergraphic", "./resources/Rebound/pause-screen/pause.png");    
+    pause_graphic = std::make_shared<DisplayObject>("pausegraphic", "./resources/Rebound/pause-screen/pause.png");
     pause_graphic->width = 500;
     pause_graphic->height = 250;
     pause_graphic->position = {50, -10};
