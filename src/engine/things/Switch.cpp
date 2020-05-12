@@ -2,7 +2,7 @@
 #include "Player.h"
 #include <iostream>
 
-Switch::Switch(SDL_Renderer *r): EnvironmentObject("Switch", "./resources/Rebound/area3_res/assets/switch_off.png"){
+Switch::Switch(const std::string& id, SDL_Renderer* r): EnvironmentObject(id, "./resources/Rebound/area3_res/assets/switch_off.png"){
     this->type = "Switch";
     this->state_on = "./resources/Rebound/area3_res/assets/switch_on.png";
     this->state_off = "./resources/Rebound/area3_res/assets/switch_off.png";

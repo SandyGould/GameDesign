@@ -11,7 +11,7 @@
 class Switch : public EnvironmentObject {
 
 public:
-	Switch(SDL_Renderer *r = Game::renderer);
+	Switch(const std::string& id, SDL_Renderer* r = Game::renderer);
 	~Switch() override;
 
 	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
