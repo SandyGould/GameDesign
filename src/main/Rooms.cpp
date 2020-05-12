@@ -129,8 +129,6 @@ Rooms::Rooms() : Game(600, 500) {
     EventDispatcher::getInstance().addEventListener(this, RestartEvent::RESTART_EVENT);
 
     this->sceneManager = std::make_unique<SceneManager>(camera, player);
-    // load the entire first area
-    this->sceneManager->loadAllAreas(4);
     // load first scene
     this->sceneManager->loadFirstScene();
 }

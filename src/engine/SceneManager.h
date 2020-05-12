@@ -11,17 +11,9 @@
 #include <list>
 
 class SceneManager : public EventListener {
-
     public:
-        SceneManager(shared_ptr<Camera>c, shared_ptr<Player> p);
-	    ~SceneManager();
-        void loadArea(int area, int rooms);
-        void loadAllAreas(int areas);
-        void loadNewArea(int area, int rooms);
-        void clearList();
-        shared_ptr<Scene> findScene(std::string id);
-        void addScene(shared_ptr<Scene> scene);
-        void deleteScene(std::string id);
+        SceneManager(const shared_ptr<Camera>& camera, const shared_ptr<Player>& player);
+
         void unloadScene();
         void loadFirstScene();
         void loadNextScene();
@@ -39,19 +31,14 @@ class SceneManager : public EventListener {
         
         std::string sceneChange = std::string("");
 
-        shared_ptr<Scene> head;
-        shared_ptr<Scene> tail;
-        shared_ptr<Scene> iter;
-
         shared_ptr<TextBox> new_area_text;
 
         bool unloading = false;
 
         // miscellaneous things to keep track of
-        int totalRoomsCount = 0;
         int areaRoomsCount = 0;
-        int currRoom = 1;
-        int currArea = 1;
+        int currRoom = 0;
+        int currArea = 0;
 
         int numRooms[4] = {8,8,8,8};
         
