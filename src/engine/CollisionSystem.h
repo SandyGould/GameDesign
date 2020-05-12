@@ -36,20 +36,20 @@ public:
     static bool isInside(SDL_Point point, Hitbox hitbox);
 
 private:
-    void buildDisplayMap(shared_ptr<DisplayObject> object);
+    void buildDisplayMap(const shared_ptr<DisplayObject>& object);
 
     void pairObjectWithType(const shared_ptr<DisplayObject>& object, const string& type);
 
-    void addObjects(const shared_ptr<DisplayObject>& object);
-    void eraseObjects(const shared_ptr<DisplayObject>& object);
+    void addObject(const shared_ptr<DisplayObject>& object);
+    void eraseObject(const shared_ptr<DisplayObject>& object);
 
     // Returns true iff obj1 hitbox and obj2 hitbox overlap
-    static bool collidesWith(shared_ptr<DisplayObject> obj1, shared_ptr<DisplayObject> obj2);
+    static bool collidesWith(const shared_ptr<DisplayObject>& obj1, const shared_ptr<DisplayObject>& obj2);
 
     // Resolves the collision that occurred between d and other
     // xDelta1 and yDelta1 are the amount d moved before causing the collision.
     // xDelta2 and yDelta2 are the amount other moved before causing the collision.
-    static void resolveCollision(shared_ptr<DisplayObject> d, shared_ptr<DisplayObject> other, int xDelta1, int yDelta1, int xDelta2, int yDelta2);
+    static void resolveCollision(const shared_ptr<DisplayObject>& d, const shared_ptr<DisplayObject>& other, int xDelta1, int yDelta1, int xDelta2, int yDelta2);
 
     static bool isIntersecting(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2);
     static bool isIntersecting(Hitcircle hitcircle, pair<SDL_Point, SDL_Point> line);

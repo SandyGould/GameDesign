@@ -18,7 +18,7 @@ CollisionSystem::~CollisionSystem() {
     EventDispatcher::getInstance().removeEventListener(this, DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT);
 }
 
-void CollisionSystem::buildDisplayMap(shared_ptr<DisplayObject> object) {
+void CollisionSystem::buildDisplayMap(const shared_ptr<DisplayObject>& object) {
     auto it = displayObjectsMap.find(object->type);
     if (it != displayObjectsMap.cend()) {
         it->second.insert(object);
@@ -26,7 +26,7 @@ void CollisionSystem::buildDisplayMap(shared_ptr<DisplayObject> object) {
         displayObjectsMap.try_emplace(object->type, unordered_set<shared_ptr<DisplayObject>>({object}));
     }
 
-    for (auto child : object->children) {
+    for (const auto& child : object->children) {
         this->buildDisplayMap(child);
     }
 }
@@ -100,18 +100,18 @@ void CollisionSystem::update() {
 //or taken off of the tree. Thus, the collision system always knows what DOs are in the game at any moment automatically.
 void CollisionSystem::handleEvent(Event* e) {
     if (e->getType() == DisplayTreeChangeEvent::DISPLAY_TREE_CHANGE_EVENT) {
-        DisplayTreeChangeEvent* event = static_cast<DisplayTreeChangeEvent*>(e);
+        auto* event = dynamic_cast<DisplayTreeChangeEvent*>(e);
         shared_ptr<DisplayObject> object(event->object);
         if (event->added) {
-            addObjects(object);
+            addObject(object);
         } else {
-            eraseObjects(object);
+            eraseObject(object);
         }
     }
 }
 
 // Recursively add objects to the display tree, collision pairs, etc
-void CollisionSystem::addObjects(const shared_ptr<DisplayObject>& object) {
+void CollisionSystem::addObject(const shared_ptr<DisplayObject>& object) {
     const string type = object->type;
     auto it = displayObjectsMap.find(type);
     if (it != displayObjectsMap.cend()) {
@@ -129,12 +129,12 @@ void CollisionSystem::addObjects(const shared_ptr<DisplayObject>& object) {
     }
 
     for (const auto& child : object->children) {
-        addObjects(child);
+        addObject(child);
     }
 }
 
 // Recursively remove objects from the display tree, collision pairs, etc
-void CollisionSystem::eraseObjects(const shared_ptr<DisplayObject>& object) {
+void CollisionSystem::eraseObject(const shared_ptr<DisplayObject>& object) {
     const string type = object->type;
 
     // Optimization: only try to erase from collisionPairs if we are registered for collision
@@ -149,7 +149,7 @@ void CollisionSystem::eraseObjects(const shared_ptr<DisplayObject>& object) {
     prevPositions.erase(object);
 
     for (const auto& child : object->children) {
-        eraseObjects(child);
+        eraseObject(child);
     }
 }
 
@@ -280,7 +280,7 @@ bool CollisionSystem::isInside(SDL_Point point, Hitbox hitbox) {
 }
 
 // Returns true iff obj1 hitbox and obj2 hitbox overlap
-bool CollisionSystem::collidesWith(shared_ptr<DisplayObject> obj1, shared_ptr<DisplayObject> obj2) {
+bool CollisionSystem::collidesWith(const shared_ptr<DisplayObject>& obj1, const shared_ptr<DisplayObject>& obj2) {
     if (obj1->hitboxType == HitboxType::Rectangle && obj2->hitboxType == HitboxType::Rectangle) {
         Hitbox obj1Hitbox = obj1->getHitbox();
         Hitbox obj2Hitbox = obj2->getHitbox();
@@ -336,7 +336,7 @@ bool CollisionSystem::collidesWith(shared_ptr<DisplayObject> obj1, shared_ptr<Di
 // Resolves the collision that occurred between d and other
 // xDelta1 and yDelta1 are the amount d moved before causing the collision.
 // xDelta2 and yDelta2 are the amount other moved before causing the collision.
-void CollisionSystem::resolveCollision(shared_ptr<DisplayObject> d, shared_ptr<DisplayObject> other,
+void CollisionSystem::resolveCollision(const shared_ptr<DisplayObject>& d, const shared_ptr<DisplayObject>& other,
                                        int xDelta1, int yDelta1, int xDelta2, int yDelta2) {
     // Give the objects the chance to handle the collision by themselves
     if (d->onCollision(other) || other->onCollision(d)) {
