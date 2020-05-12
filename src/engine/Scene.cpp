@@ -43,6 +43,7 @@ void Scene::loadScene(std::string sceneFilePath){
     this->camLeftLimit = {j["Camera"]["camLeftLimit"]};
 
 
+    std::unordered_set<std::string> ids;
     for(int z = 0; z < j["Scene"].size(); z++){
         std::string layer_value = "L" + std::to_string(z);
         auto temp_layer = std::make_shared<Layer>(layer_value);
@@ -56,41 +57,56 @@ void Scene::loadScene(std::string sceneFilePath){
             // if(json_layer["objects"][y]["parentHierarchy"].size() > 0){
             //     parent = find_parent(json_layer["objects"][y]["parentHierarchy"], temp_layer);
             // } 
-            std::string obj_type = json_layer["objects"][y]["type"].get<std::string>();
+            auto obj_type = json_layer["objects"][y]["type"].get<std::string>();
             // std::cout << obj_type << std::endl;
             json mj = json_layer["objects"][y];
-            if(obj_type.compare("DisplayObject") == 0){temp_layer->addChild(setBasicInfo(std::make_shared<DisplayObject>(mj["name"], mj["filepath"]), mj));}
-            else if(obj_type.compare("AnimatedSprite") == 0){temp_layer->addChild(std::static_pointer_cast<AnimatedSprite>(setBasicInfo(std::make_shared<AnimatedSprite>(mj["name"], mj["sheetpath"], mj["xmlpath"], ""), mj)));}
-            else if(obj_type.compare("Sprite") == 0){temp_layer->addChild(std::static_pointer_cast<Sprite>(setBasicInfo(std::make_shared<Sprite>(mj["name"], mj["filepath"]), mj)));}
+
+            std::string id = mj["name"];
+            while (ids.find(id) != ids.cend()) {
+                std::cerr << "ERROR: Attempting to add object " << id << " which already exists; trying " << id + "_copy instead..." << std::endl;
+                id += "_copy";
+            }
+            ids.insert(id);
+
+            if(obj_type == "DisplayObject"){temp_layer->addChild(setBasicInfo(std::make_shared<DisplayObject>(id, mj["filepath"]), mj));}
+            else if(obj_type == "AnimatedSprite"){temp_layer->addChild(std::static_pointer_cast<AnimatedSprite>(setBasicInfo(std::make_shared<AnimatedSprite>(id, mj["sheetpath"], mj["xmlpath"], ""), mj)));}
+            else if(obj_type == "Sprite"){temp_layer->addChild(std::static_pointer_cast<Sprite>(setBasicInfo(std::make_shared<Sprite>(id, mj["filepath"]), mj)));}
             /* enemies */
-            else if(obj_type.compare("BaseEnemy") == 0){temp_layer->addChild(std::static_pointer_cast<BaseEnemy>(setBasicInfo(std::make_shared<BaseEnemy>(mj["name"], mj["sheetpath"], mj["xmlpath"], "", this->player), mj)));}
-            else if(obj_type.compare("Archer") == 0){temp_layer->addChild(std::static_pointer_cast<Archer>(setBasicInfo(std::make_shared<Archer>(this->player), mj)));}
-            else if(obj_type.compare("KingdomArcher") == 0){temp_layer->addChild(std::static_pointer_cast<KingdomArcher>(setBasicInfo(std::make_shared<KingdomArcher>(this->player), mj)));}
-            else if(obj_type.compare("MasterArcher") == 0){temp_layer->addChild(std::static_pointer_cast<MasterArcher>(setBasicInfo(std::make_shared<MasterArcher>(this->player), mj)));}
-            else if(obj_type.compare("Cannoneer") == 0){temp_layer->addChild(std::static_pointer_cast<Cannoneer>(setBasicInfo(std::make_shared<Cannoneer>(this->player), mj)));}
-            else if(obj_type.compare("RubberCannoneer") == 0){temp_layer->addChild(std::static_pointer_cast<RubberCannoneer>(setBasicInfo(std::make_shared<RubberCannoneer>(this->player), mj)));}
-            else if(obj_type.compare("Mage") == 0){temp_layer->addChild(std::static_pointer_cast<Mage>(setBasicInfo(std::make_shared<Mage>(this->player), mj)));}
-            else if(obj_type.compare("KingdomMage") == 0){temp_layer->addChild(std::static_pointer_cast<KingdomMage>(setBasicInfo(std::make_shared<KingdomMage>(this->player), mj)));}
-            else if(obj_type.compare("Knight") == 0){temp_layer->addChild(std::static_pointer_cast<Knight>(setBasicInfo(std::make_shared<Knight>(this->player), mj)));}
-            else if(obj_type.compare("Ogre") == 0){temp_layer->addChild(std::static_pointer_cast<Ogre>(setBasicInfo(std::make_shared<Ogre>(this->player), mj)));}
-            else if(obj_type.compare("Orc") == 0){temp_layer->addChild(std::static_pointer_cast<Orc>(setBasicInfo(std::make_shared<Orc>(this->player), mj)));}
-            else if(obj_type.compare("Poisoner") == 0){temp_layer->addChild(std::static_pointer_cast<Poisoner>(setBasicInfo(std::make_shared<Poisoner>(this->player), mj)));}
-            else if(obj_type.compare("RoarMonster") == 0){temp_layer->addChild(std::static_pointer_cast<RoarMonster>(setBasicInfo(std::make_shared<RoarMonster>(this->player), mj)));}
-            else if(obj_type.compare("SecondBoss") == 0){temp_layer->addChild(std::static_pointer_cast<SecondBoss>(setBasicInfo(std::make_shared<SecondBoss>(this->player), mj)));}
-            else if(obj_type.compare("MonsterKing") == 0){temp_layer->addChild(std::static_pointer_cast<MonsterKing>(setBasicInfo(std::make_shared<MonsterKing>(this->player), mj)));}
+            else if(obj_type == "BaseEnemy"){temp_layer->addChild(std::static_pointer_cast<BaseEnemy>(setBasicInfo(std::make_shared<BaseEnemy>(id, mj["sheetpath"], mj["xmlpath"], "", this->player), mj)));}
+            else if(obj_type == "Archer"){temp_layer->addChild(std::static_pointer_cast<Archer>(setBasicInfo(std::make_shared<Archer>(this->player), mj)));}
+            else if(obj_type == "KingdomArcher"){temp_layer->addChild(std::static_pointer_cast<KingdomArcher>(setBasicInfo(std::make_shared<KingdomArcher>(this->player), mj)));}
+            else if(obj_type == "MasterArcher"){temp_layer->addChild(std::static_pointer_cast<MasterArcher>(setBasicInfo(std::make_shared<MasterArcher>(this->player), mj)));}
+            else if(obj_type == "Cannoneer"){temp_layer->addChild(std::static_pointer_cast<Cannoneer>(setBasicInfo(std::make_shared<Cannoneer>(this->player), mj)));}
+            else if(obj_type == "RubberCannoneer"){temp_layer->addChild(std::static_pointer_cast<RubberCannoneer>(setBasicInfo(std::make_shared<RubberCannoneer>(this->player), mj)));}
+            else if(obj_type == "Mage"){temp_layer->addChild(std::static_pointer_cast<Mage>(setBasicInfo(std::make_shared<Mage>(this->player), mj)));}
+            else if(obj_type == "KingdomMage"){temp_layer->addChild(std::static_pointer_cast<KingdomMage>(setBasicInfo(std::make_shared<KingdomMage>(this->player), mj)));}
+            else if(obj_type == "Knight"){temp_layer->addChild(std::static_pointer_cast<Knight>(setBasicInfo(std::make_shared<Knight>(this->player), mj)));}
+            else if(obj_type == "Ogre"){temp_layer->addChild(std::static_pointer_cast<Ogre>(setBasicInfo(std::make_shared<Ogre>(this->player), mj)));}
+            else if(obj_type == "Orc"){temp_layer->addChild(std::static_pointer_cast<Orc>(setBasicInfo(std::make_shared<Orc>(this->player), mj)));}
+            else if(obj_type == "Poisoner"){temp_layer->addChild(std::static_pointer_cast<Poisoner>(setBasicInfo(std::make_shared<Poisoner>(this->player), mj)));}
+            else if(obj_type == "RoarMonster"){temp_layer->addChild(std::static_pointer_cast<RoarMonster>(setBasicInfo(std::make_shared<RoarMonster>(this->player), mj)));}
+            else if(obj_type == "SecondBoss"){temp_layer->addChild(std::static_pointer_cast<SecondBoss>(setBasicInfo(std::make_shared<SecondBoss>(this->player), mj)));}
+            else if(obj_type == "MonsterKing"){temp_layer->addChild(std::static_pointer_cast<MonsterKing>(setBasicInfo(std::make_shared<MonsterKing>(this->player), mj)));}
             /* environmental objects */
-            else if(obj_type.compare("EnvironmentObject") == 0){temp_layer->addChild(std::static_pointer_cast<EnvironmentObject>(setBasicInfo(std::make_shared<EnvironmentObject>(mj["name"], mj["filepath"]), mj)));}
-            else if(obj_type.compare("HitObject") == 0){temp_layer->addChild(std::static_pointer_cast<HitObject>(setBasicInfo(std::make_shared<HitObject>(mj["name"], mj["filepath"]), mj)));}
-            else if(obj_type.compare("WalkOnObject") == 0){temp_layer->addChild(std::static_pointer_cast<WalkOnObject>(setBasicInfo(std::make_shared<WalkOnObject>(mj["name"], mj["filepath"]), mj)));}
-            else if(obj_type.compare("Switch") == 0){
+            else if(obj_type == "EnvironmentObject"){temp_layer->addChild(std::static_pointer_cast<EnvironmentObject>(setBasicInfo(std::make_shared<EnvironmentObject>(id, mj["filepath"]), mj)));}
+            else if(obj_type == "HitObject"){temp_layer->addChild(std::static_pointer_cast<HitObject>(setBasicInfo(std::make_shared<HitObject>(id, mj["filepath"]), mj)));}
+            else if(obj_type == "WalkOnObject"){temp_layer->addChild(std::static_pointer_cast<WalkOnObject>(setBasicInfo(std::make_shared<WalkOnObject>(id, mj["filepath"]), mj)));}
+            else if(obj_type == "Switch"){
                 std::shared_ptr<Switch> temp_switch = std::make_shared<Switch>();
-                if(mj["children"].size() > 0){
+                if(!mj["children"].empty()){
                     for(int x = 0; x < mj["children"].size(); x++){
+                        id = mj["children"][x]["name"];
+                        while (ids.find(id) != ids.cend()) {
+                            std::cerr << "ERROR: Attempting to add object " << id << " which already exists; trying " << id + "_copy instead..." << std::endl;
+                            id += "_copy";
+                        }
+                        ids.insert(id);
+
                         if(mj["children"][x]["visible"].get<bool>()){
-                            temp_switch->addChild(std::static_pointer_cast<WalkOnObject>(setBasicInfo(std::make_shared<WalkOnObject>(mj["children"][x]["name"], mj["children"][x]["filepath"]), mj["children"][x])));
+                            temp_switch->addChild(std::static_pointer_cast<WalkOnObject>(setBasicInfo(std::make_shared<WalkOnObject>(id, mj["children"][x]["filepath"]), mj["children"][x])));
                         }
                         else{
-                            temp_switch->temp_children.push_back(std::static_pointer_cast<WalkOnObject>(setBasicInfo(std::make_shared<WalkOnObject>(mj["children"][x]["name"], mj["children"][x]["filepath"]), mj["children"][x])));
+                            temp_switch->temp_children.push_back(std::static_pointer_cast<WalkOnObject>(setBasicInfo(std::make_shared<WalkOnObject>(id, mj["children"][x]["filepath"]), mj["children"][x])));
                         }
                     }
                 }
@@ -121,9 +137,9 @@ void Scene::loadScene_Editor(std::string sceneFilePath){
             // if(json_layer["objects"][y]["parentHierarchy"].size() > 0){
             //     parent = find_parent(json_layer["objects"][y]["parentHierarchy"], temp_layer);
             // } 
-            std::string obj_type = json_layer["objects"][y]["type"].get<std::string>();
+            auto obj_type = json_layer["objects"][y]["type"].get<std::string>();
             json mj = json_layer["objects"][y];
-            if(obj_type.compare("DisplayObject") == 0){temp_layer->addChild(setBasicInfo(std::make_shared<DisplayObject>(mj["name"], mj["filepath"]), mj));}
+            if(obj_type == "DisplayObject"){temp_layer->addChild(setBasicInfo(std::make_shared<DisplayObject>(mj["name"], mj["filepath"]), mj));}
             else if(aspr.find(obj_type) != aspr.end()){temp_layer->addChild(std::static_pointer_cast<AnimatedSprite>(setBasicInfo(std::make_shared<AnimatedSprite>(mj["name"], mj["sheetpath"], mj["xmlpath"], ""), mj)));}
             else if(spr.find(obj_type) != spr.end()){temp_layer->addChild(std::static_pointer_cast<Sprite>(setBasicInfo(std::make_shared<Sprite>(mj["name"], mj["filepath"]), mj)));}
         }            

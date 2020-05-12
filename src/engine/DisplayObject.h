@@ -41,7 +41,6 @@ struct Hitbox {
 class DisplayObject : public EventListener, public std::enable_shared_from_this<DisplayObject> {
 
 public:
-    static std::unordered_set<std::string> ids;
 	std::string id = "DEFAULT_ID";
 	std::string imgPath = "";
 	std::string type = "DisplayObject";
@@ -57,7 +56,7 @@ public:
 	int alpha = 255;
 	SDL_Rect* sourceRect = nullptr;
 
-    explicit DisplayObject(std::string id);
+    explicit DisplayObject(const std::string& id);
     DisplayObject(const std::string& id, const std::string& path);
 	DisplayObject(const std::string& id, const std::string& path, SDL_Renderer* r);
 	DisplayObject(const std::string& id, int red, int green, int blue);
