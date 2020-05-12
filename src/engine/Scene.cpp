@@ -63,7 +63,7 @@ void Scene::loadScene(std::string sceneFilePath){
 
             std::string id = mj["name"];
             while (ids.find(id) != ids.cend()) {
-                std::cerr << "ERROR: Attempting to add object " << id << " which already exists; trying " << id + "_copy instead..." << std::endl;
+                std::cerr << "WARNING: Attempting to add object " << id << " which already exists; trying " << id + "_copy instead..." << std::endl;
                 id += "_copy";
             }
             ids.insert(id);
@@ -92,7 +92,7 @@ void Scene::loadScene(std::string sceneFilePath){
             else if(obj_type == "HitObject"){temp_layer->addChild(std::static_pointer_cast<HitObject>(setBasicInfo(std::make_shared<HitObject>(id, mj["filepath"]), mj)));}
             else if(obj_type == "WalkOnObject"){temp_layer->addChild(std::static_pointer_cast<WalkOnObject>(setBasicInfo(std::make_shared<WalkOnObject>(id, mj["filepath"]), mj)));}
             else if(obj_type == "Switch"){
-                std::shared_ptr<Switch> temp_switch = std::make_shared<Switch>();
+                std::shared_ptr<Switch> temp_switch = std::make_shared<Switch>(id);
                 if(!mj["children"].empty()){
                     for(int x = 0; x < mj["children"].size(); x++){
                         id = mj["children"][x]["name"];
