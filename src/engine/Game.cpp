@@ -221,13 +221,12 @@ void Game::handleEvent(Event* e)
 }
 
 void Game::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
-    // if(paused == false)
-    // {
     frameCounter++;
     this->container->update(pressedKeys, joystickState, pressedButtons);
 
-    TweenJuggler::getInstance().nextFrame();
-    // }
+    if (!paused) {
+        TweenJuggler::getInstance().nextFrame();
+    }
 }
 
 void Game::draw(AffineTransform& at) {
