@@ -212,5 +212,7 @@ void Rooms::handleEvent(Event* e) {
         player_spawn_tween->animate(TweenableParams::ALPHA, 0, 255, 100);
 
         TweenJuggler::getInstance().add(player_spawn_tween);
+
+        EventDispatcher::getInstance().addEventListener(this, PlayerDeathEvent::PLAYER_DEATH_EVENT);
     }
 }
