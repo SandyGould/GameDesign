@@ -72,7 +72,6 @@ public:
 	virtual void setRenderer(SDL_Renderer* r);
 
     void addChild(const std::shared_ptr<DisplayObject>& child);
-    bool hasChild(const std::shared_ptr<DisplayObject>& child);
     void removeImmediateChild(const std::shared_ptr<DisplayObject>& child);
     void removeImmediateChild(std::string id);
     void removeChild(size_t index);
