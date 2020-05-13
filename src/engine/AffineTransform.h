@@ -1,28 +1,24 @@
-#ifndef AFFINETRANSFORM_H
-#define AFFINETRANSFORM_H
+#pragma once
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+#include <array>
+
+using matrix = std::array<std::array<double, 3>, 3>;
+
 class AffineTransform {
 public:
-	AffineTransform();
-	~AffineTransform();
-	SDL_Point transformPoint(int x, int y);
-	void translate(int x, int y);
-	void rotate(double r);
-	void scale(double x, double y);
+    AffineTransform();
+    SDL_Point transformPoint(int x, int y);
+    AffineTransform& translate(int x, int y);
+    AffineTransform& rotate(double r);
+    AffineTransform& scale(double x, double y);
 
-	void concatenate(AffineTransform& at);
-
-	double getScaleX();
-	double getScaleY();
+    AffineTransform& concatenate(AffineTransform& at);
 
 private:
-	double** transform;
-	
-	double** identity();
-	void cleanMatrix(double** m);
-};
+    matrix transform;
 
-#endif
+    static matrix identity();
+};
