@@ -259,6 +259,5 @@ void SceneManager::handleEvent(Event* e) {
         p->alive = true;
         this->currRoom--;
         this->loadNextScene();
-        this->currScene->addChild(p);
     }
 }

@@ -154,10 +154,9 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
     prevKeys = pressedKeys;
 
     if (!Game::instance->paused) {
-        TweenJuggler::getInstance().nextFrame();
-
         // update scene if criteria for changing scene are met
         this->sceneManager->updateScene();
+
         health->updateHealth();
         player->speedChange = false;
         this->collisionSystem->update();

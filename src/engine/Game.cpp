@@ -2,6 +2,7 @@
 
 #include "events/DragEvent.h"
 #include "events/DragStartEvent.h"
+#include "events/GameQuitEvent.h"
 #include "events/KeyDownEvent.h"
 #include "events/MouseDownEvent.h"
 #include "events/MouseMotionEvent.h"
@@ -11,7 +12,7 @@
 #include "events/TextInputEvent.h"
 #include "events/WindowEnterEvent.h"
 #include "events/WindowExitEvent.h"
-#include "events/GameQuitEvent.h"
+#include "tweens/TweenJuggler.h"
 
 #include <chrono>
 #include <iostream>
@@ -224,6 +225,8 @@ void Game::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jSt
     // {
     frameCounter++;
     this->container->update(pressedKeys, joystickState, pressedButtons);
+
+    TweenJuggler::getInstance().nextFrame();
     // }
 }
 
