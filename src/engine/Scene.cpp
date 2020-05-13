@@ -63,7 +63,7 @@ void Scene::loadScene(std::string sceneFilePath){
 
             std::string id = mj["name"];
             while (ids.find(id) != ids.cend()) {
-                std::cerr << "WARNING: Attempting to add object " << id << " which already exists; trying " << id + "_copy instead..." << std::endl;
+                std::cerr << "WARNING: " << this->id << " attempted to add object " << id << " which already exists; trying " << id + "_copy instead..." << std::endl;
                 id += "_copy";
             }
             ids.insert(id);
@@ -97,7 +97,7 @@ void Scene::loadScene(std::string sceneFilePath){
                     for(int x = 0; x < mj["children"].size(); x++){
                         id = mj["children"][x]["name"];
                         while (ids.find(id) != ids.cend()) {
-                            std::cerr << "ERROR: Attempting to add object " << id << " which already exists; trying " << id + "_copy instead..." << std::endl;
+                            std::cerr << "WARNING: " << this->id << " attempted to add object " << id << " which already exists; trying " << id + "_copy instead..." << std::endl;
                             id += "_copy";
                         }
                         ids.insert(id);
