@@ -318,10 +318,6 @@ bool Player::onCollision(std::shared_ptr<DisplayObject> other){
         this->changeHealth(-20);
         return true;
     }
-    if(other->type == "knight" || other->type == "orc"){
-        this->changeHealth(-10);
-        return true;
-    }
     if(other->type == "poison_bomb"){
         this->changeHealth(-1);
         return true;

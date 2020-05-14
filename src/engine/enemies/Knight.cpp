@@ -32,6 +32,7 @@ void Knight::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
         return;
     }
 
+    this->cooldown--;
     if(this->state == 0){
         //init
         this->state=1;
@@ -144,4 +145,15 @@ void Knight::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 
     BaseEnemy::update(pressedKeys, joystickState, pressedButtons);
 
+}
+
+bool Knight::onCollision(std::shared_ptr<DisplayObject> other) {
+    if (other == this->player) {
+        if (this->cooldown <= 0) {
+            this->player->changeHealth(-10);
+            this->cooldown = 30;
+        }
+        return true;
+    }
+    return BaseEnemy::onCollision(other);
 }
