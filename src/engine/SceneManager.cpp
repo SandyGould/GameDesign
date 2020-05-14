@@ -13,6 +13,10 @@ SceneManager::SceneManager(const shared_ptr<Camera>& camera, const shared_ptr<Pl
     // add tween complete event for scene manager
     EventDispatcher::getInstance().addEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
     EventDispatcher::getInstance().addEventListener(this, RestartEvent::RESTART_EVENT);
+
+    // update these two to set which room to start in (zero-indexed)
+    // this->currArea = 2;
+    // this->currRoom = 6;
 }
 
 void SceneManager::loadFirstScene() {
