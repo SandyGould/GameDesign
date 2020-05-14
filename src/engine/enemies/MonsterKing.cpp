@@ -3,7 +3,6 @@
 #include "../events/EventDispatcher.h"
 #include "../events/NewSceneEvent.h"
 
-static int mking_count = 1;
 // Init
 // Wait
 // Move Select

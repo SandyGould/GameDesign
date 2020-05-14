@@ -1,6 +1,9 @@
 #include "RubberCannoneer.h"
 
-RubberCannoneer::RubberCannoneer(std::shared_ptr<Player> player) : BaseEnemy("RubberCannoneer", "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "RCannoneerIdle", player){
+static int rubber_cannoneer_count = 1;
+
+RubberCannoneer::RubberCannoneer(std::shared_ptr<Player> player) : BaseEnemy("RubberCannoneer" + std::to_string(rubber_cannoneer_count), "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "RCannoneerIdle", player){
+    rubber_cannoneer_count++;
     this->saveType = "rubber_cannoneer";
     cannon= std::make_shared<Sprite>("cannon", "./resources/assets/Display_Objects/cannon.png");
     this->addChild(cannon);

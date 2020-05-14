@@ -6,7 +6,7 @@
 class Knight : public BaseEnemy {
 public:
     explicit Knight(std::shared_ptr<Player> player);
-    Knight(std::shared_ptr<Player> player, std::string filepath, std::string xml, std::string animName);
+    Knight(std::string id, std::shared_ptr<Player> player, std::string filepath, std::string xml, std::string animName);
 
     void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
 

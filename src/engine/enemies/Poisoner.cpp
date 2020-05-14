@@ -1,6 +1,9 @@
 #include "Poisoner.h"
 
-Poisoner::Poisoner(std::shared_ptr<Player> player) : BaseEnemy("poisoner", "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "PoisonerIdle", player){
+static int poisoner_count = 1;
+
+Poisoner::Poisoner(std::shared_ptr<Player> player) : BaseEnemy("poisoner" + std::to_string(poisoner_count), "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "PoisonerIdle", player){
+    poisoner_count++;
     this->saveType="poisoner";
 }
 

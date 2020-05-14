@@ -2,7 +2,10 @@
 #include "../events/EventDispatcher.h"
 #include <iostream>
 
-IceAttack::IceAttack() : Projectile("ice_attack", "./resources/assets/Animated_Sprites/Enemies/iceAttack.png", 10){
+static int ice_attack_count = 1;
+
+IceAttack::IceAttack() : Projectile("ice_attack" + std::to_string(ice_attack_count), "./resources/assets/Animated_Sprites/Enemies/iceAttack.png", 10){
+    ice_attack_count++;
     this->width = 50;
     this->height= 50;
     this->type = "ice_attack";

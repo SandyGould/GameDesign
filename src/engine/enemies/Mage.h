@@ -9,7 +9,7 @@ class Mage : public BaseEnemy {
 public:
 
 	explicit Mage(std::shared_ptr<Player> player);
-	Mage(std::shared_ptr<Player> player, std::string filepath, std::string xml, std::string animName);
+	Mage(std::string id, std::shared_ptr<Player> player, std::string filepath, std::string xml, std::string animName);
 	int ready = 300;
 
 	void changeHealth(int amount);

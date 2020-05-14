@@ -1,8 +1,8 @@
 #ifndef MASTERARCHER_H
 #define MASTERARCHER_H
 
-#include "BaseEnemy.h"
 #include "Arrow.h"
+#include "BaseEnemy.h"
 
 class MasterArcher: public BaseEnemy{
     public:

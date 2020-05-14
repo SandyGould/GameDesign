@@ -3,7 +3,10 @@
 #include "../things/Player.h"
 #include "BaseEnemy.h"
 
-PoisonBomb::PoisonBomb():Sprite("bomb", "./resources/assets/Display_Objects/PoisonBomb.png"){
+static int poison_bomb_count = 1;
+
+PoisonBomb::PoisonBomb() : Sprite("bomb" + std::to_string(poison_bomb_count), "./resources/assets/Display_Objects/PoisonBomb.png"){
+    poison_bomb_count++;
     radius = 10;
     this->height = 50;
     this->width = 50;

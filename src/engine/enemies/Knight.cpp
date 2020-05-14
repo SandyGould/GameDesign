@@ -3,14 +3,13 @@
 
 static int knight_count = 1;
 
-Knight::Knight(std::shared_ptr<Player> player) : BaseEnemy("knight" + std::to_string(knight_count), "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "KnightIdle", player){
+Knight::Knight(std::shared_ptr<Player> player) : Knight("knight" + std::to_string(knight_count), player, "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "KnightIdle"){
     knight_count++;
-    this->type = "knight";
-    this->saveType = this->type;
 }
 
-Knight::Knight(std::shared_ptr<Player> player, std::string filepath, std::string xml, std::string animName) : BaseEnemy("knight" + std::to_string(knight_count), filepath, xml, animName, player){
-    knight_count++;
+Knight::Knight(std::string id, std::shared_ptr<Player> player, std::string filepath, std::string xml, std::string animName) : BaseEnemy(id, filepath, xml, animName, player){
+    this->type = "knight";
+    this->saveType = this->type;
 }
 
 void Knight::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){

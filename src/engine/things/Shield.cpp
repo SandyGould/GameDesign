@@ -51,9 +51,10 @@ bool Shield::onCollision(std::shared_ptr<DisplayObject> other){
         }
     }
     if(bashing){
-        if(other->type == "enemy" || other->type == "ogre" || other->type == "knight"){
+        auto enemy = std::dynamic_pointer_cast<BaseEnemy>(other);
+        if(enemy){
             this->bashing = false;
-            std::static_pointer_cast<BaseEnemy>(other)->changeHealth(-35);
+            enemy->changeHealth(-35);
         }
     }
     return true;

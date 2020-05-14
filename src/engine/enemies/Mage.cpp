@@ -7,15 +7,14 @@
 
 static int mage_count = 1;
 
-Mage::Mage(std::shared_ptr<Player> player) : BaseEnemy("mage" + std::to_string(mage_count), "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "MageIdle", player) {
+Mage::Mage(std::shared_ptr<Player> player) : Mage("mage" + std::to_string(mage_count), player, "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "MageIdle") {
     mage_count++;
+}
+
+Mage::Mage(std::string id, std::shared_ptr<Player> player, std::string filepath, std::string xml, std::string animName): BaseEnemy(id, filepath, xml, animName, player){
     hasCollision = true;
     this->saveType = "mage";
     this->mageAttack = nullptr;
-}
-
-Mage::Mage(std::shared_ptr<Player> player, std::string filepath, std::string xml, std::string animName): BaseEnemy("kMage", filepath, xml, animName, player){
-
 }
 
 /*

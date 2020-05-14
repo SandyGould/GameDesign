@@ -17,17 +17,16 @@ Ded 7
 */
 
 // Init
-Archer::Archer(std::shared_ptr<Player> player): BaseEnemy("Archer" + std::to_string(archer_count), "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "ArcherIdle", player){
+Archer::Archer(std::shared_ptr<Player> player) : Archer("Archer" + std::to_string(archer_count), player, "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "ArcherIdle"){
+    archer_count++;
+}
+
+Archer::Archer(std::string id, std::shared_ptr<Player> player, std::string filepath, std::string xml, std::string animName) : BaseEnemy(id, filepath, xml, animName, player){
     this->state = 0;
     this->facingRight=true;
     this->saveType = "archer";
     this->actionFrames = 12;
     this->arrow = nullptr;
-    archer_count++;
-}
-
-Archer::Archer(std::shared_ptr<Player> player, std::string filepath, std::string xml, std::string animName): BaseEnemy("Archer" + std::to_string(archer_count), filepath, xml, animName, player){
-
 }
 
 void Archer::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){

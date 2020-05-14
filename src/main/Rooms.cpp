@@ -27,6 +27,8 @@ Rooms::Rooms() : Game(600, 500) {
     this->collisionSystem->watchForCollisions("shield", "arrow");
     this->collisionSystem->watchForCollisions("shield", "mage_attack");
     this->collisionSystem->watchForCollisions("shield", "enemy");
+    this->collisionSystem->watchForCollisions("shield", "orc");
+    this->collisionSystem->watchForCollisions("shield", "knight");
     this->collisionSystem->watchForCollisions("shield", "ogre");
     this->collisionSystem->watchForCollisions("enemy", "EnvironmentObject");
     this->collisionSystem->watchForCollisions("enemy", "WalkOnObject");

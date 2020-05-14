@@ -1,7 +1,10 @@
 #include "RoarMonster.h"
 #include <iostream>
 
-RoarMonster::RoarMonster(std::shared_ptr<Player> player): BaseEnemy("RoaringMonster","./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "RoarIdle", player){
+static int roar_monster_count = 1;
+
+RoarMonster::RoarMonster(std::shared_ptr<Player> player): BaseEnemy("RoaringMonster" + std::to_string(roar_monster_count),"./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "RoarIdle", player){
+    roar_monster_count++;
     this->saveType = "roar_monster";
 }
 

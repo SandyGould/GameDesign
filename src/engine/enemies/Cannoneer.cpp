@@ -1,7 +1,9 @@
 #include "Cannoneer.h"
 
+static int cannoneer_count = 1;
 
-Cannoneer::Cannoneer(std::shared_ptr<Player> player) : BaseEnemy("Cannoneer", "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "CannoneerIdle", player){
+Cannoneer::Cannoneer(std::shared_ptr<Player> player) : BaseEnemy("Cannoneer" + std::to_string(cannoneer_count), "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "CannoneerIdle", player){
+    cannoneer_count++;
     this->type = "cannoneer";
     cannon= std::make_shared<Sprite>("cannon", "./resources/assets/Display_Objects/cannon.png");
     this->addChild(cannon);

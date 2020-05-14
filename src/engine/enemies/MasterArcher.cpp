@@ -17,7 +17,8 @@ Ded 7
 */
 
 // Init
-MasterArcher::MasterArcher(std::shared_ptr<Player> player): BaseEnemy("MasterArcher" + std::to_string(master_archer_count), "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "MArcherIdle", player){
+// TODO: Shouldn't this dude inherit from Archer instead?
+MasterArcher::MasterArcher(std::shared_ptr<Player> player) : BaseEnemy("MasterArcher" + std::to_string(master_archer_count), "./resources/assets/Animated_Sprites/Enemies/enemies.png", "./resources/assets/Animated_Sprites/Enemies/enemies.xml", "MArcherIdle", player){
     this->state = 0;
     this->facingRight=true;
     master_archer_count++;

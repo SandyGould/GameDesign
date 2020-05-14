@@ -3,7 +3,6 @@
 #include <cmath>
 #include <iostream>
 
-static int ogre_count = 1;
 /*
 States:
 Init 0
