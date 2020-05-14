@@ -33,7 +33,6 @@ public:
     double speed = 1;
 private:
     int collisionWaitTime = 0;
-    bool speedChange = false;
 
 };
 

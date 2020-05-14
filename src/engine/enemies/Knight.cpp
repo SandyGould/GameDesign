@@ -66,7 +66,7 @@ void Knight::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
             if(this->actionFrames==300){
                 this->state = 5;
                 this->actionFrames = 120;
-        }
+            }
         }
     }
     else if(this->state == 3){

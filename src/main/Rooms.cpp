@@ -22,6 +22,7 @@ Rooms::Rooms() : Game(600, 500) {
     this->collisionSystem->watchForCollisions("player", "arrow");
     this->collisionSystem->watchForCollisions("player", "knight");
     this->collisionSystem->watchForCollisions("player", "orc");
+    this->collisionSystem->watchForCollisions("player", "ogre");
     this->collisionSystem->watchForCollisions("player", "mage_attack");
     this->collisionSystem->watchForCollisions("player", "cannonball");
     this->collisionSystem->watchForCollisions("shield", "arrow");
@@ -32,13 +33,24 @@ Rooms::Rooms() : Game(600, 500) {
     this->collisionSystem->watchForCollisions("shield", "ogre");
     this->collisionSystem->watchForCollisions("enemy", "EnvironmentObject");
     this->collisionSystem->watchForCollisions("enemy", "WalkOnObject");
-    this->collisionSystem->watchForCollisions("ogre", "EnvironmentObject");
-    this->collisionSystem->watchForCollisions("enemy", "WalkOnObject");
     this->collisionSystem->watchForCollisions("enemy", "arrow");
-    this->collisionSystem->watchForCollisions("ogre", "arrow");
     this->collisionSystem->watchForCollisions("enemy", "mage_attack");
     this->collisionSystem->watchForCollisions("enemy", "cannonball");
-
+    this->collisionSystem->watchForCollisions("orc", "EnvironmentObject");
+    this->collisionSystem->watchForCollisions("orc", "WalkOnObject");
+    this->collisionSystem->watchForCollisions("orc", "arrow");
+    this->collisionSystem->watchForCollisions("orc", "mage_attack");
+    this->collisionSystem->watchForCollisions("orc", "cannonball");
+    this->collisionSystem->watchForCollisions("knight", "EnvironmentObject");
+    this->collisionSystem->watchForCollisions("knight", "WalkOnObject");
+    this->collisionSystem->watchForCollisions("knight", "arrow");
+    this->collisionSystem->watchForCollisions("knight", "mage_attack");
+    this->collisionSystem->watchForCollisions("knight", "cannonball");
+    this->collisionSystem->watchForCollisions("ogre", "EnvironmentObject");
+    this->collisionSystem->watchForCollisions("ogre", "WalkOnObject");
+    this->collisionSystem->watchForCollisions("ogre", "arrow");
+    this->collisionSystem->watchForCollisions("ogre", "mage_attack");
+    this->collisionSystem->watchForCollisions("ogre", "cannonball");
 
     camera = std::make_shared<Camera>();
 

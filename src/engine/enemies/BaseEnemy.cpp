@@ -12,10 +12,9 @@ void BaseEnemy::update(const std::unordered_set<SDL_Scancode>& pressedKeys, cons
     if (Game::instance->paused) {
         return;
     }
-    if(this->speedChange){
-        this->speed = 1;
-        this->speedChange = true;
-    }
+
+    // Reset speed every tick
+    this->speed = 1;
     AnimatedSprite::update(pressedKeys,joystickState,pressedButtons);
 }
 
@@ -53,13 +52,11 @@ bool BaseEnemy::onCollision(std::shared_ptr<DisplayObject> other){
         } else {
             collisionWaitTime++;
         }
-    } else if (other->id == "mud"){
+    } else if (other->id.find("mud") != std::string::npos){
         this->speed = 0.5;
-        this->speedChange = true;
         return true;
-    } else if (other->id == "ice"){
+    } else if (other->id.find("ice") != std::string::npos){
         this->speed = 2;
-        this->speedChange = true;
         return true;
     }
     if(other->type == "rubber_cannonball" || other->type == "cannonball"){
