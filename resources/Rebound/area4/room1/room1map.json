@@ -122,46 +122,6 @@
             ]
           },
           {
-            "filepath": "./resources/assets/Display_Objects/kingdom_archer.png",
-            "name": "kingdom_archer1",
-            "rotation": 0.0,
-            "scaleX": 4.0,
-            "scaleY": 4.0,
-            "type": "KingdomArcher",
-            "x_pos": 886,
-            "y_pos": 96
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/kingdom_archer.png",
-            "name": "kingdom_archer2",
-            "rotation": 0.0,
-            "scaleX": 4.0,
-            "scaleY": 4.0,
-            "type": "KingdomArcher",
-            "x_pos": 886,
-            "y_pos": 457
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/knight.png",
-            "name": "knight1",
-            "rotation": 0.0,
-            "scaleX": 4.0,
-            "scaleY": 4.0,
-            "type": "knight",
-            "x_pos": 794,
-            "y_pos": 187
-          },
-          {
-            "filepath": "./resources/assets/Display_Objects/knight.png",
-            "name": "knight2",
-            "rotation": 0.0,
-            "scaleX": 4.0,
-            "scaleY": 4.0,
-            "type": "knight",
-            "x_pos": 799,
-            "y_pos": 320
-          },
-          {
             "filepath": "./resources/assets/Display_Objects/water_bottom.png",
             "name": "water_bottom",
             "rotation": 0.0,
@@ -190,6 +150,46 @@
             "type": "DisplayObject",
             "x_pos": 480,
             "y_pos": 200
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/kingdom_archer.png",
+            "name": "kingdom_archer1",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "KingdomArcher",
+            "x_pos": 886,
+            "y_pos": 96
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/kingdom_archer.png",
+            "name": "kingdom_archer2",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "KingdomArcher",
+            "x_pos": 886,
+            "y_pos": 457
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/knight.png",
+            "name": "knight1",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "Knight",
+            "x_pos": 794,
+            "y_pos": 187
+          },
+          {
+            "filepath": "./resources/assets/Display_Objects/knight.png",
+            "name": "knight2",
+            "rotation": 0.0,
+            "scaleX": 4.0,
+            "scaleY": 4.0,
+            "type": "Knight",
+            "x_pos": 799,
+            "y_pos": 320
           }
         ],
         "speed": 0.0
