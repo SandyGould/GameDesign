@@ -49,7 +49,6 @@ void Scene::loadScene(std::string sceneFilePath){
         auto temp_layer = std::make_shared<Layer>(layer_value);
         json json_layer = j["Scene"][z][layer_value];
         temp_layer->parallaxSpeed = json_layer["speed"];
-        temp_layer->cam = this->camera;
         for(int y = 0; y < json_layer["objects"].size(); ++y){
             // std::cout << "type: " + json_layer["objects"][y]["type"].get<std::string>() << std::endl;
             
@@ -129,7 +128,6 @@ void Scene::loadScene_Editor(std::string sceneFilePath){
         auto temp_layer = std::make_shared<Layer>(layer_value);
         json json_layer = j["Scene"][z][layer_value];
         temp_layer->parallaxSpeed = json_layer["speed"];
-        temp_layer->cam = this->camera;
         for(int y = 0; y < json_layer["objects"].size(); ++y){
             // std::cout << "type: " + json_layer["objects"][y]["type"].get<std::string>() << std::endl;
             

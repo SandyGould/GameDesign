@@ -12,14 +12,8 @@ public:
 	Layer();
     explicit Layer(std::string id);
 
-	// void applyTransformations(AffineTransform& at);
-	// void reverseTransformations(AffineTransform& at);
-
-	// virtual void updates(std::unordered_set<SDL_Scancode> pressedKeys, jState joystickState, std::unordered_set<Uint8> pressedButtons) override;
-
 	void setParallax();
-	void draw(AffineTransform &at) override;
-	std::shared_ptr<Camera> cam;
+    void draw(AffineTransform& at) override;
 
 private:
 };

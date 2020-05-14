@@ -218,6 +218,13 @@ void DisplayObject::update(const std::unordered_set<SDL_Scancode>& pressedKeys, 
 }
 
 void DisplayObject::draw(AffineTransform& at) {
+    // Copy the original AT here to undo it later
+    // Explicitly reversing its transformations does *not* work
+    // in the case of weird transformations (e.g. 0 scale),
+    // so this is the best way to ensure we do get the original
+    // transformation back without precision errors or other NaN nonsense
+    // even if we do have to have two copies floating around :)
+    auto origAT = at;
     applyTransformations(at);
 
     if (curTexture != nullptr && visible) {
@@ -252,21 +259,15 @@ void DisplayObject::draw(AffineTransform& at) {
     // redo the parent's pivot
     at.translate(-pivot.x, -pivot.y);
 
-    reverseTransformations(at);
+    // And undo all the transformations!
+    at = origAT;
 }
 
 void DisplayObject::applyTransformations(AffineTransform& at) const {
-    at.translate(position.x, position.y);
-    at.rotate(rotation);
-    at.scale(scaleX, scaleY);
-    at.translate(-pivot.x, -pivot.y);
-}
-
-void DisplayObject::reverseTransformations(AffineTransform& at) const {
-    at.translate(pivot.x, pivot.y);
-    at.scale(1.0 / scaleX, 1.0 / scaleY);
-    at.rotate(-rotation);
-    at.translate(-position.x, -position.y);
+    at.translate(position.x, position.y)
+      .rotate(rotation)
+      .scale(scaleX, scaleY)
+      .translate(-pivot.x, -pivot.y);
 }
 
 void DisplayObject::updateSourceRect(SDL_Rect* s)

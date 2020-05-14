@@ -37,10 +37,6 @@ Editor::Editor(const string& sceneToLoad)
     this->container->addChild(camera);
 
     curScene->loadScene_Editor(sceneToLoad);
-    
-    for (auto layer : curScene->children) {
-        static_pointer_cast<Layer>(layer)->cam = camera;
-    }
 
     camera->addChild(curScene);
 

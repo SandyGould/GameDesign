@@ -85,7 +85,6 @@ public:
 	virtual void draw(AffineTransform& at);
 
 	void applyTransformations(AffineTransform& at) const;
-	void reverseTransformations(AffineTransform& at) const;
 
 	void updateSourceRect(SDL_Rect* s);
 

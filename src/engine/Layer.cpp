@@ -19,13 +19,14 @@ void Layer::setParallax(){
 void Layer::draw(AffineTransform& at) {
     Layer::setParallax();
 
+    auto origAT = at;
     applyTransformations(at);
     // undo the parent's pivot
     at.translate(pivot.x, pivot.y);
-    for (auto child : children) {
+    for (const auto& child : children) {
         child->draw(at);
     }
     // redo the parent's pivot
     at.translate(-pivot.x, -pivot.y);
-    reverseTransformations(at);
+    at = origAT;
 }
