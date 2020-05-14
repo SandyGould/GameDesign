@@ -54,21 +54,18 @@ void SceneManager::loadFirstScene() {
     c->setBottomLimit(this->currScene->camBottomLimit);
     c->addChild(this->currScene);
 
-    EventDispatcher::getInstance().addEventListener(this->currScene.get(), NewSceneEvent::FADE_OUT_EVENT);
-
 }
 
 void SceneManager::unloadScene() {
     // scene is done; queue fade out transition
     this->unloading = true;
 
+    EventDispatcher::getInstance().addEventListener(this->currScene.get(), NewSceneEvent::FADE_OUT_EVENT);
     EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_OUT_EVENT));
-    // Event will get auto-removed by DisplayObject
+    EventDispatcher::getInstance().removeEventListener(this->currScene.get(), NewSceneEvent::FADE_OUT_EVENT);
 }
 
 void SceneManager::loadNextScene() {
-    // done w/ tween, this scene is no longer a child of camera
-    this->currScene->removeThis();
     bool lol = false;
 
     this->currRoom++;
@@ -118,8 +115,6 @@ void SceneManager::loadNextScene() {
 	c->setRightLimit(this->currScene->camRightLimit);
     c->setBottomLimit(this->currScene->camBottomLimit);
     c->addChild(this->currScene);
-
-    EventDispatcher::getInstance().addEventListener(this->currScene.get(), NewSceneEvent::FADE_OUT_EVENT);
 
     if (lol){
         auto text = std::make_shared<TextBox>("win", "Congrats? For winning, enjoy our version of the FFVII Remake!");
@@ -247,16 +242,22 @@ void SceneManager::handleEvent(Event* e) {
         if (((TweenEvent*) e)->getTween()->getID() == currScene->id + "_out_transition") {
             this->unloading = false;
 
-            if (this->sceneChange == "previous") {
-                this->loadPrevScene();
+            // done w/ tween, this scene is no longer a child of camera
+            this->currScene->removeThis();
+
+            // only transition to the next scene if the player is alive
+            // (since we also unload the scene when the player dies for THEMATIC EFFECT)
+            if (p->alive) {
+                if (this->sceneChange == "previous") {
+                    this->loadPrevScene();
+                } else {
+                    this->loadNextScene();
+                }
+                // queue scene transition
+                EventDispatcher::getInstance().addEventListener(this->currScene.get(), NewSceneEvent::FADE_IN_EVENT);
+                EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_IN_EVENT));
+                EventDispatcher::getInstance().removeEventListener(this->currScene.get(), NewSceneEvent::FADE_IN_EVENT);
             }
-            else {
-                this->loadNextScene();
-            }
-            // queue scene transition
-            EventDispatcher::getInstance().addEventListener(this->currScene.get(), NewSceneEvent::FADE_IN_EVENT);
-            EventDispatcher::getInstance().dispatchEvent(new Event(NewSceneEvent::FADE_IN_EVENT));
-            // Event will get auto-removed by DisplayObject
         }
     } else if(e->getType() == RestartEvent::RESTART_EVENT) {
         p->health = 100;

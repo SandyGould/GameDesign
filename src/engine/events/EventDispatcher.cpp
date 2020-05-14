@@ -49,14 +49,14 @@ void EventDispatcher::dispatchEvent(Event* e) {
     }
 
     auto& vl = it->second;
-    for (auto listener : vl) {
-        listener->handleEvent(e);
-    }
-
     if (listenersToErase.find(type) != listenersToErase.cend()) {
         while (!listenersToErase.at(type).empty()) {
             vl.erase(std::find(vl.cbegin(), vl.cend(), listenersToErase.at(type).front()));
             listenersToErase.at(type).pop();
         }
+    }
+
+    for (auto listener : vl) {
+        listener->handleEvent(e);
     }
 }

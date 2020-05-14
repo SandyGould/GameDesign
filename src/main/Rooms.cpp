@@ -200,6 +200,8 @@ void Rooms::handleEvent(Event* e) {
 
         TweenJuggler::getInstance().add(player_death_tween);
 
+        this->sceneManager->unloadScene();
+
         EventDispatcher::getInstance().addEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
     } else if (e->getType() == TweenEvent::TWEEN_COMPLETE_EVENT) {
         auto* event = dynamic_cast<TweenEvent*>(e);
@@ -207,6 +209,7 @@ void Rooms::handleEvent(Event* e) {
             EventDispatcher::getInstance().removeEventListener(this, TweenEvent::TWEEN_COMPLETE_EVENT);
 
             player->removeThis();
+            health->removeThis();
 
             auto* gameOverEvent = new GameOverEvent();
             EventDispatcher::getInstance().dispatchEvent(gameOverEvent);
@@ -216,8 +219,8 @@ void Rooms::handleEvent(Event* e) {
         container->addChild(gameover_base);
     } else if(e->getType() == RestartEvent::RESTART_EVENT) {
         container->removeImmediateChild(gameover_base);
+        container->addChild(health);
 
-        player->alive = true;
         auto player_spawn_tween = std::make_shared<Tween>("player_spawn_tween", player);
 
         player_spawn_tween->animate(TweenableParams::SCALE_X, 5.0, 1.0, 100);

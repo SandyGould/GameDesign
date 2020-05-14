@@ -489,7 +489,6 @@ void DisplayObject::handleEvent(Event* e){
     }
     // scale in event
     if (e->getType() == NewSceneEvent::FADE_IN_EVENT || e->getType() == NewSceneEvent::FADE_OUT_EVENT) {
-        EventDispatcher::getInstance().removeEventListener(this, e->getType());
         propogateEvent(e, shared_from_this());
     }
 }
