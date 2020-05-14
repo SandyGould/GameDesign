@@ -1,8 +1,6 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-
 #include <array>
 
 using matrix = std::array<std::array<double, 3>, 3>;

@@ -1,8 +1,5 @@
 #include "AffineTransform.h"
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-
 #include <cmath>
 
 /**
@@ -10,7 +7,7 @@
  *
  */
 AffineTransform::AffineTransform() {
-    this->transform = this->identity();
+    this->transform = identity();
 }
 
 /* Returns the identity matrix as an array */
@@ -30,10 +27,10 @@ matrix AffineTransform::identity() {
 
 /* Takes a point in the local coordinate system and transforms it to global space given this AffineTransform */
 SDL_Point AffineTransform::transformPoint(int x, int y) {
-    SDL_Point point;
-    point.x = static_cast<int>(x * this->transform[0][0] + y * this->transform[0][1] + 1 * this->transform[0][2]);
-    point.y = static_cast<int>(x * this->transform[1][0] + y * this->transform[1][1] + 1 * this->transform[1][2]);
-    return point;
+    return {
+        static_cast<int>(x * this->transform[0][0] + y * this->transform[0][1] + 1 * this->transform[0][2]),
+        static_cast<int>(x * this->transform[1][0] + y * this->transform[1][1] + 1 * this->transform[1][2]),
+    };
 }
 
 /* Add another transform to this one, is basically just matrix multiply */
