@@ -55,7 +55,7 @@
           },
           {
             "filepath": "./resources/assets/Display_Objects/switch_off.png",
-            "name": "switch",
+            "name": "switch1",
             "rotation": 0.0,
             "scaleX": 4.0,
             "scaleY": 4.0,
@@ -65,31 +65,31 @@
             "children":[
               {
                 "filepath": "./resources/Rebound/area4/assets/spike.png",
-                "visible":"true",
-                "name": "spike",
+                "visible": true,
+                "name": "spike1",
                 "rotation": 0.0,
-                "scaleX": 5.0,
-                "scaleY": 5.0,
+                "scaleX": 1.2,
+                "scaleY": 1.1,
                 "type": "WalkOnObject",
-                "x_pos": 18,
-                "y_pos": 97
+                "x_pos": 60,
+                "y_pos": 47
               },
               {
                 "filepath": "./resources/assets/Display_Objects/spike.png",
-                "visible":"true",
-                "name": "spike",
+                "visible": true,
+                "name": "spike2",
                 "rotation": 0.0,
-                "scaleX": 5.0,
-                "scaleY": 5.0,
+                "scaleX": 1.2,
+                "scaleY": 1.1,
                 "type": "WalkOnObject",
-                "x_pos": 18,
-                "y_pos": 177
+                "x_pos": 60,
+                "y_pos": 64
               }
             ]
           },
           {
             "filepath": "./resources/assets/Display_Objects/switch_off.png",
-            "name": "switch",
+            "name": "switch2",
             "rotation": 0.0,
             "scaleX": 4.0,
             "scaleY": 4.0,
@@ -99,25 +99,25 @@
             "children":[
               {
                 "filepath": "./resources/assets/Display_Objects/spike.png",
-                "visible":"true",
-                "name": "spike",
+                "visible": true,
+                "name": "spike3",
                 "rotation": 0.0,
-                "scaleX": 5.0,
-                "scaleY": 5.0,
+                "scaleX": 1.2,
+                "scaleY": 1.1,
                 "type": "WalkOnObject",
-                "x_pos": 18,
-                "y_pos": 257
+                "x_pos": 79,
+                "y_pos": -71
               },
               {
                 "filepath": "./resources/assets/Display_Objects/spike.png",
-                "visible":"true",
-                "name": "spike",
+                "visible": true,
+                "name": "spike4",
                 "rotation": 0.0,
-                "scaleX": 5.0,
-                "scaleY": 5.0,
+                "scaleX": 1.2,
+                "scaleY": 1.1,
                 "type": "WalkOnObject",
-                "x_pos": 18,
-                "y_pos": 337
+                "x_pos": 79,
+                "y_pos": -54
               }
             ]
           },
