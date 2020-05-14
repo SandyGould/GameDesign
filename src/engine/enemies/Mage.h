@@ -1,8 +1,8 @@
 #ifndef MAGE_H
 #define MAGE_H
 
+#include "../projectiles/MageAttack.h"
 #include "BaseEnemy.h"
-#include "MageAttack.h"
 
 class Mage : public BaseEnemy {
 

@@ -1,8 +1,10 @@
 #include "Shield.h"
-#include <iostream>
-#include "../enemies/Projectile.h"
+
 #include "../enemies/BaseEnemy.h"
+#include "../projectiles/Projectile.h"
 #include "./Player.h"
+
+#include <iostream>
 
 Shield::Shield() : Sprite("shield", "./resources/assets/Display_Objects/Shield.png") {
     hasCollision = true;

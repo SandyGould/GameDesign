@@ -1,8 +1,8 @@
 #ifndef ARCHER_H
 #define ARCHER_H
 
+#include "../projectiles/Arrow.h"
 #include "BaseEnemy.h"
-#include "Arrow.h"
 
 class Archer : public BaseEnemy {
 

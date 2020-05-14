@@ -1,9 +1,9 @@
 #ifndef RUBBERCANNONEER_H
 #define RUBBERCANNONEER_H
 
-#include "BaseEnemy.h"
-#include "RubberCannonBall.h"
 #include "../Sprite.h"
+#include "../projectiles/RubberCannonBall.h"
+#include "BaseEnemy.h"
 
 class RubberCannoneer : public BaseEnemy{
     public:

@@ -1,8 +1,8 @@
 #ifndef OGRE_H
 #define OGRE_H
 
+#include "../projectiles/Arrow.h"
 #include "BaseEnemy.h"
-#include "Arrow.h"
 
 class Ogre : public BaseEnemy {
 

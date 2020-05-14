@@ -1,8 +1,8 @@
 #ifndef CANNONEER_H
 #define CANNONEER_H
 
+#include "../projectiles/Projectile.h"
 #include "BaseEnemy.h"
-#include "Projectile.h"
 
 class Cannoneer : public BaseEnemy{
 

@@ -2,11 +2,11 @@
 #define BASEENEMY_H
 
 #include "../AnimatedSprite.h"
-#include "../events/EventListener.h"
-#include "../events/EventDispatcher.h"
-#include "../things/Player.h"
 #include "../Sprite.h"
-#include "Projectile.h"
+#include "../events/EventDispatcher.h"
+#include "../events/EventListener.h"
+#include "../projectiles/Projectile.h"
+#include "../things/Player.h"
 #include "../tweens/Tween.h"
 #include "../tweens/TweenJuggler.h"
 

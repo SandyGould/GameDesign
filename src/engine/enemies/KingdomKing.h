@@ -1,10 +1,11 @@
 #ifndef KINGDOMKING_H
 #define KINGDOMKING_H
 
+#include "../projectiles/Arrow.h"
+#include "../projectiles/MageAttack.h"
 #include "BaseEnemy.h"
+
 #include <cmath>
-#include "Arrow.h"
-#include "MageAttack.h"
 
 class KingdomKing : public BaseEnemy{
     public:

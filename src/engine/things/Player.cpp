@@ -1,7 +1,7 @@
 #include "Player.h"
 
-#include "../enemies/MageAttack.h"
 #include "../events/PlayerDeathEvent.h"
+#include "../projectiles/MageAttack.h"
 
 #include <iostream>
 

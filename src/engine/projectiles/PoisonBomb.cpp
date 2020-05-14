@@ -1,7 +1,9 @@
 #include "PoisonBomb.h"
-#include <iostream>
+
+#include "../enemies/BaseEnemy.h"
 #include "../things/Player.h"
-#include "BaseEnemy.h"
+
+#include <iostream>
 
 static int poison_bomb_count = 1;
 

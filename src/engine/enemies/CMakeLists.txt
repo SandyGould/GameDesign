@@ -1,25 +1,18 @@
 target_sources(rebound PRIVATE
         Archer.cpp
-        Arrow.cpp
         BaseEnemy.cpp
-        CannonBall.cpp
         Cannoneer.cpp
-        IceAttack.cpp
         KingdomArcher.cpp
         KingdomKing.cpp
         KingdomMage.cpp
         Knight.cpp
         Mage.cpp
-        MageAttack.cpp
         MasterArcher.cpp
         MonsterKing.cpp
         Ogre.cpp
         Orc.cpp
-        PoisonBomb.cpp
         Poisoner.cpp
-        Projectile.cpp
         Roar.cpp
         RoarMonster.cpp
-        RubberCannonBall.cpp
         RubberCannoneer.cpp
         SecondBoss.cpp)

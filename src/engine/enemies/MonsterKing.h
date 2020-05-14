@@ -1,8 +1,8 @@
 #ifndef MONSTERKING_H
 #define MONSTERKING_H
 
+#include "../projectiles/IceAttack.h"
 #include "BaseEnemy.h"
-#include "IceAttack.h"
 
 class MonsterKing : public BaseEnemy {
     public:

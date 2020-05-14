@@ -1,7 +1,7 @@
 #ifndef POISONER_H
 #define POISONER_H
+#include "../projectiles/PoisonBomb.h"
 #include "BaseEnemy.h"
-#include "PoisonBomb.h"
 
 class Poisoner : public BaseEnemy{
     public:

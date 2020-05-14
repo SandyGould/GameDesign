@@ -1,7 +1,7 @@
 #ifndef SECONDBOSS_H
 #define SECONDBOSS_H
 
-#include "Projectile.h"
+#include "../projectiles/Projectile.h"
 #include "BaseEnemy.h"
 
 class SecondBoss : public BaseEnemy{
