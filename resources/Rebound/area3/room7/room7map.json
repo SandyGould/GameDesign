@@ -4,7 +4,7 @@
       "L0": {
         "objects": [
           {
-            "filepath": "./resources/Rebound/area3_res/assets/background_7_full.png",
+            "filepath": "./resources/Rebound/area3_res/assets/background_7.png",
             "name": "background",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -44,7 +44,7 @@
             "y_pos": 0
           },
           {
-            "filepath": "./resources/Rebound/area3_res/assetss/column.png",
+            "filepath": "./resources/Rebound/area3_res/assets/column.png",
             "name": "column1",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -54,7 +54,7 @@
             "y_pos": 425
           },
           {
-            "filepath": "./resources/Rebound/area3_res/assetss/column.png",
+            "filepath": "./resources/Rebound/area3_res/assets/column.png",
             "name": "column2",
             "rotation": 0.0,
             "scaleX": 5.0,
@@ -184,7 +184,7 @@
             "y_pos": 85
           },
           {
-            "filepath": "./resources/aRebound/area3_res/assets/spike.png",
+            "filepath": "./resources/Rebound/area3_res/assets/spike.png",
             "name": "spike",
             "rotation": 0.0,
             "scaleX": 5.0,
