@@ -262,6 +262,7 @@ void SceneManager::handleEvent(Event* e) {
     } else if(e->getType() == RestartEvent::RESTART_EVENT) {
         p->health = 100;
         p->alive = true;
+        p->shield->alpha = 255; // Gotta reset the alpha due to the fade out
         this->currRoom--;
         this->loadNextScene();
     }
