@@ -5,31 +5,18 @@
 #include <algorithm>
 #include <iostream>
 
-Tween::Tween(std::weak_ptr<DisplayObject> object) {
-    this->currObject = object;
-    this->amountChange = 0;
-    this->timeElapsed = 0;
-}
-
-Tween::Tween(std::weak_ptr<DisplayObject> object, TweenTransitions transition) {
-    this->currObject = object;
-    this->amountChange = 0;
-    this->timeElapsed = 0;
-}
-
-Tween::Tween(std::string id, std::weak_ptr<DisplayObject> object){
+Tween::Tween(const std::string& id, const std::weak_ptr<DisplayObject>& object){
     this->id = id;
     this->currObject = object;
     this->amountChange = 0;
     this->timeElapsed = 0;
 }
 
-Tween::Tween(std::string id, std::weak_ptr<DisplayObject> object, TweenTransitions transition) {
+Tween::Tween(const std::string& id, const std::weak_ptr<DisplayObject>& object, const TweenTransitions& transition) {
     this->id = id;
     this->currObject = object;
     this->amountChange = 0;
     this->timeElapsed = 0;
-    this->id = id;
 }
 
 std::string Tween::getID(){

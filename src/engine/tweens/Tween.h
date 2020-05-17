@@ -11,10 +11,8 @@
 class Tween { 
 
     public:
-	    explicit Tween(std::weak_ptr<DisplayObject> object);
-        Tween(std::weak_ptr<DisplayObject> object, TweenTransitions transition);
-        Tween(std::string id, std::weak_ptr<DisplayObject> object);
-        Tween(std::string id, std::weak_ptr<DisplayObject> object, TweenTransitions transition);
+        Tween(const std::string& id, const std::weak_ptr<DisplayObject>& object);
+        Tween(const std::string& id, const std::weak_ptr<DisplayObject>& object, const TweenTransitions& transition);
 
         void animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time);
         void animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time, std::string easeType);
@@ -31,7 +29,7 @@ class Tween {
         double amountChange;
         double timeElapsed;
         TweenTransitions* transition;
-        std::string id = "DEFAULT_ID";
+        std::string id;
 };
 
 #endif

@@ -40,10 +40,6 @@ private:
 
 	void updateHistory(std::unordered_set<SDL_Scancode> pressedKeys);
 	bool checkDoubleTaps(SDL_Scancode key);
-
-	std::shared_ptr<Tween> shieldBash;
-	std::shared_ptr<Tween> damage;
-
 };
 
 #endif
