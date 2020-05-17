@@ -114,10 +114,6 @@ int MasterArcher::generateCoolDown(){ //returns a number of frames that will be 
     return 180;
 }
 
-void MasterArcher::draw(AffineTransform& at){
-    BaseEnemy::draw(at);
-}
-
 bool MasterArcher::onCollision(std::shared_ptr<DisplayObject> other){
     if(arrows.size() == 3){
         if(other == arrows.at(0)|| other==arrows.at(1) || other==arrows.at(2)){

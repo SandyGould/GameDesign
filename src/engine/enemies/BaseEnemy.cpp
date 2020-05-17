@@ -18,35 +18,29 @@ void BaseEnemy::update(const std::unordered_set<SDL_Scancode>& pressedKeys, cons
     AnimatedSprite::update(pressedKeys,joystickState,pressedButtons);
 }
 
-void  BaseEnemy::draw(AffineTransform& at){
-    AnimatedSprite::draw(at);
-}
-
 void BaseEnemy::changeHealth(int amount){
-    this->health+=amount;
+    this->health += amount;
+
+    // Damage
+    if (amount < 0) {
+        auto damage = std::make_unique<Tween>("damage_" + this->id, shared_from_this());
+        damage->animate(TweenableParams::ALPHA, 255, 40, 48);
+        damage->animate(TweenableParams::ALPHA, 40, 200, 32);
+        damage->animate(TweenableParams::ALPHA, 200, 40, 32);
+        damage->animate(TweenableParams::ALPHA, 40, 255, 48);
+        TweenJuggler::getInstance().add(std::move(damage));
+    }
 }
 
 bool BaseEnemy::onCollision(std::shared_ptr<DisplayObject> other){
      if(other->type == "mage_attack" || other->type == "arrow") {
-        if (std::static_pointer_cast<Projectile>(other)->reflected == true) {
-            damage = std::make_shared<Tween>(shared_from_this());
-            damage->animate(TweenableParams::ALPHA, 255, 40, 48);
-            damage->animate(TweenableParams::ALPHA, 40, 200, 32);
-            damage->animate(TweenableParams::ALPHA, 200, 40, 32);
-            damage->animate(TweenableParams::ALPHA, 40, 255, 48);
-            TweenJuggler::getInstance().add(damage);
+        if (std::static_pointer_cast<Projectile>(other)->reflected) {
             this->changeHealth(-50);
             other->removeThis();
         }
         return true;
     } if (other->id == "spike"){
         if(collisionWaitTime >= 10){
-            damage = std::make_shared<Tween>(shared_from_this());
-            damage->animate(TweenableParams::ALPHA, 255, 40, 48);
-            damage->animate(TweenableParams::ALPHA, 40, 200, 32);
-            damage->animate(TweenableParams::ALPHA, 200, 40, 32);
-            damage->animate(TweenableParams::ALPHA, 40, 255, 48);
-            TweenJuggler::getInstance().add(damage);
             this->changeHealth(-10);
             collisionWaitTime = 0;
         } else {

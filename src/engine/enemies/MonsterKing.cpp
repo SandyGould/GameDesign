@@ -168,10 +168,6 @@ int MonsterKing::generateCoolDown(){ //returns a number of frames that will be a
     return (rand() % 180) + 120;
 }
 
-void MonsterKing::draw(AffineTransform& at){
-    BaseEnemy::draw(at);
-}
-
 
 bool MonsterKing::onCollision(std::shared_ptr<DisplayObject> other){
     if(other == this->iceAttack && iceAttack->firing == false){
