@@ -39,12 +39,9 @@ Game::Game(int windowWidth, int windowHeight) {
     this->mouseState = MouseState::NONE;
     this->modifiers = KMOD_NONE;
 
-
     initSDL();
     TTF_Init();
     font = TTF_OpenFont("./resources/fonts/open-sans/OpenSans-Regular.ttf", 24);
-
-    
 }
 
 Game::~Game() {
@@ -84,6 +81,10 @@ void Game::initSDL() {
                               SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                               this->windowWidth, this->windowHeight,
                               0);
+
+    SDL_Surface* surface = IMG_Load("./resources/assets/Display_Objects/Player-upscaled.png");
+    SDL_SetWindowIcon(window, surface);
+    SDL_FreeSurface(surface);
 
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
