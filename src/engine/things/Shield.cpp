@@ -1,62 +1,52 @@
 #include "Shield.h"
 
 #include "../enemies/BaseEnemy.h"
-#include "../projectiles/Projectile.h"
-#include "./Player.h"
 
-#include <iostream>
-
-Shield::Shield() : Sprite("shield", "./resources/assets/Display_Objects/Shield.png") {
+Shield::Shield()
+    : Sprite("shield", "./resources/assets/Display_Objects/Shield.png") {
     hasCollision = true;
     this->type = "shield";
     this->saveType = this->type;
+
+    this->width = 10;
+    this->height = 70;
 }
 
 void Shield::switchType() {
-    if (this->magic) {
-        this->imgPath = "./resources/assets/Display_Objects/Shield.png";
-        loadTexture(this->imgPath);
-        this->width = 10;
-        this->height = 70;
-        this->magic = false;
-    } else {
-        this->imgPath = "./resources/assets/Display_Objects/MShield.png";
-        loadTexture(this->imgPath);
-        this->width = 10;
-        this->height = 70;
-        this->magic = true;
-    }
+    this->magic = !this->magic;
+    this->imgPath = this->magic ? "./resources/assets/Display_Objects/MShield.png"
+                                : "./resources/assets/Display_Objects/Shield.png";
+    loadTexture(this->imgPath);
+    this->width = 10;
+    this->height = 70;
 }
 
 void Shield::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
-    if(this->bashFrames > 0){
+    if (this->bashFrames > 0) {
         bashFrames--;
-    }
-    else{
+    } else {
         this->bashing = false;
     }
     Sprite::update(pressedKeys, joystickState, pressedButtons);
 }
 
-void Shield::draw(AffineTransform& at) {
-    Sprite::draw(at);
-}
-
-bool Shield::onCollision(std::shared_ptr<DisplayObject> other){
-    if(this->visible && (other->type == "arrow" || other->type== "mage_attack" || other->type == "cannonball" || other->type=="rubber_cannonball" || other->type=="ice_attack")){
-        if (this->magic == std::static_pointer_cast<Projectile>(other)->magic) {
-            if (((Player*)this->parent)->slidin){
-                std::static_pointer_cast<Projectile>(other)->reflect(1.5);
-            } else{
-                std::static_pointer_cast<Projectile>(other)->reflect(1.2);
+bool Shield::onCollision(std::shared_ptr<DisplayObject> other) {
+    if (this->visible) {
+        auto projectile = std::dynamic_pointer_cast<Projectile>(other);
+        if (projectile && this->magic == projectile->magic) {
+            if (dynamic_cast<Player*>(this->parent)->slidin) {
+                projectile->reflect(1.5);
+            } else {
+                projectile->reflect(1.2);
             }
         }
-    }
-    if(bashing){
-        auto enemy = std::dynamic_pointer_cast<BaseEnemy>(other);
-        if(enemy){
-            this->bashing = false;
-            enemy->changeHealth(-35);
+
+        if (this->bashing) {
+            auto enemy = std::dynamic_pointer_cast<BaseEnemy>(other);
+            if (enemy) {
+                this->bashing = false;
+                enemy->changeHealth(-35);
+            }
         }
     }
     return true;

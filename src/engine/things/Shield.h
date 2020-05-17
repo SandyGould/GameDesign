@@ -1,8 +1,6 @@
-#ifndef SHIELD_H
-#define SHIELD_H
+#pragma once
 
 #include "../Sprite.h"
-#include "../events/EventDispatcher.h"
 
 class Shield : public Sprite {
 
@@ -13,15 +11,13 @@ public:
 	void switchType();
 
 	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
-	void draw(AffineTransform& at) override;
 
 	bool onCollision(std::shared_ptr<DisplayObject> other) override;
-	bool bashing = false;
-	int bashFrames = 0;
-private:
 
+private:
+    bool bashing = false;
+    int bashFrames = 0;
 	bool magic = false;
 
+    friend class Player;
 };
-
-#endif
