@@ -66,8 +66,6 @@ Rooms::Rooms() : Game(600, 500) {
     // load and prep player
     player = std::make_shared<Player>();
     player->position = {50, 250};
-    player->pivot = {50, 50};
-    //player->type = "player";
 
     // start text box
     start_text_box = std::make_shared<TextBox>("start_text", "Welcome to Rebound!\n\nPress any key to continue");
