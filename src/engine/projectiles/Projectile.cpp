@@ -29,7 +29,7 @@ void Projectile::update(const std::unordered_set<SDL_Scancode>& pressedKeys, con
         this->storedDeltaX += deltaX;
         this->storedDeltaY += deltaY;
 
-        // Round (truncate) towards zero
+        // Round towards zero (truncate)
         this->position.x += static_cast<int>(storedDeltaX);
         this->storedDeltaX -= static_cast<int>(storedDeltaX);
 

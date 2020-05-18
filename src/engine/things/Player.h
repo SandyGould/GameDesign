@@ -32,6 +32,7 @@ private:
 	
 	void cannonBallHit(std::shared_ptr<DisplayObject> other);
 	std::unordered_set<SDL_Scancode>* history;
+    std::unordered_set<SDL_Scancode> prevKeys;
 
 	void updateHistory(std::unordered_set<SDL_Scancode> pressedKeys);
 	bool checkDoubleTaps(SDL_Scancode key);
