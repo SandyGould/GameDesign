@@ -291,7 +291,7 @@ bool Player::checkDoubleTaps(SDL_Scancode key) {
 	return false;
 }
 
-bool Player::onCollision(std::shared_ptr<DisplayObject> other){
+bool Player::onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2) {
     if(other->type == "mage_attack"){
         this->changeHealth(-10);
         other->removeThis();

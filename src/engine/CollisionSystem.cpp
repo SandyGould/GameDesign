@@ -64,12 +64,13 @@ void CollisionSystem::update() {
         // More optimizations possible:
         // - Only check for collisions for objects in the camera view
 
-        if (collidesWith(object1, object2)) {
+        auto directions = collidesWith(object1, object2);
+        if (directions.first != CollisionDirection::None) {
             int xD1 = obj1Position.x - obj1Prev.x;
             int yD1 = obj1Position.y - obj1Prev.y;
             int xD2 = obj2Position.x - obj2Prev.x;
             int yD2 = obj2Position.y - obj2Prev.y;
-            resolveCollision(object1, object2, xD1, yD1, xD2, yD2);
+            resolveCollision(object1, object2, xD1, yD1, xD2, yD2, directions.first, directions.second);
         }
     }
 
@@ -280,37 +281,58 @@ bool CollisionSystem::isInside(SDL_Point point, Hitbox hitbox) {
 }
 
 // Returns true iff obj1 hitbox and obj2 hitbox overlap
-bool CollisionSystem::collidesWith(const shared_ptr<DisplayObject>& obj1, const shared_ptr<DisplayObject>& obj2) {
+std::pair<CollisionDirection, CollisionDirection> CollisionSystem::collidesWith(const shared_ptr<DisplayObject>& obj1, const shared_ptr<DisplayObject>& obj2) {
     if (obj1->hitboxType == HitboxType::Rectangle && obj2->hitboxType == HitboxType::Rectangle) {
         Hitbox obj1Hitbox = obj1->getHitbox();
         Hitbox obj2Hitbox = obj2->getHitbox();
 
         // Do line segments intersect?
-        if (isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ul, obj2Hitbox.ur) ||
-            isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ul, obj2Hitbox.ll) ||
-            isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ur, obj2Hitbox.lr) ||
-            isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ll, obj2Hitbox.lr) ||
-            isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ul, obj2Hitbox.ur) ||
-            isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ul, obj2Hitbox.ll) ||
-            isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ur, obj2Hitbox.lr) ||
-            isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ll, obj2Hitbox.lr) ||
-            isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ur) ||
-            isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ll) ||
-            isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ur, obj2Hitbox.lr) ||
-            isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ll, obj2Hitbox.lr) ||
-            isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ur) ||
-            isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ll) ||
-            isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ur, obj2Hitbox.lr) ||
-            isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ll, obj2Hitbox.lr)) {
-            return true;
+        if (isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ul, obj2Hitbox.ur)) {
+            return {CollisionDirection::Top, CollisionDirection::Top};
+        } else if (isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ul, obj2Hitbox.ll)) {
+            return {CollisionDirection::Top, CollisionDirection::Left};
+        } else if (isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ur, obj2Hitbox.lr)) {
+            return {CollisionDirection::Top, CollisionDirection::Right};
+        } else if (isIntersecting(obj1Hitbox.ul, obj1Hitbox.ur, obj2Hitbox.ll, obj2Hitbox.lr)) {
+            return {CollisionDirection::Top, CollisionDirection::Bottom};
+        } else if (isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ul, obj2Hitbox.ur)) {
+            return {CollisionDirection::Left, CollisionDirection::Top};
+        } else if (isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ul, obj2Hitbox.ll)) {
+            return {CollisionDirection::Left, CollisionDirection::Left};
+        } else if (isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ur, obj2Hitbox.lr)) {
+            return {CollisionDirection::Left, CollisionDirection::Right};
+        } else if (isIntersecting(obj1Hitbox.ul, obj1Hitbox.ll, obj2Hitbox.ll, obj2Hitbox.lr)) {
+            return {CollisionDirection::Left, CollisionDirection::Bottom};
+        } else if (isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ur)) {
+            return {CollisionDirection::Right, CollisionDirection::Top};
+        } else if (isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ll)) {
+            return {CollisionDirection::Right, CollisionDirection::Left};
+        } else if (isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ur, obj2Hitbox.lr)) {
+            return {CollisionDirection::Right, CollisionDirection::Right};
+        } else if (isIntersecting(obj1Hitbox.ur, obj1Hitbox.lr, obj2Hitbox.ll, obj2Hitbox.lr)) {
+            return {CollisionDirection::Right, CollisionDirection::Bottom};
+        } else if (isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ur)) {
+            return {CollisionDirection::Bottom, CollisionDirection::Top};
+        } else if (isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ul, obj2Hitbox.ll)) {
+            return {CollisionDirection::Bottom, CollisionDirection::Left};
+        } else if (isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ur, obj2Hitbox.lr)) {
+            return {CollisionDirection::Bottom, CollisionDirection::Right};
+        } else if (isIntersecting(obj1Hitbox.ll, obj1Hitbox.lr, obj2Hitbox.ll, obj2Hitbox.lr)) {
+            return {CollisionDirection::Bottom, CollisionDirection::Bottom};
         }
 
         // Is either object completely inside of each other?
         // We only need to check one point because we already checked intersections above
-        return isInside(obj1Hitbox.ul, obj2Hitbox) || isInside(obj2Hitbox.ul, obj1Hitbox);
+        if (isInside(obj1Hitbox.ul, obj2Hitbox)) {
+            return {CollisionDirection::Inside, CollisionDirection::Outside};
+        } else if (isInside(obj2Hitbox.ul, obj1Hitbox)) {
+            return {CollisionDirection::Outside, CollisionDirection::Inside};
+        } else {
+            return {CollisionDirection::None, CollisionDirection::None};
+        }
     } else if (obj1->hitboxType == HitboxType::Circle && obj2->hitboxType == HitboxType::Circle) {
         cout << "circle <-> circle collision detection not yet implemented" << endl;
-        return false;
+        return {CollisionDirection::None, CollisionDirection::None};
     } else {
         shared_ptr<DisplayObject> circle;
         shared_ptr<DisplayObject> rect;
@@ -325,11 +347,16 @@ bool CollisionSystem::collidesWith(const shared_ptr<DisplayObject>& obj1, const 
         Hitbox hitbox = rect->getHitbox();
         Hitcircle hitcircle = circle->getHitcircle();
 
-        return isInside(hitcircle.center, hitbox) ||
-               isIntersecting(hitcircle, {hitbox.ul, hitbox.ll}) ||
+        if (isInside(hitcircle.center, hitbox)) {
+            return {CollisionDirection::Inside, CollisionDirection::Outside};
+        } else if (isIntersecting(hitcircle, {hitbox.ul, hitbox.ll}) ||
                isIntersecting(hitcircle, {hitbox.ul, hitbox.ur}) ||
                isIntersecting(hitcircle, {hitbox.ur, hitbox.lr}) ||
-               isIntersecting(hitcircle, {hitbox.ll, hitbox.lr});
+               isIntersecting(hitcircle, {hitbox.ll, hitbox.lr})) {
+            return {CollisionDirection::Outside, CollisionDirection::Inside};
+        } else {
+            return {CollisionDirection::None, CollisionDirection::None};
+        }
     }
 }
 
@@ -337,9 +364,10 @@ bool CollisionSystem::collidesWith(const shared_ptr<DisplayObject>& obj1, const 
 // xDelta1 and yDelta1 are the amount d moved before causing the collision.
 // xDelta2 and yDelta2 are the amount other moved before causing the collision.
 void CollisionSystem::resolveCollision(const shared_ptr<DisplayObject>& d, const shared_ptr<DisplayObject>& other,
-                                       int xDelta1, int yDelta1, int xDelta2, int yDelta2) {
+                                       int xDelta1, int yDelta1, int xDelta2, int yDelta2,
+                                       CollisionDirection direction1, CollisionDirection direction2) {
     // Give the objects the chance to handle the collision by themselves
-    if (d->onCollision(other) || other->onCollision(d)) {
+    if (d->onCollision(other, direction1, direction2) || other->onCollision(d, direction2, direction1)) {
         return;
     }
 
@@ -348,7 +376,7 @@ void CollisionSystem::resolveCollision(const shared_ptr<DisplayObject>& d, const
     other->position.x -= xDelta2;
     other->position.y -= yDelta2;
 
-    if (!collidesWith(d, other)){
+    if (collidesWith(d, other).first == CollisionDirection::None){
         d->position.x += xDelta1;
         d->position.y += yDelta1;
         other->position.x += xDelta2;
@@ -367,7 +395,7 @@ void CollisionSystem::resolveCollision(const shared_ptr<DisplayObject>& d, const
             // If we are colliding and we weren't colliding the last search,
             // move halfway back (using the deltas above).
             // Ditto if we aren't colliding, but were before.
-            if (collidesWith(d, other)) {
+            if (collidesWith(d, other).first != CollisionDirection::None) {
                 d->position.x -= xDelta1;
                 d->position.y -= yDelta1;
                 other->position.x -= xDelta2;
@@ -381,7 +409,7 @@ void CollisionSystem::resolveCollision(const shared_ptr<DisplayObject>& d, const
         }
 
         // If we're still colliding after the binary search, fix that.
-        if (collidesWith(d, other)) {
+        if (collidesWith(d, other).first != CollisionDirection::None) {
             d->position.x -= xDelta1;
             d->position.y -= yDelta1;
             other->position.x -= xDelta2;
@@ -393,7 +421,7 @@ void CollisionSystem::resolveCollision(const shared_ptr<DisplayObject>& d, const
         xDelta2 *= int(5.0/xDelta2);
         yDelta2 *= int(5.0/yDelta2);
 
-        for (int i = 0; i < 5000 && collidesWith(d, other); ++i){
+        for (int i = 0; i < 5000 && collidesWith(d, other).first != CollisionDirection::None; ++i){
             d->position.x += xDelta1;
             d->position.y += yDelta1;
             other->position.x += xDelta2;

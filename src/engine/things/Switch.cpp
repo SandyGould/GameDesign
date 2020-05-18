@@ -26,7 +26,7 @@ void Switch::draw(AffineTransform& at){
     // at.translate(-pivot.x, -pivot.y);
 }
 
-bool Switch::onCollision(std::shared_ptr<DisplayObject> other){
+bool Switch::onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2) {
 	if(other->type == "player" && !state){
         state = true;
         this->imgPath = this->state_on;

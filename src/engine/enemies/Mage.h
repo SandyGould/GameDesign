@@ -1,6 +1,7 @@
 #ifndef MAGE_H
 #define MAGE_H
 
+#include "../CollisionSystem.h"
 #include "../projectiles/MageAttack.h"
 #include "BaseEnemy.h"
 
@@ -17,7 +18,7 @@ public:
 	std::shared_ptr<MageAttack> attack(std::shared_ptr<Sprite> target);
 
 	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
-	bool onCollision(std::shared_ptr<DisplayObject> other) override;
+    bool onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2) override;
 };
 
 #endif

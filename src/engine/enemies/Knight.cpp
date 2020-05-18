@@ -146,7 +146,7 @@ void Knight::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 
 }
 
-bool Knight::onCollision(std::shared_ptr<DisplayObject> other) {
+bool Knight::onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2) {
     if (other == this->player) {
         if (this->cooldown <= 0) {
             this->player->changeHealth(-10);
@@ -154,5 +154,5 @@ bool Knight::onCollision(std::shared_ptr<DisplayObject> other) {
         }
         return true;
     }
-    return BaseEnemy::onCollision(other);
+    return BaseEnemy::onCollision(other, direction1, direction2);
 }

@@ -32,7 +32,7 @@ void WalkOnObject::draw(AffineTransform& at){
 	DisplayObject::draw(at);
 }
 
-bool WalkOnObject::onCollision(std::shared_ptr<DisplayObject> other){
+bool WalkOnObject::onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2) {
 	if(this->id.find("shield_power_up") != string::npos && other->type == "player"){
 		this->visible = false;
 		auto player = std::static_pointer_cast<Player>(other);

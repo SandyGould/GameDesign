@@ -94,9 +94,9 @@ int Archer::generateCoolDown(){ //returns a number of frames that will be at lea
     return (rand() % 180) + 120;
 }
 
-bool Archer::onCollision(std::shared_ptr<DisplayObject> other){
+bool Archer::onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2) {
      if(other == arrow && arrow->firing == false){
          return true;
      }
-    return BaseEnemy::onCollision(other);
+    return BaseEnemy::onCollision(other, direction1, direction2);
 }

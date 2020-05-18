@@ -168,10 +168,9 @@ int MonsterKing::generateCoolDown(){ //returns a number of frames that will be a
     return (rand() % 180) + 120;
 }
 
-
-bool MonsterKing::onCollision(std::shared_ptr<DisplayObject> other){
+bool MonsterKing::onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2) {
     if(other == this->iceAttack && iceAttack->firing == false){
         return true;
     }
-    return BaseEnemy::onCollision(other);
+    return BaseEnemy::onCollision(other, direction1, direction2);
 }

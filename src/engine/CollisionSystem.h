@@ -13,6 +13,16 @@ enum class Orientation {
     CounterClockwise,
 };
 
+enum class CollisionDirection {
+    Top,
+    Left,
+    Right,
+    Bottom,
+    Inside,
+    Outside,
+    None,
+};
+
 class CollisionSystem : public EventListener {
 
 public:
@@ -44,12 +54,14 @@ private:
     void eraseObject(const shared_ptr<DisplayObject>& object);
 
     // Returns true iff obj1 hitbox and obj2 hitbox overlap
-    static bool collidesWith(const shared_ptr<DisplayObject>& obj1, const shared_ptr<DisplayObject>& obj2);
+    static std::pair<CollisionDirection, CollisionDirection> collidesWith(const shared_ptr<DisplayObject>& obj1, const shared_ptr<DisplayObject>& obj2);
 
     // Resolves the collision that occurred between d and other
     // xDelta1 and yDelta1 are the amount d moved before causing the collision.
     // xDelta2 and yDelta2 are the amount other moved before causing the collision.
-    static void resolveCollision(const shared_ptr<DisplayObject>& d, const shared_ptr<DisplayObject>& other, int xDelta1, int yDelta1, int xDelta2, int yDelta2);
+    static void resolveCollision(const shared_ptr<DisplayObject>& d, const shared_ptr<DisplayObject>& other,
+                                 int xDelta1, int yDelta1, int xDelta2, int yDelta2,
+                                 CollisionDirection direction1, CollisionDirection direction2);
 
     static bool isIntersecting(SDL_Point p1, SDL_Point p2, SDL_Point q1, SDL_Point q2);
     static bool isIntersecting(Hitcircle hitcircle, pair<SDL_Point, SDL_Point> line);

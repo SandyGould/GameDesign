@@ -17,7 +17,7 @@ public:
     BaseEnemy(std::string id, std::string spritesheet, std::string xml, std::string animName, std::shared_ptr<Player> player);
 
     void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
-    bool onCollision(std::shared_ptr<DisplayObject> other) override;
+    bool onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2) override;
 
     void changeHealth(int amount);
 

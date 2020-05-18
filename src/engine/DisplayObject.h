@@ -7,10 +7,12 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <memory>
-#include <string>
 #include <queue>
+#include <string>
 #include <unordered_set>
 #include <vector>
+
+enum class CollisionDirection;
 
 static constexpr auto PI = 3.14159265;
 
@@ -94,7 +96,7 @@ public:
 	void getGlobalTransform(AffineTransform& at) const;
     [[nodiscard]] SDL_Point getGlobalPosition() const;
 
-    virtual bool onCollision(std::shared_ptr<DisplayObject> other);
+    virtual bool onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2);
 
     [[nodiscard]] Hitcircle getHitcircle() const;
     void drawHitcircle(SDL_Color color = {255, 0, 0, SDL_ALPHA_OPAQUE}) const;

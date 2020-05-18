@@ -32,7 +32,7 @@ void BaseEnemy::changeHealth(int amount){
     }
 }
 
-bool BaseEnemy::onCollision(std::shared_ptr<DisplayObject> other){
+bool BaseEnemy::onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2) {
      if(other->type == "mage_attack" || other->type == "arrow") {
         if (std::static_pointer_cast<Projectile>(other)->reflected) {
             this->changeHealth(-50);

@@ -265,6 +265,6 @@ void KingdomKing::reflect() {
     this->deltaY = -deltaY;
 }
 
-bool KingdomKing::onCollision(std::shared_ptr<DisplayObject> other){
+bool KingdomKing::onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2) {
     return false;
 }

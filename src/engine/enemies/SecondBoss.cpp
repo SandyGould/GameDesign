@@ -154,8 +154,8 @@ void SecondBoss::bounce() {
 }
 
 //bounes off of literally anything.
-bool SecondBoss::onCollision(std::shared_ptr<DisplayObject> other){
-    BaseEnemy::onCollision(other);
+bool SecondBoss::onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2) {
+    BaseEnemy::onCollision(other, direction1, direction2);
     if (bounces > 0) {
         bounces--;
         bounce();

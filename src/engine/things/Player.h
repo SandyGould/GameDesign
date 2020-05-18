@@ -1,8 +1,9 @@
 #pragma once
 
-#include "Shield.h"
 #include "../AnimatedSprite.h"
+#include "../CollisionSystem.h"
 #include "../tweens/TweenJuggler.h"
+#include "Shield.h"
 
 class Player : public AnimatedSprite {
 public:
@@ -14,7 +15,7 @@ public:
 
 	void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
 
-	bool onCollision(std::shared_ptr<DisplayObject> other) override;
+    bool onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2) override;
 
 	std::shared_ptr<Shield> shield;
 	double speed = 4;

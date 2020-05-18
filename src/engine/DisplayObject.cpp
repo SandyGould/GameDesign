@@ -318,7 +318,9 @@ SDL_Point DisplayObject::getGlobalPosition() const {
 // Override this method to handle collisions by yourself
 // instead of relying on CollisionSystem's default collision resolution
 // (which is just to move the objects so they're not colliding)
-bool DisplayObject::onCollision(std::shared_ptr<DisplayObject> other /*other*/) {
+bool DisplayObject::onCollision(std::shared_ptr<DisplayObject> /* other */,
+                                CollisionDirection /* direction1 */,
+                                CollisionDirection /* direction2 */) {
     return false;
 }
 

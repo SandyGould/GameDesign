@@ -12,6 +12,6 @@ class PoisonBomb : public Sprite{
         void explode();
         int explosionTime = 6;
         bool exploding = false;
-        bool onCollision(std::shared_ptr<DisplayObject> other) override;
+        bool onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2) override;
 };
 #endif

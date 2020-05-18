@@ -44,8 +44,7 @@ void PoisonBomb::explode(){
     this->explosionTime--;
 }
 
-
-bool PoisonBomb::onCollision(std::shared_ptr<DisplayObject> other){
+bool PoisonBomb::onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2) {
     if(this->exploding){
         if(other->type == "player"){
             std::static_pointer_cast<Player>(other)->changeHealth(-1);

@@ -12,7 +12,7 @@ class SecondBoss : public BaseEnemy{
         double aim(std::shared_ptr<DisplayObject> targetSprite);
         void fire(double angle);
         void bounce();
-        bool onCollision(std::shared_ptr<DisplayObject> other) override;
+        bool onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2) override;
 
     private:
         int velocity = 20;
