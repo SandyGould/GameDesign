@@ -85,11 +85,9 @@ double Projectile::aim(std::shared_ptr<DisplayObject> target){ //Cause a lot of 
 }
 
 void Projectile::reflect(double speedMult, double deltaX, double deltaY) {
-    if (!reflected){
-        this->reflected = true;
-        this->velocity *= speedMult;
-        double angle = atan2(-deltaY, deltaX);
-        this->deltaX = velocity * cos(angle);
-        this->deltaY = velocity * -sin(angle);
-    }
+    this->reflected = true;
+    this->velocity *= speedMult;
+    double angle = atan2(-deltaY, deltaX);
+    this->deltaX = velocity * cos(angle);
+    this->deltaY = velocity * -sin(angle);
 }
