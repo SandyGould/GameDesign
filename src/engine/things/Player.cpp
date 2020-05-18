@@ -3,6 +3,7 @@
 #include "../events/PlayerDeathEvent.h"
 
 constexpr int HISTORY_SIZE = 8;
+constexpr int DEAD_ZONE = 10000;
 constexpr int BASH_COOLDOWN = 40;
 constexpr int BASH_DISTANCE = 35;
 constexpr int TOGGLE_COOLDOWN = 40;
@@ -84,215 +85,224 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
     // CHARACTER MOVEMENT
     this->width = 110;
 	this->height = 80;
+    this->deltaX = 0.0;
+    this->deltaY = 0.0;
     bool idle = true;
-    int DEAD_ZONE = 10000;
-	if ((pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end()) || joystickState.xVal1 - DEAD_ZONE > 0) {
-		if (checkDoubleTaps(SDL_SCANCODE_RIGHT) || (joystickState.xVal1 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
-            if (this->current.animName.compare("Slide") != 0){
-                this->setHitbox(0.28, 0.72, 0.5, 0.98);
-                this->play("Slide");
-                this->slidin = true;
-            }
-			this->position.x += this->speed*2;
+
+    // Are they sliding?
+    if ((pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end() && checkDoubleTaps(SDL_SCANCODE_RIGHT)) ||
+        (joystickState.xVal1 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
+        this->setHitbox(0.28, 0.72, 0.5, 0.98);
+        this->play("Slide");
+        this->slideDirection = SlideDirection::Right;
+    } else if ((pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end() && checkDoubleTaps(SDL_SCANCODE_LEFT)) ||
+               (joystickState.xVal1 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
+        this->setHitbox(0.28, 0.72, 0.5, 0.98);
+        this->play("SlideLeft");
+        this->slideDirection = SlideDirection::Left;
+    } else if ((pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end() && checkDoubleTaps(SDL_SCANCODE_DOWN)) ||
+               (joystickState.yVal1 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
+        this->setHitbox(0.28, 0.72, 0.5, 0.98);
+        this->play("Slide");
+        this->slideDirection = SlideDirection::Down;
+    } else if ((pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end() && checkDoubleTaps(SDL_SCANCODE_UP)) ||
+               (joystickState.yVal1 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
+        this->setHitbox(0.28, 0.72, 0.5, 0.98);
+        this->play("Slide");
+        this->slideDirection = SlideDirection::Up;
+    }
+
+    if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end() || joystickState.xVal1 - DEAD_ZONE > 0) {
+		if (slideDirection == SlideDirection::Right) {
+            this->deltaX += this->speed * 2;
 			this->changeStamina(-30);
-            AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
-            return;
 		} else {
-            if (this->current.animName.compare("Run") != 0){
+            if (this->current.animName != "Run"){
                 this->setHitbox(0.46, 0.72, 0.23, 0.98);
                 this->play("Run");
-                this->slidin = false;
             }
-			this->position.x += this->speed;
+            this->deltaX += this->speed;
 			this->changeStamina(-3);
+            this->slideDirection = SlideDirection::None;
 		}
         idle = false;
 	}
     if ((pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) || joystickState.xVal1 + DEAD_ZONE < 0) {
-		if (checkDoubleTaps(SDL_SCANCODE_LEFT) || (joystickState.xVal1 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
-            if (this->current.animName.compare("SlideLeft") != 0){
-                this->setHitbox(0.28, 0.72, 0.5, 0.98);
-                this->play("SlideLeft");
-                this->slidin = true;
-            }
-			this->position.x -= this->speed*2;
+		if (slideDirection == SlideDirection::Left) {
+            this->deltaX -= this->speed * 2;
 			this->changeStamina(-30);
-            AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
-            return;
-		} else {
-            if (this->current.animName.compare("RunLeft") != 0){
+        } else {
+            if (this->current.animName != "RunLeft"){
                 this->setHitbox(0.3, 0.56, 0.23, 0.98);
                 this->play("RunLeft");
-                this->slidin = false;
             }
-			this->position.x -= this->speed;
+            this->deltaX -= this->speed;
 			this->changeStamina(-3);
-		}
+            this->slideDirection = SlideDirection::None;
+        }
         idle = false;
 	}
 	if ((pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) || joystickState.yVal1 - DEAD_ZONE > 0) {
-		if (checkDoubleTaps(SDL_SCANCODE_DOWN) || (joystickState.yVal1 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
-            if (this->current.animName.compare("Slide") != 0){
-                this->setHitbox(0.28, 0.72, 0.5, 0.98);
-                this->play("Slide");
-                this->slidin = true;
-            }
-			this->position.y += this->speed*2;
+		if (slideDirection == SlideDirection::Down) {
+            this->deltaY += this->speed * 2;
 			this->changeStamina(-30);
-            AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
-            return;
 		} else {
-            if (this->current.animName.compare("Run") != 0){
+            if (this->current.animName != "Run"){
                 this->setHitbox(0.46, 0.72, 0.23, 0.98);
                 this->play("Run");
-                this->slidin = false;
             }
-			this->position.y += this->speed;
+            this->deltaY += this->speed;
 			this->changeStamina(-3);
-		}
+            this->slideDirection = SlideDirection::None;
+        }
         idle = false;
 	}
 	if ((pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) || joystickState.yVal1 + DEAD_ZONE < 0) {
-		if (checkDoubleTaps(SDL_SCANCODE_UP) || (joystickState.yVal1 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
-            if (this->current.animName.compare("Slide") != 0){
-                this->setHitbox(0.28, 0.72, 0.5, 0.98);
-                this->play("Slide");
-                this->slidin = true;
-            }
-			this->position.y -= this->speed*2;
+		if (slideDirection == SlideDirection::Up) {
+            this->deltaY -= this->speed * 2;
 			this->changeStamina(-30);
-            AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
-            return;
 		} else {
-            if (this->current.animName.compare("Run") != 0){
+            if (this->current.animName != "Run"){
                 this->setHitbox(0.46, 0.72, 0.23, 0.98);
                 this->play("Run");
-                this->slidin = false;
             }
-			this->position.y -= this->speed;
+            this->deltaY -= this->speed;
 			this->changeStamina(-3);
-		}
+            this->slideDirection = SlideDirection::None;
+        }
         idle = false;
 	}
 
     if (idle) {
-        if (this->current.animName.compare("Idle") != 0){
+        if (this->current.animName != "Idle"){
             this->setHitbox(0.32, 0.66, 0.15, 0.98);
             this->play("Idle");
-            this->slidin = false;
         }
     }
 
-	// SHIELD CONTROLS
-    if (shieldBashCooldown == 0) {
-        if (pressedKeys.find(SDL_SCANCODE_R) != pressedKeys.end() && shieldSwitchCooldown == 0) {
-            shieldSwitchCooldown = TOGGLE_COOLDOWN;
-    		shield->switchType();
-    	}
-        // Despite rotation being in radians, it rotates CW instead of CCW...
-        if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
-            shield->rotation -= PI / 30;
+    // Need to account for decimals
+    this->storedDeltaX += deltaX;
+    this->storedDeltaY += deltaY;
+
+    // Round towards zero (truncate)
+    this->position.x += static_cast<int>(storedDeltaX);
+    this->storedDeltaX -= static_cast<int>(storedDeltaX);
+
+    this->position.y += static_cast<int>(storedDeltaY);
+    this->storedDeltaY -= static_cast<int>(storedDeltaY);
+
+    if (slideDirection == SlideDirection::None) {
+        // SHIELD CONTROLS
+        if (shieldBashCooldown == 0) {
+            if (pressedKeys.find(SDL_SCANCODE_R) != pressedKeys.end() && shieldSwitchCooldown == 0) {
+                shieldSwitchCooldown = TOGGLE_COOLDOWN;
+                shield->switchType();
+            }
+            // Despite rotation being in radians, it rotates CW instead of CCW...
+            if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
+                shield->rotation -= PI / 30;
+            }
+            if (pressedKeys.find(SDL_SCANCODE_E) != pressedKeys.end()) {
+                shield->rotation += PI / 30;
+            }
+            shield->rotation = std::fmod(shield->rotation, 2 * PI);
+
+            if ((pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end()) || joystickState.xVal2 - DEAD_ZONE > 0) {
+                if (prevKeys.find(SDL_SCANCODE_D) == prevKeys.end()) {
+                    shield->rotation = std::fmod(shield->rotation, PI / 2) + 3 * PI / 2;
+                    if (shield->rotation <= 3 * PI / 2) {
+                        shield->rotation += PI / 2;
+                    }
+                    this->changeStamina(-2);
+                }
+                if (checkDoubleTaps(SDL_SCANCODE_D) || (joystickState.xVal2 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
+                    shield->bashing = true;
+                    shield->bashFrames = 10;
+                    shieldBashCooldown = BASH_COOLDOWN;
+                    auto shieldBash = std::make_unique<Tween>("shield_bash", shield);
+                    shieldBash->animate(TweenableParams::X, shield->position.x, shield->position.x + BASH_DISTANCE, 10);
+                    shieldBash->animate(TweenableParams::X, shield->position.x + BASH_DISTANCE, shield->position.x, 18);
+                    TweenJuggler::getInstance().add(std::move(shieldBash));
+                    this->changeStamina(-70);
+                    AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
+                    return;
+                }
+            }
+            if ((pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) || joystickState.xVal2 + DEAD_ZONE < 0) {
+                if (prevKeys.find(SDL_SCANCODE_A) == prevKeys.end()) {
+                    shield->rotation = std::fmod(shield->rotation, PI / 2) + PI / 2;
+                    if (shield->rotation <= PI / 2) {
+                        shield->rotation += PI / 2;
+                    }
+                    this->changeStamina(-2);
+                }
+                if (checkDoubleTaps(SDL_SCANCODE_A) || (joystickState.xVal2 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
+                    shieldBashCooldown = BASH_COOLDOWN;
+                    shield->bashing = true;
+                    shield->bashFrames = 10;
+                    auto shieldBash = std::make_unique<Tween>("shield_bash", shield);
+                    shieldBash->animate(TweenableParams::X, shield->position.x, shield->position.x - BASH_DISTANCE, 10);
+                    shieldBash->animate(TweenableParams::X, shield->position.x - BASH_DISTANCE, shield->position.x, 18);
+                    TweenJuggler::getInstance().add(std::move(shieldBash));
+                    this->changeStamina(-70);
+                    AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
+                    return;
+                }
+            }
+            if ((pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) || joystickState.yVal2 - DEAD_ZONE > 0) {
+                if (prevKeys.find(SDL_SCANCODE_S) == prevKeys.end()) {
+                    shield->rotation = std::fmod(shield->rotation, PI / 2);
+                    if (shield->rotation <= 0) {
+                        shield->rotation += PI / 2;
+                    }
+                    this->changeStamina(-2);
+                }
+                if (checkDoubleTaps(SDL_SCANCODE_S) || (joystickState.yVal2 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
+                    shieldBashCooldown = BASH_COOLDOWN;
+                    shield->bashing = true;
+                    shield->bashFrames = 10;
+                    auto shieldBash = std::make_unique<Tween>("shield_bash", shield);
+                    shieldBash->animate(TweenableParams::Y, shield->position.y, shield->position.y + BASH_DISTANCE, 10);
+                    shieldBash->animate(TweenableParams::Y, shield->position.y + BASH_DISTANCE, shield->position.y, 18);
+                    TweenJuggler::getInstance().add(std::move(shieldBash));
+                    this->changeStamina(-70);
+                    AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
+                    return;
+                }
+            }
+            if ((pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) || joystickState.yVal2 + DEAD_ZONE < 0) {
+                if (prevKeys.find(SDL_SCANCODE_W) == prevKeys.end()) {
+                    shield->rotation = std::fmod(shield->rotation, PI / 2) + PI;
+                    if (shield->rotation <= PI) {
+                        shield->rotation += PI / 2;
+                    }
+                    this->changeStamina(-2);
+                }
+                if (checkDoubleTaps(SDL_SCANCODE_W) || (joystickState.yVal2 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
+                    shieldBashCooldown = BASH_COOLDOWN;
+                    shield->bashFrames = 10;
+                    shield->bashing = true;
+                    auto shieldBash = std::make_unique<Tween>("shield_bash", shield);
+                    shieldBash->animate(TweenableParams::Y, shield->position.y, shield->position.y - BASH_DISTANCE, 10);
+                    shieldBash->animate(TweenableParams::Y, shield->position.y - BASH_DISTANCE, shield->position.y, 18);
+                    TweenJuggler::getInstance().add(std::move(shieldBash));
+                    this->changeStamina(-70);
+                    AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
+                    return;
+                }
+            }
         }
-        if (pressedKeys.find(SDL_SCANCODE_E) != pressedKeys.end()) {
-            shield->rotation += PI / 30;
+
+        // STAMINA REFRESH
+        this->changeStamina(5);
+
+        //COOLDOWN TICKS
+        if (shieldSwitchCooldown > 0) {
+            shieldSwitchCooldown--;
         }
-        shield->rotation = std::fmod(shield->rotation, 2 * PI);
-
-    	if ((pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end()) || joystickState.xVal2 - DEAD_ZONE > 0) {
-            if (prevKeys.find(SDL_SCANCODE_D) == prevKeys.end()) {
-                shield->rotation = std::fmod(shield->rotation, PI / 2) + 3 * PI / 2;
-                if (shield->rotation <= 3 * PI / 2) {
-                    shield->rotation += PI / 2;
-                }
-                this->changeStamina(-2);
-            }
-            if (checkDoubleTaps(SDL_SCANCODE_D) || (joystickState.xVal2 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
-                shield->bashing = true;
-                shield->bashFrames =10;
-                shieldBashCooldown = BASH_COOLDOWN;
-    			auto shieldBash = std::make_unique<Tween>("shield_bash", shield);
-                shieldBash->animate(TweenableParams::X, shield->position.x, shield->position.x + BASH_DISTANCE, 10);
-                shieldBash->animate(TweenableParams::X, shield->position.x + BASH_DISTANCE, shield->position.x, 18);
-                TweenJuggler::getInstance().add(std::move(shieldBash));
-    			this->changeStamina(-70);
-                AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
-                return;
-    		}
-    	}
-    	if ((pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) || joystickState.xVal2 + DEAD_ZONE < 0) {
-            if (prevKeys.find(SDL_SCANCODE_A) == prevKeys.end()) {
-                shield->rotation = std::fmod(shield->rotation, PI / 2) + PI / 2;
-                if (shield->rotation <= PI / 2) {
-                    shield->rotation += PI / 2;
-                }
-                this->changeStamina(-2);
-            }
-            if (checkDoubleTaps(SDL_SCANCODE_A) || (joystickState.xVal2 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
-                shieldBashCooldown = BASH_COOLDOWN;
-                shield->bashing = true;
-                shield->bashFrames = 10;
-    			auto shieldBash = std::make_unique<Tween>("shield_bash", shield);
-                shieldBash->animate(TweenableParams::X, shield->position.x, shield->position.x - BASH_DISTANCE, 10);
-                shieldBash->animate(TweenableParams::X, shield->position.x - BASH_DISTANCE, shield->position.x, 18);
-                TweenJuggler::getInstance().add(std::move(shieldBash));
-    			this->changeStamina(-70);
-                AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
-                return;
-    		}
-    	}
-    	if ((pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) || joystickState.yVal2 - DEAD_ZONE > 0) {
-            if (prevKeys.find(SDL_SCANCODE_S) == prevKeys.end()) {
-                shield->rotation = std::fmod(shield->rotation, PI / 2);
-                if (shield->rotation <= 0) {
-                    shield->rotation += PI / 2;
-                }
-                this->changeStamina(-2);
-            }
-            if (checkDoubleTaps(SDL_SCANCODE_S) || (joystickState.yVal2 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
-                shieldBashCooldown = BASH_COOLDOWN;
-                shield->bashing = true;
-                shield->bashFrames =10;
-    			auto shieldBash = std::make_unique<Tween>("shield_bash", shield);
-                shieldBash->animate(TweenableParams::Y, shield->position.y, shield->position.y + BASH_DISTANCE, 10);
-                shieldBash->animate(TweenableParams::Y, shield->position.y + BASH_DISTANCE, shield->position.y, 18);
-                TweenJuggler::getInstance().add(std::move(shieldBash));
-                this->changeStamina(-70);
-                AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
-                return;
-    		}
-    	}
-    	if ((pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) || joystickState.yVal2 + DEAD_ZONE < 0) {
-            if (prevKeys.find(SDL_SCANCODE_W) == prevKeys.end()) {
-                shield->rotation = std::fmod(shield->rotation, PI / 2) + PI;
-                if (shield->rotation <= PI) {
-                    shield->rotation += PI / 2;
-                }
-                this->changeStamina(-2);
-            }
-            if (checkDoubleTaps(SDL_SCANCODE_W) || (joystickState.yVal2 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
-                shieldBashCooldown = BASH_COOLDOWN;
-                shield->bashFrames =10;
-                shield->bashing = true;
-    			auto shieldBash = std::make_unique<Tween>("shield_bash", shield);
-                shieldBash->animate(TweenableParams::Y, shield->position.y, shield->position.y - BASH_DISTANCE, 10);
-                shieldBash->animate(TweenableParams::Y, shield->position.y - BASH_DISTANCE, shield->position.y, 18);
-                TweenJuggler::getInstance().add(std::move(shieldBash));
-    			this->changeStamina(-70);
-                AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
-                return;
-    		}
-    	}
-    }
-
-	// STAMINA REFRESH
-	this->changeStamina(5);
-
-    //COOLDOWN TICKS
-    if (shieldSwitchCooldown > 0) {
-        shieldSwitchCooldown--;
-    }
-    if (shieldBashCooldown > 0) {
-        shieldBashCooldown--;
+        if (shieldBashCooldown > 0) {
+            shieldBashCooldown--;
+        }
     }
 
     updateHistory(pressedKeys);

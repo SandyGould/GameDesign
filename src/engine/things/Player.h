@@ -5,6 +5,14 @@
 #include "../tweens/TweenJuggler.h"
 #include "Shield.h"
 
+enum class SlideDirection {
+    Left,
+    Right,
+    Up,
+    Down,
+    None,
+};
+
 class Player : public AnimatedSprite {
 public:
 	Player();
@@ -23,8 +31,13 @@ public:
 	int health = 100;
 	int stamina = 1000;
 	bool alive = true;
-	bool slidin = false;
+    SlideDirection slideDirection = SlideDirection::None;
 	int numOpponents = 0;
+
+    double deltaX = 0.0;
+    double deltaY = 0.0;
+    double storedDeltaX = 0.0;
+    double storedDeltaY = 0.0;
 
 private:
 	int shieldSwitchCooldown;

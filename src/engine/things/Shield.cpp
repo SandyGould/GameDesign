@@ -54,7 +54,7 @@ bool Shield::onCollision(std::shared_ptr<DisplayObject> other, CollisionDirectio
             std::array<double, 2> u = {temp * std::cos(normalAngle), temp * std::sin(normalAngle)};
             std::array<double, 2> w = {projectile->deltaX - u[0], projectile->deltaY - u[1]};
             std::array<double, 2> reflectedVelocity = {w[0] - u[0], w[1] - u[1]};
-            if (dynamic_cast<Player*>(this->parent)->slidin) {
+            if (dynamic_cast<Player*>(this->parent)->slideDirection != SlideDirection::None) {
                 projectile->reflect(1.5, reflectedVelocity[0], reflectedVelocity[1]);
             } else {
                 projectile->reflect(1.2, reflectedVelocity[0], reflectedVelocity[1]);
