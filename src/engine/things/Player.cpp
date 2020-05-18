@@ -177,6 +177,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
         if (this->current.animName != "Idle"){
             this->setHitbox(0.32, 0.66, 0.15, 0.98);
             this->play("Idle");
+            this->slideDirection = SlideDirection::None;
         }
     }
 
