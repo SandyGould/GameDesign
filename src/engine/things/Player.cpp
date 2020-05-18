@@ -195,17 +195,17 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
     if (slideDirection == SlideDirection::None) {
         // SHIELD CONTROLS
         if (shieldBashCooldown == 0) {
-            if (pressedKeys.find(SDL_SCANCODE_R) != pressedKeys.end() && shieldSwitchCooldown == 0) {
+            if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end() && shieldSwitchCooldown == 0) {
                 shieldSwitchCooldown = TOGGLE_COOLDOWN;
                 shield->switchType();
             }
             // Despite rotation being in radians, it rotates CW instead of CCW...
-            if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
-                shield->rotation -= PI / 30;
-            }
-            if (pressedKeys.find(SDL_SCANCODE_E) != pressedKeys.end()) {
-                shield->rotation += PI / 30;
-            }
+            // if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
+            //     shield->rotation -= PI / 30;
+            // }
+            // if (pressedKeys.find(SDL_SCANCODE_E) != pressedKeys.end()) {
+            //     shield->rotation += PI / 30;
+            // }
             shield->rotation = std::fmod(shield->rotation, 2 * PI);
 
             if ((pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end()) || joystickState.xVal2 - DEAD_ZONE > 0) {
