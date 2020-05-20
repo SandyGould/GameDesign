@@ -4,9 +4,6 @@
 
 constexpr int HISTORY_SIZE = 8;
 constexpr int DEAD_ZONE = 10000;
-constexpr int BASH_COOLDOWN = 40;
-constexpr int BASH_DISTANCE = 35;
-constexpr int TOGGLE_COOLDOWN = 40;
 
 Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites/Player/Player.png", "./resources/assets/Animated_Sprites/Player/Player.xml", "Idle") {
     this->type = "player";
@@ -19,8 +16,6 @@ Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites
     this->setHitbox(0.32, 0.66, 0.15, 0.98);
 
     history = new std::unordered_set<SDL_Scancode> [HISTORY_SIZE];
-    shieldSwitchCooldown = 0;
-    shieldBashCooldown = 0;
 
     shield = std::make_shared<Shield>();
     this->addChild(shield);
@@ -192,9 +187,8 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 
     if (slideDirection == SlideDirection::None) {
         // SHIELD CONTROLS
-        if (shieldBashCooldown == 0) {
-            if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end() && shieldSwitchCooldown == 0) {
-                shieldSwitchCooldown = TOGGLE_COOLDOWN;
+        if (shield->bashCooldown == 0) {
+            if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end() && shield->switchCooldown == 0) {
                 shield->switchType();
             }
             // Despite rotation being in radians, it rotates CW instead of CCW...
@@ -212,15 +206,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                     this->changeStamina(-2);
                 }
                 if (checkDoubleTaps(SDL_SCANCODE_D) || (joystickState.xVal2 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
-                    shield->bashing = true;
-                    shield->bashFrames = 10;
-                    shieldBashCooldown = BASH_COOLDOWN;
-                    auto shieldBash = std::make_unique<Tween>("shield_bash", shield);
-                    shieldBash->animate(TweenableParams::X, shield->position.x, shield->position.x + BASH_DISTANCE * std::cos(shield->rotation), 0, 3);
-                    shieldBash->animate(TweenableParams::X, shield->position.x + BASH_DISTANCE * std::cos(shield->rotation), shield->position.x, 3, 18);
-                    shieldBash->animate(TweenableParams::Y, shield->position.y, shield->position.y + BASH_DISTANCE * std::sin(shield->rotation), 0, 3);
-                    shieldBash->animate(TweenableParams::Y, shield->position.y + BASH_DISTANCE * std::sin(shield->rotation), shield->position.y, 3, 18);
-                    TweenJuggler::getInstance().add(std::move(shieldBash));
+                    shield->bash();
                     this->changeStamina(-70);
                     AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
                     return;
@@ -232,15 +218,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                     this->changeStamina(-2);
                 }
                 if (checkDoubleTaps(SDL_SCANCODE_A) || (joystickState.xVal2 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
-                    shieldBashCooldown = BASH_COOLDOWN;
-                    shield->bashing = true;
-                    shield->bashFrames = 10;
-                    auto shieldBash = std::make_unique<Tween>("shield_bash", shield);
-                    shieldBash->animate(TweenableParams::X, shield->position.x, shield->position.x + BASH_DISTANCE * std::cos(shield->rotation), 0, 3);
-                    shieldBash->animate(TweenableParams::X, shield->position.x + BASH_DISTANCE * std::cos(shield->rotation), shield->position.x, 3, 18);
-                    shieldBash->animate(TweenableParams::Y, shield->position.y, shield->position.y + BASH_DISTANCE * std::sin(shield->rotation), 0, 3);
-                    shieldBash->animate(TweenableParams::Y, shield->position.y + BASH_DISTANCE * std::sin(shield->rotation), shield->position.y, 3, 18);
-                    TweenJuggler::getInstance().add(std::move(shieldBash));
+                    shield->bash();
                     this->changeStamina(-70);
                     AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
                     return;
@@ -252,15 +230,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                     this->changeStamina(-2);
                 }
                 if (checkDoubleTaps(SDL_SCANCODE_S) || (joystickState.yVal2 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
-                    shieldBashCooldown = BASH_COOLDOWN;
-                    shield->bashing = true;
-                    shield->bashFrames = 10;
-                    auto shieldBash = std::make_unique<Tween>("shield_bash", shield);
-                    shieldBash->animate(TweenableParams::X, shield->position.x, shield->position.x + BASH_DISTANCE * std::cos(shield->rotation), 0, 3);
-                    shieldBash->animate(TweenableParams::X, shield->position.x + BASH_DISTANCE * std::cos(shield->rotation), shield->position.x, 3, 18);
-                    shieldBash->animate(TweenableParams::Y, shield->position.y, shield->position.y + BASH_DISTANCE * std::sin(shield->rotation), 0, 3);
-                    shieldBash->animate(TweenableParams::Y, shield->position.y + BASH_DISTANCE * std::sin(shield->rotation), shield->position.y, 3, 18);
-                    TweenJuggler::getInstance().add(std::move(shieldBash));
+                    shield->bash();
                     this->changeStamina(-70);
                     AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
                     return;
@@ -272,15 +242,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                     this->changeStamina(-2);
                 }
                 if (checkDoubleTaps(SDL_SCANCODE_W) || (joystickState.yVal2 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
-                    shieldBashCooldown = BASH_COOLDOWN;
-                    shield->bashFrames = 10;
-                    shield->bashing = true;
-                    auto shieldBash = std::make_unique<Tween>("shield_bash", shield);
-                    shieldBash->animate(TweenableParams::X, shield->position.x, shield->position.x + BASH_DISTANCE * std::cos(shield->rotation), 0, 3);
-                    shieldBash->animate(TweenableParams::X, shield->position.x + BASH_DISTANCE * std::cos(shield->rotation), shield->position.x, 3, 18);
-                    shieldBash->animate(TweenableParams::Y, shield->position.y, shield->position.y + BASH_DISTANCE * std::sin(shield->rotation), 0, 3);
-                    shieldBash->animate(TweenableParams::Y, shield->position.y + BASH_DISTANCE * std::sin(shield->rotation), shield->position.y, 3, 18);
-                    TweenJuggler::getInstance().add(std::move(shieldBash));
+                    shield->bash();
                     this->changeStamina(-70);
                     AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
                     return;
@@ -290,14 +252,6 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 
         // STAMINA REFRESH
         this->changeStamina(5);
-
-        //COOLDOWN TICKS
-        if (shieldSwitchCooldown > 0) {
-            shieldSwitchCooldown--;
-        }
-        if (shieldBashCooldown > 0) {
-            shieldBashCooldown--;
-        }
     }
 
     updateHistory(pressedKeys);

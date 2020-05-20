@@ -39,9 +39,6 @@ public:
     double storedDeltaY = 0.0;
 
 private:
-	int shieldSwitchCooldown;
-	int shieldBashCooldown;
-	
 	void cannonBallHit(std::shared_ptr<DisplayObject> other);
 	std::unordered_set<SDL_Scancode>* history;
     std::unordered_set<SDL_Scancode> prevKeys;

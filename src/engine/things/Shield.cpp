@@ -2,7 +2,9 @@
 
 #include "../enemies/BaseEnemy.h"
 
-#include <iostream>
+constexpr int BASH_COOLDOWN = 40;
+constexpr int BASH_DISTANCE = 35;
+constexpr int SWITCH_COOLDOWN = 40;
 
 Shield::Shield()
     : Sprite("shield", "./resources/assets/Display_Objects/Shield.png") {
@@ -15,6 +17,7 @@ Shield::Shield()
 }
 
 void Shield::switchType() {
+    this->switchCooldown = SWITCH_COOLDOWN;
     this->magic = !this->magic;
     this->imgPath = this->magic ? "./resources/assets/Display_Objects/MShield.png"
                                 : "./resources/assets/Display_Objects/Shield.png";
@@ -25,11 +28,31 @@ void Shield::switchType() {
 
 void Shield::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
     if (this->bashFrames > 0) {
-        bashFrames--;
+        this->bashFrames--;
     } else {
         this->bashing = false;
     }
+
+    if (this->bashCooldown > 0) {
+        this->bashCooldown--;
+    }
+
+    if (this->switchCooldown > 0) {
+        this->switchCooldown--;
+    }
     Sprite::update(pressedKeys, joystickState, pressedButtons);
+}
+
+void Shield::bash() {
+    this->bashing = true;
+    this->bashFrames = 3;
+    this->bashCooldown = BASH_COOLDOWN;
+    auto shieldBash = std::make_unique<Tween>("shield_bash", shared_from_this());
+    shieldBash->animate(TweenableParams::X, this->position.x, this->position.x + BASH_DISTANCE * std::cos(this->rotation), 0, 3);
+    shieldBash->animate(TweenableParams::X, this->position.x + BASH_DISTANCE * std::cos(this->rotation), this->position.x, 3, 18);
+    shieldBash->animate(TweenableParams::Y, this->position.y, this->position.y + BASH_DISTANCE * std::sin(this->rotation), 0, 3);
+    shieldBash->animate(TweenableParams::Y, this->position.y + BASH_DISTANCE * std::sin(this->rotation), this->position.y, 3, 18);
+    TweenJuggler::getInstance().add(std::move(shieldBash));
 }
 
 bool Shield::onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2) {
