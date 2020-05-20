@@ -48,10 +48,10 @@ void Shield::bash() {
     this->bashFrames = 3;
     this->bashCooldown = BASH_COOLDOWN;
     auto shieldBash = std::make_unique<Tween>("shield_bash", shared_from_this());
-    shieldBash->animate(TweenableParams::X, this->position.x, this->position.x + BASH_DISTANCE * std::cos(this->rotation), 0, 3);
-    shieldBash->animate(TweenableParams::X, this->position.x + BASH_DISTANCE * std::cos(this->rotation), this->position.x, 3, 18);
-    shieldBash->animate(TweenableParams::Y, this->position.y, this->position.y + BASH_DISTANCE * std::sin(this->rotation), 0, 3);
-    shieldBash->animate(TweenableParams::Y, this->position.y + BASH_DISTANCE * std::sin(this->rotation), this->position.y, 3, 18);
+    shieldBash->animate(TweenableParam::X, this->position.x, this->position.x + BASH_DISTANCE * std::cos(this->rotation), 0, 3);
+    shieldBash->animate(TweenableParam::X, this->position.x + BASH_DISTANCE * std::cos(this->rotation), this->position.x, 3, 18);
+    shieldBash->animate(TweenableParam::Y, this->position.y, this->position.y + BASH_DISTANCE * std::sin(this->rotation), 0, 3);
+    shieldBash->animate(TweenableParam::Y, this->position.y + BASH_DISTANCE * std::sin(this->rotation), this->position.y, 3, 18);
     TweenJuggler::getInstance().add(std::move(shieldBash));
 }
 

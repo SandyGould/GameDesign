@@ -24,8 +24,8 @@ void BaseEnemy::changeHealth(int amount){
     // Damage
     if (amount < 0) {
         auto damage = std::make_unique<Tween>("damage_" + this->id, shared_from_this());
-        damage->animate(TweenableParams::ALPHA, 255, 40, 0, 12);
-        damage->animate(TweenableParams::ALPHA, 40, 255, 12, 24);
+        damage->animate(TweenableParam::ALPHA, 255, 40, 0, 12);
+        damage->animate(TweenableParam::ALPHA, 40, 255, 12, 24);
         TweenJuggler::getInstance().add(std::move(damage));
     }
 }

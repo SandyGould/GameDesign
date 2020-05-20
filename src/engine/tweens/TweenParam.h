@@ -1,43 +1,48 @@
-#ifndef TWEENPARAM_H
-#define TWEENPARAM_H
+#pragma once
 
-#include "TweenableParams.h"
-#include <string>
+enum class TweenableParam {
+    SCALE_X,
+    SCALE_Y,
+    ALPHA,
+    ROTATION,
+    X,
+    Y,
+};
+
+enum class EaseType {
+    LINEAR,
+    EASE_IN,
+    EASE_OUT,
+    EASE_IN_OUT,
+    EASE_OUT_IN,
+};
 
 // Object storing information relevant to one parameter being tweened.
 
 class TweenParam { 
-    public:
-        inline static const std::string EASE_IN = "ease_in";
-        inline static const std::string EASE_OUT = "ease_out";
-        inline static const std::string EASE_IN_OUT = "ease_in_out";
-        inline static const std::string EASE_OUT_IN = "ease_out_in";
+public:
+    TweenParam(TweenableParam paramToTween,
+               double startVal, double endVal,
+               double startTime, double duration,
+               EaseType easeType = EaseType::EASE_IN_OUT);
 
-        TweenParam(TweenableParams paramToTween,
-                   double startVal, double endVal,
-                   double startTime, double duration,
-                   std::string easeType = TweenParam::EASE_IN_OUT);
+    TweenableParam getParam();
+    double getStartVal();
+    double getEndVal();
+    double getStartTime();
+    double getDuration();
+    double getCurrVal();
+    EaseType getEaseType();
+    void setCurrVal(double value);
+    void setCurrChange(double amountChange);
+    bool isComplete();
 
-        ~TweenParam();
-        TweenableParams getParam();
-        double getStartVal();
-        double getEndVal();
-        double getStartTime();
-        double getDuration();
-        double getCurrVal();
-        std::string getEaseType();
-        void setCurrVal(double value);
-        void setCurrChange(double amountChange);
-        bool isComplete();
-    
-    private:
-        TweenableParams paramToTween;
-        double startVal;
-        double endVal;
-        double startTime;
-        double duration;
-        double currVal;
-        std::string easeType;
+private:
+    TweenableParam paramToTween;
+    double startVal;
+    double endVal;
+    double startTime;
+    double duration;
+    double currVal;
+    EaseType easeType;
 };
-
-#endif

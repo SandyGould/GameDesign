@@ -23,10 +23,10 @@ std::string Tween::getID(){
     return this->id;
 }
 
-void Tween::animate(TweenableParams fieldToAnimate,
+void Tween::animate(TweenableParam fieldToAnimate,
                     double startVal, double endVal,
                     double startTime, double duration,
-                    std::string easeType) {
+                    EaseType easeType) {
     auto* temp = new TweenParam(fieldToAnimate, startVal, endVal, startTime, duration, easeType);
     this->currTweening.push_back(temp);
 }
@@ -51,13 +51,13 @@ void Tween::update() {
         // percent done!
         double percTime = (this->timeElapsed - param->getStartTime()) / param->getDuration();
 
-        if (param->getEaseType() == TweenParam::EASE_IN)
+        if (param->getEaseType() == EaseType::EASE_IN)
             this->amountChange = transition->easeIn(percTime, transition->SINE);
-        else if (param->getEaseType() == TweenParam::EASE_OUT)
+        else if (param->getEaseType() == EaseType::EASE_OUT)
             this->amountChange = transition->easeOut(percTime, transition->SINE);
-        else if (param->getEaseType() == TweenParam::EASE_IN_OUT)
+        else if (param->getEaseType() == EaseType::EASE_IN_OUT)
             this->amountChange = transition->easeInOut(percTime, transition->SINE);
-        else if (param->getEaseType() == TweenParam::EASE_OUT_IN)
+        else if (param->getEaseType() == EaseType::EASE_OUT_IN)
             this->amountChange = transition->easeOutIn(percTime, transition->SINE);
 
         // update current value of the TweenParam
@@ -70,22 +70,22 @@ void Tween::update() {
             continue;
         }
 
-        if (param->getParam().getKey() == "ALPHA") {
+        if (param->getParam() == TweenableParam::ALPHA) {
             object->alpha = param->getCurrVal();
         }
-        else if (param->getParam().getKey() == "ROTATION") {
+        else if (param->getParam() == TweenableParam::ROTATION) {
             object->rotation = param->getCurrVal();
         }
-        else if (param->getParam().getKey() == "SCALE_X") {
+        else if (param->getParam() == TweenableParam::SCALE_X) {
             object->scaleX = param->getCurrVal();
         }
-        else if (param->getParam().getKey() == "SCALE_Y") {
+        else if (param->getParam() == TweenableParam::SCALE_Y) {
             object->scaleY = param->getCurrVal();
         }
-        else if (param->getParam().getKey() == "X") {
+        else if (param->getParam() == TweenableParam::X) {
             object->position.x = param->getCurrVal();
         }
-        else if (param->getParam().getKey() == "Y") {
+        else if (param->getParam() == TweenableParam::Y) {
             object->position.y = param->getCurrVal();
         }
 
@@ -94,10 +94,10 @@ void Tween::update() {
     }
 }
 
-void Tween::setValue(TweenableParams param, double value) {
+void Tween::setValue(TweenableParam param, double value) {
     std::list<TweenParam*>::iterator it;
     for (it = currTweening.begin(); it != currTweening.end(); it++) {
-        if ((*it)->getParam().getKey() == param.getKey()) {
+        if ((*it)->getParam() == param) {
             (*it)->setCurrVal(value);
         }
     }

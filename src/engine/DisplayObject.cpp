@@ -454,7 +454,7 @@ void DisplayObject::propogateEvent(Event* e, const std::shared_ptr<DisplayObject
             propogateEvent(e, child);
         }
         auto out_transition = std::make_shared<Tween>(root->id + "_out_transition", root);
-		out_transition->animate(TweenableParams::ALPHA, 255, 0, 0, 100, TweenParam::EASE_IN);
+		out_transition->animate(TweenableParam::ALPHA, 255, 0, 0, 100, EaseType::EASE_IN);
 		TweenJuggler::getInstance().add(out_transition);
     }
     if (e->getType() == NewSceneEvent::FADE_IN_EVENT) {
@@ -465,7 +465,7 @@ void DisplayObject::propogateEvent(Event* e, const std::shared_ptr<DisplayObject
             propogateEvent(e, object);
         }
         auto in_transition = std::make_shared<Tween>(root->id + "_in_transition", root);
-		in_transition->animate(TweenableParams::ALPHA, 0, 255, 0, 100, TweenParam::EASE_IN);
+		in_transition->animate(TweenableParam::ALPHA, 0, 255, 0, 100, EaseType::EASE_IN);
 		TweenJuggler::getInstance().add(in_transition);
 	}
 }
@@ -477,16 +477,16 @@ void DisplayObject::handleEvent(Event* e){
         double curScaleX = this->scaleX;
         double curScaleY = this->scaleY;
         auto out_transition = std::make_shared<Tween>("out_transition", shared_from_this());
-		out_transition->animate(TweenableParams::SCALE_X, curScaleX, 0, 0, 100, TweenParam::EASE_IN);
-		out_transition->animate(TweenableParams::SCALE_Y, curScaleY, 0, 0, 100, TweenParam::EASE_IN);
+		out_transition->animate(TweenableParam::SCALE_X, curScaleX, 0, 0, 100, EaseType::EASE_IN);
+		out_transition->animate(TweenableParam::SCALE_Y, curScaleY, 0, 0, 100, EaseType::EASE_IN);
 		TweenJuggler::getInstance().add(out_transition);
     }
     // scale in event
     if (e->getType() == NewSceneEvent::SCALE_IN_EVENT) {
         EventDispatcher::getInstance().removeEventListener(this, NewSceneEvent::SCALE_IN_EVENT);
         auto in_transition = std::make_shared<Tween>("in_transition", shared_from_this());
-		in_transition->animate(TweenableParams::SCALE_X, 0, 1, 0, 100, TweenParam::EASE_IN);
-		in_transition->animate(TweenableParams::SCALE_Y, 0, 1, 0, 100, TweenParam::EASE_IN);
+		in_transition->animate(TweenableParam::SCALE_X, 0, 1, 0, 100, EaseType::EASE_IN);
+		in_transition->animate(TweenableParam::SCALE_Y, 0, 1, 0, 100, EaseType::EASE_IN);
 		TweenJuggler::getInstance().add(in_transition);
     }
     // scale in event

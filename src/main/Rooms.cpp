@@ -112,9 +112,9 @@ Rooms::Rooms() : Game(600, 500) {
     // tween stuff
     auto player_spawn_tween = std::make_shared<Tween>("player_spawn_tween", player);
 
-    player_spawn_tween->animate(TweenableParams::SCALE_X, 5.0, 1.0, 0, 100);
-    player_spawn_tween->animate(TweenableParams::SCALE_Y, 5.0, 1.0, 0, 100);
-    player_spawn_tween->animate(TweenableParams::ALPHA, 0, 255, 0, 100);
+    player_spawn_tween->animate(TweenableParam::SCALE_X, 5.0, 1.0, 0, 100);
+    player_spawn_tween->animate(TweenableParam::SCALE_Y, 5.0, 1.0, 0, 100);
+    player_spawn_tween->animate(TweenableParam::ALPHA, 0, 255, 0, 100);
 
     TweenJuggler::getInstance().add(player_spawn_tween);
     EventDispatcher::getInstance().addEventListener(this->start_text_box.get(), TweenEvent::TWEEN_COMPLETE_EVENT);
@@ -170,10 +170,10 @@ void Rooms::handleEvent(Event* e) {
 
         auto player_death_tween = std::make_shared<Tween>("player_death_tween", player);
 
-        player_death_tween->animate(TweenableParams::SCALE_X, 1.0, 0.0, 0, 100);
-        player_death_tween->animate(TweenableParams::SCALE_Y, 1.0, 0.0, 0, 100);
-        player_death_tween->animate(TweenableParams::ROTATION, 0.0, 4 * PI, 0, 100);
-        player_death_tween->animate(TweenableParams::ALPHA, 255, 0, 0, 100);
+        player_death_tween->animate(TweenableParam::SCALE_X, 1.0, 0.0, 0, 100);
+        player_death_tween->animate(TweenableParam::SCALE_Y, 1.0, 0.0, 0, 100);
+        player_death_tween->animate(TweenableParam::ROTATION, 0.0, 4 * PI, 0, 100);
+        player_death_tween->animate(TweenableParam::ALPHA, 255, 0, 0, 100);
 
         TweenJuggler::getInstance().remove("damage_player");
         TweenJuggler::getInstance().add(player_death_tween);
@@ -201,9 +201,9 @@ void Rooms::handleEvent(Event* e) {
 
         auto player_spawn_tween = std::make_shared<Tween>("player_spawn_tween", player);
 
-        player_spawn_tween->animate(TweenableParams::SCALE_X, 5.0, 1.0, 0, 100);
-        player_spawn_tween->animate(TweenableParams::SCALE_Y, 5.0, 1.0, 0, 100);
-        player_spawn_tween->animate(TweenableParams::ALPHA, 0, 255, 0, 100);
+        player_spawn_tween->animate(TweenableParam::SCALE_X, 5.0, 1.0, 0, 100);
+        player_spawn_tween->animate(TweenableParam::SCALE_Y, 5.0, 1.0, 0, 100);
+        player_spawn_tween->animate(TweenableParam::ALPHA, 0, 255, 0, 100);
 
         TweenJuggler::getInstance().add(player_spawn_tween);
 
