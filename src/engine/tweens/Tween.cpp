@@ -23,41 +23,46 @@ std::string Tween::getID(){
     return this->id;
 }
 
-void Tween::animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time) {
-    TweenParam* temp = new TweenParam(fieldToAnimate, startVal, endVal, time);
-    this->currTweening.push_back(temp);
-}
-
-void Tween::animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time, std::string easeType) {
-    TweenParam* temp = new TweenParam(fieldToAnimate, startVal, endVal, time, easeType);
+void Tween::animate(TweenableParams fieldToAnimate,
+                    double startVal, double endVal,
+                    double startTime, double duration,
+                    std::string easeType) {
+    auto* temp = new TweenParam(fieldToAnimate, startVal, endVal, startTime, duration, easeType);
     this->currTweening.push_back(temp);
 }
 
 void Tween::update() {
     for (auto it = this->currTweening.begin(); it != this->currTweening.end(); ) {
+        auto param = *it;
         // calculate (linear) change manually for now,
         // replace w/ transition function in the future
+
+        if (this->timeElapsed < param->getStartTime()) {
+            it++;
+            continue;
+        }
         
-        if(this->timeElapsed > (*it)->getTweenTime()){ 
+        if (this->timeElapsed - param->getStartTime() > param->getDuration()) {
             it = this->currTweening.erase(it); // remove the param if done w/ tweening
+            delete param;
             continue;
         }
 
         // percent done!
-        double percTime = this->timeElapsed / (*it)->getTweenTime();
+        double percTime = (this->timeElapsed - param->getStartTime()) / param->getDuration();
 
-        if ((*it)->getEaseType() == TweenParam::EASE_IN)
+        if (param->getEaseType() == TweenParam::EASE_IN)
             this->amountChange = transition->easeIn(percTime, transition->SINE);
-        else if ((*it)->getEaseType() == TweenParam::EASE_OUT)
+        else if (param->getEaseType() == TweenParam::EASE_OUT)
             this->amountChange = transition->easeOut(percTime, transition->SINE);
-        else if ((*it)->getEaseType() == TweenParam::EASE_IN_OUT)
+        else if (param->getEaseType() == TweenParam::EASE_IN_OUT)
             this->amountChange = transition->easeInOut(percTime, transition->SINE);
-        else if ((*it)->getEaseType() == TweenParam::EASE_OUT_IN)
+        else if (param->getEaseType() == TweenParam::EASE_OUT_IN)
             this->amountChange = transition->easeOutIn(percTime, transition->SINE);
 
         // update current value of the TweenParam
         // We don't need setValue() in here bc we are already where we want to be
-        (*it)->setCurrChange(amountChange);
+        param->setCurrChange(amountChange);
 
         auto object = this->currObject.lock();
         if (!object) {
@@ -65,23 +70,23 @@ void Tween::update() {
             continue;
         }
 
-        if ((*it)->getParam().getKey() == "ALPHA") {
-            object->alpha = (*it)->getCurrVal();
+        if (param->getParam().getKey() == "ALPHA") {
+            object->alpha = param->getCurrVal();
         }
-        else if ((*it)->getParam().getKey() == "ROTATION") {
-            object->rotation = (*it)->getCurrVal();
+        else if (param->getParam().getKey() == "ROTATION") {
+            object->rotation = param->getCurrVal();
         }
-        else if ((*it)->getParam().getKey() == "SCALE_X") {
-            object->scaleX = (*it)->getCurrVal();
+        else if (param->getParam().getKey() == "SCALE_X") {
+            object->scaleX = param->getCurrVal();
         }
-        else if ((*it)->getParam().getKey() == "SCALE_Y") {
-            object->scaleY = (*it)->getCurrVal();
+        else if (param->getParam().getKey() == "SCALE_Y") {
+            object->scaleY = param->getCurrVal();
         }
-        else if ((*it)->getParam().getKey() == "X") {
-            object->position.x = (*it)->getCurrVal();
+        else if (param->getParam().getKey() == "X") {
+            object->position.x = param->getCurrVal();
         }
-        else if ((*it)->getParam().getKey() == "Y") {
-            object->position.y = (*it)->getCurrVal();
+        else if (param->getParam().getKey() == "Y") {
+            object->position.y = param->getCurrVal();
         }
 
         EventDispatcher::getInstance().dispatchEvent(new TweenEvent(TweenEvent::TWEEN_UPDATE_EVENT, this));

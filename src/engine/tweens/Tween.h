@@ -14,8 +14,10 @@ class Tween {
         Tween(const std::string& id, const std::weak_ptr<DisplayObject>& object);
         Tween(const std::string& id, const std::weak_ptr<DisplayObject>& object, const TweenTransitions& transition);
 
-        void animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time);
-        void animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time, std::string easeType);
+        void animate(TweenableParams fieldToAnimate,
+                     double startVal, double endVal,
+                     double startTime, double duration,
+                     std::string easeType = TweenParam::EASE_IN_OUT);
         void update(); //invoked once per frame by the TweenJuggler. Updates this tween / DisplayObject
         void setValue(TweenableParams param, double value);
         bool isComplete();

@@ -13,14 +13,17 @@ class TweenParam {
         inline static const std::string EASE_IN_OUT = "ease_in_out";
         inline static const std::string EASE_OUT_IN = "ease_out_in";
 
-        TweenParam(TweenableParams paramToTween, double startVal, double endVal, double time);
-        TweenParam(TweenableParams paramToTween, double startVal, double endVal, double time, std::string easeType);
+        TweenParam(TweenableParams paramToTween,
+                   double startVal, double endVal,
+                   double startTime, double duration,
+                   std::string easeType = TweenParam::EASE_IN_OUT);
 
         ~TweenParam();
         TweenableParams getParam();
         double getStartVal();
         double getEndVal();
-        double getTweenTime();
+        double getStartTime();
+        double getDuration();
         double getCurrVal();
         std::string getEaseType();
         void setCurrVal(double value);
@@ -31,7 +34,8 @@ class TweenParam {
         TweenableParams paramToTween;
         double startVal;
         double endVal;
-        double time;
+        double startTime;
+        double duration;
         double currVal;
         std::string easeType;
 };

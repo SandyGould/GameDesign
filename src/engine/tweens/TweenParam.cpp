@@ -1,19 +1,14 @@
 #include "TweenParam.h"
 
-TweenParam::TweenParam(TweenableParams paramToTween, double startVal, double endVal, double time) {
+TweenParam::TweenParam(TweenableParams paramToTween,
+                       double startVal, double endVal,
+                       double startTime, double duration,
+                       std::string easeType) {
     this->paramToTween = paramToTween;
     this->startVal = startVal;
     this->endVal = endVal;
-    this->time = time;
-    this->currVal = startVal;
-    this->easeType = TweenParam::EASE_IN_OUT;
-}
-
-TweenParam::TweenParam(TweenableParams paramToTween, double startVal, double endVal, double time, std::string easeType) {
-    this->paramToTween = paramToTween;
-    this->startVal = startVal;
-    this->endVal = endVal;
-    this->time = time;
+    this->startTime = startTime;
+    this->duration = duration;
     this->currVal = startVal;
     this->easeType = easeType;
 }
@@ -32,8 +27,12 @@ double TweenParam::getEndVal() {
     return this->endVal;
 }
 
-double TweenParam::getTweenTime() {
-    return this->time;
+double TweenParam::getStartTime() {
+    return this->startTime;
+}
+
+double TweenParam::getDuration() {
+    return this->duration;
 }
 
 double TweenParam::getCurrVal() {

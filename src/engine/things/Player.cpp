@@ -48,10 +48,8 @@ void Player::changeHealth(int amount) {
 
     if (amount < 0 && alive) {
         auto damage = std::make_unique<Tween>("damage_player", shared_from_this());
-        damage->animate(TweenableParams::ALPHA, 255, 40, 48);
-        damage->animate(TweenableParams::ALPHA, 40, 200, 32);
-        damage->animate(TweenableParams::ALPHA, 200, 40, 32);
-        damage->animate(TweenableParams::ALPHA, 40, 255, 48);
+        damage->animate(TweenableParams::ALPHA, 255, 40, 0, 12);
+        damage->animate(TweenableParams::ALPHA, 40, 255, 12, 24);
         TweenJuggler::getInstance().add(std::move(damage));
     }
 }
@@ -222,8 +220,8 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                     shield->bashFrames = 10;
                     shieldBashCooldown = BASH_COOLDOWN;
                     auto shieldBash = std::make_unique<Tween>("shield_bash", shield);
-                    shieldBash->animate(TweenableParams::X, shield->position.x, shield->position.x + BASH_DISTANCE, 10);
-                    shieldBash->animate(TweenableParams::X, shield->position.x + BASH_DISTANCE, shield->position.x, 18);
+                    shieldBash->animate(TweenableParams::X, shield->position.x, shield->position.x + BASH_DISTANCE, 0, 10);
+                    shieldBash->animate(TweenableParams::X, shield->position.x + BASH_DISTANCE, shield->position.x, 10, 18);
                     TweenJuggler::getInstance().add(std::move(shieldBash));
                     this->changeStamina(-70);
                     AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
@@ -244,8 +242,8 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                     shield->bashing = true;
                     shield->bashFrames = 10;
                     auto shieldBash = std::make_unique<Tween>("shield_bash", shield);
-                    shieldBash->animate(TweenableParams::X, shield->position.x, shield->position.x - BASH_DISTANCE, 10);
-                    shieldBash->animate(TweenableParams::X, shield->position.x - BASH_DISTANCE, shield->position.x, 18);
+                    shieldBash->animate(TweenableParams::X, shield->position.x, shield->position.x - BASH_DISTANCE, 0, 10);
+                    shieldBash->animate(TweenableParams::X, shield->position.x - BASH_DISTANCE, shield->position.x, 10, 18);
                     TweenJuggler::getInstance().add(std::move(shieldBash));
                     this->changeStamina(-70);
                     AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
@@ -266,8 +264,8 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                     shield->bashing = true;
                     shield->bashFrames = 10;
                     auto shieldBash = std::make_unique<Tween>("shield_bash", shield);
-                    shieldBash->animate(TweenableParams::Y, shield->position.y, shield->position.y + BASH_DISTANCE, 10);
-                    shieldBash->animate(TweenableParams::Y, shield->position.y + BASH_DISTANCE, shield->position.y, 18);
+                    shieldBash->animate(TweenableParams::Y, shield->position.y, shield->position.y + BASH_DISTANCE, 0, 10);
+                    shieldBash->animate(TweenableParams::Y, shield->position.y + BASH_DISTANCE, shield->position.y, 10, 18);
                     TweenJuggler::getInstance().add(std::move(shieldBash));
                     this->changeStamina(-70);
                     AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
@@ -288,8 +286,8 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                     shield->bashFrames = 10;
                     shield->bashing = true;
                     auto shieldBash = std::make_unique<Tween>("shield_bash", shield);
-                    shieldBash->animate(TweenableParams::Y, shield->position.y, shield->position.y - BASH_DISTANCE, 10);
-                    shieldBash->animate(TweenableParams::Y, shield->position.y - BASH_DISTANCE, shield->position.y, 18);
+                    shieldBash->animate(TweenableParams::Y, shield->position.y, shield->position.y - BASH_DISTANCE, 0, 10);
+                    shieldBash->animate(TweenableParams::Y, shield->position.y - BASH_DISTANCE, shield->position.y, 10, 18);
                     TweenJuggler::getInstance().add(std::move(shieldBash));
                     this->changeStamina(-70);
                     AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
