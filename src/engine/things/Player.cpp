@@ -207,14 +207,10 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
             shield->rotation = std::fmod(shield->rotation, 2 * PI);
 
             if ((pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end()) || joystickState.xVal2 - DEAD_ZONE > 0) {
-                // if (prevKeys.find(SDL_SCANCODE_D) == prevKeys.end()) {
-                    // shield->rotation = std::fmod(shield->rotation, PI / 2) + 3 * PI / 2;
-                    // if (shield->rotation <= 3 * PI / 2) {
-                    //     shield->rotation += PI / 2;
-                    // }
-                    shield->rotation = 0;
+                if (prevKeys.find(SDL_SCANCODE_D) == prevKeys.end()) {
+                    shield->rotation = std::remainder(shield->rotation, PI / 2);
                     this->changeStamina(-2);
-                // }
+                }
                 if (checkDoubleTaps(SDL_SCANCODE_D) || (joystickState.xVal2 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
                     shield->bashing = true;
                     shield->bashFrames = 10;
@@ -229,14 +225,10 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                 }
             }
             if ((pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) || joystickState.xVal2 + DEAD_ZONE < 0) {
-                // if (prevKeys.find(SDL_SCANCODE_A) == prevKeys.end()) {
-                    // shield->rotation = std::fmod(shield->rotation, PI / 2) + PI / 2;
-                    // if (shield->rotation <= PI / 2) {
-                    //     shield->rotation += PI / 2;
-                    // }
-                    shield->rotation = PI;
+                if (prevKeys.find(SDL_SCANCODE_A) == prevKeys.end()) {
+                    shield->rotation = std::remainder(shield->rotation, PI / 2) + PI;
                     this->changeStamina(-2);
-                // }
+                }
                 if (checkDoubleTaps(SDL_SCANCODE_A) || (joystickState.xVal2 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
                     shieldBashCooldown = BASH_COOLDOWN;
                     shield->bashing = true;
@@ -251,14 +243,10 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                 }
             }
             if ((pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) || joystickState.yVal2 - DEAD_ZONE > 0) {
-                // if (prevKeys.find(SDL_SCANCODE_S) == prevKeys.end()) {
-                    // shield->rotation = std::fmod(shield->rotation, PI / 2);
-                    // if (shield->rotation <= 0) {
-                    //     shield->rotation += PI / 2;
-                    // }
-                    shield->rotation = PI / 2;
+                if (prevKeys.find(SDL_SCANCODE_S) == prevKeys.end()) {
+                    shield->rotation = std::remainder(shield->rotation, PI / 2) + PI / 2;
                     this->changeStamina(-2);
-                // }
+                }
                 if (checkDoubleTaps(SDL_SCANCODE_S) || (joystickState.yVal2 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
                     shieldBashCooldown = BASH_COOLDOWN;
                     shield->bashing = true;
@@ -273,14 +261,10 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                 }
             }
             if ((pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) || joystickState.yVal2 + DEAD_ZONE < 0) {
-                // if (prevKeys.find(SDL_SCANCODE_W) == prevKeys.end()) {
-                    // shield->rotation = std::fmod(shield->rotation, PI / 2) + PI;
-                    // if (shield->rotation <= PI) {
-                    //     shield->rotation += PI / 2;
-                    // }
-                    shield->rotation = 3 * PI / 2;
+                if (prevKeys.find(SDL_SCANCODE_W) == prevKeys.end()) {
+                    shield->rotation = std::remainder(shield->rotation, PI / 2) + 3 * PI / 2;
                     this->changeStamina(-2);
-                // }
+                }
                 if (checkDoubleTaps(SDL_SCANCODE_W) || (joystickState.yVal2 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
                     shieldBashCooldown = BASH_COOLDOWN;
                     shield->bashFrames = 10;
