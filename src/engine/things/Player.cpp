@@ -208,8 +208,6 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                 if (checkDoubleTaps(SDL_SCANCODE_D) || (joystickState.xVal2 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
                     shield->bash();
                     this->changeStamina(-70);
-                    AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
-                    return;
                 }
             }
             if ((pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end()) || joystickState.xVal2 + DEAD_ZONE < 0) {
@@ -220,8 +218,6 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                 if (checkDoubleTaps(SDL_SCANCODE_A) || (joystickState.xVal2 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
                     shield->bash();
                     this->changeStamina(-70);
-                    AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
-                    return;
                 }
             }
             if ((pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end()) || joystickState.yVal2 - DEAD_ZONE > 0) {
@@ -232,8 +228,6 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                 if (checkDoubleTaps(SDL_SCANCODE_S) || (joystickState.yVal2 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
                     shield->bash();
                     this->changeStamina(-70);
-                    AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
-                    return;
                 }
             }
             if ((pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end()) || joystickState.yVal2 + DEAD_ZONE < 0) {
@@ -244,8 +238,6 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                 if (checkDoubleTaps(SDL_SCANCODE_W) || (joystickState.yVal2 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
                     shield->bash();
                     this->changeStamina(-70);
-                    AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
-                    return;
                 }
             }
         }
