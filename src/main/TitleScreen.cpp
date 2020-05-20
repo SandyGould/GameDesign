@@ -17,14 +17,10 @@ TitleScreen::TitleScreen() : Game(600, 500) {
     container->addChild(selection_menu_base);
 
     selection_resume_option = std::make_shared<SelectionMenuOption>(selection_menu_base.get(), SelectionMenuOption::START, "Start");
-    selection_resume_option->width = 200;
-    selection_resume_option->height = 50;
     selection_resume_option->position = {200, 200};
     selection_menu_base->addChild(selection_resume_option);
 
     selection_quit_option = std::make_shared<SelectionMenuOption>(selection_menu_base.get(), SelectionMenuOption::QUIT, "Quit");
-    selection_quit_option->width = 200;
-    selection_quit_option->height = 50;
     selection_quit_option->position = {200, 300};
     selection_menu_base->addChild(selection_quit_option);
 

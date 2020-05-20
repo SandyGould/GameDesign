@@ -71,14 +71,10 @@ Rooms::Rooms() : Game(600, 500) {
     selection_menu_base->height = 500;
 
     selection_resume_option = std::make_shared<SelectionMenuOption>(selection_menu_base.get(), SelectionMenuOption::RESUME, "Resume");
-    selection_resume_option->width = 200;
-    selection_resume_option->height = 50;
     selection_resume_option->position = {200, 220};
     selection_menu_base->addChild(selection_resume_option);
 
     selection_quit_option = std::make_shared<SelectionMenuOption>(selection_menu_base.get(), SelectionMenuOption::QUIT, "Quit");
-    selection_quit_option->width = 200;
-    selection_quit_option->height = 50;
     selection_quit_option->position = {200, 320};
     selection_menu_base->addChild(selection_quit_option);
 
@@ -96,14 +92,10 @@ Rooms::Rooms() : Game(600, 500) {
     gameover_base->height = 500;
 
     gameover_resume_option = std::make_shared<SelectionMenuOption>(gameover_base.get(), SelectionMenuOption::CONTINUE, "Continue");
-    gameover_resume_option->width = 200;
-    gameover_resume_option->height = 50;
     gameover_resume_option->position = {200, 200};
     gameover_base->addChild(gameover_resume_option);
 
     gameover_quit_option = std::make_shared<SelectionMenuOption>(gameover_base.get(), SelectionMenuOption::QUIT, "Quit");
-    gameover_quit_option->width = 200;
-    gameover_quit_option->height = 50;
     gameover_quit_option->position = {200, 300};
     gameover_base->addChild(gameover_quit_option);
 

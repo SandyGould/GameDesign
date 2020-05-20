@@ -12,10 +12,14 @@ SelectionMenuOption::SelectionMenuOption(SelectionMenuBase* base, const string& 
     : DisplayObject(base->id + "_" + id, 255, 255, 255) {
     this->base = base;
 	this->text = text;
+    this->width = 200;
+    this->height = 50;
+    this->alpha = 100;
 	this->textbox = std::make_shared<TextBox>(base->id + "_" + text, text);
+    this->textbox->position = {this->width / 2, this->height / 2};
+    this->textbox->pivot = {this->textbox->width / 2, this->textbox->height / 2};
 	this->textbox->setColor({0,0,0, 255});
 	this->textbox->alpha = 100;
-	this->alpha = 100;
 	this->addChild(this->textbox);
 
     EventDispatcher::getInstance().addEventListener(this, MouseDownEvent::MOUSE_DOWN_EVENT);
