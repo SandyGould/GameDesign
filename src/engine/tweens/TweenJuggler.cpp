@@ -16,6 +16,13 @@ void TweenJuggler::add(const std::shared_ptr<Tween>& tween) {
     }
 }
 
+void TweenJuggler::remove(const std::string& id) {
+    tweenList.erase(std::remove_if(tweenList.begin(),
+                                   tweenList.end(),
+                                   [&](auto tween) { return id == tween->getID(); }),
+                    tweenList.cend());
+}
+
 void TweenJuggler::nextFrame() {
     for (auto it = this->tweenList.begin(); it != this->tweenList.end(); ) {
         auto tween = *it;

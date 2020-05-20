@@ -35,10 +35,9 @@ Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites
 
 void Player::changeHealth(int amount) {
     if (health + amount < 100) {
-        if (health + amount > 0){
+        if (health + amount > 0) {
             health += amount;
-        }
-        else {
+        } else {
             health = 0;
             alive = false;
             EventDispatcher::getInstance().dispatchEvent(new Event(PlayerDeathEvent::PLAYER_DEATH_EVENT));
@@ -46,7 +45,8 @@ void Player::changeHealth(int amount) {
     } else {
         health = 100;
     }
-    if (amount < 0) {
+
+    if (amount < 0 && alive) {
         auto damage = std::make_unique<Tween>("damage_player", shared_from_this());
         damage->animate(TweenableParams::ALPHA, 255, 40, 48);
         damage->animate(TweenableParams::ALPHA, 40, 200, 32);

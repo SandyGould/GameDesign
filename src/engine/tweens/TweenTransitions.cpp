@@ -52,6 +52,7 @@ double TweenTransitions::easeInOut(double percentDone, Transition transition){
 			if(percentDone < 0.5)
 				return easeIn(2*percentDone, transition)/2;
 			return 0.5 + easeOut(2*percentDone - 1, transition)/2;
+            // return percentDone * percentDone * (3 - 2 * percentDone);
 			break;
 		case EXPO:
 			break;
