@@ -1,11 +1,7 @@
 #include <climits>
 #include "Camera.h"
-#include "Game.h"
-#include <iostream>
-#include "events/TweenEvent.h"
-#include "tweens/TweenJuggler.h"
 
-Camera::Camera() : DisplayObject("camera") {
+Camera::Camera(int width, int height) : DisplayObject("camera") {
     this->type = "Camera";
     this->saveType = this->type;
 
@@ -15,24 +11,24 @@ Camera::Camera() : DisplayObject("camera") {
     this->leftLimit = INT_MIN;
     this->rightLimit = INT_MAX;
 
-    this->width = this->viewportWidth;
-    this->height = this->viewportHeight;
+    this->width = width;
+    this->height = height;
 }
 
 void Camera::setRightLimit(int rightLimit) {
-    this->rightLimit = rightLimit;
+    this->rightLimit = rightLimit - this->position.x;
 }
 
 void Camera::setLeftLimit(int leftLimit) {
-    this->leftLimit = leftLimit;
+    this->leftLimit = leftLimit + this->position.x;
 }
 
 void Camera::setTopLimit(int topLimit) {
-    this->topLimit = topLimit;
+    this->topLimit = topLimit + this->position.y;
 }
 
 void Camera::setBottomLimit(int bottomLimit) {
-    this->bottomLimit = bottomLimit;
+    this->bottomLimit = bottomLimit - this->position.y;
 }
 
 void Camera::panRight(int factor) {
@@ -76,12 +72,12 @@ double Camera::getZoom() {
 }
 
 void Camera::follow(int newX, int newY) {
-    if (newX >= leftLimit * scaleX && newX <= rightLimit * scaleX) {
-        this->pivot.x = newX;
-    }
-    if (newY >= topLimit *scaleY && newY <= bottomLimit * scaleY) {
-        this->pivot.y = newY;
-    }
+    this->pivot.x = std::min(static_cast<int>(rightLimit * scaleX),
+                             std::max(static_cast<int>(leftLimit * scaleX),
+                                      newX));
+    this->pivot.y = std::min(static_cast<int>(bottomLimit * scaleY),
+                             std::max(static_cast<int>(topLimit * scaleY),
+                                      newY));
 }
 
 void Camera::draw(AffineTransform& at) {

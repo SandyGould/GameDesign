@@ -40,20 +40,16 @@ void SceneManager::loadFirstScene() {
 
     // load player info from scene object
     p->position = this->currScene->playerEntrancePos;
-    p->width = p->height = 50;
     this->currScene->addChild(p);
 
-    // load camera info from scene object
-    // set camera limits - still need to do
-    c->position = this->currScene->camEntrancePosition;
-    c->pivot = this->currScene->camEntrancePivot;
+    // center the camera
+    c->position = {c->width / 2, c->height / 2};
     // set camera limits
     c->setTopLimit(this->currScene->camTopLimit);
 	c->setLeftLimit(this->currScene->camLeftLimit);
-	c->setRightLimit(this->currScene->camRightLimit);
+    c->setRightLimit(this->currScene->camRightLimit);
     c->setBottomLimit(this->currScene->camBottomLimit);
     c->addChild(this->currScene);
-
 }
 
 void SceneManager::unloadScene() {
@@ -105,10 +101,8 @@ void SceneManager::loadNextScene() {
     p->position = this->currScene->playerEntrancePos;
     this->currScene->addChild(p);
 
-    // load camera info from scene object
-    // set camera limits - still need to do
-    c->position = this->currScene->camEntrancePosition;
-    c->pivot = this->currScene->camEntrancePivot;
+    // center the camera
+    c->position = {c->width / 2, c->height / 2};
     // set camera limits
     c->setTopLimit(this->currScene->camTopLimit);
 	c->setLeftLimit(this->currScene->camLeftLimit);

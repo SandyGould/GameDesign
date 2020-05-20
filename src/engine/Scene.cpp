@@ -110,7 +110,15 @@ void Scene::loadScene(std::string sceneFilePath){
                     }
                 }
                 temp_layer->addChild(std::static_pointer_cast<Switch>(setBasicInfo(temp_switch, mj)));
-                }
+            }
+
+            // FIXME: MEGA SUPER HACK
+            if (id.find("background") != std::string::npos) {
+                this->camLeftLimit = 0;
+                this->camRightLimit = static_cast<int>(temp_layer->getChild(y)->width * temp_layer->getChild(y)->scaleX);
+                this->camTopLimit = 0;
+                this->camBottomLimit = static_cast<int>(temp_layer->getChild(y)->height * temp_layer->getChild(y)->scaleY);
+            }
         }            
         this->addChild(temp_layer);
     }

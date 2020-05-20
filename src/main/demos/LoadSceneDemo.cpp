@@ -9,7 +9,7 @@ LoadSceneDemo::LoadSceneDemo() : Game(1200, 800) {
 
     this->collisionSystem = new CollisionSystem();
 
-    this->camera = std::make_shared<Camera>();
+    this->camera = std::make_shared<Camera>(this->windowWidth, this->windowHeight);
     this->camera->position = {this->windowWidth / 2, this->windowHeight / 2};
     this->camera->pivot = {this->windowWidth / 2, this->windowHeight / 2};
     this->container->addChild(this->camera);

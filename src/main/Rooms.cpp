@@ -52,20 +52,11 @@ Rooms::Rooms() : Game(600, 500) {
     this->collisionSystem->watchForCollisions("ogre", "mage_attack");
     this->collisionSystem->watchForCollisions("ogre", "cannonball");
 
-    camera = std::make_shared<Camera>();
-
-    // load and prep camera
-    // camera->setTopLimit(0);
-    // camera->setLeftLimit(0); //200
-    // camera->setRightLimit(810); //810
-    // camera->setBottomLimit(0); //0
-    // move that point to the middle
-
+    camera = std::make_shared<Camera>(this->windowWidth, this->windowHeight);
     container->addChild(camera);
 
     // load and prep player
     player = std::make_shared<Player>();
-    player->position = {50, 250};
 
     // start text box
     start_text_box = std::make_shared<TextBox>("start_text", "Welcome to Rebound!\n\nPress any key to continue");

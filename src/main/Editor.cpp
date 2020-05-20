@@ -31,7 +31,7 @@ Editor::Editor(const string& sceneToLoad)
     instance = this;
     curScene = std::make_shared<Scene>();
 
-    camera = std::make_shared<Camera>();
+    camera = std::make_shared<Camera>(this->windowWidth, this->windowHeight);
     camera->position = {this->windowWidth / 2, this->windowHeight / 2};
     camera->pivot = {this->windowWidth / 2, this->windowHeight / 2};
     this->container->addChild(camera);
