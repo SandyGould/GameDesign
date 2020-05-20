@@ -160,16 +160,12 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
         // update scene if criteria for changing scene are met
         this->sceneManager->updateScene();
 
-        health->updateHealth();
-        player->speedChange = false;
         this->collisionSystem->update();
-        if (!player->speedChange) {
-            player->speed = 4;
-        }
-        camera->follow(player->position.x, player->position.y);
+        health->updateHealth();
     }
 
     Game::update(pressedKeys, joystickState, pressedButtons);
+    camera->follow(player->position.x, player->position.y);
 }
 
 void Rooms::draw(AffineTransform& at) {

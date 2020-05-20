@@ -314,6 +314,9 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 
     prevKeys = pressedKeys;
 
+    // Reset speed
+    this->speed = 4.0;
+
     AnimatedSprite::update(pressedKeys, joystickState, pressedButtons);
 }
 

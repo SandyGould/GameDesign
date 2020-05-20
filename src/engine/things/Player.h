@@ -26,8 +26,7 @@ public:
     bool onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2) override;
 
 	std::shared_ptr<Shield> shield;
-	double speed = 4;
-	bool speedChange = false;
+	double speed = 4.0;
 	int health = 100;
 	int stamina = 1000;
 	bool alive = true;
