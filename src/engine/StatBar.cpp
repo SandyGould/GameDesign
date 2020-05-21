@@ -2,8 +2,10 @@
 
 static int stat_bar_count = 0;
 
-StatBar::StatBar(const std::string& id, const std::string& filepath, double max,
+StatBar::StatBar(const std::string& id, const std::string& filepath,
+                 int* stat, int max,
                  int red, int green, int blue) : DisplayObject(id) {
+    this->stat = stat;
     this->max = max;
 
     this->bar = std::make_shared<DisplayObject>(id + "_bar", red, green, blue, 195, 15);
@@ -20,6 +22,7 @@ StatBar::StatBar(const std::string& id, const std::string& filepath, double max,
     stat_bar_count++;
 }
 
-void StatBar::setStat(double amount) {
-    this->bar->scaleX = std::clamp(amount / this->max, 0.0, 1.0);
+void StatBar::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) {
+    this->bar->scaleX = std::clamp(*stat / static_cast<double>(this->max), 0.0, 1.0);
+    DisplayObject::update(pressedKeys, joystickState, pressedButtons);
 }
