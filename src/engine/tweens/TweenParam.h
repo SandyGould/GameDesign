@@ -26,16 +26,18 @@ public:
                double startTime, double duration,
                EaseType easeType = EaseType::EASE_IN_OUT);
 
-    TweenableParam getParam();
-    double getStartVal();
-    double getEndVal();
-    double getStartTime();
-    double getDuration();
-    double getCurrVal();
-    EaseType getEaseType();
+    [[nodiscard]] TweenableParam getParam() const;
+    [[nodiscard]] double getStartVal() const;
+    [[nodiscard]] double getEndVal() const;
+    [[nodiscard]] double getStartTime() const;
+    [[nodiscard]] double getDuration() const;
+    [[nodiscard]] double getCurrVal() const;
+    [[nodiscard]] EaseType getEaseType() const;
+
     void setCurrVal(double value);
     void setCurrChange(double amountChange);
-    bool isComplete();
+
+    [[nodiscard]] bool isComplete() const;
 
 private:
     TweenableParam paramToTween;

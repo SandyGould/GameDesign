@@ -13,31 +13,31 @@ TweenParam::TweenParam(TweenableParam paramToTween,
     this->easeType = easeType;
 }
 
-TweenableParam TweenParam::getParam() {
+TweenableParam TweenParam::getParam() const {
     return this->paramToTween;
 }
 
-double TweenParam::getStartVal() {
+double TweenParam::getStartVal() const {
     return this->startVal;
 }
 
-double TweenParam::getEndVal() {
+double TweenParam::getEndVal() const {
     return this->endVal;
 }
 
-double TweenParam::getStartTime() {
+double TweenParam::getStartTime() const {
     return this->startTime;
 }
 
-double TweenParam::getDuration() {
+double TweenParam::getDuration() const {
     return this->duration;
 }
 
-double TweenParam::getCurrVal() {
+double TweenParam::getCurrVal() const {
     return this->currVal;
 }
 
-EaseType TweenParam::getEaseType(){
+EaseType TweenParam::getEaseType() const {
     return this->easeType;
 }
 
@@ -50,7 +50,7 @@ void TweenParam::setCurrChange(double amtChange){
     this->currVal = this->startVal + totalChange * amtChange;
 }
 
-bool TweenParam::isComplete(){
+bool TweenParam::isComplete() const {
     // if the start value was less than the end value and the current value is now greater than/equal to end val
     if (this->startVal <= this->endVal && this->currVal >= this->endVal) {
         return true;
