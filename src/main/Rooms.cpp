@@ -106,7 +106,7 @@ Rooms::Rooms() : Game(600, 500) {
     gameover_base->addChild(gameover_graphic);
 
     // health bar
-    health = std::make_shared<StatBar>("Health", "./resources/Rebound/greenbar (3).png", player);
+    health = std::make_shared<StatBar>("Health", "./resources/Rebound/greenbar (3).png", 100, 255, 0, 0);
     container->addChild(health);
 
     // tween stuff
@@ -153,7 +153,7 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
         this->sceneManager->updateScene();
 
         this->collisionSystem->update();
-        health->updateHealth();
+        health->setStat(this->player->health);
     }
 
     Game::update(pressedKeys, joystickState, pressedButtons);

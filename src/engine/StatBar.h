@@ -1,31 +1,17 @@
-#ifndef STATBAR_H
-#define STATBAR_H
+#pragma once
 
 #include "DisplayObject.h"
-#include "things/Player.h"
-#include "Game.h"
-#include <string>
 
 class StatBar : public DisplayObject {
-
 public:
-    explicit StatBar(std::string id, std::shared_ptr<Player> player);
-    StatBar(std::string id, int red, int green, int blue, std::shared_ptr<Player> player);
-    StatBar(std::string id, int red, int green, int blue, std::shared_ptr<Player> player, int w, int h);
-    StatBar(std::string id, std::string filepath, std::shared_ptr<Player> player);
-
-	~StatBar() override;
+    StatBar(std::string id, std::string filepath, double max, int red, int green, int blue);
 
 	void scaleStat(double change);
-
-    void update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons) override;
-    void updateHealth();
-	void draw(AffineTransform& at) override;
+    void setStat(double amount);
 
 private:
     double StatPerc;
-    std::shared_ptr<Player> player;
+    double max;
     std::shared_ptr<DisplayObject> bar;
     std::shared_ptr<DisplayObject> frame;
 };
-#endif
