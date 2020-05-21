@@ -1,8 +1,8 @@
 #include "Player.h"
 
 #include "../events/PlayerDeathEvent.h"
+#include "../tweens/TweenJuggler.h"
 
-constexpr int HISTORY_SIZE = 8;
 constexpr int DEAD_ZONE = 10000;
 
 Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites/Player/Player.png", "./resources/assets/Animated_Sprites/Player/Player.xml", "Idle") {
@@ -14,8 +14,6 @@ Player::Player() : AnimatedSprite("player", "./resources/assets/Animated_Sprites
     this->height = 80;
     this->pivot = {this->width / 2, this->height / 2};
     this->setHitbox(0.32, 0.66, 0.15, 0.98);
-
-    history = new std::unordered_set<SDL_Scancode> [HISTORY_SIZE];
 
     shield = std::make_shared<Shield>();
     this->addChild(shield);
@@ -257,16 +255,16 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 }
 
 void Player::updateHistory(std::unordered_set<SDL_Scancode> pressedKeys) {
-	for (int i = 0; i < HISTORY_SIZE-1; i++) {
-		history[i] = history[i+1];
+	for (int i = 0; i < history.size() - 1; i++) {
+		history[i] = history[i + 1];
 	}
-	history[HISTORY_SIZE-1] = pressedKeys;
+	history[history.size() - 1] = pressedKeys;
 }
 
 bool Player::checkDoubleTaps(SDL_Scancode key) {
-	for (int i = HISTORY_SIZE-1; i >= 1; i--) {
+	for (int i = history.size() - 1; i >= 1; i--) {
 		if (history[i].find(key) == history[i].end()) {
-			for (int k = i-1; k >= 0; k--) {
+			for (int k = i - 1; k >= 0; k--) {
 				if (history[k].find(key) != history[k].end()) {
 					return true;
 				}

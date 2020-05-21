@@ -2,7 +2,6 @@
 
 #include "../AnimatedSprite.h"
 #include "../CollisionSystem.h"
-#include "../tweens/TweenJuggler.h"
 #include "Shield.h"
 
 enum class SlideDirection {
@@ -40,7 +39,7 @@ public:
 
 private:
 	void cannonBallHit(std::shared_ptr<DisplayObject> other);
-	std::unordered_set<SDL_Scancode>* history;
+	std::array<std::unordered_set<SDL_Scancode>, 8> history;
     std::unordered_set<SDL_Scancode> prevKeys;
 
 	void updateHistory(std::unordered_set<SDL_Scancode> pressedKeys);
