@@ -82,110 +82,99 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
     this->deltaY = 0.0;
     bool idle = true;
 
-    // Are they sliding?
-    if ((pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end() && checkDoubleTaps(SDL_SCANCODE_RIGHT)) ||
-        (joystickState.xVal1 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
-        this->setHitbox(0.28, 0.72, 0.5, 0.98);
-        this->play("Slide");
-        this->slideDirection = SlideDirection::Right;
-    } else if ((pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end() && checkDoubleTaps(SDL_SCANCODE_LEFT)) ||
-               (joystickState.xVal1 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
-        this->setHitbox(0.28, 0.72, 0.5, 0.98);
-        this->play("SlideLeft");
-        this->slideDirection = SlideDirection::Left;
-    } else if ((pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end() && checkDoubleTaps(SDL_SCANCODE_DOWN)) ||
-               (joystickState.yVal1 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
-        this->setHitbox(0.28, 0.72, 0.5, 0.98);
-        this->play("Slide");
-        this->slideDirection = SlideDirection::Down;
-    } else if ((pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end() && checkDoubleTaps(SDL_SCANCODE_UP)) ||
-               (joystickState.yVal1 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
-        this->setHitbox(0.28, 0.72, 0.5, 0.98);
-        this->play("Slide");
-        this->slideDirection = SlideDirection::Up;
+    if (this->slideDirection == SlideDirection::None) {
+        // Are they sliding?
+        if ((pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end() && checkDoubleTaps(SDL_SCANCODE_RIGHT)) ||
+            (joystickState.xVal1 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
+            this->setHitbox(0.28, 0.72, 0.5, 0.98);
+            this->play("Slide");
+            this->slideDirection = SlideDirection::Right;
+            this->slideFrames = 60;
+            this->changeStamina(-30);
+        } else if ((pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end() && checkDoubleTaps(SDL_SCANCODE_LEFT)) ||
+                   (joystickState.xVal1 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
+            this->setHitbox(0.28, 0.72, 0.5, 0.98);
+            this->play("SlideLeft");
+            this->slideDirection = SlideDirection::Left;
+            this->slideFrames = 60;
+            this->changeStamina(-30);
+        } else if ((pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end() && checkDoubleTaps(SDL_SCANCODE_DOWN)) ||
+                   (joystickState.yVal1 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
+            this->setHitbox(0.28, 0.72, 0.5, 0.98);
+            this->play("Slide");
+            this->slideDirection = SlideDirection::Down;
+            this->slideFrames = 60;
+            this->changeStamina(-30);
+        } else if ((pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end() && checkDoubleTaps(SDL_SCANCODE_UP)) ||
+                   (joystickState.yVal1 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
+            this->setHitbox(0.28, 0.72, 0.5, 0.98);
+            this->play("Slide");
+            this->slideDirection = SlideDirection::Up;
+            this->slideFrames = 60;
+            this->changeStamina(-30);
+        }
     }
 
-    if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end() || joystickState.xVal1 - DEAD_ZONE > 0) {
-		if (slideDirection == SlideDirection::Right) {
-            this->deltaX += this->speed * 2;
-			this->changeStamina(-30);
-		} else {
-            if (this->current.animName != "Run"){
+    if (this->slideFrames != 0) {
+        if (slideDirection == SlideDirection::Right) {
+            this->deltaX = this->speed * 2;
+        } else if (slideDirection == SlideDirection::Left) {
+            this->deltaX = -this->speed * 2;
+        } else if (slideDirection == SlideDirection::Up) {
+            this->deltaY = -this->speed * 2;
+        } else if (slideDirection == SlideDirection::Down) {
+            this->deltaY = this->speed * 2;
+        }
+
+        this->slideFrames--;
+        if (this->slideFrames == 0) {
+            this->slideDirection = SlideDirection::None;
+        }
+    } else {
+        if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end() || joystickState.xVal1 - DEAD_ZONE > 0) {
+            if (this->current.animName != "Run") {
                 this->setHitbox(0.46, 0.72, 0.23, 0.98);
                 this->play("Run");
             }
             this->deltaX += this->speed;
-			this->changeStamina(-3);
-            this->slideDirection = SlideDirection::None;
-		}
-        idle = false;
-	}
-    if ((pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) || joystickState.xVal1 + DEAD_ZONE < 0) {
-		if (slideDirection == SlideDirection::Left) {
-            this->deltaX -= this->speed * 2;
-			this->changeStamina(-30);
-        } else {
-            if (this->current.animName != "RunLeft"){
+            this->changeStamina(-3);
+            idle = false;
+        }
+        if ((pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) || joystickState.xVal1 + DEAD_ZONE < 0) {
+            if (this->current.animName != "RunLeft") {
                 this->setHitbox(0.3, 0.56, 0.23, 0.98);
                 this->play("RunLeft");
             }
             this->deltaX -= this->speed;
-			this->changeStamina(-3);
-            this->slideDirection = SlideDirection::None;
+            this->changeStamina(-3);
+            idle = false;
         }
-        idle = false;
-	}
-	if ((pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) || joystickState.yVal1 - DEAD_ZONE > 0) {
-		if (slideDirection == SlideDirection::Down) {
-            this->deltaY += this->speed * 2;
-			this->changeStamina(-30);
-		} else {
-            if (this->current.animName != "Run"){
+        if ((pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) || joystickState.yVal1 - DEAD_ZONE > 0) {
+            if (this->current.animName != "Run") {
                 this->setHitbox(0.46, 0.72, 0.23, 0.98);
                 this->play("Run");
             }
             this->deltaY += this->speed;
-			this->changeStamina(-3);
-            this->slideDirection = SlideDirection::None;
+            this->changeStamina(-3);
+            idle = false;
         }
-        idle = false;
-	}
-	if ((pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) || joystickState.yVal1 + DEAD_ZONE < 0) {
-		if (slideDirection == SlideDirection::Up) {
-            this->deltaY -= this->speed * 2;
-			this->changeStamina(-30);
-		} else {
-            if (this->current.animName != "Run"){
+        if ((pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) || joystickState.yVal1 + DEAD_ZONE < 0) {
+            if (this->current.animName != "Run") {
                 this->setHitbox(0.46, 0.72, 0.23, 0.98);
                 this->play("Run");
             }
             this->deltaY -= this->speed;
-			this->changeStamina(-3);
-            this->slideDirection = SlideDirection::None;
+            this->changeStamina(-3);
+            idle = false;
         }
-        idle = false;
-	}
 
-    if (idle) {
-        if (this->current.animName != "Idle"){
-            this->setHitbox(0.32, 0.66, 0.15, 0.98);
-            this->play("Idle");
-            this->slideDirection = SlideDirection::None;
+        if (idle) {
+            if (this->current.animName != "Idle") {
+                this->setHitbox(0.32, 0.66, 0.15, 0.98);
+                this->play("Idle");
+            }
         }
-    }
 
-    // Need to account for decimals
-    this->storedDeltaX += deltaX;
-    this->storedDeltaY += deltaY;
-
-    // Round towards zero (truncate)
-    this->position.x += static_cast<int>(storedDeltaX);
-    this->storedDeltaX -= static_cast<int>(storedDeltaX);
-
-    this->position.y += static_cast<int>(storedDeltaY);
-    this->storedDeltaY -= static_cast<int>(storedDeltaY);
-
-    if (slideDirection == SlideDirection::None) {
         // SHIELD CONTROLS
         if (shield->bashCooldown == 0) {
             if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end() && shield->switchCooldown == 0) {
@@ -245,6 +234,17 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
         // STAMINA REFRESH
         this->changeStamina(5);
     }
+
+    // Need to account for decimals
+    this->storedDeltaX += deltaX;
+    this->storedDeltaY += deltaY;
+
+    // Round towards zero (truncate)
+    this->position.x += static_cast<int>(storedDeltaX);
+    this->storedDeltaX -= static_cast<int>(storedDeltaX);
+
+    this->position.y += static_cast<int>(storedDeltaY);
+    this->storedDeltaY -= static_cast<int>(storedDeltaY);
 
     updateHistory(pressedKeys);
 

@@ -45,4 +45,6 @@ private:
 
 	void updateHistory(std::unordered_set<SDL_Scancode> pressedKeys);
 	bool checkDoubleTaps(SDL_Scancode key);
+
+    int slideFrames = 0;
 };
