@@ -3,23 +3,15 @@
 #include "../events/TweenEvent.h"
 
 #include <algorithm>
-#include <iostream>
 
-Tween::Tween(const std::string& id, const std::weak_ptr<DisplayObject>& object){
+Tween::Tween(const std::string& id, const std::weak_ptr<DisplayObject>& object) {
     this->id = id;
     this->currObject = object;
     this->amountChange = 0;
     this->timeElapsed = 0;
 }
 
-Tween::Tween(const std::string& id, const std::weak_ptr<DisplayObject>& object, const TweenTransitions& transition) {
-    this->id = id;
-    this->currObject = object;
-    this->amountChange = 0;
-    this->timeElapsed = 0;
-}
-
-std::string Tween::getID(){
+std::string Tween::getID() const {
     return this->id;
 }
 
@@ -27,8 +19,7 @@ void Tween::animate(TweenableParam fieldToAnimate,
                     double startVal, double endVal,
                     double startTime, double duration,
                     EaseType easeType) {
-    auto* temp = new TweenParam(fieldToAnimate, startVal, endVal, startTime, duration, easeType);
-    this->currTweening.push_back(temp);
+    this->currTweening.emplace_back(fieldToAnimate, startVal, endVal, startTime, duration, easeType);
 }
 
 void Tween::update() {
@@ -37,32 +28,32 @@ void Tween::update() {
         // calculate (linear) change manually for now,
         // replace w/ transition function in the future
 
-        if (this->timeElapsed < param->getStartTime()) {
+        if (this->timeElapsed < param.getStartTime()) {
             it++;
             continue;
         }
         
-        if (this->timeElapsed - param->getStartTime() > param->getDuration()) {
+        if (this->timeElapsed - param.getStartTime() > param.getDuration()) {
             it = this->currTweening.erase(it); // remove the param if done w/ tweening
-            delete param;
             continue;
         }
 
         // percent done!
-        double percTime = (this->timeElapsed - param->getStartTime()) / param->getDuration();
+        double percTime = (this->timeElapsed - param.getStartTime()) / param.getDuration();
 
-        if (param->getEaseType() == EaseType::EASE_IN)
-            this->amountChange = transition->easeIn(percTime, transition->SINE);
-        else if (param->getEaseType() == EaseType::EASE_OUT)
-            this->amountChange = transition->easeOut(percTime, transition->SINE);
-        else if (param->getEaseType() == EaseType::EASE_IN_OUT)
-            this->amountChange = transition->easeInOut(percTime, transition->SINE);
-        else if (param->getEaseType() == EaseType::EASE_OUT_IN)
-            this->amountChange = transition->easeOutIn(percTime, transition->SINE);
+        if (param.getEaseType() == EaseType::EASE_IN) {
+            this->amountChange = TweenTransitions::easeIn(percTime, TweenTransition::SINE);
+        } else if (param.getEaseType() == EaseType::EASE_OUT) {
+            this->amountChange = TweenTransitions::easeOut(percTime, TweenTransition::SINE);
+        } else if (param.getEaseType() == EaseType::EASE_IN_OUT) {
+            this->amountChange = TweenTransitions::easeInOut(percTime, TweenTransition::SINE);
+        } else if (param.getEaseType() == EaseType::EASE_OUT_IN) {
+            this->amountChange = TweenTransitions::easeOutIn(percTime, TweenTransition::SINE);
+        }
 
         // update current value of the TweenParam
         // We don't need setValue() in here bc we are already where we want to be
-        param->setCurrChange(amountChange);
+        param.setCurrChange(amountChange);
 
         auto object = this->currObject.lock();
         if (!object) {
@@ -70,23 +61,23 @@ void Tween::update() {
             continue;
         }
 
-        if (param->getParam() == TweenableParam::ALPHA) {
-            object->alpha = param->getCurrVal();
+        if (param.getParam() == TweenableParam::ALPHA) {
+            object->alpha = param.getCurrVal();
         }
-        else if (param->getParam() == TweenableParam::ROTATION) {
-            object->rotation = param->getCurrVal();
+        else if (param.getParam() == TweenableParam::ROTATION) {
+            object->rotation = param.getCurrVal();
         }
-        else if (param->getParam() == TweenableParam::SCALE_X) {
-            object->scaleX = param->getCurrVal();
+        else if (param.getParam() == TweenableParam::SCALE_X) {
+            object->scaleX = param.getCurrVal();
         }
-        else if (param->getParam() == TweenableParam::SCALE_Y) {
-            object->scaleY = param->getCurrVal();
+        else if (param.getParam() == TweenableParam::SCALE_Y) {
+            object->scaleY = param.getCurrVal();
         }
-        else if (param->getParam() == TweenableParam::X) {
-            object->position.x = param->getCurrVal();
+        else if (param.getParam() == TweenableParam::X) {
+            object->position.x = param.getCurrVal();
         }
-        else if (param->getParam() == TweenableParam::Y) {
-            object->position.y = param->getCurrVal();
+        else if (param.getParam() == TweenableParam::Y) {
+            object->position.y = param.getCurrVal();
         }
 
         EventDispatcher::getInstance().dispatchEvent(new TweenEvent(TweenEvent::TWEEN_UPDATE_EVENT, this));
@@ -95,15 +86,18 @@ void Tween::update() {
 }
 
 void Tween::setValue(TweenableParam param, double value) {
-    std::list<TweenParam*>::iterator it;
-    for (it = currTweening.begin(); it != currTweening.end(); it++) {
-        if ((*it)->getParam() == param) {
-            (*it)->setCurrVal(value);
+    for (auto& curr : currTweening) {
+        if (curr.getParam() == param) {
+            curr.setCurrVal(value);
         }
     }
 }
 
-bool Tween::isComplete() {
+void Tween::incrementTime() {
+    this->timeElapsed += 1;
+}
+
+bool Tween::isComplete() const {
     // tween is complete if no more parameters left to tween
     return this->currTweening.empty();
 }

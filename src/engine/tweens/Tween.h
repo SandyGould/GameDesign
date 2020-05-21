@@ -1,5 +1,4 @@
-#ifndef TWEEN_H
-#define TWEEN_H
+#pragma once
 
 #include "../DisplayObject.h"
 #include "TweenParam.h"
@@ -8,30 +7,25 @@
 
 // Object representing on Sprite being tweened in some way. Can have multiple TweenParam objects.
 
-class Tween { 
+class Tween {
+public:
+    Tween(const std::string& id, const std::weak_ptr<DisplayObject>& object);
 
-    public:
-        Tween(const std::string& id, const std::weak_ptr<DisplayObject>& object);
-        Tween(const std::string& id, const std::weak_ptr<DisplayObject>& object, const TweenTransitions& transition);
+    void animate(TweenableParam fieldToAnimate,
+                 double startVal, double endVal,
+                 double startTime, double duration,
+                 EaseType easeType = EaseType::EASE_IN_OUT);
+    void update(); //invoked once per frame by the TweenJuggler. Updates this tween / DisplayObject
+    void setValue(TweenableParam param, double value);
+    void incrementTime();
 
-        void animate(TweenableParam fieldToAnimate,
-                     double startVal, double endVal,
-                     double startTime, double duration,
-                     EaseType easeType = EaseType::EASE_IN_OUT);
-        void update(); //invoked once per frame by the TweenJuggler. Updates this tween / DisplayObject
-        void setValue(TweenableParam param, double value);
-        bool isComplete();
-        void incrementTime() { this-> timeElapsed += 1; }
+    [[nodiscard]] std::string getID() const;
+    [[nodiscard]] bool isComplete() const;
 
-        std::string getID();
-     
-    private:
-        std::weak_ptr<DisplayObject> currObject;
-        std::list<TweenParam*> currTweening;
-        double amountChange;
-        double timeElapsed;
-        TweenTransitions* transition;
-        std::string id;
+private:
+    std::weak_ptr<DisplayObject> currObject;
+    std::list<TweenParam> currTweening;
+    double amountChange;
+    double timeElapsed;
+    std::string id;
 };
-
-#endif
