@@ -41,6 +41,7 @@ private:
     std::shared_ptr<TextBox> start_text_box;
 
     std::shared_ptr<StatBar> health;
+    std::shared_ptr<StatBar> stamina;
 
     std::unique_ptr<CollisionSystem> collisionSystem;
 

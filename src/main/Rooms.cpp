@@ -109,6 +109,10 @@ Rooms::Rooms() : Game(600, 500) {
     health = std::make_shared<StatBar>("Health", "./resources/Rebound/greenbar (3).png", 100, 255, 0, 0);
     container->addChild(health);
 
+    // stamina bar
+    stamina = std::make_shared<StatBar>("Stamina", "./resources/Rebound/greenbar (3).png", 1000, 0, 0, 255);
+    container->addChild(stamina);
+
     // tween stuff
     auto player_spawn_tween = std::make_shared<Tween>("player_spawn_tween", player);
 
@@ -154,6 +158,7 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 
         this->collisionSystem->update();
         health->setStat(this->player->health);
+        stamina->setStat(this->player->stamina);
     }
 
     Game::update(pressedKeys, joystickState, pressedButtons);
