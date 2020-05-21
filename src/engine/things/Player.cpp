@@ -298,6 +298,11 @@ bool Player::onCollision(std::shared_ptr<DisplayObject> other, CollisionDirectio
         this->toggleShieldVisible(true);
         return true;
     }
+    if(other->type == "EnvironmentObject"){
+        // TODO: Need to deal with changing hitboxes
+        this->slideDirection = SlideDirection::None;
+        this->slideFrames = 0;
+    }
     return false;
 }
 
