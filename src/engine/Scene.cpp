@@ -101,12 +101,9 @@ void Scene::loadScene(std::string sceneFilePath){
                         }
                         ids.insert(id);
 
-                        if(mj["children"][x]["visible"].get<bool>()){
-                            temp_switch->addChild(std::static_pointer_cast<WalkOnObject>(setBasicInfo(std::make_shared<WalkOnObject>(id, mj["children"][x]["filepath"]), mj["children"][x])));
-                        }
-                        else{
-                            temp_switch->temp_children.push_back(std::static_pointer_cast<WalkOnObject>(setBasicInfo(std::make_shared<WalkOnObject>(id, mj["children"][x]["filepath"]), mj["children"][x])));
-                        }
+                        auto child = std::static_pointer_cast<WalkOnObject>(setBasicInfo(std::make_shared<WalkOnObject>(id, mj["children"][x]["filepath"]), mj["children"][x]));
+                        child->visible = mj["children"][x]["visible"].get<bool>();
+                        temp_switch->addChild(child);
                     }
                 }
                 temp_layer->addChild(std::static_pointer_cast<Switch>(setBasicInfo(temp_switch, mj)));

@@ -1,6 +1,4 @@
 #include "Switch.h"
-#include "Player.h"
-#include <iostream>
 
 Switch::Switch(const std::string& id, SDL_Renderer* r): EnvironmentObject(id, "./resources/Rebound/area3_res/assets/switch_off.png"){
     this->type = "Switch";
@@ -9,39 +7,15 @@ Switch::Switch(const std::string& id, SDL_Renderer* r): EnvironmentObject(id, ".
     this->renderer = r;
 }
 
-Switch::~Switch(){}
-
-void Switch::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const jState& joystickState, const std::unordered_set<Uint8>& pressedButtons){
-	DisplayObject::update(pressedKeys, joystickState, pressedButtons);
-}
-
-void Switch::draw(AffineTransform& at){
-	DisplayObject::draw(at);
-
-    // // Somehow without this, children of switch never actually get "drawn" even though draw() is being called
-    // at.translate(pivot.x, pivot.y);
-    // for (const auto& child : children) {
-    //     child->draw(at);
-    // }
-    // at.translate(-pivot.x, -pivot.y);
-}
-
 bool Switch::onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2) {
 	if(other->type == "player" && !state){
         state = true;
         this->imgPath = this->state_on;
         loadTexture(imgPath);
-        /* 
-        Json: Create a children array 
-        Scene.cpp: Iterate through the children and add them all to temp_children 
-        */
-        for (int x = 0; x < children.size(); x++){
-            this->removeChild(x);
+
+        for (const auto& child : this->children) {
+            child->visible = !child->visible;
         }
-        for (int x = 0; x < temp_children.size(); x++){
-            this->addChild(temp_children[x]);
-        }
-        // this->children = temp_children;
 		return true;
     }
     else if(state){
