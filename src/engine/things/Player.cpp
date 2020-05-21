@@ -47,16 +47,7 @@ void Player::changeHealth(int amount) {
     }
 }
 void Player::changeStamina(int amount) {
-    if (stamina + amount < 1000) {
-        if (stamina + amount > 0){
-            stamina += amount;
-        }
-        else {
-            stamina = 0;
-        }
-    } else {
-        stamina = 1000;
-    }
+    this->stamina = std::clamp(stamina + amount, 0, 1000);
 }
 
 void Player::toggleShieldVisible(bool vis) {
@@ -80,7 +71,7 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
     this->deltaY = 0.0;
     bool idle = true;
 
-    if (this->slideDirection == SlideDirection::None) {
+    if (this->slideDirection == SlideDirection::None && this->stamina >= 30) {
         // Are they sliding?
         if ((pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end() && checkDoubleTaps(SDL_SCANCODE_RIGHT)) ||
             (joystickState.xVal1 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_LEFTSTICK) != pressedButtons.end())) {
@@ -129,41 +120,43 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
             this->slideDirection = SlideDirection::None;
         }
     } else {
-        if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end() || joystickState.xVal1 - DEAD_ZONE > 0) {
-            if (this->current.animName != "Run") {
-                this->setHitbox(0.46, 0.72, 0.23, 0.98);
-                this->play("Run");
+        if (this->stamina >= 3) {
+            if (pressedKeys.find(SDL_SCANCODE_RIGHT) != pressedKeys.end() || joystickState.xVal1 - DEAD_ZONE > 0) {
+                if (this->current.animName != "Run") {
+                    this->setHitbox(0.46, 0.72, 0.23, 0.98);
+                    this->play("Run");
+                }
+                this->deltaX += this->speed;
+                this->changeStamina(-3);
+                idle = false;
             }
-            this->deltaX += this->speed;
-            this->changeStamina(-3);
-            idle = false;
-        }
-        if ((pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) || joystickState.xVal1 + DEAD_ZONE < 0) {
-            if (this->current.animName != "RunLeft") {
-                this->setHitbox(0.3, 0.56, 0.23, 0.98);
-                this->play("RunLeft");
+            if ((pressedKeys.find(SDL_SCANCODE_LEFT) != pressedKeys.end()) || joystickState.xVal1 + DEAD_ZONE < 0) {
+                if (this->current.animName != "RunLeft") {
+                    this->setHitbox(0.3, 0.56, 0.23, 0.98);
+                    this->play("RunLeft");
+                }
+                this->deltaX -= this->speed;
+                this->changeStamina(-3);
+                idle = false;
             }
-            this->deltaX -= this->speed;
-            this->changeStamina(-3);
-            idle = false;
-        }
-        if ((pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) || joystickState.yVal1 - DEAD_ZONE > 0) {
-            if (this->current.animName != "Run") {
-                this->setHitbox(0.46, 0.72, 0.23, 0.98);
-                this->play("Run");
+            if ((pressedKeys.find(SDL_SCANCODE_DOWN) != pressedKeys.end()) || joystickState.yVal1 - DEAD_ZONE > 0) {
+                if (this->current.animName != "Run") {
+                    this->setHitbox(0.46, 0.72, 0.23, 0.98);
+                    this->play("Run");
+                }
+                this->deltaY += this->speed;
+                this->changeStamina(-3);
+                idle = false;
             }
-            this->deltaY += this->speed;
-            this->changeStamina(-3);
-            idle = false;
-        }
-        if ((pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) || joystickState.yVal1 + DEAD_ZONE < 0) {
-            if (this->current.animName != "Run") {
-                this->setHitbox(0.46, 0.72, 0.23, 0.98);
-                this->play("Run");
+            if ((pressedKeys.find(SDL_SCANCODE_UP) != pressedKeys.end()) || joystickState.yVal1 + DEAD_ZONE < 0) {
+                if (this->current.animName != "Run") {
+                    this->setHitbox(0.46, 0.72, 0.23, 0.98);
+                    this->play("Run");
+                }
+                this->deltaY -= this->speed;
+                this->changeStamina(-3);
+                idle = false;
             }
-            this->deltaY -= this->speed;
-            this->changeStamina(-3);
-            idle = false;
         }
 
         if (idle) {
@@ -187,44 +180,58 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
             // }
             shield->rotation = std::fmod(shield->rotation, 2 * PI);
 
-            if ((pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end() &&
-                 prevKeys.find(SDL_SCANCODE_D) == prevKeys.end()) ||
-                joystickState.xVal2 - DEAD_ZONE > 0) {
-                shield->rotation = std::remainder(shield->rotation, PI / 2);
-                this->changeStamina(-2);
-                if (checkDoubleTaps(SDL_SCANCODE_D) || (joystickState.xVal2 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
-                    shield->bash();
-                    this->changeStamina(-70);
+            if (this->stamina >= 2) {
+                if ((pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end() &&
+                     prevKeys.find(SDL_SCANCODE_D) == prevKeys.end()) ||
+                    joystickState.xVal2 - DEAD_ZONE > 0) {
+                    shield->rotation = std::remainder(shield->rotation, PI / 2);
+                    this->changeStamina(-2);
+                    if (this->stamina >= 70 &&
+                        (checkDoubleTaps(SDL_SCANCODE_D) ||
+                         (joystickState.xVal2 - DEAD_ZONE > 0 &&
+                          pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end()))) {
+                        shield->bash();
+                        this->changeStamina(-70);
+                    }
                 }
-            }
-            if ((pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end() &&
-                 prevKeys.find(SDL_SCANCODE_A) == prevKeys.end()) ||
-                joystickState.xVal2 + DEAD_ZONE < 0) {
-                shield->rotation = std::remainder(shield->rotation, PI / 2) + PI;
-                this->changeStamina(-2);
-                if (checkDoubleTaps(SDL_SCANCODE_A) || (joystickState.xVal2 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
-                    shield->bash();
-                    this->changeStamina(-70);
+                if ((pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end() &&
+                     prevKeys.find(SDL_SCANCODE_A) == prevKeys.end()) ||
+                    joystickState.xVal2 + DEAD_ZONE < 0) {
+                    shield->rotation = std::remainder(shield->rotation, PI / 2) + PI;
+                    this->changeStamina(-2);
+                    if (this->stamina >= 70 &&
+                        (checkDoubleTaps(SDL_SCANCODE_A) ||
+                         (joystickState.xVal2 + DEAD_ZONE < 0 &&
+                          pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end()))) {
+                        shield->bash();
+                        this->changeStamina(-70);
+                    }
                 }
-            }
-            if ((pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end() &&
-                 prevKeys.find(SDL_SCANCODE_S) == prevKeys.end()) ||
-                joystickState.yVal2 - DEAD_ZONE > 0) {
-                shield->rotation = std::remainder(shield->rotation, PI / 2) + PI / 2;
-                this->changeStamina(-2);
-                if (checkDoubleTaps(SDL_SCANCODE_S) || (joystickState.yVal2 - DEAD_ZONE > 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
-                    shield->bash();
-                    this->changeStamina(-70);
+                if ((pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end() &&
+                     prevKeys.find(SDL_SCANCODE_S) == prevKeys.end()) ||
+                    joystickState.yVal2 - DEAD_ZONE > 0) {
+                    shield->rotation = std::remainder(shield->rotation, PI / 2) + PI / 2;
+                    this->changeStamina(-2);
+                    if (this->stamina >= 70 &&
+                        (checkDoubleTaps(SDL_SCANCODE_S) ||
+                         (joystickState.yVal2 - DEAD_ZONE > 0 &&
+                          pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end()))) {
+                        shield->bash();
+                        this->changeStamina(-70);
+                    }
                 }
-            }
-            if ((pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end() &&
-                 prevKeys.find(SDL_SCANCODE_W) == prevKeys.end()) ||
-                joystickState.yVal2 + DEAD_ZONE < 0) {
-                shield->rotation = std::remainder(shield->rotation, PI / 2) + 3 * PI / 2;
-                this->changeStamina(-2);
-                if (checkDoubleTaps(SDL_SCANCODE_W) || (joystickState.yVal2 + DEAD_ZONE < 0 && pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end())) {
-                    shield->bash();
-                    this->changeStamina(-70);
+                if ((pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end() &&
+                     prevKeys.find(SDL_SCANCODE_W) == prevKeys.end()) ||
+                    joystickState.yVal2 + DEAD_ZONE < 0) {
+                    shield->rotation = std::remainder(shield->rotation, PI / 2) + 3 * PI / 2;
+                    this->changeStamina(-2);
+                    if (this->stamina >= 70 &&
+                        (checkDoubleTaps(SDL_SCANCODE_W) ||
+                         (joystickState.yVal2 + DEAD_ZONE < 0 &&
+                          pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end()))) {
+                        shield->bash();
+                        this->changeStamina(-70);
+                    }
                 }
             }
         }
