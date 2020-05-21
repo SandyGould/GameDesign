@@ -64,11 +64,11 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
         return;
     }
 
-    // CHARACTER MOVEMENT
     this->width = 110;
 	this->height = 80;
     this->deltaX = 0.0;
     this->deltaY = 0.0;
+    this->interacting = false;
     bool idle = true;
 
     if (this->slideDirection == SlideDirection::None && this->stamina >= 30) {
@@ -234,6 +234,12 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
                     }
                 }
             }
+        }
+
+        if (!shield->bashing &&
+            pressedKeys.find(SDL_SCANCODE_SPACE) != pressedKeys.cend() &&
+            prevKeys.find(SDL_SCANCODE_SPACE) == prevKeys.cend()) {
+            this->interacting = true;
         }
 
         // STAMINA REFRESH

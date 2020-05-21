@@ -37,6 +37,8 @@ public:
     double storedDeltaX = 0.0;
     double storedDeltaY = 0.0;
 
+    bool interacting = false;
+
 private:
 	void cannonBallHit(std::shared_ptr<DisplayObject> other);
 	std::array<std::unordered_set<SDL_Scancode>, 8> history;

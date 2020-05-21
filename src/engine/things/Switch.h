@@ -11,7 +11,7 @@ public:
     bool onCollision(std::shared_ptr<DisplayObject> other, CollisionDirection direction1, CollisionDirection direction2) override;
 
 private:
-    std::string state_on = "";
-	std::string state_off = "";
+    std::array<std::string, 2> image_states{"./resources/Rebound/area3_res/assets/switch_off.png",
+                                            "./resources/Rebound/area3_res/assets/switch_on.png"};
     bool state = false;
 };

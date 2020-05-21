@@ -152,14 +152,11 @@ void Rooms::update(const unordered_set<SDL_Scancode>& pressedKeys, const jState&
 
     prevKeys = pressedKeys;
 
-    if (!Game::instance->paused) {
-        // update scene if criteria for changing scene are met
-        this->sceneManager->updateScene();
-
-        this->collisionSystem->update();
-    }
+    // update scene if criteria for changing scene are met
+    this->sceneManager->updateScene();
 
     Game::update(pressedKeys, joystickState, pressedButtons);
+    this->collisionSystem->update();
     camera->follow(player->position.x, player->position.y);
 }
 
