@@ -168,72 +168,81 @@ void Player::update(const std::unordered_set<SDL_Scancode>& pressedKeys, const j
 
         // SHIELD CONTROLS
         if (shield->bashCooldown == 0) {
-            if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end() && shield->switchCooldown == 0) {
+            if (pressedKeys.find(SDL_SCANCODE_R) != pressedKeys.end() && shield->switchCooldown == 0) {
                 shield->switchType();
             }
+
             // Despite rotation being in radians, it rotates CW instead of CCW...
-            // if (pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
-            //     shield->rotation -= PI / 30;
-            // }
-            // if (pressedKeys.find(SDL_SCANCODE_E) != pressedKeys.end()) {
-            //     shield->rotation += PI / 30;
-            // }
+            if (this->stamina >= 2 && pressedKeys.find(SDL_SCANCODE_Q) != pressedKeys.end()) {
+                shield->rotation -= PI / 30;
+                this->changeStamina(-2);
+            }
+            if (this->stamina >= 2 && pressedKeys.find(SDL_SCANCODE_E) != pressedKeys.end()) {
+                shield->rotation += PI / 30;
+                this->changeStamina(-2);
+            }
             shield->rotation = std::fmod(shield->rotation, 2 * PI);
 
-            if (this->stamina >= 2) {
-                if ((pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end() &&
-                     prevKeys.find(SDL_SCANCODE_D) == prevKeys.end()) ||
-                    joystickState.xVal2 - DEAD_ZONE > 0) {
-                    shield->rotation = std::remainder(shield->rotation, PI / 2);
-                    this->changeStamina(-2);
-                    if (this->stamina >= 70 &&
-                        (checkDoubleTaps(SDL_SCANCODE_D) ||
-                         (joystickState.xVal2 - DEAD_ZONE > 0 &&
-                          pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end()))) {
-                        shield->bash();
-                        this->changeStamina(-70);
-                    }
-                }
-                if ((pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end() &&
-                     prevKeys.find(SDL_SCANCODE_A) == prevKeys.end()) ||
-                    joystickState.xVal2 + DEAD_ZONE < 0) {
-                    shield->rotation = std::remainder(shield->rotation, PI / 2) + PI;
-                    this->changeStamina(-2);
-                    if (this->stamina >= 70 &&
-                        (checkDoubleTaps(SDL_SCANCODE_A) ||
-                         (joystickState.xVal2 + DEAD_ZONE < 0 &&
-                          pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end()))) {
-                        shield->bash();
-                        this->changeStamina(-70);
-                    }
-                }
-                if ((pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end() &&
-                     prevKeys.find(SDL_SCANCODE_S) == prevKeys.end()) ||
-                    joystickState.yVal2 - DEAD_ZONE > 0) {
-                    shield->rotation = std::remainder(shield->rotation, PI / 2) + PI / 2;
-                    this->changeStamina(-2);
-                    if (this->stamina >= 70 &&
-                        (checkDoubleTaps(SDL_SCANCODE_S) ||
-                         (joystickState.yVal2 - DEAD_ZONE > 0 &&
-                          pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end()))) {
-                        shield->bash();
-                        this->changeStamina(-70);
-                    }
-                }
-                if ((pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end() &&
-                     prevKeys.find(SDL_SCANCODE_W) == prevKeys.end()) ||
-                    joystickState.yVal2 + DEAD_ZONE < 0) {
-                    shield->rotation = std::remainder(shield->rotation, PI / 2) + 3 * PI / 2;
-                    this->changeStamina(-2);
-                    if (this->stamina >= 70 &&
-                        (checkDoubleTaps(SDL_SCANCODE_W) ||
-                         (joystickState.yVal2 + DEAD_ZONE < 0 &&
-                          pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end()))) {
-                        shield->bash();
-                        this->changeStamina(-70);
-                    }
-                }
+            if (this->stamina >= 70 &&
+                pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.cend()) {
+                shield->bash();
+                this->changeStamina(-70);
             }
+
+            // if (this->stamina >= 2) {
+            //     if ((pressedKeys.find(SDL_SCANCODE_D) != pressedKeys.end() &&
+            //          prevKeys.find(SDL_SCANCODE_D) == prevKeys.end()) ||
+            //         joystickState.xVal2 - DEAD_ZONE > 0) {
+            //         shield->rotation = std::remainder(shield->rotation, PI / 2);
+            //         this->changeStamina(-2);
+            //         if (this->stamina >= 70 &&
+            //             (checkDoubleTaps(SDL_SCANCODE_D) ||
+            //              (joystickState.xVal2 - DEAD_ZONE > 0 &&
+            //               pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end()))) {
+            //             shield->bash();
+            //             this->changeStamina(-70);
+            //         }
+            //     }
+            //     if ((pressedKeys.find(SDL_SCANCODE_A) != pressedKeys.end() &&
+            //          prevKeys.find(SDL_SCANCODE_A) == prevKeys.end()) ||
+            //         joystickState.xVal2 + DEAD_ZONE < 0) {
+            //         shield->rotation = std::remainder(shield->rotation, PI / 2) + PI;
+            //         this->changeStamina(-2);
+            //         if (this->stamina >= 70 &&
+            //             (checkDoubleTaps(SDL_SCANCODE_A) ||
+            //              (joystickState.xVal2 + DEAD_ZONE < 0 &&
+            //               pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end()))) {
+            //             shield->bash();
+            //             this->changeStamina(-70);
+            //         }
+            //     }
+            //     if ((pressedKeys.find(SDL_SCANCODE_S) != pressedKeys.end() &&
+            //          prevKeys.find(SDL_SCANCODE_S) == prevKeys.end()) ||
+            //         joystickState.yVal2 - DEAD_ZONE > 0) {
+            //         shield->rotation = std::remainder(shield->rotation, PI / 2) + PI / 2;
+            //         this->changeStamina(-2);
+            //         if (this->stamina >= 70 &&
+            //             (checkDoubleTaps(SDL_SCANCODE_S) ||
+            //              (joystickState.yVal2 - DEAD_ZONE > 0 &&
+            //               pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end()))) {
+            //             shield->bash();
+            //             this->changeStamina(-70);
+            //         }
+            //     }
+            //     if ((pressedKeys.find(SDL_SCANCODE_W) != pressedKeys.end() &&
+            //          prevKeys.find(SDL_SCANCODE_W) == prevKeys.end()) ||
+            //         joystickState.yVal2 + DEAD_ZONE < 0) {
+            //         shield->rotation = std::remainder(shield->rotation, PI / 2) + 3 * PI / 2;
+            //         this->changeStamina(-2);
+            //         if (this->stamina >= 70 &&
+            //             (checkDoubleTaps(SDL_SCANCODE_W) ||
+            //              (joystickState.yVal2 + DEAD_ZONE < 0 &&
+            //               pressedButtons.find(SDL_CONTROLLER_BUTTON_RIGHTSTICK) != pressedButtons.end()))) {
+            //             shield->bash();
+            //             this->changeStamina(-70);
+            //         }
+            //     }
+            // }
         }
 
         if (!shield->bashing &&
