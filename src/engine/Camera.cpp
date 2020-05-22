@@ -72,12 +72,8 @@ double Camera::getZoom() {
 }
 
 void Camera::follow(int newX, int newY) {
-    this->pivot.x = std::min(static_cast<int>(rightLimit * scaleX),
-                             std::max(static_cast<int>(leftLimit * scaleX),
-                                      newX));
-    this->pivot.y = std::min(static_cast<int>(bottomLimit * scaleY),
-                             std::max(static_cast<int>(topLimit * scaleY),
-                                      newY));
+    this->pivot.x = std::clamp(newX, static_cast<int>(leftLimit * scaleX), static_cast<int>(rightLimit * scaleX));
+    this->pivot.y = std::clamp(newY, static_cast<int>(topLimit * scaleY), static_cast<int>(bottomLimit * scaleY));
 }
 
 void Camera::draw(AffineTransform& at) {
