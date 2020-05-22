@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../CollisionSystem.h"
-#include "../EnvironmentObject.h"
+#include "../InteractiveObject.h"
 
-class Switch : public EnvironmentObject {
+class Switch : public InteractiveObject {
 
 public:
 	explicit Switch(const std::string& id, SDL_Renderer* r = Game::renderer);

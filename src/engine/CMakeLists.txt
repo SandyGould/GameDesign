@@ -13,6 +13,7 @@ target_sources(rebound PRIVATE
         EnvironmentObject.cpp
         Game.cpp
         HitObject.cpp
+        InteractiveObject.cpp
         Layer.cpp
         QuestManager.cpp
         Scene.cpp

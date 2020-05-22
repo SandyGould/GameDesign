@@ -1,6 +1,7 @@
 #include "CollisionSystem.h"
 
 #include "Game.h"
+#include "InteractiveObject.h"
 #include "events/DisplayTreeChangeEvent.h"
 
 #include <algorithm>
@@ -50,7 +51,8 @@ void CollisionSystem::update() {
         SDL_Point obj1Prev = prevPositions.at(object1);
         SDL_Point obj2Prev = prevPositions.at(object2);
 
-        if (obj1Prev.x == obj1Position.x && obj1Prev.y == obj1Position.y &&
+        if (!dynamic_pointer_cast<InteractiveObject>(object1) && !dynamic_pointer_cast<InteractiveObject>(object2) &&
+            obj1Prev.x == obj1Position.x && obj1Prev.y == obj1Position.y &&
             obj2Prev.x == obj2Position.x && obj2Prev.y == obj2Position.y) {
             // Wait, they didn't move! They couldn't have collided, then.
             continue;
