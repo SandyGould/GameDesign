@@ -85,13 +85,17 @@ bool Shield::onCollision(std::shared_ptr<DisplayObject> other, CollisionDirectio
                 }
             }
 
-            double temp = (projectile->deltaX * std::cos(normalAngle) +
-                           projectile->deltaY * std::sin(normalAngle)) /
-                          (std::cos(normalAngle) * std::cos(normalAngle) +
-                           std::sin(normalAngle) * std::sin(normalAngle));
-            std::array<double, 2> u = {temp * std::cos(normalAngle), temp * std::sin(normalAngle)};
-            std::array<double, 2> w = {projectile->deltaX - u[0], projectile->deltaY - u[1]};
-            std::array<double, 2> reflectedVelocity = {w[0] - u[0], w[1] - u[1]};
+            double speed = std::sqrt(projectile->deltaX * projectile->deltaX + projectile->deltaY * projectile->deltaY);
+            std::array<double, 2> reflectedVelocity = {std::cos(normalAngle) * speed,
+                                                       std::sin(normalAngle) * speed};
+
+            // double temp = (projectile->deltaX * std::cos(normalAngle) +
+            //                projectile->deltaY * std::sin(normalAngle)) /
+            //               (std::cos(normalAngle) * std::cos(normalAngle) +
+            //                std::sin(normalAngle) * std::sin(normalAngle));
+            // std::array<double, 2> u = {temp * std::cos(normalAngle), temp * std::sin(normalAngle)};
+            // std::array<double, 2> w = {projectile->deltaX - u[0], projectile->deltaY - u[1]};
+            // std::array<double, 2> reflectedVelocity = {w[0] - u[0], w[1] - u[1]};
             if (player->slideDirection != SlideDirection::None) {
                 projectile->reflect(1.5, reflectedVelocity[0], reflectedVelocity[1]);
             } else {
